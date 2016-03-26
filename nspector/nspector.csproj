@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{27B20027-E783-4ADC-AF16-40A49463F4BF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>nspector</RootNamespace>
+    <AssemblyName>nspector</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PlatformTarget>x86</PlatformTarget>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>default</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>default</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>default</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>default</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>n1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>nspector.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\CustomSettings\CustomSetting.cs" />
+    <Compile Include="Common\CustomSettings\CustomSettingValue.cs" />
+    <Compile Include="Common\DrsScannerService.cs" />
+    <Compile Include="Common\DrsServiceLocator.cs" />
+    <Compile Include="Common\DrsSettingsMetaService.cs" />
+    <Compile Include="Common\DrsUtil.cs" />
+    <Compile Include="Common\Helper\ListViewGroupSorter.cs" />
+    <Compile Include="Common\Meta\NvD3dUmxSettingMetaService.cs" />
+    <Compile Include="Common\Meta\MetaServiceItem.cs" />
+    <Compile Include="Common\Meta\ConstantSettingMetaService.cs" />
+    <Compile Include="Common\Meta\CustomSettingMetaService.cs" />
+    <Compile Include="Common\Meta\DriverSettingMetaService.cs" />
+    <Compile Include="Common\DrsSettingsServiceBase.cs" />
+    <Compile Include="Common\Helper\AdminHelper.cs" />
+    <Compile Include="Common\Cache\CachedSettings.cs" />
+    <Compile Include="Common\Cache\CachedSettingValue.cs" />
+    <Compile Include="Common\DrsSettingsService.cs" />
+    <Compile Include="Common\Helper\InputBox.cs" />
+    <Compile Include="Common\Helper\NoBorderRenderer.cs" />
+    <Compile Include="Common\CustomSettings\CustomSettingNames.cs" />
+    <Compile Include="Common\Helper\ListSort.cs" />
+    <Compile Include="Common\DrsImportService.cs" />
+    <Compile Include="Common\Import\Profile.cs" />
+    <Compile Include="Common\Import\Profiles.cs" />
+    <Compile Include="Common\Import\ProfileSetting.cs" />
+    <Compile Include="Common\Meta\ISettingMetaService.cs" />
+    <Compile Include="Common\Meta\ScannedSettingMetaService.cs" />
+    <Compile Include="Common\Meta\SettingMeta.cs" />
+    <Compile Include="Common\Meta\SettingMetaSource.cs" />
+    <Compile Include="Common\Meta\SettingValue.cs" />
+    <Compile Include="Common\NvapiException.cs" />
+    <Compile Include="Common\SettingItem.cs" />
+    <Compile Include="Common\SettingViewMode.cs" />
+    <Compile Include="Native\NativeArrayHelper.cs" />
+    <Compile Include="Native\NVAPI\NvApiDriverSettings.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NvApiDriverSettings.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Native\NVAPI\NvapiDrsWrapper.cs" />
+    <Compile Include="Native\WINAPI\DragAcceptNativeHelper.cs" />
+    <Compile Include="Native\WINAPI\MessageHelper.cs" />
+    <Compile Include="Native\WINAPI\SafeNativeMethods.cs" />
+    <Compile Include="Native\WINAPI\ShellLink.cs" />
+    <Compile Include="Native\WINAPI\TaskBarList3.cs" />
+    <Compile Include="Common\Helper\XMLHelper.cs" />
+    <Compile Include="frmBitEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBitEditor.Designer.cs">
+      <DependentUpon>frmBitEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDrvSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDrvSettings.Designer.cs">
+      <DependentUpon>frmDrvSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmExportProfiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmExportProfiles.Designer.cs">
+      <DependentUpon>frmExportProfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmBitEditor.resx">
+      <DependentUpon>frmBitEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDrvSettings.resx">
+      <DependentUpon>frmDrvSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmExportProfiles.resx">
+      <DependentUpon>frmExportProfiles.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Native\NVAPI\NvApiDriverSettings.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NvApiDriverSettings.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CustomSettingNames.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Native\NVAPI\NvApiDriverSettings.h" />
+    <None Include="Images\transparent16.png" />
+    <None Include="Images\n1-016.png" />
+    <None Include="Images\0_gear2.png" />
+    <None Include="Images\1_gear2_2.png" />
+    <None Include="Images\4_gear_nv2.png" />
+    <None Include="Images\6_gear_inherit.png" />
+    <None Include="Images\apply.png" />
+    <None Include="Images\export1.png" />
+    <None Include="Images\filter_user.png" />
+    <None Include="Images\find_set2.png" />
+    <None Include="Images\ieframe_1_18212.png" />
+    <None Include="Images\ieframe_1_31073-002.png" />
+    <None Include="Images\import1.png" />
+    <None Include="Images\nv_btn.png" />
+    <None Include="Images\PortableDeviceStatus_3_16-011.png" />
+    <None Include="Images\shield.png" />
+    <None Include="Images\text_binary.png" />
+    <None Include="Images\window_application_add.png" />
+    <None Include="Images\window_application_delete.png" />
+    <Content Include="n1.ico" />
+    <None Include="Images\home_sm.png" />
+    <Content Include="Images\shield16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

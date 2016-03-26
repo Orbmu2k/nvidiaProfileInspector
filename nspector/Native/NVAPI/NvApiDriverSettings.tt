@@ -1,0 +1,42 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ output extension=".cs" #>
+namespace nspector.Native.NvApi.DriverSettings
+{
+<#
+    string absolutePath = Host.ResolvePath("NvApiDriverSettings.h");
+    string contents = File.ReadAllText(absolutePath);
+    
+	string pattern = "enum\\s+(?<name>.*?)\\{(?<enums>.*?)\\}";
+    var rx = new Regex(pattern, RegexOptions.Singleline);
+    foreach (Match m in rx.Matches(contents))
+    {
+		PushIndent("\t");
+        
+		string enumSrc = m.Result("${enums}").Trim();
+		string enumType = "";
+
+		if (Regex.IsMatch(enumSrc, "0x[A-Fa-f0-9]{8}L"))
+            enumType =  " : ulong";
+        else if (Regex.IsMatch(enumSrc, @".*?=\s+-.*?"))
+            enumType =  " : int";
+        else
+            enumType =  " : uint";
+
+		WriteLine("public enum " + m.Result("${name}").Trim() + enumType + " {");
+
+		WriteLine("\t" + enumSrc);
+
+		WriteLine("}");
+
+		PopIndent();
+		WriteLine("");
+    }
+
+#>
+}
