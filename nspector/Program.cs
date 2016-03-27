@@ -17,15 +17,6 @@ namespace nspector
         [STAThread]
         static void Main(string[] args)
         {
-#if DEBUG
-            if (!Debugger.IsAttached)
-            {
-                Application.EnableVisualStyles();
-                MessageBox.Show("Something unexpected has happened! Exit!","Error!");
-                return;
-            }
-#endif
-
             try
             {
                 // Remove Zone.Identifier from Alternate Data Stream
