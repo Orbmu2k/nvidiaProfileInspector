@@ -112,6 +112,7 @@ namespace nspector.Common
                     if (hProfile == IntPtr.Zero)
                     {
                         hProfile = CreateProfile(hSession, profile.ProfileName);
+                        nvw.DRS_SaveSettings(hSession);
                     }
 
                     if (hProfile != IntPtr.Zero)
@@ -195,8 +196,10 @@ namespace nspector.Common
                         StoreDwordValue(hSession, hProfile, setting.settingId, importValue);
                         alreadySet.Add(setting.settingId);
                     }
-                    else
+                    else if (!isPredefined)
+                    {
                         nvw.DRS_DeleteProfileSetting(hSession, hProfile, setting.settingId);
+                    }
                 }
             }
 
