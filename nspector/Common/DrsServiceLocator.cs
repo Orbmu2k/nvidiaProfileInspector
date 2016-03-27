@@ -40,6 +40,7 @@ namespace nspector.Common
         {
             if (_Session != null && _Session != IntPtr.Zero)
             {
+                nvw.DRS_SaveSettings(_Session);
                 nvw.DRS_DestroySession(_Session);
             }
 
