@@ -153,6 +153,8 @@ namespace nspector.Common
                 
                 if (applicationName != null)
                     AddApplication(hSession, hProfile, applicationName);
+
+                SaveSettings(hSession);
             });
         }
 
