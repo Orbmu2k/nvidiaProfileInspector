@@ -103,6 +103,10 @@ namespace nspector.Common
             if (string.IsNullOrEmpty(profileName))
             {
                 var nvRes = nvw.DRS_GetCurrentGlobalProfile(hSession, ref hProfile);
+
+                if (hProfile == IntPtr.Zero)
+                    throw new NvapiException("DRS_GetCurrentGlobalProfile", NvAPI_Status.NVAPI_PROFILE_NOT_FOUND);
+
                 if (nvRes != NvAPI_Status.NVAPI_OK)
                     throw new NvapiException("DRS_GetCurrentGlobalProfile", nvRes);
             }

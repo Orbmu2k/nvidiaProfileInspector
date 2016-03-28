@@ -125,11 +125,8 @@ namespace nspector.Common
             DrsSession((hSession) =>
             {
                 var hBase = GetProfileHandle(hSession, null);
-                if (hBase != IntPtr.Zero)
-                {
-                    var baseProfile = GetProfileInfo(hSession, hBase);
-                    tmpBaseProfileName = baseProfile.profileName;
-                }
+                var baseProfile = GetProfileInfo(hSession, hBase);
+                tmpBaseProfileName = baseProfile.profileName;
                                 
                 lstResult.Add("_GLOBAL_DRIVER_PROFILE (" + tmpBaseProfileName + ")");
 

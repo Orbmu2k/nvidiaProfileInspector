@@ -21,7 +21,7 @@ namespace nspector.Common
         public static readonly DrsImportService ImportService;
         public static readonly DrsScannerService ScannerService;
 
-        private static IntPtr _Session;
+        private static volatile IntPtr _Session;
 
         static DrsServiceLocator()
         {
