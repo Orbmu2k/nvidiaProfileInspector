@@ -190,7 +190,7 @@ namespace nspector
         {
             cbProfiles.Items.Clear();
 
-            var profileNames = _drs.GetProfileNames(out _baseProfileName);
+            var profileNames = _drs.GetProfileNames(ref _baseProfileName);
             cbProfiles.Items.AddRange(profileNames.Cast<object>().ToArray());
 
             cbProfiles.Sorted = true;

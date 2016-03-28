@@ -117,16 +117,20 @@ namespace nspector.Common
             
         }
         
-        public List<string> GetProfileNames(out string baseProfileName)
+        public List<string> GetProfileNames(ref string baseProfileName)
         {
             var lstResult = new List<string>();
-            var tmpBaseProfileName = "";
+            var tmpBaseProfileName = baseProfileName;
 
             DrsSession((hSession) =>
             {
                 var hBase = GetProfileHandle(hSession, null);
-                var baseProfile = GetProfileInfo(hSession, hBase);
-                tmpBaseProfileName = baseProfile.profileName;
+                if (hBase != IntPtr.Zero)
+                {
+                    var baseProfile = GetProfileInfo(hSession, hBase);
+                    tmpBaseProfileName = baseProfile.profileName;
+                }
+                                
                 lstResult.Add("_GLOBAL_DRIVER_PROFILE (" + tmpBaseProfileName + ")");
 
                 var profileHandles = EnumProfileHandles(hSession);
