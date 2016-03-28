@@ -20,8 +20,8 @@ namespace nspector.Common
     internal class DrsScannerService : DrsSettingsServiceBase
     {
 
-        public DrsScannerService(DrsSettingsMetaService metaService, IntPtr? hSession = null)
-            : base(metaService, hSession)
+        public DrsScannerService(DrsSettingsMetaService metaService)
+            : base(metaService)
         { }
 
         public event SettingScanDoneEvent OnModifiedProfilesScanDone;

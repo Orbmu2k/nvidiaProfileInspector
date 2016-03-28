@@ -15,8 +15,8 @@ namespace nspector.Common
 
         private readonly DrsSettingsService _SettingService;
 
-        public DrsImportService(DrsSettingsMetaService metaService, DrsSettingsService settingService, IntPtr? hSession = null)
-            : base(metaService, hSession)
+        public DrsImportService(DrsSettingsMetaService metaService, DrsSettingsService settingService)
+            : base(metaService)
         {
             _SettingService = settingService;
         }

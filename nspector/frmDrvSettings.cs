@@ -795,7 +795,7 @@ namespace nspector
 
         private void tsbRefreshProfile_Click(object sender, EventArgs e)
         {
-            //DrsServiceLocator.ReCreateSession();
+            DrsSessionScope.DestroyGlobalSession();
             RefreshAll();
         }
 

@@ -17,14 +17,9 @@ namespace nspector.Common
 
         protected DrsSettingsMetaService meta;
 
-        private readonly IntPtr holdSession;
-        public DrsSettingsServiceBase(DrsSettingsMetaService metaService, IntPtr? hSession = null)
+        public DrsSettingsServiceBase(DrsSettingsMetaService metaService)
         {
             meta = metaService;
-            
-            if (hSession.HasValue)
-                holdSession = hSession.Value;
-
             DriverVersion = GetDriverVersionInternal();
         }
 
@@ -46,7 +41,7 @@ namespace nspector.Common
 
         protected void DrsSession(Action<IntPtr> action)
         {
-            DrsSession<bool>((hSession) =>
+            DrsSessionScope.DrsSession<bool>((hSession) =>
             {
                 action(hSession);
                 return true;
@@ -55,45 +50,7 @@ namespace nspector.Common
 
         protected T DrsSession<T>(Func<IntPtr,T> action)
         {
-            if (holdSession != null && holdSession != IntPtr.Zero)
-            {
-                return action(holdSession);
-            }
-            
-            IntPtr hSession = IntPtr.Zero;
-            var csRes = nvw.DRS_CreateSession(ref hSession);
-            if (csRes != NvAPI_Status.NVAPI_OK)
-                throw new NvapiException("DRS_CreateSession", csRes);
-
-            try
-            {
-                var nvRes = nvw.DRS_LoadSettings(hSession);
-                if (nvRes != NvAPI_Status.NVAPI_OK)
-                    throw new NvapiException("DRS_LoadSettings", nvRes);
-
-                return action(hSession);
-            }
-            finally
-            {
-                var nvRes = nvw.DRS_DestroySession(hSession);
-                if (nvRes != NvAPI_Status.NVAPI_OK)
-                    throw new NvapiException("DRS_DestroySession", nvRes);
-            }
-
-        }
-
-        public static IntPtr CreateAndLoadSession()
-        {
-            IntPtr hSession = IntPtr.Zero;
-            var csRes = nvw.DRS_CreateSession(ref hSession);
-            if (csRes != NvAPI_Status.NVAPI_OK)
-                throw new NvapiException("DRS_CreateSession", csRes);
-                        
-            var nvRes = nvw.DRS_LoadSettings(hSession);
-            if (nvRes != NvAPI_Status.NVAPI_OK)
-                throw new NvapiException("DRS_LoadSettings", nvRes);
-
-            return hSession;
+            return DrsSessionScope.DrsSession<T>(action);
         }
 
         protected IntPtr GetProfileHandle(IntPtr hSession, string profileName)

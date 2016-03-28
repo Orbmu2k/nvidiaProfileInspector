@@ -131,6 +131,7 @@
     <Compile Include="Common\CustomSettings\CustomSettingValue.cs" />
     <Compile Include="Common\DrsScannerService.cs" />
     <Compile Include="Common\DrsServiceLocator.cs" />
+    <Compile Include="Common\DrsSessionScope.cs" />
     <Compile Include="Common\DrsSettingsMetaService.cs" />
     <Compile Include="Common\DrsUtil.cs" />
     <Compile Include="Common\Helper\ListViewGroupSorter.cs" />

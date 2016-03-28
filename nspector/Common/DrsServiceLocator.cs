@@ -21,30 +21,15 @@ namespace nspector.Common
         public static readonly DrsImportService ImportService;
         public static readonly DrsScannerService ScannerService;
 
-        private static volatile IntPtr _Session;
-
         static DrsServiceLocator()
         {
             CustomSettings = LoadCustomSettings();
             ReferenceSettings = LoadReferenceSettings();
 
-            ReCreateSession();
-
             MetaService = new DrsSettingsMetaService(CustomSettings, ReferenceSettings);
-            SettingService = new DrsSettingsService(MetaService, _Session);
-            ImportService = new DrsImportService(MetaService, SettingService, _Session);
-            ScannerService = new DrsScannerService(MetaService, _Session);
-        }
-
-        public static void ReCreateSession()
-        {
-            if (_Session != null && _Session != IntPtr.Zero)
-            {
-                nvw.DRS_SaveSettings(_Session);
-                nvw.DRS_DestroySession(_Session);
-            }
-
-            _Session = DrsSettingsServiceBase.CreateAndLoadSession();
+            SettingService = new DrsSettingsService(MetaService);
+            ImportService = new DrsImportService(MetaService, SettingService);
+            ScannerService = new DrsScannerService(MetaService);
         }
 
         private static CustomSettingNames LoadCustomSettings()
