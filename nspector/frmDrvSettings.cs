@@ -359,7 +359,10 @@ namespace nspector
 
                 var listValueX = lvi.SubItems[1].Text;
 
-                if (currentProfileItem.ValueText != listValueX)
+                var itmEmpty = string.IsNullOrEmpty(listValueX);
+                var curEmpty = string.IsNullOrEmpty(currentProfileItem.ValueText);
+
+                if (currentProfileItem.ValueText != listValueX && !(itmEmpty && curEmpty))
                 {
                     settingsToStore.Add(new KeyValuePair<uint, string>((uint)lvi.Tag, listValueX));
                 }
