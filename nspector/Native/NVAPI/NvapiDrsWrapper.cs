@@ -197,7 +197,7 @@ namespace nspector.Native.NVAPI2
         public string stringValue
         {
             get {
-                var firstPart = Encoding.Unicode.GetString(BitConverter.GetBytes(dwordValue));
+                var firstPart = Encoding.Unicode.GetString(BitConverter.GetBytes(dwordValue)).Trim('\0');
                 return firstPart + stringRaw;
             }
 
