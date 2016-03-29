@@ -692,6 +692,8 @@ namespace nspector
                 SetTaskbarProgress(0);
                 RefreshCurrentProfile();
                 RefreshModifiesProfilesDropDown();
+
+                tsbRefreshProfile.Enabled = true;
             });
         }
 
@@ -748,12 +750,13 @@ namespace nspector
       
         private void ScanProfilesSilent(bool scanPredefined, bool showProfileDialog)
         {
-            tsbModifiedProfiles.Enabled = false;
-            pbMain.Minimum = 0;
-            pbMain.Maximum = 100;
-
             if (_skipScan)
                 return;
+
+            tsbModifiedProfiles.Enabled = false;
+            tsbRefreshProfile.Enabled = false;
+            pbMain.Minimum = 0;
+            pbMain.Maximum = 100;
 
             if (scanPredefined && !_alreadyScannedForPredefinedSettings)
                 StartPredefinedSettingsScan(true);
