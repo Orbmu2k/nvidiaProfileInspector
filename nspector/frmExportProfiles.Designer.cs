@@ -36,21 +36,24 @@
             this.btnSelAll = new System.Windows.Forms.Button();
             this.btnSelNone = new System.Windows.Forms.Button();
             this.btnInvertSelection = new System.Windows.Forms.Button();
+            this.cbIncludePredefined = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lvProfiles
             // 
+            this.lvProfiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvProfiles.CheckBoxes = true;
             this.lvProfiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chProfileName});
             this.lvProfiles.FullRowSelect = true;
             this.lvProfiles.GridLines = true;
             this.lvProfiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvProfiles.Location = new System.Drawing.Point(18, 60);
-            this.lvProfiles.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lvProfiles.Location = new System.Drawing.Point(12, 40);
             this.lvProfiles.MultiSelect = false;
             this.lvProfiles.Name = "lvProfiles";
-            this.lvProfiles.Size = new System.Drawing.Size(688, 595);
+            this.lvProfiles.Size = new System.Drawing.Size(492, 382);
             this.lvProfiles.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvProfiles.TabIndex = 0;
             this.lvProfiles.UseCompatibleStateImageBehavior = false;
@@ -65,21 +68,19 @@
             // lProfiles
             // 
             this.lProfiles.AutoSize = true;
-            this.lProfiles.Location = new System.Drawing.Point(14, 18);
-            this.lProfiles.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lProfiles.Location = new System.Drawing.Point(9, 12);
             this.lProfiles.Name = "lProfiles";
-            this.lProfiles.Size = new System.Drawing.Size(273, 20);
+            this.lProfiles.Size = new System.Drawing.Size(184, 13);
             this.lProfiles.TabIndex = 1;
             this.lProfiles.Text = "Select the profiles you want to export:";
             // 
             // btnExport
             // 
-            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExport.Enabled = false;
-            this.btnExport.Location = new System.Drawing.Point(596, 666);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnExport.Location = new System.Drawing.Point(429, 451);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(112, 35);
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
             this.btnExport.TabIndex = 2;
             this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -87,11 +88,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.Location = new System.Drawing.Point(474, 666);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(348, 451);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(112, 35);
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -100,10 +100,9 @@
             // btnSelAll
             // 
             this.btnSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSelAll.Location = new System.Drawing.Point(18, 666);
-            this.btnSelAll.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSelAll.Location = new System.Drawing.Point(12, 451);
             this.btnSelAll.Name = "btnSelAll";
-            this.btnSelAll.Size = new System.Drawing.Size(112, 35);
+            this.btnSelAll.Size = new System.Drawing.Size(75, 23);
             this.btnSelAll.TabIndex = 4;
             this.btnSelAll.Text = "Select All";
             this.btnSelAll.UseVisualStyleBackColor = true;
@@ -112,10 +111,9 @@
             // btnSelNone
             // 
             this.btnSelNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSelNone.Location = new System.Drawing.Point(140, 666);
-            this.btnSelNone.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSelNone.Location = new System.Drawing.Point(93, 451);
             this.btnSelNone.Name = "btnSelNone";
-            this.btnSelNone.Size = new System.Drawing.Size(112, 35);
+            this.btnSelNone.Size = new System.Drawing.Size(75, 23);
             this.btnSelNone.TabIndex = 4;
             this.btnSelNone.Text = "Select None";
             this.btnSelNone.UseVisualStyleBackColor = true;
@@ -124,20 +122,31 @@
             // btnInvertSelection
             // 
             this.btnInvertSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnInvertSelection.Location = new System.Drawing.Point(261, 666);
-            this.btnInvertSelection.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnInvertSelection.Location = new System.Drawing.Point(174, 451);
             this.btnInvertSelection.Name = "btnInvertSelection";
-            this.btnInvertSelection.Size = new System.Drawing.Size(150, 35);
+            this.btnInvertSelection.Size = new System.Drawing.Size(100, 23);
             this.btnInvertSelection.TabIndex = 4;
             this.btnInvertSelection.Text = "Invert Selection";
             this.btnInvertSelection.UseVisualStyleBackColor = true;
             this.btnInvertSelection.Click += new System.EventHandler(this.btnInvertSelection_Click);
             // 
+            // cbIncludePredefined
+            // 
+            this.cbIncludePredefined.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbIncludePredefined.AutoSize = true;
+            this.cbIncludePredefined.Location = new System.Drawing.Point(12, 428);
+            this.cbIncludePredefined.Name = "cbIncludePredefined";
+            this.cbIncludePredefined.Size = new System.Drawing.Size(153, 17);
+            this.cbIncludePredefined.TabIndex = 5;
+            this.cbIncludePredefined.Text = "Include predefined settings";
+            this.cbIncludePredefined.UseVisualStyleBackColor = true;
+            // 
             // frmExportProfiles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(726, 720);
+            this.ClientSize = new System.Drawing.Size(516, 487);
+            this.Controls.Add(this.cbIncludePredefined);
             this.Controls.Add(this.btnInvertSelection);
             this.Controls.Add(this.btnSelNone);
             this.Controls.Add(this.btnSelAll);
@@ -145,10 +154,9 @@
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.lProfiles);
             this.Controls.Add(this.lvProfiles);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(464, 319);
             this.Name = "frmExportProfiles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmExportProfiles";
@@ -167,5 +175,6 @@
         private System.Windows.Forms.Button btnSelAll;
         private System.Windows.Forms.Button btnSelNone;
         private System.Windows.Forms.Button btnInvertSelection;
+        private System.Windows.Forms.CheckBox cbIncludePredefined;
     }
 }

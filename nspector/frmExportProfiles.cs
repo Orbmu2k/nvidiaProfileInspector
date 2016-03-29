@@ -88,7 +88,7 @@ namespace nspector
                     }
                 }
 
-                DrsServiceLocator.ImportService.ExportProfiles(profileNamesToExport, sfd.FileName, false);
+                DrsServiceLocator.ImportService.ExportProfiles(profileNamesToExport, sfd.FileName, cbIncludePredefined.Checked);
 
                 if (profileNamesToExport.Count > 0)
                 {
