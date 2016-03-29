@@ -662,7 +662,7 @@ namespace nspector
                     MessageBox.Show("No user modified profiles found! Nothing to export.", "Userprofile Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 RefreshModifiesProfilesDropDown();
-
+                tsbRefreshProfile.Enabled = true;
             });
         }
 
