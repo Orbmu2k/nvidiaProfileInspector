@@ -226,7 +226,9 @@ namespace nspector.Common
                         SettingMetaSource.ConstantSettings,
                         SettingMetaSource.ScannedSettings,  
                         SettingMetaSource.CustomSettings,  
-                        SettingMetaSource.DriverSettings,  
+                        SettingMetaSource.DriverSettings,
+                        SettingMetaSource.NvD3dUmxSettings,
+                        SettingMetaSource.ReferenceSettings,
                     };
                 default:
                     return new [] { 
