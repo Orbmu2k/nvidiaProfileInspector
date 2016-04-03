@@ -2667,5 +2667,56 @@
       </SettingValues>
       <SettingMasks />
     </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>OpenGL - Version Override</UserfriendlyName>
+      <HexSettingID>0x2046B3ED</HexSettingID>
+      <GroupName>5 - Common</GroupName>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Disabled</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 1.0</UserfriendlyName>
+          <HexValue>0x00302e31</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 1.1</UserfriendlyName>
+          <HexValue>0x00312e31</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 1.2</UserfriendlyName>
+          <HexValue>0x00322e31</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 1.3</UserfriendlyName>
+          <HexValue>0x00332e31</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 1.4</UserfriendlyName>
+          <HexValue>0x00342e31</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 1.5</UserfriendlyName>
+          <HexValue>0x00352e31</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 2.0</UserfriendlyName>
+          <HexValue>0x00302e32</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 2.1</UserfriendlyName>
+          <HexValue>0x00312e32</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 3.0</UserfriendlyName>
+          <HexValue>0x00302e33</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>OpenGL Version 3.1</UserfriendlyName>
+          <HexValue>0x00312e33</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+    </CustomSetting>
   </Settings>
 </CustomSettingNames>
