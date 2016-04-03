@@ -29,7 +29,6 @@ namespace nspector
         private List<SettingItem> _currentProfileSettingItems = new List<SettingItem>();
         private bool _alreadyScannedForPredefinedSettings = false;
         private IntPtr _taskbarParent = IntPtr.Zero;
-        private bool _showCustomSettingsOnly = false;
         private bool _activated = false;
         private bool _isStartup = true;
         private bool _skipScan = false;
@@ -482,7 +481,7 @@ namespace nspector
             SetupToolbar();
             SetupDpiAdjustments();
 
-            _showCustomSettingsOnly = showCsnOnly;
+            tscbShowCustomSettingNamesOnly.Checked = showCsnOnly;
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
