@@ -144,7 +144,7 @@ namespace nspector.Common
 
                 foreach (var settingValue in a)
                 {
-                    var bVal = b.FirstOrDefault(x => x.Value.Equals(settingValue.Value) && x.ValueSource != SettingMetaSource.ScannedSettings);
+                    var bVal = b.FirstOrDefault(x => x.Value.Equals(settingValue.Value) && settingValue.ValueSource != SettingMetaSource.ScannedSettings);
                     if (bVal != null && bVal.ValueName != null)
                     {
                         settingValue.ValueName = bVal.ValueName;
