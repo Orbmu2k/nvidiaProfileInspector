@@ -30,15 +30,16 @@ namespace nspector
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                if (args.Length == 1 && File.Exists(args[0]))
+                var argFileIndex = ArgFileIndex(args);
+                if (argFileIndex != -1)
                 {
 
-                    if (new FileInfo(args[0]).Extension.ToLower() == ".nip")
+                    if (new FileInfo(args[argFileIndex]).Extension.ToLower() == ".nip")
                     {
                         try
                         {
                             var import = DrsServiceLocator.ImportService;
-                            import.ImportProfiles(args[0]);
+                            import.ImportProfiles(args[argFileIndex]);
                             GC.Collect();
                             Process current = Process.GetCurrentProcess();
                             foreach (
@@ -51,8 +52,12 @@ namespace nspector
                                     mh.sendWindowsStringMessage((int)process.MainWindowHandle, 0, "ProfilesImported");
                                 }
                             }
-                            MessageBox.Show("Profile(s) successfully imported!", Application.ProductName,
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            if (!ArgExists(args, "-silentImport"))
+                            {
+                                MessageBox.Show("Profile(s) successfully imported!", Application.ProductName,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -109,6 +114,17 @@ namespace nspector
                     return true;
             }
             return false;
+        }
+
+        static int ArgFileIndex(string[] args)
+        {
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (File.Exists(args[i]))
+                    return i;   
+            }
+
+            return -1;
         }
     }
 }
