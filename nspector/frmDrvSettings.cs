@@ -209,7 +209,7 @@ namespace nspector
                     cbValues.Tag = lvSettings.SelectedItems[0].Tag;
                     uint settingid = (uint)lvSettings.SelectedItems[0].Tag;
 
-                    var settingMeta = _meta.GetSettingMeta(settingid);
+                    var settingMeta = _meta.GetSettingMeta(settingid, GetSettingViewMode());
                     if (settingMeta != null)
                     {
                         if (settingMeta.SettingType == Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE && settingMeta.DwordValues != null)
@@ -309,7 +309,7 @@ namespace nspector
             {
                 var lvItem = lvSettings.Items[idx];
 
-                var settingMeta = _meta.GetSettingMeta(settingId);
+                var settingMeta = _meta.GetSettingMeta(settingId, GetSettingViewMode());
 
                 var currentProfileItem = _currentProfileSettingItems
                     .First(x => x.SettingId.Equals(settingId));

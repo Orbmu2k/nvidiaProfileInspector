@@ -201,7 +201,7 @@ namespace nspector.Common
         public List<uint> GetSettingIds(SettingViewMode viewMode)
         {
             var settingIds = new List<uint>();
-            var allowedSourcesForViewMode = GetAllowedMetaSourcesForViewMode(viewMode);
+            var allowedSourcesForViewMode = GetAllowedSettingIdMetaSourcesForViewMode(viewMode);
 
             foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
             {
@@ -213,7 +213,7 @@ namespace nspector.Common
             return settingIds.Distinct().ToList();
         }
 
-        private SettingMetaSource[] GetAllowedMetaSourcesForViewMode(SettingViewMode viewMode)
+        private SettingMetaSource[] GetAllowedSettingIdMetaSourcesForViewMode(SettingViewMode viewMode)
         {
             switch (viewMode)
             {
@@ -234,6 +234,28 @@ namespace nspector.Common
                     return new [] { 
                         SettingMetaSource.CustomSettings,  
                         SettingMetaSource.DriverSettings,  
+                    };
+            }
+        }
+
+        private SettingMetaSource[] GetAllowedSettingValueMetaSourcesForViewMode(SettingViewMode viewMode)
+        {
+            switch (viewMode)
+            {
+                case SettingViewMode.CustomSettingsOnly:
+                    return new[] {
+                        SettingMetaSource.CustomSettings,
+                        SettingMetaSource.ScannedSettings,
+                    };
+                default:
+                    return new[] {
+                        SettingMetaSource.ConstantSettings,
+                        SettingMetaSource.ScannedSettings,
+                        SettingMetaSource.CustomSettings,
+                        SettingMetaSource.DriverSettings,
+                        SettingMetaSource.NvD3dUmxSettings,
+                        SettingMetaSource.ReferenceSettings,
+
                     };
             }
         }
@@ -273,25 +295,49 @@ namespace nspector.Common
             return result;
         }
 
-        private SettingMeta PostProcessMeta(uint settingId, SettingMeta settingMeta)
+        private SettingMeta PostProcessMeta(uint settingId, SettingMeta settingMeta, SettingViewMode viewMode)
         {
-            if (string.IsNullOrEmpty(settingMeta.SettingName))
-                settingMeta.SettingName = string.Format("0x{0:X8}", settingId);
-            
-            return settingMeta;
+            var newMeta = new SettingMeta()
+            {
+                DefaultDwordValue = settingMeta.DefaultDwordValue,
+                DefaultStringValue = settingMeta.DefaultStringValue,
+                SettingName = settingMeta.SettingName,
+                SettingType = settingMeta.SettingType,
+                GroupName = settingMeta.GroupName,
+            };
+
+            if (string.IsNullOrEmpty(newMeta.SettingName))
+            {
+                newMeta.SettingName = string.Format("0x{0:X8}", settingId);
+            }
+
+            var allowedSourcesForViewMode = GetAllowedSettingValueMetaSourcesForViewMode(viewMode);
+            if (settingMeta.DwordValues != null)
+            {
+                newMeta.DwordValues = settingMeta.DwordValues
+                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
+            }
+
+            if (settingMeta.StringValues != null)
+            {
+                newMeta.StringValues = settingMeta.StringValues
+                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
+            }
+
+            return newMeta;
         }
 
-        public SettingMeta GetSettingMeta(uint settingId)
+        public SettingMeta GetSettingMeta(uint settingId, SettingViewMode viewMode = SettingViewMode.Normal)
         {
             if (settingMetaCache.ContainsKey(settingId))
             {
-                return PostProcessMeta(settingId, settingMetaCache[settingId]);
+                return PostProcessMeta(settingId, settingMetaCache[settingId], viewMode);
             }
             else
             {
                 var settingMeta = CreateSettingMeta(settingId);
                 settingMetaCache.Add(settingId, settingMeta);
-                return PostProcessMeta(settingId, settingMeta);
+                return PostProcessMeta(settingId, settingMeta, viewMode);
             }
         }
 

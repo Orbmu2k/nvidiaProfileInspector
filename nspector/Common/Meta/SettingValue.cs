@@ -22,7 +22,7 @@ namespace nspector.Common.Meta
         public override string ToString()
         {
             if (typeof(T) == typeof(uint))
-                return string.Format("Value=0x{0:X8}; ValueName={1};", Value, ValueName);
+                return string.Format("Value=0x{0:X8}; ValueName={1}; Source={2};", Value, ValueName, ValueSource);
 
             return string.Format("Value={0}; ValueName={1};", Value, ValueName);
         }
