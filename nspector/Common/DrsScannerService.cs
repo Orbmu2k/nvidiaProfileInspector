@@ -30,6 +30,7 @@ namespace nspector.Common
 
         internal List<CachedSettings> CachedSettings = new List<CachedSettings>();
         internal List<string> ModifiedProfiles = new List<string>();
+        internal HashSet<string> UserProfiles = new HashSet<string>();
 
         // most common setting ids as start pattern for the heuristic scan
         private readonly uint[] _commonSettingIds = new uint[] { 0x1095DEF8, 0x1033DCD2, 0x1033CEC1, 
@@ -85,6 +86,7 @@ namespace nspector.Common
         private void ScanForModifiedProfiles()
         {
             ModifiedProfiles = new List<string>();
+            UserProfiles = new HashSet<string>();
             var knownPredefines = new List<uint>(_commonSettingIds);
 
             DrsSession((hSession) =>
@@ -107,6 +109,7 @@ namespace nspector.Common
                     if (profile.isPredefined == 0)
                     {
                         ModifiedProfiles.Add(profile.profileName);
+                        UserProfiles.Add(profile.profileName);
                         continue;
                     }
 

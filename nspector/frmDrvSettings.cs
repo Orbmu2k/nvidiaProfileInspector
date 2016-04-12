@@ -519,7 +519,13 @@ namespace nspector
             _scanner.ModifiedProfiles.Sort();
             foreach (string modProfile in _scanner.ModifiedProfiles)
                 if (modProfile != _baseProfileName)
-                    tsbModifiedProfiles.DropDownItems.Add(modProfile);
+                {
+                    var newItem = tsbModifiedProfiles.DropDownItems.Add(modProfile);
+                    if (!_scanner.UserProfiles.Contains(modProfile))
+                    {
+                        newItem.Image = tsbRestoreProfile.Image;
+                    }
+                }
 
             if (tsbModifiedProfiles.DropDownItems.Count > 0)
                 tsbModifiedProfiles.Enabled = true;
@@ -615,8 +621,13 @@ namespace nspector
             }
         }
         
-        private void AddToModifiedProfiles(string profileName)
+        private void AddToModifiedProfiles(string profileName, bool userProfile = false)
         {
+            if (!_scanner.UserProfiles.Contains(profileName) && profileName != _baseProfileName && userProfile)
+            {
+                _scanner.UserProfiles.Add(profileName);
+            }
+
             if (!_scanner.ModifiedProfiles.Contains(profileName) && profileName != _baseProfileName)
             {
                 _scanner.ModifiedProfiles.Add(profileName);
@@ -626,6 +637,11 @@ namespace nspector
 
         private void RemoveFromModifiedProfiles(string profileName)
         {
+            if (_scanner.UserProfiles.Contains(profileName))
+            {
+                _scanner.UserProfiles.Remove(profileName);
+            }
+
             if (_scanner.ModifiedProfiles.Contains(profileName))
             {
                 _scanner.ModifiedProfiles.Remove(profileName);
@@ -977,7 +993,7 @@ namespace nspector
                     _drs.CreateProfile(result, applicationName);
                     RefreshProfilesCombo();
                     cbProfiles.SelectedIndex = cbProfiles.Items.IndexOf(result);
-                    AddToModifiedProfiles(result);
+                    AddToModifiedProfiles(result, true);
                 }
                 catch (NvapiException ex)
                 {
