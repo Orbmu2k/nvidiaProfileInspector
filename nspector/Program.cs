@@ -23,10 +23,10 @@ namespace nspector
                 SafeNativeMethods.DeleteFile(Application.ExecutablePath + ":Zone.Identifier");
             }
             catch { }
-
+#if RELEASE
             try
             {
-
+#endif
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
@@ -97,12 +97,14 @@ namespace nspector
                         }
                     }
                 }
+#if RELEASE
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\r\n\r\n" + ex.StackTrace ,"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+#endif
 
         }
         
