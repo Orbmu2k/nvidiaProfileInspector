@@ -245,9 +245,9 @@ namespace nspector.Common
                 if (allowAddValue)
                 {
                     if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
-                        cachedSetting.AddStringValue(setting.currentValue.stringValue, profile.profileName);
+                        cachedSetting.AddStringValue(setting.predefinedValue.stringValue, profile.profileName);
                     else
-                        cachedSetting.AddDwordValue(setting.currentValue.dwordValue, profile.profileName);
+                        cachedSetting.AddDwordValue(setting.predefinedValue.dwordValue, profile.profileName);
                 }
 
                 if (!cacheEntryExists)
