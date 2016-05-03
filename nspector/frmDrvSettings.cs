@@ -935,7 +935,7 @@ namespace nspector
                 }
                 catch (NvapiException ex)
                 {
-                    if (ex.Status == Native.NVAPI2.NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
+                    if (ex.Status == Native.NVAPI2.NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE || ex.Status == Native.NVAPI2.NvAPI_Status.NVAPI_ERROR)
                     {
                         if (lblApplications.Text.ToUpper().IndexOf(" " + applicationName.ToUpper() + ",") != -1)
                             MessageBox.Show("This application executable is already assigned to this profile!",
@@ -944,7 +944,7 @@ namespace nspector
                         {
                             string profileNames = _scanner.FindProfilesUsingApplication(applicationName);
                             if (profileNames == "")
-                                MessageBox.Show("This application executable is already assigned to another profile!",
+                                MessageBox.Show("This application executable might already be assigned to another profile!",
                                     "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             else
                                 MessageBox.Show(
