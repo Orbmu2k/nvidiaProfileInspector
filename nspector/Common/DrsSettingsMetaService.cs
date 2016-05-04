@@ -133,14 +133,17 @@ namespace nspector.Common
                 return a;
 
             // force scanned settings to add instead of merge
-            if (b.Count > 0 && b.First().ValueSource == SettingMetaSource.ScannedSettings)
+            var isScannedValuesList = (b.Count > 0 && b.First().ValueSource == SettingMetaSource.ScannedSettings);
+            if (isScannedValuesList)
             {
                 a.AddRange(b);
             }
             else
             {
-                var newValues = b.Where(xb => !a.Select(xa => xa.Value).Contains(xb.Value)).ToList();
-                a.AddRange(newValues);
+                var currentNonScannedValues = a.Where(xa => xa.ValueSource != SettingMetaSource.ScannedSettings).Select(xa => xa.Value).ToList();
+                
+                var newNonScannedValues = b.Where(xb => !currentNonScannedValues.Contains(xb.Value)).ToList();
+                a.AddRange(newNonScannedValues);
 
                 foreach (var settingValue in a)
                 {
