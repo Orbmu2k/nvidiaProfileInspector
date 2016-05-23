@@ -27,76 +27,75 @@ namespace nspector
             try
             {
 #endif
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-                var argFileIndex = ArgFileIndex(args);
-                if (argFileIndex != -1)
+            var argFileIndex = ArgFileIndex(args);
+            if (argFileIndex != -1)
+            {
+
+                if (new FileInfo(args[argFileIndex]).Extension.ToLower() == ".nip")
                 {
-
-                    if (new FileInfo(args[argFileIndex]).Extension.ToLower() == ".nip")
+                    try
                     {
-                        try
+                        var import = DrsServiceLocator.ImportService;
+                        var importReport = import.ImportProfiles(args[argFileIndex]);
+                        GC.Collect();
+                        Process current = Process.GetCurrentProcess();
+                        foreach (
+                            Process process in
+                                Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
                         {
-                            var import = DrsServiceLocator.ImportService;
-                            import.ImportProfiles(args[argFileIndex]);
-                            GC.Collect();
-                            Process current = Process.GetCurrentProcess();
-                            foreach (
-                                Process process in
-                                    Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
+                            if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
                             {
-                                if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
-                                {
-                                    MessageHelper mh = new MessageHelper();
-                                    mh.sendWindowsStringMessage((int)process.MainWindowHandle, 0, "ProfilesImported");
-                                }
-                            }
-
-                            if (!ArgExists(args, "-silentImport"))
-                            {
-                                MessageBox.Show("Profile(s) successfully imported!", Application.ProductName,
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageHelper mh = new MessageHelper();
+                                mh.sendWindowsStringMessage((int)process.MainWindowHandle, 0, "ProfilesImported");
                             }
                         }
-                        catch (Exception ex)
+
+                        if (string.IsNullOrEmpty(importReport) && !ArgExists(args, "-silentImport") && !ArgExists(args, "-silent"))
                         {
-                            MessageBox.Show("Import Error: " + ex.Message, Application.ProductName + " Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            frmDrvSettings.ShowImportDoneMessage(importReport);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Import Error: " + ex.Message, Application.ProductName + " Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
+            else if (ArgExists(args, "-createCSN"))
+            {
+                File.WriteAllText("CustomSettingNames.xml", Properties.Resources.CustomSettingNames);
+            }
+            else
+            {
+
+                bool createdNew = true;
+                using (Mutex mutex = new Mutex(true, Application.ProductName, out createdNew))
+                {
+                    if (createdNew)
+                    {
+                        Application.Run(new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan")));
+                    }
+                    else
+                    {
+                        Process current = Process.GetCurrentProcess();
+                        foreach (
+                            Process process in
+                                Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
+                        {
+                            if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
+                            {
+                                MessageHelper mh = new MessageHelper();
+                                mh.bringAppToFront((int)process.MainWindowHandle);
+                            }
                         }
                     }
                 }
-
-                else if (ArgExists(args, "-createCSN"))
-                {
-                    File.WriteAllText("CustomSettingNames.xml", Properties.Resources.CustomSettingNames);
-                }
-                else
-                {
-                    
-                    bool createdNew = true;
-                    using (Mutex mutex = new Mutex(true, Application.ProductName, out createdNew))
-                    {
-                        if (createdNew)
-                        {
-                            Application.Run(new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan")));
-                        }
-                        else
-                        {
-                            Process current = Process.GetCurrentProcess();
-                            foreach (
-                                Process process in
-                                    Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
-                            {
-                                if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
-                                {
-                                    MessageHelper mh = new MessageHelper();
-                                    mh.bringAppToFront((int)process.MainWindowHandle);
-                                }
-                            }
-                        }
-                    }
-                }
+            }
 #if RELEASE
 
             }
@@ -107,7 +106,7 @@ namespace nspector
 #endif
 
         }
-        
+
         static bool ArgExists(string[] args, string arg)
         {
             foreach (string a in args)
@@ -123,7 +122,7 @@ namespace nspector
             for (int i = 0; i < args.Length; i++)
             {
                 if (File.Exists(args[i]))
-                    return i;   
+                    return i;
             }
 
             return -1;

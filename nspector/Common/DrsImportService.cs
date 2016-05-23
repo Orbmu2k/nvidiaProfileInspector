@@ -14,11 +14,13 @@ namespace nspector.Common
     {
 
         private readonly DrsSettingsService _SettingService;
+        private readonly DrsScannerService _ScannerService;
 
-        public DrsImportService(DrsSettingsMetaService metaService, DrsSettingsService settingService)
+        public DrsImportService(DrsSettingsMetaService metaService, DrsSettingsService settingService, DrsScannerService scannerService)
             : base(metaService)
         {
             _SettingService = settingService;
+            _ScannerService = scannerService;
         }
 
         internal void ExportAllProfilesToNvidiaTextFile(string filename)
@@ -100,32 +102,66 @@ namespace nspector.Common
             return result;
         }
 
-        internal void ImportProfiles(string filename)
+        internal string ImportProfiles(string filename)
         {
+            var sbFailedProfilesMessage = new StringBuilder();
+            var appInUseHint = false;
             var profiles = XMLHelper<Profiles>.DeserializeFromXMLFile(filename);
 
             DrsSession((hSession) =>
             {
                 foreach (Profile profile in profiles)
                 {
+                    var profileCreated = false;
                     var hProfile = GetProfileHandle(hSession, profile.ProfileName);
                     if (hProfile == IntPtr.Zero)
                     {
                         hProfile = CreateProfile(hSession, profile.ProfileName);
                         nvw.DRS_SaveSettings(hSession);
+                        profileCreated = true;
                     }
 
                     if (hProfile != IntPtr.Zero)
                     {
                         var modified = false;
                         _SettingService.ResetProfile(profile.ProfileName, out modified);
+                        try
+                        {
+                            UpdateApplications(hSession, hProfile, profile);
+                            UpdateSettings(hSession, hProfile, profile);
+                        }
+                        catch (NvapiException nex)
+                        {
+                            if (profileCreated)
+                            {
+                                nvw.DRS_DeleteProfile(hSession, hProfile);
+                            }
 
-                        UpdateApplications(hSession, hProfile, profile);
-                        UpdateSettings(hSession, hProfile, profile);
+                            sbFailedProfilesMessage.AppendLine(string.Format("Failed to import profile '{0}'", profile.ProfileName));
+                            var appEx = nex as NvapiAddApplicationException;
+                            if (appEx != null)
+                            {
+                                var profilesWithThisApp = _ScannerService.FindProfilesUsingApplication(appEx.ApplicationName);
+                                sbFailedProfilesMessage.AppendLine(string.Format("- application '{0}' is already in use by profile '{1}'", appEx.ApplicationName, profilesWithThisApp));
+                                appInUseHint = true;
+                            }
+                            else
+                            {
+                                sbFailedProfilesMessage.AppendLine(string.Format("- {0}", nex.Message));
+                            }
+                            sbFailedProfilesMessage.AppendLine("");
+                        }
                         nvw.DRS_SaveSettings(hSession);
                     }
                 }
             });
+
+            if (appInUseHint)
+            {
+                sbFailedProfilesMessage.AppendLine("Hint: If just the profile name has been changed by nvidia, consider to manually modify the profile name inside the import file using a text editor.");
+            }
+
+            return sbFailedProfilesMessage.ToString();
         }
 
         private bool ExistsImportApp(string appName, Profile importProfile)
@@ -150,7 +186,14 @@ namespace nspector.Common
             {
                 if (!alreadySet.Contains(appName))
                 {
-                    AddApplication(hSession, hProfile, appName);
+                    try
+                    {
+                        AddApplication(hSession, hProfile, appName);
+                    }
+                    catch (NvapiException)
+                    {
+                        throw new NvapiAddApplicationException(appName);
+                    }
                 }
             }
         }

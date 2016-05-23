@@ -28,8 +28,8 @@ namespace nspector.Common
 
             MetaService = new DrsSettingsMetaService(CustomSettings, ReferenceSettings);
             SettingService = new DrsSettingsService(MetaService);
-            ImportService = new DrsImportService(MetaService, SettingService);
             ScannerService = new DrsScannerService(MetaService);
+            ImportService = new DrsImportService(MetaService, SettingService, ScannerService);
         }
 
         private static CustomSettingNames LoadCustomSettings()

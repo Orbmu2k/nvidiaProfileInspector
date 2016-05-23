@@ -1109,9 +1109,7 @@ namespace nspector
             openDialog.Filter = Application.ProductName + " Profiles|*.nip";
             if (openDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                _import.ImportProfiles(openDialog.FileName);
-                RefreshAll();
-                MessageBox.Show("Profile(s) successfully imported!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ImportProfiles(openDialog.FileName);
             }
         }
 
@@ -1153,6 +1151,25 @@ namespace nspector
             return "";
         }
 
+        public static void ShowImportDoneMessage(string importReport)
+        {
+            if (string.IsNullOrEmpty(importReport))
+            {
+                MessageBox.Show("Profile(s) successfully imported!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Some profile(s) could not imported!\r\n\r\n" + importReport, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ImportProfiles(string nipFileName)
+        {
+            var importReport = _import.ImportProfiles(nipFileName);
+            RefreshAll();
+            ShowImportDoneMessage(importReport);
+        }
+
         private void lvSettings_OnDropFilesNative(string[] files)
         {
             if (files.Length == 1)
@@ -1160,9 +1177,7 @@ namespace nspector
                 var fileInfo = new FileInfo(files[0]);
                 if (fileInfo.Extension.ToLower().Equals(".nip"))
                 {
-                    _import.ImportProfiles(fileInfo.FullName);
-                    RefreshAll();
-                    MessageBox.Show("Profile(s) successfully imported!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ImportProfiles(fileInfo.FullName);
                     return;
                 }
 

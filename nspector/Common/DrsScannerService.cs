@@ -260,7 +260,7 @@ namespace nspector.Common
         {
             string lowerApplicationName = applicationName.ToLower();
             string tmpfile = Path.GetTempFileName();
-            var result = new StringBuilder();
+            var matchingProfiles = new List<string>();
 
             DrsSession((hSession) =>
             {
@@ -278,7 +278,7 @@ namespace nspector.Common
                     {
                         if (ms.Result("${app}").ToLower() == lowerApplicationName)
                         {
-                            result.Append(m.Result("${profile}") + ";");
+                            matchingProfiles.Add(m.Result("${profile}"));
                         }
                     }
                 }
@@ -286,8 +286,8 @@ namespace nspector.Common
 
             if (File.Exists(tmpfile))
                 File.Delete(tmpfile);
-            
-            return result.ToString();
+
+            return string.Join(";", matchingProfiles);
         }
 
     }
