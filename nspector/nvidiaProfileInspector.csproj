@@ -129,6 +129,7 @@
   <ItemGroup>
     <Compile Include="Common\CustomSettings\CustomSetting.cs" />
     <Compile Include="Common\CustomSettings\CustomSettingValue.cs" />
+    <Compile Include="Common\DrsDecrypterService.cs" />
     <Compile Include="Common\DrsScannerService.cs" />
     <Compile Include="Common\DrsServiceLocator.cs" />
     <Compile Include="Common\DrsSessionScope.cs" />

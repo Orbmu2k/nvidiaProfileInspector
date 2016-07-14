@@ -20,8 +20,8 @@ namespace nspector.Common
     internal class DrsScannerService : DrsSettingsServiceBase
     {
 
-        public DrsScannerService(DrsSettingsMetaService metaService)
-            : base(metaService)
+        public DrsScannerService(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService)
+            : base(metaService, decrpterService)
         { }
 
         public event SettingScanDoneEvent OnModifiedProfilesScanDone;
@@ -33,9 +33,9 @@ namespace nspector.Common
         internal HashSet<string> UserProfiles = new HashSet<string>();
 
         // most common setting ids as start pattern for the heuristic scan
-        private readonly uint[] _commonSettingIds = new uint[] { 0x1095DEF8, 0x1033DCD2, 0x1033CEC1, 
-                            0x10930F46, 0x00A06946, 0x10ECDB82, 0x20EBD7B8, 0x0095DEF9, 0x00D55F7D, 
-                            0x1033DCD3, 0x1033CEC2, 0x2072F036, 0x00664339, 0x002C7F45, 0x209746C1, 
+        private readonly uint[] _commonSettingIds = new uint[] { 0x1095DEF8, 0x1033DCD2, 0x1033CEC1,
+                            0x10930F46, 0x00A06946, 0x10ECDB82, 0x20EBD7B8, 0x0095DEF9, 0x00D55F7D,
+                            0x1033DCD3, 0x1033CEC2, 0x2072F036, 0x00664339, 0x002C7F45, 0x209746C1,
                             0x0076E164, 0x20FF7493, 0x204CFF7B };
 
 
@@ -71,10 +71,10 @@ namespace nspector.Common
             {
                 return true;
             }
-            
+
             return false;
         }
-        
+
         private void ReportProgress(int current, int max)
         {
             int percent = (current > 0) ? (int)Math.Round((current * 100f) / max) : 0;
@@ -142,7 +142,7 @@ namespace nspector.Common
                         //        }
                         //    }
                         //}
-                        
+
                         if (foundModifiedProfile || checkedSettingsCount >= profile.numOfSettings)
                             continue;
 
@@ -222,7 +222,7 @@ namespace nspector.Common
             var thread = new Thread(ScanForPredefinedProfileSettings);
             thread.Start();
         }
-
+        
         private void AddScannedSettingToCache(NVDRS_PROFILE profile, NVDRS_SETTING setting)
         {
             // Skip 3D Vision string values here for improved scan performance
@@ -244,6 +244,8 @@ namespace nspector.Common
             {
                 if (allowAddValue)
                 {
+                    decrypter.DecryptSettingIfNeeded(profile.profileName, ref setting);
+
                     if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
                         cachedSetting.AddStringValue(setting.predefinedValue.stringValue, profile.profileName);
                     else
@@ -253,9 +255,9 @@ namespace nspector.Common
                 if (!cacheEntryExists)
                     CachedSettings.Add(cachedSetting);
             }
-            
-        }
 
+        }
+        
         public string FindProfilesUsingApplication(string applicationName)
         {
             string lowerApplicationName = applicationName.ToLower();
@@ -266,7 +268,7 @@ namespace nspector.Common
             {
                 SaveSettingsFileEx(hSession, tmpfile);
             });
-            
+
             if (File.Exists(tmpfile))
             {
                 string content = File.ReadAllText(tmpfile);

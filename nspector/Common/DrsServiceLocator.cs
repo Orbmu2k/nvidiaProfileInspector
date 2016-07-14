@@ -20,6 +20,7 @@ namespace nspector.Common
         public static readonly DrsSettingsService SettingService;
         public static readonly DrsImportService ImportService;
         public static readonly DrsScannerService ScannerService;
+        public static readonly DrsDecrypterService DecrypterService;
 
         static DrsServiceLocator()
         {
@@ -27,8 +28,9 @@ namespace nspector.Common
             ReferenceSettings = LoadReferenceSettings();
 
             MetaService = new DrsSettingsMetaService(CustomSettings, ReferenceSettings);
-            SettingService = new DrsSettingsService(MetaService);
-            ScannerService = new DrsScannerService(MetaService);
+            DecrypterService = new DrsDecrypterService(MetaService);
+            ScannerService = new DrsScannerService(MetaService, DecrypterService);
+            SettingService = new DrsSettingsService(MetaService, DecrypterService);
             ImportService = new DrsImportService(MetaService, SettingService, ScannerService);
         }
 

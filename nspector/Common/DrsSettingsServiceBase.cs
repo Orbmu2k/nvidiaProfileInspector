@@ -16,10 +16,12 @@ namespace nspector.Common
     {
 
         protected DrsSettingsMetaService meta;
+        protected DrsDecrypterService decrypter;
 
-        public DrsSettingsServiceBase(DrsSettingsMetaService metaService)
+        public DrsSettingsServiceBase(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService = null)
         {
             meta = metaService;
+            decrypter = decrpterService;
             DriverVersion = GetDriverVersionInternal();
         }
 
@@ -48,7 +50,7 @@ namespace nspector.Common
             });
         }
 
-        protected T DrsSession<T>(Func<IntPtr,T> action)
+        protected T DrsSession<T>(Func<IntPtr, T> action)
         {
             return DrsSessionScope.DrsSession<T>(action);
         }
@@ -73,7 +75,7 @@ namespace nspector.Common
 
                 if (nvRes == NvAPI_Status.NVAPI_PROFILE_NOT_FOUND)
                     return IntPtr.Zero;
-                
+
                 if (nvRes != NvAPI_Status.NVAPI_OK)
                     throw new NvapiException("DRS_FindProfileByName", nvRes);
             }
@@ -84,7 +86,7 @@ namespace nspector.Common
         {
             if (string.IsNullOrEmpty(profileName))
                 throw new ArgumentNullException("profileName");
-            
+
             var hProfile = IntPtr.Zero;
 
             var newProfile = new NVDRS_PROFILE()
@@ -96,7 +98,7 @@ namespace nspector.Common
             var nvRes = nvw.DRS_CreateProfile(hSession, ref newProfile, ref hProfile);
             if (nvRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_CreateProfile", nvRes);
-            
+
             return hProfile;
         }
 
@@ -163,9 +165,15 @@ namespace nspector.Common
             var ssRes = nvw.DRS_GetSetting(hSession, hProfile, settingId, ref newSetting);
             if (ssRes == NvAPI_Status.NVAPI_SETTING_NOT_FOUND)
                 return null;
-            
+
             if (ssRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_GetSetting", ssRes);
+
+            if (decrypter != null)
+            {
+                var profile = GetProfileInfo(hSession, hProfile);
+                decrypter.DecryptSettingIfNeeded(profile.profileName, ref newSetting);
+            }
 
             return newSetting;
         }
@@ -177,7 +185,7 @@ namespace nspector.Common
                 return null;
             return newSetting.Value.currentValue.dwordValue;
         }
-        
+
         protected void AddApplication(IntPtr hSession, IntPtr hProfile, string applicationName)
         {
             var newApp = new NVDRS_APPLICATION_V3()
@@ -237,6 +245,15 @@ namespace nspector.Common
 
             if (esRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_EnumSettings", esRes);
+
+            if (decrypter != null)
+            {
+                var profile = GetProfileInfo(hSession, hProfile);
+                for (int i = 0; i < settingCount; i++)
+                {
+                    decrypter.DecryptSettingIfNeeded(profile.profileName, ref settings[i]);
+                }
+            }
 
             return settings.ToList();
         }

@@ -17,8 +17,8 @@ namespace nspector.Common
     internal class DrsSettingsService : DrsSettingsServiceBase
     {
 
-        public DrsSettingsService(DrsSettingsMetaService metaService)
-            : base(metaService)
+        public DrsSettingsService(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService)
+            : base(metaService, decrpterService)
         {
             _baseProfileSettingIds = InitBaseProfileSettingIds();
         }
