@@ -3495,6 +3495,10 @@
           <HexValue>0x47814940</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
+          <UserfriendlyName>Fast Sync</UserfriendlyName>
+          <HexValue>0x18888888</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
           <UserfriendlyName>Use the 3D application setting</UserfriendlyName>
           <HexValue>0x60925292</HexValue>
         </CustomSettingValue>
@@ -3561,6 +3565,10 @@
         <CustomSettingValue>
           <UserfriendlyName>Prefer maximum performance</UserfriendlyName>
           <HexValue>0x00000001</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>Optimal performance</UserfriendlyName>
+          <HexValue>0x00000005</HexValue>
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
