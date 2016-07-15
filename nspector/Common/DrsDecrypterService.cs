@@ -51,32 +51,33 @@ namespace nspector.Common
             return orgValue ^ key;
         }
 
-        public string DecryptStringValue(string orgValue, uint settingId)
+        public string DecryptStringValue(byte[] rawData, uint settingId)
         {
             var keyOffset = (settingId << 1);
-            var strBytes = Encoding.Unicode.GetBytes(orgValue);
-            for (uint i = 0; i < (uint)strBytes.Length; i++)
+            for (uint i = 0; i < (uint)rawData.Length; i++)
             {
-                strBytes[i] ^= _InternalSettingsKey[(keyOffset + i) % 256];
+                rawData[i] ^= _InternalSettingsKey[(keyOffset + i) % 256];
             }
-            return Encoding.Unicode.GetString(strBytes);
+            return Encoding.Unicode.GetString(rawData).Trim('\0');
         }
 
         public void DecryptSettingIfNeeded(string profileName, ref NVDRS_SETTING setting)
         {
-            if (setting.isCurrentPredefined == 1 && setting.isPredefinedValid == 1)
+            if (setting.isPredefinedValid == 1)
             {
                 if (IsInternalSetting(profileName, setting.settingId))
                 {
                     if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
                     {
-                        setting.predefinedValue.stringValue = DecryptStringValue(setting.predefinedValue.stringValue, setting.settingId);
-                        setting.currentValue.stringValue = DecryptStringValue(setting.currentValue.stringValue, setting.settingId);
+                        setting.predefinedValue.stringValue = DecryptStringValue(setting.predefinedValue.rawData, setting.settingId);
+                        if (setting.isCurrentPredefined == 1)
+                            setting.currentValue.stringValue = DecryptStringValue(setting.currentValue.rawData, setting.settingId);
                     }
                     else
                     {
                         setting.predefinedValue.dwordValue = DecryptDwordValue(setting.predefinedValue.dwordValue, setting.settingId);
-                        setting.currentValue.dwordValue = DecryptDwordValue(setting.currentValue.dwordValue, setting.settingId);
+                        if (setting.isCurrentPredefined == 1)
+                            setting.currentValue.dwordValue = DecryptDwordValue(setting.currentValue.dwordValue, setting.settingId);
                     }
                 }
             }

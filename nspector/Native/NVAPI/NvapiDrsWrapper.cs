@@ -187,40 +187,78 @@ namespace nspector.Native.NVAPI2
     //    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     //    public string stringValue;
     //}
-       
+
+    //[StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode, Size = 4100)]
+    //internal struct NVDRS_SETTING_UNION
+    //{
+    //    public uint dwordValue;
+
+    //    //massive hack for marshalling issues with unicode string overlapping
+    //    public string stringValue
+    //    {
+    //        get
+    //        {
+    //            var firstPart = Encoding.Unicode.GetString(BitConverter.GetBytes(dwordValue)).Trim('\0');
+    //            return firstPart + stringRaw;
+    //        }
+
+    //        set
+    //        {
+    //            var bytesRaw = Encoding.Unicode.GetBytes(value);
+    //            var bytesFirst = new byte[4];
+    //            var firstLength = bytesRaw.Length;
+    //            if (firstLength > 4)
+    //                firstLength = 4;
+    //            Buffer.BlockCopy(bytesRaw, 0, bytesFirst, 0, firstLength);
+    //            dwordValue = BitConverter.ToUInt32(bytesFirst, 0);
+
+    //            if (value.Length > 2)
+    //            {
+    //                stringRaw = value.Substring(2);
+    //            }
+    //        }
+
+    //    }
+
+    //    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    //    private string stringRaw;
+
+    //}
+
     [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode, Size = 4100)]
     internal struct NVDRS_SETTING_UNION
     {
-        public uint dwordValue;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4100)]
+        public byte[] rawData;
 
-        //massive hack for marshalling issues with unicode string overlapping
-        public string stringValue
+        public uint dwordValue
         {
-            get {
-                var firstPart = Encoding.Unicode.GetString(BitConverter.GetBytes(dwordValue)).Trim('\0');
-                return firstPart + stringRaw;
+            get
+            {
+                return BitConverter.ToUInt32(rawData, 0);
             }
 
             set
             {
-                var bytesRaw = Encoding.Unicode.GetBytes(value);
-                var bytesFirst = new byte[4];
-                var firstLength = bytesRaw.Length;
-                if (firstLength > 4)
-                    firstLength = 4;
-                Buffer.BlockCopy(bytesRaw, 0, bytesFirst, 0, firstLength);
-                dwordValue = BitConverter.ToUInt32(bytesFirst, 0);
-                
-                if (value.Length > 2)
-                {
-                    stringRaw = value.Substring(2);
-                }
+                rawData = new byte[4100];
+                Buffer.BlockCopy(BitConverter.GetBytes(value), 0, rawData, 0, 4);
+            }
+        }
+
+        public string stringValue
+        {
+            get
+            {
+                return Encoding.Unicode.GetString(rawData).Trim('\0');
             }
 
+            set
+            {
+                rawData = new byte[4100];
+                var bytesRaw = Encoding.Unicode.GetBytes(value);
+                Buffer.BlockCopy(bytesRaw, 0, rawData, 0, bytesRaw.Length);
+            }
         }
-        
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
-        private string stringRaw;
 
     }
 

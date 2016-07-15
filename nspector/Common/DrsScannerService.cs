@@ -62,6 +62,11 @@ namespace nspector.Common
             }
             else if (addToScanResult)
             {
+                if (decrypter != null)
+                {
+                    decrypter.DecryptSettingIfNeeded(profile.profileName, ref setting);
+                }
+
                 checkedSettingsCount++;
                 AddScannedSettingToCache(profile, setting);
                 alreadyCheckedSettingIds.Add(setting.settingId);
@@ -244,8 +249,6 @@ namespace nspector.Common
             {
                 if (allowAddValue)
                 {
-                    decrypter.DecryptSettingIfNeeded(profile.profileName, ref setting);
-
                     if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
                         cachedSetting.AddStringValue(setting.predefinedValue.stringValue, profile.profileName);
                     else
