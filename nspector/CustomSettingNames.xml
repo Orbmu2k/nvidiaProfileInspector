@@ -4307,6 +4307,7 @@
       <UserfriendlyName>StereoMemoEnabled</UserfriendlyName>
       <HexSettingID>0x707F4B45</HexSettingID>
       <GroupName>7 - Stereo</GroupName>
+      <OverrideDefault>0x00000001</OverrideDefault>
       <SettingValues>
         <CustomSettingValue>
           <UserfriendlyName>Off</UserfriendlyName>
