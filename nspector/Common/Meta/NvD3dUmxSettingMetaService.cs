@@ -54,6 +54,8 @@ namespace nspector.Common.Meta
 
         private static List<NvD3dUmxName> ParseNvD3dUmxNames(string filename)
         {
+            if (!File.Exists(filename)) return null;
+
             var bytes = File.ReadAllBytes(filename);
 
             var runtimeNameOffset = FindOffset(bytes, new byte[] { 0x52, 0x75, 0x6E, 0x54, 0x69, 0x6D, 0x65, 0x4E, 0x61, 0x6D, 0x65 });
