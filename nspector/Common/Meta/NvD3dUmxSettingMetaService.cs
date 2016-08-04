@@ -159,7 +159,7 @@ namespace nspector.Common.Meta
             {
                 return _SettingNames.Select(s => s.settingId).ToList();
             }
-            return null;
+            return new List<uint>();
         }
         
         public string GetGroupName(uint settingId)
