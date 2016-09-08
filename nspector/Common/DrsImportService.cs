@@ -64,39 +64,37 @@ namespace nspector.Common
             if (hProfile != IntPtr.Zero)
             {
 
-                var settings = GetProfileSettings(hSession, hProfile);
-                if (settings.Count > 0)
+                result.ProfileName = profileName;
+
+                var apps = GetProfileApplications(hSession, hProfile);
+                foreach (var app in apps)
                 {
-                    result.ProfileName = profileName;
+                    result.Executeables.Add(app.appName);
+                }
+                
+                var settings = GetProfileSettings(hSession, hProfile);
+                foreach (var setting in settings)
+                {
+                    var isPredefined = setting.isCurrentPredefined == 1;
+                    var isDwordSetting = setting.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
+                    var isCurrentProfile = setting.settingLocation ==
+                                           NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION;
 
-                    var apps = GetProfileApplications(hSession, hProfile);
-                    foreach (var app in apps)
+                    if (isDwordSetting && isCurrentProfile)
                     {
-                        result.Executeables.Add(app.appName);
-                    }
-
-                    foreach (var setting in settings)
-                    {
-                        var isPredefined = setting.isCurrentPredefined == 1;
-                        var isDwordSetting = setting.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
-                        var isCurrentProfile = setting.settingLocation ==
-                                               NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION;
-
-                        if (isDwordSetting && isCurrentProfile)
+                        if (!isPredefined || includePredefined)
                         {
-                            if (!isPredefined || includePredefined)
+                            var profileSetting = new ProfileSetting()
                             {
-                                var profileSetting = new ProfileSetting()
-                                {
-                                    SettingNameInfo = setting.settingName,
-                                    SettingId = setting.settingId,
-                                    SettingValue = setting.currentValue.dwordValue,
-                                };
-                                result.Settings.Add(profileSetting);
-                            }
+                                SettingNameInfo = setting.settingName,
+                                SettingId = setting.settingId,
+                                SettingValue = setting.currentValue.dwordValue,
+                            };
+                            result.Settings.Add(profileSetting);
                         }
                     }
                 }
+
             }
 
             return result;
