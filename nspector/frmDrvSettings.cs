@@ -1030,6 +1030,18 @@ namespace nspector
             }
         }
 
+        private void exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var saveDialog = new SaveFileDialog();
+            saveDialog.DefaultExt = "*.nip";
+            saveDialog.Filter = Application.ProductName + " Profiles|*.nip";
+            if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var profiles = new[] { _CurrentProfile }.ToList();
+                _import.ExportProfiles(profiles, saveDialog.FileName, true);
+            }
+        }
+
         private void tssbRemoveApplication_Click(object sender, EventArgs e)
         {
             if (tssbRemoveApplication.DropDown.Items.Count > 0)

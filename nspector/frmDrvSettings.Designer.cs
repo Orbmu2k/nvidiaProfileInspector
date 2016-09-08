@@ -74,6 +74,7 @@
             this.chSettingID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chSettingValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chSettingValueHex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -252,8 +253,9 @@
             // 
             this.tsbExportProfiles.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbExportProfiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportUserdefinedProfilesToolStripMenuItem,
             this.exportCurrentProfileOnlyToolStripMenuItem,
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem,
+            this.exportUserdefinedProfilesToolStripMenuItem,
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem});
             this.tsbExportProfiles.Image = global::nspector.Properties.Resources.export1;
             this.tsbExportProfiles.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -282,6 +284,13 @@
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Text = "Export all driver profiles (NVIDIA Text Format)";
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Click += new System.EventHandler(this.exportAllProfilesNVIDIATextFormatToolStripMenuItem_Click);
+            //
+            // exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem
+            // 
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Name = "exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem";
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Size = new System.Drawing.Size(422, 26);
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Text = "Export current profile including predefined settings";
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Click += new System.EventHandler(this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click);
             // 
             // tsbImportProfiles
             // 
@@ -597,5 +606,6 @@
         private System.Windows.Forms.Label lblWidth330;
         private System.Windows.Forms.Label lblWidth16;
         private System.Windows.Forms.Label lblWidth30;
+        private System.Windows.Forms.ToolStripMenuItem exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem;
     }
 }
