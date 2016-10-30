@@ -46,8 +46,9 @@
             this.tssbRemoveApplication = new System.Windows.Forms.ToolStripSplitButton();
             this.tsSep3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbExportProfiles = new System.Windows.Forms.ToolStripSplitButton();
-            this.exportUserdefinedProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportCurrentProfileOnlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportUserdefinedProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsbImportProfiles = new System.Windows.Forms.ToolStripSplitButton();
             this.importProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,7 +75,6 @@
             this.chSettingID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chSettingValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chSettingValueHex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,10 +91,10 @@
             // 
             this.pbMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbMain.Location = new System.Drawing.Point(12, 692);
-            this.pbMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbMain.Location = new System.Drawing.Point(12, 475);
+            this.pbMain.Margin = new System.Windows.Forms.Padding(4);
             this.pbMain.Name = "pbMain";
-            this.pbMain.Size = new System.Drawing.Size(883, 9);
+            this.pbMain.Size = new System.Drawing.Size(840, 9);
             this.pbMain.TabIndex = 19;
             // 
             // tsMain
@@ -135,7 +135,7 @@
             this.tsMain.Location = new System.Drawing.Point(12, 4);
             this.tsMain.Name = "tsMain";
             this.tsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsMain.Size = new System.Drawing.Size(883, 25);
+            this.tsMain.Size = new System.Drawing.Size(840, 25);
             this.tsMain.TabIndex = 24;
             this.tsMain.Text = "toolStrip1";
             // 
@@ -264,33 +264,33 @@
             this.tsbExportProfiles.Text = "Export user defined profiles";
             this.tsbExportProfiles.Click += new System.EventHandler(this.tsbExportProfiles_Click);
             // 
-            // exportUserdefinedProfilesToolStripMenuItem
-            // 
-            this.exportUserdefinedProfilesToolStripMenuItem.Name = "exportUserdefinedProfilesToolStripMenuItem";
-            this.exportUserdefinedProfilesToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
-            this.exportUserdefinedProfilesToolStripMenuItem.Text = "Export all customized profiles";
-            this.exportUserdefinedProfilesToolStripMenuItem.Click += new System.EventHandler(this.exportUserdefinedProfilesToolStripMenuItem_Click);
-            // 
             // exportCurrentProfileOnlyToolStripMenuItem
             // 
             this.exportCurrentProfileOnlyToolStripMenuItem.Name = "exportCurrentProfileOnlyToolStripMenuItem";
-            this.exportCurrentProfileOnlyToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
+            this.exportCurrentProfileOnlyToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
             this.exportCurrentProfileOnlyToolStripMenuItem.Text = "Export current profile only";
             this.exportCurrentProfileOnlyToolStripMenuItem.Click += new System.EventHandler(this.exportCurrentProfileOnlyToolStripMenuItem_Click);
+            // 
+            // exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem
+            // 
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Name = "exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem";
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Text = "Export current profile including predefined settings";
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Click += new System.EventHandler(this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click);
+            // 
+            // exportUserdefinedProfilesToolStripMenuItem
+            // 
+            this.exportUserdefinedProfilesToolStripMenuItem.Name = "exportUserdefinedProfilesToolStripMenuItem";
+            this.exportUserdefinedProfilesToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
+            this.exportUserdefinedProfilesToolStripMenuItem.Text = "Export all customized profiles";
+            this.exportUserdefinedProfilesToolStripMenuItem.Click += new System.EventHandler(this.exportUserdefinedProfilesToolStripMenuItem_Click);
             // 
             // exportAllProfilesNVIDIATextFormatToolStripMenuItem
             // 
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Name = "exportAllProfilesNVIDIATextFormatToolStripMenuItem";
-            this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(312, 22);
+            this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Text = "Export all driver profiles (NVIDIA Text Format)";
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Click += new System.EventHandler(this.exportAllProfilesNVIDIATextFormatToolStripMenuItem_Click);
-            //
-            // exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem
-            // 
-            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Name = "exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem";
-            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Size = new System.Drawing.Size(422, 26);
-            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Text = "Export current profile including predefined settings";
-            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Click += new System.EventHandler(this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click);
             // 
             // tsbImportProfiles
             // 
@@ -384,7 +384,7 @@
             this.btnResetValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnResetValue.Enabled = false;
             this.btnResetValue.Image = global::nspector.Properties.Resources.nv_btn;
-            this.btnResetValue.Location = new System.Drawing.Point(775, 175);
+            this.btnResetValue.Location = new System.Drawing.Point(732, 175);
             this.btnResetValue.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.btnResetValue.Name = "btnResetValue";
             this.btnResetValue.Size = new System.Drawing.Size(25, 19);
@@ -402,7 +402,7 @@
             this.lblApplications.Location = new System.Drawing.Point(12, 32);
             this.lblApplications.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblApplications.Name = "lblApplications";
-            this.lblApplications.Size = new System.Drawing.Size(883, 17);
+            this.lblApplications.Size = new System.Drawing.Size(840, 17);
             this.lblApplications.TabIndex = 25;
             this.lblApplications.Text = "fsagame.exe, bond.exe, herozero.exe";
             // 
@@ -506,7 +506,7 @@
             this.lvSettings.MultiSelect = false;
             this.lvSettings.Name = "lvSettings";
             this.lvSettings.ShowItemToolTips = true;
-            this.lvSettings.Size = new System.Drawing.Size(883, 635);
+            this.lvSettings.Size = new System.Drawing.Size(840, 418);
             this.lvSettings.SmallImageList = this.ilListView;
             this.lvSettings.TabIndex = 2;
             this.lvSettings.UseCompatibleStateImageBehavior = false;
@@ -535,7 +535,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(907, 709);
+            this.ClientSize = new System.Drawing.Size(864, 492);
             this.Controls.Add(this.lblWidth30);
             this.Controls.Add(this.lblWidth16);
             this.Controls.Add(this.lblWidth330);
@@ -546,8 +546,8 @@
             this.Controls.Add(this.pbMain);
             this.Controls.Add(this.btnResetValue);
             this.Controls.Add(this.cbValues);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MinimumSize = new System.Drawing.Size(920, 348);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(880, 348);
             this.Name = "frmDrvSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "nSpector - Driver Profile Settings";
