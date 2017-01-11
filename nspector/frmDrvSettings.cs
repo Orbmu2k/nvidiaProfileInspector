@@ -1135,33 +1135,7 @@ namespace nspector
                 cbProfiles.Select(cbProfiles.Text.Length, 0);
             }
         }
-
-        private string ResolveExecuteable(string filename, out string profileName)
-        {
-            var fileInfo = new FileInfo(filename);
-            profileName = fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length);
-            if (fileInfo.Extension.ToLower().Equals(".lnk"))
-            {
-                try
-                {
-                    var shellLink = new ShellLink(filename);
-                    var targetInfo = new FileInfo(shellLink.Target);
-                    if (targetInfo.Extension.ToLower().Equals(".exe"))
-                        return targetInfo.Name;
-
-                    return "";
-                }
-                catch
-                {
-                    return "";
-                }
-            }
-
-            if (fileInfo.Extension.ToLower().Equals(".exe"))
-                return fileInfo.Name;
-
-            return "";
-        }
+        
 
         public static void ShowImportDoneMessage(string importReport)
         {
@@ -1195,7 +1169,7 @@ namespace nspector
 
 
                 var profileName = "";
-                var exeFile = ResolveExecuteable(files[0], out profileName);
+                var exeFile = ShortcutResolver.ResolveExecuteable(files[0], out profileName);
                 if (exeFile != "")
                 {
                     var profiles = _scanner.FindProfilesUsingApplication(exeFile);
