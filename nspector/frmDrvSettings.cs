@@ -1018,28 +1018,27 @@ namespace nspector
             ScanProfilesSilent(false, true);
         }
 
-        private void exportCurrentProfileOnlyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportCurrentProfile(bool includePredefined)
         {
             var saveDialog = new SaveFileDialog();
             saveDialog.DefaultExt = "*.nip";
             saveDialog.Filter = Application.ProductName + " Profiles|*.nip";
+            saveDialog.FileName = _CurrentProfile + ".nip";
             if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var profiles = new[] { _CurrentProfile }.ToList();
-                _import.ExportProfiles(profiles, saveDialog.FileName, false);
+                _import.ExportProfiles(profiles, saveDialog.FileName, includePredefined);
             }
+        }
+
+        private void exportCurrentProfileOnlyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportCurrentProfile(false);
         }
 
         private void exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var saveDialog = new SaveFileDialog();
-            saveDialog.DefaultExt = "*.nip";
-            saveDialog.Filter = Application.ProductName + " Profiles|*.nip";
-            if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                var profiles = new[] { _CurrentProfile }.ToList();
-                _import.ExportProfiles(profiles, saveDialog.FileName, true);
-            }
+            ExportCurrentProfile(true);
         }
 
         private void tssbRemoveApplication_Click(object sender, EventArgs e)
