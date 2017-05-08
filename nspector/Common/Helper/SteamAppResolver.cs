@@ -91,7 +91,7 @@ namespace nspector.Common.Helper
             var bid = BitConverter.GetBytes(appid);
             int offset = 0;
                         
-            var appidPattern = new byte[] { 0x61, 0x70, 0x70, 0x69, 0x6E, 0x66, 0x6F, 0x00, 0x02, 0x61, 0x70, 0x70, 0x49, 0x44, 0x00, bid[0], bid[1], bid[2], bid[3] };
+            var appidPattern = new byte[] { 0x08, bid[0], bid[1], bid[2], bid[3] };
             var launchPattern = new byte[] { 0x00, 0x6C, 0x61, 0x75, 0x6E, 0x63, 0x68, 0x00 };
 
             var appidOffset = FindOffset(_appinfoBytes, appidPattern, offset);
