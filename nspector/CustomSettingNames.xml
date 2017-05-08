@@ -260,1915 +260,969 @@
       <SettingMasks />
     </CustomSetting>
     <CustomSetting>
+      <UserfriendlyName>Frame Rate Limiter Mode</UserfriendlyName>
+      <HexSettingID>0x10834FFF</HexSettingID>
+      <MinRequiredDriverVersion>372.00</MinRequiredDriverVersion>
+      <Description />
+      <GroupName>2 - Sync and Refresh</GroupName>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Default</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>Limiter V2 - Allow All</UserfriendlyName>
+          <HexValue>0x00000020</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>Limiter V2 - Force Off [Enables Limiter V1]</UserfriendlyName>
+          <HexValue>0x00000040</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+      <SettingMasks />
+    </CustomSetting>
+    <CustomSetting>
       <UserfriendlyName>Frame Rate Limiter</UserfriendlyName>
       <HexSettingID>0x10834FEE</HexSettingID>
       <MinRequiredDriverVersion>280.26</MinRequiredDriverVersion>
       <Description />
       <GroupName>2 - Sync and Refresh</GroupName>
       <SettingValues>
-        <CustomSettingValue>
+        <CustomSettingValue>          
           <UserfriendlyName>Off</UserfriendlyName>
           <HexValue>0x00000000</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>22 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000016</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>23 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000017</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>24 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000018</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>25 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000019</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>26 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000001A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>27 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000001B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>28 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000001C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>29 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000001D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>30 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000001E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>31 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000001F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>32 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000020</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>33 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000021</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>34 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000022</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>35 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000023</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>36 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000024</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>37 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000025</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>38 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000026</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>39 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000027</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>40 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000028</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>41 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000029</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>42 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000002A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>43 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000002B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>44 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000002C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>45 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000002D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>46 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000002E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>47 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000002F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>48 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000030</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>49 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000031</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>50 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000032</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>51 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000033</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>52 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000034</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>53 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000035</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>54 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000036</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>55 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000037</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>56 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000038</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>57 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000039</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>58 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000003A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>59 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000003B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>60 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000003C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>61 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000003D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>62 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000003E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>63 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000003F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>64 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000040</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>65 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000041</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>66 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000042</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>67 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000043</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>68 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000044</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>69 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000045</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>70 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000046</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>71 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000047</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>72 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000048</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>73 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000049</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>74 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000004A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>75 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000004B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>76 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000004C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>77 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000004D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>78 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000004E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>79 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000004F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>80 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000050</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>81 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000051</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>82 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000052</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>83 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000053</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>84 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000054</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>85 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000055</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>86 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000056</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>87 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000057</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>88 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000058</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>89 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000059</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>90 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000005A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>91 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000005B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>92 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000005C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>93 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000005D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>94 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000005E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>95 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000005F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>96 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000060</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>97 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000061</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>98 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000062</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>99 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000063</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>100 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000064</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>101 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000065</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>102 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000066</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>103 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000067</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>104 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000068</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>105 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000069</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>106 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000006A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>107 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000006B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>108 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000006C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>109 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000006D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>110 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000006E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>111 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000006F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>112 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000070</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>113 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000071</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>114 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000072</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>115 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000073</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>116 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000074</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>117 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000075</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>118 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000076</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>119 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000077</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>120 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000078</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>121 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000079</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>122 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000007A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>123 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000007B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>124 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000007C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>125 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000007D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>126 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000007E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>127 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000007F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>128 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000080</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>129 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000081</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>130 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000082</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>131 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000083</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>132 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000084</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>133 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000085</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>134 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000086</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>135 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000087</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>136 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000088</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>137 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000089</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>138 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000008A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>139 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000008B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>140 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000008C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>141 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000008D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>142 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000008E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>143 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000008F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>144 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000090</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>145 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000091</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>146 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000092</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>147 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000093</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>148 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000094</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>149 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000095</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>150 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000096</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>151 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000097</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>152 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000098</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>153 fps (v1)</UserfriendlyName>
-          <HexValue>0xF0000099</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>154 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000009A</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>155 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000009B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>156 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000009C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>157 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000009D</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>158 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000009E</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>159 fps (v1)</UserfriendlyName>
-          <HexValue>0xF000009F</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>160 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A0</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>161 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A1</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>162 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A2</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>163 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A3</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>164 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A4</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>165 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A5</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>166 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A6</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>167 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A7</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>168 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A8</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>169 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000A9</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>170 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000AA</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>171 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000AB</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>172 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000AC</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>173 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000AD</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>174 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000AE</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>175 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000AF</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>176 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B0</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>177 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B1</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>178 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B2</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>179 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B3</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>180 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B4</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>181 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B5</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>182 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B6</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>183 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B7</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>184 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B8</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>185 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000B9</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>186 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000BA</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>187 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000BB</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>188 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000BC</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>189 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000BD</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>190 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000BE</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>191 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000BF</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>192 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C0</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>193 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C1</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>194 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C2</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>195 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C3</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>196 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C4</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>197 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C5</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>198 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C6</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>199 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C7</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>200 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C8</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>201 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000C9</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>202 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000CA</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>203 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000CB</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>204 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000CC</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>205 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000CD</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>206 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000CE</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>207 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000CF</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>208 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D0</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>209 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D1</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>210 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D2</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>211 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D3</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>212 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D4</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>213 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D5</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>214 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D6</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>215 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D7</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>216 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D8</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>217 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000D9</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>218 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000DA</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>219 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000DB</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>220 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000DC</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>221 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000DD</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>222 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000DE</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>223 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000DF</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>224 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E0</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>225 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E1</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>226 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E2</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>227 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E3</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>228 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E4</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>229 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E5</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>230 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E6</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>231 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E7</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>232 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E8</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>233 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000E9</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>234 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000EA</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>235 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000EB</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>236 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000EC</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>237 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000ED</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>238 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000EE</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>239 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000EF</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>240 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F0</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>241 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F1</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>242 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F2</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>243 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F3</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>244 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F4</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>245 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F5</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>246 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F6</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>247 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F7</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>248 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F8</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>249 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000F9</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>250 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000FA</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>251 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000FB</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>252 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000FC</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>253 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000FD</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>254 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000FE</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>255 fps (v1)</UserfriendlyName>
-          <HexValue>0xF00000FF</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>22 fps (v2)</UserfriendlyName>
-          <HexValue>0xF0010016</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>23 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>23 FPS ==> MODE VER1 @ 23.4 FPS</UserfriendlyName>
           <HexValue>0xF0010017</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>24 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>24 FPS ==> MODE VER1 @ 24.4 FPS</UserfriendlyName>
           <HexValue>0xF0010018</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>25 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>25 FPS ==> MODE VER1 @ 25.4 FPS</UserfriendlyName>
           <HexValue>0xF0010019</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>26 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>26 FPS ==> MODE VER1 @ 26.4 FPS</UserfriendlyName>
           <HexValue>0xF001001A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>27 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>27 FPS ==> MODE VER1 @ 27.4 FPS</UserfriendlyName>
           <HexValue>0xF001001B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>28 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>28 FPS ==> MODE VER1 @ 28.5 FPS</UserfriendlyName>
           <HexValue>0xF001001C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>29 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>29 FPS ==> MODE VER1 @ 29.5 FPS</UserfriendlyName>
           <HexValue>0xF001001D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>30 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>30 FPS ==> MODE VER1 @ 30.5 FPS</UserfriendlyName>
           <HexValue>0xF001001E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>31 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>31 FPS ==> MODE VER1 @ 31.5 FPS</UserfriendlyName>
           <HexValue>0xF001001F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>32 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>32 FPS ==> MODE VER1 @ 32.6 FPS</UserfriendlyName>
           <HexValue>0xF0010020</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>33 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>33 FPS ==> MODE VER1 @ 33.6 FPS</UserfriendlyName>
           <HexValue>0xF0010021</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>34 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>34 FPS ==> MODE VER1 @ 34.6 FPS</UserfriendlyName>
           <HexValue>0xF0010022</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>35 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>35 FPS ==> MODE VER1 @ 35.7 FPS</UserfriendlyName>
           <HexValue>0xF0010023</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>36 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>36 FPS ==> MODE VER1 @ 36.7 FPS</UserfriendlyName>
           <HexValue>0xF0010024</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>37 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>37 FPS ==> MODE VER1 @ 37.7 FPS</UserfriendlyName>
           <HexValue>0xF0010025</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>38 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>38 FPS ==> MODE VER1 @ 38.8 FPS</UserfriendlyName>
           <HexValue>0xF0010026</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>39 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>39 FPS ==> MODE VER1 @ 39.8 FPS</UserfriendlyName>
           <HexValue>0xF0010027</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>40 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>40 FPS ==> MODE VER1 @ 40.8 FPS</UserfriendlyName>
           <HexValue>0xF0010028</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>41 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>41 FPS ==> MODE VER1 @ 41.9 FPS</UserfriendlyName>
           <HexValue>0xF0010029</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>42 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>42 FPS ==> MODE VER1 @ 42.9 FPS</UserfriendlyName>
           <HexValue>0xF001002A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>43 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>43 FPS ==> MODE VER1 @ 43.9 FPS</UserfriendlyName>
           <HexValue>0xF001002B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>44 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>44 FPS ==> MODE VER1 @ 45.0 FPS</UserfriendlyName>
           <HexValue>0xF001002C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>45 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>45 FPS ==> MODE VER1 @ 46.0 FPS</UserfriendlyName>
           <HexValue>0xF001002D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>46 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>46 FPS ==> MODE VER1 @ 47.1 FPS</UserfriendlyName>
           <HexValue>0xF001002E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>47 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>47 FPS ==> MODE VER1 @ 48.1 FPS</UserfriendlyName>
           <HexValue>0xF001002F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>48 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>48 FPS ==> MODE VER1 @ 49.1 FPS</UserfriendlyName>
           <HexValue>0xF0010030</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>49 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>49 FPS ==> MODE VER1 @ 50.2 FPS</UserfriendlyName>
           <HexValue>0xF0010031</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>50 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>50 FPS ==> MODE VER1 @ 51.2 FPS</UserfriendlyName>
           <HexValue>0xF0010032</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>51 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>51 FPS ==> MODE VER1 @ 52.3 FPS</UserfriendlyName>
           <HexValue>0xF0010033</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>52 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>52 FPS ==> MODE VER1 @ 53.3 FPS</UserfriendlyName>
           <HexValue>0xF0010034</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>53 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>53 FPS ==> MODE VER1 @ 54.4 FPS</UserfriendlyName>
           <HexValue>0xF0010035</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>54 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>54 FPS ==> MODE VER1 @ 55.4 FPS</UserfriendlyName>
           <HexValue>0xF0010036</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>55 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>55 FPS ==> MODE VER1 @ 56.5 FPS</UserfriendlyName>
           <HexValue>0xF0010037</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>56 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>56 FPS ==> MODE VER1 @ 57.5 FPS</UserfriendlyName>
           <HexValue>0xF0010038</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>57 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>57 FPS ==> MODE VER1 @ 58.6 FPS</UserfriendlyName>
           <HexValue>0xF0010039</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>58 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>58 FPS ==> MODE VER1 @ 59.7 FPS</UserfriendlyName>
           <HexValue>0xF001003A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>59 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>59 FPS ==> MODE VER1 @ 60.7 FPS</UserfriendlyName>
           <HexValue>0xF001003B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>60 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>60 FPS ==> MODE VER1 @ 61.8 FPS</UserfriendlyName>
           <HexValue>0xF001003C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>61 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>61 FPS ==> MODE VER1 @ 62.8 FPS</UserfriendlyName>
           <HexValue>0xF001003D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>62 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>62 FPS ==> MODE VER1 @ 63.9 FPS</UserfriendlyName>
           <HexValue>0xF001003E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>63 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>63 FPS ==> MODE VER1 @ 65.0 FPS</UserfriendlyName>
           <HexValue>0xF001003F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>64 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>64 FPS ==> MODE VER1 @ 66.0 FPS</UserfriendlyName>
           <HexValue>0xF0010040</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>65 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>65 FPS ==> MODE VER1 @ 67.1 FPS</UserfriendlyName>
           <HexValue>0xF0010041</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>66 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>66 FPS ==> MODE VER1 @ 68.1 FPS</UserfriendlyName>
           <HexValue>0xF0010042</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>67 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>67 FPS ==> MODE VER1 @ 69.2 FPS</UserfriendlyName>
           <HexValue>0xF0010043</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>68 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>68 FPS ==> MODE VER1 @ 70.3 FPS</UserfriendlyName>
           <HexValue>0xF0010044</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>69 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>69 FPS ==> MODE VER1 @ 71.3 FPS</UserfriendlyName>
           <HexValue>0xF0010045</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>70 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>70 FPS ==> MODE VER1 @ 72.4 FPS</UserfriendlyName>
           <HexValue>0xF0010046</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>71 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>71 FPS ==> MODE VER1 @ 73.5 FPS</UserfriendlyName>
           <HexValue>0xF0010047</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>72 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>72 FPS ==> MODE VER1 @ 74.6 FPS</UserfriendlyName>
           <HexValue>0xF0010048</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>73 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>73 FPS ==> MODE VER1 @ 75.6 FPS</UserfriendlyName>
           <HexValue>0xF0010049</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>74 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>74 FPS ==> MODE VER1 @ 76.7 FPS</UserfriendlyName>
           <HexValue>0xF001004A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>75 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>75 FPS ==> MODE VER1 @ 77.8 FPS</UserfriendlyName>
           <HexValue>0xF001004B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>76 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>76 FPS ==> MODE VER1 @ 78.9 FPS</UserfriendlyName>
           <HexValue>0xF001004C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>77 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>77 FPS ==> MODE VER1 @ 79.9 FPS</UserfriendlyName>
           <HexValue>0xF001004D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>78 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>78 FPS ==> MODE VER1 @ 81.0 FPS</UserfriendlyName>
           <HexValue>0xF001004E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>79 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>79 FPS ==> MODE VER1 @ 82.1 FPS</UserfriendlyName>
           <HexValue>0xF001004F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>80 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>80 FPS ==> MODE VER1 @ 83.2 FPS</UserfriendlyName>
           <HexValue>0xF0010050</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>81 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>81 FPS ==> MODE VER1 @ 84.3 FPS</UserfriendlyName>
           <HexValue>0xF0010051</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>82 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>82 FPS ==> MODE VER1 @ 85.3 FPS</UserfriendlyName>
           <HexValue>0xF0010052</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>83 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>83 FPS ==> MODE VER1 @ 86.4 FPS</UserfriendlyName>
           <HexValue>0xF0010053</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>84 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>84 FPS ==> MODE VER1 @ 87.5 FPS</UserfriendlyName>
           <HexValue>0xF0010054</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>85 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>85 FPS ==> MODE VER1 @ 88.6 FPS</UserfriendlyName>
           <HexValue>0xF0010055</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>86 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>86 FPS ==> MODE VER1 @ 89.7 FPS</UserfriendlyName>
           <HexValue>0xF0010056</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>87 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>87 FPS ==> MODE VER1 @ 90.8 FPS</UserfriendlyName>
           <HexValue>0xF0010057</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>88 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>88 FPS ==> MODE VER1 @ 91.9 FPS</UserfriendlyName>
           <HexValue>0xF0010058</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>89 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>89 FPS ==> MODE VER1 @ 93.0 FPS</UserfriendlyName>
           <HexValue>0xF0010059</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>90 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>90 FPS ==> MODE VER1 @ 94.0 FPS</UserfriendlyName>
           <HexValue>0xF001005A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>91 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>91 FPS ==> MODE VER1 @ 95.1 FPS</UserfriendlyName>
           <HexValue>0xF001005B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>92 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>92 FPS ==> MODE VER1 @ 96.2 FPS</UserfriendlyName>
           <HexValue>0xF001005C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>93 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>93 FPS ==> MODE VER1 @ 97.3 FPS</UserfriendlyName>
           <HexValue>0xF001005D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>94 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>94 FPS ==> MODE VER1 @ 98.4 FPS</UserfriendlyName>
           <HexValue>0xF001005E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>95 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>95 FPS ==> MODE VER1 @ 99.5 FPS</UserfriendlyName>
           <HexValue>0xF001005F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>96 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>96 FPS ==> MODE VER1 @ 100.6 FPS</UserfriendlyName>
           <HexValue>0xF0010060</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>97 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>97 FPS ==> MODE VER1 @ 101.7 FPS</UserfriendlyName>
           <HexValue>0xF0010061</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>98 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>98 FPS ==> MODE VER1 @ 102.8 FPS</UserfriendlyName>
           <HexValue>0xF0010062</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>99 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>99 FPS ==> MODE VER1 @ 103.9 FPS</UserfriendlyName>
           <HexValue>0xF0010063</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>100 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>100 FPS ==> MODE VER1 @ 105.0 FPS</UserfriendlyName>
           <HexValue>0xF0010064</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>101 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>101 FPS ==> MODE VER1 @ 106.1 FPS</UserfriendlyName>
           <HexValue>0xF0010065</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>102 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>102 FPS ==> MODE VER1 @ 107.3 FPS</UserfriendlyName>
           <HexValue>0xF0010066</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>103 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>103 FPS ==> MODE VER1 @ 108.4 FPS</UserfriendlyName>
           <HexValue>0xF0010067</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>104 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>104 FPS ==> MODE VER1 @ 109.5 FPS</UserfriendlyName>
           <HexValue>0xF0010068</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>105 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>105 FPS ==> MODE VER1 @ 110.6 FPS</UserfriendlyName>
           <HexValue>0xF0010069</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>106 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>106 FPS ==> MODE VER1 @ 111.7 FPS</UserfriendlyName>
           <HexValue>0xF001006A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>107 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>107 FPS ==> MODE VER1 @ 112.8 FPS</UserfriendlyName>
           <HexValue>0xF001006B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>108 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>108 FPS ==> MODE VER1 @ 113.9 FPS</UserfriendlyName>
           <HexValue>0xF001006C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>109 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>109 FPS ==> MODE VER1 @ 115.0 FPS</UserfriendlyName>
           <HexValue>0xF001006D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>110 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>110 FPS ==> MODE VER1 @ 116.1 FPS</UserfriendlyName>
           <HexValue>0xF001006E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>111 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>111 FPS ==> MODE VER1 @ 117.3 FPS</UserfriendlyName>
           <HexValue>0xF001006F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>112 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>112 FPS ==> MODE VER1 @ 118.4 FPS</UserfriendlyName>
           <HexValue>0xF0010070</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>113 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>113 FPS ==> MODE VER1 @ 119.5 FPS</UserfriendlyName>
           <HexValue>0xF0010071</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>114 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>114 FPS ==> MODE VER1 @ 120.6 FPS</UserfriendlyName>
           <HexValue>0xF0010072</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>115 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>115 FPS ==> MODE VER1 @ 121.7 FPS</UserfriendlyName>
           <HexValue>0xF0010073</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>116 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>116 FPS ==> MODE VER1 @ 122.9 FPS</UserfriendlyName>
           <HexValue>0xF0010074</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>117 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>117 FPS ==> MODE VER1 @ 124.0 FPS</UserfriendlyName>
           <HexValue>0xF0010075</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>118 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>118 FPS ==> MODE VER1 @ 125.1 FPS</UserfriendlyName>
           <HexValue>0xF0010076</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>119 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>119 FPS ==> MODE VER1 @ 126.2 FPS</UserfriendlyName>
           <HexValue>0xF0010077</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>120 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>120 FPS ==> MODE VER1 @ 127.4 FPS</UserfriendlyName>
           <HexValue>0xF0010078</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>121 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>121 FPS ==> MODE VER1 @ 128.5 FPS</UserfriendlyName>
           <HexValue>0xF0010079</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>122 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>122 FPS ==> MODE VER1 @ 129.6 FPS</UserfriendlyName>
           <HexValue>0xF001007A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>123 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>123 FPS ==> MODE VER1 @ 130.8 FPS</UserfriendlyName>
           <HexValue>0xF001007B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>124 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>124 FPS ==> MODE VER1 @ 131.9 FPS</UserfriendlyName>
           <HexValue>0xF001007C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>125 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>125 FPS ==> MODE VER1 @ 133.0 FPS</UserfriendlyName>
           <HexValue>0xF001007D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>126 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>126 FPS ==> MODE VER1 @ 134.2 FPS</UserfriendlyName>
           <HexValue>0xF001007E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>127 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>127 FPS ==> MODE VER1 @ 135.3 FPS</UserfriendlyName>
           <HexValue>0xF001007F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>128 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>128 FPS ==> MODE VER1 @ 136.4 FPS</UserfriendlyName>
           <HexValue>0xF0010080</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>129 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>129 FPS ==> MODE VER1 @ 137.6 FPS</UserfriendlyName>
           <HexValue>0xF0010081</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>130 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>130 FPS ==> MODE VER1 @ 138.7 FPS</UserfriendlyName>
           <HexValue>0xF0010082</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>131 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>131 FPS ==> MODE VER1 @ 139.9 FPS</UserfriendlyName>
           <HexValue>0xF0010083</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>132 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>132 FPS ==> MODE VER1 @ 141.0 FPS</UserfriendlyName>
           <HexValue>0xF0010084</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>133 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>133 FPS ==> MODE VER1 @ 142.1 FPS</UserfriendlyName>
           <HexValue>0xF0010085</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>134 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>134 FPS ==> MODE VER1 @ 143.3 FPS</UserfriendlyName>
           <HexValue>0xF0010086</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>135 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>135 FPS ==> MODE VER1 @ 144.4 FPS</UserfriendlyName>
           <HexValue>0xF0010087</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>136 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>136 FPS ==> MODE VER1 @ 145.6 FPS</UserfriendlyName>
           <HexValue>0xF0010088</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>137 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>137 FPS ==> MODE VER1 @ 146.7 FPS</UserfriendlyName>
           <HexValue>0xF0010089</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>138 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>138 FPS ==> MODE VER1 @ 147.9 FPS</UserfriendlyName>
           <HexValue>0xF001008A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>139 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>139 FPS ==> MODE VER1 @ 149.0 FPS</UserfriendlyName>
           <HexValue>0xF001008B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>140 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>140 FPS ==> MODE VER1 @ 150.2 FPS</UserfriendlyName>
           <HexValue>0xF001008C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>141 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>141 FPS ==> MODE VER1 @ 151.3 FPS</UserfriendlyName>
           <HexValue>0xF001008D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>142 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>142 FPS ==> MODE VER1 @ 152.5 FPS</UserfriendlyName>
           <HexValue>0xF001008E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>143 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>143 FPS ==> MODE VER1 @ 153.6 FPS</UserfriendlyName>
           <HexValue>0xF001008F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>144 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>144 FPS ==> MODE VER1 @ 154.8 FPS</UserfriendlyName>
           <HexValue>0xF0010090</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>145 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>145 FPS ==> MODE VER1 @ 155.9 FPS</UserfriendlyName>
           <HexValue>0xF0010091</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>146 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>146 FPS ==> MODE VER1 @ 157.1 FPS</UserfriendlyName>
           <HexValue>0xF0010092</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>147 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>147 FPS ==> MODE VER1 @ 158.3 FPS</UserfriendlyName>
           <HexValue>0xF0010093</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>148 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>148 FPS ==> MODE VER1 @ 159.4 FPS</UserfriendlyName>
           <HexValue>0xF0010094</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>149 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>149 FPS ==> MODE VER1 @ 160.6 FPS</UserfriendlyName>
           <HexValue>0xF0010095</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>150 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>150 FPS ==> MODE VER1 @ 161.8 FPS</UserfriendlyName>
           <HexValue>0xF0010096</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>151 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>151 FPS ==> MODE VER1 @ 162.9 FPS</UserfriendlyName>
           <HexValue>0xF0010097</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>152 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>152 FPS ==> MODE VER1 @ 164.1 FPS</UserfriendlyName>
           <HexValue>0xF0010098</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>153 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>153 FPS ==> MODE VER1 @ 165.3 FPS</UserfriendlyName>
           <HexValue>0xF0010099</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>154 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>154 FPS ==> MODE VER1 @ 166.4 FPS</UserfriendlyName>
           <HexValue>0xF001009A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>155 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>155 FPS ==> MODE VER1 @ 167.6 FPS</UserfriendlyName>
           <HexValue>0xF001009B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>156 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>156 FPS ==> MODE VER1 @ 168.8 FPS</UserfriendlyName>
           <HexValue>0xF001009C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>157 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>157 FPS ==> MODE VER1 @ 169.9 FPS</UserfriendlyName>
           <HexValue>0xF001009D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>158 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>158 FPS ==> MODE VER1 @ 171.1 FPS</UserfriendlyName>
           <HexValue>0xF001009E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>159 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>159 FPS ==> MODE VER1 @ 172.3 FPS</UserfriendlyName>
           <HexValue>0xF001009F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>160 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>160 FPS ==> MODE VER1 @ 173.5 FPS</UserfriendlyName>
           <HexValue>0xF00100A0</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>161 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>161 FPS ==> MODE VER1 @ 174.6 FPS</UserfriendlyName>
           <HexValue>0xF00100A1</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>162 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>162 FPS ==> MODE VER1 @ 175.8 FPS</UserfriendlyName>
           <HexValue>0xF00100A2</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>163 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>163 FPS ==> MODE VER1 @ 177.0 FPS</UserfriendlyName>
           <HexValue>0xF00100A3</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>164 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>164 FPS ==> MODE VER1 @ 178.2 FPS</UserfriendlyName>
           <HexValue>0xF00100A4</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>165 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>165 FPS ==> MODE VER1 @ 179.4 FPS</UserfriendlyName>
           <HexValue>0xF00100A5</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>166 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>166 FPS ==> MODE VER1 @ 180.5 FPS</UserfriendlyName>
           <HexValue>0xF00100A6</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>167 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>167 FPS ==> MODE VER1 @ 181.7 FPS</UserfriendlyName>
           <HexValue>0xF00100A7</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>168 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>168 FPS ==> MODE VER1 @ 182.9 FPS</UserfriendlyName>
           <HexValue>0xF00100A8</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>169 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>169 FPS ==> MODE VER1 @ 184.1 FPS</UserfriendlyName>
           <HexValue>0xF00100A9</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>170 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>170 FPS ==> MODE VER1 @ 185.3 FPS</UserfriendlyName>
           <HexValue>0xF00100AA</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>171 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>171 FPS ==> MODE VER1 @ 186.5 FPS</UserfriendlyName>
           <HexValue>0xF00100AB</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>172 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>172 FPS ==> MODE VER1 @ 187.7 FPS</UserfriendlyName>
           <HexValue>0xF00100AC</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>173 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>173 FPS ==> MODE VER1 @ 188.9 FPS</UserfriendlyName>
           <HexValue>0xF00100AD</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>174 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>174 FPS ==> MODE VER1 @ 190.1 FPS</UserfriendlyName>
           <HexValue>0xF00100AE</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>175 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>175 FPS ==> MODE VER1 @ 191.2 FPS</UserfriendlyName>
           <HexValue>0xF00100AF</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>176 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>176 FPS ==> MODE VER1 @ 192.4 FPS</UserfriendlyName>
           <HexValue>0xF00100B0</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>177 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>177 FPS ==> MODE VER1 @ 193.6 FPS</UserfriendlyName>
           <HexValue>0xF00100B1</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>178 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>178 FPS ==> MODE VER1 @ 194.8 FPS</UserfriendlyName>
           <HexValue>0xF00100B2</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>179 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>179 FPS ==> MODE VER1 @ 196.0 FPS</UserfriendlyName>
           <HexValue>0xF00100B3</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>180 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>180 FPS ==> MODE VER1 @ 197.2 FPS</UserfriendlyName>
           <HexValue>0xF00100B4</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>181 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>181 FPS ==> MODE VER1 @ 198.4 FPS</UserfriendlyName>
           <HexValue>0xF00100B5</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>182 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>182 FPS ==> MODE VER1 @ 199.6 FPS</UserfriendlyName>
           <HexValue>0xF00100B6</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>183 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>183 FPS ==> MODE VER1 @ 200.8 FPS</UserfriendlyName>
           <HexValue>0xF00100B7</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>184 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>184 FPS ==> MODE VER1 @ 202.0 FPS</UserfriendlyName>
           <HexValue>0xF00100B8</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>185 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>185 FPS ==> MODE VER1 @ 203.3 FPS</UserfriendlyName>
           <HexValue>0xF00100B9</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>186 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>186 FPS ==> MODE VER1 @ 204.5 FPS</UserfriendlyName>
           <HexValue>0xF00100BA</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>187 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>187 FPS ==> MODE VER1 @ 205.7 FPS</UserfriendlyName>
           <HexValue>0xF00100BB</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>188 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>188 FPS ==> MODE VER1 @ 206.9 FPS</UserfriendlyName>
           <HexValue>0xF00100BC</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>189 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>189 FPS ==> MODE VER1 @ 208.1 FPS</UserfriendlyName>
           <HexValue>0xF00100BD</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>190 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>190 FPS ==> MODE VER1 @ 209.3 FPS</UserfriendlyName>
           <HexValue>0xF00100BE</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>191 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>191 FPS ==> MODE VER1 @ 210.5 FPS</UserfriendlyName>
           <HexValue>0xF00100BF</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>192 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>192 FPS ==> MODE VER1 @ 211.7 FPS</UserfriendlyName>
           <HexValue>0xF00100C0</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>193 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>193 FPS ==> MODE VER1 @ 213.0 FPS</UserfriendlyName>
           <HexValue>0xF00100C1</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>194 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>194 FPS ==> MODE VER1 @ 214.2 FPS</UserfriendlyName>
           <HexValue>0xF00100C2</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>195 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>195 FPS ==> MODE VER1 @ 215.4 FPS</UserfriendlyName>
           <HexValue>0xF00100C3</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>196 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>196 FPS ==> MODE VER1 @ 216.6 FPS</UserfriendlyName>
           <HexValue>0xF00100C4</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>197 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>197 FPS ==> MODE VER1 @ 217.8 FPS</UserfriendlyName>
           <HexValue>0xF00100C5</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>198 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>198 FPS ==> MODE VER1 @ 219.1 FPS</UserfriendlyName>
           <HexValue>0xF00100C6</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>199 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>199 FPS ==> MODE VER1 @ 220.3 FPS</UserfriendlyName>
           <HexValue>0xF00100C7</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>200 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>200 FPS ==> MODE VER1 @ 221.5 FPS</UserfriendlyName>
           <HexValue>0xF00100C8</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>201 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>201 FPS ==> MODE VER1 @ 222.7 FPS</UserfriendlyName>
           <HexValue>0xF00100C9</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>202 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>202 FPS ==> MODE VER1 @ 224.0 FPS</UserfriendlyName>
           <HexValue>0xF00100CA</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>203 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>203 FPS ==> MODE VER1 @ 225.2 FPS</UserfriendlyName>
           <HexValue>0xF00100CB</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>204 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>204 FPS ==> MODE VER1 @ 226.4 FPS</UserfriendlyName>
           <HexValue>0xF00100CC</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>205 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>205 FPS ==> MODE VER1 @ 227.7 FPS</UserfriendlyName>
           <HexValue>0xF00100CD</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>206 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>206 FPS ==> MODE VER1 @ 228.9 FPS</UserfriendlyName>
           <HexValue>0xF00100CE</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>207 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>207 FPS ==> MODE VER1 @ 230.1 FPS</UserfriendlyName>
           <HexValue>0xF00100CF</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>208 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>208 FPS ==> MODE VER1 @ 231.4 FPS</UserfriendlyName>
           <HexValue>0xF00100D0</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>209 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>209 FPS ==> MODE VER1 @ 232.6 FPS</UserfriendlyName>
           <HexValue>0xF00100D1</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>210 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>210 FPS ==> MODE VER1 @ 233.8 FPS</UserfriendlyName>
           <HexValue>0xF00100D2</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>211 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>211 FPS ==> MODE VER1 @ 235.1 FPS</UserfriendlyName>
           <HexValue>0xF00100D3</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>212 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>212 FPS ==> MODE VER1 @ 236.3 FPS</UserfriendlyName>
           <HexValue>0xF00100D4</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>213 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>213 FPS ==> MODE VER1 @ 237.6 FPS</UserfriendlyName>
           <HexValue>0xF00100D5</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>214 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>214 FPS ==> MODE VER1 @ 238.8 FPS</UserfriendlyName>
           <HexValue>0xF00100D6</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>215 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>215 FPS ==> MODE VER1 @ 240.0 FPS</UserfriendlyName>
           <HexValue>0xF00100D7</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>216 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>216 FPS ==> MODE VER1 @ 241.3 FPS</UserfriendlyName>
           <HexValue>0xF00100D8</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>217 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>217 FPS ==> MODE VER1 @ 242.5 FPS</UserfriendlyName>
           <HexValue>0xF00100D9</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>218 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>218 FPS ==> MODE VER1 @ 243.8 FPS</UserfriendlyName>
           <HexValue>0xF00100DA</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>219 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>219 FPS ==> MODE VER1 @ 245.0 FPS</UserfriendlyName>
           <HexValue>0xF00100DB</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>220 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>220 FPS ==> MODE VER1 @ 246.3 FPS</UserfriendlyName>
           <HexValue>0xF00100DC</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>221 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>221 FPS ==> MODE VER1 @ 247.5 FPS</UserfriendlyName>
           <HexValue>0xF00100DD</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>222 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>222 FPS ==> MODE VER1 @ 248.8 FPS</UserfriendlyName>
           <HexValue>0xF00100DE</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>223 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>223 FPS ==> MODE VER1 @ 250.0 FPS</UserfriendlyName>
           <HexValue>0xF00100DF</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>224 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>224 FPS ==> MODE VER1 @ 251.3 FPS</UserfriendlyName>
           <HexValue>0xF00100E0</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>225 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>225 FPS ==> MODE VER1 @ 252.6 FPS</UserfriendlyName>
           <HexValue>0xF00100E1</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>226 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>226 FPS ==> MODE VER1 @ 253.8 FPS</UserfriendlyName>
           <HexValue>0xF00100E2</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>227 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>227 FPS ==> MODE VER1 @ 255.1 FPS</UserfriendlyName>
           <HexValue>0xF00100E3</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>228 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>228 FPS ==> MODE VER1 @ 256.3 FPS</UserfriendlyName>
           <HexValue>0xF00100E4</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>229 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>229 FPS ==> MODE VER1 @ 257.6 FPS</UserfriendlyName>
           <HexValue>0xF00100E5</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>230 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>230 FPS ==> MODE VER1 @ 258.9 FPS</UserfriendlyName>
           <HexValue>0xF00100E6</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>231 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>231 FPS ==> MODE VER1 @ 260.1 FPS</UserfriendlyName>
           <HexValue>0xF00100E7</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>232 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>232 FPS ==> MODE VER1 @ 261.4 FPS</UserfriendlyName>
           <HexValue>0xF00100E8</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>233 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>233 FPS ==> MODE VER1 @ 262.7 FPS</UserfriendlyName>
           <HexValue>0xF00100E9</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>234 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>234 FPS ==> MODE VER1 @ 263.9 FPS</UserfriendlyName>
           <HexValue>0xF00100EA</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>235 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>235 FPS ==> MODE VER1 @ 265.2 FPS</UserfriendlyName>
           <HexValue>0xF00100EB</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>236 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>236 FPS ==> MODE VER1 @ 266.5 FPS</UserfriendlyName>
           <HexValue>0xF00100EC</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>237 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>237 FPS ==> MODE VER1 @ 267.7 FPS</UserfriendlyName>
           <HexValue>0xF00100ED</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>238 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>238 FPS ==> MODE VER1 @ 269.0 FPS</UserfriendlyName>
           <HexValue>0xF00100EE</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>239 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>239 FPS ==> MODE VER1 @ 270.3 FPS</UserfriendlyName>
           <HexValue>0xF00100EF</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>240 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>240 FPS ==> MODE VER1 @ 271.6 FPS</UserfriendlyName>
           <HexValue>0xF00100F0</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>241 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>241 FPS ==> MODE VER1 @ 272.8 FPS</UserfriendlyName>
           <HexValue>0xF00100F1</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>242 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>242 FPS ==> MODE VER1 @ 274.1 FPS</UserfriendlyName>
           <HexValue>0xF00100F2</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>243 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>243 FPS ==> MODE VER1 @ 275.4 FPS</UserfriendlyName>
           <HexValue>0xF00100F3</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>244 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>244 FPS ==> MODE VER1 @ 276.7 FPS</UserfriendlyName>
           <HexValue>0xF00100F4</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>245 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>245 FPS ==> MODE VER1 @ 278.0 FPS</UserfriendlyName>
           <HexValue>0xF00100F5</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>246 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>246 FPS ==> MODE VER1 @ 279.3 FPS</UserfriendlyName>
           <HexValue>0xF00100F6</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>247 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>247 FPS ==> MODE VER1 @ 280.5 FPS</UserfriendlyName>
           <HexValue>0xF00100F7</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>248 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>248 FPS ==> MODE VER1 @ 281.8 FPS</UserfriendlyName>
           <HexValue>0xF00100F8</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>249 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>249 FPS ==> MODE VER1 @ 283.1 FPS</UserfriendlyName>
           <HexValue>0xF00100F9</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>250 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>250 FPS ==> MODE VER1 @ 284.4 FPS</UserfriendlyName>
           <HexValue>0xF00100FA</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>251 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>251 FPS ==> MODE VER1 @ 285.7 FPS</UserfriendlyName>
           <HexValue>0xF00100FB</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>252 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>252 FPS ==> MODE VER1 @ 287.0 FPS</UserfriendlyName>
           <HexValue>0xF00100FC</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>253 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>253 FPS ==> MODE VER1 @ 288.3 FPS</UserfriendlyName>
           <HexValue>0xF00100FD</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>254 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>254 FPS ==> MODE VER1 @ 289.6 FPS</UserfriendlyName>
           <HexValue>0xF00100FE</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>255 fps (v2)</UserfriendlyName>
+          <UserfriendlyName>255 FPS ==> MODE VER1 @ 290.9 FPS</UserfriendlyName>
           <HexValue>0xF00100FF</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>60°C</UserfriendlyName>
-          <HexValue>0xF200003C</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>65°C</UserfriendlyName>
-          <HexValue>0xF2000041</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>70°C</UserfriendlyName>
-          <HexValue>0xF2000046</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>75°C</UserfriendlyName>
-          <HexValue>0xF200004B</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>80°C</UserfriendlyName>
-          <HexValue>0xF2000050</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>85°C</UserfriendlyName>
-          <HexValue>0xF2000055</HexValue>
-        </CustomSettingValue>
-        <CustomSettingValue>
-          <UserfriendlyName>90°C</UserfriendlyName>
-          <HexValue>0xF200005A</HexValue>
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
