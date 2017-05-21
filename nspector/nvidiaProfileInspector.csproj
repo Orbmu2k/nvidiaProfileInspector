@@ -238,6 +238,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Native\NVAPI\NvApiDriverSettings.h" />
+    <Content Include="Reference.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Images\transparent16.png" />
     <None Include="Images\n1-016.png" />
     <None Include="Images\0_gear2.png" />
