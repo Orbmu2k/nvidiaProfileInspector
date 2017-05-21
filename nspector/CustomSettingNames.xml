@@ -260,6 +260,43 @@
       <SettingMasks />
     </CustomSetting>
     <CustomSetting>
+      <UserfriendlyName>Flip Indicator</UserfriendlyName>
+      <HexSettingID>0x002CF156</HexSettingID>
+      <Description />
+      <GroupName>2 - Sync and Refresh</GroupName>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Disabled</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>GRAPH_FLIP_FPS - FPS graph, measured on display hw flip</UserfriendlyName>
+          <HexValue>0x00000001</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>GRAPH_PRESENT_FPS - FPS graph, measured when the user mode driver starts processing present</UserfriendlyName>
+          <HexValue>0x00000002</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>GRAPH_APP_PRESENT_FPS - FPS graph, measured on app present</UserfriendlyName>
+          <HexValue>0x00000004</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>DISPLAY_PAGING - Add red paging indicator bars to the GRAPH_PRESENT_FPS graph</UserfriendlyName>
+          <HexValue>0x00000008</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>DISPLAY_APP_THREAD_WAIT - Add app thread wait time indiator bars to the GRAPH_APP_PRESENT_FPS graph</UserfriendlyName>
+          <HexValue>0x00000010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>Enabled - Enable everything</UserfriendlyName>
+          <HexValue>0x0000001F</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+      <SettingMasks />
+    </CustomSetting>
+    <CustomSetting>
       <UserfriendlyName>Frame Rate Limiter Mode</UserfriendlyName>
       <HexSettingID>0x10834FFF</HexSettingID>
       <MinRequiredDriverVersion>372.00</MinRequiredDriverVersion>
@@ -275,7 +312,7 @@
           <HexValue>0x00000020</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>Limiter V2 - Force Off [Enables Limiter V1]</UserfriendlyName>
+          <UserfriendlyName>Limiter V2 - Force Off [Enables Limiter V1 (Less Input Lag)]</UserfriendlyName>
           <HexValue>0x00000040</HexValue>
         </CustomSettingValue>
       </SettingValues>
@@ -2627,6 +2664,24 @@
         <CustomSettingValue>
           <UserfriendlyName>Optimal performance</UserfriendlyName>
           <HexValue>0x00000005</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+      <SettingMasks />
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CUDA - Force P2 State</UserfriendlyName>
+      <HexSettingID>0x50166C5E</HexSettingID>
+      <Description />
+      <GroupName>5 - Common</GroupName>
+      <OverrideDefault>0x00000001</OverrideDefault>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Off</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>On</UserfriendlyName>
+          <HexValue>0x00000001</HexValue>
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
