@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <CustomSettingNames>
   <ShowCustomizedSettingNamesOnly>false</ShowCustomizedSettingNamesOnly>
   <Settings>
@@ -470,7 +470,7 @@
           <HexValue>0xF0810039</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>58 FPS</UserfriendlyName>
+          <UserfriendlyName>58 FPS ( might improve inputlag on vsync 60Hz )</UserfriendlyName>
           <HexValue>0xF081003A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
@@ -530,7 +530,7 @@
           <HexValue>0xF0810048</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>73 FPS</UserfriendlyName>
+          <UserfriendlyName>73 FPS ( might improve inputlag on vsync 75Hz )</UserfriendlyName>
           <HexValue>0xF0810049</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
@@ -710,7 +710,7 @@
           <HexValue>0xF0810075</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>118 FPS</UserfriendlyName>
+          <UserfriendlyName>118 FPS ( might improve inputlag on vsync 120Hz )</UserfriendlyName>
           <HexValue>0xF0810076</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
@@ -806,7 +806,7 @@
           <HexValue>0xF081008D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>142 FPS</UserfriendlyName>
+          <UserfriendlyName>142 FPS ( might improve inputlag on vsync 142Hz )</UserfriendlyName>
           <HexValue>0xF081008E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
@@ -1339,208 +1339,328 @@
       </SettingValues>
       <SettingMasks />
     </CustomSetting>
-    <CustomSetting>
-      <UserfriendlyName>Texture filtering - LOD Bias (DX)</UserfriendlyName>
+     <CustomSetting>
+      <UserfriendlyName>Texture filtering - LOD bias (DX)</UserfriendlyName>
       <HexSettingID>0x00738E8F</HexSettingID>
       <Description />
       <GroupName>4 - Texture Filtering</GroupName>
       <SettingValues>
         <CustomSettingValue>
-          <UserfriendlyName>-3.0000</UserfriendlyName>
+          <UserfriendlyName>-3.000</UserfriendlyName>
           <HexValue>0xFFFFFFE8</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-2.8750</UserfriendlyName>
+          <UserfriendlyName>-2.875</UserfriendlyName>
           <HexValue>0xFFFFFFE9</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-2.7500</UserfriendlyName>
+          <UserfriendlyName>-2.750</UserfriendlyName>
           <HexValue>0xFFFFFFEA</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-2.6250</UserfriendlyName>
+          <UserfriendlyName>-2.625</UserfriendlyName>
           <HexValue>0xFFFFFFEB</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-2.5000</UserfriendlyName>
+          <UserfriendlyName>-2.500</UserfriendlyName>
           <HexValue>0xFFFFFFEC</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-2.3750</UserfriendlyName>
+          <UserfriendlyName>-2.375</UserfriendlyName>
           <HexValue>0xFFFFFFED</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-2.2500</UserfriendlyName>
+          <UserfriendlyName>-2.250</UserfriendlyName>
           <HexValue>0xFFFFFFEE</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-2.1250</UserfriendlyName>
+          <UserfriendlyName>-2.125</UserfriendlyName>
           <HexValue>0xFFFFFFEF</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-2.0000</UserfriendlyName>
+          <UserfriendlyName>-2.000</UserfriendlyName>
           <HexValue>0xFFFFFFF0</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-1.8750</UserfriendlyName>
+          <UserfriendlyName>-1.875</UserfriendlyName>
           <HexValue>0xFFFFFFF1</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-1.7500</UserfriendlyName>
+          <UserfriendlyName>-1.750</UserfriendlyName>
           <HexValue>0xFFFFFFF2</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-1.6250</UserfriendlyName>
+          <UserfriendlyName>-1.625</UserfriendlyName>
           <HexValue>0xFFFFFFF3</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-1.5000</UserfriendlyName>
+          <UserfriendlyName>-1.500</UserfriendlyName>
           <HexValue>0xFFFFFFF4</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-1.3750</UserfriendlyName>
+          <UserfriendlyName>-1.375</UserfriendlyName>
           <HexValue>0xFFFFFFF5</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-1.2500</UserfriendlyName>
+          <UserfriendlyName>-1.250</UserfriendlyName>
           <HexValue>0xFFFFFFF6</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-1.1250</UserfriendlyName>
+          <UserfriendlyName>-1.125</UserfriendlyName>
           <HexValue>0xFFFFFFF7</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-1.0000</UserfriendlyName>
+          <UserfriendlyName>-1.000</UserfriendlyName>
           <HexValue>0xFFFFFFF8</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-0.8750</UserfriendlyName>
+          <UserfriendlyName>-0.875</UserfriendlyName>
           <HexValue>0xFFFFFFF9</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-0.7500</UserfriendlyName>
+          <UserfriendlyName>-0.750</UserfriendlyName>
           <HexValue>0xFFFFFFFA</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-0.6250</UserfriendlyName>
+          <UserfriendlyName>-0.625</UserfriendlyName>
           <HexValue>0xFFFFFFFB</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-0.5000</UserfriendlyName>
+          <UserfriendlyName>-0.500</UserfriendlyName>
           <HexValue>0xFFFFFFFC</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-0.3750</UserfriendlyName>
+          <UserfriendlyName>-0.375</UserfriendlyName>
           <HexValue>0xFFFFFFFD</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-0.2500</UserfriendlyName>
+          <UserfriendlyName>-0.250</UserfriendlyName>
           <HexValue>0xFFFFFFFE</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>-0.1250</UserfriendlyName>
+          <UserfriendlyName>-0.125</UserfriendlyName>
           <HexValue>0xFFFFFFFF</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+0.0000</UserfriendlyName>
+          <UserfriendlyName>+0.000 / Automatic</UserfriendlyName>
           <HexValue>0x00000000</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+0.1250</UserfriendlyName>
+          <UserfriendlyName>+0.125</UserfriendlyName>
           <HexValue>0x00000001</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+0.2500</UserfriendlyName>
+          <UserfriendlyName>+0.250</UserfriendlyName>
           <HexValue>0x00000002</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+0.3750</UserfriendlyName>
+          <UserfriendlyName>+0.375</UserfriendlyName>
           <HexValue>0x00000003</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+0.5000</UserfriendlyName>
+          <UserfriendlyName>+0.500</UserfriendlyName>
           <HexValue>0x00000004</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+0.6250</UserfriendlyName>
+          <UserfriendlyName>+0.625</UserfriendlyName>
           <HexValue>0x00000005</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+0.7500</UserfriendlyName>
+          <UserfriendlyName>+0.750</UserfriendlyName>
           <HexValue>0x00000006</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+0.8750</UserfriendlyName>
+          <UserfriendlyName>+0.875</UserfriendlyName>
           <HexValue>0x00000007</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+1.0000</UserfriendlyName>
+          <UserfriendlyName>+1.000</UserfriendlyName>
           <HexValue>0x00000008</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+1.1250</UserfriendlyName>
+          <UserfriendlyName>+1.125</UserfriendlyName>
           <HexValue>0x00000009</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+1.2500</UserfriendlyName>
+          <UserfriendlyName>+1.250</UserfriendlyName>
           <HexValue>0x0000000A</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+1.3750</UserfriendlyName>
+          <UserfriendlyName>+1.375</UserfriendlyName>
           <HexValue>0x0000000B</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+1.5000</UserfriendlyName>
+          <UserfriendlyName>+1.500</UserfriendlyName>
           <HexValue>0x0000000C</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+1.6250</UserfriendlyName>
+          <UserfriendlyName>+1.625</UserfriendlyName>
           <HexValue>0x0000000D</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+1.7500</UserfriendlyName>
+          <UserfriendlyName>+1.750</UserfriendlyName>
           <HexValue>0x0000000E</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+1.8750</UserfriendlyName>
+          <UserfriendlyName>+1.875</UserfriendlyName>
           <HexValue>0x0000000F</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+2.0000</UserfriendlyName>
+          <UserfriendlyName>+2.000</UserfriendlyName>
           <HexValue>0x00000010</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+2.1250</UserfriendlyName>
+          <UserfriendlyName>+2.125</UserfriendlyName>
           <HexValue>0x00000011</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+2.2500</UserfriendlyName>
+          <UserfriendlyName>+2.250</UserfriendlyName>
           <HexValue>0x00000012</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+2.3750</UserfriendlyName>
+          <UserfriendlyName>+2.375</UserfriendlyName>
           <HexValue>0x00000013</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+2.5000</UserfriendlyName>
+          <UserfriendlyName>+2.500</UserfriendlyName>
           <HexValue>0x00000014</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+2.6250</UserfriendlyName>
+          <UserfriendlyName>+2.625</UserfriendlyName>
           <HexValue>0x00000015</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+2.7500</UserfriendlyName>
+          <UserfriendlyName>+2.750</UserfriendlyName>
           <HexValue>0x00000016</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+2.8750</UserfriendlyName>
+          <UserfriendlyName>+2.875</UserfriendlyName>
           <HexValue>0x00000017</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>+3.0000</UserfriendlyName>
+          <UserfriendlyName>+3.000</UserfriendlyName>
           <HexValue>0x00000018</HexValue>
         </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+3.125</UserfriendlyName>
+          <HexValue>0x00000019</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+3.250</UserfriendlyName>
+          <HexValue>0x0000001A</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+3.375</UserfriendlyName>
+          <HexValue>0x0000001B</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+3.500</UserfriendlyName>
+          <HexValue>0x0000001C</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+4.000</UserfriendlyName>
+          <HexValue>0x00000020</HexValue>
+        </CustomSettingValue>
+		<CustomSettingValue>
+          <UserfriendlyName>+5.000</UserfriendlyName>
+          <HexValue>0x00000028</HexValue>
+        </CustomSettingValue>
+		<CustomSettingValue>
+          <UserfriendlyName>+6.000</UserfriendlyName>
+          <HexValue>0x00000030</HexValue>
+        </CustomSettingValue>
+		<CustomSettingValue>
+          <UserfriendlyName>+7.000</UserfriendlyName>
+          <HexValue>0x00000038</HexValue>
+        </CustomSettingValue>
+		<CustomSettingValue>
+          <UserfriendlyName>+8.000</UserfriendlyName>
+          <HexValue>0x00000040</HexValue>
+        </CustomSettingValue>
+		<CustomSettingValue>
+          <UserfriendlyName>+9.000</UserfriendlyName>
+          <HexValue>0x00000048</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+10.000</UserfriendlyName>
+          <HexValue>0x00000050</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+11.000</UserfriendlyName>
+          <HexValue>0x00000058</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+12.000</UserfriendlyName>
+          <HexValue>0x00000060</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+13.000</UserfriendlyName>
+          <HexValue>0x00000068</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+14.000</UserfriendlyName>
+          <HexValue>0x00000070</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+15.000 / Maximum</UserfriendlyName>
+          <HexValue>0x00000078</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+16.000</UserfriendlyName>
+          <HexValue>0x00000080</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+17.000</UserfriendlyName>
+          <HexValue>0x00000088</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+18.000</UserfriendlyName>
+          <HexValue>0x00000090</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+19.000</UserfriendlyName>
+          <HexValue>0x00000098</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+20.000</UserfriendlyName>
+          <HexValue>0x000000A0</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+21.000</UserfriendlyName>
+          <HexValue>0x000000A8</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+22.000</UserfriendlyName>
+          <HexValue>0x000000B0</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+23.000</UserfriendlyName>
+          <HexValue>0x000000B8</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+24.000</UserfriendlyName>
+          <HexValue>0x000000C0</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+25.000</UserfriendlyName>
+          <HexValue>0x000000C8</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+26.000</UserfriendlyName>
+          <HexValue>0x000000D0</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>+27.000</UserfriendlyName>
+          <HexValue>0x000000D8</HexValue>
+        </CustomSettingValue>	
+        <CustomSettingValue>
+          <UserfriendlyName>+30.000 *EXPERIMENTAL*</UserfriendlyName>
+          <HexValue>0x000000F0</HexValue>
+        </CustomSettingValue>	
+        <CustomSettingValue>
+          <UserfriendlyName>+32.000 *EXPERIMENTAL*</UserfriendlyName>
+          <HexValue>0x00000100</HexValue>
+        </CustomSettingValue>			
       </SettingValues>
       <SettingMasks />
     </CustomSetting>
