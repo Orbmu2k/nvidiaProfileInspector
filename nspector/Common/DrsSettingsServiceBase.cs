@@ -155,6 +155,26 @@ namespace nspector.Common
 
         }
 
+        protected void StoreBinaryValue(IntPtr hSession, IntPtr hProfile, uint settingId, byte[] binValue)
+        {
+            var newSetting = new NVDRS_SETTING()
+            {
+                version = nvw.NVDRS_SETTING_VER,
+                settingId = settingId,
+                settingType = NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE,
+                settingLocation = NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION,
+                currentValue = new NVDRS_SETTING_UNION()
+                {
+                    binaryValue = binValue,
+                },
+            };
+
+            var ssRes = nvw.DRS_SetSetting(hSession, hProfile, ref newSetting);
+            if (ssRes != NvAPI_Status.NVAPI_OK)
+                throw new NvapiException("DRS_SetSetting", ssRes);
+
+        }
+
         protected NVDRS_SETTING? ReadSetting(IntPtr hSession, IntPtr hProfile, uint settingId)
         {
             var newSetting = new NVDRS_SETTING()

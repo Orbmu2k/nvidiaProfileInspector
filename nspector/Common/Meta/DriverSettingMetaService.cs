@@ -96,6 +96,25 @@ namespace nspector.Common.Meta
                     }
                 }
             }
+
+            if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+            {
+                result.DefaultBinaryValue = values.defaultValue.binaryValue;
+                result.BinaryValues = new List<SettingValue<byte[]>>();
+                for (int i = 0; i < values.numSettingValues; i++)
+                {
+                    var binValue = values.settingValues[i].binaryValue;
+                    if (binValue != null)
+                    {
+                        result.BinaryValues.Add(
+                            new SettingValue<byte[]>(Source)
+                            {
+                                Value = binValue,
+                                ValueName = DrsUtil.GetBinaryString(binValue),
+                            });
+                    }
+                }
+            }
             return result;
             
         }
@@ -178,6 +197,24 @@ namespace nspector.Common.Meta
         
         public string GetGroupName(uint settingId)
         {
+            return null;
+        }
+
+        public byte[] GetBinaryDefaultValue(uint settingId)
+        {
+            var settingMeta = GetSettingsMeta(settingId);
+            if (settingMeta != null)
+                return settingMeta.DefaultBinaryValue;
+
+            return null;
+        }
+
+        public List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
+        {
+            var settingMeta = GetSettingsMeta(settingId);
+            if (settingMeta != null)
+                return settingMeta.BinaryValues;
+
             return null;
         }
 

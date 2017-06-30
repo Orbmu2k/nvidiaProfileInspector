@@ -235,6 +235,13 @@ namespace nspector
                                 cbValues.Items.Add(v);
                         }
 
+                        if (settingMeta.SettingType == Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE && settingMeta.BinaryValues != null)
+                        {
+                            var valueNames = settingMeta.BinaryValues.Select(x => x.ValueName).ToList();
+                            foreach (string v in valueNames)
+                                cbValues.Items.Add(v);
+                        }
+
                         var scannedCount = settingMeta?.DwordValues?
                             .Where(x => x.ValueSource == Common.Meta.SettingMetaSource.ScannedSettings)
                             .Count();
@@ -337,9 +344,14 @@ namespace nspector
                     lvItem.SubItems[2].Text = DrsUtil.GetDwordString(DrsUtil.ParseDwordSettingValue(settingMeta, cbValueText));
                     lvItem.SubItems[1].Text = cbValueText;
                 }
-                else
+                else if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
                 {
                     lvItem.SubItems[2].Text = DrsUtil.ParseStringSettingValue(settingMeta, cbValueText); // DrsUtil.StringValueRaw;
+                    lvItem.SubItems[1].Text = cbValueText;
+                }
+                else if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+                {
+                    lvItem.SubItems[2].Text = DrsUtil.GetBinaryString(DrsUtil.ParseBinarySettingValue(settingMeta, cbValueText)); // DrsUtil.StringValueRaw;
                     lvItem.SubItems[1].Text = cbValueText;
                 }
 

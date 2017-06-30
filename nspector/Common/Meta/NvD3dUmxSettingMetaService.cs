@@ -106,11 +106,27 @@ namespace nspector.Common.Meta
 
         private readonly List<NvD3dUmxName> _SettingNames;
 
+        private void ExportSettingsToCsn()
+        {
+            var settings = _SettingNames.Select(s => new CustomSettings.CustomSetting()
+            {
+                GroupName = "7 - Stereo",
+                HexSettingId = $"0x{s.settingId.ToString("X8")}",
+                UserfriendlyName = s.settingName,
+            }).ToList();
+
+            var xml = new CustomSettings.CustomSettingNames();
+            xml.Settings.AddRange(settings);
+            xml.StoreToFile("NvD3dUmx.xml");
+        }
+
         public NvD3dUmxSettingMetaService()
         {
             var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
             var nvD3dUmxPath = Path.Combine(systemPath, "nvd3dumx.dll");
             _SettingNames = ParseNvD3dUmxNames(nvD3dUmxPath);
+
+            //ExportSettingsToCsn();
         }
 
         public Type GetSettingEnumType(uint settingId)
@@ -170,6 +186,16 @@ namespace nspector.Common.Meta
                 return setting.settingId != 0 ? "7 - Stereo" : null;
             }
 
+            return null;
+        }
+
+        public byte[] GetBinaryDefaultValue(uint settingId)
+        {
+            return null;
+        }
+
+        public List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
+        {
             return null;
         }
 

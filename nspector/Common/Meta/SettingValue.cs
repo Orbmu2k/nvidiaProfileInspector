@@ -26,5 +26,6 @@ namespace nspector.Common.Meta
 
             return string.Format("Value={0}; ValueName={1};", Value, ValueName);
         }
+        
     }
 }

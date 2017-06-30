@@ -93,6 +93,16 @@ namespace nspector.Common.Meta
             return null;
         }
 
+        public byte[] GetBinaryDefaultValue(uint settingId)
+        {
+            return null;
+        }
+
+        public List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
+        {
+            return null;
+        }
+
         public SettingMetaSource Source
         {
             get { return _source; }

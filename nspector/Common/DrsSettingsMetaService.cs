@@ -127,6 +127,18 @@ namespace nspector.Common
             return null;
         }
 
+        private byte[] GetBinaryDefaultValue(uint settingId)
+        {
+            foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
+            {
+                var settingDefault = service.Service.GetBinaryDefaultValue(settingId);
+                if (settingDefault != null)
+                    return settingDefault;
+            }
+
+            return null;
+        }
+
         private List<SettingValue<T>> MergeSettingValues<T>(List<SettingValue<T>> a, List<SettingValue<T>> b)
         {
             if (b == null)
@@ -157,7 +169,23 @@ namespace nspector.Common
                 }
             }
 
-            return a.OrderBy(x=>x.Value).ToList();
+            var atmp = a.FirstOrDefault();
+            if (atmp != null && atmp is IComparable)
+                return a.OrderBy(x=>x.Value).ToList();
+            else
+                return a.ToList();
+        }
+
+        private List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
+        {
+            var result = new List<SettingValue<byte[]>>();
+
+            foreach (var service in MetaServices.OrderByDescending(x => x.ValueNamePrio))
+            {
+                result = MergeSettingValues(result, service.Service.GetBinaryValues(settingId));
+            }
+
+            return result;
         }
 
         private List<SettingValue<string>> GetStringValues(uint settingId)
@@ -286,6 +314,10 @@ namespace nspector.Common
                     settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE
                     ? GetStringDefaultValue(settingId) : null,
 
+                DefaultBinaryValue =
+                    settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE
+                    ? GetBinaryDefaultValue(settingId) : null,
+
                 DwordValues =
                     settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE
                     ? GetDwordValues(settingId) : null,
@@ -293,6 +325,10 @@ namespace nspector.Common
                 StringValues =
                     settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE
                     ? GetStringValues(settingId) : null,
+
+                BinaryValues =
+                    settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE
+                    ? GetBinaryValues(settingId) : null,
             };
 
             return result;
@@ -304,6 +340,7 @@ namespace nspector.Common
             {
                 DefaultDwordValue = settingMeta.DefaultDwordValue,
                 DefaultStringValue = settingMeta.DefaultStringValue,
+                DefaultBinaryValue = settingMeta.DefaultBinaryValue,
                 SettingName = settingMeta.SettingName,
                 SettingType = settingMeta.SettingType,
                 GroupName = settingMeta.GroupName,
@@ -324,6 +361,12 @@ namespace nspector.Common
             if (settingMeta.StringValues != null)
             {
                 newMeta.StringValues = settingMeta.StringValues
+                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
+            }
+
+            if (settingMeta.BinaryValues != null)
+            {
+                newMeta.BinaryValues = settingMeta.BinaryValues
                     .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
             }
 

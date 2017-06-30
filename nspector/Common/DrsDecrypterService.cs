@@ -73,7 +73,7 @@ namespace nspector.Common
                         if (setting.isCurrentPredefined == 1)
                             setting.currentValue.stringValue = DecryptStringValue(setting.currentValue.rawData, setting.settingId);
                     }
-                    else
+                    else if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
                     {
                         setting.predefinedValue.dwordValue = DecryptDwordValue(setting.predefinedValue.dwordValue, setting.settingId);
                         if (setting.isCurrentPredefined == 1)

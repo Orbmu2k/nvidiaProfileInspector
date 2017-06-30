@@ -85,5 +85,24 @@ namespace nspector.Common.Meta
         {
             return CachedSettings.Select(c => c.SettingId).ToList();
         }
+
+        public byte[] GetBinaryDefaultValue(uint settingId)
+        {
+            return null;
+        }
+
+        public List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
+        {
+            var cached = CachedSettings.FirstOrDefault(x => x.SettingId.Equals(settingId));
+            if (cached != null)
+                return cached.SettingValues.Select(s => new SettingValue<byte[]>(Source)
+                {
+                    Value = s.ValueBin,
+                    ValueName = string.Format("{0} ({1})", DrsUtil.GetBinaryString(s.ValueBin), s.ProfileNames),
+
+                }).ToList();
+
+            return null;
+        }
     }
 }

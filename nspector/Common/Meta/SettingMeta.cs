@@ -18,8 +18,12 @@ namespace nspector.Common.Meta
 
         public uint DefaultDwordValue { get; set; }
 
+        public byte[] DefaultBinaryValue { get; set; }
+
         public List<SettingValue<string>> StringValues { get; set; }
 
         public List<SettingValue<uint>> DwordValues { get; set; }
+
+        public List<SettingValue<byte[]>> BinaryValues { get; set; }
     }
 }

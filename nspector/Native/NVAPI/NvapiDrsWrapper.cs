@@ -231,6 +231,24 @@ namespace nspector.Native.NVAPI2
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4100)]
         public byte[] rawData;
 
+        public byte[] binaryValue
+        {
+            get
+            {
+                var length = BitConverter.ToUInt32(rawData, 0);
+                var tmpData = new byte[length];
+                Buffer.BlockCopy(rawData, 4, tmpData, 0, (int)length);
+                return tmpData;
+            }
+
+            set
+            {
+                rawData = new byte[4100];
+                Buffer.BlockCopy(BitConverter.GetBytes(value.Length), 0, rawData, 0, 4);
+                Buffer.BlockCopy(value, 0, rawData, 4, value.Length);
+            }
+        }
+
         public uint dwordValue
         {
             get

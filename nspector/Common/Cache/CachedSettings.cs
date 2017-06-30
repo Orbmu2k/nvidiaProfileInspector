@@ -52,5 +52,21 @@ namespace nspector.Common
             }
             ProfileCount++;
         }
+
+        internal void AddBinaryValue(byte[] valueBin, string Profile)
+        {
+
+            var setting = SettingValues.FirstOrDefault(s => s.ValueBin.SequenceEqual(valueBin));
+            if (setting == null)
+            {
+                SettingValues.Add(new CachedSettingValue(valueBin, Profile));
+            }
+            else
+            {
+                setting.ProfileNames.Append(", " + Profile);
+                setting.ValueProfileCount++;
+            }
+            ProfileCount++;
+        }
     }
 }

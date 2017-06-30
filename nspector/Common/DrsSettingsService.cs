@@ -296,6 +296,11 @@ namespace nspector.Common
                         var str = DrsUtil.ParseStringSettingValue(settingMeta, setting.Value);
                         StoreStringValue(hSession, hProfile, setting.Key, str);
                     }
+                    else if (settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+                    {
+                        var bin = DrsUtil.ParseBinarySettingValue(settingMeta, setting.Value);
+                        StoreBinaryValue(hSession, hProfile, setting.Key, bin);
+                    }
                 }
 
                 SaveSettings(hSession);
@@ -319,7 +324,7 @@ namespace nspector.Common
 
 
             var settingState = SettingState.NotAssiged;
-            string valueRaw = DrsUtil.StringValueRaw;
+            string valueRaw = "";
             string valueText = "";
 
             if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
@@ -368,6 +373,31 @@ namespace nspector.Common
                 {
                     valueRaw = setting.currentValue.stringValue;
                     valueText = DrsUtil.GetStringSettingValueName(settingMeta, setting.currentValue.stringValue);
+
+                    if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                        settingState = SettingState.UserdefinedSetting;
+                    else
+                        settingState = SettingState.GlobalSetting;
+                }
+            }
+
+            if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+            {
+                if (useDefault)
+                {
+                    valueRaw = DrsUtil.GetBinaryString(settingMeta.DefaultBinaryValue);
+                    valueText = DrsUtil.GetBinarySettingValueName(settingMeta, settingMeta.DefaultBinaryValue);
+                }
+                else if (setting.isCurrentPredefined == 1 && setting.isPredefinedValid == 1)
+                {
+                    valueRaw = DrsUtil.GetBinaryString(setting.predefinedValue.binaryValue);
+                    valueText = DrsUtil.GetBinarySettingValueName(settingMeta, setting.predefinedValue.binaryValue);
+                    settingState = SettingState.NvidiaSetting;
+                }
+                else
+                {
+                    valueRaw = DrsUtil.GetBinaryString(setting.currentValue.binaryValue);
+                    valueText = DrsUtil.GetBinarySettingValueName(settingMeta, setting.currentValue.binaryValue);
 
                     if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
                         settingState = SettingState.UserdefinedSetting;

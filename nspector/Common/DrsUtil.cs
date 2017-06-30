@@ -70,5 +70,32 @@ namespace nspector.Common
             return settingValue == null ? stringValue : settingValue.ValueName;
         }
 
+        public static string GetBinaryString(byte[] binaryValue)
+        {
+            return BitConverter.ToString(binaryValue);
+        }
+
+        internal static string GetBinarySettingValueName(SettingMeta meta, byte[] binaryValue)
+        {
+            var settingValue = meta.BinaryValues?
+                       .FirstOrDefault(x => x.Value.Equals(binaryValue));
+
+            return settingValue == null ? GetBinaryString(binaryValue) : settingValue.ValueName;
+        }
+
+        internal static byte[] ParseBinarySettingValue(SettingMeta meta, string text)
+        {
+            var valueByName = meta.BinaryValues.FirstOrDefault(x => x.ValueName != null && x.ValueName.Equals(text));
+            if (valueByName != null)
+                return valueByName.Value;
+
+            return ParseBinaryByInputSafe(text);
+        }
+
+        public static byte[] ParseBinaryByInputSafe(string input)
+        {
+            return Array.ConvertAll<string, byte>(input.Split('-'), s => Convert.ToByte(s, 16));
+        }
+
     }
 }
