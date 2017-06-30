@@ -72,6 +72,9 @@ namespace nspector.Common
 
         public static string GetBinaryString(byte[] binaryValue)
         {
+            if (binaryValue == null)
+                return "";
+
             return BitConverter.ToString(binaryValue);
         }
 
@@ -94,6 +97,9 @@ namespace nspector.Common
 
         public static byte[] ParseBinaryByInputSafe(string input)
         {
+            if (string.IsNullOrWhiteSpace(input) || !input.Contains("-"))
+                return null;
+
             return Array.ConvertAll<string, byte>(input.Split('-'), s => Convert.ToByte(s, 16));
         }
 

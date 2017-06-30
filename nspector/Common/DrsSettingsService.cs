@@ -322,6 +322,9 @@ namespace nspector.Common
             if (settingMeta.StringValues == null)
                 settingMeta.StringValues = new List<SettingValue<string>>();
 
+            if (settingMeta.BinaryValues == null)
+                settingMeta.BinaryValues = new List<SettingValue<byte[]>>();
+
 
             var settingState = SettingState.NotAssiged;
             string valueRaw = "";

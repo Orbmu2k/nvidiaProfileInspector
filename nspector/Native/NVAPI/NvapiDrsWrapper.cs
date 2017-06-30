@@ -244,8 +244,11 @@ namespace nspector.Native.NVAPI2
             set
             {
                 rawData = new byte[4100];
-                Buffer.BlockCopy(BitConverter.GetBytes(value.Length), 0, rawData, 0, 4);
-                Buffer.BlockCopy(value, 0, rawData, 4, value.Length);
+                if (value != null)
+                {
+                    Buffer.BlockCopy(BitConverter.GetBytes(value.Length), 0, rawData, 0, 4);
+                    Buffer.BlockCopy(value, 0, rawData, 4, value.Length);
+                }
             }
         }
 
