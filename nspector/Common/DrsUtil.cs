@@ -75,6 +75,9 @@ namespace nspector.Common
             if (binaryValue == null)
                 return "";
 
+            if (binaryValue.Length == 8)
+                return string.Format("0x{0:X16}", BitConverter.ToUInt64(binaryValue, 0));
+
             return BitConverter.ToString(binaryValue);
         }
 
@@ -97,10 +100,21 @@ namespace nspector.Common
 
         public static byte[] ParseBinaryByInputSafe(string input)
         {
-            if (string.IsNullOrWhiteSpace(input) || !input.Contains("-"))
+            if (string.IsNullOrWhiteSpace(input))
                 return null;
 
-            return Array.ConvertAll<string, byte>(input.Split('-'), s => Convert.ToByte(s, 16));
+            if (input.StartsWith("0x"))
+            {
+                int blankPos = input.IndexOf(' ');
+                int parseLen = blankPos > 2 ? blankPos - 2 : input.Length - 2;
+                var qword = ulong.Parse(input.Substring(2, parseLen), NumberStyles.AllowHexSpecifier);
+                return BitConverter.GetBytes(qword);
+            }
+
+            if (input.Contains("-"))
+                return Array.ConvertAll<string, byte>(input.Split('-'), s => Convert.ToByte(s, 16));
+
+            return null;
         }
 
     }
