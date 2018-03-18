@@ -514,6 +514,7 @@
             this.lvSettings.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.lvSettings_ColumnWidthChanging);
             this.lvSettings.SelectedIndexChanged += new System.EventHandler(this.lvSettings_SelectedIndexChanged);
             this.lvSettings.DoubleClick += new System.EventHandler(this.lvSettings_DoubleClick);
+            this.lvSettings.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvSettings_KeyDown);
             this.lvSettings.Resize += new System.EventHandler(this.lvSettings_Resize);
             // 
             // chSettingID

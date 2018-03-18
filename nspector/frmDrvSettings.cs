@@ -1215,6 +1215,23 @@ namespace nspector
                 Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
             }
         }
+
+        private void lvSettings_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.G | Keys.Control))
+            {
+                //58 FPS
+                DrsServiceLocator.SettingService.SetDwordValueToProfile(_CurrentProfile, 277041134, 4035002426);
+                //Limiter V1
+                DrsServiceLocator.SettingService.SetDwordValueToProfile(_CurrentProfile, 277041151, 64);
+                //GSYNC Windowed
+                DrsServiceLocator.SettingService.SetDwordValueToProfile(_CurrentProfile, 294973784, 2);
+                //FASTSYNC
+                DrsServiceLocator.SettingService.SetDwordValueToProfile(_CurrentProfile, 11041231, 411601032);
+
+                RefreshCurrentProfile();
+            }
+        }
     }
 }
 
