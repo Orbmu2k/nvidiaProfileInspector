@@ -1959,6 +1959,13 @@
       <SettingMasks />
     </CustomSetting>
     <CustomSetting>
+      <UserfriendlyName>SLI compatibility bits (OGL)</UserfriendlyName>
+      <HexSettingID>0x209746C1</HexSettingID>
+      <Description />
+      <GroupName>1 - Compatibility</GroupName>
+      <SettingValues />
+    </CustomSetting>
+    <CustomSetting>
       <UserfriendlyName>SLI compatibility bits (DX12)</UserfriendlyName>
       <HexSettingID>0x00A04746</HexSettingID>
       <Description />
