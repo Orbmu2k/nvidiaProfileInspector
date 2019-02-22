@@ -3,6 +3,23 @@
   <ShowCustomizedSettingNamesOnly>false</ShowCustomizedSettingNamesOnly>
   <Settings>
     <CustomSetting>
+      <UserfriendlyName>Anisotropic filtering HQ Fix</UserfriendlyName>
+      <HexSettingID>0X00CE2692</HexSettingID>
+      <GroupName>4 - Texture Filtering</GroupName>
+      <MinRequiredDriverVersion>418.00</MinRequiredDriverVersion>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Off</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>On</UserfriendlyName>
+          <HexValue>0x00000001</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+      <SettingMasks />
+    </CustomSetting>
+    <CustomSetting>
       <UserfriendlyName>Enable Maxwell sample interleaving (MFAA)</UserfriendlyName>
       <HexSettingID>0x0098C1AC</HexSettingID>
       <GroupName>3 - Antialiasing</GroupName>
@@ -2674,6 +2691,23 @@
       <Description />
       <GroupName>5 - Common</GroupName>
       <OverrideDefault>0x00000001</OverrideDefault>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Off</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>On</UserfriendlyName>
+          <HexValue>0x00000001</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+      <SettingMasks />
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Optimize for Compute Performance</UserfriendlyName>
+      <HexSettingID>0x10C158AD</HexSettingID>
+      <Description />
+      <GroupName>5 - Common</GroupName>
       <SettingValues>
         <CustomSettingValue>
           <UserfriendlyName>Off</UserfriendlyName>
