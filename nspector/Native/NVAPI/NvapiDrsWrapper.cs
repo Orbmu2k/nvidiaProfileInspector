@@ -270,13 +270,28 @@ namespace nspector.Native.NVAPI2
         {
             get
             {
-                return Encoding.Unicode.GetString(rawData).Trim('\0');
+                return Encoding.Unicode.GetString(rawData).Split(new[] { '\0' }, 2)[0];
             }
 
             set
             {
                 rawData = new byte[4100];
                 var bytesRaw = Encoding.Unicode.GetBytes(value);
+                Buffer.BlockCopy(bytesRaw, 0, rawData, 0, bytesRaw.Length);
+            }
+        }
+
+        public string ansiStringValue
+        {
+            get
+            {
+                return Encoding.Default.GetString(rawData).Split(new[] { '\0' }, 2)[0];
+            }
+
+            set
+            {
+                rawData = new byte[4100];
+                var bytesRaw = Encoding.Default.GetBytes(value);
                 Buffer.BlockCopy(bytesRaw, 0, rawData, 0, bytesRaw.Length);
             }
         }

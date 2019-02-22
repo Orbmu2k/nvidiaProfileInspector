@@ -15,12 +15,18 @@ namespace nspector.Common
 
         private readonly DrsSettingsService _SettingService;
         private readonly DrsScannerService _ScannerService;
+        private readonly DrsDecrypterService _DecrypterService;
 
-        public DrsImportService(DrsSettingsMetaService metaService, DrsSettingsService settingService, DrsScannerService scannerService)
+        public DrsImportService(
+            DrsSettingsMetaService metaService, 
+            DrsSettingsService settingService, 
+            DrsScannerService scannerService,
+            DrsDecrypterService decrypterService)
             : base(metaService)
         {
             _SettingService = settingService;
             _ScannerService = scannerService;
+            _DecrypterService = decrypterService;
         }
 
         internal void ExportAllProfilesToNvidiaTextFile(string filename)
@@ -76,22 +82,18 @@ namespace nspector.Common
                 foreach (var setting in settings)
                 {
                     var isPredefined = setting.isCurrentPredefined == 1;
-                    var isDwordSetting = setting.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
                     var isCurrentProfile = setting.settingLocation ==
                                            NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION;
 
-                    if (isDwordSetting && isCurrentProfile)
+                    if (isCurrentProfile && (!isPredefined || includePredefined))
                     {
-                        if (!isPredefined || includePredefined)
-                        {
-                            var profileSetting = new ProfileSetting()
-                            {
-                                SettingNameInfo = setting.settingName,
-                                SettingId = setting.settingId,
-                                SettingValue = setting.currentValue.dwordValue,
-                            };
-                            result.Settings.Add(profileSetting);
-                        }
+                        var exportSetting = setting;
+                        _DecrypterService.DecryptSettingIfNeeded(profileName, ref exportSetting);
+
+                        var profileSetting = ImportExportUitl
+                            .ConvertDrsSettingToProfileSetting(exportSetting);
+
+                        result.Settings.Add(profileSetting);
                     }
                 }
 
@@ -126,7 +128,7 @@ namespace nspector.Common
                         try
                         {
                             UpdateApplications(hSession, hProfile, profile);
-                            UpdateSettings(hSession, hProfile, profile);
+                            UpdateSettings(hSession, hProfile, profile, profile.ProfileName);
                         }
                         catch (NvapiException nex)
                         {
@@ -202,9 +204,15 @@ namespace nspector.Common
                 .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
             if (setting != null)
-                return setting.SettingValue;
+                return uint.Parse(setting.SettingValue);
 
             return 0;
+        }
+
+        private ProfileSetting GetImportProfileSetting(uint settingId, Profile importProfile)
+        {
+            return importProfile.Settings
+                .FirstOrDefault(x => x.SettingId.Equals(settingId));
         }
 
         private bool ExistsImportValue(uint settingId, Profile importProfile)
@@ -213,7 +221,7 @@ namespace nspector.Common
                 .Any(x => x.SettingId.Equals(settingId));
         }
 
-        private void UpdateSettings(IntPtr hSession, IntPtr hProfile, Profile importProfile)
+        private void UpdateSettings(IntPtr hSession, IntPtr hProfile, Profile importProfile, string profileName)
         {
             var alreadySet = new HashSet<uint>();
 
@@ -221,20 +229,24 @@ namespace nspector.Common
             foreach (var setting in settings)
             {
                 var isCurrentProfile = setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION;
-                var isDwordSetting = setting.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
                 var isPredefined = setting.isCurrentPredefined == 1;
 
-                if (isCurrentProfile && isDwordSetting)
+                if (isCurrentProfile)
                 {
-                    bool exitsValue = ExistsImportValue(setting.settingId, importProfile);
-                    uint importValue = GetImportValue(setting.settingId, importProfile);
-                    if (isPredefined && exitsValue && importValue == setting.currentValue.dwordValue)
+                    bool exitsValueInImport = ExistsImportValue(setting.settingId, importProfile);
+                    var importSetting = GetImportProfileSetting(setting.settingId, importProfile);
+
+                    var decryptedSetting = setting;
+                    _DecrypterService.DecryptSettingIfNeeded(profileName, ref decryptedSetting);
+
+                    if (isPredefined && exitsValueInImport && ImportExportUitl.AreDrsSettingEqualToProfileSetting(decryptedSetting, importSetting)) 
                     {
                         alreadySet.Add(setting.settingId);
                     }
-                    else if (exitsValue)
+                    else if (exitsValueInImport)
                     {
-                        StoreDwordValue(hSession, hProfile, setting.settingId, importValue);
+                        var updatedSetting = ImportExportUitl.ConvertProfileSettingToDrsSetting(importSetting);
+                        StoreSetting(hSession, hProfile, updatedSetting);
                         alreadySet.Add(setting.settingId);
                     }
                     else if (!isPredefined)
@@ -248,7 +260,8 @@ namespace nspector.Common
             {
                 if (!alreadySet.Contains(setting.SettingId))
                 {
-                    StoreDwordValue(hSession, hProfile, setting.SettingId, setting.SettingValue);
+                    var newSetting = ImportExportUitl.ConvertProfileSettingToDrsSetting(setting);
+                    StoreSetting(hSession, hProfile, newSetting);
                 }
             }
         }

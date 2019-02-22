@@ -138,6 +138,8 @@
     <Compile Include="Common\Helper\ListViewGroupSorter.cs" />
     <Compile Include="Common\Helper\ShortcutResolver.cs" />
     <Compile Include="Common\Helper\SteamAppResolver.cs" />
+    <Compile Include="Common\Import\ImportExportUitl.cs" />
+    <Compile Include="Common\Import\SettingValueType.cs" />
     <Compile Include="Common\Meta\NvD3dUmxSettingMetaService.cs" />
     <Compile Include="Common\Meta\MetaServiceItem.cs" />
     <Compile Include="Common\Meta\ConstantSettingMetaService.cs" />

@@ -115,6 +115,13 @@ namespace nspector.Common
             return tmpProfile;
         }
 
+        protected void StoreSetting(IntPtr hSession, IntPtr hProfile, NVDRS_SETTING newSetting)
+        {
+            var ssRes = nvw.DRS_SetSetting(hSession, hProfile, ref newSetting);
+            if (ssRes != NvAPI_Status.NVAPI_OK)
+                throw new NvapiException("DRS_SetSetting", ssRes);
+        }
+
         protected void StoreDwordValue(IntPtr hSession, IntPtr hProfile, uint settingId, uint dwordValue)
         {
             var newSetting = new NVDRS_SETTING()

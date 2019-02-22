@@ -11,6 +11,8 @@ namespace nspector.Common.Import
         [XmlElement(ElementName = "SettingID")]
         public uint SettingId = 0;
         
-        public uint SettingValue = 0;
+        public string SettingValue = "0";
+
+        public SettingValueType ValueType = SettingValueType.Dword;
     }
 }

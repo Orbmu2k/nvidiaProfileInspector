@@ -31,7 +31,7 @@ namespace nspector.Common
             DecrypterService = new DrsDecrypterService(MetaService);
             ScannerService = new DrsScannerService(MetaService, DecrypterService);
             SettingService = new DrsSettingsService(MetaService, DecrypterService);
-            ImportService = new DrsImportService(MetaService, SettingService, ScannerService);
+            ImportService = new DrsImportService(MetaService, SettingService, ScannerService, DecrypterService);
         }
 
         private static CustomSettingNames LoadCustomSettings()
