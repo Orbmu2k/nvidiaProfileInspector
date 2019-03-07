@@ -3,17 +3,23 @@
   <ShowCustomizedSettingNamesOnly>false</ShowCustomizedSettingNamesOnly>
   <Settings>
     <CustomSetting>
-      <UserfriendlyName>Anisotropic filtering HQ Fix</UserfriendlyName>
-      <HexSettingID>0X00CE2692</HexSettingID>
+      <UserfriendlyName>NVLINK SLI Mode</UserfriendlyName>
+      <HexSettingID>0x00A06948</HexSettingID>
+      <GroupName>6 - SLI</GroupName>
+      <MinRequiredDriverVersion>410.00</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Texture filtering - Quality substitution</UserfriendlyName>
+      <HexSettingID>0x00CE2692</HexSettingID>
       <GroupName>4 - Texture Filtering</GroupName>
       <MinRequiredDriverVersion>418.00</MinRequiredDriverVersion>
       <SettingValues>
         <CustomSettingValue>
-          <UserfriendlyName>Off</UserfriendlyName>
+          <UserfriendlyName>No Substitution</UserfriendlyName>
           <HexValue>0x00000000</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
-          <UserfriendlyName>On</UserfriendlyName>
+          <UserfriendlyName>High quality becomes quality</UserfriendlyName>
           <HexValue>0x00000001</HexValue>
         </CustomSettingValue>
       </SettingValues>
