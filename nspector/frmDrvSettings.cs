@@ -454,16 +454,7 @@ namespace nspector
             var numberFormat = new NumberFormatInfo() { NumberDecimalSeparator = "." };
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-            var titleText = string.Format("{8} {0}.{1}{5}{2}{5}{4} - {6} Profile Settings {3}- {7}",
-                version.Major, version.Minor, version.Build, AdminHelper.IsAdmin ? "(Elevated) " : "",
-                (version.Revision > 0 ? version.Revision.ToString() : ""),
-                (version.Revision > 0 ? "." : ""),
-                (_drs.DriverVersion > 0) ? "GeForce " + _drs.DriverVersion.ToString("#.00", numberFormat) + " -" : "Driver",
-                fileVersionInfo.LegalCopyright,
-                Application.ProductName
-                );
-
-            Text = titleText;
+            Text = $"{Application.ProductName} {version} - Geforce {_drs.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}";
         }
 
         private static void InitMessageFilter(IntPtr handle)
