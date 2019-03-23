@@ -50,9 +50,9 @@ namespace nspector.Common
             });
         }
 
-        protected T DrsSession<T>(Func<IntPtr, T> action)
+        protected T DrsSession<T>(Func<IntPtr, T> action, bool forceDedicatedScope = false)
         {
-            return DrsSessionScope.DrsSession<T>(action);
+            return DrsSessionScope.DrsSession<T>(action, forceDedicatedScope);
         }
 
         protected IntPtr GetProfileHandle(IntPtr hSession, string profileName)

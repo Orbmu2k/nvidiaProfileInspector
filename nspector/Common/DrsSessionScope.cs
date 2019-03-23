@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using nspector.Native.NVAPI2;
+﻿using nspector.Native.NVAPI2;
+using System;
 using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nspector.Common
@@ -18,11 +14,15 @@ namespace nspector.Common
         private static object _Sync = new object();
 
 
-        public static T DrsSession<T>(Func<IntPtr, T> action)
+        public static T DrsSession<T>(Func<IntPtr, T> action, bool forceNonGlobalSession = false)
         {
             lock (_Sync)
             {
-                if (HoldSession && (GlobalSession == IntPtr.Zero))
+                if (!HoldSession || forceNonGlobalSession)
+                    return NonGlobalDrsSession<T>(action);
+
+
+                if (GlobalSession == IntPtr.Zero)
                 {
 
 #pragma warning disable CS0420
@@ -38,12 +38,12 @@ namespace nspector.Common
                 }
             }
 
-            if (HoldSession && GlobalSession != IntPtr.Zero)
+            if (GlobalSession != IntPtr.Zero)
             {
                 return action(GlobalSession);
             }
 
-            return NonGlobalDrsSession<T>(action);
+            throw new Exception(nameof(GlobalSession) + " is Zero!");
         }
 
         public static void DestroyGlobalSession()
@@ -82,6 +82,6 @@ namespace nspector.Common
 
         }
 
-        
+
     }
 }

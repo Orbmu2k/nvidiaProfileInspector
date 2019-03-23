@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using nspector.Common;
 using nspector.Common.CustomSettings;
@@ -217,15 +218,28 @@ namespace nspector
                 .GetDwordValueFromProfile(_SettingsOwner._CurrentProfile, _Settingid);
         }
 
-        private void btnDirectApply_Click(object sender, EventArgs e)
+        private async void btnDirectApply_Click(object sender, EventArgs e)
         {
             ApplyValueToProfile(_CurrentValue);
-            while (GetStoredValue() != _CurrentValue)
-                Application.DoEvents();
+
+            await CheckIfSettingIsStored();
+
             if (File.Exists(tbGamePath.Text))
             {
                 Process.Start(tbGamePath.Text);
             }
+        }
+
+        private async Task CheckIfSettingIsStored()
+        {
+            await Task.Run(async () =>
+            {
+                while (_CurrentValue != DrsServiceLocator.SettingService
+                .GetDwordValueFromProfile(_SettingsOwner._CurrentProfile, _Settingid, false, true))
+                {
+                    await Task.Delay(50);
+                }
+            });
         }
 
         private void btnBrowseGame_Click(object sender, EventArgs e)

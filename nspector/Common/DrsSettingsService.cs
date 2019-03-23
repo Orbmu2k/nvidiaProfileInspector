@@ -248,7 +248,7 @@ namespace nspector.Common
             removeFromModified = tmpRemoveFromModified;
         }
 
-        public uint GetDwordValueFromProfile(string profileName, uint settingId, bool returnDefaultValue = false)
+        public uint GetDwordValueFromProfile(string profileName, uint settingId, bool returnDefaultValue = false, bool forceDedicatedScope = false)
         {
             return DrsSession((hSession) =>
             {
