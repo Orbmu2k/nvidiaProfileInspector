@@ -1,4 +1,5 @@
-﻿using nspector.Native.NVAPI2;
+﻿using nspector.Common.Helper;
+using nspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -250,35 +251,41 @@ namespace nspector.Common
         public string FindProfilesUsingApplication(string applicationName)
         {
             string lowerApplicationName = applicationName.ToLower();
-            string tmpfile = Path.GetTempFileName();
-            var matchingProfiles = new List<string>();
+            string tmpfile = TempFile.GetTempFileName();
 
-            DrsSession((hSession) =>
+            try
             {
-                SaveSettingsFileEx(hSession, tmpfile);
-            });
+                var matchingProfiles = new List<string>();
 
-            if (File.Exists(tmpfile))
-            {
-                string content = File.ReadAllText(tmpfile);
-                string pattern = "\\sProfile\\s\\\"(?<profile>.*?)\\\"(?<scope>.*?Executable.*?)EndProfile";
-                foreach (Match m in Regex.Matches(content, pattern, RegexOptions.Singleline))
+                DrsSession((hSession) =>
                 {
-                    string scope = m.Result("${scope}");
-                    foreach (Match ms in Regex.Matches(scope, "Executable\\s\\\"(?<app>.*?)\\\"", RegexOptions.Singleline))
+                    SaveSettingsFileEx(hSession, tmpfile);
+                });
+
+                if (File.Exists(tmpfile))
+                {
+                    string content = File.ReadAllText(tmpfile);
+                    string pattern = "\\sProfile\\s\\\"(?<profile>.*?)\\\"(?<scope>.*?Executable.*?)EndProfile";
+                    foreach (Match m in Regex.Matches(content, pattern, RegexOptions.Singleline))
                     {
-                        if (ms.Result("${app}").ToLower() == lowerApplicationName)
+                        string scope = m.Result("${scope}");
+                        foreach (Match ms in Regex.Matches(scope, "Executable\\s\\\"(?<app>.*?)\\\"", RegexOptions.Singleline))
                         {
-                            matchingProfiles.Add(m.Result("${profile}"));
+                            if (ms.Result("${app}").ToLower() == lowerApplicationName)
+                            {
+                                matchingProfiles.Add(m.Result("${profile}"));
+                            }
                         }
                     }
                 }
+
+                return string.Join(";", matchingProfiles);
             }
-
-            if (File.Exists(tmpfile))
-                File.Delete(tmpfile);
-
-            return string.Join(";", matchingProfiles);
+            finally
+            {
+                if (File.Exists(tmpfile))
+                    File.Delete(tmpfile);
+            }
         }
 
     }

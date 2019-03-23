@@ -1,16 +1,16 @@
-﻿using System;
+﻿using nspector.Common.Helper;
+using nspector.Native.NVAPI2;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using nspector.Native.NVAPI2;
 
 namespace nspector.Common
 {
     internal class DrsDecrypterService : DrsSettingsServiceBase
     {
-        
+
         private static readonly byte[] _InternalSettingsKey = new byte[] {
             0x2f, 0x7c, 0x4f, 0x8b, 0x20, 0x24, 0x52, 0x8d, 0x26, 0x3c, 0x94, 0x77, 0xf3, 0x7c, 0x98, 0xa5,
             0xfa, 0x71, 0xb6, 0x80, 0xdd, 0x35, 0x84, 0xba, 0xfd, 0xb6, 0xa6, 0x1b, 0x39, 0xc4, 0xcc, 0xb0,
@@ -33,7 +33,7 @@ namespace nspector.Common
         {
             CreateInternalSettingMap();
         }
-        
+
         private uint GetDwordFromKey(uint offset)
         {
             var bytes = new byte[4];
@@ -82,7 +82,7 @@ namespace nspector.Common
                 }
             }
         }
-        
+
         private string FormatInternalSettingKey(string profileName, uint settingId)
         {
             return profileName + settingId.ToString("X8").ToLower();
@@ -97,40 +97,46 @@ namespace nspector.Common
 
         private void CreateInternalSettingMap()
         {
-            string tmpfile = Path.GetTempFileName();
-            DrsSession((hSession) =>
+            string tmpfile = TempFile.GetTempFileName();
+
+            try
             {
-                SaveSettingsFileEx(hSession, tmpfile);
-            });
-
-            if (File.Exists(tmpfile))
-            {
-                var lines = File.ReadAllLines(tmpfile);
-
-                _InternalSettings = new HashSet<string>();
-
-                var paProfile = "Profile\\s\\\"(?<profileName>.*?)\\\"";
-                var rxProfile = new Regex(paProfile, RegexOptions.Compiled);
-
-                var paSetting = "ID_0x(?<sid>[0-9a-fA-F]+)\\s\\=.*?InternalSettingFlag\\=V0";
-                var rxSetting = new Regex(paSetting, RegexOptions.Compiled);
-
-                var currentProfileName = "";
-                for (int i = 0; i < lines.Length; i++)
+                DrsSession((hSession) =>
                 {
-                    foreach (Match ms in rxProfile.Matches(lines[i]))
+                    SaveSettingsFileEx(hSession, tmpfile);
+                });
+
+                if (File.Exists(tmpfile))
+                {
+                    var lines = File.ReadAllLines(tmpfile);
+
+                    _InternalSettings = new HashSet<string>();
+
+                    var paProfile = "Profile\\s\\\"(?<profileName>.*?)\\\"";
+                    var rxProfile = new Regex(paProfile, RegexOptions.Compiled);
+
+                    var paSetting = "ID_0x(?<sid>[0-9a-fA-F]+)\\s\\=.*?InternalSettingFlag\\=V0";
+                    var rxSetting = new Regex(paSetting, RegexOptions.Compiled);
+
+                    var currentProfileName = "";
+                    for (int i = 0; i < lines.Length; i++)
                     {
-                        currentProfileName = ms.Result("${profileName}");
-                    }
-                    foreach (Match ms in rxSetting.Matches(lines[i]))
-                    {
-                        _InternalSettings.Add(currentProfileName + ms.Result("${sid}"));
+                        foreach (Match ms in rxProfile.Matches(lines[i]))
+                        {
+                            currentProfileName = ms.Result("${profileName}");
+                        }
+                        foreach (Match ms in rxSetting.Matches(lines[i]))
+                        {
+                            _InternalSettings.Add(currentProfileName + ms.Result("${sid}"));
+                        }
                     }
                 }
-
-                File.Delete(tmpfile);
+            }
+            finally
+            {
+                if (File.Exists(tmpfile))
+                    File.Delete(tmpfile);
             }
         }
-
     }
 }

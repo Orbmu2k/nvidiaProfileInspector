@@ -59,45 +59,56 @@ namespace nspector.Common
 
         public void DeleteAllProfilesHard()
         {
-            var tmpFile = Path.GetTempFileName();
-            File.WriteAllText(tmpFile, "BaseProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
-
-            DrsSession((hSession) =>
+            var tmpFile = TempFile.GetTempFileName();
+            try
             {
-                LoadSettingsFileEx(hSession, tmpFile);
-                SaveSettings(hSession);
-            });
+                File.WriteAllText(tmpFile, "BaseProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
 
-            if (File.Exists(tmpFile))
-                File.Delete(tmpFile);
+                DrsSession((hSession) =>
+                {
+                    LoadSettingsFileEx(hSession, tmpFile);
+                    SaveSettings(hSession);
+                });
+            }
+            finally
+            {
+                if (File.Exists(tmpFile))
+                    File.Delete(tmpFile);
+            }
 
         }
 
         public void DeleteProfileHard(string profileName)
         {
-            var tmpFileName = Path.GetTempFileName();
-            var tmpFileContent = "";
+            var tmpFileName = TempFile.GetTempFileName();
 
-            DrsSession((hSession) =>
+            try
             {
-                SaveSettingsFileEx(hSession, tmpFileName);
-                tmpFileContent = File.ReadAllText(tmpFileName);
-                string pattern = "(?<rpl>\nProfile\\s\"" + Regex.Escape(profileName) + "\".*?EndProfile.*?\n)";
-                tmpFileContent = Regex.Replace(tmpFileContent, pattern, "", RegexOptions.Singleline);
-                File.WriteAllText(tmpFileName, tmpFileContent);
-            });
+                var tmpFileContent = "";
 
-            if (tmpFileContent != "")
-            {
                 DrsSession((hSession) =>
                 {
-                    LoadSettingsFileEx(hSession, tmpFileName);
-                    SaveSettings(hSession);
+                    SaveSettingsFileEx(hSession, tmpFileName);
+                    tmpFileContent = File.ReadAllText(tmpFileName);
+                    string pattern = "(?<rpl>\nProfile\\s\"" + Regex.Escape(profileName) + "\".*?EndProfile.*?\n)";
+                    tmpFileContent = Regex.Replace(tmpFileContent, pattern, "", RegexOptions.Singleline);
+                    File.WriteAllText(tmpFileName, tmpFileContent);
                 });
-            }
 
-            if (File.Exists(tmpFileName))
-                File.Delete(tmpFileName);
+                if (tmpFileContent != "")
+                {
+                    DrsSession((hSession) =>
+                    {
+                        LoadSettingsFileEx(hSession, tmpFileName);
+                        SaveSettings(hSession);
+                    });
+                }
+            }
+            finally
+            {
+                if (File.Exists(tmpFileName))
+                    File.Delete(tmpFileName);
+            }
         }
 
         public void DeleteProfile(string profileName)
