@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections;
+﻿using nspector.Common;
+using nspector.Common.Helper;
+using nspector.Native.NVAPI2;
+using nspector.Native.WINAPI;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using nspector.Common;
-using nspector.Common.Helper;
-using nspector.Native.NVAPI2;
-using nspector.Native.WINAPI;
-using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
-using System.Text.RegularExpressions;
-using System.Diagnostics;
 
 namespace nspector
 {
 
     internal partial class frmDrvSettings : Form
     {
-        readonly DrsSettingsMetaService _meta = DrsServiceLocator.MetaService;
-        readonly DrsSettingsService _drs = DrsServiceLocator.SettingService;
-        readonly DrsScannerService _scanner = DrsServiceLocator.ScannerService;
-        readonly DrsImportService _import = DrsServiceLocator.ImportService;
+        private readonly DrsSettingsMetaService _meta = DrsServiceLocator.MetaService;
+        private readonly DrsSettingsService _drs = DrsServiceLocator.SettingService;
+        private readonly DrsScannerService _scanner = DrsServiceLocator.ScannerService;
+        private readonly DrsImportService _import = DrsServiceLocator.ImportService;
 
         private List<SettingItem> _currentProfileSettingItems = new List<SettingItem>();
         private bool _alreadyScannedForPredefinedSettings = false;
@@ -32,7 +30,7 @@ namespace nspector
         private bool _activated = false;
         private bool _isStartup = true;
         private bool _skipScan = false;
-        
+
         private string _baseProfileName = "";
         private bool _isWin7TaskBar = false;
         private int _lastComboRowIndex = -1;
@@ -50,6 +48,7 @@ namespace nspector
                     copyDataStruct = (MessageHelper.COPYDATASTRUCT)m.GetLParam(copyDataType);
                     if (copyDataStruct.lpData.Equals("ProfilesImported"))
                     {
+                        DrsSessionScope.DestroyGlobalSession();
                         RefreshAll();
                     }
                     break;
@@ -224,7 +223,7 @@ namespace nspector
                                     itm = v;
 
                                 cbValues.Items.Add(itm);
-                                
+
                             }
                         }
 
@@ -268,7 +267,7 @@ namespace nspector
                     cbValues.Visible = true;
 
 
-                    
+
                 }
             }
             else
@@ -310,7 +309,7 @@ namespace nspector
         {
             var settingId = (uint)cbValues.Tag;
             var activeImages = new[] { 0, 2 };
-            
+
             int idx = GetListViewIndexOfSetting(settingId);
             if (idx != -1)
             {
@@ -472,14 +471,13 @@ namespace nspector
                 DragAcceptNativeHelper.ChangeWindowMessageFilter(DragAcceptNativeHelper.WM_COPYGLOBALDATA, DragAcceptNativeHelper.MSGFLT_ADD);
             }
         }
-        
+
         internal frmDrvSettings() : this(false, false) { }
         internal frmDrvSettings(bool showCsnOnly, bool skipScan)
         {
             _skipScan = skipScan;
             InitializeComponent();
             InitTaskbarList();
-            InitScannerEvents();
             SetupDropFilesNative();
             SetupToolbar();
             SetupDpiAdjustments();
@@ -515,7 +513,7 @@ namespace nspector
                 Height = Screen.GetWorkingArea(this).Height - 20;
             }
         }
-        
+
         private void RefreshModifiesProfilesDropDown()
         {
             tsbModifiedProfiles.DropDownItems.Clear();
@@ -623,7 +621,7 @@ namespace nspector
                 catch { }
             }
         }
-        
+
         private void AddToModifiedProfiles(string profileName, bool userProfile = false)
         {
             if (!_scanner.UserProfiles.Contains(profileName) && profileName != _baseProfileName && userProfile)
@@ -652,121 +650,18 @@ namespace nspector
             }
         }
 
-        private void InvokeUi(Control invokeControl, Action action)
+        private void ShowExportProfiles()
         {
-            MethodInvoker mi = () => action();
-
-            if (invokeControl.InvokeRequired)
-                invokeControl.BeginInvoke(mi);
+            if (_scanner.ModifiedProfiles.Count > 0)
+            {
+                var frmExport = new frmExportProfiles();
+                frmExport.ShowDialog(this);
+            }
             else
-                mi.Invoke();
-        }
-        
-        private void frmDrvSettings_OnModifiedScanDoneAndShowExport()
-        {
-            InvokeUi(this, () =>
-            {
-
-                pbMain.Value = 0;
-                pbMain.Enabled = false;
-                SetTaskbarProgress(0);
-
-                if (_scanner.ModifiedProfiles.Count > 0)
-                {
-                    var frmExport = new frmExportProfiles();
-                    frmExport.ShowDialog(this);
-                }
-                else
-                    MessageBox.Show("No user modified profiles found! Nothing to export.", "Userprofile Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                RefreshModifiesProfilesDropDown();
-                tsbRefreshProfile.Enabled = true;
-            });
+                MessageBox.Show("No user modified profiles found! Nothing to export.", "Userprofile Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void frmDrvSettings_OnPredefinedScanDoneAndStartModifiedProfileScan()
-        {
-
-            InvokeUi(this, () =>
-            {
-                pbMain.Value = 0;
-                pbMain.Enabled = false;
-                SetTaskbarProgress(0);
-                
-                tscbShowScannedUnknownSettings.Enabled = true;
-            });
-
-            StartModifiedProfilesScan(false);
-        }
-        
-        private void frmDrvSettings_OnScanDoneDoNothing()
-        {
-            _meta.ResetMetaCache();
-
-            InvokeUi(this, () =>
-            {
-                pbMain.Value = 0;
-                pbMain.Enabled = false;
-                SetTaskbarProgress(0);
-                RefreshCurrentProfile();
-                RefreshModifiesProfilesDropDown();
-
-                tsbRefreshProfile.Enabled = true;
-            });
-        }
-
-        private void frmDrvSettings_OnSettingScanProgress(int percent)
-        {
-            InvokeUi(this, () =>
-            {
-                pbMain.Value = percent;
-                SetTaskbarProgress(percent);
-            });
-
-        }
-        
-        private void InitScannerEvents()
-        {
-            _scanner.OnSettingScanProgress += new Common.SettingScanProgressEvent(frmDrvSettings_OnSettingScanProgress);
-            _scanner.OnPredefinedSettingsScanDone += new Common.SettingScanDoneEvent(frmDrvSettings_OnScanDoneDoNothing);
-            _scanner.OnModifiedProfilesScanDone += new Common.SettingScanDoneEvent(frmDrvSettings_OnScanDoneDoNothing);
-        }
-
-        private void StartModifiedProfilesScan(bool showProfilesDialog)
-        {
-            pbMain.Minimum = 0;
-            pbMain.Maximum = 100;
-            
-            _scanner.OnModifiedProfilesScanDone -= new Common.SettingScanDoneEvent(frmDrvSettings_OnScanDoneDoNothing);
-            _scanner.OnModifiedProfilesScanDone -= new Common.SettingScanDoneEvent(frmDrvSettings_OnModifiedScanDoneAndShowExport);
-
-            if (showProfilesDialog)
-                _scanner.OnModifiedProfilesScanDone += new Common.SettingScanDoneEvent(frmDrvSettings_OnModifiedScanDoneAndShowExport);
-            else
-                _scanner.OnModifiedProfilesScanDone += new Common.SettingScanDoneEvent(frmDrvSettings_OnScanDoneDoNothing);
-
-            _scanner.StartScanForModifiedProfilesAsync();
-        }
-
-        private void StartPredefinedSettingsScan(bool startModifiedProfileScan)
-        {
-            pbMain.Minimum = 0;
-            pbMain.Maximum = 100;
-
-            _scanner.OnPredefinedSettingsScanDone -= new Common.SettingScanDoneEvent(frmDrvSettings_OnScanDoneDoNothing);
-            _scanner.OnPredefinedSettingsScanDone -= new Common.SettingScanDoneEvent(frmDrvSettings_OnPredefinedScanDoneAndStartModifiedProfileScan);
-
-            if (startModifiedProfileScan)
-                _scanner.OnPredefinedSettingsScanDone += new Common.SettingScanDoneEvent(frmDrvSettings_OnPredefinedScanDoneAndStartModifiedProfileScan);
-            else
-                _scanner.OnPredefinedSettingsScanDone += new Common.SettingScanDoneEvent(frmDrvSettings_OnScanDoneDoNothing);
-
-            _alreadyScannedForPredefinedSettings = true;
-
-            _scanner.StartScanForPredefinedSettingsAsync();
-        }
-      
-        private void ScanProfilesSilent(bool scanPredefined, bool showProfileDialog)
+        private async Task ScanProfilesSilentAsync(bool scanPredefined, bool showProfileDialog)
         {
             if (_skipScan)
                 return;
@@ -776,10 +671,35 @@ namespace nspector
             pbMain.Minimum = 0;
             pbMain.Maximum = 100;
 
+            var progressHandler = new Progress<int>(value =>
+            {
+                pbMain.Value = value;
+                SetTaskbarProgress(value);
+            });
+
             if (scanPredefined && !_alreadyScannedForPredefinedSettings)
-                StartPredefinedSettingsScan(true);
-            else
-                StartModifiedProfilesScan(showProfileDialog);
+            {
+                _alreadyScannedForPredefinedSettings = true;
+                await _scanner.ScanForPredefinedProfileSettingsAsync(progressHandler);
+                _meta.ResetMetaCache();
+                tscbShowScannedUnknownSettings.Enabled = true;
+            }
+
+            await _scanner.ScanForModifiedProfilesAsync(progressHandler);
+            RefreshModifiesProfilesDropDown();
+            tsbModifiedProfiles.Enabled = true;
+
+            pbMain.Value = 0;
+            pbMain.Enabled = false;
+            SetTaskbarProgress(0);
+
+            if (showProfileDialog)
+            {
+                ShowExportProfiles();
+            }
+
+            RefreshCurrentProfile();
+            tsbRefreshProfile.Enabled = true;
         }
 
         private void cbCustomSettingsOnly_CheckedChanged(object sender, EventArgs e)
@@ -796,7 +716,7 @@ namespace nspector
             }
         }
 
-        private void tsbRestoreProfile_Click(object sender, EventArgs e)
+        private async void tsbRestoreProfile_Click(object sender, EventArgs e)
         {
             if (Control.ModifierKeys == Keys.Control)
             {
@@ -809,7 +729,7 @@ namespace nspector
 
                     RefreshProfilesCombo();
                     RefreshCurrentProfile();
-                    ScanProfilesSilent(true, false);
+                    await ScanProfilesSilentAsync(true, false);
                     cbProfiles.Text = GetBaseProfileName();
                 }
             }
@@ -881,12 +801,12 @@ namespace nspector
             }
         }
 
-        private void frmDrvSettings_Shown(object sender, EventArgs e)
+        private async void frmDrvSettings_Shown(object sender, EventArgs e)
         {
             if (_isStartup)
             {
                 new Thread(SetTaskbarIcon).Start();
-                ScanProfilesSilent(true, false);
+                await ScanProfilesSilentAsync(true, false);
 
                 if (WindowState != FormWindowState.Maximized)
                 {
@@ -1016,9 +936,9 @@ namespace nspector
             tsbImportProfiles.ShowDropDown();
         }
 
-        private void exportUserdefinedProfilesToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void exportUserdefinedProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ScanProfilesSilent(false, true);
+            await ScanProfilesSilentAsync(false, true);
         }
 
         private void ExportCurrentProfile(bool includePredefined)
@@ -1082,10 +1002,10 @@ namespace nspector
             }
         }
 
-        private void RefreshAll()
+        private async void RefreshAll()
         {
             RefreshProfilesCombo();
-            ScanProfilesSilent(true, false);
+            await ScanProfilesSilentAsync(true, false);
 
             int idx = cbProfiles.Items.IndexOf(_CurrentProfile);
             if (idx == -1 || _CurrentProfile == _baseProfileName)
@@ -1137,7 +1057,7 @@ namespace nspector
                 cbProfiles.Select(cbProfiles.Text.Length, 0);
             }
         }
-        
+
 
         public static void ShowImportDoneMessage(string importReport)
         {
@@ -1209,7 +1129,7 @@ namespace nspector
 
         private void lvSettings_KeyDown(object sender, KeyEventArgs e)
         {
-            
+
         }
     }
 }

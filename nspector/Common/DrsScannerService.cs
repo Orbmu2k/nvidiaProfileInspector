@@ -1,21 +1,16 @@
-﻿using System;
+﻿using nspector.Native.NVAPI2;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using nspector.Common.Import;
-using nspector.Native.NVAPI2;
+using System.Threading.Tasks;
 using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
-using nspector.Common.Helper;
 
 namespace nspector.Common
 {
 
-    internal delegate void SettingScanDoneEvent();
-    internal delegate void SettingScanProgressEvent(int percent);
 
     internal class DrsScannerService : DrsSettingsServiceBase
     {
@@ -24,9 +19,6 @@ namespace nspector.Common
             : base(metaService, decrpterService)
         { }
 
-        public event SettingScanDoneEvent OnModifiedProfilesScanDone;
-        public event SettingScanDoneEvent OnPredefinedSettingsScanDone;
-        public event SettingScanProgressEvent OnSettingScanProgress;
 
         internal List<CachedSettings> CachedSettings = new List<CachedSettings>();
         internal List<string> ModifiedProfiles = new List<string>();
@@ -80,58 +72,59 @@ namespace nspector.Common
             return false;
         }
 
-        private void ReportProgress(int current, int max)
-        {
-            int percent = (current > 0) ? (int)Math.Round((current * 100f) / max) : 0;
 
-            if (OnSettingScanProgress != null)
-                OnSettingScanProgress(percent);
+        private int CalcPercent(int current, int max)
+        {
+            return (current > 0) ? (int)Math.Round((current * 100f) / max) : 0; ;
         }
 
-        private void ScanForModifiedProfiles()
+        public async Task ScanForModifiedProfilesAsync(IProgress<int> progress)
         {
-            ModifiedProfiles = new List<string>();
-            UserProfiles = new HashSet<string>();
-            var knownPredefines = new List<uint>(_commonSettingIds);
-
-            DrsSession((hSession) =>
+            await Task.Run(() =>
             {
-                IntPtr hBaseProfile = GetProfileHandle(hSession, "");
-                var profileHandles = EnumProfileHandles(hSession);
 
-                var maxProfileCount = profileHandles.Count;
-                int curProfilePos = 0;
+                ModifiedProfiles = new List<string>();
+                UserProfiles = new HashSet<string>();
+                var knownPredefines = new List<uint>(_commonSettingIds);
 
-                foreach (IntPtr hProfile in profileHandles)
+                DrsSession((hSession) =>
                 {
-                    ReportProgress(curProfilePos++, maxProfileCount);
+                    IntPtr hBaseProfile = GetProfileHandle(hSession, "");
+                    var profileHandles = EnumProfileHandles(hSession);
 
-                    var profile = GetProfileInfo(hSession, hProfile);
+                    var maxProfileCount = profileHandles.Count;
+                    int curProfilePos = 0;
 
-                    int checkedSettingsCount = 0;
-                    bool foundModifiedProfile = false;
-
-                    if (profile.isPredefined == 0)
+                    foreach (IntPtr hProfile in profileHandles)
                     {
-                        ModifiedProfiles.Add(profile.profileName);
-                        UserProfiles.Add(profile.profileName);
-                        continue;
-                    }
+                        progress?.Report(CalcPercent(curProfilePos++, maxProfileCount));
 
-                    if ((hBaseProfile == hProfile || profile.numOfApps > 0) && profile.numOfSettings > 0)
-                    {
-                        var alreadyChecked = new List<uint>();
+                        var profile = GetProfileInfo(hSession, hProfile);
 
-                        foreach (uint settingId in knownPredefines)
+                        int checkedSettingsCount = 0;
+                        bool foundModifiedProfile = false;
+
+                        if (profile.isPredefined == 0)
                         {
-                            if (CheckCommonSetting(hSession, hProfile, profile,
-                                ref checkedSettingsCount, settingId, false, ref alreadyChecked))
-                            {
-                                foundModifiedProfile = true;
-                                ModifiedProfiles.Add(profile.profileName);
-                                break;
-                            }
+                            ModifiedProfiles.Add(profile.profileName);
+                            UserProfiles.Add(profile.profileName);
+                            continue;
                         }
+
+                        if ((hBaseProfile == hProfile || profile.numOfApps > 0) && profile.numOfSettings > 0)
+                        {
+                            var alreadyChecked = new List<uint>();
+
+                            foreach (uint settingId in knownPredefines)
+                            {
+                                if (CheckCommonSetting(hSession, hProfile, profile,
+                                    ref checkedSettingsCount, settingId, false, ref alreadyChecked))
+                                {
+                                    foundModifiedProfile = true;
+                                    ModifiedProfiles.Add(profile.profileName);
+                                    break;
+                                }
+                            }
 
                         // the detection if only applications has changed in a profile makes the scan process very slow, we leave it out!
                         //if (!foundModifiedProfile && profile.numOfApps > 0)
@@ -149,6 +142,58 @@ namespace nspector.Common
                         //}
 
                         if (foundModifiedProfile || checkedSettingsCount >= profile.numOfSettings)
+                                continue;
+
+                            var settings = GetProfileSettings(hSession, hProfile);
+                            foreach (var setting in settings)
+                            {
+                                if (knownPredefines.IndexOf(setting.settingId) < 0)
+                                    knownPredefines.Add(setting.settingId);
+
+                                if (setting.isCurrentPredefined != 1)
+                                {
+                                    ModifiedProfiles.Add(profile.profileName);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                });
+
+
+            });
+        }
+
+        public async Task ScanForPredefinedProfileSettingsAsync(IProgress<int> progress)
+        {
+            await Task.Run(() =>
+            {
+
+                var knownPredefines = new List<uint>(_commonSettingIds);
+
+                DrsSession((hSession) =>
+                {
+                    var profileHandles = EnumProfileHandles(hSession);
+
+                    var maxProfileCount = profileHandles.Count;
+                    int curProfilePos = 0;
+
+                    foreach (IntPtr hProfile in profileHandles)
+                    {
+                        progress?.Report(CalcPercent(curProfilePos++, maxProfileCount));
+
+                        var profile = GetProfileInfo(hSession, hProfile);
+
+                        int checkedSettingsCount = 0;
+                        var alreadyChecked = new List<uint>();
+
+                        foreach (uint kpd in knownPredefines)
+                        {
+                            CheckCommonSetting(hSession, hProfile, profile,
+                                ref checkedSettingsCount, kpd, true, ref alreadyChecked);
+                        }
+
+                        if (checkedSettingsCount >= profile.numOfSettings)
                             continue;
 
                         var settings = GetProfileSettings(hSession, hProfile);
@@ -157,77 +202,16 @@ namespace nspector.Common
                             if (knownPredefines.IndexOf(setting.settingId) < 0)
                                 knownPredefines.Add(setting.settingId);
 
-                            if (setting.isCurrentPredefined != 1)
-                            {
-                                ModifiedProfiles.Add(profile.profileName);
-                                break;
-                            }
+                            if (alreadyChecked.IndexOf(setting.settingId) < 0)
+                                AddScannedSettingToCache(profile, setting);
                         }
                     }
-                }
+                });
+
             });
-
-            if (OnModifiedProfilesScanDone != null)
-                OnModifiedProfilesScanDone();
         }
 
-        private void ScanForPredefinedProfileSettings()
-        {
-            var knownPredefines = new List<uint>(_commonSettingIds);
 
-            DrsSession((hSession) =>
-            {
-                var profileHandles = EnumProfileHandles(hSession);
-
-                var maxProfileCount = profileHandles.Count;
-                int curProfilePos = 0;
-
-                foreach (IntPtr hProfile in profileHandles)
-                {
-                    ReportProgress(curProfilePos++, maxProfileCount);
-
-                    var profile = GetProfileInfo(hSession, hProfile);
-
-                    int checkedSettingsCount = 0;
-                    var alreadyChecked = new List<uint>();
-
-                    foreach (uint kpd in knownPredefines)
-                    {
-                        CheckCommonSetting(hSession, hProfile, profile,
-                            ref checkedSettingsCount, kpd, true, ref alreadyChecked);
-                    }
-
-                    if (checkedSettingsCount >= profile.numOfSettings)
-                        continue;
-
-                    var settings = GetProfileSettings(hSession, hProfile);
-                    foreach (var setting in settings)
-                    {
-                        if (knownPredefines.IndexOf(setting.settingId) < 0)
-                            knownPredefines.Add(setting.settingId);
-
-                        if (alreadyChecked.IndexOf(setting.settingId) < 0)
-                            AddScannedSettingToCache(profile, setting);
-                    }
-                }
-            });
-
-            if (OnPredefinedSettingsScanDone != null)
-                OnPredefinedSettingsScanDone();
-        }
-
-        public void StartScanForModifiedProfilesAsync()
-        {
-            var thread = new Thread(ScanForModifiedProfiles);
-            thread.Start();
-        }
-
-        public void StartScanForPredefinedSettingsAsync()
-        {
-            var thread = new Thread(ScanForPredefinedProfileSettings);
-            thread.Start();
-        }
-        
         private void AddScannedSettingToCache(NVDRS_PROFILE profile, NVDRS_SETTING setting)
         {
             // Skip 3D Vision string values here for improved scan performance
@@ -262,7 +246,7 @@ namespace nspector.Common
             }
 
         }
-        
+
         public string FindProfilesUsingApplication(string applicationName)
         {
             string lowerApplicationName = applicationName.ToLower();

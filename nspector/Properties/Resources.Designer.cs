@@ -19,7 +19,7 @@ namespace nspector.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -76,13 +76,14 @@ namespace nspector.Properties {
         ///  &lt;ShowCustomizedSettingNamesOnly&gt;false&lt;/ShowCustomizedSettingNamesOnly&gt;
         ///  &lt;Settings&gt;
         ///    &lt;CustomSetting&gt;
-        ///      &lt;UserfriendlyName&gt;Enable Maxwell sample interleaving (MFAA)&lt;/UserfriendlyName&gt;
-        ///      &lt;HexSettingID&gt;0x0098C1AC&lt;/HexSettingID&gt;
-        ///      &lt;GroupName&gt;3 - Antialiasing&lt;/GroupName&gt;
-        ///      &lt;MinRequiredDriverVersion&gt;344.11&lt;/MinRequiredDriverVersion&gt;
-        ///      &lt;SettingValues&gt;
-        ///        &lt;CustomSettingValue&gt;
-        ///          &lt;UserfriendlyName&gt;Off&lt;/Userfrie [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///      &lt;UserfriendlyName&gt;NVLINK SLI Mode&lt;/UserfriendlyName&gt;
+        ///      &lt;HexSettingID&gt;0x00A06948&lt;/HexSettingID&gt;
+        ///      &lt;GroupName&gt;6 - SLI&lt;/GroupName&gt;
+        ///      &lt;MinRequiredDriverVersion&gt;410.00&lt;/MinRequiredDriverVersion&gt;
+        ///    &lt;/CustomSetting&gt;
+        ///    &lt;CustomSetting&gt;
+        ///      &lt;UserfriendlyName&gt;Texture filtering - Quality substitution&lt;/UserfriendlyName&gt;
+        ///  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         public static string CustomSettingNames {
             get {
