@@ -139,6 +139,7 @@
     <Compile Include="Common\Helper\ShortcutResolver.cs" />
     <Compile Include="Common\Helper\SteamAppResolver.cs" />
     <Compile Include="Common\Helper\TempFile.cs" />
+    <Compile Include="Common\Helper\UserSettings.cs" />
     <Compile Include="Common\Import\ImportExportUitl.cs" />
     <Compile Include="Common\Import\SettingValueType.cs" />
     <Compile Include="Common\Meta\NvD3dUmxSettingMetaService.cs" />
@@ -225,9 +226,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>

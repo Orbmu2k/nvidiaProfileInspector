@@ -79,7 +79,7 @@ namespace nspector.Common
             return (current > 0) ? (int)Math.Round((current * 100f) / max) : 0; ;
         }
 
-        public async Task ScanForModifiedProfilesAsync(IProgress<int> progress)
+        public async Task ScanForModifiedProfilesAsync(IProgress<int> progress, CancellationToken token = default(CancellationToken))
         {
             await Task.Run(() =>
             {
@@ -98,6 +98,8 @@ namespace nspector.Common
 
                     foreach (IntPtr hProfile in profileHandles)
                     {
+                        if (token.IsCancellationRequested) break;
+
                         progress?.Report(CalcPercent(curProfilePos++, maxProfileCount));
 
                         var profile = GetProfileInfo(hSession, hProfile);
@@ -165,7 +167,7 @@ namespace nspector.Common
             });
         }
 
-        public async Task ScanForPredefinedProfileSettingsAsync(IProgress<int> progress)
+        public async Task ScanForPredefinedProfileSettingsAsync(IProgress<int> progress, CancellationToken token = default(CancellationToken))
         {
             await Task.Run(() =>
             {
@@ -181,6 +183,8 @@ namespace nspector.Common
 
                     foreach (IntPtr hProfile in profileHandles)
                     {
+                        if (token.IsCancellationRequested) break;
+
                         progress?.Report(CalcPercent(curProfilePos++, maxProfileCount));
 
                         var profile = GetProfileInfo(hSession, hProfile);

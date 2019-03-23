@@ -91,10 +91,10 @@
             // 
             this.pbMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbMain.Location = new System.Drawing.Point(12, 475);
-            this.pbMain.Margin = new System.Windows.Forms.Padding(4);
+            this.pbMain.Location = new System.Drawing.Point(16, 585);
+            this.pbMain.Margin = new System.Windows.Forms.Padding(5);
             this.pbMain.Name = "pbMain";
-            this.pbMain.Size = new System.Drawing.Size(840, 9);
+            this.pbMain.Size = new System.Drawing.Size(1120, 11);
             this.pbMain.TabIndex = 19;
             // 
             // tsMain
@@ -132,10 +132,10 @@
             this.tsSep6,
             this.tsbApplyProfile});
             this.tsMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.tsMain.Location = new System.Drawing.Point(12, 4);
+            this.tsMain.Location = new System.Drawing.Point(16, 5);
             this.tsMain.Name = "tsMain";
             this.tsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsMain.Size = new System.Drawing.Size(840, 25);
+            this.tsMain.Size = new System.Drawing.Size(1120, 31);
             this.tsMain.TabIndex = 24;
             this.tsMain.Text = "toolStrip1";
             // 
@@ -144,7 +144,7 @@
             this.tslProfiles.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslProfiles.Margin = new System.Windows.Forms.Padding(0, 5, 10, 2);
             this.tslProfiles.Name = "tslProfiles";
-            this.tslProfiles.Size = new System.Drawing.Size(49, 18);
+            this.tslProfiles.Size = new System.Drawing.Size(61, 24);
             this.tslProfiles.Text = "Profiles:";
             // 
             // cbProfiles
@@ -156,7 +156,7 @@
             this.cbProfiles.Margin = new System.Windows.Forms.Padding(1);
             this.cbProfiles.MaxDropDownItems = 50;
             this.cbProfiles.Name = "cbProfiles";
-            this.cbProfiles.Size = new System.Drawing.Size(290, 23);
+            this.cbProfiles.Size = new System.Drawing.Size(385, 28);
             this.cbProfiles.SelectedIndexChanged += new System.EventHandler(this.cbProfiles_SelectedIndexChanged);
             this.cbProfiles.TextChanged += new System.EventHandler(this.cbProfiles_TextChanged);
             // 
@@ -167,7 +167,7 @@
             this.tsbModifiedProfiles.Image = global::nspector.Properties.Resources.home_sm;
             this.tsbModifiedProfiles.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbModifiedProfiles.Name = "tsbModifiedProfiles";
-            this.tsbModifiedProfiles.Size = new System.Drawing.Size(36, 22);
+            this.tsbModifiedProfiles.Size = new System.Drawing.Size(39, 28);
             this.tsbModifiedProfiles.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.tsbModifiedProfiles.ToolTipText = "Back to global profile (Home) / User modified profiles";
             this.tsbModifiedProfiles.ButtonClick += new System.EventHandler(this.tsbModifiedProfiles_ButtonClick);
@@ -176,7 +176,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // tsbRefreshProfile
             // 
@@ -184,7 +184,7 @@
             this.tsbRefreshProfile.Image = ((System.Drawing.Image)(resources.GetObject("tsbRefreshProfile.Image")));
             this.tsbRefreshProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbRefreshProfile.Name = "tsbRefreshProfile";
-            this.tsbRefreshProfile.Size = new System.Drawing.Size(24, 22);
+            this.tsbRefreshProfile.Size = new System.Drawing.Size(24, 28);
             this.tsbRefreshProfile.Text = "Refresh current profile.";
             this.tsbRefreshProfile.Click += new System.EventHandler(this.tsbRefreshProfile_Click);
             // 
@@ -194,7 +194,7 @@
             this.tsbRestoreProfile.Image = ((System.Drawing.Image)(resources.GetObject("tsbRestoreProfile.Image")));
             this.tsbRestoreProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbRestoreProfile.Name = "tsbRestoreProfile";
-            this.tsbRestoreProfile.Size = new System.Drawing.Size(24, 22);
+            this.tsbRestoreProfile.Size = new System.Drawing.Size(24, 28);
             this.tsbRestoreProfile.Text = "Restore current profile to NVIDIA defaults.";
             this.tsbRestoreProfile.Click += new System.EventHandler(this.tsbRestoreProfile_Click);
             // 
@@ -204,7 +204,7 @@
             this.tsbCreateProfile.Image = ((System.Drawing.Image)(resources.GetObject("tsbCreateProfile.Image")));
             this.tsbCreateProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCreateProfile.Name = "tsbCreateProfile";
-            this.tsbCreateProfile.Size = new System.Drawing.Size(24, 22);
+            this.tsbCreateProfile.Size = new System.Drawing.Size(24, 28);
             this.tsbCreateProfile.Text = "Create new profile";
             this.tsbCreateProfile.Click += new System.EventHandler(this.tsbCreateProfile_Click);
             // 
@@ -214,14 +214,14 @@
             this.tsbDeleteProfile.Image = global::nspector.Properties.Resources.ieframe_1_18212;
             this.tsbDeleteProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDeleteProfile.Name = "tsbDeleteProfile";
-            this.tsbDeleteProfile.Size = new System.Drawing.Size(24, 22);
+            this.tsbDeleteProfile.Size = new System.Drawing.Size(24, 28);
             this.tsbDeleteProfile.Text = "Delete current Profile";
             this.tsbDeleteProfile.Click += new System.EventHandler(this.tsbDeleteProfile_Click);
             // 
             // tsSep2
             // 
             this.tsSep2.Name = "tsSep2";
-            this.tsSep2.Size = new System.Drawing.Size(6, 25);
+            this.tsSep2.Size = new System.Drawing.Size(6, 31);
             // 
             // tsbAddApplication
             // 
@@ -229,7 +229,7 @@
             this.tsbAddApplication.Image = global::nspector.Properties.Resources.window_application_add;
             this.tsbAddApplication.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAddApplication.Name = "tsbAddApplication";
-            this.tsbAddApplication.Size = new System.Drawing.Size(24, 22);
+            this.tsbAddApplication.Size = new System.Drawing.Size(24, 28);
             this.tsbAddApplication.Text = "Add application to current profile.";
             this.tsbAddApplication.Click += new System.EventHandler(this.tsbAddApplication_Click);
             // 
@@ -239,7 +239,7 @@
             this.tssbRemoveApplication.Image = global::nspector.Properties.Resources.window_application_delete;
             this.tssbRemoveApplication.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tssbRemoveApplication.Name = "tssbRemoveApplication";
-            this.tssbRemoveApplication.Size = new System.Drawing.Size(36, 22);
+            this.tssbRemoveApplication.Size = new System.Drawing.Size(39, 28);
             this.tssbRemoveApplication.Text = "Remove application from current profile";
             this.tssbRemoveApplication.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tssbRemoveApplication_DropDownItemClicked);
             this.tssbRemoveApplication.Click += new System.EventHandler(this.tssbRemoveApplication_Click);
@@ -247,7 +247,7 @@
             // tsSep3
             // 
             this.tsSep3.Name = "tsSep3";
-            this.tsSep3.Size = new System.Drawing.Size(6, 25);
+            this.tsSep3.Size = new System.Drawing.Size(6, 31);
             // 
             // tsbExportProfiles
             // 
@@ -260,35 +260,35 @@
             this.tsbExportProfiles.Image = global::nspector.Properties.Resources.export1;
             this.tsbExportProfiles.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbExportProfiles.Name = "tsbExportProfiles";
-            this.tsbExportProfiles.Size = new System.Drawing.Size(36, 22);
+            this.tsbExportProfiles.Size = new System.Drawing.Size(39, 28);
             this.tsbExportProfiles.Text = "Export user defined profiles";
             this.tsbExportProfiles.Click += new System.EventHandler(this.tsbExportProfiles_Click);
             // 
             // exportCurrentProfileOnlyToolStripMenuItem
             // 
             this.exportCurrentProfileOnlyToolStripMenuItem.Name = "exportCurrentProfileOnlyToolStripMenuItem";
-            this.exportCurrentProfileOnlyToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
+            this.exportCurrentProfileOnlyToolStripMenuItem.Size = new System.Drawing.Size(422, 26);
             this.exportCurrentProfileOnlyToolStripMenuItem.Text = "Export current profile only";
             this.exportCurrentProfileOnlyToolStripMenuItem.Click += new System.EventHandler(this.exportCurrentProfileOnlyToolStripMenuItem_Click);
             // 
             // exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem
             // 
             this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Name = "exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem";
-            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Size = new System.Drawing.Size(422, 26);
             this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Text = "Export current profile including predefined settings";
             this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Click += new System.EventHandler(this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click);
             // 
             // exportUserdefinedProfilesToolStripMenuItem
             // 
             this.exportUserdefinedProfilesToolStripMenuItem.Name = "exportUserdefinedProfilesToolStripMenuItem";
-            this.exportUserdefinedProfilesToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
+            this.exportUserdefinedProfilesToolStripMenuItem.Size = new System.Drawing.Size(422, 26);
             this.exportUserdefinedProfilesToolStripMenuItem.Text = "Export all customized profiles";
             this.exportUserdefinedProfilesToolStripMenuItem.Click += new System.EventHandler(this.exportUserdefinedProfilesToolStripMenuItem_Click);
             // 
             // exportAllProfilesNVIDIATextFormatToolStripMenuItem
             // 
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Name = "exportAllProfilesNVIDIATextFormatToolStripMenuItem";
-            this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
+            this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(422, 26);
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Text = "Export all driver profiles (NVIDIA Text Format)";
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Click += new System.EventHandler(this.exportAllProfilesNVIDIATextFormatToolStripMenuItem_Click);
             // 
@@ -301,28 +301,28 @@
             this.tsbImportProfiles.Image = global::nspector.Properties.Resources.import1;
             this.tsbImportProfiles.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbImportProfiles.Name = "tsbImportProfiles";
-            this.tsbImportProfiles.Size = new System.Drawing.Size(36, 22);
+            this.tsbImportProfiles.Size = new System.Drawing.Size(39, 28);
             this.tsbImportProfiles.Text = "Import user defined profiles";
             this.tsbImportProfiles.Click += new System.EventHandler(this.tsbImportProfiles_Click);
             // 
             // importProfilesToolStripMenuItem
             // 
             this.importProfilesToolStripMenuItem.Name = "importProfilesToolStripMenuItem";
-            this.importProfilesToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.importProfilesToolStripMenuItem.Size = new System.Drawing.Size(453, 26);
             this.importProfilesToolStripMenuItem.Text = "Import profile(s)";
             this.importProfilesToolStripMenuItem.Click += new System.EventHandler(this.importProfilesToolStripMenuItem_Click);
             // 
             // importAllProfilesNVIDIATextFormatToolStripMenuItem
             // 
             this.importAllProfilesNVIDIATextFormatToolStripMenuItem.Name = "importAllProfilesNVIDIATextFormatToolStripMenuItem";
-            this.importAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.importAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(453, 26);
             this.importAllProfilesNVIDIATextFormatToolStripMenuItem.Text = "Import (replace) all driver profiles (NVIDIA Text Format)";
             this.importAllProfilesNVIDIATextFormatToolStripMenuItem.Click += new System.EventHandler(this.importAllProfilesNVIDIATextFormatToolStripMenuItem_Click);
             // 
             // tsSep4
             // 
             this.tsSep4.Name = "tsSep4";
-            this.tsSep4.Size = new System.Drawing.Size(6, 25);
+            this.tsSep4.Size = new System.Drawing.Size(6, 31);
             // 
             // tscbShowCustomSettingNamesOnly
             // 
@@ -331,14 +331,14 @@
             this.tscbShowCustomSettingNamesOnly.Image = global::nspector.Properties.Resources.filter_user;
             this.tscbShowCustomSettingNamesOnly.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tscbShowCustomSettingNamesOnly.Name = "tscbShowCustomSettingNamesOnly";
-            this.tscbShowCustomSettingNamesOnly.Size = new System.Drawing.Size(24, 22);
+            this.tscbShowCustomSettingNamesOnly.Size = new System.Drawing.Size(24, 28);
             this.tscbShowCustomSettingNamesOnly.Text = "Show the settings and values from CustomSettingNames file only.";
             this.tscbShowCustomSettingNamesOnly.CheckedChanged += new System.EventHandler(this.cbCustomSettingsOnly_CheckedChanged);
             // 
             // tsSep5
             // 
             this.tsSep5.Name = "tsSep5";
-            this.tsSep5.Size = new System.Drawing.Size(6, 25);
+            this.tsSep5.Size = new System.Drawing.Size(6, 31);
             // 
             // tscbShowScannedUnknownSettings
             // 
@@ -348,7 +348,7 @@
             this.tscbShowScannedUnknownSettings.Image = global::nspector.Properties.Resources.find_set2;
             this.tscbShowScannedUnknownSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tscbShowScannedUnknownSettings.Name = "tscbShowScannedUnknownSettings";
-            this.tscbShowScannedUnknownSettings.Size = new System.Drawing.Size(24, 22);
+            this.tscbShowScannedUnknownSettings.Size = new System.Drawing.Size(24, 28);
             this.tscbShowScannedUnknownSettings.Text = "Show unknown settings from NVIDIA predefined profiles";
             this.tscbShowScannedUnknownSettings.Click += new System.EventHandler(this.tscbShowScannedUnknownSettings_Click);
             // 
@@ -358,14 +358,14 @@
             this.tsbBitValueEditor.Image = global::nspector.Properties.Resources.text_binary;
             this.tsbBitValueEditor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBitValueEditor.Name = "tsbBitValueEditor";
-            this.tsbBitValueEditor.Size = new System.Drawing.Size(24, 22);
+            this.tsbBitValueEditor.Size = new System.Drawing.Size(24, 28);
             this.tsbBitValueEditor.Text = "Show bit value editor.";
             this.tsbBitValueEditor.Click += new System.EventHandler(this.tsbBitValueEditor_Click);
             // 
             // tsSep6
             // 
             this.tsSep6.Name = "tsSep6";
-            this.tsSep6.Size = new System.Drawing.Size(6, 25);
+            this.tsSep6.Size = new System.Drawing.Size(6, 31);
             // 
             // tsbApplyProfile
             // 
@@ -374,7 +374,7 @@
             this.tsbApplyProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbApplyProfile.Name = "tsbApplyProfile";
             this.tsbApplyProfile.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.tsbApplyProfile.Size = new System.Drawing.Size(109, 22);
+            this.tsbApplyProfile.Size = new System.Drawing.Size(130, 28);
             this.tsbApplyProfile.Text = "Apply changes";
             this.tsbApplyProfile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.tsbApplyProfile.Click += new System.EventHandler(this.tsbApplyProfile_Click);
@@ -384,10 +384,10 @@
             this.btnResetValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnResetValue.Enabled = false;
             this.btnResetValue.Image = global::nspector.Properties.Resources.nv_btn;
-            this.btnResetValue.Location = new System.Drawing.Point(732, 175);
+            this.btnResetValue.Location = new System.Drawing.Point(976, 215);
             this.btnResetValue.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.btnResetValue.Name = "btnResetValue";
-            this.btnResetValue.Size = new System.Drawing.Size(25, 19);
+            this.btnResetValue.Size = new System.Drawing.Size(33, 23);
             this.btnResetValue.TabIndex = 7;
             this.btnResetValue.UseVisualStyleBackColor = true;
             this.btnResetValue.Click += new System.EventHandler(this.btnResetValue_Click);
@@ -399,10 +399,10 @@
             this.lblApplications.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(185)))), ((int)(((byte)(0)))));
             this.lblApplications.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblApplications.ForeColor = System.Drawing.Color.White;
-            this.lblApplications.Location = new System.Drawing.Point(12, 32);
-            this.lblApplications.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblApplications.Location = new System.Drawing.Point(16, 39);
+            this.lblApplications.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblApplications.Name = "lblApplications";
-            this.lblApplications.Size = new System.Drawing.Size(840, 17);
+            this.lblApplications.Size = new System.Drawing.Size(1120, 21);
             this.lblApplications.TabIndex = 25;
             this.lblApplications.Text = "fsagame.exe, bond.exe, herozero.exe";
             // 
@@ -440,10 +440,10 @@
             // 
             this.cbValues.BackColor = System.Drawing.SystemColors.Window;
             this.cbValues.FormattingEnabled = true;
-            this.cbValues.Location = new System.Drawing.Point(524, 175);
-            this.cbValues.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.cbValues.Location = new System.Drawing.Point(699, 215);
+            this.cbValues.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.cbValues.Name = "cbValues";
-            this.cbValues.Size = new System.Drawing.Size(72, 21);
+            this.cbValues.Size = new System.Drawing.Size(95, 24);
             this.cbValues.TabIndex = 5;
             this.cbValues.Visible = false;
             this.cbValues.SelectedValueChanged += new System.EventHandler(this.cbValues_SelectedValueChanged);
@@ -451,40 +451,40 @@
             // 
             // lblWidth96
             // 
-            this.lblWidth96.Location = new System.Drawing.Point(77, 233);
-            this.lblWidth96.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblWidth96.Location = new System.Drawing.Point(103, 287);
+            this.lblWidth96.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblWidth96.Name = "lblWidth96";
-            this.lblWidth96.Size = new System.Drawing.Size(96, 18);
+            this.lblWidth96.Size = new System.Drawing.Size(128, 22);
             this.lblWidth96.TabIndex = 77;
             this.lblWidth96.Text = "96";
             this.lblWidth96.Visible = false;
             // 
             // lblWidth330
             // 
-            this.lblWidth330.Location = new System.Drawing.Point(77, 210);
-            this.lblWidth330.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblWidth330.Location = new System.Drawing.Point(103, 258);
+            this.lblWidth330.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblWidth330.Name = "lblWidth330";
-            this.lblWidth330.Size = new System.Drawing.Size(330, 22);
+            this.lblWidth330.Size = new System.Drawing.Size(440, 27);
             this.lblWidth330.TabIndex = 78;
             this.lblWidth330.Text = "330 (Helper Labels for DPI Scaling)";
             this.lblWidth330.Visible = false;
             // 
             // lblWidth16
             // 
-            this.lblWidth16.Location = new System.Drawing.Point(77, 269);
-            this.lblWidth16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblWidth16.Location = new System.Drawing.Point(103, 331);
+            this.lblWidth16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblWidth16.Name = "lblWidth16";
-            this.lblWidth16.Size = new System.Drawing.Size(16, 18);
+            this.lblWidth16.Size = new System.Drawing.Size(21, 22);
             this.lblWidth16.TabIndex = 79;
             this.lblWidth16.Text = "16";
             this.lblWidth16.Visible = false;
             // 
             // lblWidth30
             // 
-            this.lblWidth30.Location = new System.Drawing.Point(77, 251);
-            this.lblWidth30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblWidth30.Location = new System.Drawing.Point(103, 309);
+            this.lblWidth30.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblWidth30.Name = "lblWidth30";
-            this.lblWidth30.Size = new System.Drawing.Size(30, 18);
+            this.lblWidth30.Size = new System.Drawing.Size(40, 22);
             this.lblWidth30.TabIndex = 80;
             this.lblWidth30.Text = "30";
             this.lblWidth30.Visible = false;
@@ -501,12 +501,12 @@
             this.lvSettings.FullRowSelect = true;
             this.lvSettings.GridLines = true;
             this.lvSettings.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvSettings.Location = new System.Drawing.Point(12, 51);
-            this.lvSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.lvSettings.Location = new System.Drawing.Point(16, 63);
+            this.lvSettings.Margin = new System.Windows.Forms.Padding(5);
             this.lvSettings.MultiSelect = false;
             this.lvSettings.Name = "lvSettings";
             this.lvSettings.ShowItemToolTips = true;
-            this.lvSettings.Size = new System.Drawing.Size(840, 418);
+            this.lvSettings.Size = new System.Drawing.Size(1119, 514);
             this.lvSettings.SmallImageList = this.ilListView;
             this.lvSettings.TabIndex = 2;
             this.lvSettings.UseCompatibleStateImageBehavior = false;
@@ -514,7 +514,6 @@
             this.lvSettings.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.lvSettings_ColumnWidthChanging);
             this.lvSettings.SelectedIndexChanged += new System.EventHandler(this.lvSettings_SelectedIndexChanged);
             this.lvSettings.DoubleClick += new System.EventHandler(this.lvSettings_DoubleClick);
-            this.lvSettings.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvSettings_KeyDown);
             this.lvSettings.Resize += new System.EventHandler(this.lvSettings_Resize);
             // 
             // chSettingID
@@ -534,9 +533,9 @@
             // 
             // frmDrvSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 492);
+            this.ClientSize = new System.Drawing.Size(1152, 606);
             this.Controls.Add(this.lblWidth30);
             this.Controls.Add(this.lblWidth16);
             this.Controls.Add(this.lblWidth330);
@@ -547,12 +546,13 @@
             this.Controls.Add(this.pbMain);
             this.Controls.Add(this.btnResetValue);
             this.Controls.Add(this.cbValues);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(880, 348);
+            this.Margin = new System.Windows.Forms.Padding(5);
+            this.MinimumSize = new System.Drawing.Size(1167, 417);
             this.Name = "frmDrvSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "nSpector - Driver Profile Settings";
             this.Activated += new System.EventHandler(this.frmDrvSettings_Activated);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmDrvSettings_FormClosed);
             this.Load += new System.EventHandler(this.frmDrvSettings_Load);
             this.Shown += new System.EventHandler(this.frmDrvSettings_Shown);
             this.tsMain.ResumeLayout(false);

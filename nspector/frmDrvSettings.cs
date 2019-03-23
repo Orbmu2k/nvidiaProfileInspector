@@ -536,6 +536,7 @@ namespace nspector
         {
             SetupLayout();
             SetTitleVersion();
+            LoadSettings();
 
             RefreshProfilesCombo();
             cbProfiles.Text = GetBaseProfileName();
@@ -661,6 +662,8 @@ namespace nspector
                 MessageBox.Show("No user modified profiles found! Nothing to export.", "Userprofile Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private CancellationTokenSource _scannerCancelationTokenSource;
+
         private async Task ScanProfilesSilentAsync(bool scanPredefined, bool showProfileDialog)
         {
             if (_skipScan)
@@ -671,6 +674,8 @@ namespace nspector
             pbMain.Minimum = 0;
             pbMain.Maximum = 100;
 
+            _scannerCancelationTokenSource = new CancellationTokenSource();
+
             var progressHandler = new Progress<int>(value =>
             {
                 pbMain.Value = value;
@@ -680,12 +685,12 @@ namespace nspector
             if (scanPredefined && !_alreadyScannedForPredefinedSettings)
             {
                 _alreadyScannedForPredefinedSettings = true;
-                await _scanner.ScanForPredefinedProfileSettingsAsync(progressHandler);
+                await _scanner.ScanForPredefinedProfileSettingsAsync(progressHandler, _scannerCancelationTokenSource.Token);
                 _meta.ResetMetaCache();
                 tscbShowScannedUnknownSettings.Enabled = true;
             }
 
-            await _scanner.ScanForModifiedProfilesAsync(progressHandler);
+            await _scanner.ScanForModifiedProfilesAsync(progressHandler, _scannerCancelationTokenSource.Token);
             RefreshModifiesProfilesDropDown();
             tsbModifiedProfiles.Enabled = true;
 
@@ -808,7 +813,7 @@ namespace nspector
                 new Thread(SetTaskbarIcon).Start();
                 await ScanProfilesSilentAsync(true, false);
 
-                if (WindowState != FormWindowState.Maximized)
+                if (!_scannerCancelationTokenSource.Token.IsCancellationRequested && WindowState != FormWindowState.Maximized)
                 {
                     new MessageHelper().bringAppToFront((int)this.Handle);
                 }
@@ -1127,9 +1132,57 @@ namespace nspector
             }
         }
 
-        private void lvSettings_KeyDown(object sender, KeyEventArgs e)
+        private void HandleScreenConstraints()
         {
+            var workingArea = Screen.GetWorkingArea(this);
 
+            if (Left < workingArea.X)
+                Left = workingArea.X;
+
+            if (Top < workingArea.Y)
+                Top = workingArea.Y;
+
+            if ((Left + Width) > workingArea.X + workingArea.Width)
+                Left = (workingArea.X + workingArea.Width) - Width;
+
+            if ((Top + Height) > workingArea.Y + workingArea.Height)
+                Top = (workingArea.Y + workingArea.Height) - Height;
+        }
+
+        private void SaveSettings()
+        {
+            var settings = UserSettings.LoadSettings();
+
+            if (WindowState == FormWindowState.Normal)
+            {
+                settings.WindowTop = Top;
+                settings.WindowLeft = Left;
+                settings.WindowHeight = Height;
+                settings.WindowWidth = Width;
+            }
+            else
+            {
+                settings.WindowTop = RestoreBounds.Top;
+                settings.WindowLeft = RestoreBounds.Left;
+                settings.WindowHeight = RestoreBounds.Height;
+                settings.WindowWidth = RestoreBounds.Width;
+            }
+            settings.WindowState = WindowState;
+            settings.SaveSettings();
+        }
+
+        private void LoadSettings()
+        {
+            var settings = UserSettings.LoadSettings();
+            SetBounds(settings.WindowLeft, settings.WindowTop, settings.WindowWidth, settings.WindowHeight);
+            WindowState = settings.WindowState != FormWindowState.Minimized ? settings.WindowState : FormWindowState.Normal;
+            HandleScreenConstraints();
+        }
+
+        private void frmDrvSettings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _scannerCancelationTokenSource?.Cancel();
+            SaveSettings();
         }
     }
 }

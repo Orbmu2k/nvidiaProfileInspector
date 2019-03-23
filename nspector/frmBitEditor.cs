@@ -211,13 +211,6 @@ namespace nspector
                .SetDwordValueToProfile(_SettingsOwner._CurrentProfile, _Settingid, val);
         }
 
-        private uint GetStoredValue()
-        {
-            return DrsServiceLocator
-                .SettingService
-                .GetDwordValueFromProfile(_SettingsOwner._CurrentProfile, _Settingid);
-        }
-
         private async void btnDirectApply_Click(object sender, EventArgs e)
         {
             ApplyValueToProfile(_CurrentValue);

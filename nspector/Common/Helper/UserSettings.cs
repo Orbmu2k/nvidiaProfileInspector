@@ -1,0 +1,40 @@
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
+
+namespace nspector.Common.Helper
+{
+    public class UserSettings
+    {
+        public int WindowTop { get; set; }
+
+        public int WindowLeft { get; set; }
+
+        public int WindowWidth { get; set; }
+
+        public int WindowHeight { get; set; }
+
+        public FormWindowState WindowState { get; set; }
+
+        private static string GetSettingsFilename()
+        {
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Application.ProductName);
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            return Path.Combine(path, "settings.xml"); ;
+        }
+
+        public void SaveSettings()
+        {
+            XMLHelper<UserSettings>.SerializeToXmlFile(this, GetSettingsFilename(), Encoding.Unicode, true);
+        }
+
+        public static UserSettings LoadSettings()
+        {
+            var filename = GetSettingsFilename();
+            if (!File.Exists(filename)) return new UserSettings();
+
+            return XMLHelper<UserSettings>.DeserializeFromXMLFile(GetSettingsFilename());
+        }
+    }
+}
