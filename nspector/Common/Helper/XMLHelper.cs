@@ -11,9 +11,7 @@ namespace nspector.Common.Helper
 
         static XMLHelper()
         {
-            //TODO: Fix It!
-            //xmlSerializer = new XmlSerializer(typeof(T));
-            xmlSerializer = XmlSerializer.FromTypes(new[]{typeof(T)})[0];
+            xmlSerializer = new XmlSerializer(typeof(T));
         }
 
         internal static string SerializeToXmlString(T xmlObject, Encoding encoding, bool removeNamespace)
