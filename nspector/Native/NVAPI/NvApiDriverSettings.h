@@ -74,12 +74,13 @@
 #define ANSEL_WHITELISTED_STRING                   L"Ansel flags for enabled applications"
 #define APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_STRING L"Application Profile Notification Popup Timeout"
 #define APPLICATION_STEAM_ID_STRING                L"Steam Application ID"
-#define BATTERY_BOOST_STRING                       L"Battery Boost"
+#define AUTOFL_STRING                              L"Platform Boost"
 #define BATTERY_BOOST_APP_FPS_STRING               L"Battery Boost Application FPS"
 #define CPL_HIDDEN_PROFILE_STRING                  L"Do not display this profile in the Control Panel"
 #define CUDA_EXCLUDED_GPUS_STRING                  L"List of Universal GPU ids"
 #define D3DOGL_GPU_MAX_POWER_STRING                L"Maximum GPU Power"
 #define EXPORT_PERF_COUNTERS_STRING                L"Export Performance Counters"
+#define EXTERNAL_QUIET_MODE_STRING                 L"External Quiet Mode (XQM)"
 #define FXAA_ALLOW_STRING                          L"NVIDIA Predefined FXAA Usage"
 #define FXAA_ENABLE_STRING                         L"Enable FXAA"
 #define FXAA_INDICATOR_ENABLE_STRING               L"Enable FXAA Indicator"
@@ -175,12 +176,13 @@ enum ESetting {
     ANSEL_WHITELISTED_ID                          = 0x1085DA8A,
     APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_ID   = 0x104554B6,
     APPLICATION_STEAM_ID_ID                       = 0x107CDDBC,
-    BATTERY_BOOST_ID                              = 0x10115C89,
+    AUTOFL_ID                                     = 0x10834FFE,
     BATTERY_BOOST_APP_FPS_ID                      = 0x10115C8C,
     CPL_HIDDEN_PROFILE_ID                         = 0x106D5CFF,
     CUDA_EXCLUDED_GPUS_ID                         = 0x10354FF8,
     D3DOGL_GPU_MAX_POWER_ID                       = 0x10D1EF29,
     EXPORT_PERF_COUNTERS_ID                       = 0x108F0841,
+    EXTERNAL_QUIET_MODE_ID                        = 0x10115C8D,
     FXAA_ALLOW_ID                                 = 0x1034CB89,
     FXAA_ENABLE_ID                                = 0x1074C972,
     FXAA_INDICATOR_ENABLE_ID                      = 0x1068FB9C,
@@ -240,9 +242,9 @@ enum ESetting {
     SET_VAB_DATA_ID                               = 0x00AB8687,
     VSYNCMODE_ID                                  = 0x00A879CF,
     VSYNCTEARCONTROL_ID                           = 0x005A375C,
-    TOTAL_DWORD_SETTING_NUM = 95,
+    TOTAL_DWORD_SETTING_NUM = 96,
     TOTAL_WSTRING_SETTING_NUM = 4,
-    TOTAL_SETTING_NUM = 99,
+    TOTAL_SETTING_NUM = 100,
     INVALID_SETTING_ID = 0xFFFFFFFF
 };
 
@@ -354,11 +356,11 @@ enum EValues_OGL_SINGLE_BACKDEPTH_BUFFER {
 };
 
 enum EValues_OGL_SLI_CFR_MODE {
-    OGL_SLI_CFR_MODE_CFR                                 = 0x00,
-    OGL_SLI_CFR_MODE_CLASSIC_SFR                         = 0x01,
-    OGL_SLI_CFR_MODE_DISABLE                             = 0x02,
+    OGL_SLI_CFR_MODE_DISABLE                             = 0x00,
+    OGL_SLI_CFR_MODE_ENABLE                              = 0x01,
+    OGL_SLI_CFR_MODE_CLASSIC_SFR                         = 0x02,
     OGL_SLI_CFR_MODE_NUM_VALUES = 3,
-    OGL_SLI_CFR_MODE_DEFAULT = OGL_SLI_CFR_MODE_CFR
+    OGL_SLI_CFR_MODE_DEFAULT = OGL_SLI_CFR_MODE_DISABLE
 };
 
 enum EValues_OGL_SLI_MULTICAST {
@@ -586,13 +588,11 @@ enum EValues_APPLICATION_PROFILE_NOTIFICATION_TIMEOUT {
     APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_DEFAULT = APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_DISABLED
 };
 
-enum EValues_BATTERY_BOOST {
-    BATTERY_BOOST_MIN                                    = 0x00000001,
-    BATTERY_BOOST_MAX                                    = 0x000000ff,
-    BATTERY_BOOST_ENABLED                                = 0x10000000,
-    BATTERY_BOOST_DISABLED                               = 0x00000000,
-    BATTERY_BOOST_NUM_VALUES = 4,
-    BATTERY_BOOST_DEFAULT = BATTERY_BOOST_DISABLED
+enum EValues_AUTOFL {
+    AUTOFL_OFF                                           = 0,
+    AUTOFL_ON                                            = 1,
+    AUTOFL_NUM_VALUES = 2,
+    AUTOFL_DEFAULT = AUTOFL_ON
 };
 
 enum EValues_BATTERY_BOOST_APP_FPS {
@@ -623,6 +623,13 @@ enum EValues_EXPORT_PERF_COUNTERS {
     EXPORT_PERF_COUNTERS_ON                              = 0x00000001,
     EXPORT_PERF_COUNTERS_NUM_VALUES = 2,
     EXPORT_PERF_COUNTERS_DEFAULT = EXPORT_PERF_COUNTERS_OFF
+};
+
+enum EValues_EXTERNAL_QUIET_MODE {
+    EXTERNAL_QUIET_MODE_ON                               = 0x00000001,
+    EXTERNAL_QUIET_MODE_OFF                              = 0x00000000,
+    EXTERNAL_QUIET_MODE_NUM_VALUES = 2,
+    EXTERNAL_QUIET_MODE_DEFAULT = EXTERNAL_QUIET_MODE_OFF
 };
 
 enum EValues_FXAA_ALLOW {
@@ -702,9 +709,11 @@ enum EValues_PS_FRAMERATE_LIMITER {
     PS_FRAMERATE_LIMITER_FPSMASK                         = 0x000000ff,
     PS_FRAMERATE_LIMITER_NO_ALIGN                        = 0x00004000,
     PS_FRAMERATE_LIMITER_BB_QM                           = 0x00008000,
+    PS_FRAMERATE_LIMITER_LOW_LATENCY_AUTO                = 0x00010000,
     PS_FRAMERATE_LIMITER_LOWER_FPS_TO_ALIGN              = 0x00020000,
     PS_FRAMERATE_LIMITER_FORCE_VSYNC_OFF                 = 0x00040000,
     PS_FRAMERATE_LIMITER_GPS_WEB                         = 0x00080000,
+    PS_FRAMERATE_LIMITER_LOW_LATENCY_LOG                 = 0x00100000,
     PS_FRAMERATE_LIMITER_DISALLOWED                      = 0x00200000,
     PS_FRAMERATE_LIMITER_USE_CPU_WAIT                    = 0x00400000,
     PS_FRAMERATE_LIMITER_NO_LAG_OFFSET                   = 0x00800000,
@@ -713,8 +722,8 @@ enum EValues_PS_FRAMERATE_LIMITER {
     PS_FRAMERATE_LIMITER_FORCEON                         = 0x40000000,
     PS_FRAMERATE_LIMITER_ENABLED                         = 0x80000000,
     PS_FRAMERATE_LIMITER_OPENGL_REMOTE_DESKTOP           = 0xe000003c,
-    PS_FRAMERATE_LIMITER_MASK                            = 0xf0eec0ff,
-    PS_FRAMERATE_LIMITER_NUM_VALUES = 19,
+    PS_FRAMERATE_LIMITER_MASK                            = 0xf0ffc0ff,
+    PS_FRAMERATE_LIMITER_NUM_VALUES = 21,
     PS_FRAMERATE_LIMITER_DEFAULT = PS_FRAMERATE_LIMITER_DISABLED
 };
 
@@ -753,7 +762,7 @@ enum EValues_PS_FRAMERATE_MONITOR_CTRL {
     PS_FRAMERATE_MONITOR_CTRL_THRESHOLD_PCT_MASK         = 0x000000FF,
     PS_FRAMERATE_MONITOR_CTRL_MOVING_AVG_X_MASK          = 0x00000F00,
     PS_FRAMERATE_MONITOR_CTRL_MOVING_AVG_X_SHIFT         = 8,
-    PS_FRAMERATE_MONITOR_CTRL_ENABLE_FINE_GRAINED        = 0x00400000,
+    PS_FRAMERATE_MONITOR_CTRL_LOW_LATENCY_LOG            = 0x00100000,
     PS_FRAMERATE_MONITOR_CTRL_ENABLE_ON_VSYNC            = 0x00800000,
     PS_FRAMERATE_MONITOR_CTRL_VSYNC_OFFSET_MASK          = 0x0000F000,
     PS_FRAMERATE_MONITOR_CTRL_VSYNC_OFFSET_SHIFT         = 12,
@@ -824,8 +833,10 @@ enum EValues_SHIM_RENDERING_OPTIONS {
     SHIM_RENDERING_OPTIONS_HANDLE_WINDOWED_MODE_PERF_OPT = 0x00200000,
     SHIM_RENDERING_OPTIONS_HANDLE_WIN7_ASYNC_RUNTIME_BUG = 0x00400000,
     SHIM_RENDERING_OPTIONS_EXPLICIT_ADAPTER_OPTED_BY_APP = 0x00800000,
-    SHIM_RENDERING_OPTIONS_NUM_VALUES = 25,
-    SHIM_RENDERING_OPTIONS_DEFAULT = SHIM_RENDERING_OPTIONS_DEFAULT_RENDERING_MODE
+    SHIM_RENDERING_OPTIONS_ALLOW_DYNAMIC_DISPLAY_MUX_SWITCH = 0x01000000,
+    SHIM_RENDERING_OPTIONS_DISALLOW_DYNAMIC_DISPLAY_MUX_SWITCH = 0x02000000,
+    SHIM_RENDERING_OPTIONS_NUM_VALUES = 27,
+    SHIM_RENDERING_OPTIONS_DEFAULT = 0x00000000
 };
 
 enum EValues_SLI_GPU_COUNT {
@@ -1021,7 +1032,7 @@ enum EValues_WKS_STEREO_DONGLE_SUPPORT {
     WKS_STEREO_DONGLE_SUPPORT_DAC                        = 1,
     WKS_STEREO_DONGLE_SUPPORT_DLP                        = 2,
     WKS_STEREO_DONGLE_SUPPORT_NUM_VALUES = 3,
-    WKS_STEREO_DONGLE_SUPPORT_DEFAULT = WKS_STEREO_DONGLE_SUPPORT_OFF
+    WKS_STEREO_DONGLE_SUPPORT_DEFAULT = WKS_STEREO_DONGLE_SUPPORT_DAC
 };
 
 enum EValues_WKS_STEREO_SUPPORT {
@@ -1062,7 +1073,6 @@ enum EValues_AUTO_LODBIASADJUST {
     AUTO_LODBIASADJUST_NUM_VALUES = 2,
     AUTO_LODBIASADJUST_DEFAULT = AUTO_LODBIASADJUST_ON
 };
-
 
 enum EValues_EXPORT_PERF_COUNTERS_DX9_ONLY {
     EXPORT_PERF_COUNTERS_DX9_ONLY_OFF                    = 0x00000000,
