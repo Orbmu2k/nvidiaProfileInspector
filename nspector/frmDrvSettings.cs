@@ -667,7 +667,19 @@ namespace nspector
         private async Task ScanProfilesSilentAsync(bool scanPredefined, bool showProfileDialog)
         {
             if (_skipScan)
+            {
+
+                if (scanPredefined && !_alreadyScannedForPredefinedSettings)
+                {
+                    _alreadyScannedForPredefinedSettings = true;
+                    _meta.ResetMetaCache();
+                    tsbModifiedProfiles.Enabled = true;
+                    exportUserdefinedProfilesToolStripMenuItem.Enabled = false;
+                    RefreshCurrentProfile();
+                }
+
                 return;
+            }
 
             tsbModifiedProfiles.Enabled = false;
             tsbRefreshProfile.Enabled = false;
@@ -813,7 +825,7 @@ namespace nspector
                 new Thread(SetTaskbarIcon).Start();
                 await ScanProfilesSilentAsync(true, false);
 
-                if (!_scannerCancelationTokenSource.Token.IsCancellationRequested && WindowState != FormWindowState.Maximized)
+                if (_scannerCancelationTokenSource != null && !_scannerCancelationTokenSource.Token.IsCancellationRequested && WindowState != FormWindowState.Maximized)
                 {
                     new MessageHelper().bringAppToFront((int)this.Handle);
                 }
