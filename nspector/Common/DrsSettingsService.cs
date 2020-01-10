@@ -38,6 +38,22 @@ namespace nspector.Common
 
         private string GetDrsProgramPath()
         {
+            var nvidiaInstallerFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"NVIDIA Corporation\Installer2");
+            var driverFolders = Directory.EnumerateDirectories(nvidiaInstallerFolder, "Display.Driver.*");
+            foreach (var folder in driverFolders)
+            {
+                var fiDbInstaller = new FileInfo(Path.Combine(folder, "dbInstaller.exe"));
+                if (!fiDbInstaller.Exists) continue;
+
+                var fviDbInstaller = FileVersionInfo.GetVersionInfo(fiDbInstaller.FullName);
+                
+                var fileversion = fviDbInstaller.FileVersion.Replace(".", "");
+                var driverver = DriverVersion.ToString().Replace(",","").Replace(".","");
+
+                if (fileversion.EndsWith(driverver))
+                    return fiDbInstaller.DirectoryName;
+            }
+            
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
                 @"NVIDIA Corporation\Drs");
         }

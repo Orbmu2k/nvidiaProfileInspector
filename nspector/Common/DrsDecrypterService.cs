@@ -31,7 +31,11 @@ namespace nspector.Common
 
         public DrsDecrypterService(DrsSettingsMetaService metaService) : base(metaService)
         {
-            CreateInternalSettingMap();
+            try
+            {
+                CreateInternalSettingMap();
+            }
+            catch { }
         }
 
         private uint GetDwordFromKey(uint offset)
