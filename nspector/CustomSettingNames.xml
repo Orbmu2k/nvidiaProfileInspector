@@ -3,6 +3,22 @@
   <ShowCustomizedSettingNamesOnly>false</ShowCustomizedSettingNamesOnly>
   <Settings>
     <CustomSetting>
+      <UserfriendlyName>Enable Ansel</UserfriendlyName>
+      <HexSettingID>0x1075D972</HexSettingID>
+      <Description />
+      <GroupName>5 - Common</GroupName>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Off</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>On</UserfriendlyName>
+          <HexValue>0x00000001</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+    </CustomSetting>
+    <CustomSetting>
       <UserfriendlyName>Sharpening Filter</UserfriendlyName>
       <HexSettingID>0x00598928</HexSettingID>
       <MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
