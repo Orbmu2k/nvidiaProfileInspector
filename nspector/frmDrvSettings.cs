@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1195,6 +1196,39 @@ namespace nspector
         {
             _scannerCancelationTokenSource?.Cancel();
             SaveSettings();
+        }
+
+        private void lvSettings_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                CopyModifiedSettingsToClipBoard();
+            }
+        }
+
+        private void CopyModifiedSettingsToClipBoard()
+        {
+            var sbSettings = new StringBuilder();
+            sbSettings.AppendFormat("{0,-40} {1}\r\n", "### NVIDIA Profile Inspector ###", _CurrentProfile);
+
+            foreach (ListViewGroup group in lvSettings.Groups)
+            {
+                bool groupTitleAdded = false;
+                foreach (ListViewItem item in group.Items)
+                {
+                    if (item.ImageIndex != 0) continue;
+
+                    if(!groupTitleAdded)
+                    {
+                        sbSettings.AppendFormat("\r\n[{0}]\r\n", group.Header);
+                        groupTitleAdded = true;
+                    }
+                    sbSettings.AppendFormat("{0,-40} {1}\r\n", item.Text, item.SubItems[1].Text);
+                }
+            }
+            
+            Clipboard.SetText(sbSettings.ToString());
+
         }
     }
 }

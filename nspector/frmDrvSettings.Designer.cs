@@ -515,6 +515,7 @@
             this.lvSettings.SelectedIndexChanged += new System.EventHandler(this.lvSettings_SelectedIndexChanged);
             this.lvSettings.DoubleClick += new System.EventHandler(this.lvSettings_DoubleClick);
             this.lvSettings.Resize += new System.EventHandler(this.lvSettings_Resize);
+            this.lvSettings.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvSettings_KeyDown);
             // 
             // chSettingID
             // 
