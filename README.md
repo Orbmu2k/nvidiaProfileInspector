@@ -8,4 +8,4 @@ For more information how to use this tool, you can find some very good wikis her
 * https://wiki.step-project.com/Guide:NVIDIA_Inspector
 * https://www.pcgamingwiki.com/wiki/Nvidia_Profile_Inspector
 
-![screenshot](npi_screenhshot.png)
+![](npi_screenshot.png)
