@@ -245,6 +245,8 @@ namespace nspector.Common
                     else if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
                         cachedSetting.AddBinaryValue(setting.predefinedValue.binaryValue, profile.profileName);
                 }
+                else
+                    cachedSetting.ProfileCount++;
 
                 if (!cacheEntryExists)
                     CachedSettings.Add(cachedSetting);
