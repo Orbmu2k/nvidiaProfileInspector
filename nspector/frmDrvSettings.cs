@@ -108,15 +108,16 @@ namespace nspector
             return item;
         }
 
-        private void RefreshApplicationsCombosAndText(List<string> applications)
+        private void RefreshApplicationsCombosAndText(Dictionary<string,string> applications)
         {
             lblApplications.Text = "";
             tssbRemoveApplication.DropDownItems.Clear();
 
-            lblApplications.Text = " " + string.Join(", ", applications);
+            lblApplications.Text = " " + string.Join(", ", applications.Select(x=>x.Value));
             foreach (var app in applications)
             {
-                tssbRemoveApplication.DropDownItems.Add(app, Properties.Resources.ieframe_1_18212);
+                var item = tssbRemoveApplication.DropDownItems.Add(app.Value, Properties.Resources.ieframe_1_18212);
+                item.Tag = app.Key;
             }
             tssbRemoveApplication.Enabled = (tssbRemoveApplication.DropDownItems.Count > 0);
         }
@@ -142,7 +143,7 @@ namespace nspector
             {
                 lvSettings.Items.Clear();
                 lvSettings.Groups.Clear();
-                var applications = new List<string>();
+                var applications = new Dictionary<string,string>();
 
                 _currentProfileSettingItems = _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
                 RefreshApplicationsCombosAndText(applications);
@@ -913,7 +914,7 @@ namespace nspector
             //{
             //    drs.DeleteApplication(currentProfile, e.ClickedItem.Text);
             //}
-            _drs.DeleteApplication(_CurrentProfile, e.ClickedItem.Text);
+            _drs.RemoveApplication(_CurrentProfile, e.ClickedItem.Tag.ToString());
             RefreshCurrentProfile();
         }
 

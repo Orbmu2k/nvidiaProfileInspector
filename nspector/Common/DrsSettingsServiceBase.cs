@@ -227,9 +227,9 @@ namespace nspector.Common
 
         }
 
-        protected void DeleteApplication(IntPtr hSession, IntPtr hProfile, string applicationName)
+        protected void DeleteApplication(IntPtr hSession, IntPtr hProfile, NVDRS_APPLICATION_V3 application)
         {
-            var caRes = nvw.DRS_DeleteApplication(hSession, hProfile, new StringBuilder(applicationName));
+            var caRes = nvw.DRS_DeleteApplicationEx(hSession, hProfile, ref application);
             if (caRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_DeleteApplication", caRes);
         }

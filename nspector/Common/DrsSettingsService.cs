@@ -449,7 +449,7 @@ namespace nspector.Common
         }
               
 
-        public List<SettingItem> GetSettingsForProfile(string profileName, SettingViewMode viewMode, ref List<string> applications)
+        public List<SettingItem> GetSettingsForProfile(string profileName, SettingViewMode viewMode, ref Dictionary<string, string> applications)
         {
             var result = new List<SettingItem>();
             var settingIds = meta.GetSettingIds(viewMode);
@@ -482,7 +482,7 @@ namespace nspector.Common
                 }
 
                 return GetProfileApplications(hSession, hProfile)
-                    .Select(x => x.appName).ToList(); ;
+                    .Select(x => Tuple.Create(x.appName,GetApplicationFingerprint(x))).ToDictionary(x=> x.Item2, x=> x.Item1);
 
             });
 
@@ -499,24 +499,25 @@ namespace nspector.Common
             });
         }
 
-        public void DeleteApplication(string profileName, string applicationName)
+        public void RemoveApplication(string profileName, string applicationFingerprint)
         {
             DrsSession((hSession) =>
             {
                 var hProfile = GetProfileHandle(hSession, profileName);
-                DeleteApplication(hSession, hProfile, applicationName);
+                var applications = GetProfileApplications(hSession, hProfile);
+                foreach (var app in applications)
+                {
+                    if (GetApplicationFingerprint(app) != applicationFingerprint) continue;
+                    DeleteApplication(hSession, hProfile, app);
+                    break;
+                }
                 SaveSettings(hSession);
             });
         }
 
-        public List<string> GetApplications(string profileName)
+        private string GetApplicationFingerprint(NVDRS_APPLICATION_V3 application)
         {
-            return DrsSession((hSession) =>
-            {
-                var hProfile = GetProfileHandle(hSession, profileName);
-                var applications = GetProfileApplications(hSession, hProfile);
-                return applications.Select(x => x.appName).ToList();
-            });
+            return $"{application.appName}|{application.fileInFolder}|{application.userFriendlyName}|{application.launcher}";
         }
         
     }
