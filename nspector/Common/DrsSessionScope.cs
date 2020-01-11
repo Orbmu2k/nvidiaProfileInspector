@@ -14,12 +14,12 @@ namespace nspector.Common
         private static object _Sync = new object();
 
 
-        public static T DrsSession<T>(Func<IntPtr, T> action, bool forceNonGlobalSession = false)
+        public static T DrsSession<T>(Func<IntPtr, T> action, bool forceNonGlobalSession = false, bool preventLoadSettings = false)
         {
             lock (_Sync)
             {
                 if (!HoldSession || forceNonGlobalSession)
-                    return NonGlobalDrsSession<T>(action);
+                    return NonGlobalDrsSession<T>(action, preventLoadSettings);
 
 
                 if (GlobalSession == IntPtr.Zero)
@@ -31,10 +31,13 @@ namespace nspector.Common
 
                     if (csRes != NvAPI_Status.NVAPI_OK)
                         throw new NvapiException("DRS_CreateSession", csRes);
-
-                    var nvRes = nvw.DRS_LoadSettings(GlobalSession);
-                    if (nvRes != NvAPI_Status.NVAPI_OK)
-                        throw new NvapiException("DRS_LoadSettings", nvRes);
+                    
+                    if (!preventLoadSettings)
+                    {
+                        var nvRes = nvw.DRS_LoadSettings(GlobalSession);
+                        if (nvRes != NvAPI_Status.NVAPI_OK)
+                            throw new NvapiException("DRS_LoadSettings", nvRes);
+                    }
                 }
             }
 
@@ -58,7 +61,7 @@ namespace nspector.Common
             }
         }
 
-        private static T NonGlobalDrsSession<T>(Func<IntPtr, T> action)
+        private static T NonGlobalDrsSession<T>(Func<IntPtr, T> action, bool preventLoadSettings = false)
         {
             IntPtr hSession = IntPtr.Zero;
             var csRes = nvw.DRS_CreateSession(ref hSession);
@@ -67,9 +70,12 @@ namespace nspector.Common
 
             try
             {
-                var nvRes = nvw.DRS_LoadSettings(hSession);
-                if (nvRes != NvAPI_Status.NVAPI_OK)
-                    throw new NvapiException("DRS_LoadSettings", nvRes);
+                if (!preventLoadSettings)
+                {
+                    var nvRes = nvw.DRS_LoadSettings(hSession);
+                    if (nvRes != NvAPI_Status.NVAPI_OK)
+                        throw new NvapiException("DRS_LoadSettings", nvRes);
+                }
 
                 return action(hSession);
             }

@@ -1045,6 +1045,7 @@ namespace nspector
                 {
                     _import.ImportAllProfilesFromNvidiaTextFile(openDialog.FileName);
                     MessageBox.Show("Profile(s) successfully imported!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DrsSessionScope.DestroyGlobalSession();
                     RefreshAll();
                 }
                 catch (NvapiException)

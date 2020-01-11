@@ -41,13 +41,13 @@ namespace nspector.Common
             return result;
         }
 
-        protected void DrsSession(Action<IntPtr> action)
+        protected void DrsSession(Action<IntPtr> action, bool forceNonGlobalSession = false, bool preventLoadSettings = false)
         {
             DrsSessionScope.DrsSession<bool>((hSession) =>
             {
                 action(hSession);
                 return true;
-            });
+            }, forceNonGlobalSession: forceNonGlobalSession, preventLoadSettings: preventLoadSettings);
         }
 
         protected T DrsSession<T>(Func<IntPtr, T> action, bool forceDedicatedScope = false)

@@ -43,7 +43,7 @@ namespace nspector.Common
             {
                 LoadSettingsFileEx(hSession, filename);
                 SaveSettings(hSession);
-            });
+            }, forceNonGlobalSession: true, preventLoadSettings: true);
         }
 
         internal void ExportProfiles(List<string> profileNames, string filename, bool includePredefined)
