@@ -17,6 +17,10 @@ namespace nspector.Common.Helper
 
         public FormWindowState WindowState { get; set; }
 
+        public bool ShowCustomizedSettingNamesOnly { get; set; } = false;
+
+        public bool ShowScannedUnknownSettings { get; set; } = false;
+
         private static string GetSettingsFilename()
         {
             var fiPortalbleSettings = new FileInfo("settings.xml");

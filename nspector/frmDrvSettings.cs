@@ -1186,6 +1186,8 @@ namespace nspector
                 settings.WindowWidth = RestoreBounds.Width;
             }
             settings.WindowState = WindowState;
+            settings.ShowCustomizedSettingNamesOnly = tscbShowCustomSettingNamesOnly.Checked;
+            settings.ShowScannedUnknownSettings = tscbShowScannedUnknownSettings.Checked;
             settings.SaveSettings();
         }
 
@@ -1195,6 +1197,8 @@ namespace nspector
             SetBounds(settings.WindowLeft, settings.WindowTop, settings.WindowWidth, settings.WindowHeight);
             WindowState = settings.WindowState != FormWindowState.Minimized ? settings.WindowState : FormWindowState.Normal;
             HandleScreenConstraints();
+            tscbShowCustomSettingNamesOnly.Checked = settings.ShowCustomizedSettingNamesOnly;
+            tscbShowScannedUnknownSettings.Checked = !_skipScan && settings.ShowScannedUnknownSettings;
         }
 
         private void frmDrvSettings_FormClosed(object sender, FormClosedEventArgs e)

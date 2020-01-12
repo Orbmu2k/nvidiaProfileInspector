@@ -8,8 +8,6 @@ namespace nspector.Common.CustomSettings
     [Serializable]
     public class CustomSettingNames
     {
-        public bool ShowCustomizedSettingNamesOnly = false;
-
         public List<CustomSetting> Settings = new List<CustomSetting>();
 
         public void StoreToFile(string filename)
