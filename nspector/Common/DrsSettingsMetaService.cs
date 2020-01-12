@@ -18,7 +18,6 @@ namespace nspector.Common
         public ISettingMetaService DriverMeta;
         private ISettingMetaService ScannedMeta;
         private ISettingMetaService ReferenceMeta;
-        private ISettingMetaService NvD3dUmxMeta;
 
         private readonly CustomSettingNames _customSettings;
         private readonly CustomSettingNames _referenceSettings;
@@ -80,13 +79,23 @@ namespace nspector.Common
         
         private string GetSettingName(uint settingId)
         {
+            string hexCandidate = null;
+
             foreach (var service in MetaServices.OrderBy(x=>x.Service.Source))
             {
                 var settingName = service.Service.GetSettingName(settingId);
-                if (settingName != null)
+
+                if (!string.IsNullOrEmpty(settingName))
+                {
+                    if (settingName.StartsWith("0x"))
+                    {
+                        hexCandidate = settingName;
+                        continue;
+                    }
                     return settingName;
+                }
             }
-            return null;
+            return hexCandidate;
         }
 
         private string GetGroupName(uint settingId)
