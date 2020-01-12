@@ -112,6 +112,7 @@ namespace nspector.Common
                             ModifiedProfiles.Add(profile.profileName);
                             UserProfiles.Add(profile.profileName);
                             foundModifiedProfile = true;
+                            if (justModified) continue;
                         }
 
 
@@ -124,11 +125,12 @@ namespace nspector.Common
                                 {
                                     foundModifiedProfile = true;
                                     ModifiedProfiles.Add(profile.profileName);
+                                    if (justModified) break;
                                 }
                             }
                         }
 
-                        if (checkedSettingsCount >= profile.numOfSettings)
+                        if ((foundModifiedProfile && justModified) || checkedSettingsCount >= profile.numOfSettings)
                             continue;
 
                         var settings = GetProfileSettings(hSession, hProfile);
@@ -146,6 +148,7 @@ namespace nspector.Common
                                 {
                                     foundModifiedProfile = true;
                                     ModifiedProfiles.Add(profile.profileName);
+                                    if (justModified) break;
                                 }
                             }
                         }
