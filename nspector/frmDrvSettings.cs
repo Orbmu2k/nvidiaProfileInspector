@@ -699,12 +699,15 @@ namespace nspector
             if (scanPredefined && !_alreadyScannedForPredefinedSettings)
             {
                 _alreadyScannedForPredefinedSettings = true;
-                await _scanner.ScanForPredefinedProfileSettingsAsync(progressHandler, _scannerCancelationTokenSource.Token);
+                await _scanner.ScanProfileSettingsAsync(false, progressHandler, _scannerCancelationTokenSource.Token);
                 _meta.ResetMetaCache();
                 tscbShowScannedUnknownSettings.Enabled = true;
             }
-
-            await _scanner.ScanForModifiedProfilesAsync(progressHandler, _scannerCancelationTokenSource.Token);
+            else
+            {
+                await _scanner.ScanProfileSettingsAsync(true, progressHandler, _scannerCancelationTokenSource.Token);
+            }
+                        
             RefreshModifiesProfilesDropDown();
             tsbModifiedProfiles.Enabled = true;
 
