@@ -11,7 +11,6 @@ namespace nspector.Common.Meta
         DriverSettings = 20,
         ConstantSettings = 30,
         ReferenceSettings = 40,
-        NvD3dUmxSettings = 50,
-        ScannedSettings = 60,
+        ScannedSettings = 50,
     }
 }

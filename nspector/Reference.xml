@@ -3,6 +3,1080 @@
   <ShowCustomizedSettingNamesOnly>false</ShowCustomizedSettingNamesOnly>
   <Settings>
     <CustomSetting>
+      <UserfriendlyName>Time</UserfriendlyName>
+      <HexSettingID>0x70AD05C8</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RunTimeName</UserfriendlyName>
+      <HexSettingID>0x701A8BE4</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>EnableConsumerStereoSupport</UserfriendlyName>
+      <HexSettingID>0x70CB9168</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoViewer</UserfriendlyName>
+      <HexSettingID>0x704915A1</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoViewerType</UserfriendlyName>
+      <HexSettingID>0x708F9EF7</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>ShowAllViewerTypes</UserfriendlyName>
+      <HexSettingID>0x708E5CB4</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoAdjustEnable</UserfriendlyName>
+      <HexSettingID>0x70538AB1</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoDisableTnL</UserfriendlyName>
+      <HexSettingID>0x70633BD9</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoTransformationType</UserfriendlyName>
+      <HexSettingID>0x70C27E3C</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoSeparation</UserfriendlyName>
+      <HexSettingID>0x70933C00</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoSeparationStep</UserfriendlyName>
+      <HexSettingID>0x7082555B</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoConvergence</UserfriendlyName>
+      <HexSettingID>0x708DB8C5</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoVRConvergenceBias</UserfriendlyName>
+      <HexSettingID>0x708DB8C6</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoConvergenceMultiplier</UserfriendlyName>
+      <HexSettingID>0x70EFBB5B</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoVRRefreshRateOverride</UserfriendlyName>
+      <HexSettingID>0x708DB8C8</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoVRVsync</UserfriendlyName>
+      <HexSettingID>0x708DB8C9</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RHW2DDetectionMin</UserfriendlyName>
+      <HexSettingID>0x7029432B</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RHWGreaterAtScreen</UserfriendlyName>
+      <HexSettingID>0x702C861A</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RHWEqualAtScreen</UserfriendlyName>
+      <HexSettingID>0x70AB2E09</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RHWLessAtScreen</UserfriendlyName>
+      <HexSettingID>0x70381472</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>AutoConvergence</UserfriendlyName>
+      <HexSettingID>0x702A0AB2</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>AutoConvergenceAdjustPace</UserfriendlyName>
+      <HexSettingID>0x70BF3C6B</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoToggle</UserfriendlyName>
+      <HexSettingID>0x70D76B8B</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>SaveStereoImage</UserfriendlyName>
+      <HexSettingID>0x70121853</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoVerticalAdjustMore</UserfriendlyName>
+      <HexSettingID>0x7087FE61</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoVerticalAdjustLess</UserfriendlyName>
+      <HexSettingID>0x703ACFC6</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoHorizontalAdjustMore</UserfriendlyName>
+      <HexSettingID>0x70062F07</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoHorizontalAdjustLess</UserfriendlyName>
+      <HexSettingID>0x70871A39</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoSeparationAdjustMore</UserfriendlyName>
+      <HexSettingID>0x70AB8D32</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoSeparationAdjustLess</UserfriendlyName>
+      <HexSettingID>0x705D1E02</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoConvergenceAdjustMore</UserfriendlyName>
+      <HexSettingID>0x701ED576</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoConvergenceAdjustLess</UserfriendlyName>
+      <HexSettingID>0x70D4ADD7</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoToggleMode</UserfriendlyName>
+      <HexSettingID>0x70D76B8C</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoSuggestSettings</UserfriendlyName>
+      <HexSettingID>0x706315AF</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoUnsuggestSettings</UserfriendlyName>
+      <HexSettingID>0x7017861C</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>WriteConfig</UserfriendlyName>
+      <HexSettingID>0x700498B3</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>DeleteConfig</UserfriendlyName>
+      <HexSettingID>0x70C73BA2</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>ToggleLaserSight</UserfriendlyName>
+      <HexSettingID>0x70B7BD1F</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserAdjustXPlus</UserfriendlyName>
+      <HexSettingID>0x70D8BAE6</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserAdjustXMinus</UserfriendlyName>
+      <HexSettingID>0x7048B7DC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserAdjustYPlus</UserfriendlyName>
+      <HexSettingID>0x7024EDA4</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserAdjustYMinus</UserfriendlyName>
+      <HexSettingID>0x70FB9E1E</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>ToggleAutoConvergence</UserfriendlyName>
+      <HexSettingID>0x70085DE3</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>ToggleAutoConvergenceRestore</UserfriendlyName>
+      <HexSettingID>0x703BC51E</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RHWAtScreenMore</UserfriendlyName>
+      <HexSettingID>0x7066A22E</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RHWAtScreenLess</UserfriendlyName>
+      <HexSettingID>0x709139AD</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RHWLessAtScreenMore</UserfriendlyName>
+      <HexSettingID>0x704E4BCA</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RHWLessAtScreenLess</UserfriendlyName>
+      <HexSettingID>0x70B378A1</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>GammaAdjustMore</UserfriendlyName>
+      <HexSettingID>0x703F4521</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>GammaAdjustLess</UserfriendlyName>
+      <HexSettingID>0x70E8420C</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>GlassesDelayPlus</UserfriendlyName>
+      <HexSettingID>0x701FC5B4</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>GlassesDelayMinus</UserfriendlyName>
+      <HexSettingID>0x70B8A743</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>FavorSZ</UserfriendlyName>
+      <HexSettingID>0x705FAED7</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserSight</UserfriendlyName>
+      <HexSettingID>0x7058B6E1</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserSightFile</UserfriendlyName>
+      <HexSettingID>0x707AC50D</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserSightEnabled</UserfriendlyName>
+      <HexSettingID>0x7054837A</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserSightIndex</UserfriendlyName>
+      <HexSettingID>0x70DA83C6</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserSightProperty</UserfriendlyName>
+      <HexSettingID>0x7032243A</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoPointer</UserfriendlyName>
+      <HexSettingID>0x70364596</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>GameSpecific0</UserfriendlyName>
+      <HexSettingID>0x702244B7</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoDefaultOn</UserfriendlyName>
+      <HexSettingID>0x70AB30A7</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>FrustumAdjustMode</UserfriendlyName>
+      <HexSettingID>0x70A1411A</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>MonitorSize</UserfriendlyName>
+      <HexSettingID>0x7086EBE9</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>MaxMonitorSize</UserfriendlyName>
+      <HexSettingID>0x7032022C</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>MaxVertexCount</UserfriendlyName>
+      <HexSettingID>0x709E4A94</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>PartialClearMode</UserfriendlyName>
+      <HexSettingID>0x709794CC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserXAdjust</UserfriendlyName>
+      <HexSettingID>0x7057E831</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserYAdjust</UserfriendlyName>
+      <HexSettingID>0x70225308</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserZAdjust</UserfriendlyName>
+      <HexSettingID>0x7014FCA2</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoRefreshDefaultOn</UserfriendlyName>
+      <HexSettingID>0x702BA385</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>MixedTnL</UserfriendlyName>
+      <HexSettingID>0x70BD11E0</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoGamma</UserfriendlyName>
+      <HexSettingID>0x70C8B5D1</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LineCodeColor</UserfriendlyName>
+      <HexSettingID>0x70DC4A12</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LeftAnaglyphFilter</UserfriendlyName>
+      <HexSettingID>0x70D51CD1</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RightAnaglyphFilter</UserfriendlyName>
+      <HexSettingID>0x70F4A930</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>InterleavePattern0</UserfriendlyName>
+      <HexSettingID>0x70B1C8CC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>InterleavePattern1</UserfriendlyName>
+      <HexSettingID>0x7091A772</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoForceVSync</UserfriendlyName>
+      <HexSettingID>0x70AAE185</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoColorKey</UserfriendlyName>
+      <HexSettingID>0x70E5773B</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>ZDirection</UserfriendlyName>
+      <HexSettingID>0x70B17872</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoCompatibility</UserfriendlyName>
+      <HexSettingID>0x70A2000E</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LeftColorFilter0</UserfriendlyName>
+      <HexSettingID>0x70AC6888</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LeftColorFilter1</UserfriendlyName>
+      <HexSettingID>0x7090B6CA</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RightColorFilter0</UserfriendlyName>
+      <HexSettingID>0x70B9A2F7</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>RightColorFilter1</UserfriendlyName>
+      <HexSettingID>0x70ACA0CC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>SharpVPI</UserfriendlyName>
+      <HexSettingID>0x706E0041</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoMode</UserfriendlyName>
+      <HexSettingID>0x701BAA09</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Watchdog</UserfriendlyName>
+      <HexSettingID>0x700A5654</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoOSDEnable</UserfriendlyName>
+      <HexSettingID>0x70F455AA</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoOrthoEnable</UserfriendlyName>
+      <HexSettingID>0x703564F6</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoTextureEnable</UserfriendlyName>
+      <HexSettingID>0x70EDB381</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoNotSupported</UserfriendlyName>
+      <HexSettingID>0x709AA171</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>ModesetWarning</UserfriendlyName>
+      <HexSettingID>0x70969BB0</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoFirstTime</UserfriendlyName>
+      <HexSettingID>0x70AF6400</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoRefreshRate</UserfriendlyName>
+      <HexSettingID>0x70DED3C0</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>GameConfigs</UserfriendlyName>
+      <HexSettingID>0x704A905A</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CompareEyes</UserfriendlyName>
+      <HexSettingID>0x70729E58</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CompareFrom</UserfriendlyName>
+      <HexSettingID>0x70EFB726</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoImageType</UserfriendlyName>
+      <HexSettingID>0x7097906C</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>SnapShotQuality</UserfriendlyName>
+      <HexSettingID>0x7004E7A6</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>NoLockSubstitute</UserfriendlyName>
+      <HexSettingID>0x7005AD16</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>PushbufSubstituteSize</UserfriendlyName>
+      <HexSettingID>0x7054FBF8</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>DiscardHotkeys</UserfriendlyName>
+      <HexSettingID>0x70175566</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoLCDPatternType</UserfriendlyName>
+      <HexSettingID>0x707CFB97</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>GlassesSwitchDelay</UserfriendlyName>
+      <HexSettingID>0x70057BB6</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StartZBit</UserfriendlyName>
+      <HexSettingID>0x7044D7A6</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>DisableOnOutOfMemory</UserfriendlyName>
+      <HexSettingID>0x70C71508</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoWindowedEnable</UserfriendlyName>
+      <HexSettingID>0x709B3484</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>AllowNonExclusiveStereo</UserfriendlyName>
+      <HexSettingID>0x702C7709</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Rhwinf</UserfriendlyName>
+      <HexSettingID>0x706E1913</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Rhwscr</UserfriendlyName>
+      <HexSettingID>0x70A4995C</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Zinf</UserfriendlyName>
+      <HexSettingID>0x70FC13AD</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Zscr</UserfriendlyName>
+      <HexSettingID>0x707F0E69</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>InGameLaserSight</UserfriendlyName>
+      <HexSettingID>0x7064F0C2</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CutoffNearDepthLess</UserfriendlyName>
+      <HexSettingID>0x70D1BDB5</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CutoffNearDepthMore</UserfriendlyName>
+      <HexSettingID>0x7020C991</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CutoffFarDepthLess</UserfriendlyName>
+      <HexSettingID>0x704C9A46</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CutoffFarDepthMore</UserfriendlyName>
+      <HexSettingID>0x70FBC04D</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CutoffStepLess</UserfriendlyName>
+      <HexSettingID>0x704B45C7</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CutoffStepMore</UserfriendlyName>
+      <HexSettingID>0x700F2971</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoCutoffDepthNear</UserfriendlyName>
+      <HexSettingID>0x7050E011</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoCutoffDepthFar</UserfriendlyName>
+      <HexSettingID>0x70ADD220</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoCutoff</UserfriendlyName>
+      <HexSettingID>0x709A1DDF</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>EnableCE</UserfriendlyName>
+      <HexSettingID>0x702B8C95</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>MediaPlayer</UserfriendlyName>
+      <HexSettingID>0x70A8FC7F</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoDX9</UserfriendlyName>
+      <HexSettingID>0x70D10D2B</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoMsgVerticalOffset</UserfriendlyName>
+      <HexSettingID>0x70160EBF</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>LaserSightTrigger</UserfriendlyName>
+      <HexSettingID>0x70031B88</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoLaserSightMaxCount</UserfriendlyName>
+      <HexSettingID>0x70BC864D</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoLaserSightCount</UserfriendlyName>
+      <HexSettingID>0x70077042</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoEasyZCheck</UserfriendlyName>
+      <HexSettingID>0x70B6D6ED</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoStrictLSCheck</UserfriendlyName>
+      <HexSettingID>0x709BC378</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoDisableAsync</UserfriendlyName>
+      <HexSettingID>0x70DE5533</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>EnablePartialStereoBlit</UserfriendlyName>
+      <HexSettingID>0x7096ECED</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoMemoEnabled</UserfriendlyName>
+      <HexSettingID>0x707F4B45</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoNoDepthOverride</UserfriendlyName>
+      <HexSettingID>0x709DEA62</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoFlagsDX10</UserfriendlyName>
+      <HexSettingID>0x702442FC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoUseMatrix</UserfriendlyName>
+      <HexSettingID>0x70E34A78</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoShaderMatrixCheck</UserfriendlyName>
+      <HexSettingID>0x7044F8FB</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoLogShaders</UserfriendlyName>
+      <HexSettingID>0x7052BDD0</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoEpsilon</UserfriendlyName>
+      <HexSettingID>0x70E5A749</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>DelayedStereoDesktop</UserfriendlyName>
+      <HexSettingID>0x7042EEF1</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>DX10VSCBNumber</UserfriendlyName>
+      <HexSettingID>0x70F8E408</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>DX10DSCBNumber</UserfriendlyName>
+      <HexSettingID>0x70092D4A</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>InGameLaserSightDX9States</UserfriendlyName>
+      <HexSettingID>0x706139AD</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoMiscFlags</UserfriendlyName>
+      <HexSettingID>0x70CCB5F0</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoHiddenProfile</UserfriendlyName>
+      <HexSettingID>0x70E46F20</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>StereoLinkDll</UserfriendlyName>
+      <HexSettingID>0x70E46F2A</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>EnableStereoCursor</UserfriendlyName>
+      <HexSettingID>0x70E46F2B</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>CreateStereoDTAfterPresentNum</UserfriendlyName>
+      <HexSettingID>0x70A7FC7F</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Date_Rel</UserfriendlyName>
+      <HexSettingID>0x705FAFEC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Game</UserfriendlyName>
+      <HexSettingID>0x70C8D48E</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Style</UserfriendlyName>
+      <HexSettingID>0x709CC5E0</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Publisher</UserfriendlyName>
+      <HexSettingID>0x706C7030</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Developer</UserfriendlyName>
+      <HexSettingID>0x703C4026</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>API</UserfriendlyName>
+      <HexSettingID>0x70B5603F</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Value</UserfriendlyName>
+      <HexSettingID>0x7049C7EC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Compat</UserfriendlyName>
+      <HexSettingID>0x7051E5F5</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>PF_Issues</UserfriendlyName>
+      <HexSettingID>0x704CDE5A</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Comments</UserfriendlyName>
+      <HexSettingID>0x704D456E</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Developer_Issues</UserfriendlyName>
+      <HexSettingID>0x704F5928</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>P1SH0</UserfriendlyName>
+      <HexSettingID>0x70998683</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>V1SH0</UserfriendlyName>
+      <HexSettingID>0x70E6A3CF</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>PSH0</UserfriendlyName>
+      <HexSettingID>0x7046516E</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH0</UserfriendlyName>
+      <HexSettingID>0x708B7AF8</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH1</UserfriendlyName>
+      <HexSettingID>0x708B7AF9</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH2</UserfriendlyName>
+      <HexSettingID>0x708B7AFA</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH3</UserfriendlyName>
+      <HexSettingID>0x708B7AFB</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH4</UserfriendlyName>
+      <HexSettingID>0x708B7AFC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH5</UserfriendlyName>
+      <HexSettingID>0x708B7AFD</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH6</UserfriendlyName>
+      <HexSettingID>0x708B7AFE</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH7</UserfriendlyName>
+      <HexSettingID>0x708B7AFF</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH8</UserfriendlyName>
+      <HexSettingID>0x708B7B00</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH9</UserfriendlyName>
+      <HexSettingID>0x708B7B01</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>VSH10</UserfriendlyName>
+      <HexSettingID>0x708B7B02</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>2DDHUDSettings</UserfriendlyName>
+      <HexSettingID>0x709ADADA</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>2DDConvergence</UserfriendlyName>
+      <HexSettingID>0x709ADADB</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>Disable2DD</UserfriendlyName>
+      <HexSettingID>0x709ADADD</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>2DD_Notes</UserfriendlyName>
+      <HexSettingID>0x709ADADC</HexSettingID>
+      <GroupName>7 - Stereo</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
       <UserfriendlyName>ASYNC10_ENABLE</UserfriendlyName>
       <HexSettingID>0x0005F511</HexSettingID>
       <Description />

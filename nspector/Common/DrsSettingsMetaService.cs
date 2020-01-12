@@ -62,9 +62,6 @@ namespace nspector.Common
                     ReferenceMeta = new CustomSettingMetaService(_referenceSettings, SettingMetaSource.ReferenceSettings);
                     MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 4, Service = ReferenceMeta });
                 }
-
-                NvD3dUmxMeta = new NvD3dUmxSettingMetaService();
-                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 6, Service = NvD3dUmxMeta });
             }
 
         }
@@ -258,7 +255,6 @@ namespace nspector.Common
                         SettingMetaSource.ScannedSettings,  
                         SettingMetaSource.CustomSettings,  
                         SettingMetaSource.DriverSettings,
-                        SettingMetaSource.NvD3dUmxSettings,
                         SettingMetaSource.ReferenceSettings,
                     };
                 default:
@@ -284,7 +280,6 @@ namespace nspector.Common
                         SettingMetaSource.ScannedSettings,
                         SettingMetaSource.CustomSettings,
                         SettingMetaSource.DriverSettings,
-                        SettingMetaSource.NvD3dUmxSettings,
                         SettingMetaSource.ReferenceSettings,
 
                     };
