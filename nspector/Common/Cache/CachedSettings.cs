@@ -6,14 +6,14 @@ namespace nspector.Common
 {
     internal class CachedSettings
     {
-        internal CachedSettings()  { }
+        internal CachedSettings() { }
 
         internal CachedSettings(uint settingId, NVDRS_SETTING_TYPE settingType)
         {
             SettingId = settingId;
             SettingType = settingType;
         }
-        
+
         internal uint SettingId;
 
         internal List<CachedSettingValue> SettingValues = new List<CachedSettingValue>();
@@ -21,7 +21,7 @@ namespace nspector.Common
         internal uint ProfileCount = 0;
 
         internal NVDRS_SETTING_TYPE SettingType = NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
-        
+
         internal void AddDwordValue(uint valueDword, string Profile)
         {
             var setting = SettingValues.FirstOrDefault(s => s.Value == valueDword);

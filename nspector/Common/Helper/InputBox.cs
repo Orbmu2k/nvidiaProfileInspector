@@ -17,7 +17,7 @@ namespace nspector.Common.Helper
             var buttonCancel = new Button();
             var imageBox = new PictureBox();
 
-            EventHandler textchanged = delegate(object sender, EventArgs e)
+            EventHandler textchanged = delegate (object sender, EventArgs e)
             {
                 bool mandatory_success = Regex.IsMatch(textBox.Text, mandatoryFormatRegExPattern);
 

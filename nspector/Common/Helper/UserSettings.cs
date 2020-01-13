@@ -25,7 +25,7 @@ namespace nspector.Common.Helper
         {
             var fiPortalbleSettings = new FileInfo("settings.xml");
             if (fiPortalbleSettings.Exists) return fiPortalbleSettings.FullName;
-            
+
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Application.ProductName);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             return Path.Combine(path, "settings.xml"); ;

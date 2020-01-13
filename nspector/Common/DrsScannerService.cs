@@ -118,8 +118,8 @@ namespace nspector.Common
 
                         foreach (uint kpd in knownPredefines)
                         {
-                             if (CheckCommonSetting(hSession, hProfile, profile,
-                                ref checkedSettingsCount, kpd, !justModified, ref alreadyChecked))
+                            if (CheckCommonSetting(hSession, hProfile, profile,
+                               ref checkedSettingsCount, kpd, !justModified, ref alreadyChecked))
                             {
                                 if (!foundModifiedProfile)
                                 {

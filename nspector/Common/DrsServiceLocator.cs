@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
 using nspector.Common.CustomSettings;
-
-using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nspector.Common
 {
@@ -53,6 +45,6 @@ namespace nspector.Common
 
             return null;
         }
-        
+
     }
 }

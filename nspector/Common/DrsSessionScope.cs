@@ -31,7 +31,7 @@ namespace nspector.Common
 
                     if (csRes != NvAPI_Status.NVAPI_OK)
                         throw new NvapiException("DRS_CreateSession", csRes);
-                    
+
                     if (!preventLoadSettings)
                     {
                         var nvRes = nvw.DRS_LoadSettings(GlobalSession);

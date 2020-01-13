@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using nspector.Common.Helper;
 using nspector.Common.Meta;
 using nspector.Native.NVAPI2;
@@ -46,14 +43,14 @@ namespace nspector.Common
                 if (!fiDbInstaller.Exists) continue;
 
                 var fviDbInstaller = FileVersionInfo.GetVersionInfo(fiDbInstaller.FullName);
-                
+
                 var fileversion = fviDbInstaller.FileVersion.Replace(".", "");
-                var driverver = DriverVersion.ToString().Replace(",","").Replace(".","");
+                var driverver = DriverVersion.ToString().Replace(",", "").Replace(".", "");
 
                 if (fileversion.EndsWith(driverver))
                     return fiDbInstaller.DirectoryName;
             }
-            
+
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
                 @"NVIDIA Corporation\Drs");
         }
@@ -78,13 +75,13 @@ namespace nspector.Common
             var tmpFile = TempFile.GetTempFileName();
             try
             {
-                File.WriteAllText(tmpFile, "BaseProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
+                File.WriteAllText(tmpFile, "BaseProfile \"Base Profile\"\r\nSelectedGlobalProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
 
                 DrsSession((hSession) =>
                 {
                     LoadSettingsFileEx(hSession, tmpFile);
                     SaveSettings(hSession);
-                });
+                }, forceNonGlobalSession: true, preventLoadSettings: true);
             }
             finally
             {
@@ -137,13 +134,13 @@ namespace nspector.Common
                     var nvRes = nvw.DRS_DeleteProfile(hSession, hProfile);
                     if (nvRes != NvAPI_Status.NVAPI_OK)
                         throw new NvapiException("DRS_DeleteProfile", nvRes);
-                    
+
                     SaveSettings(hSession);
                 }
             });
-            
+
         }
-        
+
         public List<string> GetProfileNames(ref string baseProfileName)
         {
             var lstResult = new List<string>();
@@ -154,7 +151,7 @@ namespace nspector.Common
                 var hBase = GetProfileHandle(hSession, null);
                 var baseProfile = GetProfileInfo(hSession, hBase);
                 tmpBaseProfileName = baseProfile.profileName;
-                                
+
                 lstResult.Add("_GLOBAL_DRIVER_PROFILE (" + tmpBaseProfileName + ")");
 
                 var profileHandles = EnumProfileHandles(hSession);
@@ -178,7 +175,7 @@ namespace nspector.Common
             DrsSession((hSession) =>
             {
                 var hProfile = CreateProfile(hSession, profileName);
-                
+
                 if (applicationName != null)
                     AddApplication(hSession, hProfile, applicationName);
 
@@ -255,7 +252,7 @@ namespace nspector.Common
                     var nvRes = nvw.DRS_RestoreProfileDefaultSetting(hSession, hProfile, settingId);
                     if (nvRes != NvAPI_Status.NVAPI_OK)
                         throw new NvapiException("DRS_RestoreProfileDefaultSetting", nvRes);
-                
+
                     SaveSettings(hSession);
 
                     var modifyCount = 0;
@@ -282,7 +279,7 @@ namespace nspector.Common
                 var hProfile = GetProfileHandle(hSession, profileName);
 
                 var dwordValue = ReadDwordValue(hSession, hProfile, settingId);
-                
+
                 if (dwordValue != null)
                     return dwordValue.Value;
                 else if (returnDefaultValue)
@@ -302,7 +299,7 @@ namespace nspector.Common
             });
         }
 
-        public int StoreSettingsToProfile(string profileName, List<KeyValuePair<uint,string>> settings)
+        public int StoreSettingsToProfile(string profileName, List<KeyValuePair<uint, string>> settings)
         {
             DrsSession((hSession) =>
             {
@@ -335,7 +332,7 @@ namespace nspector.Common
 
             return 0;
         }
-               
+
 
         private SettingItem CreateSettingItem(NVDRS_SETTING setting, bool useDefault = false)
         {
@@ -447,7 +444,7 @@ namespace nspector.Common
                 IsStringValue = settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
             };
         }
-              
+
 
         public List<SettingItem> GetSettingsForProfile(string profileName, SettingViewMode viewMode, ref Dictionary<string, string> applications)
         {
@@ -459,7 +456,7 @@ namespace nspector.Common
             applications = DrsSession((hSession) =>
             {
                 var hProfile = GetProfileHandle(hSession, profileName);
-                
+
                 var profileSettings = GetProfileSettings(hSession, hProfile);
                 foreach (var profileSetting in profileSettings)
                 {
@@ -482,11 +479,11 @@ namespace nspector.Common
                 }
 
                 return GetProfileApplications(hSession, hProfile)
-                    .Select(x => Tuple.Create(x.appName,GetApplicationFingerprint(x))).ToDictionary(x=> x.Item2, x=> x.Item1);
+                    .Select(x => Tuple.Create(x.appName, GetApplicationFingerprint(x))).ToDictionary(x => x.Item2, x => x.Item1);
 
             });
 
-            return result.OrderBy(x=>x.SettingText).ThenBy(x=>x.GroupName).ToList();
+            return result.OrderBy(x => x.SettingText).ThenBy(x => x.GroupName).ToList();
         }
 
         public void AddApplication(string profileName, string applicationName)
@@ -519,7 +516,7 @@ namespace nspector.Common
         {
             return $"{application.appName}|{application.fileInFolder}|{application.userFriendlyName}|{application.launcher}";
         }
-        
+
     }
 
 }

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Text;
-using nspector.Common.CustomSettings;
-
-using nspector.Native.NvApi.DriverSettings;
 using nspector.Native.NVAPI2;
-using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper; 
+using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nspector.Common.Meta
 {
@@ -26,14 +20,14 @@ namespace nspector.Common.Meta
         private List<uint> InitSettingIds()
         {
             var settingIds = new List<uint>();
-            
+
             var nvRes = nvw.DRS_EnumAvailableSettingIds(out settingIds, 512);
             if (nvRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_EnumAvailableSettingIds", nvRes);
 
             return settingIds;
         }
-        
+
         private SettingMeta GetDriverSettingMetaInternal(uint settingId)
         {
             var values = new NVDRS_SETTING_VALUES();
@@ -44,10 +38,10 @@ namespace nspector.Common.Meta
 
             if (nvRes == NvAPI_Status.NVAPI_SETTING_NOT_FOUND)
                 return null;
-            
+
             if (nvRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_EnumAvailableSettingValues", nvRes);
-            
+
 
             var sbSettingName = new StringBuilder((int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX);
             nvRes = nvw.DRS_GetSettingNameFromId(settingId, sbSettingName);
@@ -58,11 +52,12 @@ namespace nspector.Common.Meta
             if (string.IsNullOrWhiteSpace(settingName))
                 settingName = DrsUtil.GetDwordString(settingId);
 
-            var result = new SettingMeta {
+            var result = new SettingMeta
+            {
                 SettingType = values.settingType,
                 SettingName = settingName,
             };
-                
+
 
             if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
             {
@@ -71,13 +66,14 @@ namespace nspector.Common.Meta
                 for (int i = 0; i < values.numSettingValues; i++)
                 {
                     result.DwordValues.Add(
-                        new SettingValue<uint> (Source) {
+                        new SettingValue<uint>(Source)
+                        {
                             Value = values.settingValues[i].dwordValue,
                             ValueName = DrsUtil.GetDwordString(values.settingValues[i].dwordValue),
                         });
                 }
             }
-            
+
             if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
             {
                 result.DefaultStringValue = values.defaultValue.stringValue;
@@ -116,7 +112,7 @@ namespace nspector.Common.Meta
                 }
             }
             return result;
-            
+
         }
 
         private SettingMeta GetSettingsMeta(uint settingId)
@@ -135,13 +131,13 @@ namespace nspector.Common.Meta
                 return null;
             }
         }
-        
+
         public string GetSettingName(uint settingId)
         {
             var settingMeta = GetSettingsMeta(settingId);
             if (settingMeta != null)
                 return settingMeta.SettingName;
-            
+
             return null;
         }
 
@@ -180,7 +176,7 @@ namespace nspector.Common.Meta
 
             return null;
         }
-        
+
         public List<uint> GetSettingIds()
         {
             return _settingIds;
@@ -194,7 +190,7 @@ namespace nspector.Common.Meta
 
             return null;
         }
-        
+
         public string GetGroupName(uint settingId)
         {
             return null;

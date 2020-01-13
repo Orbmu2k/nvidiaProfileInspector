@@ -287,7 +287,7 @@ namespace nspector.Native.WINAPI
             internal string lpData;
         }
 
-        
+
         internal struct WINDOWPLACEMENT
         {
             internal int length;
@@ -301,7 +301,7 @@ namespace nspector.Native.WINAPI
         internal bool bringAppToFront(int hWnd)
         {
             WINDOWPLACEMENT param = new WINDOWPLACEMENT();
-            if (GetWindowPlacement(hWnd,ref param))
+            if (GetWindowPlacement(hWnd, ref param))
             {
                 if (param.showCmd != SW_NORMAL)
                 {
@@ -312,7 +312,7 @@ namespace nspector.Native.WINAPI
             }
             return SetForegroundWindow(hWnd);
         }
-        
+
         internal int sendWindowsStringMessage(int hWnd, int wParam, string msg)
         {
             int result = 0;

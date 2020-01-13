@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
 using nspector.Common.Import;
 using nspector.Native.NVAPI2;
@@ -18,8 +17,8 @@ namespace nspector.Common
         private readonly DrsDecrypterService _DecrypterService;
 
         public DrsImportService(
-            DrsSettingsMetaService metaService, 
-            DrsSettingsService settingService, 
+            DrsSettingsMetaService metaService,
+            DrsSettingsService settingService,
             DrsScannerService scannerService,
             DrsDecrypterService decrypterService)
             : base(metaService)
@@ -77,7 +76,7 @@ namespace nspector.Common
                 {
                     result.Executeables.Add(app.appName);
                 }
-                
+
                 var settings = GetProfileSettings(hSession, hProfile);
                 foreach (var setting in settings)
                 {
@@ -239,7 +238,7 @@ namespace nspector.Common
                     var decryptedSetting = setting;
                     _DecrypterService.DecryptSettingIfNeeded(profileName, ref decryptedSetting);
 
-                    if (isPredefined && exitsValueInImport && ImportExportUitl.AreDrsSettingEqualToProfileSetting(decryptedSetting, importSetting)) 
+                    if (isPredefined && exitsValueInImport && ImportExportUitl.AreDrsSettingEqualToProfileSetting(decryptedSetting, importSetting))
                     {
                         alreadySet.Add(setting.settingId);
                     }

@@ -25,7 +25,7 @@ namespace nspector.Native.WINAPI
         THBF_NOBACKGROUND = 0x0004,
         THBF_HIDDEN = 0x0008
     }
- 
+
     [Flags]
     internal enum THB
     {
@@ -37,18 +37,18 @@ namespace nspector.Native.WINAPI
     }
 
     internal enum TBPFLAG
-    {	
-        TBPF_NOPROGRESS	    = 0,
-	    TBPF_INDETERMINATE	= 0x1,
-	    TBPF_NORMAL	        = 0x2,
-	    TBPF_ERROR	        = 0x4,
-	    TBPF_PAUSED	        = 0x8
+    {
+        TBPF_NOPROGRESS = 0,
+        TBPF_INDETERMINATE = 0x1,
+        TBPF_NORMAL = 0x2,
+        TBPF_ERROR = 0x4,
+        TBPF_PAUSED = 0x8
     }
 
     internal enum TBATFLAG
-    {	
-        TBATF_USEMDITHUMBNAIL	= 0x1,
-	    TBATF_USEMDILIVEPREVIEW	= 0x2
+    {
+        TBATF_USEMDITHUMBNAIL = 0x1,
+        TBATF_USEMDILIVEPREVIEW = 0x2
     }
 
     [ComImport,
@@ -57,7 +57,7 @@ namespace nspector.Native.WINAPI
     internal interface ITaskbarList3
     {
 
-        [MethodImpl(MethodImplOptions.InternalCall, 
+        [MethodImpl(MethodImplOptions.InternalCall,
             MethodCodeType = MethodCodeType.Runtime)]
         void HrInit();
 
@@ -79,7 +79,7 @@ namespace nspector.Native.WINAPI
 
         [MethodImpl(MethodImplOptions.InternalCall,
             MethodCodeType = MethodCodeType.Runtime)]
-        void MarkFullscreenWindow([In] IntPtr hwnd, 
+        void MarkFullscreenWindow([In] IntPtr hwnd,
                                  [In, MarshalAs(UnmanagedType.Bool)] bool fFullscreen);
 
         [MethodImpl(MethodImplOptions.InternalCall,
@@ -87,8 +87,8 @@ namespace nspector.Native.WINAPI
         void SetProgressValue([In] IntPtr hwnd,
                              [In] ulong ullCompleted,
                              [In] ulong ullTotal);
-        
-        [MethodImpl(MethodImplOptions.InternalCall, 
+
+        [MethodImpl(MethodImplOptions.InternalCall,
             MethodCodeType = MethodCodeType.Runtime)]
         void SetProgressState([In] IntPtr hwnd,
                              [In] TBPFLAG tbpFlags);
@@ -120,7 +120,7 @@ namespace nspector.Native.WINAPI
                                [In] uint cButtons,
                                [In] IntPtr pButton);
         ///* [size_is][in] */ __RPC__in_ecount_full(cButtons) LPTHUMBBUTTON pButton);
-        
+
         //preliminary
         [MethodImpl(MethodImplOptions.InternalCall,
             MethodCodeType = MethodCodeType.Runtime)]
@@ -150,7 +150,7 @@ namespace nspector.Native.WINAPI
             MethodCodeType = MethodCodeType.Runtime)]
         void SetThumbnailClip([In] IntPtr hwnd,
                                 [In] IntPtr prcClip);
-        
+
     }
 
 

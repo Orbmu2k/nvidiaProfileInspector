@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace nspector.Common.Meta
+﻿namespace nspector.Common.Meta
 {
     internal class SettingValue<T>
     {
@@ -14,7 +9,7 @@ namespace nspector.Common.Meta
         {
             ValueSource = source;
         }
-                
+
         public int ValuePos { get; set; }
         public string ValueName { get; set; }
         public T Value { get; set; }
@@ -26,6 +21,6 @@ namespace nspector.Common.Meta
 
             return string.Format("Value={0}; ValueName={1};", Value, ValueName);
         }
-        
+
     }
 }

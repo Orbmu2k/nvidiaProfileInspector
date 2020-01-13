@@ -6,7 +6,7 @@ namespace nspector.Common
     internal class CachedSettingValue
     {
 
-        internal CachedSettingValue()  {  }
+        internal CachedSettingValue() { }
 
         internal CachedSettingValue(uint Value, string ProfileNames)
         {

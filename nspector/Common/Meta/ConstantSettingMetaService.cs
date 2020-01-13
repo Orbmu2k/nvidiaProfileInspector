@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using nspector.Native.NvApi.DriverSettings;
 using nspector.Native.NVAPI2;
 
@@ -19,7 +18,7 @@ namespace nspector.Common.Meta
 
         private readonly Dictionary<ESetting, Type> settingEnumTypeCache;
 
-        private string[] ignoreSettingNames = new[] { "TOTAL_DWORD_SETTING_NUM", "TOTAL_WSTRING_SETTING_NUM", 
+        private string[] ignoreSettingNames = new[] { "TOTAL_DWORD_SETTING_NUM", "TOTAL_WSTRING_SETTING_NUM",
                                                       "TOTAL_SETTING_NUM", "INVALID_SETTING_ID" };
 
         private Dictionary<ESetting, Type> CreateSettingEnumTypeCache()

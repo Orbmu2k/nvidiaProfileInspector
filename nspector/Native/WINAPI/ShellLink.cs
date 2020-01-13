@@ -241,7 +241,7 @@ namespace nspector.Native.WINAPI
         private class NativeMethods
         {
             [DllImport("Shell32", CharSet = CharSet.Auto)]
-            internal extern static int ExtractIconEx([MarshalAs(UnmanagedType.LPTStr)] 
+            internal extern static int ExtractIconEx([MarshalAs(UnmanagedType.LPTStr)]
             string lpszFile,
                int nIconIndex,
                IntPtr[] phIconLarge,

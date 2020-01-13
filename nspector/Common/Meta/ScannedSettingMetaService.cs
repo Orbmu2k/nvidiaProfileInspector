@@ -31,7 +31,7 @@ namespace nspector.Common.Meta
 
         public string GetSettingName(uint settingId)
         {
-            var cached = CachedSettings.FirstOrDefault(x=>x.SettingId.Equals(settingId));
+            var cached = CachedSettings.FirstOrDefault(x => x.SettingId.Equals(settingId));
             if (cached != null)
                 return string.Format("0x{0:X8} ({1} Profiles)", settingId, cached.ProfileCount);
 
@@ -69,7 +69,7 @@ namespace nspector.Common.Meta
 
         public List<SettingValue<uint>> GetDwordValues(uint settingId)
         {
-            var cached = CachedSettings.FirstOrDefault(x=>x.SettingId.Equals(settingId));
+            var cached = CachedSettings.FirstOrDefault(x => x.SettingId.Equals(settingId));
             if (cached != null)
                 return cached.SettingValues.Select(s => new SettingValue<uint>(Source)
                 {

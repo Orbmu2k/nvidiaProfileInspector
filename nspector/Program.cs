@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using nspector.Common;
-using nspector.Common.Import;
+using nspector.Common.Helper;
 using nspector.Native.WINAPI;
 
 namespace nspector
@@ -29,6 +29,7 @@ namespace nspector
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            DropDownMenuScrollWheelHandler.Enable(true);
 
             var argFileIndex = ArgFileIndex(args);
             if (argFileIndex != -1)

@@ -1,9 +1,7 @@
 ﻿using nspector.Common.CustomSettings;
 using nspector.Native.NVAPI2;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace nspector.Common.Meta
 {
@@ -74,11 +72,11 @@ namespace nspector.Common.Meta
 
             return null;
         }
-        
+
         public List<uint> GetSettingIds()
         {
-           return customSettings.Settings
-                .Select(x => x.SettingId).ToList();
+            return customSettings.Settings
+                 .Select(x => x.SettingId).ToList();
         }
 
 

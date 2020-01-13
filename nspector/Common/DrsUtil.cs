@@ -1,16 +1,14 @@
 ﻿using nspector.Common.Meta;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace nspector.Common
 {
     public static class DrsUtil
     {
         public static string StringValueRaw = "Text";
-        
+
         public static string GetDwordString(uint dword)
         {
             return string.Format("0x{0:X8}", dword);
@@ -50,7 +48,7 @@ namespace nspector.Common
             var settingValue = meta.DwordValues
                        .FirstOrDefault(x => x.Value.Equals(dwordValue));
 
-            return settingValue == null ? GetDwordString(dwordValue): settingValue.ValueName;
+            return settingValue == null ? GetDwordString(dwordValue) : settingValue.ValueName;
         }
 
         internal static string ParseStringSettingValue(SettingMeta meta, string text)

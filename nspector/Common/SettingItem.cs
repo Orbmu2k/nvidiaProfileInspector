@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace nspector.Common
+﻿namespace nspector.Common
 {
 
     internal enum SettingState
@@ -17,7 +12,7 @@ namespace nspector.Common
     internal class SettingItem
     {
         public uint SettingId { get; set; }
-        
+
         public string SettingText { get; set; }
 
         public string ValueText { get; set; }

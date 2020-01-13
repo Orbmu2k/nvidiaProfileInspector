@@ -9,9 +9,9 @@ namespace nspector.Common.Helper
         {
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
-            isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);     
+            isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
-        
+
         public static bool IsAdmin
         {
             get { return isAdmin; }

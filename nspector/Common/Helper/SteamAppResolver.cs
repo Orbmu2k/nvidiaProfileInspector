@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
@@ -36,7 +35,7 @@ namespace nspector.Common.Helper
                 if (steamPath != null)
                     return Path.Combine(steamPath, @"appcache\appinfo.vdf");
             }
-            
+
             return "";
         }
 
@@ -90,7 +89,7 @@ namespace nspector.Common.Helper
 
             var bid = BitConverter.GetBytes(appid);
             int offset = 0;
-                        
+
             var appidPattern = new byte[] { 0x08, bid[0], bid[1], bid[2], bid[3] };
             var launchPattern = new byte[] { 0x00, 0x6C, 0x61, 0x75, 0x6E, 0x63, 0x68, 0x00 };
 
@@ -157,7 +156,7 @@ namespace nspector.Common.Helper
                 }
             }
         }
-        
+
         private static int FindOffset(byte[] bytes, byte[] pattern, int offset = 0, byte? wildcard = null)
         {
             for (int i = offset; i < bytes.Length; i++)

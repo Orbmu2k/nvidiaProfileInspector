@@ -845,6 +845,9 @@ namespace nspector
                 if (MessageBox.Show(this, "Really delete all profiles?", "Delete all profiles", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     _drs.DeleteAllProfilesHard();
+                    ChangeCurrentProfile(_baseProfileName);
+                    DrsSessionScope.DestroyGlobalSession();
+                    RefreshAll();
                 }
             }
             else if (MessageBox.Show(this, "Really delete this profile?\r\n\r\nNote: NVIDIA predefined profiles can not be restored until next driver installation!", "Delete Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)

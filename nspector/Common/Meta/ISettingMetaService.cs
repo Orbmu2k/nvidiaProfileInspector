@@ -8,7 +8,7 @@ namespace nspector.Common.Meta
 {
     internal interface ISettingMetaService
     {
-        SettingMetaSource Source {get; }
+        SettingMetaSource Source { get; }
 
         NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId);
 

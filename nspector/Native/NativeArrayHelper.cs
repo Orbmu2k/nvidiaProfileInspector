@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace nspector.Native
 {
@@ -51,6 +49,6 @@ namespace nspector.Native
             targetPointer = Marshal.AllocHGlobal(sizeOfItem);
             Marshal.StructureToPtr(item, targetPointer, true);
         }
-        
+
     }
 }

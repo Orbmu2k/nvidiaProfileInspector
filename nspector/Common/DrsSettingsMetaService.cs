@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using nspector.Common.Meta;
 using nspector.Common.CustomSettings;
 using nspector.Native.NVAPI2;
-using nspector.Native.NvApi.DriverSettings;
 
 namespace nspector.Common
 {
     internal class DrsSettingsMetaService
     {
-        
+
         private ISettingMetaService ConstantMeta;
         private ISettingMetaService CustomMeta;
         public ISettingMetaService DriverMeta;
@@ -38,7 +35,7 @@ namespace nspector.Common
         {
             settingMetaCache = new Dictionary<uint, SettingMeta>();
             MetaServices = new List<MetaServiceItem>();
-            
+
             CustomMeta = new CustomSettingMetaService(_customSettings);
             MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 1, Service = CustomMeta });
 
@@ -64,7 +61,7 @@ namespace nspector.Common
             }
 
         }
-        
+
         private NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
         {
             foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
@@ -76,12 +73,12 @@ namespace nspector.Common
 
             return NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
         }
-        
+
         private string GetSettingName(uint settingId)
         {
             string hexCandidate = null;
 
-            foreach (var service in MetaServices.OrderBy(x=>x.Service.Source))
+            foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
             {
                 var settingName = service.Service.GetSettingName(settingId);
 
@@ -129,7 +126,7 @@ namespace nspector.Common
                 if (settingDefault != null)
                     return settingDefault;
             }
-            
+
             return null;
         }
 
@@ -159,7 +156,7 @@ namespace nspector.Common
             else
             {
                 var currentNonScannedValues = a.Where(xa => xa.ValueSource != SettingMetaSource.ScannedSettings).Select(xa => xa.Value).ToList();
-                
+
                 var newNonScannedValues = b.Where(xb => !currentNonScannedValues.Contains(xb.Value)).ToList();
                 a.AddRange(newNonScannedValues);
 
@@ -177,7 +174,7 @@ namespace nspector.Common
 
             var atmp = a.FirstOrDefault();
             if (atmp != null && atmp is IComparable)
-                return a.OrderBy(x=>x.Value).ToList();
+                return a.OrderBy(x => x.Value).ToList();
             else
                 return a.ToList();
         }
@@ -202,7 +199,7 @@ namespace nspector.Common
             {
                 result = MergeSettingValues(result, service.Service.GetStringValues(settingId));
             }
-            
+
             return result;
         }
 
@@ -217,15 +214,15 @@ namespace nspector.Common
 
             if (result != null)
             {
-                result = (from v in result.Where(x=> 1==1
+                result = (from v in result.Where(x => 1 == 1
                               && !x.ValueName.EndsWith("_NUM")
                               && !x.ValueName.EndsWith("_MASK")
                               && (!x.ValueName.EndsWith("_MIN") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MIN"))
                               && (!x.ValueName.EndsWith("_MAX") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MAX"))
-                              
-                              ) 
-                            group v by v.ValueName into g
-                            select g.First(t => t.ValueName == g.Key))
+
+                              )
+                          group v by v.ValueName into g
+                          select g.First(t => t.ValueName == g.Key))
                             .OrderBy(v => v.ValueSource)
                             .ThenBy(v => v.ValuePos)
                             .ThenBy(v => v.ValueName).ToList();
@@ -234,7 +231,7 @@ namespace nspector.Common
 
             return result;
         }
-        
+
         public List<uint> GetSettingIds(SettingViewMode viewMode)
         {
             var settingIds = new List<uint>();
@@ -255,21 +252,21 @@ namespace nspector.Common
             switch (viewMode)
             {
                 case SettingViewMode.CustomSettingsOnly:
-                    return new [] { 
-                        SettingMetaSource.CustomSettings 
+                    return new[] {
+                        SettingMetaSource.CustomSettings
                     };
                 case SettingViewMode.IncludeScannedSetttings:
-                    return new [] { 
+                    return new[] {
                         SettingMetaSource.ConstantSettings,
-                        SettingMetaSource.ScannedSettings,  
-                        SettingMetaSource.CustomSettings,  
+                        SettingMetaSource.ScannedSettings,
+                        SettingMetaSource.CustomSettings,
                         SettingMetaSource.DriverSettings,
                         SettingMetaSource.ReferenceSettings,
                     };
                 default:
-                    return new [] { 
-                        SettingMetaSource.CustomSettings,  
-                        SettingMetaSource.DriverSettings,  
+                    return new[] {
+                        SettingMetaSource.CustomSettings,
+                        SettingMetaSource.DriverSettings,
                     };
             }
         }
@@ -300,7 +297,7 @@ namespace nspector.Common
             var settingType = GetSettingValueType(settingId);
             var settingName = GetSettingName(settingId);
             var groupName = GetGroupName(settingId);
-                      
+
             if (groupName == null)
                 groupName = GetLegacyGroupName(settingId, settingName);
 
@@ -310,11 +307,11 @@ namespace nspector.Common
                 SettingName = settingName,
                 GroupName = groupName,
 
-                DefaultDwordValue = 
-                    settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE 
+                DefaultDwordValue =
+                    settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE
                     ? GetDwordDefaultValue(settingId) : 0,
 
-                DefaultStringValue = 
+                DefaultStringValue =
                     settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE
                     ? GetStringDefaultValue(settingId) : null,
 

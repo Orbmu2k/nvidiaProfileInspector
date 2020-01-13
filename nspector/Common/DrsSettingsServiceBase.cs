@@ -262,7 +262,7 @@ namespace nspector.Common
         protected List<NVDRS_SETTING> GetProfileSettings(IntPtr hSession, IntPtr hProfile)
         {
             uint settingCount = 512;
-            var settings = new NVDRS_SETTING[512];
+            var settings = new NVDRS_SETTING[settingCount];
             settings[0].version = NvapiDrsWrapper.NVDRS_SETTING_VER;
 
             var esRes = NvapiDrsWrapper.DRS_EnumSettings(hSession, hProfile, 0, ref settingCount, ref settings);
