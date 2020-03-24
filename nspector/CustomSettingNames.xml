@@ -21,7 +21,7 @@
         </CustomSettingValue>
       </SettingValues>
     </CustomSetting>
-    <CustomSetting>
+    <!--<CustomSetting>
       <UserfriendlyName>Sharpening Filter</UserfriendlyName>
       <HexSettingID>0x00598928</HexSettingID>
       <MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
@@ -870,7 +870,7 @@
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
-    </CustomSetting>
+    </CustomSetting>-->
     <CustomSetting>
       <UserfriendlyName>Frame Rate Limiter V3</UserfriendlyName>
       <HexSettingID>0x10835002</HexSettingID>
@@ -4808,7 +4808,7 @@
       </SettingValues>
       <SettingMasks />
     </CustomSetting>
-    <CustomSetting>
+    <!--<CustomSetting>
       <UserfriendlyName>Ultra Low Latency CPL State</UserfriendlyName>
       <HexSettingID>0x0005F543</HexSettingID>
       <MinRequiredDriverVersion>430.00</MinRequiredDriverVersion>
@@ -4826,8 +4826,8 @@
           <HexValue>0x00000002</HexValue>
         </CustomSettingValue>
       </SettingValues>
-    </CustomSetting>
-    <CustomSetting>
+    </CustomSetting>-->
+    <!--<CustomSetting>
       <UserfriendlyName>Ultra Low Latency</UserfriendlyName>
       <HexSettingID>0x10835000</HexSettingID>
       <GroupName>2 - Sync and Refresh</GroupName>
@@ -4842,7 +4842,7 @@
           <HexValue>0x00000001</HexValue>
         </CustomSettingValue>
       </SettingValues>
-    </CustomSetting>
+    </CustomSetting>-->
     <CustomSetting>
       <UserfriendlyName>NVLINK SLI Mode</UserfriendlyName>
       <HexSettingID>0x00A06948</HexSettingID>
@@ -4899,7 +4899,7 @@
       </SettingValues>
       <SettingMasks />
     </CustomSetting>
-    <CustomSetting>
+    <!--<CustomSetting>
       <UserfriendlyName>GSYNC - Indicator Overlay</UserfriendlyName>
       <HexSettingID>0x10029538</HexSettingID>
       <MinRequiredDriverVersion>331.00</MinRequiredDriverVersion>
@@ -4915,7 +4915,7 @@
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
-    </CustomSetting>
+    </CustomSetting>-->
     <CustomSetting>
       <UserfriendlyName>GSYNC - Application Mode</UserfriendlyName>
       <HexSettingID>0x1194F158</HexSettingID>
@@ -7514,7 +7514,7 @@
       </SettingValues>
       <SettingMasks />
     </CustomSetting>
-    <CustomSetting>
+    <!--<CustomSetting>
       <UserfriendlyName>Optimize for Compute Performance</UserfriendlyName>
       <HexSettingID>0x10C158AD</HexSettingID>
       <GroupName>5 - Common</GroupName>
@@ -7529,7 +7529,7 @@
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
-    </CustomSetting>
+    </CustomSetting>-->
     <CustomSetting>
       <UserfriendlyName>Extension limit</UserfriendlyName>
       <HexSettingID>0x20FF7493</HexSettingID>

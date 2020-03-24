@@ -260,7 +260,15 @@ namespace nspector.Common
                 if (!alreadySet.Contains(setting.SettingId))
                 {
                     var newSetting = ImportExportUitl.ConvertProfileSettingToDrsSetting(setting);
-                    StoreSetting(hSession, hProfile, newSetting);
+                    try
+                    {
+                        StoreSetting(hSession, hProfile, newSetting);
+                    }
+                    catch (NvapiException ex)
+                    {
+                        if (ex.Status != NvAPI_Status.NVAPI_SETTING_NOT_FOUND)
+                            throw;
+                    }
                 }
             }
         }
