@@ -17,6 +17,8 @@ namespace nspector.Common.Meta
 
         public byte[] DefaultBinaryValue { get; set; }
 
+        public bool IsApiExposed { get; set; }
+
         public List<SettingValue<string>> StringValues { get; set; }
 
         public List<SettingValue<uint>> DwordValues { get; set; }

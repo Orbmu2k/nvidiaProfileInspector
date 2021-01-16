@@ -442,6 +442,7 @@ namespace nspector.Common
                 ValueText = valueText,
                 State = settingState,
                 IsStringValue = settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
+                IsApiExposed = settingMeta.IsApiExposed,
             };
         }
 

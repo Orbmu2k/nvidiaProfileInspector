@@ -301,11 +301,15 @@ namespace nspector.Common
             if (groupName == null)
                 groupName = GetLegacyGroupName(settingId, settingName);
 
+
+
             var result = new SettingMeta()
             {
                 SettingType = settingType,
                 SettingName = settingName,
                 GroupName = groupName,
+
+                IsApiExposed = GetIsApiExposed(settingId),
 
                 DefaultDwordValue =
                     settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE
@@ -345,6 +349,7 @@ namespace nspector.Common
                 SettingName = settingMeta.SettingName,
                 SettingType = settingMeta.SettingType,
                 GroupName = settingMeta.GroupName,
+                IsApiExposed = settingMeta.IsApiExposed,
             };
 
             if (string.IsNullOrEmpty(newMeta.SettingName))
@@ -402,6 +407,11 @@ namespace nspector.Common
             else
                 return "Other";
 
+        }
+        private bool GetIsApiExposed(uint settingId)
+        {
+            var driverMeta = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.DriverSettings);
+            return (driverMeta != null && driverMeta.Service.GetSettingIds().Contains(settingId));
         }
     }
 }

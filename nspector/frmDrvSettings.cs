@@ -150,7 +150,11 @@ namespace nspector
 
                 foreach (var settingItem in _currentProfileSettingItems)
                 {
-                    lvSettings.Items.Add(CreateListViewItem(settingItem));
+                    var itm = lvSettings.Items.Add(CreateListViewItem(settingItem));
+                    if (Debugger.IsAttached && !settingItem.IsApiExposed)
+                    {
+                        itm.ForeColor = Color.LightCoral;
+                    }
                 }
 
                 btnResetValue.Enabled = false;
