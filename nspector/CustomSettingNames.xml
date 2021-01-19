@@ -6,7 +6,7 @@
       <HexSettingID>0x20343843</HexSettingID>
       <GroupName>6 - SLI</GroupName>
     </CustomSetting>
-    <CustomSetting>
+    <!--<CustomSetting>
       <UserfriendlyName>Enable Ansel</UserfriendlyName>
       <HexSettingID>0x1075D972</HexSettingID>
       <GroupName>5 - Common</GroupName>
@@ -20,7 +20,7 @@
           <HexValue>0x00000001</HexValue>
         </CustomSettingValue>
       </SettingValues>
-    </CustomSetting>
+    </CustomSetting>-->
     <!--<CustomSetting>
       <UserfriendlyName>Sharpening Filter</UserfriendlyName>
       <HexSettingID>0x00598928</HexSettingID>
@@ -5155,7 +5155,7 @@
       </SettingValues>
       <SettingMasks />
     </CustomSetting>
-    <CustomSetting>
+    <!--<CustomSetting>
       <UserfriendlyName>Frame Rate Limiter Mode</UserfriendlyName>
       <HexSettingID>0x10834FFF</HexSettingID>
       <MinRequiredDriverVersion>372.00</MinRequiredDriverVersion>
@@ -6120,7 +6120,7 @@
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
-    </CustomSetting>
+    </CustomSetting>-->
     <CustomSetting>
       <UserfriendlyName>Toggle FXAA on or off</UserfriendlyName>
       <HexSettingID>0x1074C972</HexSettingID>
