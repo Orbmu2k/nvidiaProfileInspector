@@ -1220,7 +1220,62 @@ namespace nspector
             {
                 CopyModifiedSettingsToClipBoard();
             }
+
+            if (Debugger.IsAttached && e.Control && e.KeyCode == Keys.T)
+            {
+                TestStoreSettings();
+            }
         }
+
+        private void TestStoreSettings()
+        {
+            var sbSettings = new StringBuilder();
+            sbSettings.AppendFormat("{0,-40} {1}\r\n", "### Inspector Store Failed ###", _CurrentProfile);
+
+            foreach (ListViewGroup group in lvSettings.Groups)
+            {
+                bool groupTitleAdded = false;
+                foreach (ListViewItem item in group.Items)
+                {
+
+                    try
+                    {
+                        var settingId = (uint)item.Tag;
+                        var meta = _meta.GetSettingMeta(settingId);
+                        if (meta.SettingType != NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE) continue;
+
+                        var wasNotSet = new int[] { 1, 2, 3 }.Contains(item.ImageIndex);
+                        
+                        if (wasNotSet)
+                        {
+                            _drs.SetDwordValueToProfile(_CurrentProfile, settingId, 0x0);
+                            _drs.ResetValue(_CurrentProfile, settingId, out var rm);
+                        }
+                        else
+                        {
+                            var tmpValue = _drs.GetDwordValueFromProfile(_CurrentProfile, settingId);
+                            _drs.SetDwordValueToProfile(_CurrentProfile, settingId, 0x0);
+                            _drs.SetDwordValueToProfile(_CurrentProfile, settingId, tmpValue);
+                        }
+
+                    }
+                    catch (NvapiException ne)
+                    {
+                        if (!groupTitleAdded)
+                        {
+                            sbSettings.AppendFormat("\r\n[{0}]\r\n", group.Header);
+                            groupTitleAdded = true;
+                        }
+                        sbSettings.AppendFormat("{0,-40} SettingId: {1} Failed: {2}\r\n", item.Text, DrsUtil.GetDwordString((uint)item.Tag), ne.Status);
+                    }
+                }
+            }
+
+            Clipboard.SetText(sbSettings.ToString());
+            MessageBox.Show("Failed Settings Stored to Clipboard");
+
+        }
+
 
         private void CopyModifiedSettingsToClipBoard()
         {
