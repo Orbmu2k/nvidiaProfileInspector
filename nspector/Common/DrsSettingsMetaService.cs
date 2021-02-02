@@ -310,6 +310,7 @@ namespace nspector.Common
                 GroupName = groupName,
 
                 IsApiExposed = GetIsApiExposed(settingId),
+                IsSettingHidden = GetIsSettingHidden(settingId),
 
                 DefaultDwordValue =
                     settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE
@@ -350,6 +351,7 @@ namespace nspector.Common
                 SettingType = settingMeta.SettingType,
                 GroupName = settingMeta.GroupName,
                 IsApiExposed = settingMeta.IsApiExposed,
+                IsSettingHidden = settingMeta.IsSettingHidden,
             };
 
             if (string.IsNullOrEmpty(newMeta.SettingName))
@@ -412,6 +414,12 @@ namespace nspector.Common
         {
             var driverMeta = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.DriverSettings);
             return (driverMeta != null && driverMeta.Service.GetSettingIds().Contains(settingId));
+        }
+
+        private bool GetIsSettingHidden(uint settingId)
+        {
+            var csnMeta = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.CustomSettings);
+            return (csnMeta != null && ((CustomSettingMetaService)csnMeta.Service).IsSettingHidden(settingId));
         }
     }
 }

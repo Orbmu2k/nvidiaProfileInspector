@@ -2,6 +2,14 @@
 <CustomSettingNames>
   <Settings>
     <CustomSetting>
+      <HexSettingID>0x0005F512</HexSettingID>
+      <Hidden>true</Hidden>
+    </CustomSetting>
+    <CustomSetting>
+      <HexSettingID>0x1075D972</HexSettingID>
+      <Hidden>true</Hidden>
+    </CustomSetting>
+    <CustomSetting>
       <UserfriendlyName>SLI CFR Mode</UserfriendlyName>
       <HexSettingID>0x20343843</HexSettingID>
       <GroupName>6 - SLI</GroupName>

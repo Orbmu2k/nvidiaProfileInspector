@@ -443,6 +443,7 @@ namespace nspector.Common
                 State = settingState,
                 IsStringValue = settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
                 IsApiExposed = settingMeta.IsApiExposed,
+                IsSettingHidden = settingMeta.IsSettingHidden,
             };
         }
 
@@ -469,6 +470,8 @@ namespace nspector.Common
 
                 foreach (var settingId in settingIds)
                 {
+                    if (settingId == 0) continue;
+
                     var setting = ReadSetting(hSession, hProfile, settingId);
                     if (setting != null)
                         result.Add(CreateSettingItem(setting.Value));

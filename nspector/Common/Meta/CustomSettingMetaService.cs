@@ -101,6 +101,14 @@ namespace nspector.Common.Meta
             return null;
         }
 
+        public bool IsSettingHidden(uint settingId)
+        {
+            var setting = customSettings.Settings
+               .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            return setting?.Hidden ?? false;
+        }
+
         public SettingMetaSource Source
         {
             get { return _source; }

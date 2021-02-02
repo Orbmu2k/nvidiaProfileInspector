@@ -150,6 +150,8 @@ namespace nspector
 
                 foreach (var settingItem in _currentProfileSettingItems)
                 {
+                    if (settingItem.IsSettingHidden) continue;
+
                     var itm = lvSettings.Items.Add(CreateListViewItem(settingItem));
                     if (Debugger.IsAttached && !settingItem.IsApiExposed)
                     {
@@ -1232,6 +1234,10 @@ namespace nspector
             var sbSettings = new StringBuilder();
             sbSettings.AppendFormat("{0,-40} {1}\r\n", "### Inspector Store Failed ###", _CurrentProfile);
 
+            pbMain.Minimum = 0;
+            pbMain.Maximum = lvSettings.Items.Count;
+            int cntIndex = 0;
+
             foreach (ListViewGroup group in lvSettings.Groups)
             {
                 bool groupTitleAdded = false;
@@ -1240,6 +1246,8 @@ namespace nspector
 
                     try
                     {
+                        pbMain.Value = cntIndex++;
+
                         var settingId = (uint)item.Tag;
                         var meta = _meta.GetSettingMeta(settingId);
                         if (meta.SettingType != NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE) continue;
@@ -1270,6 +1278,8 @@ namespace nspector
                     }
                 }
             }
+
+            pbMain.Value = 0;
 
             Clipboard.SetText(sbSettings.ToString());
             MessageBox.Show("Failed Settings Stored to Clipboard");

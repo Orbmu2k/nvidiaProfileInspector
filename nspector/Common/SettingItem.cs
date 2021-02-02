@@ -27,6 +27,8 @@
 
         public bool IsApiExposed { get; set; }
 
+        public bool IsSettingHidden { get; set; }
+
         public override string ToString()
         {
             return string.Format("{0}; 0x{1:X8}; {2}; {3}; {4};", State, SettingId, SettingText, ValueText, ValueRaw);
