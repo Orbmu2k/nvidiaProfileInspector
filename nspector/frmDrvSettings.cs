@@ -86,20 +86,22 @@ namespace nspector
             {
                 default:
                     item.ImageIndex = 1;
-                    item.ForeColor = SystemColors.GrayText;
+                    item.ForeColor = ColorHelper.GetInactiveFunctionText(); 
                     break;
 
                 case SettingState.NvidiaSetting:
                     item.ImageIndex = 2;
+                    item.ForeColor = ColorHelper.GetGlobalSettingState2Color();
                     break;
 
                 case SettingState.GlobalSetting:
                     item.ImageIndex = 3;
-                    item.ForeColor = SystemColors.GrayText;
+                    item.ForeColor = ColorHelper.GetGlobalSettingState3Color();
                     break;
 
                 case SettingState.UserdefinedSetting:
                     item.ImageIndex = 0;
+                    item.ForeColor = ColorHelper.GetGlobalSettingState0Color();
                     break;
 
 
@@ -153,7 +155,7 @@ namespace nspector
                     var itm = lvSettings.Items.Add(CreateListViewItem(settingItem));
                     if (Debugger.IsAttached && !settingItem.IsApiExposed)
                     {
-                        itm.ForeColor = Color.LightCoral;
+                        itm.ForeColor = ColorHelper.GetTextColor();
                     }
                 }
 
@@ -337,11 +339,11 @@ namespace nspector
 
                 if (valueHasChanged || activeImages.Contains(lvItem.ImageIndex))
                 {
-                    lvItem.ForeColor = SystemColors.ControlText;
+                    lvItem.ForeColor = ColorHelper.GetControlImageText();
                 }
-                else
+                else if(!ColorHelper.GetIgnoreChangeText())
                 {
-                    lvItem.ForeColor = SystemColors.GrayText;
+                    lvItem.ForeColor = ColorHelper.GetOnChangeText();
                 }
 
                 if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)

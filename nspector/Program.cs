@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using nspector.Common;
+using nspector.Common.CustomSettings;
 using nspector.Common.Helper;
 using nspector.Native.WINAPI;
 
@@ -79,7 +82,9 @@ namespace nspector
                 {
                     if (createdNew)
                     {
-                        Application.Run(new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan")));
+                        var programSettings = new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan"));
+                        ColorHelper.SetControlColors(programSettings.Controls);
+                        Application.Run(programSettings);
                     }
                     else
                     {
@@ -105,10 +110,10 @@ namespace nspector
                 MessageBox.Show(ex.Message + "\r\n\r\n" + ex.StackTrace ,"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 #endif
-
         }
 
-        static bool ArgExists(string[] args, string arg)
+
+static bool ArgExists(string[] args, string arg)
         {
             foreach (string a in args)
             {

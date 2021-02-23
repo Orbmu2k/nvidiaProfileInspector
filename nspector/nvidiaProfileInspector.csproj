@@ -127,6 +127,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\CustomSettings\CustomColorSetting.cs" />
     <Compile Include="Common\CustomSettings\CustomSetting.cs" />
     <Compile Include="Common\CustomSettings\CustomSettingValue.cs" />
     <Compile Include="Common\DrsDecrypterService.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Common\DrsSessionScope.cs" />
     <Compile Include="Common\DrsSettingsMetaService.cs" />
     <Compile Include="Common\DrsUtil.cs" />
+    <Compile Include="Common\Helper\ColorHelper.cs" />
     <Compile Include="Common\Helper\DropDownMenuScrollWheelHandler.cs" />
     <Compile Include="Common\Helper\ListViewGroupSorter.cs" />
     <Compile Include="Common\Helper\ShortcutResolver.cs" />
@@ -241,6 +243,9 @@
     <Content Include="Native\NVAPI\NvApiDriverSettings.h" />
     <Content Include="Reference.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CustomColors.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Images\transparent16.png" />
     <None Include="Images\n1-016.png" />
