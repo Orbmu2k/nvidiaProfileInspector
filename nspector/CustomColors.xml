@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CustomColorSetting>
 	<!-- main background color of the application-->
-	<BackColor>110,110,110</BackColor>
+	<BackColor>25,25,25</BackColor>
 	<!-- color of most of the text-->
-	<ForeColor>0,0,0</ForeColor>
+	<ForeColor>170,170,170</ForeColor>
 	<!-- all other text in main body that isn't the inactive text below-->
-	<ExtraText>27, 0, 163</ExtraText>
-	<InactiveFunctionText>61, 24, 17</InactiveFunctionText>
+	<ExtraText>20, 56, 20</ExtraText>
+	<InactiveFunctionText>150, 175, 200</InactiveFunctionText>
 	<!-- When you alter a functions value it will change t this-->
 	<ControlImageText>0,255,0</ControlImageText>
 	<!-- When you select and then deselct a function the color will alter to this (only if enabled) -->
-	<OnChangeText>255, 242, 0</OnChangeText>
+	<OnChangeText>255, 255, 0</OnChangeText>
 	<IgnoreChangeText>true</IgnoreChangeText>
 	<!-- Not really sure, found these in settings but you can play around to figure them out? -->
-	<GlobalSettingState3Color>255, 191, 0</GlobalSettingState3Color>
+	<GlobalSettingState3Color>255, 200, 0</GlobalSettingState3Color>
 	<GlobalSettingState2Color>0,0,255</GlobalSettingState2Color>
 	<GlobalSettingState0Color>255,0,0</GlobalSettingState0Color>
 </CustomColorSetting>
