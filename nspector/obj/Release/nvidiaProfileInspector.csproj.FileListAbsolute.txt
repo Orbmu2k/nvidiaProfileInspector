@@ -1,0 +1,11 @@
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\bin\Release\Reference.xml
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\bin\Release\nvidiaProfileInspector.exe
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nvidiaProfileInspector.csproj.AssemblyReference.cache
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nvidiaProfileInspector.csproj.SuggestedBindingRedirects.cache
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nspector.frmBitEditor.resources
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nspector.frmDrvSettings.resources
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nspector.frmExportProfiles.resources
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nspector.Properties.Resources.resources
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nvidiaProfileInspector.csproj.GenerateResource.cache
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nvidiaProfileInspector.csproj.CoreCompileInputs.cache
+C:\Users\Ryzen\Documents\nvidiaProfileInspector-master\nspector\obj\Release\nvidiaProfileInspector.exe
