@@ -1,38 +1,42 @@
-﻿using System;
+﻿#region
+
 using System.Text;
 
-namespace nspector.Common
+#endregion
+
+namespace nspector.Common.Cache;
+
+internal class CachedSettingValue
 {
-    internal class CachedSettingValue
+    internal StringBuilder ProfileNames;
+    internal uint Value;
+    internal byte[] ValueBin = new byte[0];
+    internal uint ValueProfileCount;
+
+    internal string ValueStr = "";
+
+    internal CachedSettingValue()
     {
+    }
 
-        internal CachedSettingValue() { }
+    internal CachedSettingValue(uint Value, string ProfileNames)
+    {
+        this.Value = Value;
+        this.ProfileNames = new StringBuilder(ProfileNames);
+        ValueProfileCount = 1;
+    }
 
-        internal CachedSettingValue(uint Value, string ProfileNames)
-        {
-            this.Value = Value;
-            this.ProfileNames = new StringBuilder(ProfileNames);
-            this.ValueProfileCount = 1;
-        }
+    internal CachedSettingValue(string ValueStr, string ProfileNames)
+    {
+        this.ValueStr = ValueStr;
+        this.ProfileNames = new StringBuilder(ProfileNames);
+        ValueProfileCount = 1;
+    }
 
-        internal CachedSettingValue(string ValueStr, string ProfileNames)
-        {
-            this.ValueStr = ValueStr;
-            this.ProfileNames = new StringBuilder(ProfileNames);
-            this.ValueProfileCount = 1;
-        }
-
-        internal CachedSettingValue(byte[] ValueBin, string ProfileNames)
-        {
-            this.ValueBin = ValueBin;
-            this.ProfileNames = new StringBuilder(ProfileNames);
-            this.ValueProfileCount = 1;
-        }
-
-        internal string ValueStr = "";
-        internal uint Value = 0;
-        internal byte[] ValueBin = new byte[0];
-        internal StringBuilder ProfileNames;
-        internal uint ValueProfileCount;
+    internal CachedSettingValue(byte[] ValueBin, string ProfileNames)
+    {
+        this.ValueBin = ValueBin;
+        this.ProfileNames = new StringBuilder(ProfileNames);
+        ValueProfileCount = 1;
     }
 }

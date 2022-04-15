@@ -1,9 +1,8 @@
-﻿namespace nspector.Common
+﻿namespace nspector.Common;
+
+public enum SettingViewMode
 {
-    public enum SettingViewMode
-    {
-        Normal,
-        IncludeScannedSetttings,
-        CustomSettingsOnly,
-    }
+    Normal,
+    IncludeScannedSetttings,
+    CustomSettingsOnly
 }

@@ -1,8 +1,7 @@
-﻿namespace nspector.Common.Meta
+﻿namespace nspector.Common.Meta;
+
+internal class MetaServiceItem
 {
-    internal class MetaServiceItem
-    {
-        public ISettingMetaService Service { get; set; }
-        public uint ValueNamePrio { get; set; }
-    }
+    public ISettingMetaService Service { get; set; }
+    public uint ValueNamePrio { get; set; }
 }

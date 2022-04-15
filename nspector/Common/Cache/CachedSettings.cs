@@ -1,72 +1,79 @@
-﻿using nspector.Native.NVAPI2;
+﻿#region
+
 using System.Collections.Generic;
 using System.Linq;
+using nspector.Native.NVAPI;
 
-namespace nspector.Common
+#endregion
+
+namespace nspector.Common.Cache;
+
+internal class CachedSettings
 {
-    internal class CachedSettings
+    internal uint ProfileCount;
+
+    internal uint SettingId;
+
+    internal NVDRS_SETTING_TYPE SettingType = NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
+
+    internal List<CachedSettingValue> SettingValues = new();
+    internal CachedSettings()
     {
-        internal CachedSettings() { }
+    }
 
-        internal CachedSettings(uint settingId, NVDRS_SETTING_TYPE settingType)
+    internal CachedSettings(uint settingId, NVDRS_SETTING_TYPE settingType)
+    {
+        SettingId = settingId;
+        SettingType = settingType;
+    }
+
+    internal void AddDwordValue(uint valueDword, string Profile)
+    {
+        var setting = SettingValues.FirstOrDefault(s => s.Value == valueDword);
+        if (setting == null)
         {
-            SettingId = settingId;
-            SettingType = settingType;
+            SettingValues.Add(new CachedSettingValue(valueDword, Profile));
+        }
+        else
+        {
+            setting.ProfileNames.Append(", " + Profile);
+            setting.ValueProfileCount++;
         }
 
-        internal uint SettingId;
+        ProfileCount++;
+    }
 
-        internal List<CachedSettingValue> SettingValues = new List<CachedSettingValue>();
+    internal void AddStringValue(string valueStr, string Profile)
+    {
 
-        internal uint ProfileCount = 0;
-
-        internal NVDRS_SETTING_TYPE SettingType = NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
-
-        internal void AddDwordValue(uint valueDword, string Profile)
+        var setting = SettingValues.FirstOrDefault(s => s.ValueStr == valueStr);
+        if (setting == null)
         {
-            var setting = SettingValues.FirstOrDefault(s => s.Value == valueDword);
-            if (setting == null)
-            {
-                SettingValues.Add(new CachedSettingValue(valueDword, Profile));
-            }
-            else
-            {
-                setting.ProfileNames.Append(", " + Profile);
-                setting.ValueProfileCount++;
-            }
-            ProfileCount++;
+            SettingValues.Add(new CachedSettingValue(valueStr, Profile));
+        }
+        else
+        {
+            setting.ProfileNames.Append(", " + Profile);
+            setting.ValueProfileCount++;
         }
 
-        internal void AddStringValue(string valueStr, string Profile)
-        {
+        ProfileCount++;
+    }
 
-            var setting = SettingValues.FirstOrDefault(s => s.ValueStr == valueStr);
-            if (setting == null)
-            {
-                SettingValues.Add(new CachedSettingValue(valueStr, Profile));
-            }
-            else
-            {
-                setting.ProfileNames.Append(", " + Profile);
-                setting.ValueProfileCount++;
-            }
-            ProfileCount++;
+    internal void AddBinaryValue(byte[] valueBin, string Profile)
+    {
+
+        var setting = SettingValues.FirstOrDefault(s => s.ValueBin.SequenceEqual(valueBin));
+        if (setting == null)
+        {
+            SettingValues.Add(new CachedSettingValue(valueBin, Profile));
+        }
+        else
+        {
+            setting.ProfileNames.Append(", " + Profile);
+            setting.ValueProfileCount++;
         }
 
-        internal void AddBinaryValue(byte[] valueBin, string Profile)
-        {
-
-            var setting = SettingValues.FirstOrDefault(s => s.ValueBin.SequenceEqual(valueBin));
-            if (setting == null)
-            {
-                SettingValues.Add(new CachedSettingValue(valueBin, Profile));
-            }
-            else
-            {
-                setting.ProfileNames.Append(", " + Profile);
-                setting.ValueProfileCount++;
-            }
-            ProfileCount++;
-        }
+        ProfileCount++;
     }
 }

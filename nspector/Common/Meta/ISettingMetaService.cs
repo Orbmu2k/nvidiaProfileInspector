@@ -1,33 +1,33 @@
-﻿using nspector.Native.NVAPI2;
-using System;
+﻿#region
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using nspector.Native.NVAPI;
 
-namespace nspector.Common.Meta
+#endregion
+
+namespace nspector.Common.Meta;
+
+internal interface ISettingMetaService
 {
-    internal interface ISettingMetaService
-    {
-        SettingMetaSource Source { get; }
+    SettingMetaSource Source { get; }
 
-        NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId);
+    NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId);
 
-        string GetSettingName(uint settingId);
+    string GetSettingName(uint settingId);
 
-        string GetGroupName(uint settingId);
+    string GetGroupName(uint settingId);
 
-        uint? GetDwordDefaultValue(uint settingId);
+    uint? GetDwordDefaultValue(uint settingId);
 
-        string GetStringDefaultValue(uint settingId);
+    string GetStringDefaultValue(uint settingId);
 
-        byte[] GetBinaryDefaultValue(uint settingId);
+    byte[] GetBinaryDefaultValue(uint settingId);
 
-        List<SettingValue<string>> GetStringValues(uint settingId);
+    List<SettingValue<string>> GetStringValues(uint settingId);
 
-        List<SettingValue<uint>> GetDwordValues(uint settingId);
+    List<SettingValue<uint>> GetDwordValues(uint settingId);
 
-        List<SettingValue<byte[]>> GetBinaryValues(uint settingId);
+    List<SettingValue<byte[]>> GetBinaryValues(uint settingId);
 
-        List<uint> GetSettingIds();
-    }
+    List<uint> GetSettingIds();
 }

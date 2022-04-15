@@ -1,20 +1,19 @@
-﻿using System.Security.Principal;
+﻿#region
 
-namespace nspector.Common.Helper
+using System.Security.Principal;
+
+#endregion
+
+namespace nspector.Common.Helper;
+
+public static class AdminHelper
 {
-    public static class AdminHelper
+    static AdminHelper()
     {
-        private static bool isAdmin = false;
-        static AdminHelper()
-        {
-            var identity = WindowsIdentity.GetCurrent();
-            var principal = new WindowsPrincipal(identity);
-            isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
-        }
-
-        public static bool IsAdmin
-        {
-            get { return isAdmin; }
-        }
+        var identity = WindowsIdentity.GetCurrent();
+        var principal = new WindowsPrincipal(identity);
+        IsAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
+
+    public static bool IsAdmin { get; }
 }

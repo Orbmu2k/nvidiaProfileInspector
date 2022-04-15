@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -6,99 +8,95 @@ using System.Windows.Forms;
 using nspector.Common;
 using nspector.Common.Helper;
 using nspector.Native.WINAPI;
+using nspector.Properties;
 
-namespace nspector
+#endregion
+
+namespace nspector;
+
+internal static class Program
 {
-    static class Program
+    /// <summary>
+    ///     The main entry point for the application.
+    /// </summary>
+    [STAThread]
+    private static void Main(string[] args)
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main(string[] args)
+        try
         {
-            try
-            {
-                // Remove Zone.Identifier from Alternate Data Stream
-                SafeNativeMethods.DeleteFile(Application.ExecutablePath + ":Zone.Identifier");
-            }
-            catch { }
+            // Remove Zone.Identifier from Alternate Data Stream
+            SafeNativeMethods.DeleteFile(Application.ExecutablePath + ":Zone.Identifier");
+        }
+        catch
+        {
+        }
 #if RELEASE
             try
             {
 #endif
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            DropDownMenuScrollWheelHandler.Enable(true);
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        DropDownMenuScrollWheelHandler.Enable(true);
 
-            var argFileIndex = ArgFileIndex(args);
-            if (argFileIndex != -1)
-            {
+        var argFileIndex = ArgFileIndex(args);
+        if (argFileIndex != -1)
+        {
 
-                if (new FileInfo(args[argFileIndex]).Extension.ToLower() == ".nip")
+            if (new FileInfo(args[argFileIndex]).Extension.ToLower() == ".nip")
+                try
                 {
-                    try
-                    {
-                        var import = DrsServiceLocator.ImportService;
-                        var importReport = import.ImportProfiles(args[argFileIndex]);
-                        GC.Collect();
-                        Process current = Process.GetCurrentProcess();
-                        foreach (
-                            Process process in
-                                Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
+                    var import = DrsServiceLocator.ImportService;
+                    var importReport = import.ImportProfiles(args[argFileIndex]);
+                    GC.Collect();
+                    var current = Process.GetCurrentProcess();
+                    foreach (
+                        var process in
+                        Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
+                        if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
                         {
-                            if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
-                            {
-                                MessageHelper mh = new MessageHelper();
-                                mh.sendWindowsStringMessage((int)process.MainWindowHandle, 0, "ProfilesImported");
-                            }
+                            var mh = new MessageHelper();
+                            mh.sendWindowsStringMessage((int) process.MainWindowHandle, 0, "ProfilesImported");
                         }
 
-                        if (string.IsNullOrEmpty(importReport) && !ArgExists(args, "-silentImport") && !ArgExists(args, "-silent"))
+                    if (string.IsNullOrEmpty(importReport) && !ArgExists(args, "-silentImport") && !ArgExists(args, "-silent"))
+                        frmDrvSettings.ShowImportDoneMessage(importReport);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Import Error: " + ex.Message, Application.ProductName + " Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+        }
+
+        else if (ArgExists(args, "-createCSN"))
+        {
+            File.WriteAllText("CustomSettingNames.xml", Resources.CustomSettingNames);
+        }
+        else
+        {
+
+            var createdNew = true;
+            using (var mutex = new Mutex(true, Application.ProductName, out createdNew))
+            {
+                if (createdNew)
+                {
+                    Application.Run(new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan")));
+                }
+                else
+                {
+                    var current = Process.GetCurrentProcess();
+                    foreach (
+                        var process in
+                        Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
+                        if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
                         {
-                            frmDrvSettings.ShowImportDoneMessage(importReport);
+                            var mh = new MessageHelper();
+                            mh.bringAppToFront((int) process.MainWindowHandle);
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Import Error: " + ex.Message, Application.ProductName + " Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                 }
             }
-
-            else if (ArgExists(args, "-createCSN"))
-            {
-                File.WriteAllText("CustomSettingNames.xml", Properties.Resources.CustomSettingNames);
-            }
-            else
-            {
-
-                bool createdNew = true;
-                using (Mutex mutex = new Mutex(true, Application.ProductName, out createdNew))
-                {
-                    if (createdNew)
-                    {
-                        Application.Run(new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan")));
-                    }
-                    else
-                    {
-                        Process current = Process.GetCurrentProcess();
-                        foreach (
-                            Process process in
-                                Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
-                        {
-                            if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
-                            {
-                                MessageHelper mh = new MessageHelper();
-                                mh.bringAppToFront((int)process.MainWindowHandle);
-                            }
-                        }
-                    }
-                }
-            }
+        }
 #if RELEASE
-
             }
             catch (Exception ex)
             {
@@ -106,27 +104,22 @@ namespace nspector
             }
 #endif
 
-        }
+    }
 
-        static bool ArgExists(string[] args, string arg)
-        {
-            foreach (string a in args)
-            {
-                if (a.ToUpper() == arg.ToUpper())
-                    return true;
-            }
-            return false;
-        }
+    private static bool ArgExists(string[] args, string arg)
+    {
+        foreach (var a in args)
+            if (a.ToUpper() == arg.ToUpper())
+                return true;
+        return false;
+    }
 
-        static int ArgFileIndex(string[] args)
-        {
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (File.Exists(args[i]))
-                    return i;
-            }
+    private static int ArgFileIndex(string[] args)
+    {
+        for (var i = 0; i < args.Length; i++)
+            if (File.Exists(args[i]))
+                return i;
 
-            return -1;
-        }
+        return -1;
     }
 }

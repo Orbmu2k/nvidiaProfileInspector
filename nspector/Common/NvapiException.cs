@@ -1,29 +1,30 @@
-﻿using System;
-using nspector.Native.NVAPI2;
+﻿#region
 
-namespace nspector.Common
+using System;
+using nspector.Native.NVAPI;
+
+#endregion
+
+namespace nspector.Common;
+
+public class NvapiException : Exception
 {
-    public class NvapiException : Exception
+    public readonly NvAPI_Status Status;
+
+    public NvapiException(string function, NvAPI_Status status)
+        : base(function + " failed: " + status)
     {
-        public readonly NvAPI_Status Status;
-
-        public NvapiException(string function, NvAPI_Status status)
-            : base(function + " failed: " + status)
-        {
-            Status = status;
-        }
-
+        Status = status;
     }
+}
 
-    public class NvapiAddApplicationException : NvapiException
+public class NvapiAddApplicationException : NvapiException
+{
+    public readonly string ApplicationName;
+
+    public NvapiAddApplicationException(string applicationName)
+        : base("DRS_CreateApplication", NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
     {
-        public readonly string ApplicationName;
-
-        public NvapiAddApplicationException(string applicationName)
-            : base("DRS_CreateApplication", NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
-        {
-            ApplicationName = applicationName;
-        }
-
+        ApplicationName = applicationName;
     }
 }

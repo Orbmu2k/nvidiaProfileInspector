@@ -1,10 +1,9 @@
-﻿namespace nspector.Common.Import
+﻿namespace nspector.Common.Import;
+
+public enum SettingValueType
 {
-    public enum SettingValueType : int
-    {
-        Dword,
-        AnsiString,
-        String,
-        Binary
-    }
+    Dword,
+    AnsiString,
+    String,
+    Binary
 }
