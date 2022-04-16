@@ -46,6 +46,7 @@ internal class MessageHelper
                 param.showCmd = SW_NORMAL;
                 SetWindowPlacement(hWnd, ref param);
             }
+
         return SetForegroundWindow(hWnd);
     }
 
@@ -58,7 +59,7 @@ internal class MessageHelper
             var sarr = System.Text.Encoding.Default.GetBytes(msg);
             var len = sarr.Length;
             COPYDATASTRUCT cds;
-            cds.dwData = (IntPtr)100;
+            cds.dwData = (IntPtr) 100;
             cds.lpData = msg;
             cds.cbData = len + 1;
             result = SendMessage(hWnd, WM_COPYDATA, wParam, ref cds);
@@ -116,8 +117,7 @@ internal class MessageHelper
     {
         internal IntPtr dwData;
         internal int cbData;
-        [MarshalAs(UnmanagedType.LPStr)]
-        internal string lpData;
+        [MarshalAs(UnmanagedType.LPStr)] internal string lpData;
     }
 
 

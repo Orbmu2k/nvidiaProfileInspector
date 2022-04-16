@@ -124,6 +124,7 @@ public enum NvAPI_Status
     NVAPI_ECID_SIGN_ALGO_UNSUPPORTED = -197,
     NVAPI_ECID_KEY_VERIFICATION_FAILED = -198
 }
+
 internal enum NVDRS_SETTING_TYPE
 {
     NVDRS_DWORD_TYPE,
@@ -131,6 +132,7 @@ internal enum NVDRS_SETTING_TYPE
     NVDRS_STRING_TYPE,
     NVDRS_WSTRING_TYPE
 }
+
 internal enum NVDRS_SETTING_LOCATION
 {
     NVDRS_CURRENT_PROFILE_LOCATION,
@@ -138,6 +140,7 @@ internal enum NVDRS_SETTING_LOCATION
     NVDRS_BASE_PROFILE_LOCATION,
     NVDRS_DEFAULT_PROFILE_LOCATION
 }
+
 [Flags]
 public enum NVDRS_GPU_SUPPORT : uint
 {
@@ -146,6 +149,7 @@ public enum NVDRS_GPU_SUPPORT : uint
     Quadro,
     Nvs
 }
+
 [StructLayout(LayoutKind.Sequential, Pack = 8)]
 internal struct NVDRS_SETTING_VALUES
 {
@@ -153,7 +157,8 @@ internal struct NVDRS_SETTING_VALUES
     public uint numSettingValues;
     public NVDRS_SETTING_TYPE settingType;
     public NVDRS_SETTING_UNION defaultValue;
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)NvapiDrsWrapper.NVAPI_SETTING_MAX_VALUES)]
+
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int) NvapiDrsWrapper.NVAPI_SETTING_MAX_VALUES)]
     public NVDRS_SETTING_UNION[] settingValues;
 }
 
@@ -231,7 +236,7 @@ internal struct NVDRS_SETTING_UNION
         {
             var length = BitConverter.ToUInt32(rawData, 0);
             var tmpData = new byte[length];
-            Buffer.BlockCopy(rawData, 4, tmpData, 0, (int)length);
+            Buffer.BlockCopy(rawData, 4, tmpData, 0, (int) length);
             return tmpData;
         }
 
@@ -292,14 +297,16 @@ internal struct NVDRS_SETTING_UNION
             Buffer.BlockCopy(bytesRaw, 0, rawData, 0, bytesRaw.Length);
         }
     }
-
 }
+
 [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
 internal struct NVDRS_SETTING
 {
     public uint version;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string settingName;
+
     public uint settingId;
     public NVDRS_SETTING_TYPE settingType;
     public NVDRS_SETTING_LOCATION settingLocation;
@@ -308,32 +315,42 @@ internal struct NVDRS_SETTING
     public NVDRS_SETTING_UNION predefinedValue;
     public NVDRS_SETTING_UNION currentValue;
 }
+
 [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
 internal struct NVDRS_APPLICATION_V1
 {
     public uint version;
     public uint isPredefined;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string appName;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string userFriendlyName;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string launcher;
 }
+
 [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
 internal struct NVDRS_APPLICATION_V2
 {
     public uint version;
     public uint isPredefined;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string appName;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string userFriendlyName;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string launcher;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string fileInFolder;
 }
+
 [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
 internal struct NVDRS_APPLICATION_V3
 {
@@ -345,27 +362,36 @@ internal struct NVDRS_APPLICATION_V3
 
     public uint version;
     public uint isPredefined;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string appName;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string userFriendlyName;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string launcher;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string fileInFolder;
+
     private uint bitvector1;
 }
+
 [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
 internal struct NVDRS_PROFILE
 {
     public uint version;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string profileName;
+
     public NVDRS_GPU_SUPPORT gpuSupport;
     public uint isPredefined;
     public uint numOfApps;
     public uint numOfSettings;
 }
+
 internal class NvapiDrsWrapper
 {
     static NvapiDrsWrapper()
@@ -423,14 +449,15 @@ internal class NvapiDrsWrapper
                     GetDelegate(0xDA8466A0, out DRS_GetBaseProfile);
 
                     #endregion
-
                 }
             }
         }
     }
 
 
-    private NvapiDrsWrapper() { }
+    private NvapiDrsWrapper()
+    {
+    }
 
     [DllImport("kernel32.dll")]
     private static extern IntPtr LoadLibrary(string dllname);
@@ -440,7 +467,7 @@ internal class NvapiDrsWrapper
 
     private static uint MAKE_NVAPI_VERSION<T>(int version)
     {
-        return (uint)(Marshal.SizeOf(typeof(T)) | (version << 16));
+        return (uint) (Marshal.SizeOf(typeof(T)) | (version << 16));
     }
 
     private static string GetDllName()
@@ -464,7 +491,7 @@ internal class NvapiDrsWrapper
         var FuncT = default(T);
         var FuncAddr = GetProcAddress(pLib, signature);
         if (FuncAddr != IntPtr.Zero)
-            FuncT = (T)(object)Marshal.GetDelegateForFunctionPointer(FuncAddr, typeof(T));
+            FuncT = (T) (object) Marshal.GetDelegateForFunctionPointer(FuncAddr, typeof(T));
         return FuncT;
     }
 
@@ -498,120 +525,182 @@ internal class NvapiDrsWrapper
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate IntPtr nvapi_QueryInterfaceDelegate(uint id);
+
     private static readonly nvapi_QueryInterfaceDelegate nvapi_QueryInterface;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status NvAPI_InitializeDelegate();
+
     public static readonly NvAPI_InitializeDelegate NvAPI_Initialize;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status InitializeDelegate();
+
     public static readonly InitializeDelegate Initialize;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status UnloadDelegate();
+
     public static readonly UnloadDelegate Unload;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status GetErrorMessageDelegate(NvAPI_Status nr, [MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NVAPI_SHORT_STRING_MAX)] StringBuilder szDesc);
+    public delegate NvAPI_Status GetErrorMessageDelegate(NvAPI_Status nr,
+        [MarshalAs(UnmanagedType.LPStr, SizeConst = (int) NVAPI_SHORT_STRING_MAX)]
+        StringBuilder szDesc);
+
     public static readonly GetErrorMessageDelegate GetErrorMessage;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status GetInterfaceVersionStringDelegate([MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NVAPI_SHORT_STRING_MAX)] StringBuilder szDesc);
+    public delegate NvAPI_Status GetInterfaceVersionStringDelegate(
+        [MarshalAs(UnmanagedType.LPStr, SizeConst = (int) NVAPI_SHORT_STRING_MAX)]
+        StringBuilder szDesc);
+
     public static readonly GetInterfaceVersionStringDelegate GetInterfaceVersionString;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status SYS_GetDriverAndBranchVersionDelegate(ref uint pDriverVersion, [MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NVAPI_SHORT_STRING_MAX)] StringBuilder szBuildBranchString);
+    public delegate NvAPI_Status SYS_GetDriverAndBranchVersionDelegate(ref uint pDriverVersion,
+        [MarshalAs(UnmanagedType.LPStr, SizeConst = (int) NVAPI_SHORT_STRING_MAX)]
+        StringBuilder szBuildBranchString);
+
     public static readonly SYS_GetDriverAndBranchVersionDelegate SYS_GetDriverAndBranchVersion;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_CreateSessionDelegate(ref IntPtr phSession);
+
     public static readonly DRS_CreateSessionDelegate DRS_CreateSession;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_DestroySessionDelegate(IntPtr hSession);
+
     public static readonly DRS_DestroySessionDelegate DRS_DestroySession;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_LoadSettingsDelegate(IntPtr hSession);
+
     public static readonly DRS_LoadSettingsDelegate DRS_LoadSettings;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_SaveSettingsDelegate(IntPtr hSession);
+
     public static readonly DRS_SaveSettingsDelegate DRS_SaveSettings;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_LoadSettingsFromFileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
+    public delegate NvAPI_Status DRS_LoadSettingsFromFileDelegate(IntPtr hSession,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder fileName);
+
     public static readonly DRS_LoadSettingsFromFileDelegate DRS_LoadSettingsFromFile;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SaveSettingsToFileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
+    public delegate NvAPI_Status DRS_SaveSettingsToFileDelegate(IntPtr hSession,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder fileName);
+
     public static readonly DRS_SaveSettingsToFileDelegate DRS_SaveSettingsToFile;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_LoadSettingsFromFileExDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
+    public delegate NvAPI_Status DRS_LoadSettingsFromFileExDelegate(IntPtr hSession,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder fileName);
+
     public static readonly DRS_LoadSettingsFromFileExDelegate DRS_LoadSettingsFromFileEx;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SaveSettingsToFileExDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
+    public delegate NvAPI_Status DRS_SaveSettingsToFileExDelegate(IntPtr hSession,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder fileName);
+
     public static readonly DRS_SaveSettingsToFileExDelegate DRS_SaveSettingsToFileEx;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_CreateProfileDelegate(IntPtr hSession, ref NVDRS_PROFILE pProfileInfo, ref IntPtr phProfile);
+    public delegate NvAPI_Status DRS_CreateProfileDelegate(IntPtr hSession, ref NVDRS_PROFILE pProfileInfo,
+        ref IntPtr phProfile);
+
     public static readonly DRS_CreateProfileDelegate DRS_CreateProfile;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_DeleteProfileDelegate(IntPtr hSession, IntPtr hProfile);
+
     public static readonly DRS_DeleteProfileDelegate DRS_DeleteProfile;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SetCurrentGlobalProfileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder wszGlobalProfileName);
+    public delegate NvAPI_Status DRS_SetCurrentGlobalProfileDelegate(IntPtr hSession,
+        [MarshalAs(UnmanagedType.LPWStr,
+            SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder wszGlobalProfileName);
+
     public static readonly DRS_SetCurrentGlobalProfileDelegate DRS_SetCurrentGlobalProfile;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_GetCurrentGlobalProfileDelegate(IntPtr hSession, ref IntPtr phProfile);
+
     public static readonly DRS_GetCurrentGlobalProfileDelegate DRS_GetCurrentGlobalProfile;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetProfileInfoDelegate(IntPtr hSession, IntPtr hProfile, ref NVDRS_PROFILE pProfileInfo);
+    public delegate NvAPI_Status DRS_GetProfileInfoDelegate(IntPtr hSession, IntPtr hProfile,
+        ref NVDRS_PROFILE pProfileInfo);
+
     public static readonly DRS_GetProfileInfoDelegate DRS_GetProfileInfo;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SetProfileInfoDelegate(IntPtr hSession, IntPtr hProfile, ref NVDRS_PROFILE pProfileInfo);
+    public delegate NvAPI_Status DRS_SetProfileInfoDelegate(IntPtr hSession, IntPtr hProfile,
+        ref NVDRS_PROFILE pProfileInfo);
+
     public static readonly DRS_SetProfileInfoDelegate DRS_SetProfileInfo;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_FindProfileByNameDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder profileName, ref IntPtr phProfile);
+    public delegate NvAPI_Status DRS_FindProfileByNameDelegate(IntPtr hSession,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder profileName,
+        ref IntPtr phProfile);
+
     public static readonly DRS_FindProfileByNameDelegate DRS_FindProfileByName;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_EnumProfilesDelegate(IntPtr hSession, uint index, ref IntPtr phProfile);
+
     public static readonly DRS_EnumProfilesDelegate DRS_EnumProfiles;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_GetNumProfilesDelegate(IntPtr hSession, ref uint numProfiles);
+
     public static readonly DRS_GetNumProfilesDelegate DRS_GetNumProfiles;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_CreateApplicationDelegate(IntPtr hSession, IntPtr hProfile, ref NVDRS_APPLICATION_V3 pApplication);
+    public delegate NvAPI_Status DRS_CreateApplicationDelegate(IntPtr hSession, IntPtr hProfile,
+        ref NVDRS_APPLICATION_V3 pApplication);
+
     public static readonly DRS_CreateApplicationDelegate DRS_CreateApplication;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_DeleteApplicationExDelegate(IntPtr hSession, IntPtr hProfile, ref NVDRS_APPLICATION_V3 pApp);
+    public delegate NvAPI_Status DRS_DeleteApplicationExDelegate(IntPtr hSession, IntPtr hProfile,
+        ref NVDRS_APPLICATION_V3 pApp);
+
     public static readonly DRS_DeleteApplicationExDelegate DRS_DeleteApplicationEx;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_DeleteApplicationDelegate(IntPtr hSession, IntPtr hProfile, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder appName);
+    public delegate NvAPI_Status DRS_DeleteApplicationDelegate(IntPtr hSession, IntPtr hProfile,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder appName);
+
     public static readonly DRS_DeleteApplicationDelegate DRS_DeleteApplication;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetApplicationInfoDelegate(IntPtr hSession, IntPtr hProfile, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder appName, ref NVDRS_APPLICATION_V3 pApplication);
+    public delegate NvAPI_Status DRS_GetApplicationInfoDelegate(IntPtr hSession, IntPtr hProfile,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder appName,
+        ref NVDRS_APPLICATION_V3 pApplication);
+
     public static readonly DRS_GetApplicationInfoDelegate DRS_GetApplicationInfo;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate NvAPI_Status DRS_EnumApplicationsDelegate(IntPtr hSession, IntPtr hProfile, uint startIndex, ref uint appCount, IntPtr pApplication);
+    private delegate NvAPI_Status DRS_EnumApplicationsDelegate(IntPtr hSession, IntPtr hProfile, uint startIndex,
+        ref uint appCount, IntPtr pApplication);
+
     private static readonly DRS_EnumApplicationsDelegate DRS_EnumApplicationsInternal;
-    public static NvAPI_Status DRS_EnumApplications<TDrsAppVersion>(IntPtr hSession, IntPtr hProfile, uint startIndex, ref uint appCount, ref TDrsAppVersion[] apps)
+
+    public static NvAPI_Status DRS_EnumApplications<TDrsAppVersion>(IntPtr hSession, IntPtr hProfile, uint startIndex,
+        ref uint appCount, ref TDrsAppVersion[] apps)
     {
         NvAPI_Status res;
 
@@ -620,32 +709,44 @@ internal class NvapiDrsWrapper
         try
         {
             res = DRS_EnumApplicationsInternal(hSession, hProfile, startIndex, ref appCount, pSettings);
-            apps = NativeArrayHelper.GetArrayData<TDrsAppVersion>(pSettings, (int)appCount);
+            apps = NativeArrayHelper.GetArrayData<TDrsAppVersion>(pSettings, (int) appCount);
         }
         finally
         {
             Marshal.FreeHGlobal(pSettings);
         }
+
         return res;
     }
 
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_FindApplicationByNameDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder appName, ref IntPtr phProfile, ref NVDRS_APPLICATION_V3 pApplication);
+    public delegate NvAPI_Status DRS_FindApplicationByNameDelegate(IntPtr hSession,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder appName,
+        ref IntPtr phProfile, ref NVDRS_APPLICATION_V3 pApplication);
+
     public static readonly DRS_FindApplicationByNameDelegate DRS_FindApplicationByName;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_SetSettingDelegate(IntPtr hSession, IntPtr hProfile, ref NVDRS_SETTING pSetting);
+
     public static readonly DRS_SetSettingDelegate DRS_SetSetting;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId, ref NVDRS_SETTING pSetting);
+    public delegate NvAPI_Status DRS_GetSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId,
+        ref NVDRS_SETTING pSetting);
+
     public static readonly DRS_GetSettingDelegate DRS_GetSetting;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate NvAPI_Status DRS_EnumSettingsDelegate(IntPtr hSession, IntPtr hProfile, uint startIndex, ref uint settingsCount, IntPtr pSetting);
+    private delegate NvAPI_Status DRS_EnumSettingsDelegate(IntPtr hSession, IntPtr hProfile, uint startIndex,
+        ref uint settingsCount, IntPtr pSetting);
+
     private static readonly DRS_EnumSettingsDelegate DRS_EnumSettingsInternal;
-    public static NvAPI_Status DRS_EnumSettings(IntPtr hSession, IntPtr hProfile, uint startIndex, ref uint settingsCount, ref NVDRS_SETTING[] settings)
+
+    public static NvAPI_Status DRS_EnumSettings(IntPtr hSession, IntPtr hProfile, uint startIndex,
+        ref uint settingsCount, ref NVDRS_SETTING[] settings)
     {
         NvAPI_Status res;
 
@@ -654,18 +755,21 @@ internal class NvapiDrsWrapper
         try
         {
             res = DRS_EnumSettingsInternal(hSession, hProfile, startIndex, ref settingsCount, pSettings);
-            settings = NativeArrayHelper.GetArrayData<NVDRS_SETTING>(pSettings, (int)settingsCount);
+            settings = NativeArrayHelper.GetArrayData<NVDRS_SETTING>(pSettings, (int) settingsCount);
         }
         finally
         {
             Marshal.FreeHGlobal(pSettings);
         }
+
         return res;
     }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_EnumAvailableSettingIdsDelegate(IntPtr pSettingIds, ref uint pMaxCount);
+
     public static readonly DRS_EnumAvailableSettingIdsDelegate DRS_EnumAvailableSettingIdsInternal;
+
     public static NvAPI_Status DRS_EnumAvailableSettingIds(out List<uint> settingIds, uint maxCount)
     {
         NvAPI_Status res;
@@ -676,63 +780,82 @@ internal class NvapiDrsWrapper
         {
             res = DRS_EnumAvailableSettingIdsInternal(pSettingIds, ref maxCount);
 
-            settingIdArray = NativeArrayHelper.GetArrayData<uint>(pSettingIds, (int)maxCount);
+            settingIdArray = NativeArrayHelper.GetArrayData<uint>(pSettingIds, (int) maxCount);
             settingIds = settingIdArray.ToList();
         }
         finally
         {
             Marshal.FreeHGlobal(pSettingIds);
         }
+
         return res;
     }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate NvAPI_Status DRS_EnumAvailableSettingValuesDelegate(uint settingId, ref uint pMaxNumValues, IntPtr pSettingValues);
+    private delegate NvAPI_Status DRS_EnumAvailableSettingValuesDelegate(uint settingId, ref uint pMaxNumValues,
+        IntPtr pSettingValues);
+
     private static readonly DRS_EnumAvailableSettingValuesDelegate DRS_EnumAvailableSettingValuesInternal;
-    public static NvAPI_Status DRS_EnumAvailableSettingValues(uint settingId, ref uint pMaxNumValues, ref NVDRS_SETTING_VALUES settingValues)
+
+    public static NvAPI_Status DRS_EnumAvailableSettingValues(uint settingId, ref uint pMaxNumValues,
+        ref NVDRS_SETTING_VALUES settingValues)
     {
         var pSettingValues = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(NVDRS_SETTING_VALUES)));
         NvAPI_Status res;
         try
         {
-            settingValues.settingValues = new NVDRS_SETTING_UNION[(int)NVAPI_SETTING_MAX_VALUES];
+            settingValues.settingValues = new NVDRS_SETTING_UNION[(int) NVAPI_SETTING_MAX_VALUES];
             Marshal.StructureToPtr(settingValues, pSettingValues, true);
             res = DRS_EnumAvailableSettingValuesInternal(settingId, ref pMaxNumValues, pSettingValues);
-            settingValues = (NVDRS_SETTING_VALUES)Marshal.PtrToStructure(pSettingValues, typeof(NVDRS_SETTING_VALUES));
+            settingValues = (NVDRS_SETTING_VALUES) Marshal.PtrToStructure(pSettingValues, typeof(NVDRS_SETTING_VALUES));
         }
         finally
         {
             Marshal.FreeHGlobal(pSettingValues);
         }
+
         return res;
     }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetSettingIdFromNameDelegate([MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder settingName, ref uint pSettingId);
+    public delegate NvAPI_Status DRS_GetSettingIdFromNameDelegate(
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder settingName,
+        ref uint pSettingId);
+
     public static readonly DRS_GetSettingIdFromNameDelegate DRS_GetSettingIdFromName;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetSettingNameFromIdDelegate(uint settingId, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder pSettingName);
+    public delegate NvAPI_Status DRS_GetSettingNameFromIdDelegate(uint settingId,
+        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
+        StringBuilder pSettingName);
+
     public static readonly DRS_GetSettingNameFromIdDelegate DRS_GetSettingNameFromId;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_DeleteProfileSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId);
+
     public static readonly DRS_DeleteProfileSettingDelegate DRS_DeleteProfileSetting;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_RestoreAllDefaultsDelegate(IntPtr hSession);
+
     public static readonly DRS_RestoreAllDefaultsDelegate DRS_RestoreAllDefaults;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_RestoreProfileDefaultDelegate(IntPtr hSession, IntPtr hProfile);
+
     public static readonly DRS_RestoreProfileDefaultDelegate DRS_RestoreProfileDefault;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_RestoreProfileDefaultSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId);
+    public delegate NvAPI_Status DRS_RestoreProfileDefaultSettingDelegate(IntPtr hSession, IntPtr hProfile,
+        uint settingId);
+
     public static readonly DRS_RestoreProfileDefaultSettingDelegate DRS_RestoreProfileDefaultSetting;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate NvAPI_Status DRS_GetBaseProfileDelegate(IntPtr hSession, ref IntPtr phProfile);
+
     public static readonly DRS_GetBaseProfileDelegate DRS_GetBaseProfile;
 
     #endregion

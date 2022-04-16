@@ -30,10 +30,7 @@ internal class DrsImportService : DrsSettingsServiceBase
 
     internal void ExportAllProfilesToNvidiaTextFile(string filename)
     {
-        DrsSession(hSession =>
-        {
-            SaveSettingsFileEx(hSession, filename);
-        });
+        DrsSession(hSession => { SaveSettingsFileEx(hSession, filename); });
     }
 
     internal void ImportAllProfilesFromNvidiaTextFile(string filename)
@@ -68,7 +65,6 @@ internal class DrsImportService : DrsSettingsServiceBase
         var hProfile = GetProfileHandle(hSession, profileName);
         if (hProfile != IntPtr.Zero)
         {
-
             result.ProfileName = profileName;
 
             var apps = GetProfileApplications(hSession, hProfile);
@@ -93,7 +89,6 @@ internal class DrsImportService : DrsSettingsServiceBase
                     result.Settings.Add(profileSetting);
                 }
             }
-
         }
 
         return result;
@@ -132,27 +127,34 @@ internal class DrsImportService : DrsSettingsServiceBase
                         if (profileCreated)
                             nvw.DRS_DeleteProfile(hSession, hProfile);
 
-                        sbFailedProfilesMessage.AppendLine(string.Format("Failed to import profile '{0}'", profile.ProfileName));
+                        sbFailedProfilesMessage.AppendLine(string.Format("Failed to import profile '{0}'",
+                            profile.ProfileName));
                         var appEx = nex as NvapiAddApplicationException;
                         if (appEx != null)
                         {
-                            var profilesWithThisApp = _ScannerService.FindProfilesUsingApplication(appEx.ApplicationName);
-                            sbFailedProfilesMessage.AppendLine(string.Format("- application '{0}' is already in use by profile '{1}'", appEx.ApplicationName, profilesWithThisApp));
+                            var profilesWithThisApp =
+                                _ScannerService.FindProfilesUsingApplication(appEx.ApplicationName);
+                            sbFailedProfilesMessage.AppendLine(string.Format(
+                                "- application '{0}' is already in use by profile '{1}'", appEx.ApplicationName,
+                                profilesWithThisApp));
                             appInUseHint = true;
                         }
                         else
                         {
                             sbFailedProfilesMessage.AppendLine(string.Format("- {0}", nex.Message));
                         }
+
                         sbFailedProfilesMessage.AppendLine("");
                     }
+
                     nvw.DRS_SaveSettings(hSession);
                 }
             }
         });
 
         if (appInUseHint)
-            sbFailedProfilesMessage.AppendLine("Hint: If just the profile name has been changed by nvidia, consider to manually modify the profile name inside the import file using a text editor.");
+            sbFailedProfilesMessage.AppendLine(
+                "Hint: If just the profile name has been changed by nvidia, consider to manually modify the profile name inside the import file using a text editor.");
 
         return sbFailedProfilesMessage.ToString();
     }
@@ -226,7 +228,8 @@ internal class DrsImportService : DrsSettingsServiceBase
                 var decryptedSetting = setting;
                 _DecrypterService.DecryptSettingIfNeeded(profileName, ref decryptedSetting);
 
-                if (isPredefined && exitsValueInImport && ImportExportUitl.AreDrsSettingEqualToProfileSetting(decryptedSetting, importSetting))
+                if (isPredefined && exitsValueInImport &&
+                    ImportExportUitl.AreDrsSettingEqualToProfileSetting(decryptedSetting, importSetting))
                 {
                     alreadySet.Add(setting.settingId);
                 }

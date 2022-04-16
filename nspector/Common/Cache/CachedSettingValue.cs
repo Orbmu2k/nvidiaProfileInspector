@@ -12,7 +12,9 @@ internal class CachedSettingValue
 
     internal string ValueStr = "";
 
-    internal CachedSettingValue() { }
+    internal CachedSettingValue()
+    {
+    }
 
     internal CachedSettingValue(uint Value, string ProfileNames)
     {

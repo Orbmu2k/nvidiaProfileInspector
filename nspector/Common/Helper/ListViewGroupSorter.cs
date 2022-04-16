@@ -6,6 +6,7 @@ namespace nspector.Common.Helper;
 public class ListViewGroupHeaderSorter : IComparer<ListViewGroup>
 {
     private readonly bool _ascending = true;
+
     public ListViewGroupHeaderSorter(bool ascending)
     {
         _ascending = ascending;
@@ -22,6 +23,7 @@ public class ListViewGroupHeaderSorter : IComparer<ListViewGroup>
 
     #endregion
 }
+
 public class ListViewGroupSorter
 {
     internal ListView _listview;
@@ -35,6 +37,7 @@ public class ListViewGroupSorter
     {
         return listview == sorter._listview;
     }
+
     public static bool operator !=(ListView listview, ListViewGroupSorter sorter)
     {
         return listview != sorter._listview;
@@ -44,6 +47,7 @@ public class ListViewGroupSorter
     {
         return sorter._listview;
     }
+
     public static implicit operator ListViewGroupSorter(ListView listview)
     {
         return new ListViewGroupSorter(listview);

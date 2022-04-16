@@ -24,10 +24,17 @@ public static class DrsUtil
                 var parseLen = blankPos > 2 ? blankPos - 2 : input.Length - 2;
                 result = uint.Parse(input.Substring(2, parseLen), NumberStyles.AllowHexSpecifier);
             }
-            catch { }
+            catch
+            {
+            }
         else
-            try { result = uint.Parse(input); }
-            catch { }
+            try
+            {
+                result = uint.Parse(input);
+            }
+            catch
+            {
+            }
 
         return result;
     }

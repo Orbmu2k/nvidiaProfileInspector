@@ -22,7 +22,9 @@ internal static class Program
             // Remove Zone.Identifier from Alternate Data Stream
             SafeNativeMethods.DeleteFile(Application.ExecutablePath + ":Zone.Identifier");
         }
-        catch { }
+        catch
+        {
+        }
 #if RELEASE
             try
             {
@@ -34,7 +36,6 @@ internal static class Program
         var argFileIndex = ArgFileIndex(args);
         if (argFileIndex != -1)
         {
-
             if (new FileInfo(args[argFileIndex]).Extension.ToLower() == ".nip")
                 try
                 {
@@ -48,10 +49,11 @@ internal static class Program
                         if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
                         {
                             var mh = new MessageHelper();
-                            mh.sendWindowsStringMessage((int)process.MainWindowHandle, 0, "ProfilesImported");
+                            mh.sendWindowsStringMessage((int) process.MainWindowHandle, 0, "ProfilesImported");
                         }
 
-                    if (string.IsNullOrEmpty(importReport) && !ArgExists(args, "-silentImport") && !ArgExists(args, "-silent"))
+                    if (string.IsNullOrEmpty(importReport) && !ArgExists(args, "-silentImport") &&
+                        !ArgExists(args, "-silent"))
                         frmDrvSettings.ShowImportDoneMessage(importReport);
                 }
                 catch (Exception ex)
@@ -67,13 +69,13 @@ internal static class Program
         }
         else
         {
-
             var createdNew = true;
             using (var mutex = new Mutex(true, Application.ProductName, out createdNew))
             {
                 if (createdNew)
                 {
-                    Application.Run(new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan")));
+                    Application.Run(
+                        new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan")));
                 }
                 else
                 {
@@ -84,7 +86,7 @@ internal static class Program
                         if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
                         {
                             var mh = new MessageHelper();
-                            mh.bringAppToFront((int)process.MainWindowHandle);
+                            mh.bringAppToFront((int) process.MainWindowHandle);
                         }
                 }
             }
@@ -96,7 +98,6 @@ internal static class Program
                 MessageBox.Show(ex.Message + "\r\n\r\n" + ex.StackTrace ,"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 #endif
-
     }
 
     private static bool ArgExists(string[] args, string arg)

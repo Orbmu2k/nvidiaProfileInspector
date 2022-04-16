@@ -44,7 +44,7 @@ internal static class XMLHelper<T> where T : new()
     internal static T DeserializeFromXmlString(string xml)
     {
         var reader = new StringReader(xml);
-        var xmlObject = (T)xmlSerializer.Deserialize(reader);
+        var xmlObject = (T) xmlSerializer.Deserialize(reader);
         return xmlObject;
     }
 

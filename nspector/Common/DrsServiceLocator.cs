@@ -28,7 +28,8 @@ internal class DrsServiceLocator
 
     private static CustomSettingNames LoadCustomSettings()
     {
-        var csnDefaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CustomSettingNames.xml";
+        var csnDefaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
+                             "\\CustomSettingNames.xml";
 
         if (File.Exists(csnDefaultPath))
             return CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);

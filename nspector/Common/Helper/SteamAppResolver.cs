@@ -9,7 +9,6 @@ namespace nspector.Common.Helper;
 
 public class SteamAppResolver
 {
-
     public const string SteamExeName = "steam.exe";
     public const string SteamUrlPattern = "steam://rungameid/";
     public const string SteamArgumentPattern = "-applaunch";
@@ -31,7 +30,7 @@ public class SteamAppResolver
 
         if (reg != null)
         {
-            var steamPath = (string)reg.GetValue("SteamPath", null);
+            var steamPath = (string) reg.GetValue("SteamPath", null);
             if (steamPath != null)
                 return Path.Combine(steamPath, @"appcache\appinfo.vdf");
         }
@@ -48,6 +47,7 @@ public class SteamAppResolver
             if (int.TryParse(appIdStr, out appid))
                 return FindCommonExecutableForApp(appid);
         }
+
         return "";
     }
 
@@ -63,8 +63,8 @@ public class SteamAppResolver
                 if (int.TryParse(appIdStr, out appid))
                     return FindCommonExecutableForApp(appid);
             }
-
         }
+
         return "";
     }
 
@@ -122,30 +122,30 @@ public class SteamAppResolver
             switch (valueType)
             {
                 case 0:
-                    {
-                        FindExecutables(bytes, ref offset, ref executables);
-                        break;
-                    }
+                {
+                    FindExecutables(bytes, ref offset, ref executables);
+                    break;
+                }
                 case 1:
-                    {
-                        valueString = ReadCString(bytes, ref offset);
+                {
+                    valueString = ReadCString(bytes, ref offset);
 
-                        if (valueName == "executable" && valueString.EndsWith(".exe"))
-                            executables.Add(valueString);
+                    if (valueName == "executable" && valueString.EndsWith(".exe"))
+                        executables.Add(valueString);
 
-                        break;
-                    }
+                    break;
+                }
                 case 2:
-                    {
-                        offset += 4;
-                        break;
-                    }
+                {
+                    offset += 4;
+                    break;
+                }
 
                 case 7:
-                    {
-                        offset += 8;
-                        break;
-                    }
+                {
+                    offset += 8;
+                    break;
+                }
             }
         }
     }
@@ -157,15 +157,17 @@ public class SteamAppResolver
             {
                 var ismatch = true;
                 for (var j = 1; j < pattern.Length && ismatch; j++)
-                    if (bytes[i + j] != pattern[j] && (wildcard.HasValue && wildcard != pattern[j] || !wildcard.HasValue))
+                    if (bytes[i + j] != pattern[j] &&
+                        (wildcard.HasValue && wildcard != pattern[j] || !wildcard.HasValue))
                     {
                         ismatch = false;
                         break;
                     }
+
                 if (ismatch)
                     return i;
-
             }
+
         return -1;
     }
 
@@ -186,6 +188,5 @@ public class SteamAppResolver
         offset += length + 1;
 
         return Encoding.UTF8.GetString(bytes, start, length);
-
     }
 }

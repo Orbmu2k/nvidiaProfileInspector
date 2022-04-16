@@ -8,7 +8,7 @@ internal class NativeArrayHelper
 {
     public static T GetArrayItemData<T>(IntPtr sourcePointer)
     {
-        return (T)Marshal.PtrToStructure(sourcePointer, typeof(T));
+        return (T) Marshal.PtrToStructure(sourcePointer, typeof(T));
     }
 
     public static T[] GetArrayData<T>(IntPtr sourcePointer, int itemCount)
@@ -20,6 +20,7 @@ internal class NativeArrayHelper
             for (var i = 0; i < itemCount; i++)
                 lstResult.Add(GetArrayItemData<T>(sourcePointer + sizeOfItem * i));
         }
+
         return lstResult.ToArray();
     }
 
@@ -36,7 +37,6 @@ internal class NativeArrayHelper
         {
             targetPointer = IntPtr.Zero;
         }
-
     }
 
     public static void SetArrayItemData<T>(T item, out IntPtr targetPointer)

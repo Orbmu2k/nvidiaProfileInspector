@@ -4,4 +4,6 @@ using System.Collections.Generic;
 namespace nspector.Common.Import;
 
 [Serializable]
-public class Profiles : List<Profile> { }
+public class Profiles : List<Profile>
+{
+}

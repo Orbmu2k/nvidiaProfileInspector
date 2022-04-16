@@ -11,10 +11,13 @@ internal struct THUMBBUTTON
     private readonly uint iId;
     private readonly uint iBitmap;
     private readonly IntPtr hIcon;
+
     [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
     private readonly string szTip;
+
     private readonly int dwFlags;
 }
+
 [Flags]
 internal enum THBF
 {
@@ -24,6 +27,7 @@ internal enum THBF
     THBF_NOBACKGROUND = 0x0004,
     THBF_HIDDEN = 0x0008
 }
+
 [Flags]
 internal enum THB
 {
@@ -33,6 +37,7 @@ internal enum THB
     THB_FLAGS = 0x0008,
     THBN_CLICKED = 0x1800
 }
+
 internal enum TBPFLAG
 {
     TBPF_NOPROGRESS = 0,
@@ -41,17 +46,18 @@ internal enum TBPFLAG
     TBPF_ERROR = 0x4,
     TBPF_PAUSED = 0x8
 }
+
 internal enum TBATFLAG
 {
     TBATF_USEMDITHUMBNAIL = 0x1,
     TBATF_USEMDILIVEPREVIEW = 0x2
 }
+
 [ComImport]
 [Guid("EA1AFB91-9E28-4B86-90E9-9E9F8A5EEFAF")]
 [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 internal interface ITaskbarList3
 {
-
     [MethodImpl(MethodImplOptions.InternalCall,
         MethodCodeType = MethodCodeType.Runtime)]
     void HrInit();
@@ -114,6 +120,7 @@ internal interface ITaskbarList3
     void ThumbBarAddButtons([In] IntPtr hwnd,
         [In] uint cButtons,
         [In] IntPtr pButton);
+
     ///* [size_is][in] */ __RPC__in_ecount_full(cButtons) LPTHUMBBUTTON pButton);
 
     //preliminary
@@ -122,6 +129,7 @@ internal interface ITaskbarList3
     void ThumbBarUpdateButtons([In] IntPtr hwnd,
         [In] uint cButtons,
         [In] IntPtr pButton);
+
     ///* [size_is][in] */ __RPC__in_ecount_full(cButtons) LPTHUMBBUTTON pButton);
     [MethodImpl(MethodImplOptions.InternalCall,
         MethodCodeType = MethodCodeType.Runtime)]
@@ -144,8 +152,10 @@ internal interface ITaskbarList3
         MethodCodeType = MethodCodeType.Runtime)]
     void SetThumbnailClip([In] IntPtr hwnd,
         [In] IntPtr prcClip);
-
 }
+
 [ComImport]
 [Guid("56FDF344-FD6D-11d0-958A-006097C9A090")]
-internal class TaskbarList { }
+internal class TaskbarList
+{
+}

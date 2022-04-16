@@ -74,11 +74,13 @@ internal partial class frmExportProfiles : Form
                 if (lvProfiles.Items[i].Checked)
                     profileNamesToExport.Add(lvProfiles.Items[i].Text);
 
-            DrsServiceLocator.ImportService.ExportProfiles(profileNamesToExport, sfd.FileName, cbIncludePredefined.Checked);
+            DrsServiceLocator.ImportService.ExportProfiles(profileNamesToExport, sfd.FileName,
+                cbIncludePredefined.Checked);
 
             if (profileNamesToExport.Count > 0)
             {
-                if (MessageBox.Show("Export succeeded.\r\n\r\nWould you like to continue exporting profiles?", "Profiles Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("Export succeeded.\r\n\r\nWould you like to continue exporting profiles?",
+                        "Profiles Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     Close();
             }
             else

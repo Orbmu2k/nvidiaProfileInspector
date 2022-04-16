@@ -8,7 +8,8 @@ namespace nspector.Common.Helper;
 
 internal class InputBox
 {
-    internal static DialogResult Show(string title, string promptText, ref string value, List<string> invalidInputs, string mandatoryFormatRegExPattern, int maxLength)
+    internal static DialogResult Show(string title, string promptText, ref string value, List<string> invalidInputs,
+        string mandatoryFormatRegExPattern, int maxLength)
     {
         var form = new Form();
         var label = new Label();

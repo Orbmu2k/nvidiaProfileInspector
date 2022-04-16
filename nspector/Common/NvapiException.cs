@@ -13,6 +13,7 @@ public class NvapiException : Exception
         Status = status;
     }
 }
+
 public class NvapiAddApplicationException : NvapiException
 {
     public readonly string ApplicationName;

@@ -9,7 +9,6 @@ namespace nspector.Common;
 
 internal class DrsSettingsMetaService
 {
-
     private readonly CustomSettingNames _customSettings;
     private readonly CustomSettingNames _referenceSettings;
 
@@ -79,7 +78,6 @@ internal class DrsSettingsMetaService
                 });
             }
         }
-
     }
 
     private NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
@@ -109,9 +107,11 @@ internal class DrsSettingsMetaService
                     hexCandidate = settingName;
                     continue;
                 }
+
                 return settingName;
             }
         }
+
         return hexCandidate;
     }
 
@@ -123,6 +123,7 @@ internal class DrsSettingsMetaService
             if (groupName != null)
                 return groupName;
         }
+
         return null;
     }
 
@@ -175,14 +176,17 @@ internal class DrsSettingsMetaService
         }
         else
         {
-            var currentNonScannedValues = a.Where(xa => xa.ValueSource != SettingMetaSource.ScannedSettings).Select(xa => xa.Value).ToList();
+            var currentNonScannedValues = a.Where(xa => xa.ValueSource != SettingMetaSource.ScannedSettings)
+                .Select(xa => xa.Value).ToList();
 
             var newNonScannedValues = b.Where(xb => !currentNonScannedValues.Contains(xb.Value)).ToList();
             a.AddRange(newNonScannedValues);
 
             foreach (var settingValue in a)
             {
-                var bVal = b.FirstOrDefault(x => x.Value.Equals(settingValue.Value) && settingValue.ValueSource != SettingMetaSource.ScannedSettings);
+                var bVal = b.FirstOrDefault(x =>
+                    x.Value.Equals(settingValue.Value) &&
+                    settingValue.ValueSource != SettingMetaSource.ScannedSettings);
                 if (bVal != null && bVal.ValueName != null)
                 {
                     settingValue.ValueName = bVal.ValueName;
@@ -229,11 +233,14 @@ internal class DrsSettingsMetaService
             result = (from v in result.Where(x => 1 == 1
                                                   && !x.ValueName.EndsWith("_NUM")
                                                   && !x.ValueName.EndsWith("_MASK")
-                                                  && (!x.ValueName.EndsWith("_MIN") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MIN"))
-                                                  && (!x.ValueName.EndsWith("_MAX") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MAX"))
-                          )
-                      group v by v.ValueName into g
-                      select g.First(t => t.ValueName == g.Key))
+                                                  && (!x.ValueName.EndsWith("_MIN") ||
+                                                      x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MIN"))
+                                                  && (!x.ValueName.EndsWith("_MAX") ||
+                                                      x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MAX"))
+                    )
+                    group v by v.ValueName
+                    into g
+                    select g.First(t => t.ValueName == g.Key))
                 .OrderBy(v => v.ValueSource)
                 .ThenBy(v => v.ValuePos)
                 .ThenBy(v => v.ValueName).ToList();
@@ -264,7 +271,9 @@ internal class DrsSettingsMetaService
             case SettingViewMode.IncludeScannedSetttings:
                 return new[]
                 {
-                    SettingMetaSource.ConstantSettings, SettingMetaSource.ScannedSettings, SettingMetaSource.CustomSettings, SettingMetaSource.DriverSettings, SettingMetaSource.ReferenceSettings
+                    SettingMetaSource.ConstantSettings, SettingMetaSource.ScannedSettings,
+                    SettingMetaSource.CustomSettings, SettingMetaSource.DriverSettings,
+                    SettingMetaSource.ReferenceSettings
                 };
             default:
                 return new[]
@@ -286,8 +295,9 @@ internal class DrsSettingsMetaService
             default:
                 return new[]
                 {
-                    SettingMetaSource.ConstantSettings, SettingMetaSource.ScannedSettings, SettingMetaSource.CustomSettings, SettingMetaSource.DriverSettings, SettingMetaSource.ReferenceSettings
-
+                    SettingMetaSource.ConstantSettings, SettingMetaSource.ScannedSettings,
+                    SettingMetaSource.CustomSettings, SettingMetaSource.DriverSettings,
+                    SettingMetaSource.ReferenceSettings
                 };
         }
     }
@@ -302,7 +312,6 @@ internal class DrsSettingsMetaService
             groupName = GetLegacyGroupName(settingId, settingName);
 
 
-
         var result = new SettingMeta
         {
             SettingType = settingType,
@@ -313,27 +322,33 @@ internal class DrsSettingsMetaService
 
             DefaultDwordValue =
                 settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE
-                    ? GetDwordDefaultValue(settingId) : 0,
+                    ? GetDwordDefaultValue(settingId)
+                    : 0,
 
             DefaultStringValue =
                 settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE
-                    ? GetStringDefaultValue(settingId) : null,
+                    ? GetStringDefaultValue(settingId)
+                    : null,
 
             DefaultBinaryValue =
                 settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE
-                    ? GetBinaryDefaultValue(settingId) : null,
+                    ? GetBinaryDefaultValue(settingId)
+                    : null,
 
             DwordValues =
                 settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE
-                    ? GetDwordValues(settingId) : null,
+                    ? GetDwordValues(settingId)
+                    : null,
 
             StringValues =
                 settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE
-                    ? GetStringValues(settingId) : null,
+                    ? GetStringValues(settingId)
+                    : null,
 
             BinaryValues =
                 settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE
-                    ? GetBinaryValues(settingId) : null
+                    ? GetBinaryValues(settingId)
+                    : null
         };
 
         return result;
@@ -392,8 +407,8 @@ internal class DrsSettingsMetaService
         if (settingName.StartsWith("0x"))
             return "Unknown";
         return "Other";
-
     }
+
     private bool GetIsApiExposed(uint settingId)
     {
         var driverMeta = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.DriverSettings);

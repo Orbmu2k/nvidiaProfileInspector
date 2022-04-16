@@ -2,7 +2,6 @@
 
 internal class SettingValue<T>
 {
-
     public SettingMetaSource ValueSource;
 
     public SettingValue(SettingMetaSource source)

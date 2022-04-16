@@ -126,7 +126,7 @@ internal class DriverSettingMetaService : ISettingMetaService
             throw new NvapiException("DRS_EnumAvailableSettingValues", nvRes);
 
 
-        var sbSettingName = new StringBuilder((int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX);
+        var sbSettingName = new StringBuilder((int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX);
         nvRes = nvw.DRS_GetSettingNameFromId(settingId, sbSettingName);
         if (nvRes != NvAPI_Status.NVAPI_OK)
             throw new NvapiException("DRS_GetSettingNameFromId", nvRes);
@@ -188,8 +188,8 @@ internal class DriverSettingMetaService : ISettingMetaService
                         });
             }
         }
-        return result;
 
+        return result;
     }
 
     private SettingMeta GetSettingsMeta(uint settingId)

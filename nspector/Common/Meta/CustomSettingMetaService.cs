@@ -7,10 +7,10 @@ namespace nspector.Common.Meta;
 
 internal class CustomSettingMetaService : ISettingMetaService
 {
-
     private readonly CustomSettingNames customSettings;
 
-    public CustomSettingMetaService(CustomSettingNames customSettings, SettingMetaSource sourceOverride = SettingMetaSource.CustomSettings)
+    public CustomSettingMetaService(CustomSettingNames customSettings,
+        SettingMetaSource sourceOverride = SettingMetaSource.CustomSettings)
     {
         this.customSettings = customSettings;
         Source = sourceOverride;
@@ -65,7 +65,9 @@ internal class CustomSettingMetaService : ISettingMetaService
             {
                 ValuePos = i++,
                 Value = x.SettingValue,
-                ValueName = Source == SettingMetaSource.CustomSettings ? x.UserfriendlyName : DrsUtil.GetDwordString(x.SettingValue) + " " + x.UserfriendlyName
+                ValueName = Source == SettingMetaSource.CustomSettings
+                    ? x.UserfriendlyName
+                    : DrsUtil.GetDwordString(x.SettingValue) + " " + x.UserfriendlyName
             }).ToList();
         }
 

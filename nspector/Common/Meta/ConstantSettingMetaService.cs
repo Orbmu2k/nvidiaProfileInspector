@@ -9,7 +9,6 @@ namespace nspector.Common.Meta;
 
 internal class ConstantSettingMetaService : ISettingMetaService
 {
-
     private readonly string[] ignoreSettingNames =
     {
         "TOTAL_DWORD_SETTING_NUM", "TOTAL_WSTRING_SETTING_NUM", "TOTAL_SETTING_NUM", "INVALID_SETTING_ID"
@@ -33,21 +32,22 @@ internal class ConstantSettingMetaService : ISettingMetaService
     public string GetSettingName(uint settingId)
     {
         if (settingIds.Contains(settingId))
-            return ((ESetting)settingId).ToString();
+            return ((ESetting) settingId).ToString();
 
         return null;
     }
 
     public uint? GetDwordDefaultValue(uint settingId)
     {
-        if (settingEnumTypeCache.ContainsKey((ESetting)settingId))
+        if (settingEnumTypeCache.ContainsKey((ESetting) settingId))
         {
-            var enumType = settingEnumTypeCache[(ESetting)settingId];
+            var enumType = settingEnumTypeCache[(ESetting) settingId];
 
             var defaultName = Enum.GetNames(enumType).FirstOrDefault(x => x.EndsWith("_DEFAULT"));
             if (defaultName != null)
-                return (uint)Enum.Parse(enumType, defaultName);
+                return (uint) Enum.Parse(enumType, defaultName);
         }
+
         return null;
     }
 
@@ -63,9 +63,9 @@ internal class ConstantSettingMetaService : ISettingMetaService
 
     public List<SettingValue<uint>> GetDwordValues(uint settingId)
     {
-        if (settingEnumTypeCache.ContainsKey((ESetting)settingId))
+        if (settingEnumTypeCache.ContainsKey((ESetting) settingId))
         {
-            var enumType = settingEnumTypeCache[(ESetting)settingId];
+            var enumType = settingEnumTypeCache[(ESetting) settingId];
 
             var validNames = Enum.GetNames(enumType)
                 .Where(x => 1 == 1
@@ -75,17 +75,18 @@ internal class ConstantSettingMetaService : ISettingMetaService
                     //&& !x.EndsWith("_MASK")
                     //&& (!x.EndsWith("_MIN") || x.Equals("PREFERRED_PSTATE_PREFER_MIN"))
                     //&& (!x.EndsWith("_MAX") || x.Equals("PREFERRED_PSTATE_PREFER_MAX"))
-                    ).ToList();
+                ).ToList();
 
             return validNames.Select(x => new SettingValue<uint>(Source)
             {
                 Value = ParseEnumValue(enumType, x),
                 ValueName = DrsUtil.GetDwordString(ParseEnumValue(enumType, x)) + " " + x
             }).ToList();
-
         }
+
         return null;
     }
+
     public List<uint> GetSettingIds()
     {
         if (settingIds == null)
@@ -135,13 +136,13 @@ internal class ConstantSettingMetaService : ISettingMetaService
 
             var enumType = drsEnumTypes
                 .FirstOrDefault(x => settingIdName
-                        .Substring(0, settingIdName.Length - 3)
-                        .Equals(x.Name.Substring(8))
-                    );
+                    .Substring(0, settingIdName.Length - 3)
+                    .Equals(x.Name.Substring(8))
+                );
 
             if (enumType != null)
             {
-                var settingIdVal = (ESetting)Enum.Parse(typeof(ESetting), settingIdName);
+                var settingIdVal = (ESetting) Enum.Parse(typeof(ESetting), settingIdName);
                 result.Add(settingIdVal, enumType);
             }
         }
@@ -151,8 +152,8 @@ internal class ConstantSettingMetaService : ISettingMetaService
 
     public Type GetSettingEnumType(uint settingId)
     {
-        if (settingEnumTypeCache.ContainsKey((ESetting)settingId))
-            return settingEnumTypeCache[(ESetting)settingId];
+        if (settingEnumTypeCache.ContainsKey((ESetting) settingId))
+            return settingEnumTypeCache[(ESetting) settingId];
 
         return null;
     }
@@ -161,11 +162,11 @@ internal class ConstantSettingMetaService : ISettingMetaService
     {
         try
         {
-            return (uint)Enum.Parse(enumType, enumText);
+            return (uint) Enum.Parse(enumType, enumText);
         }
         catch (InvalidCastException)
         {
-            var intValue = (int)Enum.Parse(enumType, enumText);
+            var intValue = (int) Enum.Parse(enumType, enumText);
             var bytes = BitConverter.GetBytes(intValue);
             return BitConverter.ToUInt32(bytes, 0);
         }

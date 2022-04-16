@@ -5,7 +5,6 @@ namespace nspector.Common.Helper;
 
 public class ShortcutResolver
 {
-
     public static string GetUrlFromInternetShortcut(string filePath)
     {
         var lines = File.ReadAllLines(filePath);
@@ -16,6 +15,7 @@ public class ShortcutResolver
                 if (splitLine.Length > 0)
                     return splitLine[1];
             }
+
         return "";
     }
 
@@ -70,6 +70,7 @@ public class ShortcutResolver
             var resolver = new SteamAppResolver();
             return resolver.ResolveExeFromSteamUrl(url);
         }
+
         return "";
     }
 }

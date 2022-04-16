@@ -6,7 +6,6 @@ namespace nspector.Common;
 
 public class DrsSessionScope
 {
-
     public static volatile IntPtr GlobalSession;
 
     public static volatile bool HoldSession = true;
@@ -14,7 +13,8 @@ public class DrsSessionScope
     private static readonly object _Sync = new();
 
 
-    public static T DrsSession<T>(Func<IntPtr, T> action, bool forceNonGlobalSession = false, bool preventLoadSettings = false)
+    public static T DrsSession<T>(Func<IntPtr, T> action, bool forceNonGlobalSession = false,
+        bool preventLoadSettings = false)
     {
         lock (_Sync)
         {
@@ -24,7 +24,6 @@ public class DrsSessionScope
 
             if (GlobalSession == IntPtr.Zero)
             {
-
 #pragma warning disable CS0420
                 var csRes = nvw.DRS_CreateSession(ref GlobalSession);
 #pragma warning restore CS0420
@@ -83,6 +82,5 @@ public class DrsSessionScope
             if (nvRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_DestroySession", nvRes);
         }
-
     }
 }

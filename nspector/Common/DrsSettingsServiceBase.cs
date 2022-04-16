@@ -13,7 +13,6 @@ namespace nspector.Common;
 
 internal abstract class DrsSettingsServiceBase
 {
-
     public readonly float DriverVersion;
     protected DrsDecrypterService decrypter;
 
@@ -25,20 +24,27 @@ internal abstract class DrsSettingsServiceBase
         decrypter = decrpterService;
         DriverVersion = GetDriverVersionInternal();
     }
+
     private float GetDriverVersionInternal()
     {
         var result = 0f;
         uint sysDrvVersion = 0;
-        var sysDrvBranch = new StringBuilder((int)NvapiDrsWrapper.NVAPI_SHORT_STRING_MAX);
+        var sysDrvBranch = new StringBuilder((int) NvapiDrsWrapper.NVAPI_SHORT_STRING_MAX);
 
         if (nvw.SYS_GetDriverAndBranchVersion(ref sysDrvVersion, sysDrvBranch) == NvAPI_Status.NVAPI_OK)
-            try { result = sysDrvVersion / 100f; }
-            catch { }
+            try
+            {
+                result = sysDrvVersion / 100f;
+            }
+            catch
+            {
+            }
 
         return result;
     }
 
-    protected void DrsSession(Action<IntPtr> action, bool forceNonGlobalSession = false, bool preventLoadSettings = false)
+    protected void DrsSession(Action<IntPtr> action, bool forceNonGlobalSession = false,
+        bool preventLoadSettings = false)
     {
         DrsSessionScope.DrsSession(hSession =>
         {
@@ -76,6 +82,7 @@ internal abstract class DrsSettingsServiceBase
             if (nvRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_FindProfileByName", nvRes);
         }
+
         return hProfile;
     }
 
@@ -136,7 +143,6 @@ internal abstract class DrsSettingsServiceBase
         var ssRes = nvw.DRS_SetSetting(hSession, hProfile, ref newSetting);
         if (ssRes != NvAPI_Status.NVAPI_OK)
             throw new NvapiException("DRS_SetSetting", ssRes);
-
     }
 
     protected void StoreStringValue(IntPtr hSession, IntPtr hProfile, uint settingId, string stringValue)
@@ -156,7 +162,6 @@ internal abstract class DrsSettingsServiceBase
         var ssRes = nvw.DRS_SetSetting(hSession, hProfile, ref newSetting);
         if (ssRes != NvAPI_Status.NVAPI_OK)
             throw new NvapiException("DRS_SetSetting", ssRes);
-
     }
 
     protected void StoreBinaryValue(IntPtr hSession, IntPtr hProfile, uint settingId, byte[] binValue)
@@ -176,7 +181,6 @@ internal abstract class DrsSettingsServiceBase
         var ssRes = nvw.DRS_SetSetting(hSession, hProfile, ref newSetting);
         if (ssRes != NvAPI_Status.NVAPI_OK)
             throw new NvapiException("DRS_SetSetting", ssRes);
-
     }
 
     protected NVDRS_SETTING? ReadSetting(IntPtr hSession, IntPtr hProfile, uint settingId)
@@ -221,7 +225,6 @@ internal abstract class DrsSettingsServiceBase
         var caRes = nvw.DRS_CreateApplication(hSession, hProfile, ref newApp);
         if (caRes != NvAPI_Status.NVAPI_OK)
             throw new NvapiException("DRS_CreateApplication", caRes);
-
     }
 
     protected void DeleteApplication(IntPtr hSession, IntPtr hProfile, NVDRS_APPLICATION_V3 application)
@@ -245,8 +248,7 @@ internal abstract class DrsSettingsServiceBase
             if (nvRes == NvAPI_Status.NVAPI_OK)
                 profileHandles.Add(hProfile);
             index++;
-        }
-        while (nvRes == NvAPI_Status.NVAPI_OK);
+        } while (nvRes == NvAPI_Status.NVAPI_OK);
 
         if (nvRes != NvAPI_Status.NVAPI_END_ENUMERATION)
             throw new NvapiException("DRS_EnumProfiles", nvRes);

@@ -9,10 +9,11 @@ public class DropDownMenuScrollWheelHandler : IMessageFilter
     private static DropDownMenuScrollWheelHandler Instance;
 
     private static readonly Action<ToolStrip, int> ScrollInternal
-        = (Action<ToolStrip, int>)Delegate.CreateDelegate(typeof(Action<ToolStrip, int>),
+        = (Action<ToolStrip, int>) Delegate.CreateDelegate(typeof(Action<ToolStrip, int>),
             typeof(ToolStrip).GetMethod("ScrollInternal",
                 System.Reflection.BindingFlags.NonPublic
                 | System.Reflection.BindingFlags.Instance));
+
     private IntPtr activeHwnd;
     private ToolStripDropDown activeMenu;
 
@@ -25,12 +26,14 @@ public class DropDownMenuScrollWheelHandler : IMessageFilter
         }
         else if (m.Msg == 0x20A && activeMenu != null) // WM_MOUSEWHEEL
         {
-            int delta = (short)(ushort)((uint)(ulong)m.WParam >> 16);
+            int delta = (short) (ushort) ((uint) (ulong) m.WParam >> 16);
             HandleDelta(activeMenu, delta);
             return true;
         }
+
         return false;
     }
+
     public static void Enable(bool enabled)
     {
         if (enabled)

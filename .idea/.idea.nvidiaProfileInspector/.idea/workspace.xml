@@ -7,11 +7,85 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b76b55e-7d44-48ee-96da-bc847a8af3ee" name="Changes" comment="" />
+    <list default="true" id="3b76b55e-7d44-48ee-96da-bc847a8af3ee" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.nvidiaProfileInspector/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.nvidiaProfileInspector/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Cache/CachedSettingValue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Cache/CachedSettingValue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Cache/CachedSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Cache/CachedSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/CustomSettings/CustomSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/CustomSettings/CustomSetting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/CustomSettings/CustomSettingNames.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/CustomSettings/CustomSettingNames.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/CustomSettings/CustomSettingValue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/CustomSettings/CustomSettingValue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsDecrypterService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsDecrypterService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsImportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsImportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsScannerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsScannerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsServiceLocator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsServiceLocator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsSessionScope.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsSessionScope.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsSettingsMetaService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsSettingsMetaService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsSettingsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsSettingsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsSettingsServiceBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsSettingsServiceBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/DrsUtil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/DrsUtil.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/AdminHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/AdminHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/DropDownMenuScrollWheelHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/DropDownMenuScrollWheelHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/InputBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/InputBox.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/ListSort.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/ListSort.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/ListViewGroupSorter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/ListViewGroupSorter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/NoBorderRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/NoBorderRenderer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/ShortcutResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/ShortcutResolver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/SteamAppResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/SteamAppResolver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/TempFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/TempFile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/UserSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/UserSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Helper/XMLHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Helper/XMLHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Import/ImportExportUitl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Import/ImportExportUitl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Import/Profile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Import/Profile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Import/ProfileSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Import/ProfileSetting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Import/Profiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Import/Profiles.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Import/SettingValueType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Import/SettingValueType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/ConstantSettingMetaService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/ConstantSettingMetaService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/CustomSettingMetaService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/CustomSettingMetaService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/DriverSettingMetaService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/DriverSettingMetaService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/ISettingMetaService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/ISettingMetaService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/MetaServiceItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/MetaServiceItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/ScannedSettingMetaService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/ScannedSettingMetaService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/SettingMeta.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/SettingMeta.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/SettingMetaSource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/SettingMetaSource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/Meta/SettingValue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/Meta/SettingValue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/NvapiException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/NvapiException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/SettingItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/SettingItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Common/SettingViewMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Common/SettingViewMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/ListViewEx.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/ListViewEx.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Native/NVAPI/NvApiDriverSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Native/NVAPI/NvApiDriverSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Native/NVAPI/NvapiDrsWrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Native/NVAPI/NvapiDrsWrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Native/NativeArrayHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Native/NativeArrayHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Native/WINAPI/DragAcceptNativeHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Native/WINAPI/DragAcceptNativeHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Native/WINAPI/MessageHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Native/WINAPI/MessageHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Native/WINAPI/SafeNativeMethods.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Native/WINAPI/SafeNativeMethods.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Native/WINAPI/ShellLink.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Native/WINAPI/ShellLink.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Native/WINAPI/TaskBarList3.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Native/WINAPI/TaskBarList3.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/Properties/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/frmBitEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/frmBitEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/frmDrvSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/frmDrvSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/frmExportProfiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/frmExportProfiles.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/nvidiaProfileInspector.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/nvidiaProfileInspector.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/obj/Release/nvidiaProfileInspector.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/obj/Release/nvidiaProfileInspector.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/obj/Release/nvidiaProfileInspector.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/obj/Release/nvidiaProfileInspector.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/obj/Release/nvidiaProfileInspector.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/obj/Release/nvidiaProfileInspector.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nspector/obj/Release/nvidiaProfileInspector.csproj.GenerateResource.cache" beforeDir="false" afterPath="$PROJECT_DIR$/nspector/obj/Release/nvidiaProfileInspector.csproj.GenerateResource.cache" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="nvidiaProfileInspector/2.4.1.1" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/NathanB/RiderProjects/nvidiaProfileInspector/nspector/Common/Helper/AdminHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/nspector/Common/DrsDecrypterService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/nspector/Native/NVAPI/NvapiDrsWrapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/NathanB/RiderProjects/nvidiaProfileInspector/nspector/Common/Helper/AdminHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/nspector/Native/NVAPI/NvApiDriverSettings.tt" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/nspector/Common/Helper/AdminHelper.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -20,6 +94,7 @@
     <option name="selectedTabId" value="SWEA" />
   </component>
   <component name="ProjectId" id="27pTWtzdxRFPkOVzAw4TiW3aGj6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -69,6 +144,17 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>

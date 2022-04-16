@@ -49,9 +49,11 @@ internal partial class frmBitEditor : Form
         var filters = tbFilter.Text.Split(',');
         clbBits.Items.Clear();
 
-        var referenceSettings = DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == _Settingid);
+        var referenceSettings =
+            DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == _Settingid);
 
-        var settingsCache = DrsServiceLocator.ScannerService.CachedSettings.FirstOrDefault(x => x.SettingId == _Settingid);
+        var settingsCache =
+            DrsServiceLocator.ScannerService.CachedSettings.FirstOrDefault(x => x.SettingId == _Settingid);
         if (settingsCache != null)
             for (var bit = 0; bit < 32; bit++)
             {
@@ -73,10 +75,11 @@ internal partial class frmBitEditor : Form
                                 if (settingProfileNames[p].ToLower().Contains(filters[f].ToLower()))
                                     profileNames += settingProfileNames[p] + ",";
                         }
+
                         profileCount += settingsCache.SettingValues[i].ValueProfileCount;
                     }
 
-                var mask = (uint)1 << bit;
+                var mask = (uint) 1 << bit;
                 var maskStr = "";
 
                 if (referenceSettings != null)
@@ -94,7 +97,6 @@ internal partial class frmBitEditor : Form
                 {
                     string.Format("#{0:00}", bit), maskStr, profileCount.ToString(), profileNames
                 }));
-
             }
 
         SetValue(lastValue);
@@ -105,7 +107,7 @@ internal partial class frmBitEditor : Form
         uint val = 0;
         for (var b = 0; b < clbBits.Items.Count; b++)
             if (clbBits.Items[b].Checked && changedIndex != b || changeState && changedIndex == b)
-                val = val | (uint)(1 << b);
+                val = val | (uint) (1 << b);
 
         UpdateCurrent(val);
     }
@@ -115,7 +117,7 @@ internal partial class frmBitEditor : Form
         uint val = 0;
         for (var b = 0; b < clbBits.Items.Count; b++)
             if (clbBits.Items[b].Checked)
-                val = val | (uint)(1 << b);
+                val = val | (uint) (1 << b);
 
         UpdateCurrent(val);
     }

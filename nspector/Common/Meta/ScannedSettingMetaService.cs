@@ -58,7 +58,6 @@ internal class ScannedSettingMetaService : ISettingMetaService
             {
                 Value = s.ValueStr,
                 ValueName = string.Format("'{0}' ({1})", s.ValueStr.Trim(), s.ProfileNames)
-
             }).ToList();
 
         return null;
@@ -72,7 +71,6 @@ internal class ScannedSettingMetaService : ISettingMetaService
             {
                 Value = s.Value,
                 ValueName = string.Format("0x{0:X8} ({1})", s.Value, s.ProfileNames)
-
             }).ToList();
 
         return null;
@@ -96,7 +94,6 @@ internal class ScannedSettingMetaService : ISettingMetaService
             {
                 Value = s.ValueBin,
                 ValueName = string.Format("{0} ({1})", DrsUtil.GetBinaryString(s.ValueBin), s.ProfileNames)
-
             }).ToList();
 
         return null;

@@ -13,7 +13,6 @@ namespace nspector.Common;
 
 internal class DrsSettingsService : DrsSettingsServiceBase
 {
-
     private readonly List<uint> _baseProfileSettingIds;
 
     public DrsSettingsService(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService)
@@ -35,7 +34,8 @@ internal class DrsSettingsService : DrsSettingsServiceBase
 
     private string GetDrsProgramPath()
     {
-        var nvidiaInstallerFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"NVIDIA Corporation\Installer2");
+        var nvidiaInstallerFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+            @"NVIDIA Corporation\Installer2");
         var driverFolders = Directory.EnumerateDirectories(nvidiaInstallerFolder, "Display.Driver.*");
         foreach (var folder in driverFolders)
         {
@@ -75,7 +75,8 @@ internal class DrsSettingsService : DrsSettingsServiceBase
         var tmpFile = TempFile.GetTempFileName();
         try
         {
-            File.WriteAllText(tmpFile, "BaseProfile \"Base Profile\"\r\nSelectedGlobalProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
+            File.WriteAllText(tmpFile,
+                "BaseProfile \"Base Profile\"\r\nSelectedGlobalProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
 
             DrsSession(hSession =>
             {
@@ -88,7 +89,6 @@ internal class DrsSettingsService : DrsSettingsServiceBase
             if (File.Exists(tmpFile))
                 File.Delete(tmpFile);
         }
-
     }
 
     public void DeleteProfileHard(string profileName)
@@ -136,7 +136,6 @@ internal class DrsSettingsService : DrsSettingsServiceBase
                 SaveSettings(hSession);
             }
         });
-
     }
 
     public List<string> GetProfileNames(ref string baseProfileName)
@@ -217,7 +216,8 @@ internal class DrsSettingsService : DrsSettingsServiceBase
 
                 foreach (var setting in settings)
                     if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
-                        if (nvw.DRS_DeleteProfileSetting(hSession, hProfile, setting.settingId) == NvAPI_Status.NVAPI_OK)
+                        if (nvw.DRS_DeleteProfileSetting(hSession, hProfile, setting.settingId) ==
+                            NvAPI_Status.NVAPI_OK)
                             dropCount++;
                 if (dropCount > 0)
                     SaveSettings(hSession);
@@ -247,7 +247,8 @@ internal class DrsSettingsService : DrsSettingsServiceBase
                 var settings = GetProfileSettings(hSession, hProfile);
 
                 foreach (var setting in settings)
-                    if (setting.isCurrentPredefined == 0 && setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                    if (setting.isCurrentPredefined == 0 && setting.settingLocation ==
+                        NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
                         modifyCount++;
                 tmpRemoveFromModified = modifyCount == 0;
             }
@@ -256,7 +257,8 @@ internal class DrsSettingsService : DrsSettingsServiceBase
         removeFromModified = tmpRemoveFromModified;
     }
 
-    public uint GetDwordValueFromProfile(string profileName, uint settingId, bool returnDefaultValue = false, bool forceDedicatedScope = false)
+    public uint GetDwordValueFromProfile(string profileName, uint settingId, bool returnDefaultValue = false,
+        bool forceDedicatedScope = false)
     {
         return DrsSession(hSession =>
         {
@@ -431,7 +433,8 @@ internal class DrsSettingsService : DrsSettingsServiceBase
     }
 
 
-    public List<SettingItem> GetSettingsForProfile(string profileName, SettingViewMode viewMode, ref Dictionary<string, string> applications)
+    public List<SettingItem> GetSettingsForProfile(string profileName, SettingViewMode viewMode,
+        ref Dictionary<string, string> applications)
     {
         var result = new List<SettingItem>();
         var settingIds = meta.GetSettingIds(viewMode);
@@ -469,8 +472,8 @@ internal class DrsSettingsService : DrsSettingsServiceBase
             }
 
             return GetProfileApplications(hSession, hProfile)
-                .Select(x => Tuple.Create(x.appName, GetApplicationFingerprint(x))).ToDictionary(x => x.Item2, x => x.Item1);
-
+                .Select(x => Tuple.Create(x.appName, GetApplicationFingerprint(x)))
+                .ToDictionary(x => x.Item2, x => x.Item1);
         });
 
         return result.OrderBy(x => x.SettingText).ThenBy(x => x.GroupName).ToList();
@@ -498,12 +501,14 @@ internal class DrsSettingsService : DrsSettingsServiceBase
                 DeleteApplication(hSession, hProfile, app);
                 break;
             }
+
             SaveSettings(hSession);
         });
     }
 
     private string GetApplicationFingerprint(NVDRS_APPLICATION_V3 application)
     {
-        return $"{application.appName}|{application.fileInFolder}|{application.userFriendlyName}|{application.launcher}";
+        return
+            $"{application.appName}|{application.fileInFolder}|{application.userFriendlyName}|{application.launcher}";
     }
 }

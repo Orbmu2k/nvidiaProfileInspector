@@ -13,11 +13,11 @@ namespace nspector.Common;
 
 internal class DrsScannerService : DrsSettingsServiceBase
 {
-
     // most common setting ids as start pattern for the heuristic scan
     private readonly uint[] _commonSettingIds =
     {
-        0x1095DEF8, 0x1033DCD2, 0x1033CEC1, 0x10930F46, 0x00A06946, 0x10ECDB82, 0x20EBD7B8, 0x0095DEF9, 0x00D55F7D, 0x1033DCD3, 0x1033CEC2, 0x2072F036, 0x00664339, 0x002C7F45, 0x209746C1, 0x0076E164, 0x20FF7493, 0x204CFF7B
+        0x1095DEF8, 0x1033DCD2, 0x1033CEC1, 0x10930F46, 0x00A06946, 0x10ECDB82, 0x20EBD7B8, 0x0095DEF9, 0x00D55F7D,
+        0x1033DCD3, 0x1033CEC2, 0x2072F036, 0x00664339, 0x002C7F45, 0x209746C1, 0x0076E164, 0x20FF7493, 0x204CFF7B
     };
 
 
@@ -26,14 +26,15 @@ internal class DrsScannerService : DrsSettingsServiceBase
     internal HashSet<string> UserProfiles = new();
 
     public DrsScannerService(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService)
-        : base(metaService, decrpterService) { }
+        : base(metaService, decrpterService)
+    {
+    }
 
 
     private bool CheckCommonSetting(IntPtr hSession, IntPtr hProfile, NVDRS_PROFILE profile,
         ref int checkedSettingsCount, uint checkSettingId, bool addToScanResult,
         ref List<uint> alreadyCheckedSettingIds)
     {
-
         if (checkedSettingsCount >= profile.numOfSettings)
             return false;
 
@@ -71,11 +72,12 @@ internal class DrsScannerService : DrsSettingsServiceBase
 
     private int CalcPercent(int current, int max)
     {
-        return current > 0 ? (int)Math.Round(current * 100f / max) : 0;
+        return current > 0 ? (int) Math.Round(current * 100f / max) : 0;
         ;
     }
 
-    public async Task ScanProfileSettingsAsync(bool justModified, IProgress<int> progress, CancellationToken token = default)
+    public async Task ScanProfileSettingsAsync(bool justModified, IProgress<int> progress,
+        CancellationToken token = default)
     {
         await Task.Run(() =>
         {
@@ -144,7 +146,6 @@ internal class DrsScannerService : DrsSettingsServiceBase
                     }
                 }
             });
-
         });
     }
 
@@ -152,7 +153,8 @@ internal class DrsScannerService : DrsSettingsServiceBase
     private void AddScannedSettingToCache(NVDRS_PROFILE profile, NVDRS_SETTING setting)
     {
         // Skip 3D Vision string values here for improved scan performance
-        var allowAddValue = setting.settingId < 0x70000000 || setting.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
+        var allowAddValue =
+            setting.settingId < 0x70000000 || setting.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
 
         //bool allowAddValue = true;
 
@@ -185,7 +187,6 @@ internal class DrsScannerService : DrsSettingsServiceBase
             if (!cacheEntryExists)
                 CachedSettings.Add(cachedSetting);
         }
-
     }
 
     public string FindProfilesUsingApplication(string applicationName)
@@ -197,10 +198,7 @@ internal class DrsScannerService : DrsSettingsServiceBase
         {
             var matchingProfiles = new List<string>();
 
-            DrsSession(hSession =>
-            {
-                SaveSettingsFileEx(hSession, tmpfile);
-            });
+            DrsSession(hSession => { SaveSettingsFileEx(hSession, tmpfile); });
 
             if (File.Exists(tmpfile))
             {
@@ -209,7 +207,8 @@ internal class DrsScannerService : DrsSettingsServiceBase
                 foreach (Match m in Regex.Matches(content, pattern, RegexOptions.Singleline))
                 {
                     var scope = m.Result("${scope}");
-                    foreach (Match ms in Regex.Matches(scope, "Executable\\s\\\"(?<app>.*?)\\\"", RegexOptions.Singleline))
+                    foreach (Match ms in Regex.Matches(scope, "Executable\\s\\\"(?<app>.*?)\\\"",
+                                 RegexOptions.Singleline))
                         if (ms.Result("${app}").ToLower() == lowerApplicationName)
                             matchingProfiles.Add(m.Result("${profile}"));
                 }
