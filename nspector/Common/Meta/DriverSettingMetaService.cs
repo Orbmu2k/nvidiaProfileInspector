@@ -1,11 +1,7 @@
-﻿#region
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
-using nspector.Native.NVAPI;
-using nvw = nspector.Native.NVAPI.NvapiDrsWrapper;
-
-#endregion
+using nspector.Native.NVAPI2;
+using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nspector.Common.Meta;
 
@@ -130,7 +126,7 @@ internal class DriverSettingMetaService : ISettingMetaService
             throw new NvapiException("DRS_EnumAvailableSettingValues", nvRes);
 
 
-        var sbSettingName = new StringBuilder((int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX);
+        var sbSettingName = new StringBuilder((int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX);
         nvRes = nvw.DRS_GetSettingNameFromId(settingId, sbSettingName);
         if (nvRes != NvAPI_Status.NVAPI_OK)
             throw new NvapiException("DRS_GetSettingNameFromId", nvRes);
@@ -192,7 +188,6 @@ internal class DriverSettingMetaService : ISettingMetaService
                         });
             }
         }
-
         return result;
 
     }
@@ -201,7 +196,6 @@ internal class DriverSettingMetaService : ISettingMetaService
     {
         if (_settingMetaCache.ContainsKey(settingId))
             return _settingMetaCache[settingId];
-
         var settingMeta = GetDriverSettingMetaInternal(settingId);
         if (settingMeta != null)
         {

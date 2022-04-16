@@ -1,13 +1,8 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using nspector.Properties;
-
-#endregion
 
 namespace nspector.Common.Helper;
 
@@ -28,7 +23,7 @@ internal class InputBox
 
             if (textBox.Text == "" || textBox.Text.Length > maxLength || !mandatory_success)
             {
-                imageBox.Image = Resources.ieframe_1_18212;
+                imageBox.Image = Properties.Resources.ieframe_1_18212;
                 buttonOk.Enabled = false;
                 return;
             }
@@ -36,12 +31,12 @@ internal class InputBox
             foreach (var invStr in invalidInputs)
                 if (textBox.Text.ToUpper() == invStr.ToUpper())
                 {
-                    imageBox.Image = Resources.ieframe_1_18212;
+                    imageBox.Image = Properties.Resources.ieframe_1_18212;
                     buttonOk.Enabled = false;
                     return;
                 }
 
-            imageBox.Image = Resources.ieframe_1_31073_002;
+            imageBox.Image = Properties.Resources.ieframe_1_31073_002;
             buttonOk.Enabled = true;
         };
 
@@ -53,7 +48,7 @@ internal class InputBox
         label.Text = promptText;
         textBox.Text = value;
         textBox.MaxLength = maxLength;
-        imageBox.Image = Resources.ieframe_1_18212;
+        imageBox.Image = Properties.Resources.ieframe_1_18212;
 
         buttonOk.Text = "OK";
         buttonCancel.Text = "Cancel";
@@ -76,7 +71,10 @@ internal class InputBox
         buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
         form.ClientSize = new Size(396, 107);
-        form.Controls.AddRange(new Control[] {label, textBox, imageBox, buttonOk, buttonCancel});
+        form.Controls.AddRange(new Control[]
+        {
+            label, textBox, imageBox, buttonOk, buttonCancel
+        });
         form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
         form.FormBorderStyle = FormBorderStyle.FixedDialog;
         form.StartPosition = FormStartPosition.CenterParent;

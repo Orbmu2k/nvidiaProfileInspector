@@ -1,16 +1,13 @@
-﻿#region
-
+﻿using nspector.Common.CustomSettings;
+using nspector.Native.NVAPI2;
 using System.Collections.Generic;
 using System.Linq;
-using nspector.Common.CustomSettings;
-using nspector.Native.NVAPI;
-
-#endregion
 
 namespace nspector.Common.Meta;
 
 internal class CustomSettingMetaService : ISettingMetaService
 {
+
     private readonly CustomSettingNames customSettings;
 
     public CustomSettingMetaService(CustomSettingNames customSettings, SettingMetaSource sourceOverride = SettingMetaSource.CustomSettings)

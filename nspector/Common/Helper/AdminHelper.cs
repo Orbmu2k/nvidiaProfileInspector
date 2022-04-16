@@ -1,8 +1,4 @@
-﻿#region
-
-using System.Security.Principal;
-
-#endregion
+﻿using System.Security.Principal;
 
 namespace nspector.Common.Helper;
 

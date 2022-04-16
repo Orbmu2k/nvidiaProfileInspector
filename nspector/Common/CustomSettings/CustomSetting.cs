@@ -1,21 +1,16 @@
-#region
-
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-
-#endregion
 
 namespace nspector.Common.CustomSettings;
 
 [Serializable]
 public class CustomSetting
 {
-    public string UserfriendlyName { get; set; }
 
+    public string UserfriendlyName { get; set; }
     [XmlElement(ElementName = "HexSettingID")]
     public string HexSettingId { get; set; }
-
     public string Description { get; set; }
     public string GroupName { get; set; }
     public string OverrideDefault { get; set; }

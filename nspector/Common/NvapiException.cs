@@ -1,9 +1,5 @@
-﻿#region
-
-using System;
-using nspector.Native.NVAPI;
-
-#endregion
+﻿using System;
+using nspector.Native.NVAPI2;
 
 namespace nspector.Common;
 
@@ -17,7 +13,6 @@ public class NvapiException : Exception
         Status = status;
     }
 }
-
 public class NvapiAddApplicationException : NvapiException
 {
     public readonly string ApplicationName;

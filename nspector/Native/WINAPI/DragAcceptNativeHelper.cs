@@ -1,14 +1,11 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
-
-#endregion
 
 namespace nspector.Native.WINAPI;
 
 internal static class DragAcceptNativeHelper
 {
+
     //ChangeWindowMessageFilter
     internal const int MSGFLT_ADD = 1;
     internal const int MSGFLT_REMOVE = 2;

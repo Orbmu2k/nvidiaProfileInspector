@@ -1,12 +1,6 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
-
-#endregion
 
 namespace nspector.Native.WINAPI;
 
@@ -52,7 +46,6 @@ internal class MessageHelper
                 param.showCmd = SW_NORMAL;
                 SetWindowPlacement(hWnd, ref param);
             }
-
         return SetForegroundWindow(hWnd);
     }
 
@@ -62,10 +55,10 @@ internal class MessageHelper
 
         if (hWnd > 0)
         {
-            var sarr = Encoding.Default.GetBytes(msg);
+            var sarr = System.Text.Encoding.Default.GetBytes(msg);
             var len = sarr.Length;
             COPYDATASTRUCT cds;
-            cds.dwData = (IntPtr) 100;
+            cds.dwData = (IntPtr)100;
             cds.lpData = msg;
             cds.cbData = len + 1;
             result = SendMessage(hWnd, WM_COPYDATA, wParam, ref cds);
@@ -123,7 +116,8 @@ internal class MessageHelper
     {
         internal IntPtr dwData;
         internal int cbData;
-        [MarshalAs(UnmanagedType.LPStr)] internal string lpData;
+        [MarshalAs(UnmanagedType.LPStr)]
+        internal string lpData;
     }
 
 
@@ -132,9 +126,9 @@ internal class MessageHelper
         internal int length;
         internal int flags;
         internal int showCmd;
-        internal Point ptMinPosition;
-        internal Point ptMaxPosition;
-        internal Rectangle rcNormalPosition;
+        internal System.Drawing.Point ptMinPosition;
+        internal System.Drawing.Point ptMaxPosition;
+        internal System.Drawing.Rectangle rcNormalPosition;
     }
 
     #region Message Constants

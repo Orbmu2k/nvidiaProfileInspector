@@ -1,5 +1,7 @@
-﻿#region
-
+﻿using nspector.Common;
+using nspector.Common.Helper;
+using nspector.Native.NVAPI2;
+using nspector.Native.WINAPI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,14 +14,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using nspector.Common;
-using nspector.Common.Helper;
-using nspector.Common.Meta;
-using nspector.Native.NVAPI;
-using nspector.Native.WINAPI;
-using nspector.Properties;
-
-#endregion
 
 namespace nspector;
 
@@ -46,9 +40,7 @@ internal partial class frmDrvSettings : Form
     private ITaskbarList3 _taskbarList;
     private IntPtr _taskbarParent = IntPtr.Zero;
 
-    internal frmDrvSettings() : this(false, false)
-    {
-    }
+    internal frmDrvSettings() : this(false, false) { }
     internal frmDrvSettings(bool showCsnOnly, bool skipScan)
     {
         _skipScan = skipScan;
@@ -69,16 +61,14 @@ internal partial class frmDrvSettings : Form
             case MessageHelper.WM_COPYDATA:
                 var copyDataStruct = new MessageHelper.COPYDATASTRUCT();
                 var copyDataType = copyDataStruct.GetType();
-                copyDataStruct = (MessageHelper.COPYDATASTRUCT) m.GetLParam(copyDataType);
+                copyDataStruct = (MessageHelper.COPYDATASTRUCT)m.GetLParam(copyDataType);
                 if (copyDataStruct.lpData.Equals("ProfilesImported"))
                 {
                     DrsSessionScope.DestroyGlobalSession();
                     RefreshAll();
                 }
-
                 break;
         }
-
         base.WndProc(ref m);
     }
 
@@ -141,10 +131,9 @@ internal partial class frmDrvSettings : Form
         lblApplications.Text = " " + string.Join(", ", applications.Select(x => x.Value));
         foreach (var app in applications)
         {
-            var item = tssbRemoveApplication.DropDownItems.Add(app.Value, Resources.ieframe_1_18212);
+            var item = tssbRemoveApplication.DropDownItems.Add(app.Value, Properties.Resources.ieframe_1_18212);
             item.Tag = app.Key;
         }
-
         tssbRemoveApplication.Enabled = tssbRemoveApplication.DropDownItems.Count > 0;
     }
 
@@ -187,14 +176,12 @@ internal partial class frmDrvSettings : Form
                 lvSettings.RemoveEmbeddedControl(cbValues);
                 lvSettings.RemoveEmbeddedControl(btnResetValue);
             }
-            catch
-            {
-            }
+            catch { }
         }
         finally
         {
             lvSettings.EndUpdate();
-            ((ListViewGroupSorter) lvSettings).SortGroups(true);
+            ((ListViewGroupSorter)lvSettings).SortGroups(true);
 
             GC.Collect();
             for (var i = 0; i < lvSettings.Items.Count; i++)
@@ -208,7 +195,6 @@ internal partial class frmDrvSettings : Form
                         lvSettings.Select();
                         cbValues.Text = lvSettings.Items[i].SubItems[1].Text;
                     }
-
                     break;
                 }
         }
@@ -236,7 +222,7 @@ internal partial class frmDrvSettings : Form
 
                 cbValues.Items.Clear();
                 cbValues.Tag = lvSettings.SelectedItems[0].Tag;
-                var settingid = (uint) lvSettings.SelectedItems[0].Tag;
+                var settingid = (uint)lvSettings.SelectedItems[0].Tag;
 
                 var settingMeta = _meta.GetSettingMeta(settingid, GetSettingViewMode());
                 if (settingMeta != null)
@@ -272,7 +258,7 @@ internal partial class frmDrvSettings : Form
                     }
 
                     var scannedCount = settingMeta?.DwordValues?
-                        .Where(x => x.ValueSource == SettingMetaSource.ScannedSettings)
+                        .Where(x => x.ValueSource == Common.Meta.SettingMetaSource.ScannedSettings)
                         .Count();
 
                     tsbBitValueEditor.Enabled = scannedCount > 0;
@@ -297,6 +283,7 @@ internal partial class frmDrvSettings : Form
                 cbValues.Visible = true;
 
 
+
             }
         }
         else
@@ -310,9 +297,7 @@ internal partial class frmDrvSettings : Form
                     lvSettings.RemoveEmbeddedControl(cbValues);
                     lvSettings.RemoveEmbeddedControl(btnResetValue);
                 }
-                catch
-                {
-                }
+                catch { }
 
                 btnResetValue.Enabled = false;
                 cbValues.Visible = false;
@@ -327,18 +312,20 @@ internal partial class frmDrvSettings : Form
         var idx = 0;
         foreach (ListViewItem lvi in lvSettings.Items)
         {
-            if (settingId == (uint) lvi.Tag)
+            if (settingId == (uint)lvi.Tag)
                 return idx;
             idx++;
         }
-
         return -1;
     }
 
     private void UpdateItemByComboValue()
     {
-        var settingId = (uint) cbValues.Tag;
-        var activeImages = new[] {0, 2};
+        var settingId = (uint)cbValues.Tag;
+        var activeImages = new[]
+        {
+            0, 2
+        };
 
         var idx = GetListViewIndexOfSetting(settingId);
         if (idx != -1)
@@ -391,7 +378,7 @@ internal partial class frmDrvSettings : Form
         foreach (ListViewItem lvi in lvSettings.Items)
         {
             var currentProfileItem = _currentProfileSettingItems
-                .First(x => x.SettingId.Equals((uint) lvi.Tag));
+                .First(x => x.SettingId.Equals((uint)lvi.Tag));
 
             var listValueX = lvi.SubItems[1].Text;
 
@@ -399,7 +386,7 @@ internal partial class frmDrvSettings : Form
             var curEmpty = string.IsNullOrEmpty(currentProfileItem.ValueText);
 
             if (currentProfileItem.ValueText != listValueX && !(itmEmpty && curEmpty))
-                settingsToStore.Add(new KeyValuePair<uint, string>((uint) lvi.Tag, listValueX));
+                settingsToStore.Add(new KeyValuePair<uint, string>((uint)lvi.Tag, listValueX));
 
         }
 
@@ -426,7 +413,7 @@ internal partial class frmDrvSettings : Form
     {
         if (lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count > 0)
         {
-            var settingId = (uint) lvSettings.SelectedItems[0].Tag;
+            var settingId = (uint)lvSettings.SelectedItems[0].Tag;
 
             bool removeFromModified;
             _drs.ResetValue(_CurrentProfile, settingId, out removeFromModified);
@@ -443,7 +430,7 @@ internal partial class frmDrvSettings : Form
         if (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 1)
             try
             {
-                _taskbarList = (ITaskbarList3) new TaskbarList();
+                _taskbarList = (ITaskbarList3)new TaskbarList();
                 _taskbarList.HrInit();
                 _taskbarParent = Handle;
                 _isWin7TaskBar = true;
@@ -461,17 +448,17 @@ internal partial class frmDrvSettings : Form
         if (_taskbarList != null && _isWin7TaskBar && AdminHelper.IsAdmin)
             try
             {
-                _taskbarList.SetOverlayIcon(_taskbarParent, Resources.shield16.Handle, "Elevated");
+                _taskbarList.SetOverlayIcon(_taskbarParent, Properties.Resources.shield16.Handle, "Elevated");
             }
-            catch
-            {
-            }
+            catch { }
     }
 
     private void SetTitleVersion()
     {
         var numberFormat = new NumberFormatInfo
-            {NumberDecimalSeparator = "."};
+        {
+            NumberDecimalSeparator = "."
+        };
         var version = Assembly.GetExecutingAssembly().GetName().Version;
         var fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
         Text = $"{Application.ProductName} {version} - Geforce {_drs.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}";
@@ -618,12 +605,10 @@ internal partial class frmDrvSettings : Form
                 else
                 {
                     _taskbarList.SetProgressState(_taskbarParent, TBPFLAG.TBPF_NORMAL);
-                    _taskbarList.SetProgressValue(_taskbarParent, (ulong) progress, 100);
+                    _taskbarList.SetProgressValue(_taskbarParent, (ulong)progress, 100);
                 }
             }
-            catch
-            {
-            }
+            catch { }
     }
 
     private void AddToModifiedProfiles(string profileName, bool userProfile = false)
@@ -769,9 +754,7 @@ internal partial class frmDrvSettings : Form
         {
             UpdateItemByComboValue();
         }
-        catch
-        {
-        }
+        catch { }
 
         StoreChangesOfProfileToDriver();
     }
@@ -782,7 +765,7 @@ internal partial class frmDrvSettings : Form
         {
             var frmBits = new frmBitEditor();
             frmBits.ShowDialog(this,
-                (uint) lvSettings.SelectedItems[0].Tag,
+                (uint)lvSettings.SelectedItems[0].Tag,
                 uint.Parse(lvSettings.SelectedItems[0].SubItems[2].Text.Substring(2), NumberStyles.AllowHexSpecifier),
                 lvSettings.SelectedItems[0].Text);
         }
@@ -831,7 +814,7 @@ internal partial class frmDrvSettings : Form
             await ScanProfilesSilentAsync(true, false);
 
             if (_scannerCancelationTokenSource != null && !_scannerCancelationTokenSource.Token.IsCancellationRequested && WindowState != FormWindowState.Maximized)
-                new MessageHelper().bringAppToFront((int) Handle);
+                new MessageHelper().bringAppToFront((int)Handle);
             _isStartup = false;
         }
     }
@@ -848,8 +831,7 @@ internal partial class frmDrvSettings : Form
                 RefreshAll();
             }
         }
-        else if (MessageBox.Show(this, "Really delete this profile?\r\n\r\nNote: NVIDIA predefined profiles can not be restored until next driver installation!",
-                     "Delete Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+        else if (MessageBox.Show(this, "Really delete this profile?\r\n\r\nNote: NVIDIA predefined profiles can not be restored until next driver installation!", "Delete Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
         {
             if (_drs.DriverVersion > 280 && _drs.DriverVersion < 310)
                 // hack for driverbug
@@ -907,7 +889,6 @@ internal partial class frmDrvSettings : Form
                 }
             }
         }
-
         RefreshCurrentProfile();
     }
 
@@ -976,7 +957,10 @@ internal partial class frmDrvSettings : Form
         saveDialog.FileName = _CurrentProfile + ".nip";
         if (saveDialog.ShowDialog() == DialogResult.OK)
         {
-            var profiles = new[] {_CurrentProfile}.ToList();
+            var profiles = new[]
+            {
+                _CurrentProfile
+            }.ToList();
             _import.ExportProfiles(profiles, saveDialog.FileName, includePredefined);
         }
     }
@@ -1135,7 +1119,7 @@ internal partial class frmDrvSettings : Form
     {
         if (Debugger.IsAttached && lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count == 1)
         {
-            var settingId = (uint) lvSettings.SelectedItems[0].Tag;
+            var settingId = (uint)lvSettings.SelectedItems[0].Tag;
             var settingName = lvSettings.SelectedItems[0].Text;
             Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
         }
@@ -1176,7 +1160,6 @@ internal partial class frmDrvSettings : Form
             settings.WindowHeight = RestoreBounds.Height;
             settings.WindowWidth = RestoreBounds.Width;
         }
-
         settings.WindowState = WindowState;
         settings.ShowCustomizedSettingNamesOnly = tscbShowCustomSettingNamesOnly.Checked;
         settings.ShowScannedUnknownSettings = tscbShowScannedUnknownSettings.Checked;
@@ -1222,7 +1205,6 @@ internal partial class frmDrvSettings : Form
                     sbSettings.AppendFormat("\r\n[{0}]\r\n", group.Header);
                     groupTitleAdded = true;
                 }
-
                 sbSettings.AppendFormat("{0,-40} {1}\r\n", item.Text, item.SubItems[1].Text);
             }
         }

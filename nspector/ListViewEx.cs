@@ -1,5 +1,3 @@
-#region
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,14 +7,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-#endregion
-
 namespace nspector;
 
 internal delegate void DropFilesNativeHandler(string[] files);
 
 internal class ListViewEx : ListView
 {
+
     private const int LVM_FIRST = 0x1000;
     private const int LVM_GETCOLUMNORDERARRAY = LVM_FIRST + 59;
 
@@ -139,7 +136,7 @@ internal class ListViewEx : ListView
 
         for (var i = 0; i < _embeddedControls.Count; i++)
         {
-            var ec = (EmbeddedControl) _embeddedControls[i];
+            var ec = (EmbeddedControl)_embeddedControls[i];
             if (ec.Control == c)
             {
                 c.Click -= _embeddedControl_Click;
@@ -180,7 +177,6 @@ internal class ListViewEx : ListView
                         ec.Control.Visible = false;
                         continue;
                     }
-
                     ec.Control.Visible = true;
 
                     switch (ec.Dock)
@@ -215,7 +211,6 @@ internal class ListViewEx : ListView
                     ec.Control.Bounds = rc;
 
                 }
-
                 break;
 
             case WM_DROPFILES:
@@ -245,14 +240,13 @@ internal class ListViewEx : ListView
                 base.WndProc(ref m);
                 break;
         }
-
         base.WndProc(ref m);
     }
 
     private void _embeddedControl_Click(object sender, EventArgs e)
     {
         foreach (EmbeddedControl ec in _embeddedControls)
-            if (ec.Control == (Control) sender)
+            if (ec.Control == (Control)sender)
             {
                 SelectedItems.Clear();
                 ec.Item.Selected = true;

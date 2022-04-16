@@ -1,18 +1,19 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
-using nspector.Native.NVAPI;
-using nvw = nspector.Native.NVAPI.NvapiDrsWrapper;
-
-#endregion
+using System.Text.RegularExpressions;
+using nspector.Common.Helper;
+using nspector.Native.NVAPI2;
+using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nspector.Common;
 
 internal abstract class DrsSettingsServiceBase
 {
+
     public readonly float DriverVersion;
     protected DrsDecrypterService decrypter;
 
@@ -28,16 +29,11 @@ internal abstract class DrsSettingsServiceBase
     {
         var result = 0f;
         uint sysDrvVersion = 0;
-        var sysDrvBranch = new StringBuilder((int) NvapiDrsWrapper.NVAPI_SHORT_STRING_MAX);
+        var sysDrvBranch = new StringBuilder((int)NvapiDrsWrapper.NVAPI_SHORT_STRING_MAX);
 
         if (nvw.SYS_GetDriverAndBranchVersion(ref sysDrvVersion, sysDrvBranch) == NvAPI_Status.NVAPI_OK)
-            try
-            {
-                result = sysDrvVersion / 100f;
-            }
-            catch
-            {
-            }
+            try { result = sysDrvVersion / 100f; }
+            catch { }
 
         return result;
     }
@@ -80,7 +76,6 @@ internal abstract class DrsSettingsServiceBase
             if (nvRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_FindProfileByName", nvRes);
         }
-
         return hProfile;
     }
 
@@ -250,7 +245,8 @@ internal abstract class DrsSettingsServiceBase
             if (nvRes == NvAPI_Status.NVAPI_OK)
                 profileHandles.Add(hProfile);
             index++;
-        } while (nvRes == NvAPI_Status.NVAPI_OK);
+        }
+        while (nvRes == NvAPI_Status.NVAPI_OK);
 
         if (nvRes != NvAPI_Status.NVAPI_END_ENUMERATION)
             throw new NvapiException("DRS_EnumProfiles", nvRes);

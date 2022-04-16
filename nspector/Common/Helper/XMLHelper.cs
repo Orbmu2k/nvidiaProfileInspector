@@ -1,11 +1,7 @@
-#region
-
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-
-#endregion
 
 namespace nspector.Common.Helper;
 
@@ -21,7 +17,10 @@ internal static class XMLHelper<T> where T : new()
     internal static string SerializeToXmlString(T xmlObject, Encoding encoding, bool removeNamespace)
     {
         var memoryStream = new MemoryStream();
-        var xmlWriter = new XmlTextWriter(memoryStream, encoding) {Formatting = Formatting.Indented};
+        var xmlWriter = new XmlTextWriter(memoryStream, encoding)
+        {
+            Formatting = Formatting.Indented
+        };
 
         if (removeNamespace)
         {
@@ -45,7 +44,7 @@ internal static class XMLHelper<T> where T : new()
     internal static T DeserializeFromXmlString(string xml)
     {
         var reader = new StringReader(xml);
-        var xmlObject = (T) xmlSerializer.Deserialize(reader);
+        var xmlObject = (T)xmlSerializer.Deserialize(reader);
         return xmlObject;
     }
 

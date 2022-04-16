@@ -1,15 +1,12 @@
-﻿#region
-
+﻿using nspector.Native.NVAPI2;
 using System;
-using nspector.Native.NVAPI;
-using nvw = nspector.Native.NVAPI.NvapiDrsWrapper;
-
-#endregion
+using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nspector.Common;
 
 public class DrsSessionScope
 {
+
     public static volatile IntPtr GlobalSession;
 
     public static volatile bool HoldSession = true;

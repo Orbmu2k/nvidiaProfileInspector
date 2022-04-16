@@ -1,10 +1,6 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-
-#endregion
 
 namespace nspector.Native;
 
@@ -12,7 +8,7 @@ internal class NativeArrayHelper
 {
     public static T GetArrayItemData<T>(IntPtr sourcePointer)
     {
-        return (T) Marshal.PtrToStructure(sourcePointer, typeof(T));
+        return (T)Marshal.PtrToStructure(sourcePointer, typeof(T));
     }
 
     public static T[] GetArrayData<T>(IntPtr sourcePointer, int itemCount)
@@ -24,7 +20,6 @@ internal class NativeArrayHelper
             for (var i = 0; i < itemCount; i++)
                 lstResult.Add(GetArrayItemData<T>(sourcePointer + sizeOfItem * i));
         }
-
         return lstResult.ToArray();
     }
 

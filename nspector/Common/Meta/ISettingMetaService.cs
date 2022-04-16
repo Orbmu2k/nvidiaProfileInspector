@@ -1,9 +1,8 @@
-﻿#region
-
+﻿using nspector.Native.NVAPI2;
+using System;
 using System.Collections.Generic;
-using nspector.Native.NVAPI;
-
-#endregion
+using System.Linq;
+using System.Text;
 
 namespace nspector.Common.Meta;
 

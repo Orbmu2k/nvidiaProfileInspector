@@ -1,15 +1,11 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using nspector.Common.Helper;
 using nspector.Common.Import;
-using nspector.Native.NVAPI;
-using nvw = nspector.Native.NVAPI.NvapiDrsWrapper;
-
-#endregion
+using nspector.Native.NVAPI2;
+using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
+using nspector.Common.Helper;
 
 namespace nspector.Common;
 
@@ -34,7 +30,10 @@ internal class DrsImportService : DrsSettingsServiceBase
 
     internal void ExportAllProfilesToNvidiaTextFile(string filename)
     {
-        DrsSession(hSession => { SaveSettingsFileEx(hSession, filename); });
+        DrsSession(hSession =>
+        {
+            SaveSettingsFileEx(hSession, filename);
+        });
     }
 
     internal void ImportAllProfilesFromNvidiaTextFile(string filename)
@@ -138,26 +137,22 @@ internal class DrsImportService : DrsSettingsServiceBase
                         if (appEx != null)
                         {
                             var profilesWithThisApp = _ScannerService.FindProfilesUsingApplication(appEx.ApplicationName);
-                            sbFailedProfilesMessage.AppendLine(string.Format("- application '{0}' is already in use by profile '{1}'", appEx.ApplicationName,
-                                profilesWithThisApp));
+                            sbFailedProfilesMessage.AppendLine(string.Format("- application '{0}' is already in use by profile '{1}'", appEx.ApplicationName, profilesWithThisApp));
                             appInUseHint = true;
                         }
                         else
                         {
                             sbFailedProfilesMessage.AppendLine(string.Format("- {0}", nex.Message));
                         }
-
                         sbFailedProfilesMessage.AppendLine("");
                     }
-
                     nvw.DRS_SaveSettings(hSession);
                 }
             }
         });
 
         if (appInUseHint)
-            sbFailedProfilesMessage.AppendLine(
-                "Hint: If just the profile name has been changed by nvidia, consider to manually modify the profile name inside the import file using a text editor.");
+            sbFailedProfilesMessage.AppendLine("Hint: If just the profile name has been changed by nvidia, consider to manually modify the profile name inside the import file using a text editor.");
 
         return sbFailedProfilesMessage.ToString();
     }

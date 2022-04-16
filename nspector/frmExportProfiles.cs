@@ -1,12 +1,11 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using nspector.Common;
-
-#endregion
+using nspector.Common.Helper;
+using nspector.Common.Import;
 
 namespace nspector;
 
@@ -79,8 +78,7 @@ internal partial class frmExportProfiles : Form
 
             if (profileNamesToExport.Count > 0)
             {
-                if (MessageBox.Show("Export succeeded.\r\n\r\nWould you like to continue exporting profiles?", "Profiles Export", MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("Export succeeded.\r\n\r\nWould you like to continue exporting profiles?", "Profiles Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     Close();
             }
             else

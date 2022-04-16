@@ -7,7 +7,6 @@ internal enum SettingState
     UserdefinedSetting,
     NvidiaSetting
 }
-
 internal class SettingItem
 {
     public uint SettingId { get; set; }

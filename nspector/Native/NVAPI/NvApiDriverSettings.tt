@@ -1,8 +1,8 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ output extension=".cs" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
+<#@ output extension=".cs" #>
 namespace nspector.Native.NvApi.DriverSettings
 {
 <#

@@ -1,6 +1,4 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,15 +6,14 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using nspector.Common.Helper;
 using nspector.Common.Meta;
-using nspector.Native.NVAPI;
-using nvw = nspector.Native.NVAPI.NvapiDrsWrapper;
-
-#endregion
+using nspector.Native.NVAPI2;
+using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nspector.Common;
 
 internal class DrsSettingsService : DrsSettingsServiceBase
 {
+
     private readonly List<uint> _baseProfileSettingIds;
 
     public DrsSettingsService(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService)
@@ -78,8 +75,7 @@ internal class DrsSettingsService : DrsSettingsServiceBase
         var tmpFile = TempFile.GetTempFileName();
         try
         {
-            File.WriteAllText(tmpFile,
-                "BaseProfile \"Base Profile\"\r\nSelectedGlobalProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
+            File.WriteAllText(tmpFile, "BaseProfile \"Base Profile\"\r\nSelectedGlobalProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
 
             DrsSession(hSession =>
             {
@@ -465,7 +461,9 @@ internal class DrsSettingsService : DrsSettingsServiceBase
                 else
                 {
                     var dummySetting = new NVDRS_SETTING
-                        {settingId = settingId};
+                    {
+                        settingId = settingId
+                    };
                     result.Add(CreateSettingItem(dummySetting, true));
                 }
             }
@@ -500,7 +498,6 @@ internal class DrsSettingsService : DrsSettingsServiceBase
                 DeleteApplication(hSession, hProfile, app);
                 break;
             }
-
             SaveSettings(hSession);
         });
     }

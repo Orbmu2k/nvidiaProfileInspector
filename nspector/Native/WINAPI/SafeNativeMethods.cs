@@ -1,8 +1,4 @@
-﻿#region
-
-using System.Runtime.InteropServices;
-
-#endregion
+﻿using System.Runtime.InteropServices;
 
 namespace nspector.Native.WINAPI;
 

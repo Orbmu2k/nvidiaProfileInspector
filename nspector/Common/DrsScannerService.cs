@@ -1,5 +1,5 @@
-﻿#region
-
+﻿using nspector.Common.Helper;
+using nspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,24 +7,17 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using nspector.Common.Cache;
-using nspector.Common.Helper;
-using nspector.Native.NVAPI;
-using nvw = nspector.Native.NVAPI.NvapiDrsWrapper;
-
-#endregion
+using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nspector.Common;
 
 internal class DrsScannerService : DrsSettingsServiceBase
 {
+
     // most common setting ids as start pattern for the heuristic scan
     private readonly uint[] _commonSettingIds =
     {
-        0x1095DEF8, 0x1033DCD2, 0x1033CEC1,
-        0x10930F46, 0x00A06946, 0x10ECDB82, 0x20EBD7B8, 0x0095DEF9, 0x00D55F7D,
-        0x1033DCD3, 0x1033CEC2, 0x2072F036, 0x00664339, 0x002C7F45, 0x209746C1,
-        0x0076E164, 0x20FF7493, 0x204CFF7B
+        0x1095DEF8, 0x1033DCD2, 0x1033CEC1, 0x10930F46, 0x00A06946, 0x10ECDB82, 0x20EBD7B8, 0x0095DEF9, 0x00D55F7D, 0x1033DCD3, 0x1033CEC2, 0x2072F036, 0x00664339, 0x002C7F45, 0x209746C1, 0x0076E164, 0x20FF7493, 0x204CFF7B
     };
 
 
@@ -33,9 +26,7 @@ internal class DrsScannerService : DrsSettingsServiceBase
     internal HashSet<string> UserProfiles = new();
 
     public DrsScannerService(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService)
-        : base(metaService, decrpterService)
-    {
-    }
+        : base(metaService, decrpterService) { }
 
 
     private bool CheckCommonSetting(IntPtr hSession, IntPtr hProfile, NVDRS_PROFILE profile,
@@ -80,7 +71,7 @@ internal class DrsScannerService : DrsSettingsServiceBase
 
     private int CalcPercent(int current, int max)
     {
-        return current > 0 ? (int) Math.Round(current * 100f / max) : 0;
+        return current > 0 ? (int)Math.Round(current * 100f / max) : 0;
         ;
     }
 
@@ -206,7 +197,10 @@ internal class DrsScannerService : DrsSettingsServiceBase
         {
             var matchingProfiles = new List<string>();
 
-            DrsSession(hSession => { SaveSettingsFileEx(hSession, tmpfile); });
+            DrsSession(hSession =>
+            {
+                SaveSettingsFileEx(hSession, tmpfile);
+            });
 
             if (File.Exists(tmpfile))
             {

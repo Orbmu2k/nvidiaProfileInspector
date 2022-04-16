@@ -1,11 +1,7 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-
-#endregion
 
 namespace nspector.Native.WINAPI;
 
@@ -18,9 +14,9 @@ internal class ShellLink : IDisposable
     internal ShellLink()
     {
         if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-            linkW = (IShellLinkW) new CShellLink();
+            linkW = (IShellLinkW)new CShellLink();
         else
-            linkA = (IShellLinkA) new CShellLink();
+            linkA = (IShellLinkA)new CShellLink();
     }
 
     internal ShellLink(string linkFile)
@@ -102,15 +98,14 @@ internal class ShellLink : IDisposable
             {
                 var fd = new _WIN32_FIND_DATAW();
                 linkW.GetPath(target, target.Capacity, ref fd,
-                    (uint) EShellLinkGP.SLGP_UNCPRIORITY);
+                    (uint)EShellLinkGP.SLGP_UNCPRIORITY);
             }
             else
             {
                 var fd = new _WIN32_FIND_DATAA();
                 linkA.GetPath(target, target.Capacity, ref fd,
-                    (uint) EShellLinkGP.SLGP_UNCPRIORITY);
+                    (uint)EShellLinkGP.SLGP_UNCPRIORITY);
             }
-
             return target.ToString();
         }
         set
@@ -191,14 +186,14 @@ internal class ShellLink : IDisposable
                 linkW.GetShowCmd(out cmd);
             else
                 linkA.GetShowCmd(out cmd);
-            return (LinkDisplayMode) cmd;
+            return (LinkDisplayMode)cmd;
         }
         set
         {
             if (linkA == null)
-                linkW.SetShowCmd((uint) value);
+                linkW.SetShowCmd((uint)value);
             else
-                linkA.SetShowCmd((uint) value);
+                linkA.SetShowCmd((uint)value);
         }
     }
 
@@ -211,14 +206,14 @@ internal class ShellLink : IDisposable
                 linkW.GetHotkey(out key);
             else
                 linkA.GetHotkey(out key);
-            return (Keys) key;
+            return (Keys)key;
         }
         set
         {
             if (linkA == null)
-                linkW.SetHotkey((short) value);
+                linkW.SetHotkey((short)value);
             else
-                linkA.SetHotkey((short) value);
+                linkA.SetHotkey((short)value);
         }
     }
 
@@ -229,7 +224,6 @@ internal class ShellLink : IDisposable
             Marshal.ReleaseComObject(linkW);
             linkW = null;
         }
-
         if (linkA != null)
         {
             Marshal.ReleaseComObject(linkA);
@@ -248,16 +242,16 @@ internal class ShellLink : IDisposable
     }
 
     internal void Save(string linkFile
-    )
+        )
     {
         if (linkA == null)
         {
-            ((IPersistFile) linkW).Save(linkFile, true);
+            ((IPersistFile)linkW).Save(linkFile, true);
             ShortCutFile = linkFile;
         }
         else
         {
-            ((IPersistFile) linkA).Save(linkFile, true);
+            ((IPersistFile)linkA).Save(linkFile, true);
             ShortCutFile = linkFile;
         }
     }
@@ -274,7 +268,7 @@ internal class ShellLink : IDisposable
         string linkFile,
         IntPtr hWnd,
         EShellLinkResolveFlags resolveFlags
-    )
+        )
     {
         Open(linkFile,
             hWnd,
@@ -287,25 +281,25 @@ internal class ShellLink : IDisposable
         IntPtr hWnd,
         EShellLinkResolveFlags resolveFlags,
         ushort timeOut
-    )
+        )
     {
         uint flags;
 
         if ((resolveFlags & EShellLinkResolveFlags.SLR_NO_UI)
             == EShellLinkResolveFlags.SLR_NO_UI)
-            flags = (uint) ((int) resolveFlags | (timeOut << 16));
+            flags = (uint)((int)resolveFlags | (timeOut << 16));
         else
-            flags = (uint) resolveFlags;
+            flags = (uint)resolveFlags;
 
         if (linkA == null)
         {
-            ((IPersistFile) linkW).Load(linkFile, 0); //STGM_DIRECT)
+            ((IPersistFile)linkW).Load(linkFile, 0); //STGM_DIRECT)
             linkW.Resolve(hWnd, flags);
             ShortCutFile = linkFile;
         }
         else
         {
-            ((IPersistFile) linkA).Load(linkFile, 0); //STGM_DIRECT)
+            ((IPersistFile)linkA).Load(linkFile, 0); //STGM_DIRECT)
             linkA.Resolve(hWnd, flags);
             ShortCutFile = linkFile;
         }
@@ -413,8 +407,7 @@ internal class ShellLink : IDisposable
     private interface IShellLinkW
     {
         void GetPath(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszFile,
+            [Out] [MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile,
             int cchMaxPath,
             ref _WIN32_FIND_DATAW pfd,
             uint fFlags);
@@ -422,24 +415,21 @@ internal class ShellLink : IDisposable
         void GetIDList(out IntPtr ppidl);
         void SetIDList(IntPtr pidl);
         void GetDescription(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszFile,
+            [Out] [MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile,
             int cchMaxName);
 
         void SetDescription(
             [MarshalAs(UnmanagedType.LPWStr)] string pszName);
 
         void GetWorkingDirectory(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszDir,
+            [Out] [MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszDir,
             int cchMaxPath);
 
         void SetWorkingDirectory(
             [MarshalAs(UnmanagedType.LPWStr)] string pszDir);
 
         void GetArguments(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszArgs,
+            [Out] [MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs,
             int cchMaxPath);
 
         void SetArguments(
@@ -452,8 +442,7 @@ internal class ShellLink : IDisposable
         void SetShowCmd(uint piShowCmd);
 
         void GetIconLocation(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszIconPath,
+            [Out] [MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath,
             int cchIconPath,
             out int piIcon);
 
@@ -476,9 +465,7 @@ internal class ShellLink : IDisposable
     [Guid("00021401-0000-0000-C000-000000000046")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
-    private class CShellLink
-    {
-    }
+    private class CShellLink { }
 
     private enum EShellLinkGP : uint
     {
@@ -517,10 +504,8 @@ internal class ShellLink : IDisposable
         internal readonly uint nFileSizeLow;
         internal readonly uint dwReserved0;
         internal readonly uint dwReserved1;
-
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)] // MAX_PATH
         internal readonly string cFileName;
-
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 14)]
         internal readonly string cAlternateFileName;
     }
@@ -536,10 +521,8 @@ internal class ShellLink : IDisposable
         internal readonly uint nFileSizeLow;
         internal readonly uint dwReserved0;
         internal readonly uint dwReserved1;
-
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)] // MAX_PATH
         internal readonly string cFileName;
-
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 14)]
         internal readonly string cAlternateFileName;
     }

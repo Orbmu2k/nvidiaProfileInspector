@@ -1,18 +1,15 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 
-#endregion
-
 namespace nspector.Common.Helper;
 
 public class SteamAppResolver
 {
+
     public const string SteamExeName = "steam.exe";
     public const string SteamUrlPattern = "steam://rungameid/";
     public const string SteamArgumentPattern = "-applaunch";
@@ -34,7 +31,7 @@ public class SteamAppResolver
 
         if (reg != null)
         {
-            var steamPath = (string) reg.GetValue("SteamPath", null);
+            var steamPath = (string)reg.GetValue("SteamPath", null);
             if (steamPath != null)
                 return Path.Combine(steamPath, @"appcache\appinfo.vdf");
         }
@@ -51,7 +48,6 @@ public class SteamAppResolver
             if (int.TryParse(appIdStr, out appid))
                 return FindCommonExecutableForApp(appid);
         }
-
         return "";
     }
 
@@ -69,7 +65,6 @@ public class SteamAppResolver
             }
 
         }
-
         return "";
     }
 
@@ -89,8 +84,14 @@ public class SteamAppResolver
         var bid = BitConverter.GetBytes(appid);
         var offset = 0;
 
-        var appidPattern = new byte[] {0x08, bid[0], bid[1], bid[2], bid[3]};
-        var launchPattern = new byte[] {0x00, 0x6C, 0x61, 0x75, 0x6E, 0x63, 0x68, 0x00};
+        var appidPattern = new byte[]
+        {
+            0x08, bid[0], bid[1], bid[2], bid[3]
+        };
+        var launchPattern = new byte[]
+        {
+            0x00, 0x6C, 0x61, 0x75, 0x6E, 0x63, 0x68, 0x00
+        };
 
         var appidOffset = FindOffset(_appinfoBytes, appidPattern, offset);
         if (appidOffset == -1)
@@ -121,30 +122,30 @@ public class SteamAppResolver
             switch (valueType)
             {
                 case 0:
-                {
-                    FindExecutables(bytes, ref offset, ref executables);
-                    break;
-                }
+                    {
+                        FindExecutables(bytes, ref offset, ref executables);
+                        break;
+                    }
                 case 1:
-                {
-                    valueString = ReadCString(bytes, ref offset);
+                    {
+                        valueString = ReadCString(bytes, ref offset);
 
-                    if (valueName == "executable" && valueString.EndsWith(".exe"))
-                        executables.Add(valueString);
+                        if (valueName == "executable" && valueString.EndsWith(".exe"))
+                            executables.Add(valueString);
 
-                    break;
-                }
+                        break;
+                    }
                 case 2:
-                {
-                    offset += 4;
-                    break;
-                }
+                    {
+                        offset += 4;
+                        break;
+                    }
 
                 case 7:
-                {
-                    offset += 8;
-                    break;
-                }
+                    {
+                        offset += 8;
+                        break;
+                    }
             }
         }
     }
@@ -161,12 +162,10 @@ public class SteamAppResolver
                         ismatch = false;
                         break;
                     }
-
                 if (ismatch)
                     return i;
 
             }
-
         return -1;
     }
 

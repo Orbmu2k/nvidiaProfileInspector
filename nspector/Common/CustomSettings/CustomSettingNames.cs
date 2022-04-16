@@ -1,11 +1,7 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using nspector.Common.Helper;
-
-#endregion
 
 namespace nspector.Common.CustomSettings;
 

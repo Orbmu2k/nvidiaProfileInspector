@@ -1,10 +1,7 @@
-﻿#region
-
+﻿using System;
 using System.Text;
 
-#endregion
-
-namespace nspector.Common.Cache;
+namespace nspector.Common;
 
 internal class CachedSettingValue
 {
@@ -15,9 +12,7 @@ internal class CachedSettingValue
 
     internal string ValueStr = "";
 
-    internal CachedSettingValue()
-    {
-    }
+    internal CachedSettingValue() { }
 
     internal CachedSettingValue(uint Value, string ProfileNames)
     {

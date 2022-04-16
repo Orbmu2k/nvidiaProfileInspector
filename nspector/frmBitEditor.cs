@@ -1,15 +1,13 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using nspector.Common;
-
-#endregion
+using nspector.Common.CustomSettings;
 
 namespace nspector;
 
@@ -75,11 +73,10 @@ internal partial class frmBitEditor : Form
                                 if (settingProfileNames[p].ToLower().Contains(filters[f].ToLower()))
                                     profileNames += settingProfileNames[p] + ",";
                         }
-
                         profileCount += settingsCache.SettingValues[i].ValueProfileCount;
                     }
 
-                var mask = (uint) 1 << bit;
+                var mask = (uint)1 << bit;
                 var maskStr = "";
 
                 if (referenceSettings != null)
@@ -95,10 +92,7 @@ internal partial class frmBitEditor : Form
 
                 clbBits.Items.Add(new ListViewItem(new[]
                 {
-                    string.Format("#{0:00}", bit),
-                    maskStr,
-                    profileCount.ToString(),
-                    profileNames
+                    string.Format("#{0:00}", bit), maskStr, profileCount.ToString(), profileNames
                 }));
 
             }
@@ -111,7 +105,7 @@ internal partial class frmBitEditor : Form
         uint val = 0;
         for (var b = 0; b < clbBits.Items.Count; b++)
             if (clbBits.Items[b].Checked && changedIndex != b || changeState && changedIndex == b)
-                val = val | (uint) (1 << b);
+                val = val | (uint)(1 << b);
 
         UpdateCurrent(val);
     }
@@ -121,7 +115,7 @@ internal partial class frmBitEditor : Form
         uint val = 0;
         for (var b = 0; b < clbBits.Items.Count; b++)
             if (clbBits.Items[b].Checked)
-                val = val | (uint) (1 << b);
+                val = val | (uint)(1 << b);
 
         UpdateCurrent(val);
     }

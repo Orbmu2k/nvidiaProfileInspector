@@ -1,9 +1,5 @@
-﻿#region
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
-
-#endregion
 
 namespace nspector.Common.Helper;
 
@@ -26,7 +22,6 @@ public class ListViewGroupHeaderSorter : IComparer<ListViewGroup>
 
     #endregion
 }
-
 public class ListViewGroupSorter
 {
     internal ListView _listview;

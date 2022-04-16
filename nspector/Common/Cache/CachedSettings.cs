@@ -1,15 +1,12 @@
-﻿#region
-
+﻿using nspector.Native.NVAPI2;
 using System.Collections.Generic;
 using System.Linq;
-using nspector.Native.NVAPI;
 
-#endregion
-
-namespace nspector.Common.Cache;
+namespace nspector.Common;
 
 internal class CachedSettings
 {
+
     internal uint ProfileCount;
 
     internal uint SettingId;
@@ -17,9 +14,7 @@ internal class CachedSettings
     internal NVDRS_SETTING_TYPE SettingType = NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
 
     internal List<CachedSettingValue> SettingValues = new();
-    internal CachedSettings()
-    {
-    }
+    internal CachedSettings() { }
 
     internal CachedSettings(uint settingId, NVDRS_SETTING_TYPE settingType)
     {
@@ -39,7 +34,6 @@ internal class CachedSettings
             setting.ProfileNames.Append(", " + Profile);
             setting.ValueProfileCount++;
         }
-
         ProfileCount++;
     }
 
@@ -56,7 +50,6 @@ internal class CachedSettings
             setting.ProfileNames.Append(", " + Profile);
             setting.ValueProfileCount++;
         }
-
         ProfileCount++;
     }
 
@@ -73,7 +66,6 @@ internal class CachedSettings
             setting.ProfileNames.Append(", " + Profile);
             setting.ValueProfileCount++;
         }
-
         ProfileCount++;
     }
 }

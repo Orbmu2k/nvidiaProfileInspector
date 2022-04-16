@@ -1,11 +1,6 @@
-﻿#region
-
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using nspector.Common.CustomSettings;
-using nspector.Properties;
-
-#endregion
 
 namespace nspector.Common;
 
@@ -37,7 +32,7 @@ internal class DrsServiceLocator
 
         if (File.Exists(csnDefaultPath))
             return CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
-        return CustomSettingNames.FactoryLoadFromString(Resources.CustomSettingNames);
+        return CustomSettingNames.FactoryLoadFromString(Properties.Resources.CustomSettingNames);
     }
 
     private static CustomSettingNames LoadReferenceSettings()

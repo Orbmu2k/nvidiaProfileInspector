@@ -1,6 +1,4 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -8,9 +6,6 @@ using System.Windows.Forms;
 using nspector.Common;
 using nspector.Common.Helper;
 using nspector.Native.WINAPI;
-using nspector.Properties;
-
-#endregion
 
 namespace nspector;
 
@@ -27,9 +22,7 @@ internal static class Program
             // Remove Zone.Identifier from Alternate Data Stream
             SafeNativeMethods.DeleteFile(Application.ExecutablePath + ":Zone.Identifier");
         }
-        catch
-        {
-        }
+        catch { }
 #if RELEASE
             try
             {
@@ -55,7 +48,7 @@ internal static class Program
                         if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
                         {
                             var mh = new MessageHelper();
-                            mh.sendWindowsStringMessage((int) process.MainWindowHandle, 0, "ProfilesImported");
+                            mh.sendWindowsStringMessage((int)process.MainWindowHandle, 0, "ProfilesImported");
                         }
 
                     if (string.IsNullOrEmpty(importReport) && !ArgExists(args, "-silentImport") && !ArgExists(args, "-silent"))
@@ -70,7 +63,7 @@ internal static class Program
 
         else if (ArgExists(args, "-createCSN"))
         {
-            File.WriteAllText("CustomSettingNames.xml", Resources.CustomSettingNames);
+            File.WriteAllText("CustomSettingNames.xml", Properties.Resources.CustomSettingNames);
         }
         else
         {
@@ -91,7 +84,7 @@ internal static class Program
                         if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
                         {
                             var mh = new MessageHelper();
-                            mh.bringAppToFront((int) process.MainWindowHandle);
+                            mh.bringAppToFront((int)process.MainWindowHandle);
                         }
                 }
             }

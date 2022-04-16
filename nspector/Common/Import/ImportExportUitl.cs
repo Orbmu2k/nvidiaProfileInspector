@@ -1,9 +1,5 @@
-﻿#region
-
-using System;
-using nspector.Native.NVAPI;
-
-#endregion
+﻿using System;
+using nspector.Native.NVAPI2;
 
 namespace nspector.Common.Import;
 
@@ -91,7 +87,6 @@ internal class ImportExportUitl
             default:
                 throw new Exception("invalid value type");
         }
-
         return union;
     }
 

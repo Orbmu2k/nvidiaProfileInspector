@@ -1,11 +1,7 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-
-#endregion
 
 namespace nspector.Common.Helper;
 
