@@ -1,22 +1,19 @@
-﻿using System;
-using System.IO;
+﻿namespace nspector.Common.Helper;
 
-namespace nspector.Common.Helper;
-
-internal static class TempFile
+static class TempFile
 {
     public static string GetTempFileName()
     {
-        while (true)
+        while(true)
         {
-            var tempFile = GenerateTempFileName();
-            if (!File.Exists(tempFile))
+            var tempFile=TempFile.GenerateTempFileName();
+            if(!System.IO.File.Exists(tempFile))
+            {
                 return tempFile;
+            }
         }
     }
 
-    private static string GenerateTempFileName()
-    {
-        return Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString().Replace("-", ""));
-    }
+    static string GenerateTempFileName()
+        =>System.IO.Path.Combine(System.IO.Path.GetTempPath(),System.Guid.NewGuid().ToString().Replace("-",""));
 }

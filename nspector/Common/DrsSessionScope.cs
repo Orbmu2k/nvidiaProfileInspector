@@ -1,86 +1,102 @@
-﻿using nspector.Native.NVAPI2;
-using System;
-using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
+﻿#region
+
+using nvw=nspector.Native.NVAPI2.NvapiDrsWrapper;
+
+#endregion
 
 namespace nspector.Common;
 
 public class DrsSessionScope
 {
-    public static volatile IntPtr GlobalSession;
+    public static volatile System.IntPtr GlobalSession;
 
-    public static volatile bool HoldSession = true;
+    public static volatile bool HoldSession=true;
 
-    private static readonly object _Sync = new();
+    static readonly object _Sync=new object();
 
 
-    public static T DrsSession<T>(Func<IntPtr, T> action, bool forceNonGlobalSession = false,
-        bool preventLoadSettings = false)
+    public static T DrsSession<T>(System.Func<System.IntPtr,T> action,bool forceNonGlobalSession=false,
+        bool                                                   preventLoadSettings=false)
     {
-        lock (_Sync)
+        lock(DrsSessionScope._Sync)
         {
-            if (!HoldSession || forceNonGlobalSession)
-                return NonGlobalDrsSession(action, preventLoadSettings);
-
-
-            if (GlobalSession == IntPtr.Zero)
+            if(!DrsSessionScope.HoldSession||forceNonGlobalSession)
             {
-#pragma warning disable CS0420
-                var csRes = nvw.DRS_CreateSession(ref GlobalSession);
-#pragma warning restore CS0420
+                return DrsSessionScope.NonGlobalDrsSession(action,preventLoadSettings);
+            }
 
-                if (csRes != NvAPI_Status.NVAPI_OK)
-                    throw new NvapiException("DRS_CreateSession", csRes);
 
-                if (!preventLoadSettings)
+            if(DrsSessionScope.GlobalSession==System.IntPtr.Zero)
+            {
+            #pragma warning disable CS0420
+                var csRes=nvw.DRS_CreateSession(ref DrsSessionScope.GlobalSession);
+            #pragma warning restore CS0420
+
+                if(csRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
                 {
-                    var nvRes = nvw.DRS_LoadSettings(GlobalSession);
-                    if (nvRes != NvAPI_Status.NVAPI_OK)
-                        throw new NvapiException("DRS_LoadSettings", nvRes);
+                    throw new NvapiException("DRS_CreateSession",csRes);
+                }
+
+                if(!preventLoadSettings)
+                {
+                    var nvRes=nvw.DRS_LoadSettings(DrsSessionScope.GlobalSession);
+                    if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+                    {
+                        throw new NvapiException("DRS_LoadSettings",nvRes);
+                    }
                 }
             }
         }
 
-        if (GlobalSession != IntPtr.Zero)
-            return action(GlobalSession);
+        if(DrsSessionScope.GlobalSession!=System.IntPtr.Zero)
+        {
+            return action(DrsSessionScope.GlobalSession);
+        }
 
-        throw new Exception(nameof(GlobalSession) + " is Zero!");
+        throw new System.Exception(nameof(DrsSessionScope.GlobalSession)+" is Zero!");
     }
 
     public static void DestroyGlobalSession()
     {
-        lock (_Sync)
+        lock(DrsSessionScope._Sync)
         {
-            if (GlobalSession != IntPtr.Zero)
+            if(DrsSessionScope.GlobalSession!=System.IntPtr.Zero)
             {
-                var csRes = nvw.DRS_DestroySession(GlobalSession);
-                GlobalSession = IntPtr.Zero;
+                var csRes=nvw.DRS_DestroySession(DrsSessionScope.GlobalSession);
+                DrsSessionScope.GlobalSession=System.IntPtr.Zero;
             }
         }
     }
 
-    private static T NonGlobalDrsSession<T>(Func<IntPtr, T> action, bool preventLoadSettings = false)
+    static T NonGlobalDrsSession<T>(System.Func<System.IntPtr,T> action,bool preventLoadSettings=false)
     {
-        var hSession = IntPtr.Zero;
-        var csRes = nvw.DRS_CreateSession(ref hSession);
-        if (csRes != NvAPI_Status.NVAPI_OK)
-            throw new NvapiException("DRS_CreateSession", csRes);
+        var hSession=System.IntPtr.Zero;
+        var csRes   =nvw.DRS_CreateSession(ref hSession);
+        if(csRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+        {
+            throw new NvapiException("DRS_CreateSession",csRes);
+        }
 
         try
         {
-            if (!preventLoadSettings)
+            if(!preventLoadSettings)
             {
-                var nvRes = nvw.DRS_LoadSettings(hSession);
-                if (nvRes != NvAPI_Status.NVAPI_OK)
-                    throw new NvapiException("DRS_LoadSettings", nvRes);
+                var nvRes=nvw.DRS_LoadSettings(hSession);
+                if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+                {
+                    throw new NvapiException("DRS_LoadSettings",nvRes);
+                }
             }
 
             return action(hSession);
         }
         finally
         {
-            var nvRes = nvw.DRS_DestroySession(hSession);
-            if (nvRes != NvAPI_Status.NVAPI_OK)
-                throw new NvapiException("DRS_DestroySession", nvRes);
+            var nvRes=nvw.DRS_DestroySession(hSession);
+            if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+            {
+                throw new NvapiException("DRS_DestroySession",nvRes);
+            }
         }
     }
 }

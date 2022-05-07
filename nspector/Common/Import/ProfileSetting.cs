@@ -1,17 +1,14 @@
-using System;
-using System.Xml.Serialization;
-
 namespace nspector.Common.Import;
 
-[Serializable]
+[System.SerializableAttribute]
 public class ProfileSetting
 {
-    [XmlElement(ElementName = "SettingID")]
+    [System.Xml.Serialization.XmlElementAttribute(ElementName="SettingID")]
     public uint SettingId;
 
-    public string SettingNameInfo = "";
+    public string SettingNameInfo="";
 
-    public string SettingValue = "0";
+    public string SettingValue="0";
 
-    public SettingValueType ValueType = SettingValueType.Dword;
+    public SettingValueType ValueType=SettingValueType.Dword;
 }

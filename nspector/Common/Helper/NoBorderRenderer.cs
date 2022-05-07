@@ -1,14 +1,8 @@
-﻿using System.Windows.Forms;
+﻿namespace nspector.Common.Helper;
 
-namespace nspector.Common.Helper;
-
-internal class NoBorderRenderer : ToolStripProfessionalRenderer
+class NoBorderRenderer:System.Windows.Forms.ToolStripProfessionalRenderer
 {
-    protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
-    {
-    }
+    protected override void OnRenderToolStripBackground(System.Windows.Forms.ToolStripRenderEventArgs e) {}
 
-    protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
-    {
-    }
+    protected override void OnRenderToolStripBorder(System.Windows.Forms.ToolStripRenderEventArgs e) {}
 }

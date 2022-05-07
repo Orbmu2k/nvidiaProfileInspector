@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using nspector.Common.Helper;
+﻿namespace nspector.Common.CustomSettings;
 
-namespace nspector.Common.CustomSettings;
-
-[Serializable]
+[System.SerializableAttribute]
 public class CustomSettingNames
 {
-    public List<CustomSetting> Settings = new();
+    public System.Collections.Generic.List<CustomSetting> Settings=new System.Collections.Generic.List<CustomSetting>();
 
     public void StoreToFile(string filename)
     {
-        XMLHelper<CustomSettingNames>.SerializeToXmlFile(this, filename, Encoding.Unicode, true);
+        nspector.Common.Helper.XMLHelper<CustomSettingNames>.SerializeToXmlFile(this,filename,
+            System.Text.Encoding.Unicode,true);
     }
 
     public static CustomSettingNames FactoryLoadFromFile(string filename)
-    {
-        return XMLHelper<CustomSettingNames>.DeserializeFromXMLFile(filename);
-    }
+        =>nspector.Common.Helper.XMLHelper<CustomSettingNames>.DeserializeFromXMLFile(filename);
 
     public static CustomSettingNames FactoryLoadFromString(string xml)
-    {
-        return XMLHelper<CustomSettingNames>.DeserializeFromXmlString(xml);
-    }
+        =>nspector.Common.Helper.XMLHelper<CustomSettingNames>.DeserializeFromXmlString(xml);
 }

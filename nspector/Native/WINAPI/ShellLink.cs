@@ -1,60 +1,77 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows.Forms;
+﻿namespace nspector.Native.WINAPI;
 
-namespace nspector.Native.WINAPI;
-
-internal class ShellLink : IDisposable
+class ShellLink:System.IDisposable
 {
-    private IShellLinkA linkA;
+    IShellLinkA linkA;
 
-    private IShellLinkW linkW;
+    IShellLinkW linkW;
 
     internal ShellLink()
     {
-        if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-            linkW = (IShellLinkW) new CShellLink();
+        if(System.Environment.OSVersion.Platform==System.PlatformID.Win32NT)
+        {
+            this.linkW=(IShellLinkW)new CShellLink();
+        }
         else
-            linkA = (IShellLinkA) new CShellLink();
+        {
+            this.linkA=(IShellLinkA)new CShellLink();
+        }
     }
 
     internal ShellLink(string linkFile)
-        : this()
+        :this()
     {
-        Open(linkFile);
+        this.Open(linkFile);
     }
 
-    internal string ShortCutFile { get; set; } = "";
+    internal string ShortCutFile
+    {
+        get;
+        set;
+    }="";
 
     internal string IconPath
     {
         get
         {
-            var iconPath = new StringBuilder(260, 260);
-            var iconIndex = 0;
-            if (linkA == null)
-                linkW.GetIconLocation(iconPath, iconPath.Capacity, out
+            var iconPath =new System.Text.StringBuilder(260,260);
+            var iconIndex=0;
+            if(this.linkA==null)
+            {
+                this.linkW.GetIconLocation(iconPath,iconPath.Capacity,out
                     iconIndex);
+            }
             else
-                linkA.GetIconLocation(iconPath, iconPath.Capacity, out
+            {
+                this.linkA.GetIconLocation(iconPath,iconPath.Capacity,out
                     iconIndex);
+            }
+
             return iconPath.ToString();
         }
         set
         {
-            var iconPath = new StringBuilder(260, 260);
-            var iconIndex = 0;
-            if (linkA == null)
-                linkW.GetIconLocation(iconPath, iconPath.Capacity, out
+            var iconPath =new System.Text.StringBuilder(260,260);
+            var iconIndex=0;
+            if(this.linkA==null)
+            {
+                this.linkW.GetIconLocation(iconPath,iconPath.Capacity,out
                     iconIndex);
+            }
             else
-                linkA.GetIconLocation(iconPath, iconPath.Capacity, out
+            {
+                this.linkA.GetIconLocation(iconPath,iconPath.Capacity,out
                     iconIndex);
-            if (linkA == null)
-                linkW.SetIconLocation(value, iconIndex);
+            }
+
+            if(this.linkA==null)
+            {
+                this.linkW.SetIconLocation(value,iconIndex);
+            }
             else
-                linkA.SetIconLocation(value, iconIndex);
+            {
+                this.linkA.SetIconLocation(value,iconIndex);
+            }
         }
     }
 
@@ -62,30 +79,44 @@ internal class ShellLink : IDisposable
     {
         get
         {
-            var iconPath = new StringBuilder(260, 260);
-            var iconIndex = 0;
-            if (linkA == null)
-                linkW.GetIconLocation(iconPath, iconPath.Capacity, out
+            var iconPath =new System.Text.StringBuilder(260,260);
+            var iconIndex=0;
+            if(this.linkA==null)
+            {
+                this.linkW.GetIconLocation(iconPath,iconPath.Capacity,out
                     iconIndex);
+            }
             else
-                linkA.GetIconLocation(iconPath, iconPath.Capacity, out
+            {
+                this.linkA.GetIconLocation(iconPath,iconPath.Capacity,out
                     iconIndex);
+            }
+
             return iconIndex;
         }
         set
         {
-            var iconPath = new StringBuilder(260, 260);
-            var iconIndex = 0;
-            if (linkA == null)
-                linkW.GetIconLocation(iconPath, iconPath.Capacity, out
+            var iconPath =new System.Text.StringBuilder(260,260);
+            var iconIndex=0;
+            if(this.linkA==null)
+            {
+                this.linkW.GetIconLocation(iconPath,iconPath.Capacity,out
                     iconIndex);
+            }
             else
-                linkA.GetIconLocation(iconPath, iconPath.Capacity, out
+            {
+                this.linkA.GetIconLocation(iconPath,iconPath.Capacity,out
                     iconIndex);
-            if (linkA == null)
-                linkW.SetIconLocation(iconPath.ToString(), value);
+            }
+
+            if(this.linkA==null)
+            {
+                this.linkW.SetIconLocation(iconPath.ToString(),value);
+            }
             else
-                linkA.SetIconLocation(iconPath.ToString(), value);
+            {
+                this.linkA.SetIconLocation(iconPath.ToString(),value);
+            }
         }
     }
 
@@ -93,28 +124,32 @@ internal class ShellLink : IDisposable
     {
         get
         {
-            var target = new StringBuilder(260, 260);
-            if (linkA == null)
+            var target=new System.Text.StringBuilder(260,260);
+            if(this.linkA==null)
             {
-                var fd = new _WIN32_FIND_DATAW();
-                linkW.GetPath(target, target.Capacity, ref fd,
-                    (uint) EShellLinkGP.SLGP_UNCPRIORITY);
+                var fd=new _WIN32_FIND_DATAW();
+                this.linkW.GetPath(target,target.Capacity,ref fd,
+                    (uint)EShellLinkGP.SLGP_UNCPRIORITY);
             }
             else
             {
-                var fd = new _WIN32_FIND_DATAA();
-                linkA.GetPath(target, target.Capacity, ref fd,
-                    (uint) EShellLinkGP.SLGP_UNCPRIORITY);
+                var fd=new _WIN32_FIND_DATAA();
+                this.linkA.GetPath(target,target.Capacity,ref fd,
+                    (uint)EShellLinkGP.SLGP_UNCPRIORITY);
             }
 
             return target.ToString();
         }
         set
         {
-            if (linkA == null)
-                linkW.SetPath(value);
+            if(this.linkA==null)
+            {
+                this.linkW.SetPath(value);
+            }
             else
-                linkA.SetPath(value);
+            {
+                this.linkA.SetPath(value);
+            }
         }
     }
 
@@ -122,19 +157,28 @@ internal class ShellLink : IDisposable
     {
         get
         {
-            var path = new StringBuilder(260, 260);
-            if (linkA == null)
-                linkW.GetWorkingDirectory(path, path.Capacity);
+            var path=new System.Text.StringBuilder(260,260);
+            if(this.linkA==null)
+            {
+                this.linkW.GetWorkingDirectory(path,path.Capacity);
+            }
             else
-                linkA.GetWorkingDirectory(path, path.Capacity);
+            {
+                this.linkA.GetWorkingDirectory(path,path.Capacity);
+            }
+
             return path.ToString();
         }
         set
         {
-            if (linkA == null)
-                linkW.SetWorkingDirectory(value);
+            if(this.linkA==null)
+            {
+                this.linkW.SetWorkingDirectory(value);
+            }
             else
-                linkA.SetWorkingDirectory(value);
+            {
+                this.linkA.SetWorkingDirectory(value);
+            }
         }
     }
 
@@ -142,19 +186,28 @@ internal class ShellLink : IDisposable
     {
         get
         {
-            var description = new StringBuilder(1024, 1024);
-            if (linkA == null)
-                linkW.GetDescription(description, description.Capacity);
+            var description=new System.Text.StringBuilder(1024,1024);
+            if(this.linkA==null)
+            {
+                this.linkW.GetDescription(description,description.Capacity);
+            }
             else
-                linkA.GetDescription(description, description.Capacity);
+            {
+                this.linkA.GetDescription(description,description.Capacity);
+            }
+
             return description.ToString();
         }
         set
         {
-            if (linkA == null)
-                linkW.SetDescription(value);
+            if(this.linkA==null)
+            {
+                this.linkW.SetDescription(value);
+            }
             else
-                linkA.SetDescription(value);
+            {
+                this.linkA.SetDescription(value);
+            }
         }
     }
 
@@ -162,19 +215,28 @@ internal class ShellLink : IDisposable
     {
         get
         {
-            var arguments = new StringBuilder(260, 260);
-            if (linkA == null)
-                linkW.GetArguments(arguments, arguments.Capacity);
+            var arguments=new System.Text.StringBuilder(260,260);
+            if(this.linkA==null)
+            {
+                this.linkW.GetArguments(arguments,arguments.Capacity);
+            }
             else
-                linkA.GetArguments(arguments, arguments.Capacity);
+            {
+                this.linkA.GetArguments(arguments,arguments.Capacity);
+            }
+
             return arguments.ToString();
         }
         set
         {
-            if (linkA == null)
-                linkW.SetArguments(value);
+            if(this.linkA==null)
+            {
+                this.linkW.SetArguments(value);
+            }
             else
-                linkA.SetArguments(value);
+            {
+                this.linkA.SetArguments(value);
+            }
         }
     }
 
@@ -182,405 +244,454 @@ internal class ShellLink : IDisposable
     {
         get
         {
-            uint cmd = 0;
-            if (linkA == null)
-                linkW.GetShowCmd(out cmd);
+            uint cmd=0;
+            if(this.linkA==null)
+            {
+                this.linkW.GetShowCmd(out cmd);
+            }
             else
-                linkA.GetShowCmd(out cmd);
-            return (LinkDisplayMode) cmd;
+            {
+                this.linkA.GetShowCmd(out cmd);
+            }
+
+            return(LinkDisplayMode)cmd;
         }
         set
         {
-            if (linkA == null)
-                linkW.SetShowCmd((uint) value);
+            if(this.linkA==null)
+            {
+                this.linkW.SetShowCmd((uint)value);
+            }
             else
-                linkA.SetShowCmd((uint) value);
+            {
+                this.linkA.SetShowCmd((uint)value);
+            }
         }
     }
 
-    internal Keys HotKey
+    internal System.Windows.Forms.Keys HotKey
     {
         get
         {
-            short key = 0;
-            if (linkA == null)
-                linkW.GetHotkey(out key);
+            short key=0;
+            if(this.linkA==null)
+            {
+                this.linkW.GetHotkey(out key);
+            }
             else
-                linkA.GetHotkey(out key);
-            return (Keys) key;
+            {
+                this.linkA.GetHotkey(out key);
+            }
+
+            return(System.Windows.Forms.Keys)key;
         }
         set
         {
-            if (linkA == null)
-                linkW.SetHotkey((short) value);
+            if(this.linkA==null)
+            {
+                this.linkW.SetHotkey((short)value);
+            }
             else
-                linkA.SetHotkey((short) value);
+            {
+                this.linkA.SetHotkey((short)value);
+            }
         }
     }
 
     public void Dispose()
     {
-        if (linkW != null)
+        if(this.linkW!=null)
         {
-            Marshal.ReleaseComObject(linkW);
-            linkW = null;
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(this.linkW);
+            this.linkW=null;
         }
 
-        if (linkA != null)
+        if(this.linkA!=null)
         {
-            Marshal.ReleaseComObject(linkA);
-            linkA = null;
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(this.linkA);
+            this.linkA=null;
         }
     }
 
     ~ShellLink()
     {
-        Dispose();
+        this.Dispose();
     }
 
     internal void Save()
     {
-        Save(ShortCutFile);
+        this.Save(this.ShortCutFile);
     }
 
     internal void Save(string linkFile
     )
     {
-        if (linkA == null)
+        if(this.linkA==null)
         {
-            ((IPersistFile) linkW).Save(linkFile, true);
-            ShortCutFile = linkFile;
+            ((IPersistFile)this.linkW).Save(linkFile,true);
+            this.ShortCutFile=linkFile;
         }
         else
         {
-            ((IPersistFile) linkA).Save(linkFile, true);
-            ShortCutFile = linkFile;
+            ((IPersistFile)this.linkA).Save(linkFile,true);
+            this.ShortCutFile=linkFile;
         }
     }
 
     internal void Open(string linkFile)
     {
-        Open(linkFile,
-            IntPtr.Zero,
-            EShellLinkResolveFlags.SLR_ANY_MATCH |
-            EShellLinkResolveFlags.SLR_NO_UI, 1);
+        this.Open(linkFile,
+            System.IntPtr.Zero,
+            EShellLinkResolveFlags.SLR_ANY_MATCH|
+            EShellLinkResolveFlags.SLR_NO_UI,1);
     }
 
     internal void Open(
-        string linkFile,
-        IntPtr hWnd,
+        string                 linkFile,
+        System.IntPtr          hWnd,
         EShellLinkResolveFlags resolveFlags
     )
     {
-        Open(linkFile,
+        this.Open(linkFile,
             hWnd,
             resolveFlags,
             1);
     }
 
     internal void Open(
-        string linkFile,
-        IntPtr hWnd,
+        string                 linkFile,
+        System.IntPtr          hWnd,
         EShellLinkResolveFlags resolveFlags,
-        ushort timeOut
+        ushort                 timeOut
     )
     {
         uint flags;
 
-        if ((resolveFlags & EShellLinkResolveFlags.SLR_NO_UI)
-            == EShellLinkResolveFlags.SLR_NO_UI)
-            flags = (uint) ((int) resolveFlags | (timeOut << 16));
-        else
-            flags = (uint) resolveFlags;
-
-        if (linkA == null)
+        if((resolveFlags&EShellLinkResolveFlags.SLR_NO_UI)
+            ==EShellLinkResolveFlags.SLR_NO_UI)
         {
-            ((IPersistFile) linkW).Load(linkFile, 0); //STGM_DIRECT)
-            linkW.Resolve(hWnd, flags);
-            ShortCutFile = linkFile;
+            flags=(uint)((int)resolveFlags|timeOut<<16);
         }
         else
         {
-            ((IPersistFile) linkA).Load(linkFile, 0); //STGM_DIRECT)
-            linkA.Resolve(hWnd, flags);
-            ShortCutFile = linkFile;
+            flags=(uint)resolveFlags;
+        }
+
+        if(this.linkA==null)
+        {
+            ((IPersistFile)this.linkW).Load(linkFile,0);//STGM_DIRECT)
+            this.linkW.Resolve(hWnd,flags);
+            this.ShortCutFile=linkFile;
+        }
+        else
+        {
+            ((IPersistFile)this.linkA).Load(linkFile,0);//STGM_DIRECT)
+            this.linkA.Resolve(hWnd,flags);
+            this.ShortCutFile=linkFile;
         }
     }
 
-    [ComImport]
-    [Guid("0000010C-0000-0000-C000-000000000046")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    private interface IPersist
+    [System.Runtime.InteropServices.ComImportAttribute,
+     System.Runtime.InteropServices.GuidAttribute("0000010C-0000-0000-C000-000000000046"),
+     System.Runtime.InteropServices.InterfaceTypeAttribute(System.Runtime.InteropServices.ComInterfaceType
+         .InterfaceIsIUnknown),]
+    interface IPersist
     {
-        [PreserveSig]
-        void GetClassID(out Guid pClassID);
+        [System.Runtime.InteropServices.PreserveSigAttribute]
+        void GetClassID(out System.Guid pClassID);
     }
 
-    [ComImport]
-    [Guid("0000010B-0000-0000-C000-000000000046")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    private interface IPersistFile
+    [System.Runtime.InteropServices.ComImportAttribute,
+     System.Runtime.InteropServices.GuidAttribute("0000010B-0000-0000-C000-000000000046"),
+     System.Runtime.InteropServices.InterfaceTypeAttribute(System.Runtime.InteropServices.ComInterfaceType
+         .InterfaceIsIUnknown),]
+    interface IPersistFile
     {
-        [PreserveSig]
-        void GetClassID(out Guid pClassID);
+        [System.Runtime.InteropServices.PreserveSigAttribute]
+        void GetClassID(out System.Guid pClassID);
 
         void IsDirty();
 
         void Load(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszFileName,
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszFileName,
             uint dwMode);
 
         void Save(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszFileName,
-            [MarshalAs(UnmanagedType.Bool)] bool fRemember);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszFileName,
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
+            bool fRemember);
 
         void SaveCompleted(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszFileName);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszFileName);
 
         void GetCurFile(
-            [MarshalAs(UnmanagedType.LPWStr)] out string ppszFileName);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            out string ppszFileName);
     }
 
-    [ComImport]
-    [Guid("000214EE-0000-0000-C000-000000000046")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    private interface IShellLinkA
+    [System.Runtime.InteropServices.ComImportAttribute,
+     System.Runtime.InteropServices.GuidAttribute("000214EE-0000-0000-C000-000000000046"),
+     System.Runtime.InteropServices.InterfaceTypeAttribute(System.Runtime.InteropServices.ComInterfaceType
+         .InterfaceIsIUnknown),]
+    interface IShellLinkA
     {
         void GetPath(
-            [Out] [MarshalAs(UnmanagedType.LPStr)] StringBuilder pszFile,
-            int cchMaxPath,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr),] 
+            System.Text.StringBuilder pszFile,
+            int                   cchMaxPath,
             ref _WIN32_FIND_DATAA pfd,
-            uint fFlags);
+            uint                  fFlags);
 
-        void GetIDList(out IntPtr ppidl);
+        void GetIDList(out System.IntPtr ppidl);
 
-        void SetIDList(IntPtr pidl);
+        void SetIDList(System.IntPtr pidl);
 
         void GetDescription(
-            [Out] [MarshalAs(UnmanagedType.LPStr)] StringBuilder pszFile,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr),] 
+            System.Text.StringBuilder pszFile,
             int cchMaxName);
 
         void SetDescription(
-            [MarshalAs(UnmanagedType.LPStr)] string pszName);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+            string pszName);
 
         void GetWorkingDirectory(
-            [Out] [MarshalAs(UnmanagedType.LPStr)] StringBuilder pszDir,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr),] 
+            System.Text.StringBuilder pszDir,
             int cchMaxPath);
 
         void SetWorkingDirectory(
-            [MarshalAs(UnmanagedType.LPStr)] string pszDir);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+            string pszDir);
 
         void GetArguments(
-            [Out] [MarshalAs(UnmanagedType.LPStr)] StringBuilder pszArgs,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr),] 
+            System.Text.StringBuilder pszArgs,
             int cchMaxPath);
 
         void SetArguments(
-            [MarshalAs(UnmanagedType.LPStr)] string pszArgs);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+            string pszArgs);
 
         void GetHotkey(out short pwHotkey);
-        void SetHotkey(short pwHotkey);
+        void SetHotkey(short     pwHotkey);
 
         void GetShowCmd(out uint piShowCmd);
-        void SetShowCmd(uint piShowCmd);
+        void SetShowCmd(uint     piShowCmd);
 
         void GetIconLocation(
-            [Out] [MarshalAs(UnmanagedType.LPStr)] StringBuilder pszIconPath,
-            int cchIconPath,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr),] 
+            System.Text.StringBuilder pszIconPath,
+            int     cchIconPath,
             out int piIcon);
 
         void SetIconLocation(
-            [MarshalAs(UnmanagedType.LPStr)] string pszIconPath,
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+            string pszIconPath,
             int iIcon);
 
         void SetRelativePath(
-            [MarshalAs(UnmanagedType.LPStr)] string pszPathRel,
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+            string pszPathRel,
             uint dwReserved);
 
         void Resolve(
-            IntPtr hWnd,
-            uint fFlags);
+            System.IntPtr hWnd,
+            uint          fFlags);
 
         void SetPath(
-            [MarshalAs(UnmanagedType.LPStr)] string pszFile);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+            string pszFile);
     }
 
 
-    [ComImport]
-    [Guid("000214F9-0000-0000-C000-000000000046")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    private interface IShellLinkW
+    [System.Runtime.InteropServices.ComImportAttribute,
+     System.Runtime.InteropServices.GuidAttribute("000214F9-0000-0000-C000-000000000046"),
+     System.Runtime.InteropServices.InterfaceTypeAttribute(System.Runtime.InteropServices.ComInterfaceType
+         .InterfaceIsIUnknown),]
+    interface IShellLinkW
     {
         void GetPath(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszFile,
-            int cchMaxPath,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr),] 
+            System.Text.StringBuilder pszFile,
+            int                   cchMaxPath,
             ref _WIN32_FIND_DATAW pfd,
-            uint fFlags);
+            uint                  fFlags);
 
-        void GetIDList(out IntPtr ppidl);
-        void SetIDList(IntPtr pidl);
+        void GetIDList(out System.IntPtr ppidl);
+        void SetIDList(System.IntPtr     pidl);
 
         void GetDescription(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszFile,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr),] 
+            System.Text.StringBuilder pszFile,
             int cchMaxName);
 
         void SetDescription(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszName);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszName);
 
         void GetWorkingDirectory(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszDir,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr),] 
+            System.Text.StringBuilder pszDir,
             int cchMaxPath);
 
         void SetWorkingDirectory(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszDir);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszDir);
 
         void GetArguments(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszArgs,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr),] 
+            System.Text.StringBuilder pszArgs,
             int cchMaxPath);
 
         void SetArguments(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszArgs);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszArgs);
 
         void GetHotkey(out short pwHotkey);
-        void SetHotkey(short pwHotkey);
+        void SetHotkey(short     pwHotkey);
 
         void GetShowCmd(out uint piShowCmd);
-        void SetShowCmd(uint piShowCmd);
+        void SetShowCmd(uint     piShowCmd);
 
         void GetIconLocation(
-            [Out] [MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder pszIconPath,
-            int cchIconPath,
+            [System.Runtime.InteropServices.OutAttribute,
+             System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr),] 
+            System.Text.StringBuilder pszIconPath,
+            int     cchIconPath,
             out int piIcon);
 
         void SetIconLocation(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszIconPath,
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszIconPath,
             int iIcon);
 
         void SetRelativePath(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszPathRel,
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszPathRel,
             uint dwReserved);
 
         void Resolve(
-            IntPtr hWnd,
-            uint fFlags);
+            System.IntPtr hWnd,
+            uint          fFlags);
 
         void SetPath(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszFile);
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+            string pszFile);
     }
 
-    [Guid("00021401-0000-0000-C000-000000000046")]
-    [ClassInterface(ClassInterfaceType.None)]
-    [ComImport]
-    private class CShellLink
+    [System.Runtime.InteropServices.GuidAttribute("00021401-0000-0000-C000-000000000046"),
+     System.Runtime.InteropServices.ClassInterfaceAttribute(System.Runtime.InteropServices.ClassInterfaceType.None),
+     System.Runtime.InteropServices.ComImportAttribute,]
+    class CShellLink {}
+
+    enum EShellLinkGP:uint
     {
+        SLGP_SHORTPATH=1,SLGP_UNCPRIORITY=2,
     }
 
-    private enum EShellLinkGP : uint
+    [System.FlagsAttribute]
+    enum EShowWindowFlags:uint
     {
-        SLGP_SHORTPATH = 1,
-        SLGP_UNCPRIORITY = 2
-    }
-
-    [Flags]
-    private enum EShowWindowFlags : uint
-    {
-        SW_HIDE = 0,
-        SW_SHOWNORMAL = 1,
-        SW_NORMAL = 1,
-        SW_SHOWMINIMIZED = 2,
-        SW_SHOWMAXIMIZED = 3,
-        SW_MAXIMIZE = 3,
-        SW_SHOWNOACTIVATE = 4,
-        SW_SHOW = 5,
-        SW_MINIMIZE = 6,
-        SW_SHOWMINNOACTIVE = 7,
-        SW_SHOWNA = 8,
-        SW_RESTORE = 9,
-        SW_SHOWDEFAULT = 10,
-        SW_MAX = 10
+        SW_HIDE           =0,SW_SHOWNORMAL   =1,SW_NORMAL  =1,
+        SW_SHOWMINIMIZED  =2,SW_SHOWMAXIMIZED=3,SW_MAXIMIZE=3,
+        SW_SHOWNOACTIVATE =4,SW_SHOW         =5,SW_MINIMIZE=6,
+        SW_SHOWMINNOACTIVE=7,SW_SHOWNA       =8,SW_RESTORE =9,
+        SW_SHOWDEFAULT    =10,SW_MAX         =10,
     }
 
 
-    [StructLayout(LayoutKind.Sequential, Pack = 4, Size = 0, CharSet = CharSet.Unicode)]
-    private struct _WIN32_FIND_DATAW
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=4,
+        Size=0,                                           CharSet=System.Runtime.InteropServices.CharSet.Unicode)]
+    struct _WIN32_FIND_DATAW
     {
-        internal readonly uint dwFileAttributes;
+        internal readonly uint      dwFileAttributes;
         internal readonly _FILETIME ftCreationTime;
         internal readonly _FILETIME ftLastAccessTime;
         internal readonly _FILETIME ftLastWriteTime;
-        internal readonly uint nFileSizeHigh;
-        internal readonly uint nFileSizeLow;
-        internal readonly uint dwReserved0;
-        internal readonly uint dwReserved1;
+        internal readonly uint      nFileSizeHigh;
+        internal readonly uint      nFileSizeLow;
+        internal readonly uint      dwReserved0;
+        internal readonly uint      dwReserved1;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)] // MAX_PATH
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+            SizeConst=260)]// MAX_PATH
         internal readonly string cFileName;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 14)]
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+            SizeConst=14)]
         internal readonly string cAlternateFileName;
     }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 4, Size = 0, CharSet = CharSet.Ansi)]
-    private struct _WIN32_FIND_DATAA
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=4,
+        Size=0,                                           CharSet=System.Runtime.InteropServices.CharSet.Ansi)]
+    struct _WIN32_FIND_DATAA
     {
-        internal readonly uint dwFileAttributes;
+        internal readonly uint      dwFileAttributes;
         internal readonly _FILETIME ftCreationTime;
         internal readonly _FILETIME ftLastAccessTime;
         internal readonly _FILETIME ftLastWriteTime;
-        internal readonly uint nFileSizeHigh;
-        internal readonly uint nFileSizeLow;
-        internal readonly uint dwReserved0;
-        internal readonly uint dwReserved1;
+        internal readonly uint      nFileSizeHigh;
+        internal readonly uint      nFileSizeLow;
+        internal readonly uint      dwReserved0;
+        internal readonly uint      dwReserved1;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)] // MAX_PATH
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+            SizeConst=260)]// MAX_PATH
         internal readonly string cFileName;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 14)]
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+            SizeConst=14)]
         internal readonly string cAlternateFileName;
     }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 4, Size = 0)]
-    private struct _FILETIME
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=4,
+        Size=0)]
+    struct _FILETIME
     {
         internal readonly uint dwLowDateTime;
         internal readonly uint dwHighDateTime;
     }
 
-    private class NativeMethods
+    class NativeMethods
     {
-        [DllImport("Shell32", CharSet = CharSet.Auto)]
-        internal static extern int ExtractIconEx([MarshalAs(UnmanagedType.LPTStr)] string lpszFile,
-            int nIconIndex,
-            IntPtr[] phIconLarge,
-            IntPtr[] phIconSmall,
-            int nIcons);
+        [System.Runtime.InteropServices.DllImportAttribute("Shell32",
+            CharSet=System.Runtime.InteropServices.CharSet.Auto)]
+        internal static extern int ExtractIconEx(
+            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPTStr)]
+            string lpszFile,
+            int             nIconIndex,
+            System.IntPtr[] phIconLarge,
+            System.IntPtr[] phIconSmall,
+            int             nIcons);
 
-        [DllImport("user32")]
-        internal static extern int DestroyIcon(IntPtr hIcon);
+        [System.Runtime.InteropServices.DllImportAttribute("user32")]
+        internal static extern int DestroyIcon(System.IntPtr hIcon);
     }
 
-    [Flags]
-    internal enum EShellLinkResolveFlags : uint
+    [System.FlagsAttribute]
+    internal enum EShellLinkResolveFlags:uint
     {
-        SLR_ANY_MATCH = 0x2,
-        SLR_INVOKE_MSI = 0x80,
-        SLR_NOLINKINFO = 0x40,
-        SLR_NO_UI = 0x1,
-        SLR_NO_UI_WITH_MSG_PUMP = 0x101,
-        SLR_NOUPDATE = 0x8,
-        SLR_NOSEARCH = 0x10,
-        SLR_NOTRACK = 0x20,
-        SLR_UPDATE = 0x4
+        SLR_ANY_MATCH=0x2,SLR_INVOKE_MSI         =0x80,SLR_NOLINKINFO=0x40,
+        SLR_NO_UI    =0x1,SLR_NO_UI_WITH_MSG_PUMP=0x101,SLR_NOUPDATE =0x8,
+        SLR_NOSEARCH =0x10,SLR_NOTRACK           =0x20,SLR_UPDATE    =0x4,
     }
 
-    internal enum LinkDisplayMode : uint
+    internal enum LinkDisplayMode:uint
     {
-        edmNormal = EShowWindowFlags.SW_NORMAL,
-        edmMinimized = EShowWindowFlags.SW_SHOWMINNOACTIVE,
-        edmMaximized = EShowWindowFlags.SW_MAXIMIZE
+        edmNormal   =EShowWindowFlags.SW_NORMAL,edmMinimized=EShowWindowFlags.SW_SHOWMINNOACTIVE,
+        edmMaximized=EShowWindowFlags.SW_MAXIMIZE,
     }
 }

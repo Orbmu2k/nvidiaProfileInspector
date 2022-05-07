@@ -1,161 +1,168 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+﻿namespace nspector.Native.WINAPI;
 
-namespace nspector.Native.WINAPI;
-
-[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-internal struct THUMBBUTTON
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,
+    CharSet=System.Runtime.InteropServices.CharSet.Unicode)]
+struct THUMBBUTTON
 {
-    private readonly int dwMask;
-    private readonly uint iId;
-    private readonly uint iBitmap;
-    private readonly IntPtr hIcon;
+    readonly int           dwMask;
+    readonly uint          iId;
+    readonly uint          iBitmap;
+    readonly System.IntPtr hIcon;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-    private readonly string szTip;
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=260)]
+    readonly string szTip;
 
-    private readonly int dwFlags;
+    readonly int dwFlags;
 }
 
-[Flags]
-internal enum THBF
+[System.FlagsAttribute]
+enum THBF
 {
-    THBF_ENABLED = 0x0000,
-    THBF_DISABLED = 0x0001,
-    THBF_DISMISSONCLICK = 0x0002,
-    THBF_NOBACKGROUND = 0x0004,
-    THBF_HIDDEN = 0x0008
+    THBF_ENABLED     =0x0000,THBF_DISABLED=0x0001,THBF_DISMISSONCLICK=0x0002,
+    THBF_NOBACKGROUND=0x0004,THBF_HIDDEN  =0x0008,
 }
 
-[Flags]
-internal enum THB
+[System.FlagsAttribute]
+enum THB
 {
-    THB_BITMAP = 0x0001,
-    THB_ICON = 0x0002,
-    THB_TOOLTIP = 0x0004,
-    THB_FLAGS = 0x0008,
-    THBN_CLICKED = 0x1800
+    THB_BITMAP=0x0001,THB_ICON    =0x0002,THB_TOOLTIP=0x0004,
+    THB_FLAGS =0x0008,THBN_CLICKED=0x1800,
 }
 
-internal enum TBPFLAG
+enum TBPFLAG
 {
-    TBPF_NOPROGRESS = 0,
-    TBPF_INDETERMINATE = 0x1,
-    TBPF_NORMAL = 0x2,
-    TBPF_ERROR = 0x4,
-    TBPF_PAUSED = 0x8
+    TBPF_NOPROGRESS=0,TBPF_INDETERMINATE=0x1,TBPF_NORMAL=0x2,
+    TBPF_ERROR     =0x4,TBPF_PAUSED     =0x8,
 }
 
-internal enum TBATFLAG
+enum TBATFLAG
 {
-    TBATF_USEMDITHUMBNAIL = 0x1,
-    TBATF_USEMDILIVEPREVIEW = 0x2
+    TBATF_USEMDITHUMBNAIL=0x1,TBATF_USEMDILIVEPREVIEW=0x2,
 }
 
-[ComImport]
-[Guid("EA1AFB91-9E28-4B86-90E9-9E9F8A5EEFAF")]
-[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-internal interface ITaskbarList3
+[System.Runtime.InteropServices.ComImportAttribute,
+ System.Runtime.InteropServices.GuidAttribute("EA1AFB91-9E28-4B86-90E9-9E9F8A5EEFAF"),
+ System.Runtime.InteropServices.InterfaceTypeAttribute(System.Runtime.InteropServices.ComInterfaceType
+     .InterfaceIsIUnknown),]
+interface ITaskbarList3
 {
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
     void HrInit();
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void AddTab([In] IntPtr hwnd);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void AddTab([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void DeleteTab([In] IntPtr hwnd);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void DeleteTab([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void ActivateTab([In] IntPtr hwnd);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void ActivateTab([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void SetActiveAlt([In] IntPtr hwnd);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void SetActiveAlt([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void MarkFullscreenWindow([In] IntPtr hwnd,
-        [In] [MarshalAs(UnmanagedType.Bool)] bool fFullscreen);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void MarkFullscreenWindow([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute,
+         System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool),] 
+        bool fFullscreen);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void SetProgressValue([In] IntPtr hwnd,
-        [In] ulong ullCompleted,
-        [In] ulong ullTotal);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void SetProgressValue([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute]
+        ulong ullCompleted,
+        [System.Runtime.InteropServices.InAttribute]
+        ulong ullTotal);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void SetProgressState([In] IntPtr hwnd,
-        [In] TBPFLAG tbpFlags);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void SetProgressState([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute]
+        TBPFLAG tbpFlags);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void RegisterTab([In] IntPtr hwndTab,
-        [In] IntPtr hwndMDI);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void RegisterTab([System.Runtime.InteropServices.InAttribute]System.IntPtr hwndTab,
+        [System.Runtime.InteropServices.InAttribute]
+        System.IntPtr hwndMDI);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void UnregisterTab([In] IntPtr hwndTab);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void UnregisterTab([System.Runtime.InteropServices.InAttribute]System.IntPtr hwndTab);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void SetTabOrder([In] IntPtr hwndTab,
-        [In] IntPtr hwndInsertBefore);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void SetTabOrder([System.Runtime.InteropServices.InAttribute]System.IntPtr hwndTab,
+        [System.Runtime.InteropServices.InAttribute]
+        System.IntPtr hwndInsertBefore);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void SetTabActive([In] IntPtr hwndTab,
-        [In] IntPtr hwndMDI,
-        [In] TBATFLAG tbatFlags);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void SetTabActive([System.Runtime.InteropServices.InAttribute]System.IntPtr hwndTab,
+        [System.Runtime.InteropServices.InAttribute]
+        System.IntPtr hwndMDI,
+        [System.Runtime.InteropServices.InAttribute]
+        TBATFLAG tbatFlags);
 
     //preliminary
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void ThumbBarAddButtons([In] IntPtr hwnd,
-        [In] uint cButtons,
-        [In] IntPtr pButton);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void ThumbBarAddButtons([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute]
+        uint cButtons,
+        [System.Runtime.InteropServices.InAttribute]
+        System.IntPtr pButton);
 
     ///* [size_is][in] */ __RPC__in_ecount_full(cButtons) LPTHUMBBUTTON pButton);
 
     //preliminary
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void ThumbBarUpdateButtons([In] IntPtr hwnd,
-        [In] uint cButtons,
-        [In] IntPtr pButton);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void ThumbBarUpdateButtons([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute]
+        uint cButtons,
+        [System.Runtime.InteropServices.InAttribute]
+        System.IntPtr pButton);
 
     ///* [size_is][in] */ __RPC__in_ecount_full(cButtons) LPTHUMBBUTTON pButton);
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void ThumbBarSetImageList([In] IntPtr hwnd,
-        [In] IntPtr himl);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void ThumbBarSetImageList([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute]
+        System.IntPtr himl);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void SetOverlayIcon([In] IntPtr hwnd,
-        [In] IntPtr hIcon,
-        [In] [MarshalAs(UnmanagedType.LPWStr)] string pszDescription);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void SetOverlayIcon([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute]
+        System.IntPtr hIcon,
+        [System.Runtime.InteropServices.InAttribute,
+         System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr),] 
+        string pszDescription);
 
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void SetThumbnailTooltip([In] IntPtr hwnd,
-        [In] [MarshalAs(UnmanagedType.LPWStr)] string pszTip);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void SetThumbnailTooltip([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute,
+         System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr),] 
+        string pszTip);
 
     //preliminary
-    [MethodImpl(MethodImplOptions.InternalCall,
-        MethodCodeType = MethodCodeType.Runtime)]
-    void SetThumbnailClip([In] IntPtr hwnd,
-        [In] IntPtr prcClip);
+    [System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.InternalCall,
+        MethodCodeType=System.Runtime.CompilerServices.MethodCodeType.Runtime)]
+    void SetThumbnailClip([System.Runtime.InteropServices.InAttribute]System.IntPtr hwnd,
+        [System.Runtime.InteropServices.InAttribute]
+        System.IntPtr prcClip);
 }
 
-[ComImport]
-[Guid("56FDF344-FD6D-11d0-958A-006097C9A090")]
-internal class TaskbarList
-{
-}
+[System.Runtime.InteropServices.ComImportAttribute,
+ System.Runtime.InteropServices.GuidAttribute("56FDF344-FD6D-11d0-958A-006097C9A090"),]
+class TaskbarList {}

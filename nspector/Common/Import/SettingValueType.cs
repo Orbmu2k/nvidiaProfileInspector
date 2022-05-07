@@ -2,8 +2,6 @@
 
 public enum SettingValueType
 {
-    Dword,
-    AnsiString,
-    String,
-    Binary
+    Dword,AnsiString,String,
+    Binary,
 }

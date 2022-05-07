@@ -1,164 +1,85 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿#region
+
+using Enumerable=System.Linq.Enumerable;
+
+#endregion
 
 namespace nspector.Native.NVAPI2;
 
 public enum NvAPI_Status
 {
-    NVAPI_OK = 0,
-    NVAPI_ERROR = -1,
-    NVAPI_LIBRARY_NOT_FOUND = -2,
-    NVAPI_NO_IMPLEMENTATION = -3,
-    NVAPI_API_NOT_INITIALIZED = -4,
-    NVAPI_INVALID_ARGUMENT = -5,
-    NVAPI_NVIDIA_DEVICE_NOT_FOUND = -6,
-    NVAPI_END_ENUMERATION = -7,
-    NVAPI_INVALID_HANDLE = -8,
-    NVAPI_INCOMPATIBLE_STRUCT_VERSION = -9,
-    NVAPI_HANDLE_INVALIDATED = -10,
-    NVAPI_OPENGL_CONTEXT_NOT_CURRENT = -11,
-    NVAPI_INVALID_POINTER = -14,
-    NVAPI_NO_GL_EXPERT = -12,
-    NVAPI_INSTRUMENTATION_DISABLED = -13,
-    NVAPI_NO_GL_NSIGHT = -15,
-    NVAPI_EXPECTED_LOGICAL_GPU_HANDLE = -100,
-    NVAPI_EXPECTED_PHYSICAL_GPU_HANDLE = -101,
-    NVAPI_EXPECTED_DISPLAY_HANDLE = -102,
-    NVAPI_INVALID_COMBINATION = -103,
-    NVAPI_NOT_SUPPORTED = -104,
-    NVAPI_PORTID_NOT_FOUND = -105,
-    NVAPI_EXPECTED_UNATTACHED_DISPLAY_HANDLE = -106,
-    NVAPI_INVALID_PERF_LEVEL = -107,
-    NVAPI_DEVICE_BUSY = -108,
-    NVAPI_NV_PERSIST_FILE_NOT_FOUND = -109,
-    NVAPI_PERSIST_DATA_NOT_FOUND = -110,
-    NVAPI_EXPECTED_TV_DISPLAY = -111,
-    NVAPI_EXPECTED_TV_DISPLAY_ON_DCONNECTOR = -112,
-    NVAPI_NO_ACTIVE_SLI_TOPOLOGY = -113,
-    NVAPI_SLI_RENDERING_MODE_NOTALLOWED = -114,
-    NVAPI_EXPECTED_DIGITAL_FLAT_PANEL = -115,
-    NVAPI_ARGUMENT_EXCEED_MAX_SIZE = -116,
-    NVAPI_DEVICE_SWITCHING_NOT_ALLOWED = -117,
-    NVAPI_TESTING_CLOCKS_NOT_SUPPORTED = -118,
-    NVAPI_UNKNOWN_UNDERSCAN_CONFIG = -119,
-    NVAPI_TIMEOUT_RECONFIGURING_GPU_TOPO = -120,
-    NVAPI_DATA_NOT_FOUND = -121,
-    NVAPI_EXPECTED_ANALOG_DISPLAY = -122,
-    NVAPI_NO_VIDLINK = -123,
-    NVAPI_REQUIRES_REBOOT = -124,
-    NVAPI_INVALID_HYBRID_MODE = -125,
-    NVAPI_MIXED_TARGET_TYPES = -126,
-    NVAPI_SYSWOW64_NOT_SUPPORTED = -127,
-    NVAPI_IMPLICIT_SET_GPU_TOPOLOGY_CHANGE_NOT_ALLOWED = -128,
-    NVAPI_REQUEST_USER_TO_CLOSE_NON_MIGRATABLE_APPS = -129,
-    NVAPI_OUT_OF_MEMORY = -130,
-    NVAPI_WAS_STILL_DRAWING = -131,
-    NVAPI_FILE_NOT_FOUND = -132,
-    NVAPI_TOO_MANY_UNIQUE_STATE_OBJECTS = -133,
-    NVAPI_INVALID_CALL = -134,
-    NVAPI_D3D10_1_LIBRARY_NOT_FOUND = -135,
-    NVAPI_FUNCTION_NOT_FOUND = -136,
-    NVAPI_INVALID_USER_PRIVILEGE = -137,
-    NVAPI_EXPECTED_NON_PRIMARY_DISPLAY_HANDLE = -138,
-    NVAPI_EXPECTED_COMPUTE_GPU_HANDLE = -139,
-    NVAPI_STEREO_NOT_INITIALIZED = -140,
-    NVAPI_STEREO_REGISTRY_ACCESS_FAILED = -141,
-    NVAPI_STEREO_REGISTRY_PROFILE_TYPE_NOT_SUPPORTED = -142,
-    NVAPI_STEREO_REGISTRY_VALUE_NOT_SUPPORTED = -143,
-    NVAPI_STEREO_NOT_ENABLED = -144,
-    NVAPI_STEREO_NOT_TURNED_ON = -145,
-    NVAPI_STEREO_INVALID_DEVICE_INTERFACE = -146,
-    NVAPI_STEREO_PARAMETER_OUT_OF_RANGE = -147,
-    NVAPI_STEREO_FRUSTUM_ADJUST_MODE_NOT_SUPPORTED = -148,
-    NVAPI_TOPO_NOT_POSSIBLE = -149,
-    NVAPI_MODE_CHANGE_FAILED = -150,
-    NVAPI_D3D11_LIBRARY_NOT_FOUND = -151,
-    NVAPI_INVALID_ADDRESS = -152,
-    NVAPI_STRING_TOO_SMALL = -153,
-    NVAPI_MATCHING_DEVICE_NOT_FOUND = -154,
-    NVAPI_DRIVER_RUNNING = -155,
-    NVAPI_DRIVER_NOTRUNNING = -156,
-    NVAPI_ERROR_DRIVER_RELOAD_REQUIRED = -157,
-    NVAPI_SET_NOT_ALLOWED = -158,
-    NVAPI_ADVANCED_DISPLAY_TOPOLOGY_REQUIRED = -159,
-    NVAPI_SETTING_NOT_FOUND = -160,
-    NVAPI_SETTING_SIZE_TOO_LARGE = -161,
-    NVAPI_TOO_MANY_SETTINGS_IN_PROFILE = -162,
-    NVAPI_PROFILE_NOT_FOUND = -163,
-    NVAPI_PROFILE_NAME_IN_USE = -164,
-    NVAPI_PROFILE_NAME_EMPTY = -165,
-    NVAPI_EXECUTABLE_NOT_FOUND = -166,
-    NVAPI_EXECUTABLE_ALREADY_IN_USE = -167,
-    NVAPI_DATATYPE_MISMATCH = -168,
-    NVAPI_PROFILE_REMOVED = -169,
-    NVAPI_UNREGISTERED_RESOURCE = -170,
-    NVAPI_ID_OUT_OF_RANGE = -171,
-    NVAPI_DISPLAYCONFIG_VALIDATION_FAILED = -172,
-    NVAPI_DPMST_CHANGED = -173,
-    NVAPI_INSUFFICIENT_BUFFER = -174,
-    NVAPI_ACCESS_DENIED = -175,
-    NVAPI_MOSAIC_NOT_ACTIVE = -176,
-    NVAPI_SHARE_RESOURCE_RELOCATED = -177,
-    NVAPI_REQUEST_USER_TO_DISABLE_DWM = -178,
-    NVAPI_D3D_DEVICE_LOST = -179,
-    NVAPI_INVALID_CONFIGURATION = -180,
-    NVAPI_STEREO_HANDSHAKE_NOT_DONE = -181,
-    NVAPI_EXECUTABLE_PATH_IS_AMBIGUOUS = -182,
-    NVAPI_DEFAULT_STEREO_PROFILE_IS_NOT_DEFINED = -183,
-    NVAPI_DEFAULT_STEREO_PROFILE_DOES_NOT_EXIST = -184,
-    NVAPI_CLUSTER_ALREADY_EXISTS = -185,
-    NVAPI_DPMST_DISPLAY_ID_EXPECTED = -186,
-    NVAPI_INVALID_DISPLAY_ID = -187,
-    NVAPI_STREAM_IS_OUT_OF_SYNC = -188,
-    NVAPI_INCOMPATIBLE_AUDIO_DRIVER = -189,
-    NVAPI_VALUE_ALREADY_SET = -190,
-    NVAPI_TIMEOUT = -191,
-    NVAPI_GPU_WORKSTATION_FEATURE_INCOMPLETE = -192,
-    NVAPI_STEREO_INIT_ACTIVATION_NOT_DONE = -193,
-    NVAPI_SYNC_NOT_ACTIVE = -194,
-    NVAPI_SYNC_MASTER_NOT_FOUND = -195,
-    NVAPI_INVALID_SYNC_TOPOLOGY = -196,
-    NVAPI_ECID_SIGN_ALGO_UNSUPPORTED = -197,
-    NVAPI_ECID_KEY_VERIFICATION_FAILED = -198
+    NVAPI_OK=0,NVAPI_ERROR=-1,NVAPI_LIBRARY_NOT_FOUND=-2,
+    NVAPI_NO_IMPLEMENTATION=-3,NVAPI_API_NOT_INITIALIZED=-4,NVAPI_INVALID_ARGUMENT=-5,
+    NVAPI_NVIDIA_DEVICE_NOT_FOUND=-6,NVAPI_END_ENUMERATION=-7,NVAPI_INVALID_HANDLE=-8,
+    NVAPI_INCOMPATIBLE_STRUCT_VERSION=-9,NVAPI_HANDLE_INVALIDATED=-10,NVAPI_OPENGL_CONTEXT_NOT_CURRENT=-11,
+    NVAPI_INVALID_POINTER=-14,NVAPI_NO_GL_EXPERT=-12,NVAPI_INSTRUMENTATION_DISABLED=-13,
+    NVAPI_NO_GL_NSIGHT=-15,NVAPI_EXPECTED_LOGICAL_GPU_HANDLE=-100,NVAPI_EXPECTED_PHYSICAL_GPU_HANDLE=-101,
+    NVAPI_EXPECTED_DISPLAY_HANDLE=-102,NVAPI_INVALID_COMBINATION=-103,NVAPI_NOT_SUPPORTED=-104,
+    NVAPI_PORTID_NOT_FOUND=-105,NVAPI_EXPECTED_UNATTACHED_DISPLAY_HANDLE=-106,NVAPI_INVALID_PERF_LEVEL=-107,
+    NVAPI_DEVICE_BUSY=-108,NVAPI_NV_PERSIST_FILE_NOT_FOUND=-109,NVAPI_PERSIST_DATA_NOT_FOUND=-110,
+    NVAPI_EXPECTED_TV_DISPLAY=-111,NVAPI_EXPECTED_TV_DISPLAY_ON_DCONNECTOR=-112,NVAPI_NO_ACTIVE_SLI_TOPOLOGY=-113,
+    NVAPI_SLI_RENDERING_MODE_NOTALLOWED=-114,NVAPI_EXPECTED_DIGITAL_FLAT_PANEL=-115,NVAPI_ARGUMENT_EXCEED_MAX_SIZE=-116,
+    NVAPI_DEVICE_SWITCHING_NOT_ALLOWED=-117,NVAPI_TESTING_CLOCKS_NOT_SUPPORTED=-118,NVAPI_UNKNOWN_UNDERSCAN_CONFIG=-119,
+    NVAPI_TIMEOUT_RECONFIGURING_GPU_TOPO=-120,NVAPI_DATA_NOT_FOUND=-121,NVAPI_EXPECTED_ANALOG_DISPLAY=-122,
+    NVAPI_NO_VIDLINK=-123,NVAPI_REQUIRES_REBOOT=-124,NVAPI_INVALID_HYBRID_MODE=-125,
+    NVAPI_MIXED_TARGET_TYPES=-126,NVAPI_SYSWOW64_NOT_SUPPORTED=-127,
+    NVAPI_IMPLICIT_SET_GPU_TOPOLOGY_CHANGE_NOT_ALLOWED=-128,NVAPI_REQUEST_USER_TO_CLOSE_NON_MIGRATABLE_APPS=-129,
+    NVAPI_OUT_OF_MEMORY=-130,NVAPI_WAS_STILL_DRAWING=-131,NVAPI_FILE_NOT_FOUND=-132,
+    NVAPI_TOO_MANY_UNIQUE_STATE_OBJECTS=-133,NVAPI_INVALID_CALL=-134,NVAPI_D3D10_1_LIBRARY_NOT_FOUND=-135,
+    NVAPI_FUNCTION_NOT_FOUND=-136,NVAPI_INVALID_USER_PRIVILEGE=-137,NVAPI_EXPECTED_NON_PRIMARY_DISPLAY_HANDLE=-138,
+    NVAPI_EXPECTED_COMPUTE_GPU_HANDLE=-139,NVAPI_STEREO_NOT_INITIALIZED=-140,NVAPI_STEREO_REGISTRY_ACCESS_FAILED=-141,
+    NVAPI_STEREO_REGISTRY_PROFILE_TYPE_NOT_SUPPORTED=-142,NVAPI_STEREO_REGISTRY_VALUE_NOT_SUPPORTED=-143,
+    NVAPI_STEREO_NOT_ENABLED=-144,NVAPI_STEREO_NOT_TURNED_ON=-145,NVAPI_STEREO_INVALID_DEVICE_INTERFACE=-146,
+    NVAPI_STEREO_PARAMETER_OUT_OF_RANGE=-147,NVAPI_STEREO_FRUSTUM_ADJUST_MODE_NOT_SUPPORTED=-148,
+    NVAPI_TOPO_NOT_POSSIBLE=-149,NVAPI_MODE_CHANGE_FAILED=-150,NVAPI_D3D11_LIBRARY_NOT_FOUND=-151,
+    NVAPI_INVALID_ADDRESS=-152,NVAPI_STRING_TOO_SMALL=-153,NVAPI_MATCHING_DEVICE_NOT_FOUND=-154,
+    NVAPI_DRIVER_RUNNING=-155,NVAPI_DRIVER_NOTRUNNING=-156,NVAPI_ERROR_DRIVER_RELOAD_REQUIRED=-157,
+    NVAPI_SET_NOT_ALLOWED=-158,NVAPI_ADVANCED_DISPLAY_TOPOLOGY_REQUIRED=-159,NVAPI_SETTING_NOT_FOUND=-160,
+    NVAPI_SETTING_SIZE_TOO_LARGE=-161,NVAPI_TOO_MANY_SETTINGS_IN_PROFILE=-162,NVAPI_PROFILE_NOT_FOUND=-163,
+    NVAPI_PROFILE_NAME_IN_USE=-164,NVAPI_PROFILE_NAME_EMPTY=-165,NVAPI_EXECUTABLE_NOT_FOUND=-166,
+    NVAPI_EXECUTABLE_ALREADY_IN_USE=-167,NVAPI_DATATYPE_MISMATCH=-168,NVAPI_PROFILE_REMOVED=-169,
+    NVAPI_UNREGISTERED_RESOURCE=-170,NVAPI_ID_OUT_OF_RANGE=-171,NVAPI_DISPLAYCONFIG_VALIDATION_FAILED=-172,
+    NVAPI_DPMST_CHANGED=-173,NVAPI_INSUFFICIENT_BUFFER=-174,NVAPI_ACCESS_DENIED=-175,
+    NVAPI_MOSAIC_NOT_ACTIVE=-176,NVAPI_SHARE_RESOURCE_RELOCATED=-177,NVAPI_REQUEST_USER_TO_DISABLE_DWM=-178,
+    NVAPI_D3D_DEVICE_LOST=-179,NVAPI_INVALID_CONFIGURATION=-180,NVAPI_STEREO_HANDSHAKE_NOT_DONE=-181,
+    NVAPI_EXECUTABLE_PATH_IS_AMBIGUOUS=-182,NVAPI_DEFAULT_STEREO_PROFILE_IS_NOT_DEFINED=-183,
+    NVAPI_DEFAULT_STEREO_PROFILE_DOES_NOT_EXIST=-184,NVAPI_CLUSTER_ALREADY_EXISTS=-185,
+    NVAPI_DPMST_DISPLAY_ID_EXPECTED=-186,NVAPI_INVALID_DISPLAY_ID=-187,NVAPI_STREAM_IS_OUT_OF_SYNC=-188,
+    NVAPI_INCOMPATIBLE_AUDIO_DRIVER=-189,NVAPI_VALUE_ALREADY_SET=-190,NVAPI_TIMEOUT=-191,
+    NVAPI_GPU_WORKSTATION_FEATURE_INCOMPLETE=-192,NVAPI_STEREO_INIT_ACTIVATION_NOT_DONE=-193,NVAPI_SYNC_NOT_ACTIVE=-194,
+    NVAPI_SYNC_MASTER_NOT_FOUND=-195,NVAPI_INVALID_SYNC_TOPOLOGY=-196,NVAPI_ECID_SIGN_ALGO_UNSUPPORTED=-197,
+    NVAPI_ECID_KEY_VERIFICATION_FAILED=-198,
 }
 
-internal enum NVDRS_SETTING_TYPE
+enum NVDRS_SETTING_TYPE
 {
-    NVDRS_DWORD_TYPE,
-    NVDRS_BINARY_TYPE,
-    NVDRS_STRING_TYPE,
-    NVDRS_WSTRING_TYPE
+    NVDRS_DWORD_TYPE,NVDRS_BINARY_TYPE,NVDRS_STRING_TYPE,
+    NVDRS_WSTRING_TYPE,
 }
 
-internal enum NVDRS_SETTING_LOCATION
+enum NVDRS_SETTING_LOCATION
 {
-    NVDRS_CURRENT_PROFILE_LOCATION,
-    NVDRS_GLOBAL_PROFILE_LOCATION,
-    NVDRS_BASE_PROFILE_LOCATION,
-    NVDRS_DEFAULT_PROFILE_LOCATION
+    NVDRS_CURRENT_PROFILE_LOCATION,NVDRS_GLOBAL_PROFILE_LOCATION,NVDRS_BASE_PROFILE_LOCATION,
+    NVDRS_DEFAULT_PROFILE_LOCATION,
 }
 
-[Flags]
-public enum NVDRS_GPU_SUPPORT : uint
+[System.FlagsAttribute]
+public enum NVDRS_GPU_SUPPORT:uint
 {
-    None,
-    Geforce,
-    Quadro,
-    Nvs
+    None,Geforce,Quadro,
+    Nvs,
 }
 
-[StructLayout(LayoutKind.Sequential, Pack = 8)]
-internal struct NVDRS_SETTING_VALUES
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=8)]
+struct NVDRS_SETTING_VALUES
 {
-    public uint version;
-    public uint numSettingValues;
-    public NVDRS_SETTING_TYPE settingType;
+    public uint                version;
+    public uint                numSettingValues;
+    public NVDRS_SETTING_TYPE  settingType;
     public NVDRS_SETTING_UNION defaultValue;
 
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int) NvapiDrsWrapper.NVAPI_SETTING_MAX_VALUES)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_SETTING_MAX_VALUES)]
     public NVDRS_SETTING_UNION[] settingValues;
 }
 
@@ -224,41 +145,46 @@ internal struct NVDRS_SETTING_VALUES
 //    private string stringRaw;
 
 //}
-[StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode, Size = 4100)]
-internal struct NVDRS_SETTING_UNION
+[System.Runtime.InteropServices.StructLayoutAttribute(     System.Runtime.InteropServices.LayoutKind.Sequential,Pack=8,
+    CharSet=System.Runtime.InteropServices.CharSet.Unicode,Size=4100)]
+struct NVDRS_SETTING_UNION
 {
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4100)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray,
+        SizeConst=4100)]
     public byte[] rawData;
 
     public byte[] binaryValue
     {
         get
         {
-            var length = BitConverter.ToUInt32(rawData, 0);
-            var tmpData = new byte[length];
-            Buffer.BlockCopy(rawData, 4, tmpData, 0, (int) length);
+            var length =System.BitConverter.ToUInt32(this.rawData,0);
+            var tmpData=new byte[length];
+            System.Buffer.BlockCopy(this.rawData,4,tmpData,0,(int)length);
             return tmpData;
         }
 
         set
         {
-            rawData = new byte[4100];
-            if (value != null)
+            this.rawData=new byte[4100];
+            if(value!=null)
             {
-                Buffer.BlockCopy(BitConverter.GetBytes(value.Length), 0, rawData, 0, 4);
-                Buffer.BlockCopy(value, 0, rawData, 4, value.Length);
+                System.Buffer.BlockCopy(System.BitConverter.GetBytes(value.Length),0,this.rawData,0,4);
+                System.Buffer.BlockCopy(value,                                     0,this.rawData,4,value.Length);
             }
         }
     }
 
     public uint dwordValue
     {
-        get => BitConverter.ToUInt32(rawData, 0);
+        get
+        {
+            return System.BitConverter.ToUInt32(this.rawData,0);
+        }
 
         set
         {
-            rawData = new byte[4100];
-            Buffer.BlockCopy(BitConverter.GetBytes(value), 0, rawData, 0, 4);
+            this.rawData=new byte[4100];
+            System.Buffer.BlockCopy(System.BitConverter.GetBytes(value),0,this.rawData,0,4);
         }
     }
 
@@ -266,17 +192,17 @@ internal struct NVDRS_SETTING_UNION
     {
         get
         {
-            return Encoding.Unicode.GetString(rawData).Split(new[]
+            return System.Text.Encoding.Unicode.GetString(this.rawData).Split(new[]
             {
-                '\0'
-            }, 2)[0];
+                '\0',
+            },2)[0];
         }
 
         set
         {
-            rawData = new byte[4100];
-            var bytesRaw = Encoding.Unicode.GetBytes(value);
-            Buffer.BlockCopy(bytesRaw, 0, rawData, 0, bytesRaw.Length);
+            this.rawData=new byte[4100];
+            var bytesRaw=System.Text.Encoding.Unicode.GetBytes(value);
+            System.Buffer.BlockCopy(bytesRaw,0,this.rawData,0,bytesRaw.Length);
         }
     }
 
@@ -284,579 +210,675 @@ internal struct NVDRS_SETTING_UNION
     {
         get
         {
-            return Encoding.Default.GetString(rawData).Split(new[]
+            return System.Text.Encoding.Default.GetString(this.rawData).Split(new[]
             {
-                '\0'
-            }, 2)[0];
+                '\0',
+            },2)[0];
         }
 
         set
         {
-            rawData = new byte[4100];
-            var bytesRaw = Encoding.Default.GetBytes(value);
-            Buffer.BlockCopy(bytesRaw, 0, rawData, 0, bytesRaw.Length);
+            this.rawData=new byte[4100];
+            var bytesRaw=System.Text.Encoding.Default.GetBytes(value);
+            System.Buffer.BlockCopy(bytesRaw,0,this.rawData,0,bytesRaw.Length);
         }
     }
 }
 
-[StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
-internal struct NVDRS_SETTING
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=8,
+    CharSet=System.Runtime.InteropServices.CharSet.Unicode)]
+struct NVDRS_SETTING
 {
     public uint version;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string settingName;
 
-    public uint settingId;
-    public NVDRS_SETTING_TYPE settingType;
+    public uint                   settingId;
+    public NVDRS_SETTING_TYPE     settingType;
     public NVDRS_SETTING_LOCATION settingLocation;
-    public uint isCurrentPredefined;
-    public uint isPredefinedValid;
-    public NVDRS_SETTING_UNION predefinedValue;
-    public NVDRS_SETTING_UNION currentValue;
+    public uint                   isCurrentPredefined;
+    public uint                   isPredefinedValid;
+    public NVDRS_SETTING_UNION    predefinedValue;
+    public NVDRS_SETTING_UNION    currentValue;
 }
 
-[StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
-internal struct NVDRS_APPLICATION_V1
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=8,
+    CharSet=System.Runtime.InteropServices.CharSet.Unicode)]
+struct NVDRS_APPLICATION_V1
 {
     public uint version;
     public uint isPredefined;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string appName;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string userFriendlyName;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string launcher;
 }
 
-[StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
-internal struct NVDRS_APPLICATION_V2
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=8,
+    CharSet=System.Runtime.InteropServices.CharSet.Unicode)]
+struct NVDRS_APPLICATION_V2
 {
     public uint version;
     public uint isPredefined;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string appName;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string userFriendlyName;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string launcher;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string fileInFolder;
 }
 
-[StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
-internal struct NVDRS_APPLICATION_V3
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=8,
+    CharSet=System.Runtime.InteropServices.CharSet.Unicode)]
+struct NVDRS_APPLICATION_V3
 {
     public uint isMetro
     {
-        get => bitvector1 & 1;
-        set => bitvector1 = value | bitvector1;
+        get
+        {
+            return this.bitvector1&1;
+        }
+        set
+        {
+            this.bitvector1=value|this.bitvector1;
+        }
     }
 
     public uint version;
     public uint isPredefined;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string appName;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string userFriendlyName;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string launcher;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string fileInFolder;
 
-    private uint bitvector1;
+    uint bitvector1;
 }
 
-[StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
-internal struct NVDRS_PROFILE
+[System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=8,
+    CharSet=System.Runtime.InteropServices.CharSet.Unicode)]
+struct NVDRS_PROFILE
 {
     public uint version;
 
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr,
+        SizeConst=(int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
     public string profileName;
 
     public NVDRS_GPU_SUPPORT gpuSupport;
-    public uint isPredefined;
-    public uint numOfApps;
-    public uint numOfSettings;
+    public uint              isPredefined;
+    public uint              numOfApps;
+    public uint              numOfSettings;
 }
 
-internal class NvapiDrsWrapper
+class NvapiDrsWrapper
 {
     static NvapiDrsWrapper()
     {
-        var lib = LoadLibrary(GetDllName());
-        if (lib != IntPtr.Zero)
+        var lib=NvapiDrsWrapper.LoadLibrary(NvapiDrsWrapper.GetDllName());
+        if(lib!=System.IntPtr.Zero)
         {
-            nvapi_QueryInterface = GetDelegateOfFunction<nvapi_QueryInterfaceDelegate>(lib, "nvapi_QueryInterface");
-            if (nvapi_QueryInterface != null)
+            NvapiDrsWrapper.nvapi_QueryInterface
+                =NvapiDrsWrapper.GetDelegateOfFunction<nvapi_QueryInterfaceDelegate>(lib,"nvapi_QueryInterface");
+            if(NvapiDrsWrapper.nvapi_QueryInterface!=null)
             {
-                GetDelegate(0x0150E828, out NvAPI_Initialize);
-                if (NvAPI_Initialize() == NvAPI_Status.NVAPI_OK)
+                NvapiDrsWrapper.GetDelegate(0x0150E828,out NvapiDrsWrapper.NvAPI_Initialize);
+                if(NvapiDrsWrapper.NvAPI_Initialize()==NvAPI_Status.NVAPI_OK)
                 {
-                    #region FUNCTION IDs
+                #region FUNCTION IDs
 
-                    GetDelegate(0x0150E828, out Initialize);
-                    GetDelegate(0xD22BDD7E, out Unload);
-                    GetDelegate(0x6C2D048C, out GetErrorMessage);
-                    GetDelegate(0x01053FA5, out GetInterfaceVersionString);
-                    GetDelegate(0x2926AAAD, out SYS_GetDriverAndBranchVersion);
-                    GetDelegate(0x0694D52E, out DRS_CreateSession);
-                    GetDelegate(0xDAD9CFF8, out DRS_DestroySession);
-                    GetDelegate(0x375DBD6B, out DRS_LoadSettings);
-                    GetDelegate(0xFCBC7E14, out DRS_SaveSettings);
-                    GetDelegate(0xD3EDE889, out DRS_LoadSettingsFromFile);
-                    GetDelegate(0x2BE25DF8, out DRS_SaveSettingsToFile);
-                    GetDelegate(0xC63C045B, out DRS_LoadSettingsFromFileEx);
-                    GetDelegate(0x1267818E, out DRS_SaveSettingsToFileEx);
-                    GetDelegate(0xCC176068, out DRS_CreateProfile);
-                    GetDelegate(0x17093206, out DRS_DeleteProfile);
-                    GetDelegate(0x1C89C5DF, out DRS_SetCurrentGlobalProfile);
-                    GetDelegate(0x617BFF9F, out DRS_GetCurrentGlobalProfile);
-                    GetDelegate(0x61CD6FD6, out DRS_GetProfileInfo);
-                    GetDelegate(0x16ABD3A9, out DRS_SetProfileInfo);
-                    GetDelegate(0x7E4A9A0B, out DRS_FindProfileByName);
-                    GetDelegate(0xBC371EE0, out DRS_EnumProfiles);
-                    GetDelegate(0x1DAE4FBC, out DRS_GetNumProfiles);
-                    GetDelegate(0x4347A9DE, out DRS_CreateApplication);
-                    GetDelegate(0xC5EA85A1, out DRS_DeleteApplicationEx);
-                    GetDelegate(0x2C694BC6, out DRS_DeleteApplication);
-                    GetDelegate(0xED1F8C69, out DRS_GetApplicationInfo);
-                    GetDelegate(0x7FA2173A, out DRS_EnumApplicationsInternal);
-                    GetDelegate(0xEEE566B2, out DRS_FindApplicationByName);
-                    GetDelegate(0x577DD202, out DRS_SetSetting);
-                    GetDelegate(0x73BF8338, out DRS_GetSetting);
-                    GetDelegate(0xAE3039DA, out DRS_EnumSettingsInternal);
-                    GetDelegate(0xF020614A, out DRS_EnumAvailableSettingIdsInternal);
-                    GetDelegate(0x2EC39F90, out DRS_EnumAvailableSettingValuesInternal);
-                    GetDelegate(0xCB7309CD, out DRS_GetSettingIdFromName);
-                    GetDelegate(0xD61CBE6E, out DRS_GetSettingNameFromId);
-                    GetDelegate(0xE4A26362, out DRS_DeleteProfileSetting);
-                    GetDelegate(0x5927B094, out DRS_RestoreAllDefaults);
-                    GetDelegate(0xFA5F6134, out DRS_RestoreProfileDefault);
-                    GetDelegate(0x53F0381E, out DRS_RestoreProfileDefaultSetting);
-                    GetDelegate(0xDA8466A0, out DRS_GetBaseProfile);
+                    NvapiDrsWrapper.GetDelegate(0x0150E828,out NvapiDrsWrapper.Initialize);
+                    NvapiDrsWrapper.GetDelegate(0xD22BDD7E,out NvapiDrsWrapper.Unload);
+                    NvapiDrsWrapper.GetDelegate(0x6C2D048C,out NvapiDrsWrapper.GetErrorMessage);
+                    NvapiDrsWrapper.GetDelegate(0x01053FA5,out NvapiDrsWrapper.GetInterfaceVersionString);
+                    NvapiDrsWrapper.GetDelegate(0x2926AAAD,out NvapiDrsWrapper.SYS_GetDriverAndBranchVersion);
+                    NvapiDrsWrapper.GetDelegate(0x0694D52E,out NvapiDrsWrapper.DRS_CreateSession);
+                    NvapiDrsWrapper.GetDelegate(0xDAD9CFF8,out NvapiDrsWrapper.DRS_DestroySession);
+                    NvapiDrsWrapper.GetDelegate(0x375DBD6B,out NvapiDrsWrapper.DRS_LoadSettings);
+                    NvapiDrsWrapper.GetDelegate(0xFCBC7E14,out NvapiDrsWrapper.DRS_SaveSettings);
+                    NvapiDrsWrapper.GetDelegate(0xD3EDE889,out NvapiDrsWrapper.DRS_LoadSettingsFromFile);
+                    NvapiDrsWrapper.GetDelegate(0x2BE25DF8,out NvapiDrsWrapper.DRS_SaveSettingsToFile);
+                    NvapiDrsWrapper.GetDelegate(0xC63C045B,out NvapiDrsWrapper.DRS_LoadSettingsFromFileEx);
+                    NvapiDrsWrapper.GetDelegate(0x1267818E,out NvapiDrsWrapper.DRS_SaveSettingsToFileEx);
+                    NvapiDrsWrapper.GetDelegate(0xCC176068,out NvapiDrsWrapper.DRS_CreateProfile);
+                    NvapiDrsWrapper.GetDelegate(0x17093206,out NvapiDrsWrapper.DRS_DeleteProfile);
+                    NvapiDrsWrapper.GetDelegate(0x1C89C5DF,out NvapiDrsWrapper.DRS_SetCurrentGlobalProfile);
+                    NvapiDrsWrapper.GetDelegate(0x617BFF9F,out NvapiDrsWrapper.DRS_GetCurrentGlobalProfile);
+                    NvapiDrsWrapper.GetDelegate(0x61CD6FD6,out NvapiDrsWrapper.DRS_GetProfileInfo);
+                    NvapiDrsWrapper.GetDelegate(0x16ABD3A9,out NvapiDrsWrapper.DRS_SetProfileInfo);
+                    NvapiDrsWrapper.GetDelegate(0x7E4A9A0B,out NvapiDrsWrapper.DRS_FindProfileByName);
+                    NvapiDrsWrapper.GetDelegate(0xBC371EE0,out NvapiDrsWrapper.DRS_EnumProfiles);
+                    NvapiDrsWrapper.GetDelegate(0x1DAE4FBC,out NvapiDrsWrapper.DRS_GetNumProfiles);
+                    NvapiDrsWrapper.GetDelegate(0x4347A9DE,out NvapiDrsWrapper.DRS_CreateApplication);
+                    NvapiDrsWrapper.GetDelegate(0xC5EA85A1,out NvapiDrsWrapper.DRS_DeleteApplicationEx);
+                    NvapiDrsWrapper.GetDelegate(0x2C694BC6,out NvapiDrsWrapper.DRS_DeleteApplication);
+                    NvapiDrsWrapper.GetDelegate(0xED1F8C69,out NvapiDrsWrapper.DRS_GetApplicationInfo);
+                    NvapiDrsWrapper.GetDelegate(0x7FA2173A,out NvapiDrsWrapper.DRS_EnumApplicationsInternal);
+                    NvapiDrsWrapper.GetDelegate(0xEEE566B2,out NvapiDrsWrapper.DRS_FindApplicationByName);
+                    NvapiDrsWrapper.GetDelegate(0x577DD202,out NvapiDrsWrapper.DRS_SetSetting);
+                    NvapiDrsWrapper.GetDelegate(0x73BF8338,out NvapiDrsWrapper.DRS_GetSetting);
+                    NvapiDrsWrapper.GetDelegate(0xAE3039DA,out NvapiDrsWrapper.DRS_EnumSettingsInternal);
+                    NvapiDrsWrapper.GetDelegate(0xF020614A,out NvapiDrsWrapper.DRS_EnumAvailableSettingIdsInternal);
+                    NvapiDrsWrapper.GetDelegate(0x2EC39F90,out NvapiDrsWrapper.DRS_EnumAvailableSettingValuesInternal);
+                    NvapiDrsWrapper.GetDelegate(0xCB7309CD,out NvapiDrsWrapper.DRS_GetSettingIdFromName);
+                    NvapiDrsWrapper.GetDelegate(0xD61CBE6E,out NvapiDrsWrapper.DRS_GetSettingNameFromId);
+                    NvapiDrsWrapper.GetDelegate(0xE4A26362,out NvapiDrsWrapper.DRS_DeleteProfileSetting);
+                    NvapiDrsWrapper.GetDelegate(0x5927B094,out NvapiDrsWrapper.DRS_RestoreAllDefaults);
+                    NvapiDrsWrapper.GetDelegate(0xFA5F6134,out NvapiDrsWrapper.DRS_RestoreProfileDefault);
+                    NvapiDrsWrapper.GetDelegate(0x53F0381E,out NvapiDrsWrapper.DRS_RestoreProfileDefaultSetting);
+                    NvapiDrsWrapper.GetDelegate(0xDA8466A0,out NvapiDrsWrapper.DRS_GetBaseProfile);
 
-                    #endregion
+                #endregion
                 }
             }
         }
     }
 
 
-    private NvapiDrsWrapper()
+    NvapiDrsWrapper() {}
+
+    [System.Runtime.InteropServices.DllImportAttribute("kernel32.dll")]
+    static extern System.IntPtr LoadLibrary(string dllname);
+
+    [System.Runtime.InteropServices.DllImportAttribute("kernel32.dll")]
+    static extern System.IntPtr GetProcAddress(System.IntPtr hModule,string procname);
+
+    static uint MAKE_NVAPI_VERSION<T>(int version)
+        =>(uint)(System.Runtime.InteropServices.Marshal.SizeOf(typeof(T))|version<<16);
+
+    static string GetDllName()
     {
+        if(System.IntPtr.Size==4)
+        {
+            return"nvapi.dll";
+        }
+
+        return"nvapi64.dll";
     }
 
-    [DllImport("kernel32.dll")]
-    private static extern IntPtr LoadLibrary(string dllname);
-
-    [DllImport("kernel32.dll")]
-    private static extern IntPtr GetProcAddress(IntPtr hModule, string procname);
-
-    private static uint MAKE_NVAPI_VERSION<T>(int version)
+    static void GetDelegate<T>(uint id,out T newDelegate) where T:class
     {
-        return (uint) (Marshal.SizeOf(typeof(T)) | (version << 16));
-    }
-
-    private static string GetDllName()
-    {
-        if (IntPtr.Size == 4)
-            return "nvapi.dll";
-        return "nvapi64.dll";
-    }
-
-    private static void GetDelegate<T>(uint id, out T newDelegate) where T : class
-    {
-        var ptr = nvapi_QueryInterface(id);
-        if (ptr != IntPtr.Zero)
-            newDelegate = Marshal.GetDelegateForFunctionPointer(ptr, typeof(T)) as T;
+        var ptr=NvapiDrsWrapper.nvapi_QueryInterface(id);
+        if(ptr!=System.IntPtr.Zero)
+        {
+            newDelegate=System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer(ptr,typeof(T)) as T;
+        }
         else
-            newDelegate = null;
+        {
+            newDelegate=null;
+        }
     }
 
-    private static T GetDelegateOfFunction<T>(IntPtr pLib, string signature)
+    static T GetDelegateOfFunction<T>(System.IntPtr pLib,string signature)
     {
-        var FuncT = default(T);
-        var FuncAddr = GetProcAddress(pLib, signature);
-        if (FuncAddr != IntPtr.Zero)
-            FuncT = (T) (object) Marshal.GetDelegateForFunctionPointer(FuncAddr, typeof(T));
+        var FuncT   =default(T);
+        var FuncAddr=NvapiDrsWrapper.GetProcAddress(pLib,signature);
+        if(FuncAddr!=System.IntPtr.Zero)
+        {
+            FuncT=(T)(object)System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer(FuncAddr,typeof(T));
+        }
+
         return FuncT;
     }
 
-    #region CONSTANTS
+#region CONSTANTS
 
-    public const uint NVAPI_GENERIC_STRING_MAX = 4096;
-    public const uint NVAPI_LONG_STRING_MAX = 256;
-    public const uint NVAPI_SHORT_STRING_MAX = 64;
-    public const uint NVAPI_MAX_PHYSICAL_GPUS = 64;
-    public const uint NVAPI_UNICODE_STRING_MAX = 2048;
-    public const uint NVAPI_BINARY_DATA_MAX = 4096;
+    public const uint NVAPI_GENERIC_STRING_MAX=4096;
+    public const uint NVAPI_LONG_STRING_MAX   =256;
+    public const uint NVAPI_SHORT_STRING_MAX  =64;
+    public const uint NVAPI_MAX_PHYSICAL_GPUS =64;
+    public const uint NVAPI_UNICODE_STRING_MAX=2048;
+    public const uint NVAPI_BINARY_DATA_MAX   =4096;
 
-    public const uint NVAPI_SETTING_MAX_VALUES = 100;
-    public static uint NVDRS_SETTING_VALUES_VER = MAKE_NVAPI_VERSION<NVDRS_SETTING_VALUES>(1);
-    public static uint NVDRS_SETTING_VER = MAKE_NVAPI_VERSION<NVDRS_SETTING>(1);
-    public static uint NVDRS_APPLICATION_VER_V1 = MAKE_NVAPI_VERSION<NVDRS_APPLICATION_V1>(1);
-    public static uint NVDRS_APPLICATION_VER_V2 = MAKE_NVAPI_VERSION<NVDRS_APPLICATION_V2>(2);
-    public static uint NVDRS_APPLICATION_VER_V3 = MAKE_NVAPI_VERSION<NVDRS_APPLICATION_V3>(3);
-    public static uint NVDRS_APPLICATION_VER = NVDRS_APPLICATION_VER_V3;
-    public static uint NVDRS_PROFILE_VER = MAKE_NVAPI_VERSION<NVDRS_PROFILE>(1);
+    public const  uint NVAPI_SETTING_MAX_VALUES=100;
+    public static uint NVDRS_SETTING_VALUES_VER=NvapiDrsWrapper.MAKE_NVAPI_VERSION<NVDRS_SETTING_VALUES>(1);
+    public static uint NVDRS_SETTING_VER       =NvapiDrsWrapper.MAKE_NVAPI_VERSION<NVDRS_SETTING>(1);
+    public static uint NVDRS_APPLICATION_VER_V1=NvapiDrsWrapper.MAKE_NVAPI_VERSION<NVDRS_APPLICATION_V1>(1);
+    public static uint NVDRS_APPLICATION_VER_V2=NvapiDrsWrapper.MAKE_NVAPI_VERSION<NVDRS_APPLICATION_V2>(2);
+    public static uint NVDRS_APPLICATION_VER_V3=NvapiDrsWrapper.MAKE_NVAPI_VERSION<NVDRS_APPLICATION_V3>(3);
+    public static uint NVDRS_APPLICATION_VER   =NvapiDrsWrapper.NVDRS_APPLICATION_VER_V3;
+    public static uint NVDRS_PROFILE_VER       =NvapiDrsWrapper.MAKE_NVAPI_VERSION<NVDRS_PROFILE>(1);
 
-    public const uint OGL_IMPLICIT_GPU_AFFINITY_NUM_VALUES = 1;
-    public const uint CUDA_EXCLUDED_GPUS_NUM_VALUES = 1;
-    public const string D3DOGL_GPU_MAX_POWER_DEFAULTPOWER = "0";
-    public const uint D3DOGL_GPU_MAX_POWER_NUM_VALUES = 1;
-    public const string D3DOGL_GPU_MAX_POWER_DEFAULT = D3DOGL_GPU_MAX_POWER_DEFAULTPOWER;
+    public const uint   OGL_IMPLICIT_GPU_AFFINITY_NUM_VALUES=1;
+    public const uint   CUDA_EXCLUDED_GPUS_NUM_VALUES       =1;
+    public const string D3DOGL_GPU_MAX_POWER_DEFAULTPOWER   ="0";
+    public const uint   D3DOGL_GPU_MAX_POWER_NUM_VALUES     =1;
+    public const string D3DOGL_GPU_MAX_POWER_DEFAULT        =NvapiDrsWrapper.D3DOGL_GPU_MAX_POWER_DEFAULTPOWER;
 
-    #endregion
+#endregion
 
-    #region DELEGATES
+#region DELEGATES
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate IntPtr nvapi_QueryInterfaceDelegate(uint id);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    delegate System.IntPtr nvapi_QueryInterfaceDelegate(uint id);
 
-    private static readonly nvapi_QueryInterfaceDelegate nvapi_QueryInterface;
+    static readonly nvapi_QueryInterfaceDelegate nvapi_QueryInterface;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
     public delegate NvAPI_Status NvAPI_InitializeDelegate();
 
     public static readonly NvAPI_InitializeDelegate NvAPI_Initialize;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
     public delegate NvAPI_Status InitializeDelegate();
 
     public static readonly InitializeDelegate Initialize;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
     public delegate NvAPI_Status UnloadDelegate();
 
     public static readonly UnloadDelegate Unload;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
     public delegate NvAPI_Status GetErrorMessageDelegate(NvAPI_Status nr,
-        [MarshalAs(UnmanagedType.LPStr, SizeConst = (int) NVAPI_SHORT_STRING_MAX)]
-        StringBuilder szDesc);
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr,
+            SizeConst=(int)NVAPI_SHORT_STRING_MAX)]
+        System.Text.StringBuilder szDesc);
 
     public static readonly GetErrorMessageDelegate GetErrorMessage;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
     public delegate NvAPI_Status GetInterfaceVersionStringDelegate(
-        [MarshalAs(UnmanagedType.LPStr, SizeConst = (int) NVAPI_SHORT_STRING_MAX)]
-        StringBuilder szDesc);
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr,
+            SizeConst=(int)NVAPI_SHORT_STRING_MAX)]
+        System.Text.StringBuilder szDesc);
 
     public static readonly GetInterfaceVersionStringDelegate GetInterfaceVersionString;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
     public delegate NvAPI_Status SYS_GetDriverAndBranchVersionDelegate(ref uint pDriverVersion,
-        [MarshalAs(UnmanagedType.LPStr, SizeConst = (int) NVAPI_SHORT_STRING_MAX)]
-        StringBuilder szBuildBranchString);
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr,
+            SizeConst=(int)NVAPI_SHORT_STRING_MAX)]
+        System.Text.StringBuilder szBuildBranchString);
 
     public static readonly SYS_GetDriverAndBranchVersionDelegate SYS_GetDriverAndBranchVersion;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_CreateSessionDelegate(ref IntPtr phSession);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_CreateSessionDelegate(ref System.IntPtr phSession);
 
     public static readonly DRS_CreateSessionDelegate DRS_CreateSession;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_DestroySessionDelegate(IntPtr hSession);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_DestroySessionDelegate(System.IntPtr hSession);
 
     public static readonly DRS_DestroySessionDelegate DRS_DestroySession;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_LoadSettingsDelegate(IntPtr hSession);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_LoadSettingsDelegate(System.IntPtr hSession);
 
     public static readonly DRS_LoadSettingsDelegate DRS_LoadSettings;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SaveSettingsDelegate(IntPtr hSession);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_SaveSettingsDelegate(System.IntPtr hSession);
 
     public static readonly DRS_SaveSettingsDelegate DRS_SaveSettings;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_LoadSettingsFromFileDelegate(IntPtr hSession,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder fileName);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_LoadSettingsFromFileDelegate(System.IntPtr hSession,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder fileName);
 
     public static readonly DRS_LoadSettingsFromFileDelegate DRS_LoadSettingsFromFile;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SaveSettingsToFileDelegate(IntPtr hSession,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder fileName);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_SaveSettingsToFileDelegate(System.IntPtr hSession,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder fileName);
 
     public static readonly DRS_SaveSettingsToFileDelegate DRS_SaveSettingsToFile;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_LoadSettingsFromFileExDelegate(IntPtr hSession,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder fileName);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_LoadSettingsFromFileExDelegate(System.IntPtr hSession,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder fileName);
 
     public static readonly DRS_LoadSettingsFromFileExDelegate DRS_LoadSettingsFromFileEx;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SaveSettingsToFileExDelegate(IntPtr hSession,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder fileName);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_SaveSettingsToFileExDelegate(System.IntPtr hSession,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder fileName);
 
     public static readonly DRS_SaveSettingsToFileExDelegate DRS_SaveSettingsToFileEx;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_CreateProfileDelegate(IntPtr hSession, ref NVDRS_PROFILE pProfileInfo,
-        ref IntPtr phProfile);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_CreateProfileDelegate(System.IntPtr hSession,ref NVDRS_PROFILE pProfileInfo,
+        ref System.IntPtr                                                phProfile);
 
     public static readonly DRS_CreateProfileDelegate DRS_CreateProfile;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_DeleteProfileDelegate(IntPtr hSession, IntPtr hProfile);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_DeleteProfileDelegate(System.IntPtr hSession,System.IntPtr hProfile);
 
     public static readonly DRS_DeleteProfileDelegate DRS_DeleteProfile;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SetCurrentGlobalProfileDelegate(IntPtr hSession,
-        [MarshalAs(UnmanagedType.LPWStr,
-            SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder wszGlobalProfileName);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_SetCurrentGlobalProfileDelegate(System.IntPtr hSession,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder wszGlobalProfileName);
 
     public static readonly DRS_SetCurrentGlobalProfileDelegate DRS_SetCurrentGlobalProfile;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetCurrentGlobalProfileDelegate(IntPtr hSession, ref IntPtr phProfile);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status
+        DRS_GetCurrentGlobalProfileDelegate(System.IntPtr hSession,ref System.IntPtr phProfile);
 
     public static readonly DRS_GetCurrentGlobalProfileDelegate DRS_GetCurrentGlobalProfile;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetProfileInfoDelegate(IntPtr hSession, IntPtr hProfile,
-        ref NVDRS_PROFILE pProfileInfo);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_GetProfileInfoDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        ref NVDRS_PROFILE                                                 pProfileInfo);
 
     public static readonly DRS_GetProfileInfoDelegate DRS_GetProfileInfo;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SetProfileInfoDelegate(IntPtr hSession, IntPtr hProfile,
-        ref NVDRS_PROFILE pProfileInfo);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_SetProfileInfoDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        ref NVDRS_PROFILE                                                 pProfileInfo);
 
     public static readonly DRS_SetProfileInfoDelegate DRS_SetProfileInfo;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_FindProfileByNameDelegate(IntPtr hSession,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder profileName,
-        ref IntPtr phProfile);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_FindProfileByNameDelegate(System.IntPtr hSession,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder profileName,
+        ref System.IntPtr phProfile);
 
     public static readonly DRS_FindProfileByNameDelegate DRS_FindProfileByName;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_EnumProfilesDelegate(IntPtr hSession, uint index, ref IntPtr phProfile);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status
+        DRS_EnumProfilesDelegate(System.IntPtr hSession,uint index,ref System.IntPtr phProfile);
 
     public static readonly DRS_EnumProfilesDelegate DRS_EnumProfiles;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetNumProfilesDelegate(IntPtr hSession, ref uint numProfiles);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_GetNumProfilesDelegate(System.IntPtr hSession,ref uint numProfiles);
 
     public static readonly DRS_GetNumProfilesDelegate DRS_GetNumProfiles;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_CreateApplicationDelegate(IntPtr hSession, IntPtr hProfile,
-        ref NVDRS_APPLICATION_V3 pApplication);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_CreateApplicationDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        ref NVDRS_APPLICATION_V3                                             pApplication);
 
     public static readonly DRS_CreateApplicationDelegate DRS_CreateApplication;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_DeleteApplicationExDelegate(IntPtr hSession, IntPtr hProfile,
-        ref NVDRS_APPLICATION_V3 pApp);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_DeleteApplicationExDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        ref NVDRS_APPLICATION_V3                                               pApp);
 
     public static readonly DRS_DeleteApplicationExDelegate DRS_DeleteApplicationEx;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_DeleteApplicationDelegate(IntPtr hSession, IntPtr hProfile,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder appName);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_DeleteApplicationDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder appName);
 
     public static readonly DRS_DeleteApplicationDelegate DRS_DeleteApplication;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetApplicationInfoDelegate(IntPtr hSession, IntPtr hProfile,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder appName,
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_GetApplicationInfoDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder appName,
         ref NVDRS_APPLICATION_V3 pApplication);
 
     public static readonly DRS_GetApplicationInfoDelegate DRS_GetApplicationInfo;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate NvAPI_Status DRS_EnumApplicationsDelegate(IntPtr hSession, IntPtr hProfile, uint startIndex,
-        ref uint appCount, IntPtr pApplication);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    delegate NvAPI_Status DRS_EnumApplicationsDelegate(System.IntPtr hSession,System.IntPtr hProfile,uint startIndex,
+        ref uint                                                     appCount,System.IntPtr pApplication);
 
-    private static readonly DRS_EnumApplicationsDelegate DRS_EnumApplicationsInternal;
+    static readonly DRS_EnumApplicationsDelegate DRS_EnumApplicationsInternal;
 
-    public static NvAPI_Status DRS_EnumApplications<TDrsAppVersion>(IntPtr hSession, IntPtr hProfile, uint startIndex,
-        ref uint appCount, ref TDrsAppVersion[] apps)
+    public static NvAPI_Status DRS_EnumApplications<TDrsAppVersion>(System.IntPtr hSession,System.IntPtr hProfile,
+        uint                                                                      startIndex,
+        ref uint                                                                  appCount,ref TDrsAppVersion[] apps)
     {
         NvAPI_Status res;
 
-        IntPtr pSettings;
-        NativeArrayHelper.SetArrayData(apps, out pSettings);
+        System.IntPtr pSettings;
+        NativeArrayHelper.SetArrayData(apps,out pSettings);
         try
         {
-            res = DRS_EnumApplicationsInternal(hSession, hProfile, startIndex, ref appCount, pSettings);
-            apps = NativeArrayHelper.GetArrayData<TDrsAppVersion>(pSettings, (int) appCount);
+            res =NvapiDrsWrapper.DRS_EnumApplicationsInternal(hSession,hProfile,startIndex,ref appCount,pSettings);
+            apps=NativeArrayHelper.GetArrayData<TDrsAppVersion>(pSettings,(int)appCount);
         }
         finally
         {
-            Marshal.FreeHGlobal(pSettings);
+            System.Runtime.InteropServices.Marshal.FreeHGlobal(pSettings);
         }
 
         return res;
     }
 
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_FindApplicationByNameDelegate(IntPtr hSession,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder appName,
-        ref IntPtr phProfile, ref NVDRS_APPLICATION_V3 pApplication);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_FindApplicationByNameDelegate(System.IntPtr hSession,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder appName,
+        ref System.IntPtr phProfile,ref NVDRS_APPLICATION_V3 pApplication);
 
     public static readonly DRS_FindApplicationByNameDelegate DRS_FindApplicationByName;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_SetSettingDelegate(IntPtr hSession, IntPtr hProfile, ref NVDRS_SETTING pSetting);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_SetSettingDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        ref NVDRS_SETTING                                             pSetting);
 
     public static readonly DRS_SetSettingDelegate DRS_SetSetting;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId,
-        ref NVDRS_SETTING pSetting);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_GetSettingDelegate(System.IntPtr hSession,System.IntPtr hProfile,uint settingId,
+        ref NVDRS_SETTING                                             pSetting);
 
     public static readonly DRS_GetSettingDelegate DRS_GetSetting;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate NvAPI_Status DRS_EnumSettingsDelegate(IntPtr hSession, IntPtr hProfile, uint startIndex,
-        ref uint settingsCount, IntPtr pSetting);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    delegate NvAPI_Status DRS_EnumSettingsDelegate(System.IntPtr hSession,     System.IntPtr hProfile,uint startIndex,
+        ref uint                                                 settingsCount,System.IntPtr pSetting);
 
-    private static readonly DRS_EnumSettingsDelegate DRS_EnumSettingsInternal;
+    static readonly DRS_EnumSettingsDelegate DRS_EnumSettingsInternal;
 
-    public static NvAPI_Status DRS_EnumSettings(IntPtr hSession, IntPtr hProfile, uint startIndex,
-        ref uint settingsCount, ref NVDRS_SETTING[] settings)
+    public static NvAPI_Status DRS_EnumSettings(System.IntPtr hSession,     System.IntPtr hProfile,uint startIndex,
+        ref uint                                              settingsCount,ref NVDRS_SETTING[] settings)
     {
         NvAPI_Status res;
 
-        IntPtr pSettings;
-        NativeArrayHelper.SetArrayData(settings, out pSettings);
+        System.IntPtr pSettings;
+        NativeArrayHelper.SetArrayData(settings,out pSettings);
         try
         {
-            res = DRS_EnumSettingsInternal(hSession, hProfile, startIndex, ref settingsCount, pSettings);
-            settings = NativeArrayHelper.GetArrayData<NVDRS_SETTING>(pSettings, (int) settingsCount);
+            res     =NvapiDrsWrapper.DRS_EnumSettingsInternal(hSession,hProfile,startIndex,ref settingsCount,pSettings);
+            settings=NativeArrayHelper.GetArrayData<NVDRS_SETTING>(pSettings,(int)settingsCount);
         }
         finally
         {
-            Marshal.FreeHGlobal(pSettings);
+            System.Runtime.InteropServices.Marshal.FreeHGlobal(pSettings);
         }
 
         return res;
     }
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_EnumAvailableSettingIdsDelegate(IntPtr pSettingIds, ref uint pMaxCount);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_EnumAvailableSettingIdsDelegate(System.IntPtr pSettingIds,ref uint pMaxCount);
 
     public static readonly DRS_EnumAvailableSettingIdsDelegate DRS_EnumAvailableSettingIdsInternal;
 
-    public static NvAPI_Status DRS_EnumAvailableSettingIds(out List<uint> settingIds, uint maxCount)
+    public static NvAPI_Status DRS_EnumAvailableSettingIds(out System.Collections.Generic.List<uint> settingIds,
+        uint                                                                                         maxCount)
     {
         NvAPI_Status res;
-        var settingIdArray = new uint[maxCount];
-        var pSettingIds = IntPtr.Zero;
-        NativeArrayHelper.SetArrayData(settingIdArray, out pSettingIds);
+        var          settingIdArray=new uint[maxCount];
+        var          pSettingIds   =System.IntPtr.Zero;
+        NativeArrayHelper.SetArrayData(settingIdArray,out pSettingIds);
         try
         {
-            res = DRS_EnumAvailableSettingIdsInternal(pSettingIds, ref maxCount);
+            res=NvapiDrsWrapper.DRS_EnumAvailableSettingIdsInternal(pSettingIds,ref maxCount);
 
-            settingIdArray = NativeArrayHelper.GetArrayData<uint>(pSettingIds, (int) maxCount);
-            settingIds = settingIdArray.ToList();
+            settingIdArray=NativeArrayHelper.GetArrayData<uint>(pSettingIds,(int)maxCount);
+            settingIds    =Enumerable.ToList(settingIdArray);
         }
         finally
         {
-            Marshal.FreeHGlobal(pSettingIds);
+            System.Runtime.InteropServices.Marshal.FreeHGlobal(pSettingIds);
         }
 
         return res;
     }
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate NvAPI_Status DRS_EnumAvailableSettingValuesDelegate(uint settingId, ref uint pMaxNumValues,
-        IntPtr pSettingValues);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    delegate NvAPI_Status DRS_EnumAvailableSettingValuesDelegate(uint settingId,ref uint pMaxNumValues,
+        System.IntPtr                                                 pSettingValues);
 
-    private static readonly DRS_EnumAvailableSettingValuesDelegate DRS_EnumAvailableSettingValuesInternal;
+    static readonly DRS_EnumAvailableSettingValuesDelegate DRS_EnumAvailableSettingValuesInternal;
 
-    public static NvAPI_Status DRS_EnumAvailableSettingValues(uint settingId, ref uint pMaxNumValues,
-        ref NVDRS_SETTING_VALUES settingValues)
+    public static NvAPI_Status DRS_EnumAvailableSettingValues(uint settingId,ref uint pMaxNumValues,
+        ref NVDRS_SETTING_VALUES                                   settingValues)
     {
-        var pSettingValues = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(NVDRS_SETTING_VALUES)));
+        var pSettingValues
+            =System.Runtime.InteropServices.Marshal.AllocHGlobal(
+                System.Runtime.InteropServices.Marshal.SizeOf(typeof(NVDRS_SETTING_VALUES)));
         NvAPI_Status res;
         try
         {
-            settingValues.settingValues = new NVDRS_SETTING_UNION[(int) NVAPI_SETTING_MAX_VALUES];
-            Marshal.StructureToPtr(settingValues, pSettingValues, true);
-            res = DRS_EnumAvailableSettingValuesInternal(settingId, ref pMaxNumValues, pSettingValues);
-            settingValues = (NVDRS_SETTING_VALUES) Marshal.PtrToStructure(pSettingValues, typeof(NVDRS_SETTING_VALUES));
+            settingValues.settingValues=new NVDRS_SETTING_UNION[(int)NvapiDrsWrapper.NVAPI_SETTING_MAX_VALUES];
+            System.Runtime.InteropServices.Marshal.StructureToPtr(settingValues,pSettingValues,true);
+            res=NvapiDrsWrapper.DRS_EnumAvailableSettingValuesInternal(settingId,ref pMaxNumValues,pSettingValues);
+            settingValues
+                =(NVDRS_SETTING_VALUES)System.Runtime.InteropServices.Marshal.PtrToStructure(pSettingValues,
+                    typeof(NVDRS_SETTING_VALUES));
         }
         finally
         {
-            Marshal.FreeHGlobal(pSettingValues);
+            System.Runtime.InteropServices.Marshal.FreeHGlobal(pSettingValues);
         }
 
         return res;
     }
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
     public delegate NvAPI_Status DRS_GetSettingIdFromNameDelegate(
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder settingName,
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder settingName,
         ref uint pSettingId);
 
     public static readonly DRS_GetSettingIdFromNameDelegate DRS_GetSettingIdFromName;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
     public delegate NvAPI_Status DRS_GetSettingNameFromIdDelegate(uint settingId,
-        [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int) NVAPI_UNICODE_STRING_MAX)]
-        StringBuilder pSettingName);
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr,
+            SizeConst=(int)NVAPI_UNICODE_STRING_MAX)]
+        System.Text.StringBuilder pSettingName);
 
     public static readonly DRS_GetSettingNameFromIdDelegate DRS_GetSettingNameFromId;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_DeleteProfileSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_DeleteProfileSettingDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        uint                                                                    settingId);
 
     public static readonly DRS_DeleteProfileSettingDelegate DRS_DeleteProfileSetting;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_RestoreAllDefaultsDelegate(IntPtr hSession);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_RestoreAllDefaultsDelegate(System.IntPtr hSession);
 
     public static readonly DRS_RestoreAllDefaultsDelegate DRS_RestoreAllDefaults;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_RestoreProfileDefaultDelegate(IntPtr hSession, IntPtr hProfile);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_RestoreProfileDefaultDelegate(System.IntPtr hSession,System.IntPtr hProfile);
 
     public static readonly DRS_RestoreProfileDefaultDelegate DRS_RestoreProfileDefault;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_RestoreProfileDefaultSettingDelegate(IntPtr hSession, IntPtr hProfile,
-        uint settingId);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_RestoreProfileDefaultSettingDelegate(System.IntPtr hSession,System.IntPtr hProfile,
+        uint                                                                            settingId);
 
     public static readonly DRS_RestoreProfileDefaultSettingDelegate DRS_RestoreProfileDefaultSetting;
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate NvAPI_Status DRS_GetBaseProfileDelegate(IntPtr hSession, ref IntPtr phProfile);
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention
+        .Cdecl)]
+    public delegate NvAPI_Status DRS_GetBaseProfileDelegate(System.IntPtr hSession,ref System.IntPtr phProfile);
 
     public static readonly DRS_GetBaseProfileDelegate DRS_GetBaseProfile;
 
-    #endregion
+#endregion
 }

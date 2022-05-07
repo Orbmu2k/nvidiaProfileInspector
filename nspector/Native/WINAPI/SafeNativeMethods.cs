@@ -1,10 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿namespace nspector.Native.WINAPI;
 
-namespace nspector.Native.WINAPI;
-
-internal static class SafeNativeMethods
+static class SafeNativeMethods
 {
-    [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
+    [System.Runtime.InteropServices.DllImportAttribute(        "kernel32",
+        CharSet=System.Runtime.InteropServices.CharSet.Unicode,SetLastError=true)]
+    [return:System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
     internal static extern bool DeleteFile(string name);
 }

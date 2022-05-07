@@ -1,174 +1,175 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using nspector.Native.NvApi.DriverSettings;
-using nspector.Native.NVAPI2;
+﻿#region
+
+using Enumerable=System.Linq.Enumerable;
+
+#endregion
 
 namespace nspector.Common.Meta;
 
-internal class ConstantSettingMetaService : ISettingMetaService
+class ConstantSettingMetaService:ISettingMetaService
 {
-    private readonly string[] ignoreSettingNames =
+    readonly string[] ignoreSettingNames=
     {
-        "TOTAL_DWORD_SETTING_NUM", "TOTAL_WSTRING_SETTING_NUM", "TOTAL_SETTING_NUM", "INVALID_SETTING_ID"
+        "TOTAL_DWORD_SETTING_NUM","TOTAL_WSTRING_SETTING_NUM","TOTAL_SETTING_NUM","INVALID_SETTING_ID",
     };
 
-    private readonly Dictionary<ESetting, Type> settingEnumTypeCache;
+    readonly System.Collections.Generic.Dictionary<nspector.Native.NvApi.DriverSettings.ESetting,System.Type>
+        settingEnumTypeCache;
 
-    private HashSet<uint> settingIds;
+    System.Collections.Generic.HashSet<uint> settingIds;
 
     public ConstantSettingMetaService()
     {
-        settingEnumTypeCache = CreateSettingEnumTypeCache();
-        GetSettingIds();
+        this.settingEnumTypeCache=this.CreateSettingEnumTypeCache();
+        this.GetSettingIds();
     }
 
-    public NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
-    {
-        return null;
-    }
+    public nspector.Native.NVAPI2.NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)=>null;
 
     public string GetSettingName(uint settingId)
     {
-        if (settingIds.Contains(settingId))
-            return ((ESetting) settingId).ToString();
+        if(this.settingIds.Contains(settingId))
+        {
+            return((nspector.Native.NvApi.DriverSettings.ESetting)settingId).ToString();
+        }
 
         return null;
     }
 
     public uint? GetDwordDefaultValue(uint settingId)
     {
-        if (settingEnumTypeCache.ContainsKey((ESetting) settingId))
+        if(this.settingEnumTypeCache.ContainsKey((nspector.Native.NvApi.DriverSettings.ESetting)settingId))
         {
-            var enumType = settingEnumTypeCache[(ESetting) settingId];
+            var enumType=this.settingEnumTypeCache[(nspector.Native.NvApi.DriverSettings.ESetting)settingId];
 
-            var defaultName = Enum.GetNames(enumType).FirstOrDefault(x => x.EndsWith("_DEFAULT"));
-            if (defaultName != null)
-                return (uint) Enum.Parse(enumType, defaultName);
-        }
-
-        return null;
-    }
-
-    public string GetStringDefaultValue(uint settingId)
-    {
-        return null;
-    }
-
-    public List<SettingValue<string>> GetStringValues(uint settingId)
-    {
-        return null;
-    }
-
-    public List<SettingValue<uint>> GetDwordValues(uint settingId)
-    {
-        if (settingEnumTypeCache.ContainsKey((ESetting) settingId))
-        {
-            var enumType = settingEnumTypeCache[(ESetting) settingId];
-
-            var validNames = Enum.GetNames(enumType)
-                .Where(x => 1 == 1
-                            && !x.EndsWith("_DEFAULT")
-                            && !x.EndsWith("_NUM_VALUES")
-                    //&& !x.EndsWith("_NUM")
-                    //&& !x.EndsWith("_MASK")
-                    //&& (!x.EndsWith("_MIN") || x.Equals("PREFERRED_PSTATE_PREFER_MIN"))
-                    //&& (!x.EndsWith("_MAX") || x.Equals("PREFERRED_PSTATE_PREFER_MAX"))
-                ).ToList();
-
-            return validNames.Select(x => new SettingValue<uint>(Source)
+            var defaultName=Enumerable.FirstOrDefault(System.Enum.GetNames(enumType),x=>x.EndsWith("_DEFAULT"));
+            if(defaultName!=null)
             {
-                Value = ParseEnumValue(enumType, x),
-                ValueName = DrsUtil.GetDwordString(ParseEnumValue(enumType, x)) + " " + x
-            }).ToList();
+                return(uint)System.Enum.Parse(enumType,defaultName);
+            }
         }
 
         return null;
     }
 
-    public List<uint> GetSettingIds()
+    public string GetStringDefaultValue(uint settingId)=>null;
+
+    public System.Collections.Generic.List<SettingValue<string>> GetStringValues(uint settingId)=>null;
+
+    public System.Collections.Generic.List<SettingValue<uint>> GetDwordValues(uint settingId)
     {
-        if (settingIds == null)
-            settingIds = new HashSet<uint>(
-                Enum.GetValues(typeof(ESetting))
-                    .Cast<ESetting>()
-                    .Where(x => !ignoreSettingNames.Contains(x.ToString()))
-                    .Cast<uint>()
-                    .Distinct()
-                    .ToList());
-
-        return settingIds.ToList();
-    }
-
-
-    public string GetGroupName(uint settingId)
-    {
-        return null;
-    }
-
-    public byte[] GetBinaryDefaultValue(uint settingId)
-    {
-        return null;
-    }
-
-    public List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
-    {
-        return null;
-    }
-
-    public SettingMetaSource Source => SettingMetaSource.ConstantSettings;
-
-    private Dictionary<ESetting, Type> CreateSettingEnumTypeCache()
-    {
-        var result = new Dictionary<ESetting, Type>();
-
-        var drsEnumTypes = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(t => t.Namespace == "nspector.Native.NvApi.DriverSettings"
-                        && t.IsEnum && t.Name.StartsWith("EValues_")).ToList();
-
-        var settingIdNames = Enum.GetNames(typeof(ESetting)).Distinct().ToList();
-
-        foreach (var settingIdName in settingIdNames)
+        if(this.settingEnumTypeCache.ContainsKey((nspector.Native.NvApi.DriverSettings.ESetting)settingId))
         {
-            if (ignoreSettingNames.Contains(settingIdName))
+            var enumType=this.settingEnumTypeCache[(nspector.Native.NvApi.DriverSettings.ESetting)settingId];
+
+            var validNames=Enumerable.ToList(Enumerable.Where(System.Enum.GetNames(enumType),x=>1==1
+                    &&!x.EndsWith("_DEFAULT")
+                    &&!x.EndsWith("_NUM_VALUES")
+                //&& !x.EndsWith("_NUM")
+                //&& !x.EndsWith("_MASK")
+                //&& (!x.EndsWith("_MIN") || x.Equals("PREFERRED_PSTATE_PREFER_MIN"))
+                //&& (!x.EndsWith("_MAX") || x.Equals("PREFERRED_PSTATE_PREFER_MAX"))
+            ));
+
+            return Enumerable.ToList(Enumerable.Select(validNames,x=>new SettingValue<uint>(this.Source)
+            {
+                Value    =this.ParseEnumValue(enumType,x),
+                ValueName=DrsUtil.GetDwordString(this.ParseEnumValue(enumType,x))+" "+x,
+            }));
+        }
+
+        return null;
+    }
+
+    public System.Collections.Generic.List<uint> GetSettingIds()
+    {
+        if(this.settingIds==null)
+        {
+            this.settingIds=new System.Collections.Generic.HashSet<uint>(
+                Enumerable.ToList(Enumerable.Distinct(Enumerable.Cast<uint>(Enumerable.Where(
+                    Enumerable.Cast<nspector.Native.NvApi.DriverSettings.ESetting>(
+                        System.Enum.GetValues(typeof(nspector.Native.NvApi.DriverSettings.ESetting))),
+                    x=>!Enumerable.Contains(this.ignoreSettingNames,x.ToString()))))));
+        }
+
+        return Enumerable.ToList(this.settingIds);
+    }
+
+
+    public string GetGroupName(uint settingId)=>null;
+
+    public byte[] GetBinaryDefaultValue(uint settingId)=>null;
+
+    public System.Collections.Generic.List<SettingValue<byte[]>> GetBinaryValues(uint settingId)=>null;
+
+    public SettingMetaSource Source
+    {
+        get
+        {
+            return SettingMetaSource.ConstantSettings;
+        }
+    }
+
+    System.Collections.Generic.Dictionary<nspector.Native.NvApi.DriverSettings.ESetting,System.Type>
+        CreateSettingEnumTypeCache()
+    {
+        var result
+            =new System.Collections.Generic.Dictionary<nspector.Native.NvApi.DriverSettings.ESetting,System.Type>();
+
+        var drsEnumTypes=Enumerable.ToList(Enumerable.Where(
+            System.Reflection.Assembly.GetExecutingAssembly().GetTypes(),t
+                =>t.Namespace=="nspector.Native.NvApi.DriverSettings"
+                &&t.IsEnum&&t.Name.StartsWith("EValues_")));
+
+        var settingIdNames
+            =Enumerable.ToList(
+                Enumerable.Distinct(System.Enum.GetNames(typeof(nspector.Native.NvApi.DriverSettings.ESetting))));
+
+        foreach(var settingIdName in settingIdNames)
+        {
+            if(Enumerable.Contains(this.ignoreSettingNames,settingIdName))
+            {
                 continue;
+            }
 
-            var enumType = drsEnumTypes
-                .FirstOrDefault(x => settingIdName
-                    .Substring(0, settingIdName.Length - 3)
-                    .Equals(x.Name.Substring(8))
-                );
+            var enumType=Enumerable.FirstOrDefault(drsEnumTypes,x=>settingIdName
+                .Substring(0,settingIdName.Length-3)
+                .Equals(x.Name.Substring(8))
+            );
 
-            if (enumType != null)
+            if(enumType!=null)
             {
-                var settingIdVal = (ESetting) Enum.Parse(typeof(ESetting), settingIdName);
-                result.Add(settingIdVal, enumType);
+                var settingIdVal
+                    =(nspector.Native.NvApi.DriverSettings.ESetting)System.Enum.Parse(
+                        typeof(nspector.Native.NvApi.DriverSettings.ESetting),settingIdName);
+                result.Add(settingIdVal,enumType);
             }
         }
 
         return result;
     }
 
-    public Type GetSettingEnumType(uint settingId)
+    public System.Type GetSettingEnumType(uint settingId)
     {
-        if (settingEnumTypeCache.ContainsKey((ESetting) settingId))
-            return settingEnumTypeCache[(ESetting) settingId];
+        if(this.settingEnumTypeCache.ContainsKey((nspector.Native.NvApi.DriverSettings.ESetting)settingId))
+        {
+            return this.settingEnumTypeCache[(nspector.Native.NvApi.DriverSettings.ESetting)settingId];
+        }
 
         return null;
     }
 
-    private uint ParseEnumValue(Type enumType, string enumText)
+    uint ParseEnumValue(System.Type enumType,string enumText)
     {
         try
         {
-            return (uint) Enum.Parse(enumType, enumText);
+            return(uint)System.Enum.Parse(enumType,enumText);
         }
-        catch (InvalidCastException)
+        catch(System.InvalidCastException)
         {
-            var intValue = (int) Enum.Parse(enumType, enumText);
-            var bytes = BitConverter.GetBytes(intValue);
-            return BitConverter.ToUInt32(bytes, 0);
+            var intValue=(int)System.Enum.Parse(enumType,enumText);
+            var bytes   =System.BitConverter.GetBytes(intValue);
+            return System.BitConverter.ToUInt32(bytes,0);
         }
     }
 }

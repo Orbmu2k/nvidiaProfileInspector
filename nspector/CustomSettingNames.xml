@@ -5069,6 +5069,28 @@
             <SettingMasks/>
         </CustomSetting>
         <CustomSetting>
+            <UserfriendlyName>Shadercache Size</UserfriendlyName>
+            <HexSettingID>0x00AC8497</HexSettingID>
+            <MinRequiredDriverVersion>496.13</MinRequiredDriverVersion>
+            <GroupName>5 - Common</GroupName>
+            <OverrideDefault>0x10000000</OverrideDefault>
+            <SettingValues>
+                <CustomSettingValue>
+                    <UserfriendlyName>Default</UserfriendlyName>
+                    <HexValue>0x10000000</HexValue>
+                </CustomSettingValue>
+                <CustomSettingValue>
+                    <UserfriendlyName>Min</UserfriendlyName>
+                    <HexValue>0x00000000</HexValue>
+                </CustomSettingValue>
+                <CustomSettingValue>
+                    <UserfriendlyName>Max</UserfriendlyName>
+                    <HexValue>0xFFFFFFFF</HexValue>
+                </CustomSettingValue>
+            </SettingValues>
+            <SettingMasks/>
+        </CustomSetting>
+        <CustomSetting>
             <UserfriendlyName>Antialiasing fix</UserfriendlyName>
             <HexSettingID>0x000858F7</HexSettingID>
             <MinRequiredDriverVersion>320.14</MinRequiredDriverVersion>

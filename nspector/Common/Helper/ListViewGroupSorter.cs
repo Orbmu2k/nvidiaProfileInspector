@@ -1,86 +1,65 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+﻿namespace nspector.Common.Helper;
 
-namespace nspector.Common.Helper;
-
-public class ListViewGroupHeaderSorter : IComparer<ListViewGroup>
+public class ListViewGroupHeaderSorter:System.Collections.Generic.IComparer<System.Windows.Forms.ListViewGroup>
 {
-    private readonly bool _ascending = true;
+    readonly bool _ascending=true;
 
-    public ListViewGroupHeaderSorter(bool ascending)
+    public ListViewGroupHeaderSorter(bool ascending)=>this._ascending=ascending;
+
+#region IComparer<ListViewGroup> Members
+
+    public int Compare(System.Windows.Forms.ListViewGroup x,System.Windows.Forms.ListViewGroup y)
     {
-        _ascending = ascending;
+        if(this._ascending)
+        {
+            return string.Compare(x.Header,y.Header);
+        }
+
+        return string.Compare(y.Header,x.Header);
     }
 
-    #region IComparer<ListViewGroup> Members
-
-    public int Compare(ListViewGroup x, ListViewGroup y)
-    {
-        if (_ascending)
-            return string.Compare(x.Header, y.Header);
-        return string.Compare(y.Header, x.Header);
-    }
-
-    #endregion
+#endregion
 }
 
 public class ListViewGroupSorter
 {
-    internal ListView _listview;
+    internal System.Windows.Forms.ListView _listview;
 
-    internal ListViewGroupSorter(ListView listview)
-    {
-        _listview = listview;
-    }
+    internal ListViewGroupSorter(System.Windows.Forms.ListView listview)=>this._listview=listview;
 
-    public static bool operator ==(ListView listview, ListViewGroupSorter sorter)
-    {
-        return listview == sorter._listview;
-    }
+    public static bool operator==(System.Windows.Forms.ListView listview,ListViewGroupSorter sorter)
+        =>listview==sorter._listview;
 
-    public static bool operator !=(ListView listview, ListViewGroupSorter sorter)
-    {
-        return listview != sorter._listview;
-    }
+    public static bool operator!=(System.Windows.Forms.ListView listview,ListViewGroupSorter sorter)
+        =>listview!=sorter._listview;
 
-    public static implicit operator ListView(ListViewGroupSorter sorter)
-    {
-        return sorter._listview;
-    }
+    public static implicit operator System.Windows.Forms.ListView(ListViewGroupSorter sorter)=>sorter._listview;
 
-    public static implicit operator ListViewGroupSorter(ListView listview)
-    {
-        return new ListViewGroupSorter(listview);
-    }
+    public static implicit operator ListViewGroupSorter(System.Windows.Forms.ListView listview)
+        =>new ListViewGroupSorter(listview);
 
     public void SortGroups(bool ascending)
     {
-        _listview.BeginUpdate();
-        var lvgs = new List<ListViewGroup>();
-        foreach (ListViewGroup lvg in _listview.Groups)
+        this._listview.BeginUpdate();
+        var lvgs=new System.Collections.Generic.List<System.Windows.Forms.ListViewGroup>();
+        foreach(System.Windows.Forms.ListViewGroup lvg in this._listview.Groups)
+        {
             lvgs.Add(lvg);
-        _listview.Groups.Clear();
+        }
+
+        this._listview.Groups.Clear();
         lvgs.Sort(new ListViewGroupHeaderSorter(ascending));
-        _listview.Groups.AddRange(lvgs.ToArray());
-        _listview.EndUpdate();
+        this._listview.Groups.AddRange(lvgs.ToArray());
+        this._listview.EndUpdate();
     }
 
-    #region overridden methods
+#region overridden methods
 
-    public override bool Equals(object obj)
-    {
-        return _listview.Equals(obj);
-    }
+    public override bool Equals(object obj)=>this._listview.Equals(obj);
 
-    public override int GetHashCode()
-    {
-        return _listview.GetHashCode();
-    }
+    public override int GetHashCode()=>this._listview.GetHashCode();
 
-    public override string ToString()
-    {
-        return _listview.ToString();
-    }
+    public override string ToString()=>this._listview.ToString();
 
-    #endregion
+#endregion
 }
