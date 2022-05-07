@@ -1,13 +1,25 @@
-using System;
-
 namespace nspector.Common.CustomSettings;
 
-[Serializable]
+[System.SerializableAttribute]
 public class CustomSettingValue
 {
-    internal uint SettingValue => Convert.ToUInt32(HexValue.Trim(), 16);
+    internal uint SettingValue
+    {
+        get
+        {
+            return System.Convert.ToUInt32(this.HexValue.Trim(),16);
+        }
+    }
 
-    public string UserfriendlyName { get; set; }
+    public string UserfriendlyName
+    {
+        get;
+        set;
+    }
 
-    public string HexValue { get; set; }
+    public string HexValue
+    {
+        get;
+        set;
+    }
 }

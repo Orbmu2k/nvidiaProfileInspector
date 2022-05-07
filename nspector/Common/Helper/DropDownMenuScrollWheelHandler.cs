@@ -1,33 +1,31 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace nspector.Common.Helper;
+﻿namespace nspector.Common.Helper;
 
 //by Bryce Wagner https://stackoverflow.com/questions/13139074/mouse-wheel-scrolling-toolstrip-menu-items
-public class DropDownMenuScrollWheelHandler : IMessageFilter
+public class DropDownMenuScrollWheelHandler:System.Windows.Forms.IMessageFilter
 {
-    private static DropDownMenuScrollWheelHandler Instance;
+    static DropDownMenuScrollWheelHandler Instance;
 
-    private static readonly Action<ToolStrip, int> ScrollInternal
-        = (Action<ToolStrip, int>) Delegate.CreateDelegate(typeof(Action<ToolStrip, int>),
-            typeof(ToolStrip).GetMethod("ScrollInternal",
+    static readonly System.Action<System.Windows.Forms.ToolStrip,int> ScrollInternal
+        =(System.Action<System.Windows.Forms.ToolStrip,int>)System.Delegate.CreateDelegate(
+            typeof(System.Action<System.Windows.Forms.ToolStrip,int>),
+            typeof(System.Windows.Forms.ToolStrip).GetMethod("ScrollInternal",
                 System.Reflection.BindingFlags.NonPublic
-                | System.Reflection.BindingFlags.Instance));
+                |System.Reflection.BindingFlags.Instance));
 
-    private IntPtr activeHwnd;
-    private ToolStripDropDown activeMenu;
+    System.IntPtr                          activeHwnd;
+    System.Windows.Forms.ToolStripDropDown activeMenu;
 
-    public bool PreFilterMessage(ref Message m)
+    public bool PreFilterMessage(ref System.Windows.Forms.Message m)
     {
-        if (m.Msg == 0x200 && activeHwnd != m.HWnd) // WM_MOUSEMOVE
+        if(m.Msg==0x200&&this.activeHwnd!=m.HWnd)// WM_MOUSEMOVE
         {
-            activeHwnd = m.HWnd;
-            activeMenu = Control.FromHandle(m.HWnd) as ToolStripDropDown;
+            this.activeHwnd=m.HWnd;
+            this.activeMenu=System.Windows.Forms.Control.FromHandle(m.HWnd) as System.Windows.Forms.ToolStripDropDown;
         }
-        else if (m.Msg == 0x20A && activeMenu != null) // WM_MOUSEWHEEL
+        else if(m.Msg==0x20A&&this.activeMenu!=null)// WM_MOUSEWHEEL
         {
-            int delta = (short) (ushort) ((uint) (ulong) m.WParam >> 16);
-            HandleDelta(activeMenu, delta);
+            int delta=(short)(ushort)((uint)(ulong)m.WParam>> 16);
+            this.HandleDelta(this.activeMenu,delta);
             return true;
         }
 
@@ -36,43 +34,53 @@ public class DropDownMenuScrollWheelHandler : IMessageFilter
 
     public static void Enable(bool enabled)
     {
-        if (enabled)
+        if(enabled)
         {
-            if (Instance == null)
+            if(DropDownMenuScrollWheelHandler.Instance==null)
             {
-                Instance = new DropDownMenuScrollWheelHandler();
-                Application.AddMessageFilter(Instance);
+                DropDownMenuScrollWheelHandler.Instance=new DropDownMenuScrollWheelHandler();
+                System.Windows.Forms.Application.AddMessageFilter(DropDownMenuScrollWheelHandler.Instance);
             }
         }
         else
         {
-            if (Instance != null)
+            if(DropDownMenuScrollWheelHandler.Instance!=null)
             {
-                Application.RemoveMessageFilter(Instance);
-                Instance = null;
+                System.Windows.Forms.Application.RemoveMessageFilter(DropDownMenuScrollWheelHandler.Instance);
+                DropDownMenuScrollWheelHandler.Instance=null;
             }
         }
     }
 
-    private void HandleDelta(ToolStripDropDown ts, int delta)
+    void HandleDelta(System.Windows.Forms.ToolStripDropDown ts,int delta)
     {
-        if (ts.Items.Count == 0)
+        if(ts.Items.Count==0)
+        {
             return;
+        }
 
-        var firstItem = ts.Items[0];
-        var lastItem = ts.Items[ts.Items.Count - 1];
+        var firstItem=ts.Items[0];
+        var lastItem =ts.Items[ts.Items.Count-1];
 
-        if (lastItem.Bounds.Bottom < ts.Height && firstItem.Bounds.Top > 0)
+        if(lastItem.Bounds.Bottom<ts.Height&&firstItem.Bounds.Top>0)
+        {
             return;
+        }
 
-        delta = delta / -4;
+        delta=delta/-4;
 
-        if (delta < 0 && firstItem.Bounds.Top - delta > 9)
-            delta = firstItem.Bounds.Top - 9;
-        else if (delta > 0 && delta > lastItem.Bounds.Bottom - ts.Height + 9)
-            delta = lastItem.Bounds.Bottom - ts.Height + 9;
+        if(delta<0&&firstItem.Bounds.Top-delta>9)
+        {
+            delta=firstItem.Bounds.Top-9;
+        }
+        else if(delta>0&&delta>lastItem.Bounds.Bottom-ts.Height+9)
+        {
+            delta=lastItem.Bounds.Bottom-ts.Height+9;
+        }
 
-        if (delta != 0)
-            ScrollInternal(ts, delta);
+        if(delta!=0)
+        {
+            DropDownMenuScrollWheelHandler.ScrollInternal(ts,delta);
+        }
     }
 }

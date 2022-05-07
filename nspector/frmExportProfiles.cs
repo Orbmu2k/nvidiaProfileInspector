@@ -1,105 +1,122 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using nspector.Common;
-using nspector.Common.Helper;
-using nspector.Common.Import;
+﻿namespace nspector;
 
-namespace nspector;
-
-internal partial class frmExportProfiles : Form
+partial class frmExportProfiles:System.Windows.Forms.Form
 {
-    private frmDrvSettings settingsOwner;
+    frmDrvSettings settingsOwner;
 
     internal frmExportProfiles()
     {
-        InitializeComponent();
-        Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-        DoubleBuffered = true;
+        this.InitializeComponent();
+        this.Icon          =System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+        this.DoubleBuffered=true;
     }
 
     internal void ShowDialog(frmDrvSettings SettingsOwner)
     {
-        settingsOwner = SettingsOwner;
-        Text = "Profile Export";
-        updateProfileList();
-        ShowDialog();
+        this.settingsOwner=SettingsOwner;
+        this.Text         ="Profile Export";
+        this.updateProfileList();
+        this.ShowDialog();
     }
 
 
-    private void updateProfileList()
+    void updateProfileList()
     {
-        lvProfiles.Items.Clear();
+        this.lvProfiles.Items.Clear();
 
-        if (settingsOwner != null)
-            foreach (var mp in DrsServiceLocator.ScannerService.ModifiedProfiles)
-                lvProfiles.Items.Add(mp);
-    }
-
-
-    private void btnCancel_Click(object sender, EventArgs e)
-    {
-        Close();
-    }
-
-    private void btnSelAll_Click(object sender, EventArgs e)
-    {
-        for (var i = 0; i < lvProfiles.Items.Count; i++)
-            lvProfiles.Items[i].Checked = true;
-    }
-
-    private void btnSelNone_Click(object sender, EventArgs e)
-    {
-        for (var i = 0; i < lvProfiles.Items.Count; i++)
-            lvProfiles.Items[i].Checked = false;
-    }
-
-    private void btnInvertSelection_Click(object sender, EventArgs e)
-    {
-        for (var i = 0; i < lvProfiles.Items.Count; i++)
-            lvProfiles.Items[i].Checked = !lvProfiles.Items[i].Checked;
-    }
-
-    private void btnExport_Click(object sender, EventArgs e)
-    {
-        var sfd = new SaveFileDialog();
-        sfd.DefaultExt = "*.nip";
-        sfd.Filter = Application.ProductName + " Profiles|*.nip";
-        if (sfd.ShowDialog() == DialogResult.OK)
+        if(this.settingsOwner!=null)
         {
-            var profileNamesToExport = new List<string>();
-            for (var i = 0; i < lvProfiles.Items.Count; i++)
-                if (lvProfiles.Items[i].Checked)
-                    profileNamesToExport.Add(lvProfiles.Items[i].Text);
-
-            DrsServiceLocator.ImportService.ExportProfiles(profileNamesToExport, sfd.FileName,
-                cbIncludePredefined.Checked);
-
-            if (profileNamesToExport.Count > 0)
+            foreach(var mp in nspector.Common.DrsServiceLocator.ScannerService.ModifiedProfiles)
             {
-                if (MessageBox.Show("Export succeeded.\r\n\r\nWould you like to continue exporting profiles?",
-                        "Profiles Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    Close();
-            }
-            else
-            {
-                MessageBox.Show("Nothing to export");
+                this.lvProfiles.Items.Add(mp);
             }
         }
     }
 
-    private void lvProfiles_ItemChecked(object sender, ItemCheckedEventArgs e)
-    {
-        var cc = 0;
-        for (var i = 0; i < lvProfiles.Items.Count; i++)
-            if (lvProfiles.Items[i].Checked)
-                cc++;
 
-        if (cc > 0)
-            btnExport.Enabled = true;
+    void btnCancel_Click(object sender,System.EventArgs e)
+    {
+        this.Close();
+    }
+
+    void btnSelAll_Click(object sender,System.EventArgs e)
+    {
+        for(var i=0;i<this.lvProfiles.Items.Count;i++)
+        {
+            this.lvProfiles.Items[i].Checked=true;
+        }
+    }
+
+    void btnSelNone_Click(object sender,System.EventArgs e)
+    {
+        for(var i=0;i<this.lvProfiles.Items.Count;i++)
+        {
+            this.lvProfiles.Items[i].Checked=false;
+        }
+    }
+
+    void btnInvertSelection_Click(object sender,System.EventArgs e)
+    {
+        for(var i=0;i<this.lvProfiles.Items.Count;i++)
+        {
+            this.lvProfiles.Items[i].Checked=!this.lvProfiles.Items[i].Checked;
+        }
+    }
+
+    void btnExport_Click(object sender,System.EventArgs e)
+    {
+        var sfd=new System.Windows.Forms.SaveFileDialog();
+        sfd.DefaultExt="*.nip";
+        sfd.Filter    =System.Windows.Forms.Application.ProductName+" Profiles|*.nip";
+        if(sfd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+        {
+            var profileNamesToExport=new System.Collections.Generic.List<string>();
+            for(var i=0;i<this.lvProfiles.Items.Count;i++)
+            {
+                if(this.lvProfiles.Items[i].Checked)
+                {
+                    profileNamesToExport.Add(this.lvProfiles.Items[i].Text);
+                }
+            }
+
+            nspector.Common.DrsServiceLocator.ImportService.ExportProfiles(profileNamesToExport,sfd.FileName,
+                this.cbIncludePredefined.Checked);
+
+            if(profileNamesToExport.Count>0)
+            {
+                if(System.Windows.Forms.MessageBox.Show(
+                        "Export succeeded.\r\n\r\nWould you like to continue exporting profiles?",
+                        "Profiles Export",System.Windows.Forms.MessageBoxButtons.YesNo,
+                        System.Windows.Forms.MessageBoxIcon.Question)==System.Windows.Forms.DialogResult.No)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Nothing to export");
+            }
+        }
+    }
+
+    void lvProfiles_ItemChecked(object sender,System.Windows.Forms.ItemCheckedEventArgs e)
+    {
+        var cc=0;
+        for(var i=0;i<this.lvProfiles.Items.Count;i++)
+        {
+            if(this.lvProfiles.Items[i].Checked)
+            {
+                cc++;
+            }
+        }
+
+        if(cc>0)
+        {
+            this.btnExport.Enabled=true;
+        }
         else
-            btnExport.Enabled = false;
+        {
+            this.btnExport.Enabled=false;
+        }
     }
 }

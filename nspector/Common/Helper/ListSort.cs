@@ -1,14 +1,12 @@
-﻿using System.Collections;
+﻿namespace nspector.Common.Helper;
 
-namespace nspector.Common.Helper;
-
-internal class ListSort : IComparer
+class ListSort:System.Collections.IComparer
 {
-    public int Compare(object x, object y)
+    public int Compare(object x,object y)
     {
         try
         {
-            return string.CompareOrdinal(x.ToString(), y.ToString());
+            return string.CompareOrdinal(x.ToString(),y.ToString());
         }
         catch
         {

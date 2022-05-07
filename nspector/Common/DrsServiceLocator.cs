@@ -1,47 +1,54 @@
-﻿using System.IO;
-using System.Reflection;
-using nspector.Common.CustomSettings;
+﻿namespace nspector.Common;
 
-namespace nspector.Common;
-
-internal class DrsServiceLocator
+class DrsServiceLocator
 {
-    private static readonly CustomSettingNames CustomSettings;
-    public static readonly CustomSettingNames ReferenceSettings;
-    public static readonly DrsSettingsMetaService MetaService;
-    public static readonly DrsSettingsService SettingService;
-    public static readonly DrsImportService ImportService;
-    public static readonly DrsScannerService ScannerService;
-    public static readonly DrsDecrypterService DecrypterService;
+    static readonly        nspector.Common.CustomSettings.CustomSettingNames CustomSettings;
+    public static readonly nspector.Common.CustomSettings.CustomSettingNames ReferenceSettings;
+    public static readonly DrsSettingsMetaService                            MetaService;
+    public static readonly DrsSettingsService                                SettingService;
+    public static readonly DrsImportService                                  ImportService;
+    public static readonly DrsScannerService                                 ScannerService;
+    public static readonly DrsDecrypterService                               DecrypterService;
 
     static DrsServiceLocator()
     {
-        CustomSettings = LoadCustomSettings();
-        ReferenceSettings = LoadReferenceSettings();
+        DrsServiceLocator.CustomSettings   =DrsServiceLocator.LoadCustomSettings();
+        DrsServiceLocator.ReferenceSettings=DrsServiceLocator.LoadReferenceSettings();
 
-        MetaService = new DrsSettingsMetaService(CustomSettings, ReferenceSettings);
-        DecrypterService = new DrsDecrypterService(MetaService);
-        ScannerService = new DrsScannerService(MetaService, DecrypterService);
-        SettingService = new DrsSettingsService(MetaService, DecrypterService);
-        ImportService = new DrsImportService(MetaService, SettingService, ScannerService, DecrypterService);
+        DrsServiceLocator.MetaService
+            =new DrsSettingsMetaService(DrsServiceLocator.CustomSettings,DrsServiceLocator.ReferenceSettings);
+        DrsServiceLocator.DecrypterService=new DrsDecrypterService(DrsServiceLocator.MetaService);
+        DrsServiceLocator.ScannerService
+            =new DrsScannerService(DrsServiceLocator.MetaService,DrsServiceLocator.DecrypterService);
+        DrsServiceLocator.SettingService
+            =new DrsSettingsService(DrsServiceLocator.MetaService,DrsServiceLocator.DecrypterService);
+        DrsServiceLocator.ImportService=new DrsImportService(DrsServiceLocator.MetaService,
+            DrsServiceLocator.SettingService,DrsServiceLocator.ScannerService,DrsServiceLocator.DecrypterService);
     }
 
-    private static CustomSettingNames LoadCustomSettings()
+    static nspector.Common.CustomSettings.CustomSettingNames LoadCustomSettings()
     {
-        var csnDefaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) +
-                             "\\CustomSettingNames.xml";
+        var csnDefaultPath=System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)+
+            "\\CustomSettingNames.xml";
 
-        if (File.Exists(csnDefaultPath))
-            return CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
-        return CustomSettingNames.FactoryLoadFromString(Properties.Resources.CustomSettingNames);
+        if(System.IO.File.Exists(csnDefaultPath))
+        {
+            return nspector.Common.CustomSettings.CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
+        }
+
+        return nspector.Common.CustomSettings.CustomSettingNames.FactoryLoadFromString(nspector.Properties.Resources
+            .CustomSettingNames);
     }
 
-    private static CustomSettingNames LoadReferenceSettings()
+    static nspector.Common.CustomSettings.CustomSettingNames LoadReferenceSettings()
     {
-        var csnDefaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Reference.xml";
+        var csnDefaultPath=System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
+            +"\\Reference.xml";
 
-        if (File.Exists(csnDefaultPath))
-            return CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
+        if(System.IO.File.Exists(csnDefaultPath))
+        {
+            return nspector.Common.CustomSettings.CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
+        }
 
         return null;
     }

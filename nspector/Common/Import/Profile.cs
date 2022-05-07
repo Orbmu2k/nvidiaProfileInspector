@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
-
 namespace nspector.Common.Import;
 
-[Serializable]
+[System.SerializableAttribute]
 public class Profile
 {
-    public List<string> Executeables = new();
-    public string ProfileName = "";
-    public List<ProfileSetting> Settings = new();
+    public System.Collections.Generic.List<string> Executeables=new System.Collections.Generic.List<string>();
+    public string                                  ProfileName ="";
+
+    public System.Collections.Generic.List<ProfileSetting> Settings
+        =new System.Collections.Generic.List<ProfileSetting>();
 }

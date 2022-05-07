@@ -2,7 +2,5 @@
 
 public enum SettingViewMode
 {
-    Normal,
-    IncludeScannedSetttings,
-    CustomSettingsOnly
+    Normal,IncludeScannedSetttings,CustomSettingsOnly,
 }

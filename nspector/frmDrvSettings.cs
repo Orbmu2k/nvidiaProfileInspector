@@ -1,74 +1,64 @@
-﻿using nspector.Common;
-using nspector.Common.Helper;
-using nspector.Native.NVAPI2;
-using nspector.Native.WINAPI;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
+﻿#region
+
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Enumerable=System.Linq.Enumerable;
+
+#endregion
 
 namespace nspector;
 
-internal partial class frmDrvSettings : Form
+partial class frmDrvSettings:System.Windows.Forms.Form
 {
-    private readonly DrsSettingsService _drs = DrsServiceLocator.SettingService;
-    private readonly DrsImportService _import = DrsServiceLocator.ImportService;
-    private readonly DrsSettingsMetaService _meta = DrsServiceLocator.MetaService;
-    private readonly DrsScannerService _scanner = DrsServiceLocator.ScannerService;
-    private readonly bool _skipScan;
-    private bool _activated;
-    private bool _alreadyScannedForPredefinedSettings;
+    readonly nspector.Common.DrsSettingsService     _drs    =nspector.Common.DrsServiceLocator.SettingService;
+    readonly nspector.Common.DrsImportService       _import =nspector.Common.DrsServiceLocator.ImportService;
+    readonly nspector.Common.DrsSettingsMetaService _meta   =nspector.Common.DrsServiceLocator.MetaService;
+    readonly nspector.Common.DrsScannerService      _scanner=nspector.Common.DrsServiceLocator.ScannerService;
+    readonly bool                                   _skipScan;
+    bool                                            _activated;
+    bool                                            _alreadyScannedForPredefinedSettings;
 
-    private string _baseProfileName = "";
+    string _baseProfileName="";
 
-    public string _CurrentProfile = "";
+    public string _CurrentProfile="";
 
-    private List<SettingItem> _currentProfileSettingItems = new();
-    private bool _isStartup = true;
-    private bool _isWin7TaskBar;
-    private int _lastComboRowIndex = -1;
+    System.Collections.Generic.List<nspector.Common.SettingItem> _currentProfileSettingItems
+        =new System.Collections.Generic.List<nspector.Common.SettingItem>();
 
-    private CancellationTokenSource _scannerCancelationTokenSource;
-    private ITaskbarList3 _taskbarList;
-    private IntPtr _taskbarParent = IntPtr.Zero;
+    bool _isStartup=true;
+    bool _isWin7TaskBar;
+    int  _lastComboRowIndex=-1;
 
-    internal frmDrvSettings() : this(false, false)
+    System.Threading.CancellationTokenSource _scannerCancelationTokenSource;
+    nspector.Native.WINAPI.ITaskbarList3     _taskbarList;
+    System.IntPtr                            _taskbarParent=System.IntPtr.Zero;
+
+    internal frmDrvSettings():this(false,false) {}
+
+    internal frmDrvSettings(bool showCsnOnly,bool skipScan)
     {
+        this._skipScan=skipScan;
+        this.InitializeComponent();
+        this.InitTaskbarList();
+        this.SetupDropFilesNative();
+        this.SetupToolbar();
+        this.SetupDpiAdjustments();
+
+        this.tscbShowCustomSettingNamesOnly.Checked=showCsnOnly;
+        this.Icon=System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
     }
 
-    internal frmDrvSettings(bool showCsnOnly, bool skipScan)
+    protected override void WndProc(ref System.Windows.Forms.Message m)
     {
-        _skipScan = skipScan;
-        InitializeComponent();
-        InitTaskbarList();
-        SetupDropFilesNative();
-        SetupToolbar();
-        SetupDpiAdjustments();
-
-        tscbShowCustomSettingNamesOnly.Checked = showCsnOnly;
-        Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-    }
-
-    protected override void WndProc(ref Message m)
-    {
-        switch (m.Msg)
+        switch(m.Msg)
         {
-            case MessageHelper.WM_COPYDATA:
-                var copyDataStruct = new MessageHelper.COPYDATASTRUCT();
-                var copyDataType = copyDataStruct.GetType();
-                copyDataStruct = (MessageHelper.COPYDATASTRUCT) m.GetLParam(copyDataType);
-                if (copyDataStruct.lpData.Equals("ProfilesImported"))
+            case nspector.Native.WINAPI.MessageHelper.WM_COPYDATA:
+                var copyDataStruct=new nspector.Native.WINAPI.MessageHelper.COPYDATASTRUCT();
+                var copyDataType  =copyDataStruct.GetType();
+                copyDataStruct=(nspector.Native.WINAPI.MessageHelper.COPYDATASTRUCT)m.GetLParam(copyDataType);
+                if(copyDataStruct.lpData.Equals("ProfilesImported"))
                 {
-                    DrsSessionScope.DestroyGlobalSession();
-                    RefreshAll();
+                    nspector.Common.DrsSessionScope.DestroyGlobalSession();
+                    this.RefreshAll();
                 }
 
                 break;
@@ -77,839 +67,931 @@ internal partial class frmDrvSettings : Form
         base.WndProc(ref m);
     }
 
-    private ListViewGroup FindOrCreateGroup(string groupName)
+    System.Windows.Forms.ListViewGroup FindOrCreateGroup(string groupName)
     {
-        if (string.IsNullOrEmpty(groupName))
-            groupName = "Unknown";
+        if(string.IsNullOrEmpty(groupName))
+        {
+            groupName="Unknown";
+        }
 
-        foreach (ListViewGroup group in lvSettings.Groups)
-            if (group.Header == groupName)
+        foreach(System.Windows.Forms.ListViewGroup group in this.lvSettings.Groups)
+        {
+            if(group.Header==groupName)
+            {
                 return group;
+            }
+        }
 
-        var newGroup = new ListViewGroup(groupName);
-        lvSettings.Groups.Insert(0, newGroup);
+        var newGroup=new System.Windows.Forms.ListViewGroup(groupName);
+        this.lvSettings.Groups.Insert(0,newGroup);
 
         return newGroup;
     }
 
-    private ListViewItem CreateListViewItem(SettingItem setting)
+    System.Windows.Forms.ListViewItem CreateListViewItem(nspector.Common.SettingItem setting)
     {
-        var group = FindOrCreateGroup(setting.GroupName);
+        var group=this.FindOrCreateGroup(setting.GroupName);
 
-        var item = new ListViewItem(setting.SettingText);
-        item.Tag = setting.SettingId;
-        item.Group = group;
+        var item=new System.Windows.Forms.ListViewItem(setting.SettingText);
+        item.Tag  =setting.SettingId;
+        item.Group=group;
         item.SubItems.Add(setting.ValueText);
         item.SubItems.Add(setting.ValueRaw);
 
-        switch (setting.State)
+        switch(setting.State)
         {
             default:
-                item.ImageIndex = 1;
-                item.ForeColor = SystemColors.GrayText;
+                item.ImageIndex=1;
+                item.ForeColor =System.Drawing.SystemColors.GrayText;
                 break;
 
-            case SettingState.NvidiaSetting:
-                item.ImageIndex = 2;
+            case nspector.Common.SettingState.NvidiaSetting:
+                item.ImageIndex=2;
                 break;
 
-            case SettingState.GlobalSetting:
-                item.ImageIndex = 3;
-                item.ForeColor = SystemColors.GrayText;
+            case nspector.Common.SettingState.GlobalSetting:
+                item.ImageIndex=3;
+                item.ForeColor =System.Drawing.SystemColors.GrayText;
                 break;
 
-            case SettingState.UserdefinedSetting:
-                item.ImageIndex = 0;
+            case nspector.Common.SettingState.UserdefinedSetting:
+                item.ImageIndex=0;
                 break;
         }
 
         return item;
     }
 
-    private void RefreshApplicationsCombosAndText(Dictionary<string, string> applications)
+    void RefreshApplicationsCombosAndText(System.Collections.Generic.Dictionary<string,string> applications)
     {
-        lblApplications.Text = "";
-        tssbRemoveApplication.DropDownItems.Clear();
+        this.lblApplications.Text="";
+        this.tssbRemoveApplication.DropDownItems.Clear();
 
-        lblApplications.Text = " " + string.Join(", ", applications.Select(x => x.Value));
-        foreach (var app in applications)
+        this.lblApplications.Text=" "+string.Join(", ",Enumerable.Select(applications,x=>x.Value));
+        foreach(var app in applications)
         {
-            var item = tssbRemoveApplication.DropDownItems.Add(app.Value, Properties.Resources.ieframe_1_18212);
-            item.Tag = app.Key;
+            var item=this.tssbRemoveApplication.DropDownItems.Add(app.Value,
+                nspector.Properties.Resources.ieframe_1_18212);
+            item.Tag=app.Key;
         }
 
-        tssbRemoveApplication.Enabled = tssbRemoveApplication.DropDownItems.Count > 0;
+        this.tssbRemoveApplication.Enabled=this.tssbRemoveApplication.DropDownItems.Count>0;
     }
 
-    private SettingViewMode GetSettingViewMode()
+    nspector.Common.SettingViewMode GetSettingViewMode()
     {
-        if (tscbShowCustomSettingNamesOnly.Checked)
-            return SettingViewMode.CustomSettingsOnly;
-        if (tscbShowScannedUnknownSettings.Checked)
-            return SettingViewMode.IncludeScannedSetttings;
-        return SettingViewMode.Normal;
+        if(this.tscbShowCustomSettingNamesOnly.Checked)
+        {
+            return nspector.Common.SettingViewMode.CustomSettingsOnly;
+        }
+
+        if(this.tscbShowScannedUnknownSettings.Checked)
+        {
+            return nspector.Common.SettingViewMode.IncludeScannedSetttings;
+        }
+
+        return nspector.Common.SettingViewMode.Normal;
     }
 
-    private void RefreshCurrentProfile()
+    void RefreshCurrentProfile()
     {
-        var lvSelection = "";
-        if (lvSettings.SelectedItems.Count > 0)
-            lvSelection = lvSettings.SelectedItems[0].Text;
+        var lvSelection="";
+        if(this.lvSettings.SelectedItems.Count>0)
+        {
+            lvSelection=this.lvSettings.SelectedItems[0].Text;
+        }
 
-        lvSettings.BeginUpdate();
+        this.lvSettings.BeginUpdate();
         try
         {
-            lvSettings.Items.Clear();
-            lvSettings.Groups.Clear();
-            var applications = new Dictionary<string, string>();
+            this.lvSettings.Items.Clear();
+            this.lvSettings.Groups.Clear();
+            var applications=new System.Collections.Generic.Dictionary<string,string>();
 
-            _currentProfileSettingItems =
-                _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
-            RefreshApplicationsCombosAndText(applications);
+            this._currentProfileSettingItems
+                =this._drs.GetSettingsForProfile(this._CurrentProfile,this.GetSettingViewMode(),ref applications);
+            this.RefreshApplicationsCombosAndText(applications);
 
-            foreach (var settingItem in _currentProfileSettingItems)
+            foreach(var settingItem in this._currentProfileSettingItems)
             {
-                var itm = lvSettings.Items.Add(CreateListViewItem(settingItem));
-                if (Debugger.IsAttached && !settingItem.IsApiExposed)
-                    itm.ForeColor = Color.LightCoral;
+                var itm=this.lvSettings.Items.Add(this.CreateListViewItem(settingItem));
+                if(System.Diagnostics.Debugger.IsAttached&&!settingItem.IsApiExposed)
+                {
+                    itm.ForeColor=System.Drawing.Color.LightCoral;
+                }
             }
 
-            btnResetValue.Enabled = false;
+            this.btnResetValue.Enabled=false;
 
             try
             {
-                lvSettings.RemoveEmbeddedControl(cbValues);
-                lvSettings.RemoveEmbeddedControl(btnResetValue);
+                this.lvSettings.RemoveEmbeddedControl(this.cbValues);
+                this.lvSettings.RemoveEmbeddedControl(this.btnResetValue);
             }
-            catch
-            {
-            }
+            catch {}
         }
         finally
         {
-            lvSettings.EndUpdate();
-            ((ListViewGroupSorter) lvSettings).SortGroups(true);
+            this.lvSettings.EndUpdate();
+            ((nspector.Common.Helper.ListViewGroupSorter)this.lvSettings).SortGroups(true);
 
-            GC.Collect();
-            for (var i = 0; i < lvSettings.Items.Count; i++)
-                if (lvSettings.Items[i].Text == lvSelection)
+            System.GC.Collect();
+            for(var i=0;i<this.lvSettings.Items.Count;i++)
+            {
+                if(this.lvSettings.Items[i].Text==lvSelection)
                 {
-                    lvSettings.Items[i].Selected = true;
-                    lvSettings.Items[i].EnsureVisible();
+                    this.lvSettings.Items[i].Selected=true;
+                    this.lvSettings.Items[i].EnsureVisible();
 
-                    if (!cbProfiles.Focused)
+                    if(!this.cbProfiles.Focused)
                     {
-                        lvSettings.Select();
-                        cbValues.Text = lvSettings.Items[i].SubItems[1].Text;
+                        this.lvSettings.Select();
+                        this.cbValues.Text=this.lvSettings.Items[i].SubItems[1].Text;
                     }
 
                     break;
                 }
+            }
         }
     }
 
-    private void RefreshProfilesCombo()
+    void RefreshProfilesCombo()
     {
-        cbProfiles.Items.Clear();
+        this.cbProfiles.Items.Clear();
 
-        var profileNames = _drs.GetProfileNames(ref _baseProfileName);
-        cbProfiles.Items.AddRange(profileNames.Cast<object>().ToArray());
+        var profileNames=this._drs.GetProfileNames(ref this._baseProfileName);
+        this.cbProfiles.Items.AddRange(Enumerable.ToArray(Enumerable.Cast<object>(profileNames)));
 
-        cbProfiles.Sorted = true;
+        this.cbProfiles.Sorted=true;
     }
 
-    private void MoveComboToItemAndFill()
+    void MoveComboToItemAndFill()
     {
-        if (lvSettings.SelectedItems.Count > 0)
+        if(this.lvSettings.SelectedItems.Count>0)
         {
-            if (!cbValues.ContainsFocus && _lastComboRowIndex != lvSettings.SelectedItems[0].Index)
+            if(!this.cbValues.ContainsFocus&&this._lastComboRowIndex!=this.lvSettings.SelectedItems[0].Index)
             {
-                btnResetValue.Enabled = true;
+                this.btnResetValue.Enabled=true;
 
-                cbValues.BeginUpdate();
+                this.cbValues.BeginUpdate();
 
-                cbValues.Items.Clear();
-                cbValues.Tag = lvSettings.SelectedItems[0].Tag;
-                var settingid = (uint) lvSettings.SelectedItems[0].Tag;
+                this.cbValues.Items.Clear();
+                this.cbValues.Tag=this.lvSettings.SelectedItems[0].Tag;
+                var settingid=(uint)this.lvSettings.SelectedItems[0].Tag;
 
-                var settingMeta = _meta.GetSettingMeta(settingid, GetSettingViewMode());
-                if (settingMeta != null)
+                var settingMeta=this._meta.GetSettingMeta(settingid,this.GetSettingViewMode());
+                if(settingMeta!=null)
                 {
-                    if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE &&
-                        settingMeta.DwordValues != null)
+                    if(settingMeta.SettingType ==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE&&
+                        settingMeta.DwordValues!=null)
                     {
-                        var valueNames = settingMeta.DwordValues.Select(x => x.ValueName).ToList();
-                        foreach (var v in valueNames)
+                        var valueNames=Enumerable.ToList(Enumerable.Select(settingMeta.DwordValues,x=>x.ValueName));
+                        foreach(var v in valueNames)
                         {
-                            var itm = "";
-                            if (v.Length > 4000)
-                                itm = v.Substring(0, 4000) + " ...";
+                            var itm="";
+                            if(v.Length>4000)
+                            {
+                                itm=v.Substring(0,4000)+" ...";
+                            }
                             else
-                                itm = v;
+                            {
+                                itm=v;
+                            }
 
-                            cbValues.Items.Add(itm);
+                            this.cbValues.Items.Add(itm);
                         }
                     }
 
-                    if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE &&
-                        settingMeta.StringValues != null)
+                    if(settingMeta.SettingType  ==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE&&
+                        settingMeta.StringValues!=null)
                     {
-                        var valueNames = settingMeta.StringValues.Select(x => x.ValueName).ToList();
-                        foreach (var v in valueNames)
-                            cbValues.Items.Add(v);
+                        var valueNames=Enumerable.ToList(Enumerable.Select(settingMeta.StringValues,x=>x.ValueName));
+                        foreach(var v in valueNames)
+                        {
+                            this.cbValues.Items.Add(v);
+                        }
                     }
 
-                    if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE &&
-                        settingMeta.BinaryValues != null)
+                    if(settingMeta.SettingType  ==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE&&
+                        settingMeta.BinaryValues!=null)
                     {
-                        var valueNames = settingMeta.BinaryValues.Select(x => x.ValueName).ToList();
-                        foreach (var v in valueNames)
-                            cbValues.Items.Add(v);
+                        var valueNames=Enumerable.ToList(Enumerable.Select(settingMeta.BinaryValues,x=>x.ValueName));
+                        foreach(var v in valueNames)
+                        {
+                            this.cbValues.Items.Add(v);
+                        }
                     }
 
-                    var scannedCount = settingMeta?.DwordValues?
-                        .Where(x => x.ValueSource == Common.Meta.SettingMetaSource.ScannedSettings)
-                        .Count();
+                    var scannedCount=Enumerable.Count<nspector.Common.Meta.SettingValue<uint>>(settingMeta?.DwordValues?
+                        .Where(x=>x.ValueSource==nspector.Common.Meta.SettingMetaSource.ScannedSettings));
 
-                    tsbBitValueEditor.Enabled = scannedCount > 0;
+                    this.tsbBitValueEditor.Enabled=scannedCount>0;
                 }
 
-                if (cbValues.Items.Count < 1)
+                if(this.cbValues.Items.Count<1)
                 {
-                    cbValues.Items.Add("");
-                    cbValues.Items.RemoveAt(0);
+                    this.cbValues.Items.Add("");
+                    this.cbValues.Items.RemoveAt(0);
                 }
 
 
-                cbValues.Text = lvSettings.SelectedItems[0].SubItems[1].Text;
-                cbValues.EndUpdate();
+                this.cbValues.Text=this.lvSettings.SelectedItems[0].SubItems[1].Text;
+                this.cbValues.EndUpdate();
 
-                lvSettings.AddEmbeddedControl(cbValues, 1, lvSettings.SelectedItems[0].Index);
+                this.lvSettings.AddEmbeddedControl(this.cbValues,1,this.lvSettings.SelectedItems[0].Index);
 
-                if (lvSettings.SelectedItems[0].ImageIndex == 0)
-                    lvSettings.AddEmbeddedControl(btnResetValue, 2, lvSettings.SelectedItems[0].Index, DockStyle.Right);
-                _lastComboRowIndex = lvSettings.SelectedItems[0].Index;
-                cbValues.Visible = true;
+                if(this.lvSettings.SelectedItems[0].ImageIndex==0)
+                {
+                    this.lvSettings.AddEmbeddedControl(this.btnResetValue,2,this.lvSettings.SelectedItems[0].Index,
+                        System.Windows.Forms.DockStyle.Right);
+                }
+
+                this._lastComboRowIndex=this.lvSettings.SelectedItems[0].Index;
+                this.cbValues.Visible  =true;
             }
         }
         else
         {
-            _lastComboRowIndex = -1;
+            this._lastComboRowIndex=-1;
 
-            if (!cbValues.ContainsFocus)
+            if(!this.cbValues.ContainsFocus)
             {
                 try
                 {
-                    lvSettings.RemoveEmbeddedControl(cbValues);
-                    lvSettings.RemoveEmbeddedControl(btnResetValue);
+                    this.lvSettings.RemoveEmbeddedControl(this.cbValues);
+                    this.lvSettings.RemoveEmbeddedControl(this.btnResetValue);
                 }
-                catch
-                {
-                }
+                catch {}
 
-                btnResetValue.Enabled = false;
-                cbValues.Visible = false;
+                this.btnResetValue.Enabled=false;
+                this.cbValues.Visible     =false;
 
-                tsbBitValueEditor.Enabled = false;
+                this.tsbBitValueEditor.Enabled=false;
             }
         }
     }
 
-    private int GetListViewIndexOfSetting(uint settingId)
+    int GetListViewIndexOfSetting(uint settingId)
     {
-        var idx = 0;
-        foreach (ListViewItem lvi in lvSettings.Items)
+        var idx=0;
+        foreach(System.Windows.Forms.ListViewItem lvi in this.lvSettings.Items)
         {
-            if (settingId == (uint) lvi.Tag)
+            if(settingId==(uint)lvi.Tag)
+            {
                 return idx;
+            }
+
             idx++;
         }
 
-        return -1;
+        return-1;
     }
 
-    private void UpdateItemByComboValue()
+    void UpdateItemByComboValue()
     {
-        var settingId = (uint) cbValues.Tag;
-        var activeImages = new[]
+        var settingId=(uint)this.cbValues.Tag;
+        var activeImages=new[]
         {
-            0, 2
+            0,2,
         };
 
-        var idx = GetListViewIndexOfSetting(settingId);
-        if (idx != -1)
+        var idx=this.GetListViewIndexOfSetting(settingId);
+        if(idx!=-1)
         {
-            var lvItem = lvSettings.Items[idx];
+            var lvItem=this.lvSettings.Items[idx];
 
-            var settingMeta = _meta.GetSettingMeta(settingId, GetSettingViewMode());
+            var settingMeta=this._meta.GetSettingMeta(settingId,this.GetSettingViewMode());
 
-            var currentProfileItem = _currentProfileSettingItems
-                .First(x => x.SettingId.Equals(settingId));
+            var currentProfileItem=Enumerable.First(this._currentProfileSettingItems,x=>x.SettingId.Equals(settingId));
 
-            var cbValueText = cbValues.Text.Trim();
+            var cbValueText=this.cbValues.Text.Trim();
 
-            var valueHasChanged = currentProfileItem.ValueText != cbValueText;
-            if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
+            var valueHasChanged=currentProfileItem.ValueText!=cbValueText;
+            if(settingMeta.SettingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
             {
-                var stringBehind = DrsUtil.ParseStringSettingValue(settingMeta, cbValueText);
-                valueHasChanged = currentProfileItem.ValueRaw != stringBehind;
+                var stringBehind=nspector.Common.DrsUtil.ParseStringSettingValue(settingMeta,cbValueText);
+                valueHasChanged=currentProfileItem.ValueRaw!=stringBehind;
             }
 
-            if (valueHasChanged || activeImages.Contains(lvItem.ImageIndex))
-                lvItem.ForeColor = SystemColors.ControlText;
+            if(valueHasChanged||Enumerable.Contains(activeImages,lvItem.ImageIndex))
+            {
+                lvItem.ForeColor=System.Drawing.SystemColors.ControlText;
+            }
             else
-                lvItem.ForeColor = SystemColors.GrayText;
+            {
+                lvItem.ForeColor=System.Drawing.SystemColors.GrayText;
+            }
 
-            if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
+            if(settingMeta.SettingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
             {
-                lvItem.SubItems[2].Text =
-                    DrsUtil.GetDwordString(DrsUtil.ParseDwordSettingValue(settingMeta, cbValueText));
-                lvItem.SubItems[1].Text = cbValueText;
+                lvItem.SubItems[2].Text=
+                    nspector.Common.DrsUtil.GetDwordString(
+                        nspector.Common.DrsUtil.ParseDwordSettingValue(settingMeta,cbValueText));
+                lvItem.SubItems[1].Text=cbValueText;
             }
-            else if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
+            else if(settingMeta.SettingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
             {
-                lvItem.SubItems[2].Text =
-                    DrsUtil.ParseStringSettingValue(settingMeta, cbValueText); // DrsUtil.StringValueRaw;
-                lvItem.SubItems[1].Text = cbValueText;
+                lvItem.SubItems[2].Text=
+                    nspector.Common.DrsUtil.ParseStringSettingValue(settingMeta,cbValueText);// DrsUtil.StringValueRaw;
+                lvItem.SubItems[1].Text=cbValueText;
             }
-            else if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+            else if(settingMeta.SettingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
             {
-                lvItem.SubItems[2].Text =
-                    DrsUtil.GetBinaryString(DrsUtil.ParseBinarySettingValue(settingMeta,
-                        cbValueText)); // DrsUtil.StringValueRaw;
-                lvItem.SubItems[1].Text = cbValueText;
+                lvItem.SubItems[2].Text=
+                    nspector.Common.DrsUtil.GetBinaryString(nspector.Common.DrsUtil.ParseBinarySettingValue(settingMeta,
+                        cbValueText));// DrsUtil.StringValueRaw;
+                lvItem.SubItems[1].Text=cbValueText;
             }
         }
     }
 
-    private void StoreChangesOfProfileToDriver()
+    void StoreChangesOfProfileToDriver()
     {
-        var settingsToStore = new List<KeyValuePair<uint, string>>();
+        var settingsToStore=new System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<uint,string>>();
 
-        foreach (ListViewItem lvi in lvSettings.Items)
+        foreach(System.Windows.Forms.ListViewItem lvi in this.lvSettings.Items)
         {
-            var currentProfileItem = _currentProfileSettingItems
-                .First(x => x.SettingId.Equals((uint) lvi.Tag));
+            var currentProfileItem
+                =Enumerable.First(this._currentProfileSettingItems,x=>x.SettingId.Equals((uint)lvi.Tag));
 
-            var listValueX = lvi.SubItems[1].Text;
+            var listValueX=lvi.SubItems[1].Text;
 
-            var itmEmpty = string.IsNullOrEmpty(listValueX);
-            var curEmpty = string.IsNullOrEmpty(currentProfileItem.ValueText);
+            var itmEmpty=string.IsNullOrEmpty(listValueX);
+            var curEmpty=string.IsNullOrEmpty(currentProfileItem.ValueText);
 
-            if (currentProfileItem.ValueText != listValueX && !(itmEmpty && curEmpty))
-                settingsToStore.Add(new KeyValuePair<uint, string>((uint) lvi.Tag, listValueX));
+            if(currentProfileItem.ValueText!=listValueX&&!(itmEmpty&&curEmpty))
+            {
+                settingsToStore.Add(new System.Collections.Generic.KeyValuePair<uint,string>((uint)lvi.Tag,listValueX));
+            }
         }
 
-        if (settingsToStore.Count > 0)
+        if(settingsToStore.Count>0)
         {
-            _drs.StoreSettingsToProfile(_CurrentProfile, settingsToStore);
-            AddToModifiedProfiles(_CurrentProfile);
+            this._drs.StoreSettingsToProfile(this._CurrentProfile,settingsToStore);
+            this.AddToModifiedProfiles(this._CurrentProfile);
         }
 
-        RefreshCurrentProfile();
+        this.RefreshCurrentProfile();
     }
 
-    private void ResetCurrentProfile()
+    void ResetCurrentProfile()
     {
-        var removeFromModified = false;
-        _drs.ResetProfile(_CurrentProfile, out removeFromModified);
+        var removeFromModified=false;
+        this._drs.ResetProfile(this._CurrentProfile,out removeFromModified);
 
-        if (removeFromModified)
-            RemoveFromModifiedProfiles(_CurrentProfile);
-        RefreshCurrentProfile();
-    }
-
-    private void ResetSelectedValue()
-    {
-        if (lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count > 0)
+        if(removeFromModified)
         {
-            var settingId = (uint) lvSettings.SelectedItems[0].Tag;
+            this.RemoveFromModifiedProfiles(this._CurrentProfile);
+        }
+
+        this.RefreshCurrentProfile();
+    }
+
+    void ResetSelectedValue()
+    {
+        if(this.lvSettings.SelectedItems!=null&&this.lvSettings.SelectedItems.Count>0)
+        {
+            var settingId=(uint)this.lvSettings.SelectedItems[0].Tag;
 
             bool removeFromModified;
-            _drs.ResetValue(_CurrentProfile, settingId, out removeFromModified);
+            this._drs.ResetValue(this._CurrentProfile,settingId,out removeFromModified);
 
-            if (removeFromModified)
-                RemoveFromModifiedProfiles(_CurrentProfile);
+            if(removeFromModified)
+            {
+                this.RemoveFromModifiedProfiles(this._CurrentProfile);
+            }
 
-            RefreshCurrentProfile();
+            this.RefreshCurrentProfile();
         }
     }
 
-    private void InitTaskbarList()
+    void InitTaskbarList()
     {
-        if (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 1)
-            try
-            {
-                _taskbarList = (ITaskbarList3) new TaskbarList();
-                _taskbarList.HrInit();
-                _taskbarParent = Handle;
-                _isWin7TaskBar = true;
-            }
-            catch
-            {
-                _taskbarList = null;
-                _taskbarParent = IntPtr.Zero;
-                _isWin7TaskBar = false;
-            }
-    }
-
-    private void SetTaskbarIcon()
-    {
-        if (_taskbarList != null && _isWin7TaskBar && AdminHelper.IsAdmin)
-            try
-            {
-                _taskbarList.SetOverlayIcon(_taskbarParent, Properties.Resources.shield16.Handle, "Elevated");
-            }
-            catch
-            {
-            }
-    }
-
-    private void SetTitleVersion()
-    {
-        var numberFormat = new NumberFormatInfo
+        if(System.Environment.OSVersion.Version.Major>=6&&System.Environment.OSVersion.Version.Minor>=1)
         {
-            NumberDecimalSeparator = "."
+            try
+            {
+                this._taskbarList=(nspector.Native.WINAPI.ITaskbarList3)new nspector.Native.WINAPI.TaskbarList();
+                this._taskbarList.HrInit();
+                this._taskbarParent=this.Handle;
+                this._isWin7TaskBar=true;
+            }
+            catch
+            {
+                this._taskbarList  =null;
+                this._taskbarParent=System.IntPtr.Zero;
+                this._isWin7TaskBar=false;
+            }
+        }
+    }
+
+    void SetTaskbarIcon()
+    {
+        if(this._taskbarList!=null&&this._isWin7TaskBar&&nspector.Common.Helper.AdminHelper.IsAdmin)
+        {
+            try
+            {
+                this._taskbarList.SetOverlayIcon(this._taskbarParent,nspector.Properties.Resources.shield16.Handle,
+                    "Elevated");
+            }
+            catch {}
+        }
+    }
+
+    void SetTitleVersion()
+    {
+        var numberFormat=new System.Globalization.NumberFormatInfo
+        {
+            NumberDecimalSeparator=".",
         };
-        var version = Assembly.GetExecutingAssembly().GetName().Version;
-        var fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-        Text =
-            $"{Application.ProductName} {version} - Geforce {_drs.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}";
+        var version=System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+        var fileVersionInfo
+            =System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly()
+                .Location);
+        this.Text=
+            $"{System.Windows.Forms.Application.ProductName} {version} - Geforce {this._drs.DriverVersion.ToString("#.00",numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}";
     }
 
-    private static void InitMessageFilter(IntPtr handle)
+    static void InitMessageFilter(System.IntPtr handle)
     {
-        if (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 1)
+        if(System.Environment.OSVersion.Version.Major>=6&&System.Environment.OSVersion.Version.Minor>=1)
         {
-            DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle, DragAcceptNativeHelper.WM_DROPFILES,
-                DragAcceptNativeHelper.MSGFLT_ALLOW, IntPtr.Zero);
-            DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle, DragAcceptNativeHelper.WM_COPYDATA,
-                DragAcceptNativeHelper.MSGFLT_ALLOW, IntPtr.Zero);
-            DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle, DragAcceptNativeHelper.WM_COPYGLOBALDATA,
-                DragAcceptNativeHelper.MSGFLT_ALLOW, IntPtr.Zero);
+            nspector.Native.WINAPI.DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.WM_DROPFILES,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.MSGFLT_ALLOW,System.IntPtr.Zero);
+            nspector.Native.WINAPI.DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.WM_COPYDATA,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.MSGFLT_ALLOW,System.IntPtr.Zero);
+            nspector.Native.WINAPI.DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.WM_COPYGLOBALDATA,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.MSGFLT_ALLOW,System.IntPtr.Zero);
         }
-        else if (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 0)
+        else if(System.Environment.OSVersion.Version.Major>=6&&System.Environment.OSVersion.Version.Minor>=0)
         {
-            DragAcceptNativeHelper.ChangeWindowMessageFilter(DragAcceptNativeHelper.WM_DROPFILES,
-                DragAcceptNativeHelper.MSGFLT_ADD);
-            DragAcceptNativeHelper.ChangeWindowMessageFilter(DragAcceptNativeHelper.WM_COPYDATA,
-                DragAcceptNativeHelper.MSGFLT_ADD);
-            DragAcceptNativeHelper.ChangeWindowMessageFilter(DragAcceptNativeHelper.WM_COPYGLOBALDATA,
-                DragAcceptNativeHelper.MSGFLT_ADD);
+            nspector.Native.WINAPI.DragAcceptNativeHelper.ChangeWindowMessageFilter(
+                nspector.Native.WINAPI.DragAcceptNativeHelper.WM_DROPFILES,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.MSGFLT_ADD);
+            nspector.Native.WINAPI.DragAcceptNativeHelper.ChangeWindowMessageFilter(
+                nspector.Native.WINAPI.DragAcceptNativeHelper.WM_COPYDATA,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.MSGFLT_ADD);
+            nspector.Native.WINAPI.DragAcceptNativeHelper.ChangeWindowMessageFilter(
+                nspector.Native.WINAPI.DragAcceptNativeHelper.WM_COPYGLOBALDATA,
+                nspector.Native.WINAPI.DragAcceptNativeHelper.MSGFLT_ADD);
         }
     }
 
-    private void SetupDpiAdjustments()
+    void SetupDpiAdjustments()
     {
-        chSettingID.Width = lblWidth330.Width;
-        chSettingValueHex.Width = lblWidth96.Width;
+        this.chSettingID.Width      =this.lblWidth330.Width;
+        this.chSettingValueHex.Width=this.lblWidth96.Width;
     }
 
-    private void SetupToolbar()
+    void SetupToolbar()
     {
-        tsMain.Renderer = new NoBorderRenderer();
-        tsMain.ImageScalingSize = new Size(lblWidth16.Width, lblWidth16.Width);
+        this.tsMain.Renderer        =new nspector.Common.Helper.NoBorderRenderer();
+        this.tsMain.ImageScalingSize=new System.Drawing.Size(this.lblWidth16.Width,this.lblWidth16.Width);
     }
 
-    private void SetupDropFilesNative()
+    void SetupDropFilesNative()
     {
-        lvSettings.OnDropFilesNative += lvSettings_OnDropFilesNative;
-        DragAcceptNativeHelper.DragAcceptFiles(Handle, true);
-        DragAcceptNativeHelper.DragAcceptFiles(lvSettings.Handle, true);
-        InitMessageFilter(lvSettings.Handle);
+        this.lvSettings.OnDropFilesNative+=this.lvSettings_OnDropFilesNative;
+        nspector.Native.WINAPI.DragAcceptNativeHelper.DragAcceptFiles(this.Handle,           true);
+        nspector.Native.WINAPI.DragAcceptNativeHelper.DragAcceptFiles(this.lvSettings.Handle,true);
+        frmDrvSettings.InitMessageFilter(this.lvSettings.Handle);
     }
 
-    private void SetupLayout()
+    void SetupLayout()
     {
-        if (Screen.GetWorkingArea(this).Height < Height + 10)
-            Height = Screen.GetWorkingArea(this).Height - 20;
+        if(System.Windows.Forms.Screen.GetWorkingArea(this).Height<this.Height+10)
+        {
+            this.Height=System.Windows.Forms.Screen.GetWorkingArea(this).Height-20;
+        }
     }
 
-    private void RefreshModifiesProfilesDropDown()
+    void RefreshModifiesProfilesDropDown()
     {
-        tsbModifiedProfiles.DropDownItems.Clear();
-        _scanner.ModifiedProfiles.Sort();
-        foreach (var modProfile in _scanner.ModifiedProfiles)
-            if (modProfile != _baseProfileName)
+        this.tsbModifiedProfiles.DropDownItems.Clear();
+        this._scanner.ModifiedProfiles.Sort();
+        foreach(var modProfile in this._scanner.ModifiedProfiles)
+        {
+            if(modProfile!=this._baseProfileName)
             {
-                var newItem = tsbModifiedProfiles.DropDownItems.Add(modProfile);
-                if (!_scanner.UserProfiles.Contains(modProfile))
-                    newItem.Image = tsbRestoreProfile.Image;
+                var newItem=this.tsbModifiedProfiles.DropDownItems.Add(modProfile);
+                if(!this._scanner.UserProfiles.Contains(modProfile))
+                {
+                    newItem.Image=this.tsbRestoreProfile.Image;
+                }
             }
+        }
 
-        if (tsbModifiedProfiles.DropDownItems.Count > 0)
-            tsbModifiedProfiles.Enabled = true;
-    }
-
-    private void frmDrvSettings_Load(object sender, EventArgs e)
-    {
-        SetupLayout();
-        SetTitleVersion();
-        LoadSettings();
-
-        RefreshProfilesCombo();
-        cbProfiles.Text = GetBaseProfileName();
-
-        tsbBitValueEditor.Enabled = false;
-        tsbDeleteProfile.Enabled = false;
-        tsbAddApplication.Enabled = false;
-        tssbRemoveApplication.Enabled = false;
-
-        InitResetValueTooltip();
-    }
-
-    private void InitResetValueTooltip()
-    {
-        var toolTip = new ToolTip();
-        toolTip.SetToolTip(btnResetValue, "Restore this value to NVIDIA defaults.");
-    }
-
-    private void lvSettings_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        MoveComboToItemAndFill();
-    }
-
-    private void cbValues_SelectedValueChanged(object sender, EventArgs e)
-    {
-        UpdateItemByComboValue();
-    }
-
-    private void cbValues_Leave(object sender, EventArgs e)
-    {
-        UpdateItemByComboValue();
-    }
-
-    private void btnResetValue_Click(object sender, EventArgs e)
-    {
-        ResetSelectedValue();
-    }
-
-    private void ChangeCurrentProfile(string profileName)
-    {
-        if (profileName == GetBaseProfileName() || profileName == _baseProfileName)
+        if(this.tsbModifiedProfiles.DropDownItems.Count>0)
         {
-            _CurrentProfile = _baseProfileName;
-            cbProfiles.Text = GetBaseProfileName();
-            tsbDeleteProfile.Enabled = false;
-            tsbAddApplication.Enabled = false;
-            tssbRemoveApplication.Enabled = false;
+            this.tsbModifiedProfiles.Enabled=true;
+        }
+    }
+
+    void frmDrvSettings_Load(object sender,System.EventArgs e)
+    {
+        this.SetupLayout();
+        this.SetTitleVersion();
+        this.LoadSettings();
+
+        this.RefreshProfilesCombo();
+        this.cbProfiles.Text=this.GetBaseProfileName();
+
+        this.tsbBitValueEditor.Enabled    =false;
+        this.tsbDeleteProfile.Enabled     =false;
+        this.tsbAddApplication.Enabled    =false;
+        this.tssbRemoveApplication.Enabled=false;
+
+        this.InitResetValueTooltip();
+    }
+
+    void InitResetValueTooltip()
+    {
+        var toolTip=new System.Windows.Forms.ToolTip();
+        toolTip.SetToolTip(this.btnResetValue,"Restore this value to NVIDIA defaults.");
+    }
+
+    void lvSettings_SelectedIndexChanged(object sender,System.EventArgs e)
+    {
+        this.MoveComboToItemAndFill();
+    }
+
+    void cbValues_SelectedValueChanged(object sender,System.EventArgs e)
+    {
+        this.UpdateItemByComboValue();
+    }
+
+    void cbValues_Leave(object sender,System.EventArgs e)
+    {
+        this.UpdateItemByComboValue();
+    }
+
+    void btnResetValue_Click(object sender,System.EventArgs e)
+    {
+        this.ResetSelectedValue();
+    }
+
+    void ChangeCurrentProfile(string profileName)
+    {
+        if(profileName==this.GetBaseProfileName()||profileName==this._baseProfileName)
+        {
+            this._CurrentProfile              =this._baseProfileName;
+            this.cbProfiles.Text              =this.GetBaseProfileName();
+            this.tsbDeleteProfile.Enabled     =false;
+            this.tsbAddApplication.Enabled    =false;
+            this.tssbRemoveApplication.Enabled=false;
         }
         else
         {
-            _CurrentProfile = cbProfiles.Text;
-            tsbDeleteProfile.Enabled = true;
-            tsbAddApplication.Enabled = true;
-            tssbRemoveApplication.Enabled = true;
+            this._CurrentProfile              =this.cbProfiles.Text;
+            this.tsbDeleteProfile.Enabled     =true;
+            this.tsbAddApplication.Enabled    =true;
+            this.tssbRemoveApplication.Enabled=true;
         }
 
 
-        RefreshCurrentProfile();
+        this.RefreshCurrentProfile();
     }
 
-    private void cbProfiles_SelectedIndexChanged(object sender, EventArgs e)
+    void cbProfiles_SelectedIndexChanged(object sender,System.EventArgs e)
     {
-        if (cbProfiles.SelectedIndex > -1)
-            ChangeCurrentProfile(cbProfiles.Text);
+        if(this.cbProfiles.SelectedIndex>-1)
+        {
+            this.ChangeCurrentProfile(this.cbProfiles.Text);
+        }
     }
 
-    private void SetTaskbarProgress(int progress)
+    void SetTaskbarProgress(int progress)
     {
-        if (_isWin7TaskBar)
+        if(this._isWin7TaskBar)
+        {
             try
             {
-                if (progress == 0)
+                if(progress==0)
                 {
-                    _taskbarList.SetProgressState(_taskbarParent, TBPFLAG.TBPF_NOPROGRESS);
+                    this._taskbarList.SetProgressState(this._taskbarParent,
+                        nspector.Native.WINAPI.TBPFLAG.TBPF_NOPROGRESS);
                 }
                 else
                 {
-                    _taskbarList.SetProgressState(_taskbarParent, TBPFLAG.TBPF_NORMAL);
-                    _taskbarList.SetProgressValue(_taskbarParent, (ulong) progress, 100);
+                    this._taskbarList.SetProgressState(this._taskbarParent,nspector.Native.WINAPI.TBPFLAG.TBPF_NORMAL);
+                    this._taskbarList.SetProgressValue(this._taskbarParent,(ulong)progress,100);
                 }
             }
-            catch
-            {
-            }
-    }
-
-    private void AddToModifiedProfiles(string profileName, bool userProfile = false)
-    {
-        if (!_scanner.UserProfiles.Contains(profileName) && profileName != _baseProfileName && userProfile)
-            _scanner.UserProfiles.Add(profileName);
-
-        if (!_scanner.ModifiedProfiles.Contains(profileName) && profileName != _baseProfileName)
-        {
-            _scanner.ModifiedProfiles.Add(profileName);
-            RefreshModifiesProfilesDropDown();
+            catch {}
         }
     }
 
-    private void RemoveFromModifiedProfiles(string profileName)
+    void AddToModifiedProfiles(string profileName,bool userProfile=false)
     {
-        if (_scanner.UserProfiles.Contains(profileName))
-            _scanner.UserProfiles.Remove(profileName);
-
-        if (_scanner.ModifiedProfiles.Contains(profileName))
+        if(!this._scanner.UserProfiles.Contains(profileName)&&profileName!=this._baseProfileName&&userProfile)
         {
-            _scanner.ModifiedProfiles.Remove(profileName);
-            RefreshModifiesProfilesDropDown();
+            this._scanner.UserProfiles.Add(profileName);
+        }
+
+        if(!this._scanner.ModifiedProfiles.Contains(profileName)&&profileName!=this._baseProfileName)
+        {
+            this._scanner.ModifiedProfiles.Add(profileName);
+            this.RefreshModifiesProfilesDropDown();
         }
     }
 
-    private void ShowExportProfiles()
+    void RemoveFromModifiedProfiles(string profileName)
     {
-        if (_scanner.ModifiedProfiles.Count > 0)
+        if(this._scanner.UserProfiles.Contains(profileName))
         {
-            var frmExport = new frmExportProfiles();
+            this._scanner.UserProfiles.Remove(profileName);
+        }
+
+        if(this._scanner.ModifiedProfiles.Contains(profileName))
+        {
+            this._scanner.ModifiedProfiles.Remove(profileName);
+            this.RefreshModifiesProfilesDropDown();
+        }
+    }
+
+    void ShowExportProfiles()
+    {
+        if(this._scanner.ModifiedProfiles.Count>0)
+        {
+            var frmExport=new frmExportProfiles();
             frmExport.ShowDialog(this);
         }
         else
         {
-            MessageBox.Show("No user modified profiles found! Nothing to export.", "Userprofile Search",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            System.Windows.Forms.MessageBox.Show("No user modified profiles found! Nothing to export.",
+                "Userprofile Search",
+                System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
         }
     }
 
-    private async Task ScanProfilesSilentAsync(bool scanPredefined, bool showProfileDialog)
+    async System.Threading.Tasks.Task ScanProfilesSilentAsync(bool scanPredefined,bool showProfileDialog)
     {
-        if (_skipScan)
+        if(this._skipScan)
         {
-            if (scanPredefined && !_alreadyScannedForPredefinedSettings)
+            if(scanPredefined&&!this._alreadyScannedForPredefinedSettings)
             {
-                _alreadyScannedForPredefinedSettings = true;
-                _meta.ResetMetaCache();
-                tsbModifiedProfiles.Enabled = true;
-                exportUserdefinedProfilesToolStripMenuItem.Enabled = false;
-                RefreshCurrentProfile();
+                this._alreadyScannedForPredefinedSettings=true;
+                this._meta.ResetMetaCache();
+                this.tsbModifiedProfiles.Enabled                       =true;
+                this.exportUserdefinedProfilesToolStripMenuItem.Enabled=false;
+                this.RefreshCurrentProfile();
             }
 
             return;
         }
 
-        tsbModifiedProfiles.Enabled = false;
-        tsbRefreshProfile.Enabled = false;
-        pbMain.Minimum = 0;
-        pbMain.Maximum = 100;
+        this.tsbModifiedProfiles.Enabled=false;
+        this.tsbRefreshProfile.Enabled  =false;
+        this.pbMain.Minimum             =0;
+        this.pbMain.Maximum             =100;
 
-        _scannerCancelationTokenSource = new CancellationTokenSource();
+        this._scannerCancelationTokenSource=new System.Threading.CancellationTokenSource();
 
-        var progressHandler = new Progress<int>(value =>
+        var progressHandler=new System.Progress<int>(value=>
         {
-            pbMain.Value = value;
-            SetTaskbarProgress(value);
+            this.pbMain.Value=value;
+            this.SetTaskbarProgress(value);
         });
 
-        if (scanPredefined && !_alreadyScannedForPredefinedSettings)
+        if(scanPredefined&&!this._alreadyScannedForPredefinedSettings)
         {
-            _alreadyScannedForPredefinedSettings = true;
-            await _scanner.ScanProfileSettingsAsync(false, progressHandler, _scannerCancelationTokenSource.Token);
-            _meta.ResetMetaCache();
-            tscbShowScannedUnknownSettings.Enabled = true;
+            this._alreadyScannedForPredefinedSettings=true;
+            await this._scanner.ScanProfileSettingsAsync(false,progressHandler,
+                this._scannerCancelationTokenSource.Token);
+            this._meta.ResetMetaCache();
+            this.tscbShowScannedUnknownSettings.Enabled=true;
         }
         else
         {
-            await _scanner.ScanProfileSettingsAsync(true, progressHandler, _scannerCancelationTokenSource.Token);
+            await this._scanner.ScanProfileSettingsAsync(true,progressHandler,
+                this._scannerCancelationTokenSource.Token);
         }
 
-        RefreshModifiesProfilesDropDown();
-        tsbModifiedProfiles.Enabled = true;
+        this.RefreshModifiesProfilesDropDown();
+        this.tsbModifiedProfiles.Enabled=true;
 
-        pbMain.Value = 0;
-        pbMain.Enabled = false;
-        SetTaskbarProgress(0);
+        this.pbMain.Value  =0;
+        this.pbMain.Enabled=false;
+        this.SetTaskbarProgress(0);
 
-        if (showProfileDialog)
-            ShowExportProfiles();
+        if(showProfileDialog)
+        {
+            this.ShowExportProfiles();
+        }
 
-        RefreshCurrentProfile();
-        tsbRefreshProfile.Enabled = true;
+        this.RefreshCurrentProfile();
+        this.tsbRefreshProfile.Enabled=true;
     }
 
-    private void cbCustomSettingsOnly_CheckedChanged(object sender, EventArgs e)
+    void cbCustomSettingsOnly_CheckedChanged(object sender,System.EventArgs e)
     {
-        RefreshCurrentProfile();
+        this.RefreshCurrentProfile();
     }
 
     internal void SetSelectedDwordValue(uint dwordValue)
     {
-        if ((lvSettings.SelectedItems != null) & (lvSettings.SelectedItems.Count > 0))
+        if(this.lvSettings.SelectedItems!=null&this.lvSettings.SelectedItems.Count>0)
         {
-            cbValues.Text = DrsUtil.GetDwordString(dwordValue);
+            this.cbValues.Text=nspector.Common.DrsUtil.GetDwordString(dwordValue);
             ;
-            UpdateItemByComboValue();
+            this.UpdateItemByComboValue();
         }
     }
 
-    private async void tsbRestoreProfile_Click(object sender, EventArgs e)
+    async void tsbRestoreProfile_Click(object sender,System.EventArgs e)
     {
-        if (ModifierKeys == Keys.Control)
+        if(frmDrvSettings.ModifierKeys==System.Windows.Forms.Keys.Control)
         {
-            if (MessageBox.Show(this,
+            if(System.Windows.Forms.MessageBox.Show(this,
                     "Restore all profiles to NVIDIA driver defaults?",
                     "Restore all profiles",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    System.Windows.Forms.MessageBoxButtons.YesNo,System.Windows.Forms.MessageBoxIcon.Question)
+                ==System.Windows.Forms.DialogResult.Yes)
             {
-                _drs.ResetAllProfilesInternal();
+                this._drs.ResetAllProfilesInternal();
 
-                RefreshProfilesCombo();
-                RefreshCurrentProfile();
-                await ScanProfilesSilentAsync(true, false);
-                cbProfiles.Text = GetBaseProfileName();
+                this.RefreshProfilesCombo();
+                this.RefreshCurrentProfile();
+                await this.ScanProfilesSilentAsync(true,false);
+                this.cbProfiles.Text=this.GetBaseProfileName();
             }
         }
         else
         {
-            ResetCurrentProfile();
+            this.ResetCurrentProfile();
         }
     }
 
-    private void tsbRefreshProfile_Click(object sender, EventArgs e)
+    void tsbRefreshProfile_Click(object sender,System.EventArgs e)
     {
-        DrsSessionScope.DestroyGlobalSession();
-        RefreshAll();
+        nspector.Common.DrsSessionScope.DestroyGlobalSession();
+        this.RefreshAll();
     }
 
-    private void tsbApplyProfile_Click(object sender, EventArgs e)
+    void tsbApplyProfile_Click(object sender,System.EventArgs e)
     {
         try
         {
-            UpdateItemByComboValue();
+            this.UpdateItemByComboValue();
         }
-        catch
-        {
-        }
+        catch {}
 
-        StoreChangesOfProfileToDriver();
+        this.StoreChangesOfProfileToDriver();
     }
 
-    private void tsbBitValueEditor_Click(object sender, EventArgs e)
+    void tsbBitValueEditor_Click(object sender,System.EventArgs e)
     {
-        if ((lvSettings.SelectedItems != null) & (lvSettings.SelectedItems.Count > 0))
+        if(this.lvSettings.SelectedItems!=null&this.lvSettings.SelectedItems.Count>0)
         {
-            var frmBits = new frmBitEditor();
+            var frmBits=new frmBitEditor();
             frmBits.ShowDialog(this,
-                (uint) lvSettings.SelectedItems[0].Tag,
-                uint.Parse(lvSettings.SelectedItems[0].SubItems[2].Text.Substring(2), NumberStyles.AllowHexSpecifier),
-                lvSettings.SelectedItems[0].Text);
+                (uint)this.lvSettings.SelectedItems[0].Tag,
+                uint.Parse(this.lvSettings.SelectedItems[0].SubItems[2].Text.Substring(2),
+                    System.Globalization.NumberStyles.AllowHexSpecifier),this.lvSettings.SelectedItems[0].Text);
         }
     }
 
-    private void tscbShowScannedUnknownSettings_Click(object sender, EventArgs e)
+    void tscbShowScannedUnknownSettings_Click(object sender,System.EventArgs e)
     {
-        RefreshCurrentProfile();
+        this.RefreshCurrentProfile();
     }
 
-    private void lvSettings_Resize(object sender, EventArgs e)
+    void lvSettings_Resize(object sender,System.EventArgs e)
     {
-        ResizeColumn();
+        this.ResizeColumn();
     }
 
-    private void ResizeColumn()
+    void ResizeColumn()
     {
-        lvSettings.Columns[1].Width = lvSettings.Width -
-                                      (lvSettings.Columns[0].Width + lvSettings.Columns[2].Width + lblWidth30.Width);
+        this.lvSettings.Columns[1].Width=this.lvSettings.Width-
+            (this.lvSettings.Columns[0].Width+this.lvSettings.Columns[2].Width+this.lblWidth30.Width);
     }
 
-    private void lvSettings_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+    void lvSettings_ColumnWidthChanging(object sender,System.Windows.Forms.ColumnWidthChangingEventArgs e)
     {
-        if (e.ColumnIndex != 1)
+        if(e.ColumnIndex!=1)
         {
-            if (e.ColumnIndex == 0 && e.NewWidth < 260)
+            if(e.ColumnIndex==0&&e.NewWidth<260)
             {
-                e.NewWidth = 260;
-                e.Cancel = true;
+                e.NewWidth=260;
+                e.Cancel  =true;
             }
-            else if (e.ColumnIndex == 2 && e.NewWidth < 96)
+            else if(e.ColumnIndex==2&&e.NewWidth<96)
             {
-                e.Cancel = true;
-                e.NewWidth = 96;
+                e.Cancel  =true;
+                e.NewWidth=96;
             }
 
-            ResizeColumn();
+            this.ResizeColumn();
         }
     }
 
-    private async void frmDrvSettings_Shown(object sender, EventArgs e)
+    async void frmDrvSettings_Shown(object sender,System.EventArgs e)
     {
-        if (_isStartup)
+        if(this._isStartup)
         {
-            new Thread(SetTaskbarIcon).Start();
-            await ScanProfilesSilentAsync(true, false);
+            new System.Threading.Thread(this.SetTaskbarIcon).Start();
+            await this.ScanProfilesSilentAsync(true,false);
 
-            if (_scannerCancelationTokenSource != null &&
-                !_scannerCancelationTokenSource.Token.IsCancellationRequested &&
-                WindowState != FormWindowState.Maximized)
-                new MessageHelper().bringAppToFront((int) Handle);
-            _isStartup = false;
+            if(this._scannerCancelationTokenSource!=null&&
+                !this._scannerCancelationTokenSource.Token.IsCancellationRequested
+                &&this.WindowState!=System.Windows.Forms.FormWindowState.Maximized)
+            {
+                new nspector.Native.WINAPI.MessageHelper().bringAppToFront((int)this.Handle);
+            }
+
+            this._isStartup=false;
         }
     }
 
-    private void tsbDeleteProfile_Click(object sender, EventArgs e)
+    void tsbDeleteProfile_Click(object sender,System.EventArgs e)
     {
-        if (ModifierKeys == Keys.Control)
+        if(frmDrvSettings.ModifierKeys==System.Windows.Forms.Keys.Control)
         {
-            if (MessageBox.Show(this, "Really delete all profiles?", "Delete all profiles", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) == DialogResult.Yes)
+            if(System.Windows.Forms.MessageBox.Show(this,"Really delete all profiles?","Delete all profiles",
+                    System.Windows.Forms.MessageBoxButtons.YesNo,
+                    System.Windows.Forms.MessageBoxIcon.Question)==System.Windows.Forms.DialogResult.Yes)
             {
-                _drs.DeleteAllProfilesHard();
-                ChangeCurrentProfile(_baseProfileName);
-                DrsSessionScope.DestroyGlobalSession();
-                RefreshAll();
+                this._drs.DeleteAllProfilesHard();
+                this.ChangeCurrentProfile(this._baseProfileName);
+                nspector.Common.DrsSessionScope.DestroyGlobalSession();
+                this.RefreshAll();
             }
         }
-        else if (MessageBox.Show(this,
-                     "Really delete this profile?\r\n\r\nNote: NVIDIA predefined profiles can not be restored until next driver installation!",
-                     "Delete Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+        else if(System.Windows.Forms.MessageBox.Show(this,
+                "Really delete this profile?\r\n\r\nNote: NVIDIA predefined profiles can not be restored until next driver installation!",
+                "Delete Profile",System.Windows.Forms.MessageBoxButtons.YesNo,
+                System.Windows.Forms.MessageBoxIcon.Question)==System.Windows.Forms.DialogResult.Yes)
         {
-            if (_drs.DriverVersion > 280 && _drs.DriverVersion < 310)
+            if(this._drs.DriverVersion>280&&this._drs.DriverVersion<310)
                 // hack for driverbug
-                _drs.DeleteProfileHard(_CurrentProfile);
+            {
+                this._drs.DeleteProfileHard(this._CurrentProfile);
+            }
             else
-                _drs.DeleteProfile(_CurrentProfile);
+            {
+                this._drs.DeleteProfile(this._CurrentProfile);
+            }
 
-            RemoveFromModifiedProfiles(_CurrentProfile);
-            MessageBox.Show(this, string.Format("Profile '{0}' has been deleted.", _CurrentProfile), "Info",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-            RefreshProfilesCombo();
-            ChangeCurrentProfile(_baseProfileName);
+            this.RemoveFromModifiedProfiles(this._CurrentProfile);
+            System.Windows.Forms.MessageBox.Show(this,
+                string.Format("Profile '{0}' has been deleted.",this._CurrentProfile),"Info",
+                System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
+            this.RefreshProfilesCombo();
+            this.ChangeCurrentProfile(this._baseProfileName);
         }
     }
 
-    private void tsbAddApplication_Click(object sender, EventArgs e)
+    void tsbAddApplication_Click(object sender,System.EventArgs e)
     {
-        var openDialog = new OpenFileDialog();
-        openDialog.DefaultExt = "*.exe";
-        openDialog.Filter = "Application EXE Name|*.exe|Application Absolute Path|*.exe";
+        var openDialog=new System.Windows.Forms.OpenFileDialog();
+        openDialog.DefaultExt="*.exe";
+        openDialog.Filter    ="Application EXE Name|*.exe|Application Absolute Path|*.exe";
 
-        if (openDialog.ShowDialog() == DialogResult.OK)
+        if(openDialog.ShowDialog()==System.Windows.Forms.DialogResult.OK)
         {
-            var applicationName = new FileInfo(openDialog.FileName).Name;
-            if (openDialog.FilterIndex == 2)
-                applicationName = openDialog.FileName;
+            var applicationName=new System.IO.FileInfo(openDialog.FileName).Name;
+            if(openDialog.FilterIndex==2)
+            {
+                applicationName=openDialog.FileName;
+            }
 
             try
             {
-                _drs.AddApplication(_CurrentProfile, applicationName);
+                this._drs.AddApplication(this._CurrentProfile,applicationName);
             }
-            catch (NvapiException ex)
+            catch(nspector.Common.NvapiException ex)
             {
-                if (ex.Status == NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE || ex.Status == NvAPI_Status.NVAPI_ERROR)
+                if(ex.Status   ==nspector.Native.NVAPI2.NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE
+                    ||ex.Status==nspector.Native.NVAPI2.NvAPI_Status.NVAPI_ERROR)
                 {
-                    if (lblApplications.Text.ToUpper().IndexOf(" " + applicationName.ToUpper() + ",") != -1)
+                    if(this.lblApplications.Text.ToUpper().IndexOf(" "+applicationName.ToUpper()+",")!=-1)
                     {
-                        MessageBox.Show("This application executable is already assigned to this profile!",
-                            "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        System.Windows.Forms.MessageBox.Show(
+                            "This application executable is already assigned to this profile!",
+                            "Error adding Application",System.Windows.Forms.MessageBoxButtons.OK,
+                            System.Windows.Forms.MessageBoxIcon.Error);
                     }
                     else
                     {
-                        var profileNames = _scanner.FindProfilesUsingApplication(applicationName);
-                        if (profileNames == "")
-                            MessageBox.Show("This application executable might already be assigned to another profile!",
-                                "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        var profileNames=this._scanner.FindProfilesUsingApplication(applicationName);
+                        if(profileNames=="")
+                        {
+                            System.Windows.Forms.MessageBox.Show(
+                                "This application executable might already be assigned to another profile!",
+                                "Error adding Application",System.Windows.Forms.MessageBoxButtons.OK,
+                                System.Windows.Forms.MessageBoxIcon.Error);
+                        }
                         else
-                            MessageBox.Show(
-                                "This application executable is already assigned to the following profiles: " +
-                                profileNames, "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        {
+                            System.Windows.Forms.MessageBox.Show(
+                                "This application executable is already assigned to the following profiles: "+
+                                profileNames,"Error adding Application",System.Windows.Forms.MessageBoxButtons.OK,
+                                System.Windows.Forms.MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else
@@ -919,10 +1001,10 @@ internal partial class frmDrvSettings : Form
             }
         }
 
-        RefreshCurrentProfile();
+        this.RefreshCurrentProfile();
     }
 
-    private void tssbRemoveApplication_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+    void tssbRemoveApplication_DropDownItemClicked(object sender,System.Windows.Forms.ToolStripItemClickedEventArgs e)
     {
         //if ((uint)e.ClickedItem.Tag == 0
         //    || (
@@ -935,317 +1017,359 @@ internal partial class frmDrvSettings : Form
         //{
         //    drs.DeleteApplication(currentProfile, e.ClickedItem.Text);
         //}
-        _drs.RemoveApplication(_CurrentProfile, e.ClickedItem.Tag.ToString());
-        RefreshCurrentProfile();
+        this._drs.RemoveApplication(this._CurrentProfile,e.ClickedItem.Tag.ToString());
+        this.RefreshCurrentProfile();
     }
 
-    private void tsbCreateProfile_Click(object sender, EventArgs e)
+    void tsbCreateProfile_Click(object sender,System.EventArgs e)
     {
-        ShowCreateProfileDialog("");
+        this.ShowCreateProfileDialog("");
     }
 
-    private void ShowCreateProfileDialog(string nameProposal, string applicationName = null)
+    void ShowCreateProfileDialog(string nameProposal,string applicationName=null)
     {
-        var ignoreList = cbProfiles.Items.Cast<string>().ToList();
-        var result = nameProposal;
+        var ignoreList=Enumerable.ToList(Enumerable.Cast<string>(this.cbProfiles.Items));
+        var result    =nameProposal;
 
-        if (InputBox.Show("Create Profile", "Please enter profile name:", ref result, ignoreList, "", 2048) ==
-            DialogResult.OK)
+        if(nspector.Common.Helper.InputBox.Show("Create Profile","Please enter profile name:",ref result,ignoreList,"",
+                2048)==
+            System.Windows.Forms.DialogResult.OK)
+        {
             try
             {
-                _drs.CreateProfile(result, applicationName);
-                RefreshProfilesCombo();
-                cbProfiles.SelectedIndex = cbProfiles.Items.IndexOf(result);
-                AddToModifiedProfiles(result, true);
+                this._drs.CreateProfile(result,applicationName);
+                this.RefreshProfilesCombo();
+                this.cbProfiles.SelectedIndex=this.cbProfiles.Items.IndexOf(result);
+                this.AddToModifiedProfiles(result,true);
             }
-            catch (NvapiException ex)
+            catch(nspector.Common.NvapiException ex)
             {
                 //TODO: could not create profile
-                MessageBox.Show(ex.Message);
+                System.Windows.Forms.MessageBox.Show(ex.Message);
             }
-    }
-
-    private void tsbExportProfiles_Click(object sender, EventArgs e)
-    {
-        tsbExportProfiles.ShowDropDown();
-    }
-
-    private void tsbImportProfiles_Click(object sender, EventArgs e)
-    {
-        tsbImportProfiles.ShowDropDown();
-    }
-
-    private async void exportUserdefinedProfilesToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        await ScanProfilesSilentAsync(false, true);
-    }
-
-    private void ExportCurrentProfile(bool includePredefined)
-    {
-        var saveDialog = new SaveFileDialog();
-        saveDialog.DefaultExt = "*.nip";
-        saveDialog.Filter = Application.ProductName + " Profiles|*.nip";
-        saveDialog.FileName = _CurrentProfile + ".nip";
-        if (saveDialog.ShowDialog() == DialogResult.OK)
-        {
-            var profiles = new[]
-            {
-                _CurrentProfile
-            }.ToList();
-            _import.ExportProfiles(profiles, saveDialog.FileName, includePredefined);
         }
     }
 
-    private void exportCurrentProfileOnlyToolStripMenuItem_Click(object sender, EventArgs e)
+    void tsbExportProfiles_Click(object sender,System.EventArgs e)
     {
-        ExportCurrentProfile(false);
+        this.tsbExportProfiles.ShowDropDown();
     }
 
-    private void exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+    void tsbImportProfiles_Click(object sender,System.EventArgs e)
     {
-        ExportCurrentProfile(true);
+        this.tsbImportProfiles.ShowDropDown();
     }
 
-    private void tssbRemoveApplication_Click(object sender, EventArgs e)
+    async void exportUserdefinedProfilesToolStripMenuItem_Click(object sender,System.EventArgs e)
     {
-        if (tssbRemoveApplication.DropDown.Items.Count > 0)
-            tssbRemoveApplication.ShowDropDown();
+        await this.ScanProfilesSilentAsync(false,true);
     }
 
-    private void tsbModifiedProfiles_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+    void ExportCurrentProfile(bool includePredefined)
     {
-        cbProfiles.SelectedIndex = cbProfiles.FindStringExact(e.ClickedItem.Text);
+        var saveDialog=new System.Windows.Forms.SaveFileDialog();
+        saveDialog.DefaultExt="*.nip";
+        saveDialog.Filter    =System.Windows.Forms.Application.ProductName+" Profiles|*.nip";
+        saveDialog.FileName  =this._CurrentProfile                        +".nip";
+        if(saveDialog.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+        {
+            var profiles=Enumerable.ToList(new[]
+            {
+                this._CurrentProfile,
+            });
+            this._import.ExportProfiles(profiles,saveDialog.FileName,includePredefined);
+        }
     }
 
-    private string GetBaseProfileName()
+    void exportCurrentProfileOnlyToolStripMenuItem_Click(object sender,System.EventArgs e)
     {
-        return string.Format("_GLOBAL_DRIVER_PROFILE ({0})", _baseProfileName);
+        this.ExportCurrentProfile(false);
     }
 
-    private void tsbModifiedProfiles_ButtonClick(object sender, EventArgs e)
+    void exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click(object sender,System.EventArgs e)
     {
-        ChangeCurrentProfile(GetBaseProfileName());
+        this.ExportCurrentProfile(true);
     }
 
-    private void frmDrvSettings_Activated(object sender, EventArgs e)
+    void tssbRemoveApplication_Click(object sender,System.EventArgs e)
     {
-        if (!_activated)
-            _activated = true;
+        if(this.tssbRemoveApplication.DropDown.Items.Count>0)
+        {
+            this.tssbRemoveApplication.ShowDropDown();
+        }
     }
 
-    private void exportAllProfilesNVIDIATextFormatToolStripMenuItem_Click(object sender, EventArgs e)
+    void tsbModifiedProfiles_DropDownItemClicked(object sender,System.Windows.Forms.ToolStripItemClickedEventArgs e)
     {
-        var saveDialog = new SaveFileDialog();
-        saveDialog.DefaultExt = "*.txt";
-        saveDialog.Filter = "Profiles (NVIDIA Text Format)|*.txt";
-        if (saveDialog.ShowDialog() == DialogResult.OK)
-            _import.ExportAllProfilesToNvidiaTextFile(saveDialog.FileName);
+        this.cbProfiles.SelectedIndex=this.cbProfiles.FindStringExact(e.ClickedItem.Text);
     }
 
-    private async void RefreshAll()
-    {
-        RefreshProfilesCombo();
-        await ScanProfilesSilentAsync(true, false);
+    string GetBaseProfileName()=>string.Format("_GLOBAL_DRIVER_PROFILE ({0})",this._baseProfileName);
 
-        var idx = cbProfiles.Items.IndexOf(_CurrentProfile);
-        if (idx == -1 || _CurrentProfile == _baseProfileName)
-            cbProfiles.Text = GetBaseProfileName();
+    void tsbModifiedProfiles_ButtonClick(object sender,System.EventArgs e)
+    {
+        this.ChangeCurrentProfile(this.GetBaseProfileName());
+    }
+
+    void frmDrvSettings_Activated(object sender,System.EventArgs e)
+    {
+        if(!this._activated)
+        {
+            this._activated=true;
+        }
+    }
+
+    void exportAllProfilesNVIDIATextFormatToolStripMenuItem_Click(object sender,System.EventArgs e)
+    {
+        var saveDialog=new System.Windows.Forms.SaveFileDialog();
+        saveDialog.DefaultExt="*.txt";
+        saveDialog.Filter    ="Profiles (NVIDIA Text Format)|*.txt";
+        if(saveDialog.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+        {
+            this._import.ExportAllProfilesToNvidiaTextFile(saveDialog.FileName);
+        }
+    }
+
+    async void RefreshAll()
+    {
+        this.RefreshProfilesCombo();
+        await this.ScanProfilesSilentAsync(true,false);
+
+        var idx=this.cbProfiles.Items.IndexOf(this._CurrentProfile);
+        if(idx==-1||this._CurrentProfile==this._baseProfileName)
+        {
+            this.cbProfiles.Text=this.GetBaseProfileName();
+        }
         else
-            cbProfiles.SelectedIndex = idx;
+        {
+            this.cbProfiles.SelectedIndex=idx;
+        }
 
-        RefreshCurrentProfile();
+        this.RefreshCurrentProfile();
     }
 
-    private void importAllProfilesNVIDIATextFormatToolStripMenuItem_Click(object sender, EventArgs e)
+    void importAllProfilesNVIDIATextFormatToolStripMenuItem_Click(object sender,System.EventArgs e)
     {
-        var openDialog = new OpenFileDialog();
-        openDialog.DefaultExt = "*.txt";
-        openDialog.Filter = "Profiles (NVIDIA Text Format)|*.txt";
-        if (openDialog.ShowDialog() == DialogResult.OK)
+        var openDialog=new System.Windows.Forms.OpenFileDialog();
+        openDialog.DefaultExt="*.txt";
+        openDialog.Filter    ="Profiles (NVIDIA Text Format)|*.txt";
+        if(openDialog.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+        {
             try
             {
-                _import.ImportAllProfilesFromNvidiaTextFile(openDialog.FileName);
-                MessageBox.Show("Profile(s) successfully imported!", Application.ProductName, MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                DrsSessionScope.DestroyGlobalSession();
-                RefreshAll();
+                this._import.ImportAllProfilesFromNvidiaTextFile(openDialog.FileName);
+                System.Windows.Forms.MessageBox.Show("Profile(s) successfully imported!",
+                    System.Windows.Forms.Application.ProductName,System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Information);
+                nspector.Common.DrsSessionScope.DestroyGlobalSession();
+                this.RefreshAll();
             }
-            catch (NvapiException)
+            catch(nspector.Common.NvapiException)
             {
-                MessageBox.Show("Profile(s) could not imported!", Application.ProductName, MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show("Profile(s) could not imported!",
+                    System.Windows.Forms.Application.ProductName,System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error);
             }
+        }
     }
 
-    private void importProfilesToolStripMenuItem_Click(object sender, EventArgs e)
+    void importProfilesToolStripMenuItem_Click(object sender,System.EventArgs e)
     {
-        var openDialog = new OpenFileDialog();
-        openDialog.DefaultExt = "*.nip";
-        openDialog.Filter = Application.ProductName + " Profiles|*.nip";
-        if (openDialog.ShowDialog() == DialogResult.OK)
-            ImportProfiles(openDialog.FileName);
-    }
-
-    private void cbProfiles_TextChanged(object sender, EventArgs e)
-    {
-        if (cbProfiles.DroppedDown)
+        var openDialog=new System.Windows.Forms.OpenFileDialog();
+        openDialog.DefaultExt="*.nip";
+        openDialog.Filter    =System.Windows.Forms.Application.ProductName+" Profiles|*.nip";
+        if(openDialog.ShowDialog()==System.Windows.Forms.DialogResult.OK)
         {
-            var txt = cbProfiles.Text;
-            cbProfiles.DroppedDown = false;
-            cbProfiles.Text = txt;
-            cbProfiles.Select(cbProfiles.Text.Length, 0);
+            this.ImportProfiles(openDialog.FileName);
+        }
+    }
+
+    void cbProfiles_TextChanged(object sender,System.EventArgs e)
+    {
+        if(this.cbProfiles.DroppedDown)
+        {
+            var txt=this.cbProfiles.Text;
+            this.cbProfiles.DroppedDown=false;
+            this.cbProfiles.Text       =txt;
+            this.cbProfiles.Select(this.cbProfiles.Text.Length,0);
         }
     }
 
 
     public static void ShowImportDoneMessage(string importReport)
     {
-        if (string.IsNullOrEmpty(importReport))
-            MessageBox.Show("Profile(s) successfully imported!", Application.ProductName, MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-        else
-            MessageBox.Show("Some profile(s) could not imported!\r\n\r\n" + importReport, Application.ProductName,
-                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-    }
-
-    private void ImportProfiles(string nipFileName)
-    {
-        var importReport = _import.ImportProfiles(nipFileName);
-        RefreshAll();
-        ShowImportDoneMessage(importReport);
-    }
-
-    private void lvSettings_OnDropFilesNative(string[] files)
-    {
-        if (files.Length == 1)
+        if(string.IsNullOrEmpty(importReport))
         {
-            var fileInfo = new FileInfo(files[0]);
-            if (fileInfo.Extension.ToLower().Equals(".nip"))
+            System.Windows.Forms.MessageBox.Show("Profile(s) successfully imported!",
+                System.Windows.Forms.Application.ProductName,System.Windows.Forms.MessageBoxButtons.OK,
+                System.Windows.Forms.MessageBoxIcon.Information);
+        }
+        else
+        {
+            System.Windows.Forms.MessageBox.Show("Some profile(s) could not imported!\r\n\r\n"+importReport,
+                System.Windows.Forms.Application.ProductName,
+                System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Warning);
+        }
+    }
+
+    void ImportProfiles(string nipFileName)
+    {
+        var importReport=this._import.ImportProfiles(nipFileName);
+        this.RefreshAll();
+        frmDrvSettings.ShowImportDoneMessage(importReport);
+    }
+
+    void lvSettings_OnDropFilesNative(string[] files)
+    {
+        if(files.Length==1)
+        {
+            var fileInfo=new System.IO.FileInfo(files[0]);
+            if(fileInfo.Extension.ToLower().Equals(".nip"))
             {
-                ImportProfiles(fileInfo.FullName);
+                this.ImportProfiles(fileInfo.FullName);
                 return;
             }
 
 
-            var profileName = "";
-            var exeFile = ShortcutResolver.ResolveExecuteable(files[0], out profileName);
-            if (exeFile != "")
+            var profileName="";
+            var exeFile    =nspector.Common.Helper.ShortcutResolver.ResolveExecuteable(files[0],out profileName);
+            if(exeFile!="")
             {
-                var profiles = _scanner.FindProfilesUsingApplication(exeFile);
-                if (profiles != "")
+                var profiles=this._scanner.FindProfilesUsingApplication(exeFile);
+                if(profiles!="")
                 {
-                    var profile = profiles.Split(';')[0];
-                    var idx = cbProfiles.Items.IndexOf(profile);
-                    if (idx > -1)
-                        cbProfiles.SelectedIndex = idx;
+                    var profile=profiles.Split(';')[0];
+                    var idx    =this.cbProfiles.Items.IndexOf(profile);
+                    if(idx>-1)
+                    {
+                        this.cbProfiles.SelectedIndex=idx;
+                    }
                 }
                 else
                 {
-                    var dr = MessageBox.Show("Would you like to create a new profile for this application?",
-                        "Profile not found!", MessageBoxButtons.YesNo);
-                    if (dr == DialogResult.Yes)
-                        ShowCreateProfileDialog(profileName, exeFile);
+                    var dr=System.Windows.Forms.MessageBox.Show(
+                        "Would you like to create a new profile for this application?",
+                        "Profile not found!",System.Windows.Forms.MessageBoxButtons.YesNo);
+                    if(dr==System.Windows.Forms.DialogResult.Yes)
+                    {
+                        this.ShowCreateProfileDialog(profileName,exeFile);
+                    }
                 }
             }
         }
     }
 
-    private void lvSettings_DoubleClick(object sender, EventArgs e)
+    void lvSettings_DoubleClick(object sender,System.EventArgs e)
     {
-        if (Debugger.IsAttached && lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count == 1)
+        if(System.Diagnostics.Debugger.IsAttached&&this.lvSettings.SelectedItems!=null
+            &&this.lvSettings.SelectedItems.Count                               ==1)
         {
-            var settingId = (uint) lvSettings.SelectedItems[0].Tag;
-            var settingName = lvSettings.SelectedItems[0].Text;
-            Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
+            var settingId  =(uint)this.lvSettings.SelectedItems[0].Tag;
+            var settingName=this.lvSettings.SelectedItems[0].Text;
+            System.Windows.Forms.Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
         }
     }
 
-    private void HandleScreenConstraints()
+    void HandleScreenConstraints()
     {
-        var workingArea = Screen.GetWorkingArea(this);
+        var workingArea=System.Windows.Forms.Screen.GetWorkingArea(this);
 
-        if (Left < workingArea.X)
-            Left = workingArea.X;
+        if(this.Left<workingArea.X)
+        {
+            this.Left=workingArea.X;
+        }
 
-        if (Top < workingArea.Y)
-            Top = workingArea.Y;
+        if(this.Top<workingArea.Y)
+        {
+            this.Top=workingArea.Y;
+        }
 
-        if (Left + Width > workingArea.X + workingArea.Width)
-            Left = workingArea.X + workingArea.Width - Width;
+        if(this.Left+this.Width>workingArea.X+workingArea.Width)
+        {
+            this.Left=workingArea.X+workingArea.Width-this.Width;
+        }
 
-        if (Top + Height > workingArea.Y + workingArea.Height)
-            Top = workingArea.Y + workingArea.Height - Height;
+        if(this.Top+this.Height>workingArea.Y+workingArea.Height)
+        {
+            this.Top=workingArea.Y+workingArea.Height-this.Height;
+        }
     }
 
-    private void SaveSettings()
+    void SaveSettings()
     {
-        var settings = UserSettings.LoadSettings();
+        var settings=nspector.Common.Helper.UserSettings.LoadSettings();
 
-        if (WindowState == FormWindowState.Normal)
+        if(this.WindowState==System.Windows.Forms.FormWindowState.Normal)
         {
-            settings.WindowTop = Top;
-            settings.WindowLeft = Left;
-            settings.WindowHeight = Height;
-            settings.WindowWidth = Width;
+            settings.WindowTop   =this.Top;
+            settings.WindowLeft  =this.Left;
+            settings.WindowHeight=this.Height;
+            settings.WindowWidth =this.Width;
         }
         else
         {
-            settings.WindowTop = RestoreBounds.Top;
-            settings.WindowLeft = RestoreBounds.Left;
-            settings.WindowHeight = RestoreBounds.Height;
-            settings.WindowWidth = RestoreBounds.Width;
+            settings.WindowTop   =this.RestoreBounds.Top;
+            settings.WindowLeft  =this.RestoreBounds.Left;
+            settings.WindowHeight=this.RestoreBounds.Height;
+            settings.WindowWidth =this.RestoreBounds.Width;
         }
 
-        settings.WindowState = WindowState;
-        settings.ShowCustomizedSettingNamesOnly = tscbShowCustomSettingNamesOnly.Checked;
-        settings.ShowScannedUnknownSettings = tscbShowScannedUnknownSettings.Checked;
+        settings.WindowState                   =this.WindowState;
+        settings.ShowCustomizedSettingNamesOnly=this.tscbShowCustomSettingNamesOnly.Checked;
+        settings.ShowScannedUnknownSettings    =this.tscbShowScannedUnknownSettings.Checked;
         settings.SaveSettings();
     }
 
-    private void LoadSettings()
+    void LoadSettings()
     {
-        var settings = UserSettings.LoadSettings();
-        SetBounds(settings.WindowLeft, settings.WindowTop, settings.WindowWidth, settings.WindowHeight);
-        WindowState = settings.WindowState != FormWindowState.Minimized ? settings.WindowState : FormWindowState.Normal;
-        HandleScreenConstraints();
-        tscbShowCustomSettingNamesOnly.Checked = settings.ShowCustomizedSettingNamesOnly;
-        tscbShowScannedUnknownSettings.Checked = !_skipScan && settings.ShowScannedUnknownSettings;
+        var settings=nspector.Common.Helper.UserSettings.LoadSettings();
+        this.SetBounds(settings.WindowLeft,settings.WindowTop,settings.WindowWidth,settings.WindowHeight);
+        this.WindowState=settings.WindowState!=System.Windows.Forms.FormWindowState.Minimized?settings.WindowState
+            :System.Windows.Forms.FormWindowState.Normal;
+        this.HandleScreenConstraints();
+        this.tscbShowCustomSettingNamesOnly.Checked=settings.ShowCustomizedSettingNamesOnly;
+        this.tscbShowScannedUnknownSettings.Checked=!this._skipScan&&settings.ShowScannedUnknownSettings;
     }
 
-    private void frmDrvSettings_FormClosed(object sender, FormClosedEventArgs e)
+    void frmDrvSettings_FormClosed(object sender,System.Windows.Forms.FormClosedEventArgs e)
     {
-        _scannerCancelationTokenSource?.Cancel();
-        SaveSettings();
+        this._scannerCancelationTokenSource?.Cancel();
+        this.SaveSettings();
     }
 
-    private void lvSettings_KeyDown(object sender, KeyEventArgs e)
+    void lvSettings_KeyDown(object sender,System.Windows.Forms.KeyEventArgs e)
     {
-        if (e.Control && e.KeyCode == Keys.C)
-            CopyModifiedSettingsToClipBoard();
-    }
-
-    private void CopyModifiedSettingsToClipBoard()
-    {
-        var sbSettings = new StringBuilder();
-        sbSettings.AppendFormat("{0,-40} {1}\r\n", "### NVIDIA Profile Inspector ###", _CurrentProfile);
-
-        foreach (ListViewGroup group in lvSettings.Groups)
+        if(e.Control&&e.KeyCode==System.Windows.Forms.Keys.C)
         {
-            var groupTitleAdded = false;
-            foreach (ListViewItem item in group.Items)
-            {
-                if (item.ImageIndex != 0) continue;
+            this.CopyModifiedSettingsToClipBoard();
+        }
+    }
 
-                if (!groupTitleAdded)
+    void CopyModifiedSettingsToClipBoard()
+    {
+        var sbSettings=new System.Text.StringBuilder();
+        sbSettings.AppendFormat("{0,-40} {1}\r\n","### NVIDIA Profile Inspector ###",this._CurrentProfile);
+
+        foreach(System.Windows.Forms.ListViewGroup group in this.lvSettings.Groups)
+        {
+            var groupTitleAdded=false;
+            foreach(System.Windows.Forms.ListViewItem item in group.Items)
+            {
+                if(item.ImageIndex!=0)
                 {
-                    sbSettings.AppendFormat("\r\n[{0}]\r\n", group.Header);
-                    groupTitleAdded = true;
+                    continue;
                 }
 
-                sbSettings.AppendFormat("{0,-40} {1}\r\n", item.Text, item.SubItems[1].Text);
+                if(!groupTitleAdded)
+                {
+                    sbSettings.AppendFormat("\r\n[{0}]\r\n",group.Header);
+                    groupTitleAdded=true;
+                }
+
+                sbSettings.AppendFormat("{0,-40} {1}\r\n",item.Text,item.SubItems[1].Text);
             }
         }
 
-        Clipboard.SetText(sbSettings.ToString());
+        System.Windows.Forms.Clipboard.SetText(sbSettings.ToString());
     }
 }

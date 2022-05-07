@@ -1,104 +1,109 @@
-﻿using System;
-using nspector.Native.NVAPI2;
+﻿namespace nspector.Common.Import;
 
-namespace nspector.Common.Import;
-
-internal class ImportExportUitl
+class ImportExportUitl
 {
-    public static bool AreDrsSettingEqualToProfileSetting(NVDRS_SETTING drsSetting, ProfileSetting profileSetting)
+    public static bool AreDrsSettingEqualToProfileSetting(nspector.Native.NVAPI2.NVDRS_SETTING drsSetting,
+        ProfileSetting                                                                         profileSetting)
     {
-        var profileSettingCompare = ConvertDrsSettingToProfileSetting(drsSetting);
+        var profileSettingCompare=ImportExportUitl.ConvertDrsSettingToProfileSetting(drsSetting);
         return profileSetting.SettingValue.Equals(profileSettingCompare.SettingValue);
     }
 
-    public static ProfileSetting ConvertDrsSettingToProfileSetting(NVDRS_SETTING setting)
-    {
-        return new ProfileSetting
+    public static ProfileSetting ConvertDrsSettingToProfileSetting(nspector.Native.NVAPI2.NVDRS_SETTING setting)
+        =>new ProfileSetting
         {
-            SettingId = setting.settingId,
-            SettingNameInfo = setting.settingName,
-            SettingValue = ConvertSettingValueToString(setting),
-            ValueType = MapValueType(setting.settingType)
+            SettingId   =setting.settingId,SettingNameInfo=setting.settingName,
+            SettingValue=ImportExportUitl.ConvertSettingValueToString(setting),
+            ValueType   =ImportExportUitl.MapValueType(setting.settingType),
         };
-    }
 
-    private static string ConvertSettingValueToString(NVDRS_SETTING setting)
+    static string ConvertSettingValueToString(nspector.Native.NVAPI2.NVDRS_SETTING setting)
     {
-        var settingUnion = setting.currentValue;
-        if (setting.isCurrentPredefined == 1)
-            settingUnion = setting.predefinedValue;
-
-        switch (setting.settingType)
+        var settingUnion=setting.currentValue;
+        if(setting.isCurrentPredefined==1)
         {
-            case NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE:
+            settingUnion=setting.predefinedValue;
+        }
+
+        switch(setting.settingType)
+        {
+            case nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE:
                 return settingUnion.dwordValue.ToString();
-            case NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE:
+            case nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE:
                 return settingUnion.ansiStringValue;
-            case NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE:
+            case nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE:
                 return settingUnion.stringValue;
-            case NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE:
-                return Convert.ToBase64String(settingUnion.binaryValue);
+            case nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE:
+                return System.Convert.ToBase64String(settingUnion.binaryValue);
             default:
-                throw new Exception("invalid setting type");
+                throw new System.Exception("invalid setting type");
         }
     }
 
-    private static SettingValueType MapValueType(NVDRS_SETTING_TYPE input)
+    static SettingValueType MapValueType(nspector.Native.NVAPI2.NVDRS_SETTING_TYPE input)
     {
-        switch (input)
+        switch(input)
         {
-            case NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE: return SettingValueType.Binary;
-            case NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE: return SettingValueType.AnsiString;
-            case NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE: return SettingValueType.String;
-            default: return SettingValueType.Dword;
+            case nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE:
+                return SettingValueType.Binary;
+            case nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE:
+                return SettingValueType.AnsiString;
+            case nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE:
+                return SettingValueType.String;
+            default:
+                return SettingValueType.Dword;
         }
     }
 
-    public static NVDRS_SETTING ConvertProfileSettingToDrsSetting(ProfileSetting setting)
+    public static nspector.Native.NVAPI2.NVDRS_SETTING ConvertProfileSettingToDrsSetting(ProfileSetting setting)
     {
-        var newSetting = new NVDRS_SETTING
+        var newSetting=new nspector.Native.NVAPI2.NVDRS_SETTING
         {
-            version = NvapiDrsWrapper.NVDRS_SETTING_VER,
-            settingId = setting.SettingId,
-            settingType = MapValueType(setting.ValueType),
-            settingLocation = NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION,
-            currentValue = ConvertStringToSettingUnion(setting.ValueType, setting.SettingValue)
+            version        =nspector.Native.NVAPI2.NvapiDrsWrapper.NVDRS_SETTING_VER,settingId=setting.SettingId,
+            settingType    =ImportExportUitl.MapValueType(setting.ValueType),
+            settingLocation=nspector.Native.NVAPI2.NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION,
+            currentValue   =ImportExportUitl.ConvertStringToSettingUnion(setting.ValueType,setting.SettingValue),
         };
         return newSetting;
     }
 
-    private static NVDRS_SETTING_UNION ConvertStringToSettingUnion(SettingValueType valueType, string valueString)
+    static nspector.Native.NVAPI2.NVDRS_SETTING_UNION ConvertStringToSettingUnion(SettingValueType valueType,
+        string                                                                                     valueString)
     {
-        var union = new NVDRS_SETTING_UNION();
-        switch (valueType)
+        var union=new nspector.Native.NVAPI2.NVDRS_SETTING_UNION();
+        switch(valueType)
         {
             case SettingValueType.Dword:
-                union.dwordValue = uint.Parse(valueString);
+                union.dwordValue=uint.Parse(valueString);
                 break;
             case SettingValueType.String:
-                union.stringValue = valueString;
+                union.stringValue=valueString;
                 break;
             case SettingValueType.AnsiString:
-                union.ansiStringValue = valueString;
+                union.ansiStringValue=valueString;
                 break;
             case SettingValueType.Binary:
-                union.binaryValue = Convert.FromBase64String(valueString);
+                union.binaryValue=System.Convert.FromBase64String(valueString);
                 break;
             default:
-                throw new Exception("invalid value type");
+                throw new System.Exception("invalid value type");
         }
 
         return union;
     }
 
-    private static NVDRS_SETTING_TYPE MapValueType(SettingValueType input)
+    static nspector.Native.NVAPI2.NVDRS_SETTING_TYPE MapValueType(SettingValueType input)
     {
-        switch (input)
+        switch(input)
         {
-            case SettingValueType.Binary: return NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE;
-            case SettingValueType.AnsiString: return NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE;
-            case SettingValueType.String: return NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE;
-            default: return NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
+            case SettingValueType.Binary:
+                return nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE;
+            case SettingValueType.AnsiString:
+                return nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE;
+            case SettingValueType.String:
+                return nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE;
+            default:
+                return nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
         }
     }
 }

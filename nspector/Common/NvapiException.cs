@@ -1,26 +1,18 @@
-﻿using System;
-using nspector.Native.NVAPI2;
+﻿namespace nspector.Common;
 
-namespace nspector.Common;
-
-public class NvapiException : Exception
+public class NvapiException:System.Exception
 {
-    public readonly NvAPI_Status Status;
+    public readonly nspector.Native.NVAPI2.NvAPI_Status Status;
 
-    public NvapiException(string function, NvAPI_Status status)
-        : base(function + " failed: " + status)
-    {
-        Status = status;
-    }
+    public NvapiException(string function,nspector.Native.NVAPI2.NvAPI_Status status)
+        :base(function+" failed: "+status)=>this.Status=status;
 }
 
-public class NvapiAddApplicationException : NvapiException
+public class NvapiAddApplicationException:NvapiException
 {
     public readonly string ApplicationName;
 
     public NvapiAddApplicationException(string applicationName)
-        : base("DRS_CreateApplication", NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
-    {
-        ApplicationName = applicationName;
-    }
+        :base("DRS_CreateApplication",nspector.Native.NVAPI2.NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
+        =>this.ApplicationName=applicationName;
 }

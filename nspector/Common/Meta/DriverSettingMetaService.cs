@@ -1,205 +1,236 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using nspector.Native.NVAPI2;
-using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
+﻿#region
+
+using nvw=nspector.Native.NVAPI2.NvapiDrsWrapper;
+
+#endregion
 
 namespace nspector.Common.Meta;
 
-internal class DriverSettingMetaService : ISettingMetaService
+class DriverSettingMetaService:ISettingMetaService
 {
-    private readonly List<uint> _settingIds;
+    readonly System.Collections.Generic.List<uint> _settingIds;
 
-    private readonly Dictionary<uint, SettingMeta> _settingMetaCache = new();
+    readonly System.Collections.Generic.Dictionary<uint,SettingMeta> _settingMetaCache
+        =new System.Collections.Generic.Dictionary<uint,SettingMeta>();
 
-    public DriverSettingMetaService()
-    {
-        _settingIds = InitSettingIds();
-    }
+    public DriverSettingMetaService()=>this._settingIds=this.InitSettingIds();
 
     public string GetSettingName(uint settingId)
     {
-        var settingMeta = GetSettingsMeta(settingId);
-        if (settingMeta != null)
+        var settingMeta=this.GetSettingsMeta(settingId);
+        if(settingMeta!=null)
+        {
             return settingMeta.SettingName;
+        }
 
         return null;
     }
 
     public uint? GetDwordDefaultValue(uint settingId)
     {
-        var settingMeta = GetSettingsMeta(settingId);
-        if (settingMeta != null)
+        var settingMeta=this.GetSettingsMeta(settingId);
+        if(settingMeta!=null)
+        {
             return settingMeta.DefaultDwordValue;
+        }
 
         return null;
     }
 
     public string GetStringDefaultValue(uint settingId)
     {
-        var settingMeta = GetSettingsMeta(settingId);
-        if (settingMeta != null)
+        var settingMeta=this.GetSettingsMeta(settingId);
+        if(settingMeta!=null)
+        {
             return settingMeta.DefaultStringValue;
+        }
 
         return null;
     }
 
-    public List<SettingValue<string>> GetStringValues(uint settingId)
+    public System.Collections.Generic.List<SettingValue<string>> GetStringValues(uint settingId)
     {
-        var settingMeta = GetSettingsMeta(settingId);
-        if (settingMeta != null)
+        var settingMeta=this.GetSettingsMeta(settingId);
+        if(settingMeta!=null)
+        {
             return settingMeta.StringValues;
+        }
 
         return null;
     }
 
-    public List<SettingValue<uint>> GetDwordValues(uint settingId)
+    public System.Collections.Generic.List<SettingValue<uint>> GetDwordValues(uint settingId)
     {
-        var settingMeta = GetSettingsMeta(settingId);
-        if (settingMeta != null)
+        var settingMeta=this.GetSettingsMeta(settingId);
+        if(settingMeta!=null)
+        {
             return settingMeta.DwordValues;
+        }
 
         return null;
     }
 
-    public List<uint> GetSettingIds()
-    {
-        return _settingIds;
-    }
+    public System.Collections.Generic.List<uint> GetSettingIds()=>this._settingIds;
 
-    public NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
+    public nspector.Native.NVAPI2.NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
     {
-        var settingMeta = GetSettingsMeta(settingId);
-        if (settingMeta != null)
+        var settingMeta=this.GetSettingsMeta(settingId);
+        if(settingMeta!=null)
+        {
             return settingMeta.SettingType;
+        }
 
         return null;
     }
 
-    public string GetGroupName(uint settingId)
-    {
-        return null;
-    }
+    public string GetGroupName(uint settingId)=>null;
 
     public byte[] GetBinaryDefaultValue(uint settingId)
     {
-        var settingMeta = GetSettingsMeta(settingId);
-        if (settingMeta != null)
+        var settingMeta=this.GetSettingsMeta(settingId);
+        if(settingMeta!=null)
+        {
             return settingMeta.DefaultBinaryValue;
+        }
 
         return null;
     }
 
-    public List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
+    public System.Collections.Generic.List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
     {
-        var settingMeta = GetSettingsMeta(settingId);
-        if (settingMeta != null)
+        var settingMeta=this.GetSettingsMeta(settingId);
+        if(settingMeta!=null)
+        {
             return settingMeta.BinaryValues;
+        }
 
         return null;
     }
 
-    public SettingMetaSource Source => SettingMetaSource.DriverSettings;
-
-    private List<uint> InitSettingIds()
+    public SettingMetaSource Source
     {
-        var settingIds = new List<uint>();
+        get
+        {
+            return SettingMetaSource.DriverSettings;
+        }
+    }
 
-        var nvRes = nvw.DRS_EnumAvailableSettingIds(out settingIds, 512);
-        if (nvRes != NvAPI_Status.NVAPI_OK)
-            throw new NvapiException("DRS_EnumAvailableSettingIds", nvRes);
+    System.Collections.Generic.List<uint> InitSettingIds()
+    {
+        var settingIds=new System.Collections.Generic.List<uint>();
+
+        var nvRes=nvw.DRS_EnumAvailableSettingIds(out settingIds,512);
+        if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+        {
+            throw new NvapiException("DRS_EnumAvailableSettingIds",nvRes);
+        }
 
         return settingIds;
     }
 
-    private SettingMeta GetDriverSettingMetaInternal(uint settingId)
+    SettingMeta GetDriverSettingMetaInternal(uint settingId)
     {
-        var values = new NVDRS_SETTING_VALUES();
-        values.version = nvw.NVDRS_SETTING_VALUES_VER;
-        uint valueCount = 255;
+        var values=new nspector.Native.NVAPI2.NVDRS_SETTING_VALUES();
+        values.version=nvw.NVDRS_SETTING_VALUES_VER;
+        uint valueCount=255;
 
-        var nvRes = nvw.DRS_EnumAvailableSettingValues(settingId, ref valueCount, ref values);
+        var nvRes=nvw.DRS_EnumAvailableSettingValues(settingId,ref valueCount,ref values);
 
-        if (nvRes == NvAPI_Status.NVAPI_SETTING_NOT_FOUND)
-            return null;
-
-        if (nvRes != NvAPI_Status.NVAPI_OK)
-            throw new NvapiException("DRS_EnumAvailableSettingValues", nvRes);
-
-
-        var sbSettingName = new StringBuilder((int) NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX);
-        nvRes = nvw.DRS_GetSettingNameFromId(settingId, sbSettingName);
-        if (nvRes != NvAPI_Status.NVAPI_OK)
-            throw new NvapiException("DRS_GetSettingNameFromId", nvRes);
-
-        var settingName = sbSettingName.ToString();
-        if (string.IsNullOrWhiteSpace(settingName))
-            settingName = DrsUtil.GetDwordString(settingId);
-
-        var result = new SettingMeta
+        if(nvRes==nspector.Native.NVAPI2.NvAPI_Status.NVAPI_SETTING_NOT_FOUND)
         {
-            SettingType = values.settingType,
-            SettingName = settingName
+            return null;
+        }
+
+        if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+        {
+            throw new NvapiException("DRS_EnumAvailableSettingValues",nvRes);
+        }
+
+
+        var sbSettingName=new System.Text.StringBuilder((int)nvw.NVAPI_UNICODE_STRING_MAX);
+        nvRes=nvw.DRS_GetSettingNameFromId(settingId,sbSettingName);
+        if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+        {
+            throw new NvapiException("DRS_GetSettingNameFromId",nvRes);
+        }
+
+        var settingName=sbSettingName.ToString();
+        if(string.IsNullOrWhiteSpace(settingName))
+        {
+            settingName=DrsUtil.GetDwordString(settingId);
+        }
+
+        var result=new SettingMeta
+        {
+            SettingType=values.settingType,SettingName=settingName,
         };
 
 
-        if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
+        if(values.settingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
         {
-            result.DefaultDwordValue = values.defaultValue.dwordValue;
-            result.DwordValues = new List<SettingValue<uint>>();
-            for (var i = 0; i < values.numSettingValues; i++)
-                result.DwordValues.Add(
-                    new SettingValue<uint>(Source)
-                    {
-                        Value = values.settingValues[i].dwordValue,
-                        ValueName = DrsUtil.GetDwordString(values.settingValues[i].dwordValue)
-                    });
-        }
-
-        if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
-        {
-            result.DefaultStringValue = values.defaultValue.stringValue;
-            result.StringValues = new List<SettingValue<string>>();
-            for (var i = 0; i < values.numSettingValues; i++)
+            result.DefaultDwordValue=values.defaultValue.dwordValue;
+            result.DwordValues      =new System.Collections.Generic.List<SettingValue<uint>>();
+            for(var i=0;i<values.numSettingValues;i++)
             {
-                var strValue = values.settingValues[i].stringValue;
-                if (strValue != null)
-                    result.StringValues.Add(
-                        new SettingValue<string>(Source)
-                        {
-                            Value = strValue,
-                            ValueName = strValue
-                        });
+                result.DwordValues.Add(
+                    new SettingValue<uint>(this.Source)
+                    {
+                        Value    =values.settingValues[i].dwordValue,
+                        ValueName=DrsUtil.GetDwordString(values.settingValues[i].dwordValue),
+                    });
             }
         }
 
-        if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+        if(values.settingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
         {
-            result.DefaultBinaryValue = values.defaultValue.binaryValue;
-            result.BinaryValues = new List<SettingValue<byte[]>>();
-            for (var i = 0; i < values.numSettingValues; i++)
+            result.DefaultStringValue=values.defaultValue.stringValue;
+            result.StringValues      =new System.Collections.Generic.List<SettingValue<string>>();
+            for(var i=0;i<values.numSettingValues;i++)
             {
-                var binValue = values.settingValues[i].binaryValue;
-                if (binValue != null)
-                    result.BinaryValues.Add(
-                        new SettingValue<byte[]>(Source)
+                var strValue=values.settingValues[i].stringValue;
+                if(strValue!=null)
+                {
+                    result.StringValues.Add(
+                        new SettingValue<string>(this.Source)
                         {
-                            Value = binValue,
-                            ValueName = DrsUtil.GetBinaryString(binValue)
+                            Value=strValue,ValueName=strValue,
                         });
+                }
+            }
+        }
+
+        if(values.settingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+        {
+            result.DefaultBinaryValue=values.defaultValue.binaryValue;
+            result.BinaryValues      =new System.Collections.Generic.List<SettingValue<byte[]>>();
+            for(var i=0;i<values.numSettingValues;i++)
+            {
+                var binValue=values.settingValues[i].binaryValue;
+                if(binValue!=null)
+                {
+                    result.BinaryValues.Add(
+                        new SettingValue<byte[]>(this.Source)
+                        {
+                            Value=binValue,ValueName=DrsUtil.GetBinaryString(binValue),
+                        });
+                }
             }
         }
 
         return result;
     }
 
-    private SettingMeta GetSettingsMeta(uint settingId)
+    SettingMeta GetSettingsMeta(uint settingId)
     {
-        if (_settingMetaCache.ContainsKey(settingId))
-            return _settingMetaCache[settingId];
-        var settingMeta = GetDriverSettingMetaInternal(settingId);
-        if (settingMeta != null)
+        if(this._settingMetaCache.ContainsKey(settingId))
         {
-            _settingMetaCache.Add(settingId, settingMeta);
+            return this._settingMetaCache[settingId];
+        }
+
+        var settingMeta=this.GetDriverSettingMetaInternal(settingId);
+        if(settingMeta!=null)
+        {
+            this._settingMetaCache.Add(settingId,settingMeta);
             return settingMeta;
         }
 

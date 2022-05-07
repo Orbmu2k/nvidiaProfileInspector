@@ -1,514 +1,583 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using nspector.Common.Helper;
-using nspector.Common.Meta;
-using nspector.Native.NVAPI2;
-using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
+﻿#region
+
+using Enumerable=System.Linq.Enumerable;
+using nvw=nspector.Native.NVAPI2.NvapiDrsWrapper;
+
+#endregion
 
 namespace nspector.Common;
 
-internal class DrsSettingsService : DrsSettingsServiceBase
+class DrsSettingsService:DrsSettingsServiceBase
 {
-    private readonly List<uint> _baseProfileSettingIds;
+    readonly System.Collections.Generic.List<uint> _baseProfileSettingIds;
 
-    public DrsSettingsService(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService)
-        : base(metaService, decrpterService)
-    {
-        _baseProfileSettingIds = InitBaseProfileSettingIds();
-    }
+    public DrsSettingsService(DrsSettingsMetaService metaService,DrsDecrypterService decrpterService)
+        :base(metaService,decrpterService)=>this._baseProfileSettingIds=this.InitBaseProfileSettingIds();
 
-    private List<uint> InitBaseProfileSettingIds()
+    System.Collections.Generic.List<uint> InitBaseProfileSettingIds()
     {
-        return DrsSession(hSession =>
+        return this.DrsSession(hSession=>
         {
-            var hBaseProfile = GetProfileHandle(hSession, "");
-            var baseProfileSettings = GetProfileSettings(hSession, hBaseProfile);
+            var hBaseProfile       =this.GetProfileHandle(hSession,"");
+            var baseProfileSettings=this.GetProfileSettings(hSession,hBaseProfile);
 
-            return baseProfileSettings.Select(x => x.settingId).ToList();
+            return Enumerable.ToList(Enumerable.Select(baseProfileSettings,x=>x.settingId));
         });
     }
 
-    private string GetDrsProgramPath()
+    string GetDrsProgramPath()
     {
-        var nvidiaInstallerFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+        var nvidiaInstallerFolder=System.IO.Path.Combine(
+            System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles),
             @"NVIDIA Corporation\Installer2");
-        var driverFolders = Directory.EnumerateDirectories(nvidiaInstallerFolder, "Display.Driver.*");
-        foreach (var folder in driverFolders)
+        var driverFolders=System.IO.Directory.EnumerateDirectories(nvidiaInstallerFolder,"Display.Driver.*");
+        foreach(var folder in driverFolders)
         {
-            var fiDbInstaller = new FileInfo(Path.Combine(folder, "dbInstaller.exe"));
-            if (!fiDbInstaller.Exists) continue;
+            var fiDbInstaller=new System.IO.FileInfo(System.IO.Path.Combine(folder,"dbInstaller.exe"));
+            if(!fiDbInstaller.Exists)
+            {
+                continue;
+            }
 
-            var fviDbInstaller = FileVersionInfo.GetVersionInfo(fiDbInstaller.FullName);
+            var fviDbInstaller=System.Diagnostics.FileVersionInfo.GetVersionInfo(fiDbInstaller.FullName);
 
-            var fileversion = fviDbInstaller.FileVersion.Replace(".", "");
-            var driverver = DriverVersion.ToString().Replace(",", "").Replace(".", "");
+            var fileversion=fviDbInstaller.FileVersion.Replace(".","");
+            var driverver  =this.DriverVersion.ToString().Replace(",","").Replace(".","");
 
-            if (fileversion.EndsWith(driverver))
+            if(fileversion.EndsWith(driverver))
+            {
                 return fiDbInstaller.DirectoryName;
+            }
         }
 
-        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+        return System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles),
             @"NVIDIA Corporation\Drs");
     }
 
-    private void RunDrsInitProcess()
+    void RunDrsInitProcess()
     {
-        var drsPath = GetDrsProgramPath();
+        var drsPath=this.GetDrsProgramPath();
 
-        var si = new ProcessStartInfo();
-        si.UseShellExecute = true;
-        si.WorkingDirectory = drsPath;
-        si.Arguments = "-init";
-        si.FileName = Path.Combine(drsPath, "dbInstaller.exe");
-        if (!AdminHelper.IsAdmin)
-            si.Verb = "runas";
-        var p = Process.Start(si);
+        var si=new System.Diagnostics.ProcessStartInfo();
+        si.UseShellExecute =true;
+        si.WorkingDirectory=drsPath;
+        si.Arguments       ="-init";
+        si.FileName        =System.IO.Path.Combine(drsPath,"dbInstaller.exe");
+        if(!nspector.Common.Helper.AdminHelper.IsAdmin)
+        {
+            si.Verb="runas";
+        }
+
+        var p=System.Diagnostics.Process.Start(si);
         p.WaitForExit();
     }
 
     public void DeleteAllProfilesHard()
     {
-        var tmpFile = TempFile.GetTempFileName();
+        var tmpFile=nspector.Common.Helper.TempFile.GetTempFileName();
         try
         {
-            File.WriteAllText(tmpFile,
+            System.IO.File.WriteAllText(tmpFile,
                 "BaseProfile \"Base Profile\"\r\nSelectedGlobalProfile \"Base Profile\"\r\nProfile \"Base Profile\"\r\nShowOn All\r\nProfileType Global\r\nEndProfile\r\n");
 
-            DrsSession(hSession =>
+            this.DrsSession(hSession=>
             {
-                LoadSettingsFileEx(hSession, tmpFile);
-                SaveSettings(hSession);
-            }, true, true);
+                this.LoadSettingsFileEx(hSession,tmpFile);
+                this.SaveSettings(hSession);
+            },true,true);
         }
         finally
         {
-            if (File.Exists(tmpFile))
-                File.Delete(tmpFile);
+            if(System.IO.File.Exists(tmpFile))
+            {
+                System.IO.File.Delete(tmpFile);
+            }
         }
     }
 
     public void DeleteProfileHard(string profileName)
     {
-        var tmpFileName = TempFile.GetTempFileName();
+        var tmpFileName=nspector.Common.Helper.TempFile.GetTempFileName();
 
         try
         {
-            var tmpFileContent = "";
+            var tmpFileContent="";
 
-            DrsSession(hSession =>
+            this.DrsSession(hSession=>
             {
-                SaveSettingsFileEx(hSession, tmpFileName);
-                tmpFileContent = File.ReadAllText(tmpFileName);
-                var pattern = "(?<rpl>\nProfile\\s\"" + Regex.Escape(profileName) + "\".*?EndProfile.*?\n)";
-                tmpFileContent = Regex.Replace(tmpFileContent, pattern, "", RegexOptions.Singleline);
-                File.WriteAllText(tmpFileName, tmpFileContent);
+                this.SaveSettingsFileEx(hSession,tmpFileName);
+                tmpFileContent=System.IO.File.ReadAllText(tmpFileName);
+                var pattern="(?<rpl>\nProfile\\s\""+System.Text.RegularExpressions.Regex.Escape(profileName)
+                    +"\".*?EndProfile.*?\n)";
+                tmpFileContent=System.Text.RegularExpressions.Regex.Replace(tmpFileContent,pattern,"",
+                    System.Text.RegularExpressions.RegexOptions.Singleline);
+                System.IO.File.WriteAllText(tmpFileName,tmpFileContent);
             });
 
-            if (tmpFileContent != "")
-                DrsSession(hSession =>
+            if(tmpFileContent!="")
+            {
+                this.DrsSession(hSession=>
                 {
-                    LoadSettingsFileEx(hSession, tmpFileName);
-                    SaveSettings(hSession);
+                    this.LoadSettingsFileEx(hSession,tmpFileName);
+                    this.SaveSettings(hSession);
                 });
+            }
         }
         finally
         {
-            if (File.Exists(tmpFileName))
-                File.Delete(tmpFileName);
+            if(System.IO.File.Exists(tmpFileName))
+            {
+                System.IO.File.Delete(tmpFileName);
+            }
         }
     }
 
     public void DeleteProfile(string profileName)
     {
-        DrsSession(hSession =>
+        this.DrsSession(hSession=>
         {
-            var hProfile = GetProfileHandle(hSession, profileName);
-            if (hProfile != IntPtr.Zero)
+            var hProfile=this.GetProfileHandle(hSession,profileName);
+            if(hProfile!=System.IntPtr.Zero)
             {
-                var nvRes = nvw.DRS_DeleteProfile(hSession, hProfile);
-                if (nvRes != NvAPI_Status.NVAPI_OK)
-                    throw new NvapiException("DRS_DeleteProfile", nvRes);
+                var nvRes=nvw.DRS_DeleteProfile(hSession,hProfile);
+                if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+                {
+                    throw new NvapiException("DRS_DeleteProfile",nvRes);
+                }
 
-                SaveSettings(hSession);
+                this.SaveSettings(hSession);
             }
         });
     }
 
-    public List<string> GetProfileNames(ref string baseProfileName)
+    public System.Collections.Generic.List<string> GetProfileNames(ref string baseProfileName)
     {
-        var lstResult = new List<string>();
-        var tmpBaseProfileName = baseProfileName;
+        var lstResult         =new System.Collections.Generic.List<string>();
+        var tmpBaseProfileName=baseProfileName;
 
-        DrsSession(hSession =>
+        this.DrsSession(hSession=>
         {
-            var hBase = GetProfileHandle(hSession, null);
-            var baseProfile = GetProfileInfo(hSession, hBase);
-            tmpBaseProfileName = baseProfile.profileName;
+            var hBase      =this.GetProfileHandle(hSession,null);
+            var baseProfile=this.GetProfileInfo(hSession,hBase);
+            tmpBaseProfileName=baseProfile.profileName;
 
-            lstResult.Add("_GLOBAL_DRIVER_PROFILE (" + tmpBaseProfileName + ")");
+            lstResult.Add("_GLOBAL_DRIVER_PROFILE ("+tmpBaseProfileName+")");
 
-            var profileHandles = EnumProfileHandles(hSession);
-            foreach (var hProfile in profileHandles)
+            var profileHandles=this.EnumProfileHandles(hSession);
+            foreach(var hProfile in profileHandles)
             {
-                var profile = GetProfileInfo(hSession, hProfile);
+                var profile=this.GetProfileInfo(hSession,hProfile);
 
-                if (profile.isPredefined == 0 || profile.numOfApps > 0)
+                if(profile.isPredefined==0||profile.numOfApps>0)
+                {
                     lstResult.Add(profile.profileName);
+                }
             }
         });
 
-        baseProfileName = tmpBaseProfileName;
+        baseProfileName=tmpBaseProfileName;
         return lstResult;
     }
 
-    public void CreateProfile(string profileName, string applicationName = null)
+    public void CreateProfile(string profileName,string applicationName=null)
     {
-        DrsSession(hSession =>
+        this.DrsSession(hSession=>
         {
-            var hProfile = CreateProfile(hSession, profileName);
+            var hProfile=this.CreateProfile(hSession,profileName);
 
-            if (applicationName != null)
-                AddApplication(hSession, hProfile, applicationName);
+            if(applicationName!=null)
+            {
+                this.AddApplication(hSession,hProfile,applicationName);
+            }
 
-            SaveSettings(hSession);
+            this.SaveSettings(hSession);
         });
     }
 
     public void ResetAllProfilesInternal()
     {
-        RunDrsInitProcess();
+        this.RunDrsInitProcess();
 
-        DrsSession(hSession =>
+        this.DrsSession(hSession=>
         {
-            var nvRes = nvw.DRS_RestoreAllDefaults(hSession);
-            if (nvRes != NvAPI_Status.NVAPI_OK)
-                throw new NvapiException("DRS_RestoreAllDefaults", nvRes);
+            var nvRes=nvw.DRS_RestoreAllDefaults(hSession);
+            if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+            {
+                throw new NvapiException("DRS_RestoreAllDefaults",nvRes);
+            }
 
-            SaveSettings(hSession);
+            this.SaveSettings(hSession);
         });
     }
 
-    public void ResetProfile(string profileName, out bool removeFromModified)
+    public void ResetProfile(string profileName,out bool removeFromModified)
     {
-        var tmpRemoveFromModified = false;
-        DrsSession(hSession =>
+        var tmpRemoveFromModified=false;
+        this.DrsSession(hSession=>
         {
-            var hProfile = GetProfileHandle(hSession, profileName);
-            var profile = GetProfileInfo(hSession, hProfile);
+            var hProfile=this.GetProfileHandle(hSession,profileName);
+            var profile =this.GetProfileInfo(hSession,hProfile);
 
-            if (profile.isPredefined == 1)
+            if(profile.isPredefined==1)
             {
-                var nvRes = nvw.DRS_RestoreProfileDefault(hSession, hProfile);
-                if (nvRes != NvAPI_Status.NVAPI_OK)
-                    throw new NvapiException("DRS_RestoreProfileDefault", nvRes);
+                var nvRes=nvw.DRS_RestoreProfileDefault(hSession,hProfile);
+                if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+                {
+                    throw new NvapiException("DRS_RestoreProfileDefault",nvRes);
+                }
 
-                SaveSettings(hSession);
-                tmpRemoveFromModified = true;
+                this.SaveSettings(hSession);
+                tmpRemoveFromModified=true;
             }
-            else if (profile.numOfSettings > 0)
+            else if(profile.numOfSettings>0)
             {
-                var dropCount = 0;
-                var settings = GetProfileSettings(hSession, hProfile);
+                var dropCount=0;
+                var settings =this.GetProfileSettings(hSession,hProfile);
 
-                foreach (var setting in settings)
-                    if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
-                        if (nvw.DRS_DeleteProfileSetting(hSession, hProfile, setting.settingId) ==
-                            NvAPI_Status.NVAPI_OK)
+                foreach(var setting in settings)
+                {
+                    if(setting.settingLocation
+                        ==nspector.Native.NVAPI2.NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                    {
+                        if(nvw.DRS_DeleteProfileSetting(hSession,hProfile,setting.settingId)==
+                            nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+                        {
                             dropCount++;
-                if (dropCount > 0)
-                    SaveSettings(hSession);
+                        }
+                    }
+                }
+
+                if(dropCount>0)
+                {
+                    this.SaveSettings(hSession);
+                }
             }
         });
 
-        removeFromModified = tmpRemoveFromModified;
+        removeFromModified=tmpRemoveFromModified;
     }
 
-    public void ResetValue(string profileName, uint settingId, out bool removeFromModified)
+    public void ResetValue(string profileName,uint settingId,out bool removeFromModified)
     {
-        var tmpRemoveFromModified = false;
+        var tmpRemoveFromModified=false;
 
-        DrsSession(hSession =>
+        this.DrsSession(hSession=>
         {
-            var hProfile = GetProfileHandle(hSession, profileName);
+            var hProfile=this.GetProfileHandle(hSession,profileName);
 
-            if (hProfile != IntPtr.Zero)
+            if(hProfile!=System.IntPtr.Zero)
             {
-                var nvRes = nvw.DRS_RestoreProfileDefaultSetting(hSession, hProfile, settingId);
-                if (nvRes != NvAPI_Status.NVAPI_OK)
-                    throw new NvapiException("DRS_RestoreProfileDefaultSetting", nvRes);
+                var nvRes=nvw.DRS_RestoreProfileDefaultSetting(hSession,hProfile,settingId);
+                if(nvRes!=nspector.Native.NVAPI2.NvAPI_Status.NVAPI_OK)
+                {
+                    throw new NvapiException("DRS_RestoreProfileDefaultSetting",nvRes);
+                }
 
-                SaveSettings(hSession);
+                this.SaveSettings(hSession);
 
-                var modifyCount = 0;
-                var settings = GetProfileSettings(hSession, hProfile);
+                var modifyCount=0;
+                var settings   =this.GetProfileSettings(hSession,hProfile);
 
-                foreach (var setting in settings)
-                    if (setting.isCurrentPredefined == 0 && setting.settingLocation ==
-                        NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                foreach(var setting in settings)
+                {
+                    if(setting.isCurrentPredefined==0&&setting.settingLocation==
+                        nspector.Native.NVAPI2.NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                    {
                         modifyCount++;
-                tmpRemoveFromModified = modifyCount == 0;
+                    }
+                }
+
+                tmpRemoveFromModified=modifyCount==0;
             }
         });
 
-        removeFromModified = tmpRemoveFromModified;
+        removeFromModified=tmpRemoveFromModified;
     }
 
-    public uint GetDwordValueFromProfile(string profileName, uint settingId, bool returnDefaultValue = false,
-        bool forceDedicatedScope = false)
+    public uint GetDwordValueFromProfile(string profileName,uint settingId,bool returnDefaultValue=false,
+        bool                                    forceDedicatedScope=false)
     {
-        return DrsSession(hSession =>
+        return this.DrsSession(hSession=>
         {
-            var hProfile = GetProfileHandle(hSession, profileName);
+            var hProfile=this.GetProfileHandle(hSession,profileName);
 
-            var dwordValue = ReadDwordValue(hSession, hProfile, settingId);
+            var dwordValue=this.ReadDwordValue(hSession,hProfile,settingId);
 
-            if (dwordValue != null)
-                return dwordValue.Value;
-            if (returnDefaultValue)
-                return meta.GetSettingMeta(settingId).DefaultDwordValue;
-
-            throw new NvapiException("DRS_GetSetting", NvAPI_Status.NVAPI_SETTING_NOT_FOUND);
-        });
-    }
-
-    public void SetDwordValueToProfile(string profileName, uint settingId, uint dwordValue)
-    {
-        DrsSession(hSession =>
-        {
-            var hProfile = GetProfileHandle(hSession, profileName);
-            StoreDwordValue(hSession, hProfile, settingId, dwordValue);
-            SaveSettings(hSession);
-        });
-    }
-
-    public int StoreSettingsToProfile(string profileName, List<KeyValuePair<uint, string>> settings)
-    {
-        DrsSession(hSession =>
-        {
-            var hProfile = GetProfileHandle(hSession, profileName);
-
-            foreach (var setting in settings)
+            if(dwordValue!=null)
             {
-                var settingMeta = meta.GetSettingMeta(setting.Key);
-                var settingType = settingMeta.SettingType;
+                return dwordValue.Value;
+            }
 
-                if (settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
+            if(returnDefaultValue)
+            {
+                return this.meta.GetSettingMeta(settingId).DefaultDwordValue;
+            }
+
+            throw new NvapiException("DRS_GetSetting",nspector.Native.NVAPI2.NvAPI_Status.NVAPI_SETTING_NOT_FOUND);
+        });
+    }
+
+    public void SetDwordValueToProfile(string profileName,uint settingId,uint dwordValue)
+    {
+        this.DrsSession(hSession=>
+        {
+            var hProfile=this.GetProfileHandle(hSession,profileName);
+            this.StoreDwordValue(hSession,hProfile,settingId,dwordValue);
+            this.SaveSettings(hSession);
+        });
+    }
+
+    public int StoreSettingsToProfile(string                                                  profileName,
+        System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<uint,string>> settings)
+    {
+        this.DrsSession(hSession=>
+        {
+            var hProfile=this.GetProfileHandle(hSession,profileName);
+
+            foreach(var setting in settings)
+            {
+                var settingMeta=this.meta.GetSettingMeta(setting.Key);
+                var settingType=settingMeta.SettingType;
+
+                if(settingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
                 {
-                    var dword = DrsUtil.ParseDwordSettingValue(settingMeta, setting.Value);
-                    StoreDwordValue(hSession, hProfile, setting.Key, dword);
+                    var dword=DrsUtil.ParseDwordSettingValue(settingMeta,setting.Value);
+                    this.StoreDwordValue(hSession,hProfile,setting.Key,dword);
                 }
-                else if (settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
+                else if(settingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
                 {
-                    var str = DrsUtil.ParseStringSettingValue(settingMeta, setting.Value);
-                    StoreStringValue(hSession, hProfile, setting.Key, str);
+                    var str=DrsUtil.ParseStringSettingValue(settingMeta,setting.Value);
+                    this.StoreStringValue(hSession,hProfile,setting.Key,str);
                 }
-                else if (settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+                else if(settingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
                 {
-                    var bin = DrsUtil.ParseBinarySettingValue(settingMeta, setting.Value);
-                    StoreBinaryValue(hSession, hProfile, setting.Key, bin);
+                    var bin=DrsUtil.ParseBinarySettingValue(settingMeta,setting.Value);
+                    this.StoreBinaryValue(hSession,hProfile,setting.Key,bin);
                 }
             }
 
-            SaveSettings(hSession);
+            this.SaveSettings(hSession);
         });
 
         return 0;
     }
 
 
-    private SettingItem CreateSettingItem(NVDRS_SETTING setting, bool useDefault = false)
+    SettingItem CreateSettingItem(nspector.Native.NVAPI2.NVDRS_SETTING setting,bool useDefault=false)
     {
-        var settingMeta = meta.GetSettingMeta(setting.settingId);
+        var settingMeta=this.meta.GetSettingMeta(setting.settingId);
         //settingMeta.SettingType = setting.settingType;
 
-        if (settingMeta.DwordValues == null)
-            settingMeta.DwordValues = new List<SettingValue<uint>>();
-
-
-        if (settingMeta.StringValues == null)
-            settingMeta.StringValues = new List<SettingValue<string>>();
-
-        if (settingMeta.BinaryValues == null)
-            settingMeta.BinaryValues = new List<SettingValue<byte[]>>();
-
-
-        var settingState = SettingState.NotAssiged;
-        var valueRaw = "";
-        var valueText = "";
-
-        if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
+        if(settingMeta.DwordValues==null)
         {
-            if (useDefault)
-            {
-                valueRaw = DrsUtil.GetDwordString(settingMeta.DefaultDwordValue);
-                valueText = DrsUtil.GetDwordSettingValueName(settingMeta, settingMeta.DefaultDwordValue);
-            }
-            else if (setting.isCurrentPredefined == 1 && setting.isPredefinedValid == 1)
-            {
-                valueRaw = DrsUtil.GetDwordString(setting.predefinedValue.dwordValue);
-                valueText = DrsUtil.GetDwordSettingValueName(settingMeta, setting.predefinedValue.dwordValue);
+            settingMeta.DwordValues=new System.Collections.Generic.List<nspector.Common.Meta.SettingValue<uint>>();
+        }
 
-                if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
-                    settingState = SettingState.NvidiaSetting;
+
+        if(settingMeta.StringValues==null)
+        {
+            settingMeta.StringValues=new System.Collections.Generic.List<nspector.Common.Meta.SettingValue<string>>();
+        }
+
+        if(settingMeta.BinaryValues==null)
+        {
+            settingMeta.BinaryValues=new System.Collections.Generic.List<nspector.Common.Meta.SettingValue<byte[]>>();
+        }
+
+
+        var settingState=SettingState.NotAssiged;
+        var valueRaw    ="";
+        var valueText   ="";
+
+        if(settingMeta.SettingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
+        {
+            if(useDefault)
+            {
+                valueRaw =DrsUtil.GetDwordString(settingMeta.DefaultDwordValue);
+                valueText=DrsUtil.GetDwordSettingValueName(settingMeta,settingMeta.DefaultDwordValue);
+            }
+            else if(setting.isCurrentPredefined==1&&setting.isPredefinedValid==1)
+            {
+                valueRaw =DrsUtil.GetDwordString(setting.predefinedValue.dwordValue);
+                valueText=DrsUtil.GetDwordSettingValueName(settingMeta,setting.predefinedValue.dwordValue);
+
+                if(setting.settingLocation
+                    ==nspector.Native.NVAPI2.NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                {
+                    settingState=SettingState.NvidiaSetting;
+                }
                 else
-                    settingState = SettingState.GlobalSetting;
+                {
+                    settingState=SettingState.GlobalSetting;
+                }
             }
             else
             {
-                valueRaw = DrsUtil.GetDwordString(setting.currentValue.dwordValue);
-                valueText = DrsUtil.GetDwordSettingValueName(settingMeta, setting.currentValue.dwordValue);
+                valueRaw =DrsUtil.GetDwordString(setting.currentValue.dwordValue);
+                valueText=DrsUtil.GetDwordSettingValueName(settingMeta,setting.currentValue.dwordValue);
 
-                if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
-                    settingState = SettingState.UserdefinedSetting;
+                if(setting.settingLocation
+                    ==nspector.Native.NVAPI2.NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                {
+                    settingState=SettingState.UserdefinedSetting;
+                }
                 else
-                    settingState = SettingState.GlobalSetting;
+                {
+                    settingState=SettingState.GlobalSetting;
+                }
             }
         }
 
-        if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
+        if(settingMeta.SettingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
         {
-            if (useDefault)
+            if(useDefault)
             {
-                valueRaw = settingMeta.DefaultStringValue;
-                valueText = DrsUtil.GetStringSettingValueName(settingMeta, settingMeta.DefaultStringValue);
+                valueRaw =settingMeta.DefaultStringValue;
+                valueText=DrsUtil.GetStringSettingValueName(settingMeta,settingMeta.DefaultStringValue);
             }
-            else if (setting.isCurrentPredefined == 1 && setting.isPredefinedValid == 1)
+            else if(setting.isCurrentPredefined==1&&setting.isPredefinedValid==1)
             {
-                valueRaw = setting.predefinedValue.stringValue;
-                valueText = DrsUtil.GetStringSettingValueName(settingMeta, setting.predefinedValue.stringValue);
-                settingState = SettingState.NvidiaSetting;
+                valueRaw    =setting.predefinedValue.stringValue;
+                valueText   =DrsUtil.GetStringSettingValueName(settingMeta,setting.predefinedValue.stringValue);
+                settingState=SettingState.NvidiaSetting;
             }
             else
             {
-                valueRaw = setting.currentValue.stringValue;
-                valueText = DrsUtil.GetStringSettingValueName(settingMeta, setting.currentValue.stringValue);
+                valueRaw =setting.currentValue.stringValue;
+                valueText=DrsUtil.GetStringSettingValueName(settingMeta,setting.currentValue.stringValue);
 
-                if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
-                    settingState = SettingState.UserdefinedSetting;
+                if(setting.settingLocation
+                    ==nspector.Native.NVAPI2.NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                {
+                    settingState=SettingState.UserdefinedSetting;
+                }
                 else
-                    settingState = SettingState.GlobalSetting;
+                {
+                    settingState=SettingState.GlobalSetting;
+                }
             }
         }
 
-        if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+        if(settingMeta.SettingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
         {
-            if (useDefault)
+            if(useDefault)
             {
-                valueRaw = DrsUtil.GetBinaryString(settingMeta.DefaultBinaryValue);
-                valueText = DrsUtil.GetBinarySettingValueName(settingMeta, settingMeta.DefaultBinaryValue);
+                valueRaw =DrsUtil.GetBinaryString(settingMeta.DefaultBinaryValue);
+                valueText=DrsUtil.GetBinarySettingValueName(settingMeta,settingMeta.DefaultBinaryValue);
             }
-            else if (setting.isCurrentPredefined == 1 && setting.isPredefinedValid == 1)
+            else if(setting.isCurrentPredefined==1&&setting.isPredefinedValid==1)
             {
-                valueRaw = DrsUtil.GetBinaryString(setting.predefinedValue.binaryValue);
-                valueText = DrsUtil.GetBinarySettingValueName(settingMeta, setting.predefinedValue.binaryValue);
-                settingState = SettingState.NvidiaSetting;
+                valueRaw    =DrsUtil.GetBinaryString(setting.predefinedValue.binaryValue);
+                valueText   =DrsUtil.GetBinarySettingValueName(settingMeta,setting.predefinedValue.binaryValue);
+                settingState=SettingState.NvidiaSetting;
             }
             else
             {
-                valueRaw = DrsUtil.GetBinaryString(setting.currentValue.binaryValue);
-                valueText = DrsUtil.GetBinarySettingValueName(settingMeta, setting.currentValue.binaryValue);
+                valueRaw =DrsUtil.GetBinaryString(setting.currentValue.binaryValue);
+                valueText=DrsUtil.GetBinarySettingValueName(settingMeta,setting.currentValue.binaryValue);
 
-                if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
-                    settingState = SettingState.UserdefinedSetting;
+                if(setting.settingLocation
+                    ==nspector.Native.NVAPI2.NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                {
+                    settingState=SettingState.UserdefinedSetting;
+                }
                 else
-                    settingState = SettingState.GlobalSetting;
+                {
+                    settingState=SettingState.GlobalSetting;
+                }
             }
         }
 
         return new SettingItem
         {
-            SettingId = setting.settingId,
-            SettingText = settingMeta.SettingName,
-            GroupName = settingMeta.GroupName,
-            ValueRaw = valueRaw,
-            ValueText = valueText,
-            State = settingState,
-            IsStringValue = settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
-            IsApiExposed = settingMeta.IsApiExposed
+            SettingId    =setting.settingId,SettingText=settingMeta.SettingName,GroupName=settingMeta.GroupName,
+            ValueRaw     =valueRaw,ValueText           =valueText,State                  =settingState,
+            IsStringValue=settingMeta.SettingType==nspector.Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
+            IsApiExposed =settingMeta.IsApiExposed,
         };
     }
 
 
-    public List<SettingItem> GetSettingsForProfile(string profileName, SettingViewMode viewMode,
-        ref Dictionary<string, string> applications)
+    public System.Collections.Generic.List<SettingItem> GetSettingsForProfile(string profileName,
+        SettingViewMode                                                              viewMode,
+        ref System.Collections.Generic.Dictionary<string,string>                     applications)
     {
-        var result = new List<SettingItem>();
-        var settingIds = meta.GetSettingIds(viewMode);
-        settingIds.AddRange(_baseProfileSettingIds);
-        settingIds = settingIds.Distinct().ToList();
+        var result    =new System.Collections.Generic.List<SettingItem>();
+        var settingIds=this.meta.GetSettingIds(viewMode);
+        settingIds.AddRange(this._baseProfileSettingIds);
+        settingIds=Enumerable.ToList(Enumerable.Distinct(settingIds));
 
-        applications = DrsSession(hSession =>
+        applications=this.DrsSession(hSession=>
         {
-            var hProfile = GetProfileHandle(hSession, profileName);
+            var hProfile=this.GetProfileHandle(hSession,profileName);
 
-            var profileSettings = GetProfileSettings(hSession, hProfile);
-            foreach (var profileSetting in profileSettings)
+            var profileSettings=this.GetProfileSettings(hSession,hProfile);
+            foreach(var profileSetting in profileSettings)
             {
-                result.Add(CreateSettingItem(profileSetting));
+                result.Add(this.CreateSettingItem(profileSetting));
 
-                if (settingIds.Contains(profileSetting.settingId))
+                if(settingIds.Contains(profileSetting.settingId))
+                {
                     settingIds.Remove(profileSetting.settingId);
+                }
             }
 
-            foreach (var settingId in settingIds)
+            foreach(var settingId in settingIds)
             {
-                var setting = ReadSetting(hSession, hProfile, settingId);
-                if (setting != null)
+                var setting=this.ReadSetting(hSession,hProfile,settingId);
+                if(setting!=null)
                 {
-                    result.Add(CreateSettingItem(setting.Value));
+                    result.Add(this.CreateSettingItem(setting.Value));
                 }
                 else
                 {
-                    var dummySetting = new NVDRS_SETTING
+                    var dummySetting=new nspector.Native.NVAPI2.NVDRS_SETTING
                     {
-                        settingId = settingId
+                        settingId=settingId,
                     };
-                    result.Add(CreateSettingItem(dummySetting, true));
+                    result.Add(this.CreateSettingItem(dummySetting,true));
                 }
             }
 
-            return GetProfileApplications(hSession, hProfile)
-                .Select(x => Tuple.Create(x.appName, GetApplicationFingerprint(x)))
-                .ToDictionary(x => x.Item2, x => x.Item1);
+            return Enumerable.ToDictionary(
+                Enumerable.Select(this.GetProfileApplications(hSession,hProfile),
+                    x=>System.Tuple.Create(x.appName,this.GetApplicationFingerprint(x))),x=>x.Item2,x=>x.Item1);
         });
 
-        return result.OrderBy(x => x.SettingText).ThenBy(x => x.GroupName).ToList();
+        return Enumerable.ToList(Enumerable.ThenBy(Enumerable.OrderBy(result,x=>x.SettingText),x=>x.GroupName));
     }
 
-    public void AddApplication(string profileName, string applicationName)
+    public void AddApplication(string profileName,string applicationName)
     {
-        DrsSession(hSession =>
+        this.DrsSession(hSession=>
         {
-            var hProfile = GetProfileHandle(hSession, profileName);
-            AddApplication(hSession, hProfile, applicationName);
-            SaveSettings(hSession);
+            var hProfile=this.GetProfileHandle(hSession,profileName);
+            this.AddApplication(hSession,hProfile,applicationName);
+            this.SaveSettings(hSession);
         });
     }
 
-    public void RemoveApplication(string profileName, string applicationFingerprint)
+    public void RemoveApplication(string profileName,string applicationFingerprint)
     {
-        DrsSession(hSession =>
+        this.DrsSession(hSession=>
         {
-            var hProfile = GetProfileHandle(hSession, profileName);
-            var applications = GetProfileApplications(hSession, hProfile);
-            foreach (var app in applications)
+            var hProfile    =this.GetProfileHandle(hSession,profileName);
+            var applications=this.GetProfileApplications(hSession,hProfile);
+            foreach(var app in applications)
             {
-                if (GetApplicationFingerprint(app) != applicationFingerprint) continue;
-                DeleteApplication(hSession, hProfile, app);
+                if(this.GetApplicationFingerprint(app)!=applicationFingerprint)
+                {
+                    continue;
+                }
+
+                this.DeleteApplication(hSession,hProfile,app);
                 break;
             }
 
-            SaveSettings(hSession);
+            this.SaveSettings(hSession);
         });
     }
 
-    private string GetApplicationFingerprint(NVDRS_APPLICATION_V3 application)
-    {
-        return
-            $"{application.appName}|{application.fileInFolder}|{application.userFriendlyName}|{application.launcher}";
-    }
+    string GetApplicationFingerprint(nspector.Native.NVAPI2.NVDRS_APPLICATION_V3 application)
+        =>$"{application.appName}|{application.fileInFolder}|{application.userFriendlyName}|{application.launcher}";
 }

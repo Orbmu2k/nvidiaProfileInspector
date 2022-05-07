@@ -1,55 +1,46 @@
-using System.IO;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
-
 namespace nspector.Common.Helper;
 
-internal static class XMLHelper<T> where T : new()
+static class XMLHelper<T> where T:new()
 {
-    private static readonly XmlSerializer xmlSerializer;
+    static readonly System.Xml.Serialization.XmlSerializer xmlSerializer;
 
-    static XMLHelper()
-    {
-        xmlSerializer = new XmlSerializer(typeof(T));
-    }
+    static XMLHelper()=>XMLHelper<T>.xmlSerializer=new System.Xml.Serialization.XmlSerializer(typeof(T));
 
-    internal static string SerializeToXmlString(T xmlObject, Encoding encoding, bool removeNamespace)
+    internal static string SerializeToXmlString(T xmlObject,System.Text.Encoding encoding,bool removeNamespace)
     {
-        var memoryStream = new MemoryStream();
-        var xmlWriter = new XmlTextWriter(memoryStream, encoding)
+        var memoryStream=new System.IO.MemoryStream();
+        var xmlWriter=new System.Xml.XmlTextWriter(memoryStream,encoding)
         {
-            Formatting = Formatting.Indented
+            Formatting=System.Xml.Formatting.Indented,
         };
 
-        if (removeNamespace)
+        if(removeNamespace)
         {
-            var xs = new XmlSerializerNamespaces();
-            xs.Add("", "");
-            xmlSerializer.Serialize(xmlWriter, xmlObject, xs);
+            var xs=new System.Xml.Serialization.XmlSerializerNamespaces();
+            xs.Add("","");
+            XMLHelper<T>.xmlSerializer.Serialize(xmlWriter,xmlObject,xs);
         }
         else
         {
-            xmlSerializer.Serialize(xmlWriter, xmlObject);
+            XMLHelper<T>.xmlSerializer.Serialize(xmlWriter,xmlObject);
         }
 
         return encoding.GetString(memoryStream.ToArray());
     }
 
-    internal static void SerializeToXmlFile(T xmlObject, string filename, Encoding encoding, bool removeNamespace)
+    internal static void SerializeToXmlFile(T xmlObject,string filename,System.Text.Encoding encoding,
+        bool                                  removeNamespace)
     {
-        File.WriteAllText(filename, SerializeToXmlString(xmlObject, encoding, removeNamespace));
+        System.IO.File.WriteAllText(filename,XMLHelper<T>.SerializeToXmlString(xmlObject,encoding,removeNamespace));
     }
 
     internal static T DeserializeFromXmlString(string xml)
     {
-        var reader = new StringReader(xml);
-        var xmlObject = (T) xmlSerializer.Deserialize(reader);
+        var reader   =new System.IO.StringReader(xml);
+        var xmlObject=(T)XMLHelper<T>.xmlSerializer.Deserialize(reader);
         return xmlObject;
     }
 
     internal static T DeserializeFromXMLFile(string filename)
-    {
-        return DeserializeFromXmlString(File.ReadAllText(filename));
-    }
+        =>XMLHelper<T>.DeserializeFromXmlString(System.IO.File.ReadAllText(filename));
 }
