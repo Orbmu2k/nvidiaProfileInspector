@@ -586,13 +586,24 @@ namespace nspector.Native.NVAPI2
         public delegate NvAPI_Status DRS_FindApplicationByNameDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]StringBuilder appName, ref IntPtr phProfile, ref NVDRS_APPLICATION_V3 pApplication);
         public static readonly DRS_FindApplicationByNameDelegate DRS_FindApplicationByName;
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_SetSettingDelegate(IntPtr hSession, IntPtr hProfile, ref NVDRS_SETTING pSetting);
-        public static readonly DRS_SetSettingDelegate DRS_SetSetting;
+        public static NvAPI_Status DRS_SetSetting(IntPtr hSession, IntPtr hProfile, ref NVDRS_SETTING pSetting)
+        {
+            return _DRS_SetSetting(hSession, hProfile, ref pSetting, 0, 0);
+        }
+
+        public static NvAPI_Status DRS_GetSetting(IntPtr hSession, IntPtr hProfile, uint settingId, ref NVDRS_SETTING pSetting)
+        {
+            uint x = 0;
+            return _DRS_GetSetting(hSession, hProfile, settingId, ref pSetting, ref x);
+        }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_GetSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId, ref NVDRS_SETTING pSetting);
-        public static readonly DRS_GetSettingDelegate DRS_GetSetting;
+        public delegate NvAPI_Status DRS_SetSettingDelegate(IntPtr hSession, IntPtr hProfile, ref NVDRS_SETTING pSetting, uint x, uint y);
+        private static readonly DRS_SetSettingDelegate _DRS_SetSetting;
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate NvAPI_Status DRS_GetSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId, ref NVDRS_SETTING pSetting, ref uint x);
+        private static readonly DRS_GetSettingDelegate _DRS_GetSetting;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate NvAPI_Status DRS_EnumSettingsDelegate(IntPtr hSession, IntPtr hProfile, uint startIndex, ref uint settingsCount, IntPtr pSetting);
@@ -728,17 +739,17 @@ namespace nspector.Native.NVAPI2
                         GetDelegate(0xED1F8C69, out DRS_GetApplicationInfo);
                         GetDelegate(0x7FA2173A, out DRS_EnumApplicationsInternal);
                         GetDelegate(0xEEE566B2, out DRS_FindApplicationByName);
-                        GetDelegate(0x577DD202, out DRS_SetSetting);
-                        GetDelegate(0x73BF8338, out DRS_GetSetting);
-                        GetDelegate(0xAE3039DA, out DRS_EnumSettingsInternal);
-                        GetDelegate(0xF020614A, out DRS_EnumAvailableSettingIdsInternal);
+                        GetDelegate(0x8A2CF5F5, out _DRS_SetSetting);
+                        GetDelegate(0xEA99498D, out _DRS_GetSetting);
+                        GetDelegate(0xCFD6983E, out DRS_EnumSettingsInternal);
+                        GetDelegate(0xE5DE48E5, out DRS_EnumAvailableSettingIdsInternal);
                         GetDelegate(0x2EC39F90, out DRS_EnumAvailableSettingValuesInternal);
                         GetDelegate(0xCB7309CD, out DRS_GetSettingIdFromName);
-                        GetDelegate(0xD61CBE6E, out DRS_GetSettingNameFromId);
+                        GetDelegate(0x1EB13791, out DRS_GetSettingNameFromId);
                         GetDelegate(0xE4A26362, out DRS_DeleteProfileSetting);
                         GetDelegate(0x5927B094, out DRS_RestoreAllDefaults);
                         GetDelegate(0xFA5F6134, out DRS_RestoreProfileDefault);
-                        GetDelegate(0x53F0381E, out DRS_RestoreProfileDefaultSetting);
+                        GetDelegate(0x7DD5B261, out DRS_RestoreProfileDefaultSetting);
                         GetDelegate(0xDA8466A0, out DRS_GetBaseProfile);
                         #endregion
 

@@ -19,7 +19,7 @@ namespace nspector.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -73,17 +73,19 @@ namespace nspector.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;CustomSettingNames&gt;
-        ///  &lt;ShowCustomizedSettingNamesOnly&gt;false&lt;/ShowCustomizedSettingNamesOnly&gt;
         ///  &lt;Settings&gt;
-        ///    &lt;CustomSetting&gt;
-        ///      &lt;UserfriendlyName&gt;NVLINK SLI Mode&lt;/UserfriendlyName&gt;
-        ///      &lt;HexSettingID&gt;0x00A06948&lt;/HexSettingID&gt;
-        ///      &lt;GroupName&gt;6 - SLI&lt;/GroupName&gt;
-        ///      &lt;MinRequiredDriverVersion&gt;410.00&lt;/MinRequiredDriverVersion&gt;
-        ///    &lt;/CustomSetting&gt;
-        ///    &lt;CustomSetting&gt;
-        ///      &lt;UserfriendlyName&gt;Texture filtering - Quality substitution&lt;/UserfriendlyName&gt;
-        ///  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///	&lt;CustomSetting&gt;
+        ///		  &lt;UserfriendlyName&gt;VRR Support Indicator&lt;/UserfriendlyName&gt;
+        ///		  &lt;HexSettingID&gt;0x8df510&lt;/HexSettingID&gt;
+        ///		  &lt;GroupName&gt;2 - Sync and Refresh&lt;/GroupName&gt;
+        ///		  &lt;SettingValues&gt;
+        ///			  &lt;CustomSettingValue&gt;
+        ///				  &lt;UserfriendlyName&gt;Off&lt;/UserfriendlyName&gt;
+        ///				  &lt;HexValue&gt;0x00000000&lt;/HexValue&gt;
+        ///			  &lt;/CustomSettingValue&gt;
+        ///			  &lt;CustomSettingValue&gt;
+        ///				  &lt;UserfriendlyName&gt;On&lt;/UserfriendlyName&gt;
+        ///				  &lt;HexValue&gt;0x0000000 [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         public static string CustomSettingNames {
             get {
