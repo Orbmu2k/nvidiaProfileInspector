@@ -286,19 +286,31 @@
 		</CustomSetting>
 
 		<CustomSetting>
-			<UserfriendlyName>Latency Indicator Overlay</UserfriendlyName>
-			<HexSettingID>0x1095F170</HexSettingID>
+			<UserfriendlyName>rBAR - Feature</UserfriendlyName>
+			<HexSettingID>0X000F00BA</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
-					<UserfriendlyName>Off</UserfriendlyName>
+					<UserfriendlyName>Disabled</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>On</UserfriendlyName>
+					<UserfriendlyName>Enabled</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
+		</CustomSetting>
+		
+		<CustomSetting>
+			<UserfriendlyName>rBAR - Options</UserfriendlyName>
+			<HexSettingID>0X000F00BB</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+		</CustomSetting>
+		
+		<CustomSetting>
+			<UserfriendlyName>rBAR - Size Limit</UserfriendlyName>
+			<HexSettingID>0X000F00FF</HexSettingID>
+			<GroupName>5 - Common</GroupName>
 		</CustomSetting>
 
 		<CustomSetting>
