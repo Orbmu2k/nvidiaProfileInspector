@@ -1,5 +1,6 @@
 ﻿using nspector.Common.CustomSettings;
 using nspector.Native.NVAPI2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +20,26 @@ namespace nspector.Common.Meta
 
         public NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
         {
-            return null;
+            var setting = customSettings.Settings
+                .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            return MapType(setting?.DataType);
+        }
+
+        private NVDRS_SETTING_TYPE? MapType(string type)
+        {
+            if (string.IsNullOrEmpty(type)) return null;
+
+            switch(type.ToLower())
+            {
+                case "dword":
+                    return NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
+                case "string":
+                    return NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE;
+                case "binary":
+                    return NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE;
+                default: throw new ArgumentOutOfRangeException(type);
+            }
         }
 
         public string GetSettingName(uint settingId)
@@ -107,6 +127,14 @@ namespace nspector.Common.Meta
                .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
             return setting?.Hidden ?? false;
+        }
+
+        public string GetDescription(uint settingId)
+        {
+            var setting = customSettings.Settings
+               .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            return setting?.Description;
         }
 
         public SettingMetaSource Source

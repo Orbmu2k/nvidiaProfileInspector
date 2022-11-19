@@ -52,12 +52,14 @@ namespace nspector
             var referenceSettings = DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == _Settingid);
 
             var settingsCache = DrsServiceLocator.ScannerService.CachedSettings.FirstOrDefault(x => x.SettingId == _Settingid);
-            if (settingsCache != null)
+
+            for (int bit = 0; bit < 32; bit++)
             {
-                for (int bit = 0; bit < 32; bit++)
+                string profileNames = "";
+                uint profileCount = 0;
+
+                if (settingsCache != null)
                 {
-                    string profileNames = "";
-                    uint profileCount = 0;
 
                     for (int i = 0; i < settingsCache.SettingValues.Count; i++)
                     {
@@ -84,31 +86,32 @@ namespace nspector
                             profileCount += settingsCache.SettingValues[i].ValueProfileCount;
                         }
                     }
-            
-                    uint mask = (uint)1 << bit;
-                    string maskStr="";
-                    
-                    if (referenceSettings != null)
+                }
+
+                uint mask = (uint)1 << bit;
+                string maskStr = "";
+
+                if (referenceSettings != null)
+                {
+                    var maskValue = referenceSettings.SettingValues.FirstOrDefault(v => v.SettingValue == mask);
+                    if (maskValue != null)
                     {
-                        var maskValue = referenceSettings.SettingValues.FirstOrDefault(v => v.SettingValue == mask);
-                        if (maskValue != null)
+                        maskStr = maskValue.UserfriendlyName;
+                        if (maskStr.Contains("("))
                         {
-                            maskStr = maskValue.UserfriendlyName;
-                            if (maskStr.Contains("("))
-                            {
-                                maskStr = maskStr.Substring(0, maskStr.IndexOf("(") - 1);
-                            }
+                            maskStr = maskStr.Substring(0, maskStr.IndexOf("(") - 1);
                         }
                     }
+                }
 
-                    clbBits.Items.Add(new ListViewItem(new string[] {
+                clbBits.Items.Add(new ListViewItem(new string[] {
                         string.Format("#{0:00}",bit),
                         maskStr,
                         profileCount.ToString(),
                         profileNames,
                     }));
-                    
-                }
+
+
             }
 
             SetValue(lastValue);

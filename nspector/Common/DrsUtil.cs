@@ -53,7 +53,7 @@ namespace nspector.Common
 
         internal static string ParseStringSettingValue(SettingMeta meta, string text)
         {
-            var valueByName = meta.StringValues.FirstOrDefault(x => x.ValueName != null && x.ValueName.Equals(text));
+            var valueByName = meta.StringValues?.FirstOrDefault(x => x.ValueName != null && x.ValueName.Equals(text));
             if (valueByName != null)
                 return valueByName.Value;
 

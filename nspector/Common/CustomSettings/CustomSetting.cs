@@ -16,6 +16,8 @@ namespace nspector.Common.CustomSettings
         public string OverrideDefault { get; set; }
         public float MinRequiredDriverVersion { get; set; }
         public bool Hidden { get; set; }
+        public bool HasConstraints { get; set; }
+        public string DataType { get; set; }
 
         public List<CustomSettingValue> SettingValues { get; set; }
 

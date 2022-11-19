@@ -272,6 +272,39 @@ namespace nspector.Common
             removeFromModified = tmpRemoveFromModified;
         }
 
+        public void DeleteValue(string profileName, uint settingId, out bool removeFromModified)
+        {
+            var tmpRemoveFromModified = false;
+
+            DrsSession((hSession) =>
+            {
+                var hProfile = GetProfileHandle(hSession, profileName);
+
+                if (hProfile != IntPtr.Zero)
+                {
+                    int dropCount = 0;
+                    var settings = GetProfileSettings(hSession, hProfile);
+                    foreach (var setting in settings)
+                    {
+                        if (setting.settingId != settingId) continue;
+                        
+                        if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                        {
+                            if (nvw.DRS_DeleteProfileSetting(hSession, hProfile, setting.settingId) == NvAPI_Status.NVAPI_OK)
+                            {
+                                dropCount++;
+                                break;
+                            }
+                        }
+                    }
+                    tmpRemoveFromModified = (dropCount == 0);
+                    SaveSettings(hSession);
+                }
+            });
+
+            removeFromModified = tmpRemoveFromModified;
+        }
+
         public uint GetDwordValueFromProfile(string profileName, uint settingId, bool returnDefaultValue = false, bool forceDedicatedScope = false)
         {
             return DrsSession((hSession) =>

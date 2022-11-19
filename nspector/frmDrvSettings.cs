@@ -39,6 +39,8 @@ namespace nspector
 
         public string _CurrentProfile = "";
 
+        private bool isDevMode = false;
+
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -76,9 +78,12 @@ namespace nspector
         {
             var group = FindOrCreateGroup(setting.GroupName);
 
-            var item = new ListViewItem(setting.SettingText);
+            var settingName = isDevMode ? $"0x{setting.SettingId:X8} {setting.SettingText}" : setting.SettingText;
+
+            var item = new ListViewItem(settingName);
             item.Tag = setting.SettingId;
             item.Group = group;
+            
             item.SubItems.Add(setting.ValueText);
             item.SubItems.Add(setting.ValueRaw);
 
@@ -212,6 +217,8 @@ namespace nspector
 
                     cbValues.BeginUpdate();
 
+                    tsbBitValueEditor.Enabled = false;
+
                     cbValues.Items.Clear();
                     cbValues.Tag = lvSettings.SelectedItems[0].Tag;
                     uint settingid = (uint)lvSettings.SelectedItems[0].Tag;
@@ -233,6 +240,10 @@ namespace nspector
                                 cbValues.Items.Add(itm);
 
                             }
+
+                            tsbBitValueEditor.Enabled = valueNames.Count > 0;
+
+                            
                         }
 
                         if (settingMeta.SettingType == Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE && settingMeta.StringValues != null)
@@ -248,13 +259,6 @@ namespace nspector
                             foreach (string v in valueNames)
                                 cbValues.Items.Add(v);
                         }
-
-                        var scannedCount = settingMeta?.DwordValues?
-                            .Where(x => x.ValueSource == Common.Meta.SettingMetaSource.ScannedSettings)
-                            .Count();
-
-                        tsbBitValueEditor.Enabled = scannedCount > 0;
-
                     }
 
                     if (cbValues.Items.Count < 1)
@@ -263,6 +267,21 @@ namespace nspector
                         cbValues.Items.RemoveAt(0);
                     }
 
+
+                    var referenceSettings = DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == settingid);
+
+                    if (string.IsNullOrEmpty(settingMeta.Description) && !(referenceSettings?.HasConstraints ?? false))
+                    {
+                        tbSettingDescription.Text = "";
+                        tbSettingDescription.Visible = false;
+                        tbSettingDescription.BackColor = SystemColors.Control;
+                    }
+                    else
+                    {
+                        tbSettingDescription.Text = settingMeta.Description;
+                        tbSettingDescription.Visible = true;
+                        tbSettingDescription.BackColor = (referenceSettings?.HasConstraints ?? false) ? Color.LightCoral : SystemColors.Control;
+                    }
 
                     cbValues.Text = lvSettings.SelectedItems[0].SubItems[1].Text;
                     cbValues.EndUpdate();
@@ -336,6 +355,7 @@ namespace nspector
                     var stringBehind = DrsUtil.ParseStringSettingValue(settingMeta, cbValueText);
                     valueHasChanged = currentProfileItem.ValueRaw != stringBehind;
                 }
+
 
                 if (valueHasChanged || activeImages.Contains(lvItem.ImageIndex))
                 {
@@ -416,6 +436,22 @@ namespace nspector
 
                 bool removeFromModified;
                 _drs.ResetValue(_CurrentProfile, settingId, out removeFromModified);
+
+                if (removeFromModified)
+                    RemoveFromModifiedProfiles(_CurrentProfile);
+
+                RefreshCurrentProfile();
+            }
+        }
+
+        private void DeleteSelectedValue()
+        {
+            if (lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count > 0)
+            {
+                var settingId = (uint)lvSettings.SelectedItems[0].Tag;
+
+                bool removeFromModified;
+                _drs.DeleteValue(_CurrentProfile, settingId, out removeFromModified);
 
                 if (removeFromModified)
                     RemoveFromModifiedProfiles(_CurrentProfile);
@@ -580,7 +616,10 @@ namespace nspector
 
         private void btnResetValue_Click(object sender, EventArgs e)
         {
-            ResetSelectedValue();
+            if (Control.ModifierKeys == Keys.Control)
+                DeleteSelectedValue();
+            else
+                ResetSelectedValue();
         }
 
         private void ChangeCurrentProfile(string profileName)
@@ -1151,11 +1190,12 @@ namespace nspector
 
         private void lvSettings_DoubleClick(object sender, EventArgs e)
         {
-            if (Debugger.IsAttached && lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count == 1)
+            if (isDevMode && lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count == 1)
             {
                 var settingId = ((uint)lvSettings.SelectedItems[0].Tag);
                 var settingName = lvSettings.SelectedItems[0].Text;
-                Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
+                //Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
+                Clipboard.SetText(string.Format($"{settingName}"));
             }
         }
 
@@ -1223,10 +1263,55 @@ namespace nspector
                 CopyModifiedSettingsToClipBoard();
             }
 
+            if (e.Control && e.Alt && e.KeyCode == Keys.D)
+            {
+                EnableDevmode();
+            }
+
             if (Debugger.IsAttached && e.Control && e.KeyCode == Keys.T)
             {
                 TestStoreSettings();
             }
+
+            if (e.Control && e.KeyCode == Keys.F)
+            {
+                SearchSetting();
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                RefreshCurrentProfile();
+            }
+
+
+        }
+
+        private void SearchSetting()
+        {
+            string inputString = "";
+            if (InputBox.Show("Search Setting", "Please enter setting name:", ref inputString, new List<string>(), "", 2048) == System.Windows.Forms.DialogResult.OK)
+            {
+                var lowerInput = inputString.Trim().ToLower();
+                lvSettings.BeginUpdate();
+                foreach(ListViewItem itm in lvSettings.Items)
+                {
+                    if (!itm.Text.ToLower().Contains(lowerInput))
+                    {
+                        itm.Remove();
+                    }
+                }
+                lvSettings.EndUpdate();
+            }
+            
+        }
+
+        private void EnableDevmode()
+        {
+            isDevMode = true;
+            lvSettings.Font = new Font("Consolas", 9);
+            cbValues.Font = new Font("Consolas", 9);
+            lvSettings.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            RefreshCurrentProfile();
         }
 
         private void TestStoreSettings()
