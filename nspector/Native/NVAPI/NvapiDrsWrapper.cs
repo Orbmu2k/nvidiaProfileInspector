@@ -746,7 +746,7 @@ namespace nspector.Native.NVAPI2
                         GetDelegate(0x2EC39F90, out DRS_EnumAvailableSettingValuesInternal);
                         GetDelegate(0xCB7309CD, out DRS_GetSettingIdFromName);
                         GetDelegate(0x1EB13791, out DRS_GetSettingNameFromId);
-                        GetDelegate(0xE4A26362, out DRS_DeleteProfileSetting);
+                        GetDelegate(0xD20D29DF, out DRS_DeleteProfileSetting);
                         GetDelegate(0x5927B094, out DRS_RestoreAllDefaults);
                         GetDelegate(0xFA5F6134, out DRS_RestoreProfileDefault);
                         GetDelegate(0x7DD5B261, out DRS_RestoreProfileDefaultSetting);

@@ -8,6 +8,7 @@ namespace nspector.Common.Helper
 {
     internal class InputBox
     {
+
         internal static DialogResult Show(string title, string promptText, ref string value, List<string> invalidInputs, string mandatoryFormatRegExPattern, int maxLength)
         {
             var form = new Form();
@@ -59,12 +60,12 @@ namespace nspector.Common.Helper
 
             buttonOk.Enabled = false;
 
-            label.SetBounds(9, 20, 372, 13);
-            textBox.SetBounds(12, 36, 352, 20);
-            buttonOk.SetBounds(228, 72, 75, 23);
-            buttonCancel.SetBounds(309, 72, 75, 23);
+            label.SetBounds(Dpi(9), Dpi(20), Dpi(372), Dpi(13));
+            textBox.SetBounds(Dpi(12), Dpi(36), Dpi(352), Dpi(20));
+            buttonOk.SetBounds(Dpi(228), Dpi(72), Dpi(75), Dpi(23));
+            buttonCancel.SetBounds(Dpi(309), Dpi(72), Dpi(75), Dpi(23));
 
-            imageBox.SetBounds(368, 36, 16, 16);
+            imageBox.SetBounds(Dpi(368), Dpi(36), Dpi(16), Dpi(16));
 
             label.AutoSize = true;
             imageBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -72,9 +73,9 @@ namespace nspector.Common.Helper
             buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-            form.ClientSize = new Size(396, 107);
+            form.ClientSize = new Size(Dpi(396), Dpi(107));
+            form.ClientSize = new Size(Math.Max(Dpi(300), label.Right + Dpi(10)), form.ClientSize.Height);
             form.Controls.AddRange(new Control[] { label, textBox, imageBox, buttonOk, buttonCancel });
-            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
             form.FormBorderStyle = FormBorderStyle.FixedDialog;
             form.StartPosition = FormStartPosition.CenterParent;
             form.MinimizeBox = false;
@@ -87,6 +88,11 @@ namespace nspector.Common.Helper
             DialogResult dialogResult = form.ShowDialog();
             value = textBox.Text;
             return dialogResult;
+        }
+
+        private static int Dpi(int input)
+        {
+            return (int)Math.Round(input * frmDrvSettings.ScaleFactor);
         }
     }
 }

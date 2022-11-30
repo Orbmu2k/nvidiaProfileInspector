@@ -530,8 +530,12 @@ namespace nspector
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
+        public static double ScaleFactor = 1;
+
         private void SetupDpiAdjustments()
         {
+            ScaleFactor = lblWidth330.Width / 330;
+
             chSettingID.Width = lblWidth330.Width;
             chSettingValueHex.Width = lblWidth96.Width;
         }
