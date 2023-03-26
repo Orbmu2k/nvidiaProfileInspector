@@ -198,7 +198,7 @@ namespace nspector.Common
 
         public string FindProfilesUsingApplication(string applicationName)
         {
-            string lowerApplicationName = applicationName.ToLower();
+            string lowerApplicationName = applicationName.ToLowerInvariant();
             string tmpfile = TempFile.GetTempFileName();
 
             try
@@ -219,7 +219,7 @@ namespace nspector.Common
                         string scope = m.Result("${scope}");
                         foreach (Match ms in Regex.Matches(scope, "Executable\\s\\\"(?<app>.*?)\\\"", RegexOptions.Singleline))
                         {
-                            if (ms.Result("${app}").ToLower() == lowerApplicationName)
+                            if (ms.Result("${app}").ToLowerInvariant() == lowerApplicationName)
                             {
                                 matchingProfiles.Add(m.Result("${profile}"));
                             }

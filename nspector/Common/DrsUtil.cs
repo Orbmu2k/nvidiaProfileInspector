@@ -17,7 +17,7 @@ namespace nspector.Common
         public static uint ParseDwordByInputSafe(string input)
         {
             uint result = 0;
-            if (input.ToLower().StartsWith("0x"))
+            if (input.ToLowerInvariant().StartsWith("0x"))
             {
                 try
                 {

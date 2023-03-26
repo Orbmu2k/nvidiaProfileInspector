@@ -89,7 +89,7 @@ namespace nspector.Common
 
         private string FormatInternalSettingKey(string profileName, uint settingId)
         {
-            return profileName + settingId.ToString("X8").ToLower();
+            return profileName + settingId.ToString("X8").ToLowerInvariant();
         }
 
         public bool IsInternalSetting(string profileName, uint settingId)

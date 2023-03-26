@@ -76,7 +76,7 @@ namespace nspector
                                 {
                                     for (int f = 0; f < filters.Length; f++)
                                     {
-                                        if (settingProfileNames[p].ToLower().Contains(filters[f].ToLower()))
+                                        if (settingProfileNames[p].ToLowerInvariant().Contains(filters[f].ToLower()))
                                         {
                                             profileNames += settingProfileNames[p] + ",";
                                         }

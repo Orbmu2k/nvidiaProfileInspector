@@ -35,7 +35,7 @@ namespace nspector
             if (argFileIndex != -1)
             {
 
-                if (new FileInfo(args[argFileIndex]).Extension.ToLower() == ".nip")
+                if (new FileInfo(args[argFileIndex]).Extension.ToLowerInvariant() == ".nip")
                 {
                     try
                     {
