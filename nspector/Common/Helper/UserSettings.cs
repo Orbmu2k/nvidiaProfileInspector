@@ -41,7 +41,14 @@ namespace nspector.Common.Helper
             var filename = GetSettingsFilename();
             if (!File.Exists(filename)) return new UserSettings();
 
-            return XMLHelper<UserSettings>.DeserializeFromXMLFile(GetSettingsFilename());
+            try
+            {
+                return XMLHelper<UserSettings>.DeserializeFromXMLFile(GetSettingsFilename());
+            }
+            catch 
+            {
+                return new UserSettings();
+            }
         }
     }
 }
