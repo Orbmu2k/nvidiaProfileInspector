@@ -30,7 +30,7 @@ namespace nspector.Common.Meta
         {
             if (string.IsNullOrEmpty(type)) return null;
 
-            switch(type.ToLower())
+            switch(type.ToLowerInvariant())
             {
                 case "dword":
                     return NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
