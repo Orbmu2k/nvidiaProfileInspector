@@ -424,12 +424,16 @@ namespace nspector.Native.NVAPI2
             }
         }
 
-        private static void GetDelegate<T>(uint id, out T newDelegate) where T : class
+        private static void GetDelegate<T>(uint id, out T newDelegate, uint? fallbackId = null) where T : class
         {
             IntPtr ptr = nvapi_QueryInterface(id);
             if (ptr != IntPtr.Zero)
             {
                 newDelegate = Marshal.GetDelegateForFunctionPointer(ptr, typeof(T)) as T;
+            }
+            else if (fallbackId.HasValue)
+            {
+                GetDelegate(fallbackId.Value, out newDelegate);
             }
             else
             {
@@ -604,6 +608,7 @@ namespace nspector.Native.NVAPI2
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate NvAPI_Status DRS_GetSettingDelegate(IntPtr hSession, IntPtr hProfile, uint settingId, ref NVDRS_SETTING pSetting, ref uint x);
         private static readonly DRS_GetSettingDelegate _DRS_GetSetting;
+        
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate NvAPI_Status DRS_EnumSettingsDelegate(IntPtr hSession, IntPtr hProfile, uint startIndex, ref uint settingsCount, IntPtr pSetting);
@@ -739,20 +744,19 @@ namespace nspector.Native.NVAPI2
                         GetDelegate(0xED1F8C69, out DRS_GetApplicationInfo);
                         GetDelegate(0x7FA2173A, out DRS_EnumApplicationsInternal);
                         GetDelegate(0xEEE566B2, out DRS_FindApplicationByName);
-                        GetDelegate(0x8A2CF5F5, out _DRS_SetSetting);
-                        GetDelegate(0xEA99498D, out _DRS_GetSetting);
-                        GetDelegate(0xCFD6983E, out DRS_EnumSettingsInternal);
-                        GetDelegate(0xE5DE48E5, out DRS_EnumAvailableSettingIdsInternal);
+                        GetDelegate(0x8A2CF5F5, out _DRS_SetSetting, 0x577DD202);
+                        GetDelegate(0xEA99498D, out _DRS_GetSetting, 0x73BF8338);
+                        GetDelegate(0xCFD6983E, out DRS_EnumSettingsInternal, 0xAE3039DA);
+                        GetDelegate(0xE5DE48E5, out DRS_EnumAvailableSettingIdsInternal, 0xF020614A);
                         GetDelegate(0x2EC39F90, out DRS_EnumAvailableSettingValuesInternal);
                         GetDelegate(0xCB7309CD, out DRS_GetSettingIdFromName);
-                        GetDelegate(0x1EB13791, out DRS_GetSettingNameFromId);
-                        GetDelegate(0xD20D29DF, out DRS_DeleteProfileSetting);
+                        GetDelegate(0x1EB13791, out DRS_GetSettingNameFromId, 0xD61CBE6E);
+                        GetDelegate(0xD20D29DF, out DRS_DeleteProfileSetting, 0xE4A26362);
                         GetDelegate(0x5927B094, out DRS_RestoreAllDefaults);
                         GetDelegate(0xFA5F6134, out DRS_RestoreProfileDefault);
-                        GetDelegate(0x7DD5B261, out DRS_RestoreProfileDefaultSetting);
+                        GetDelegate(0x7DD5B261, out DRS_RestoreProfileDefaultSetting, 0x53F0381E);
                         GetDelegate(0xDA8466A0, out DRS_GetBaseProfile);
                         #endregion
-
                     }
                 }
             }
