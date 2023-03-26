@@ -5270,6 +5270,10 @@
 					<UserfriendlyName>Highest available</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Low Latency RR Mask</UserfriendlyName>
+					<HexValue>0x00000FF0</HexValue>
+				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
