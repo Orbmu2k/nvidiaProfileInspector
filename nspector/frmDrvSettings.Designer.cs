@@ -605,7 +605,7 @@
             this.Controls.Add(this.btnResetValue);
             this.Controls.Add(this.cbValues);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(879, 346);
+            this.MinimumSize = new System.Drawing.Size(1059, 346);
             this.Name = "frmDrvSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "nSpector - Driver Profile Settings";
