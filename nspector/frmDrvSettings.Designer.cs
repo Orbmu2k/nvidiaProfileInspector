@@ -406,6 +406,7 @@
             this.cbFilter.MaxDropDownItems = 50;
             this.cbFilter.Name = "cbFilter";
             this.cbFilter.Size = new System.Drawing.Size(130, 23);
+            this.cbFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbFilter_KeyDown);
             this.cbFilter.TextChanged += new System.EventHandler(this.cbFilter_TextChanged);
             // 
             // tsSep7

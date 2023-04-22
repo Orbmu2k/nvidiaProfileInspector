@@ -1279,12 +1279,13 @@ namespace nspector
 
             if (e.Control && e.KeyCode == Keys.F)
             {
-              //SearchSetting();
-              cbFilter.Focus();
+                //SearchSetting();
+                cbFilter.Focus();
             }
 
             if (e.KeyCode == Keys.Escape)
             {
+                cbFilter.Text = string.Empty;
                 RefreshCurrentProfile();
             }
         }
@@ -1419,6 +1420,20 @@ namespace nspector
                     }
                 }
                 lvSettings.EndUpdate();
+            }
+        }
+
+        private void cbFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                if (lvSettings.Items.Count > 0 && lvSettings.SelectedItems.Count == 0)
+                {
+                    lvSettings.Items[0].Selected = true;
+                    lvSettings.Items[0].EnsureVisible();
+                }
+
+                lvSettings.Select();
             }
         }
     }
