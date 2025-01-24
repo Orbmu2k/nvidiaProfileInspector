@@ -30,6 +30,11 @@ namespace nspector.Common.Meta
 
         private SettingMeta GetDriverSettingMetaInternal(uint settingId)
         {
+            // temporary fix for 571.96 overflow bug by emoose
+            if ((settingId & 0xFFFFF000) == 0x10c7d000)
+                return null;
+
+
             var values = new NVDRS_SETTING_VALUES();
             values.version = nvw.NVDRS_SETTING_VALUES_VER;
             uint valueCount = 255;
