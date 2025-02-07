@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <CustomSettingNames>
 	<Settings>
 		<CustomSetting>
@@ -387,6 +387,7 @@
 			<UserfriendlyName>DLSS-FG - Multi-Frame-Generation Count</UserfriendlyName>
 			<HexSettingID>0x104D6667</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -934,8 +935,8 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-		<!--<CustomSetting>
-      <UserfriendlyName>Sharpening Filter</UserfriendlyName>
+		<CustomSetting>
+      <UserfriendlyName>Sharpening Filter - Enabled</UserfriendlyName>
       <HexSettingID>0x00598928</HexSettingID>
       <MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
       <GroupName>3 - Antialiasing</GroupName>
@@ -951,7 +952,7 @@
       </SettingValues>
     </CustomSetting>
     <CustomSetting>
-      <UserfriendlyName>Sharpening Value</UserfriendlyName>
+      <UserfriendlyName>Sharpening - Value</UserfriendlyName>
       <HexSettingID>0x002ED8CD</HexSettingID>
       <MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
       <GroupName>3 - Antialiasing</GroupName>
@@ -1366,10 +1367,9 @@
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
-    </CustomSetting>-->
-		<!--
+    </CustomSetting>
     <CustomSetting>
-      <UserfriendlyName>Sharpening - Denoising Factor</UserfriendlyName>
+      <UserfriendlyName>Sharpening - Ignore Film Grain</UserfriendlyName>
       <HexSettingID>0x002ED8CE</HexSettingID>
       <MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
       <GroupName>3 - Antialiasing</GroupName>
@@ -1784,7 +1784,7 @@
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
-    </CustomSetting>-->
+    </CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Frame Rate Limiter V3</UserfriendlyName>
 			<HexSettingID>0x10835002</HexSettingID>
@@ -7549,6 +7549,22 @@
 					<UserfriendlyName>OpenGL Version 3.1</UserfriendlyName>
 					<HexValue>0x00312e33</HexValue>
 				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>MPO_INDICATOR</UserfriendlyName>
+			<HexSettingID>0x00A88888</HexSettingID>
+			<GroupName>8 - Extra</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+				<UserfriendlyName>MPO_INDICATOR_OFF</UserfriendlyName>
+				<HexValue>0</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+				<UserfriendlyName>MPO_INDICATOR_ON</UserfriendlyName>
+				<HexValue>1</HexValue>
+        </CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
 
