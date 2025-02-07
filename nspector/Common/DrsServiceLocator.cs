@@ -14,6 +14,8 @@ namespace nspector.Common
         public static readonly DrsScannerService ScannerService;
         public static readonly DrsDecrypterService DecrypterService;
 
+        public static bool IsExternalCustomSettings { get; private set; } = false;
+
         static DrsServiceLocator()
         {
             CustomSettings = LoadCustomSettings();
@@ -31,7 +33,18 @@ namespace nspector.Common
             string csnDefaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\CustomSettingNames.xml";
 
             if (File.Exists(csnDefaultPath))
-                return CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
+            {
+                try
+                {
+                    var externalSettings = CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
+                    IsExternalCustomSettings = true;
+                    return externalSettings;
+                }
+                catch
+                {
+                    return CustomSettingNames.FactoryLoadFromString(Properties.Resources.CustomSettingNames);
+                }
+            }
             else
                 return CustomSettingNames.FactoryLoadFromString(Properties.Resources.CustomSettingNames);
         }
@@ -40,8 +53,12 @@ namespace nspector.Common
         {
             string csnDefaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Reference.xml";
 
-            if (File.Exists(csnDefaultPath))
-                return CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
+            try
+            {
+                if (File.Exists(csnDefaultPath))
+                    return CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
+            }
+            catch { }
 
             return null;
         }

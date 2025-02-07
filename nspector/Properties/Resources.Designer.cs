@@ -73,19 +73,19 @@ namespace nspector.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;CustomSettingNames&gt;
-        ///  &lt;Settings&gt;
-        ///	&lt;CustomSetting&gt;
-        ///		  &lt;UserfriendlyName&gt;VRR Support Indicator&lt;/UserfriendlyName&gt;
-        ///		  &lt;HexSettingID&gt;0x8df510&lt;/HexSettingID&gt;
-        ///		  &lt;GroupName&gt;2 - Sync and Refresh&lt;/GroupName&gt;
-        ///		  &lt;SettingValues&gt;
-        ///			  &lt;CustomSettingValue&gt;
-        ///				  &lt;UserfriendlyName&gt;Off&lt;/UserfriendlyName&gt;
-        ///				  &lt;HexValue&gt;0x00000000&lt;/HexValue&gt;
-        ///			  &lt;/CustomSettingValue&gt;
-        ///			  &lt;CustomSettingValue&gt;
-        ///				  &lt;UserfriendlyName&gt;On&lt;/UserfriendlyName&gt;
-        ///				  &lt;HexValue&gt;0x0000000 [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///	&lt;Settings&gt;
+        ///		&lt;CustomSetting&gt;
+        ///			&lt;UserfriendlyName&gt;DLSS - Enable DLL Override&lt;/UserfriendlyName&gt;
+        ///			&lt;HexSettingID&gt;0x10E41E01&lt;/HexSettingID&gt;
+        ///			&lt;GroupName&gt;5 - Common&lt;/GroupName&gt;
+        ///			&lt;MinRequiredDriverVersion&gt;0&lt;/MinRequiredDriverVersion&gt;
+        ///			&lt;SettingValues&gt;
+        ///				&lt;CustomSettingValue&gt;
+        ///					&lt;UserfriendlyName&gt;Off&lt;/UserfriendlyName&gt;
+        ///					&lt;HexValue&gt;0x00000000&lt;/HexValue&gt;
+        ///				&lt;/CustomSettingValue&gt;
+        ///				&lt;CustomSettingValue&gt;
+        ///					&lt;UserfriendlyName&gt;On [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         public static string CustomSettingNames {
             get {

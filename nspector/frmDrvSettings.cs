@@ -497,7 +497,8 @@ namespace nspector
             var numberFormat = new NumberFormatInfo() { NumberDecimalSeparator = "." };
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
-            Text = $"{Application.ProductName} {version} - Geforce {_drs.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}";
+            var externalCsn = DrsServiceLocator.IsExternalCustomSettings ? " - CSN OVERRIDE!" : "";
+            Text = $"{Application.ProductName} {version} - Geforce {_drs.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}{externalCsn}";
         }
 
         private static void InitMessageFilter(IntPtr handle)
