@@ -7464,6 +7464,25 @@
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
+	 	<CustomSetting>
+			<UserfriendlyName>CUDA - Sysmem Fallback Policy</UserfriendlyName>
+			<HexSettingID>0x10ECECC9</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+				<UserfriendlyName>Default</UserfriendlyName>
+				<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+				<UserfriendlyName>Prefer no sysmem fallback</UserfriendlyName>
+				<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+				<UserfriendlyName>Prefer sysmem fallback</UserfriendlyName>
+				<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Extension Limit (OGL)</UserfriendlyName>
 			<HexSettingID>0x20FF7493</HexSettingID>
@@ -7559,12 +7578,32 @@
 			<SettingValues>
 				<CustomSettingValue>
 				<UserfriendlyName>MPO_INDICATOR_OFF</UserfriendlyName>
-				<HexValue>0</HexValue>
+				<HexValue>0x00000000</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
 				<UserfriendlyName>MPO_INDICATOR_ON</UserfriendlyName>
-				<HexValue>1</HexValue>
+				<HexValue>0x00000001</HexValue>
         </CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Vulkan/OpenGL present method</UserfriendlyName>
+			<HexSettingID>0x20D690F8</HexSettingID>
+			<GroupName>2 - Sync and Refresh</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+				<UserfriendlyName>Prefer native</UserfriendlyName>
+				<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+				<UserfriendlyName>Prefer layered on DXGI Swapchain</UserfriendlyName>
+				<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+				<UserfriendlyName>Auto</UserfriendlyName>
+				<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
 
