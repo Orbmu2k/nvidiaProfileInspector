@@ -9,46 +9,49 @@ using System.Windows.Forms;
 
 namespace nspector
 {
-    internal delegate void DropFilesNativeHandler(string[] files);
+	internal delegate void DropFilesNativeHandler(string[] files);
 
-    internal class ListViewEx : ListView
+	internal class ListViewEx : ListView
 	{
 
-        public event DropFilesNativeHandler OnDropFilesNative;
-        
+		public event DropFilesNativeHandler OnDropFilesNative;
+
 		[DllImport("user32.dll")]
 		private	static extern IntPtr SendMessage(IntPtr hWnd, int msg,	IntPtr wPar, IntPtr	lPar);
 
 		private const int LVM_FIRST					= 0x1000;
 		private const int LVM_GETCOLUMNORDERARRAY	= (LVM_FIRST + 59);
-		
+
 		private const int WM_PAINT = 0x000F;
+		private const int WM_VSCROLL = 0x0115;
+		private const int WM_HSCROLL = 0x0114;
+		private const int WM_MOUSEWHEEL = 0x020A;
 
 		private struct EmbeddedControl
 		{
-            internal Control Control;
-            internal int Column;
-            internal int Row;
-            internal DockStyle Dock;
-            internal ListViewItem Item;
+			internal Control Control;
+			internal int Column;
+			internal int Row;
+			internal DockStyle Dock;
+			internal ListViewItem Item;
 		}
 
 		private ArrayList _embeddedControls = new ArrayList();
 
-        public ListViewEx()
-        {
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
-            this.SetStyle(ControlStyles.EnableNotifyMessage, true);
-        }
+		public ListViewEx()
+		{
+			this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+			this.SetStyle(ControlStyles.EnableNotifyMessage, true);
+		}
 
-        protected override void OnNotifyMessage(Message m)
-        {
-            if (m.Msg != 0x14)
-            {
-                base.OnNotifyMessage(m);
-            }
-        }
-     
+		protected override void OnNotifyMessage(Message m)
+		{
+			if (m.Msg != 0x14)
+			{
+				base.OnNotifyMessage(m);
+			}
+		}
+
 		protected int[] GetColumnOrder()
 		{
 			IntPtr lPar	= Marshal.AllocHGlobal(Marshal.SizeOf(typeof(int)) * Columns.Count);
@@ -94,18 +97,18 @@ namespace nspector
 					break;
 				subItemX += col.Width;
 			}
- 
+
 			subItemRect	= new Rectangle(subItemX, lviBounds.Top-1, this.Columns[order[i]].Width, lviBounds.Height);
 
 			return subItemRect;
 		}
 
-        internal void AddEmbeddedControl(Control c, int col, int row)
+		internal void AddEmbeddedControl(Control c, int col, int row)
 		{
 			AddEmbeddedControl(c,col,row,DockStyle.Fill);
 		}
 
-        internal void AddEmbeddedControl(Control c, int col, int row, DockStyle dock)
+		internal void AddEmbeddedControl(Control c, int col, int row, DockStyle dock)
 		{
 			if (c==null)
 				throw new ArgumentNullException();
@@ -122,11 +125,11 @@ namespace nspector
 			_embeddedControls.Add(ec);
 
 			c.Click += new EventHandler(_embeddedControl_Click);
-			
+
 			this.Controls.Add(c);
 		}
-		
-        internal void RemoveEmbeddedControl(Control c)
+
+		internal void RemoveEmbeddedControl(Control c)
 		{
 			if (c == null)
 				throw new ArgumentNullException();
@@ -143,8 +146,8 @@ namespace nspector
 				}
 			}
 		}
-		
-        internal Control GetEmbeddedControl(int col, int row)
+
+		internal Control GetEmbeddedControl(int col, int row)
 		{
 			foreach (EmbeddedControl ec in _embeddedControls)
 				if (ec.Row == row && ec.Column == col)
@@ -154,9 +157,9 @@ namespace nspector
 		}
 
 		[DefaultValue(View.LargeIcon)]
-        internal new View View
+		internal new View View
 		{
-			get 
+			get
 			{
 				return base.View;
 			}
@@ -169,9 +172,9 @@ namespace nspector
 			}
 		}
 
-        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-        public static extern int DragQueryFile(IntPtr hDrop, uint iFile, [Out] StringBuilder lpszFile, int cch);
-        private const int WM_DROPFILES = 0x233;
+		[DllImport("shell32.dll", CharSet = CharSet.Auto)]
+		public static extern int DragQueryFile(IntPtr hDrop, uint iFile, [Out] StringBuilder lpszFile, int cch);
+		private const int WM_DROPFILES = 0x233;
 
 		protected override void WndProc(ref Message m)
 		{
@@ -183,6 +186,10 @@ namespace nspector
 
 					foreach (EmbeddedControl ec in _embeddedControls)
 					{
+						// Skip repositioning if the control is a dropped-down ComboBox, prevents it from immediately closing on first click
+						if (ec.Control is ComboBox comboBox && comboBox.DroppedDown)
+							continue;
+
 						Rectangle rc = this.GetSubItemBounds(ec.Item, ec.Column);
 
 						if ((this.HeaderStyle != ColumnHeaderStyle.None) &&
@@ -220,44 +227,57 @@ namespace nspector
 						}
 
 
-                        rc.X = rc.X + ec.Control.Margin.Left;
-                        rc.Y = rc.Y + ec.Control.Margin.Top;
-                        rc.Width = rc.Width - ec.Control.Margin.Right;
-                        rc.Height = rc.Height - ec.Control.Margin.Bottom;
+						rc.X = rc.X + ec.Control.Margin.Left;
+						rc.Y = rc.Y + ec.Control.Margin.Top;
+						rc.Width = rc.Width - ec.Control.Margin.Right;
+						rc.Height = rc.Height - ec.Control.Margin.Bottom;
 
-    					ec.Control.Bounds = rc;
+						ec.Control.Bounds = rc;
 
 					}
 					break;
 
-                case WM_DROPFILES:
-                    
-                    if (OnDropFilesNative != null)
-                    {
-                        var dropped = DragQueryFile(m.WParam, 0xFFFFFFFF, null, 0);
-                        if (dropped > 0)
-                        {
-                            var files = new List<string>();
-                            
-                            for (uint i = 0; i < dropped; i++)
-                            {
-                                var size = DragQueryFile(m.WParam, i, null, 0);
-                                if (size > 0)
-                                {
-                                    var sb = new StringBuilder(size + 1);
-                                    var result = DragQueryFile(m.WParam, i, sb, size + 1);
-                                    files.Add(sb.ToString());
-                                }
-                            }
+				case WM_VSCROLL:
+				case WM_HSCROLL:
+				case WM_MOUSEWHEEL:
+					// Close any opened comboboxes if listview is being scrolled
+					foreach (EmbeddedControl ec in _embeddedControls)
+					{
+						if (ec.Control is ComboBox comboBox && comboBox.DroppedDown)
+						{
+							comboBox.DroppedDown = false;
+						}
+					}
+					break;
 
-                            OnDropFilesNative(files.ToArray());
-                        }
-                    }
+				case WM_DROPFILES:
 
-                    base.WndProc(ref m);
-                    break;
+					if (OnDropFilesNative != null)
+					{
+						var dropped = DragQueryFile(m.WParam, 0xFFFFFFFF, null, 0);
+						if (dropped > 0)
+						{
+							var files = new List<string>();
+
+							for (uint i = 0; i < dropped; i++)
+							{
+								var size = DragQueryFile(m.WParam, i, null, 0);
+								if (size > 0)
+								{
+									var sb = new StringBuilder(size + 1);
+									var result = DragQueryFile(m.WParam, i, sb, size + 1);
+									files.Add(sb.ToString());
+								}
+							}
+
+							OnDropFilesNative(files.ToArray());
+						}
+					}
+
+					base.WndProc(ref m);
+					break;
 			}
-			base.WndProc (ref m);
+			base.WndProc(ref m);
 		}
 
 		private void _embeddedControl_Click(object sender, EventArgs e)
