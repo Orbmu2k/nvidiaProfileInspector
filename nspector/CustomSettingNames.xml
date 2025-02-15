@@ -107,6 +107,22 @@
 					<HexValue>0x0000000B</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
+					<UserfriendlyName>Preset L (unused)</UserfriendlyName>
+					<HexValue>0x0000000C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset M (unused)</UserfriendlyName>
+					<HexValue>0x0000000D</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset N (unused)</UserfriendlyName>
+					<HexValue>0x0000000E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
 					<UserfriendlyName>Always use latest</UserfriendlyName>
 					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
@@ -146,6 +162,42 @@
 				<CustomSettingValue>
 					<UserfriendlyName>Preset F (unused)</UserfriendlyName>
 					<HexValue>0x00000006</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset G (unused)</UserfriendlyName>
+					<HexValue>0x00000007</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset H (unused)</UserfriendlyName>
+					<HexValue>0x00000008</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset I (unused)</UserfriendlyName>
+					<HexValue>0x00000009</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset J (unused)</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset K (unused)</UserfriendlyName>
+					<HexValue>0x0000000B</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset L (unused)</UserfriendlyName>
+					<HexValue>0x0000000C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset M (unused)</UserfriendlyName>
+					<HexValue>0x0000000D</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset N (unused)</UserfriendlyName>
+					<HexValue>0x0000000E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Always use latest</UserfriendlyName>
@@ -308,7 +360,7 @@
 					<HexValue>0x42C60000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Render at 1.00x native</UserfriendlyName>
+					<UserfriendlyName>Render at 1.00x native (DLAA)</UserfriendlyName>
 					<HexValue>0x42C80000</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -377,7 +429,7 @@
 					<HexValue>0x42C60000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Render at 1.00x native</UserfriendlyName>
+					<UserfriendlyName>Render at 1.00x native (DLAA)</UserfriendlyName>
 					<HexValue>0x42C80000</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -420,7 +472,7 @@
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>On (RTX 5000 series and above)</UserfriendlyName>
+					<UserfriendlyName>On (RTX 50 series and above)</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -433,69 +485,36 @@
 			<MinRequiredDriverVersion>571.86</MinRequiredDriverVersion>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>RTX HDR - Feature Flags</UserfriendlyName>
+			<UserfriendlyName>RTX HDR - Driver Flags</UserfriendlyName>
+			<Description>Allows reducing deband strength to preserve details &amp; enable indicator.&#xD;&#xA;When any driver flags are set HDR will be applied via driver instead of through NVOverlay (driver doesn't support customizing brightness/contrast/saturation)</Description>
 			<HexSettingID>0x00432F84</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
-			<CustomSettingValue>
-				<UserfriendlyName>Off (0x00)</UserfriendlyName>
-				<HexValue>0x00000000</HexValue>
-			</CustomSettingValue>
-			<CustomSettingValue>
-				<UserfriendlyName>Enabled (No Debanding) (0x06)</UserfriendlyName>
-				<HexValue>0x00000006</HexValue>
-			</CustomSettingValue>
-			<CustomSettingValue>
-				<UserfriendlyName>Enabled (Medium Debanding) (0x0A)</UserfriendlyName>
-				<HexValue>0x0000000A</HexValue>
-			</CustomSettingValue>
-			<CustomSettingValue>
-				<UserfriendlyName>Enabled (VeryHigh Debanding) (0x02)</UserfriendlyName>
-				<HexValue>0x00000002</HexValue>
-			</CustomSettingValue>
-			<CustomSettingValue>
-				<UserfriendlyName>Enabled + Indicator (VeryHigh) (0x03)</UserfriendlyName>
-				<HexValue>0x00000003</HexValue>
-			</CustomSettingValue>
-			<CustomSettingValue>
-				<UserfriendlyName>Enabled + Indicator + Debug (VeryHigh) (0x23)</UserfriendlyName>
-				<HexValue>0x00000023</HexValue>
-			</CustomSettingValue>
-			</SettingValues>
-			<SettingMasks />
-		</CustomSetting>
-		<CustomSetting>
-			<UserfriendlyName>RTX HDR - Driver-Level RTX HDR Enable</UserfriendlyName>
-			<HexSettingID>0x1077A11A</HexSettingID>
-			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingValues>
-			<CustomSettingValue>
-				<UserfriendlyName>Off</UserfriendlyName>
-				<HexValue>0x00000000</HexValue>
-			</CustomSettingValue>
-			<CustomSettingValue>
-				<UserfriendlyName>On - Enable through driver, w/o NV Overlay (requires other Enable flags)</UserfriendlyName>
-				<HexValue>0x00000001</HexValue>
-			</CustomSettingValue>
-			</SettingValues>
-			<SettingMasks />
-		</CustomSetting>
-		<CustomSetting>
-			<UserfriendlyName>RTX HDR - Game Filters Enable</UserfriendlyName>
-			<HexSettingID>0x00980896</HexSettingID>
-			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingValues>
-			<CustomSettingValue>
-				<UserfriendlyName>Off</UserfriendlyName>
-				<HexValue>0x00000000</HexValue>
-			</CustomSettingValue>
-			<CustomSettingValue>
-				<UserfriendlyName>On</UserfriendlyName>
-				<HexValue>0x00000001</HexValue>
-			</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Off (0x00)</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled via driver (No Debanding) (0x06)</UserfriendlyName>
+					<HexValue>0x00000006</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled via driver (Medium Debanding) (0x0A)</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled via driver (VeryHigh Debanding) (0x02)</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled + Indicator (VeryHigh) (0x03)</UserfriendlyName>
+					<HexValue>0x00000003</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled + Indicator + Debug (VeryHigh) (0x23)</UserfriendlyName>
+					<HexValue>0x00000023</HexValue>
+				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -505,14 +524,14 @@
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
-			<CustomSettingValue>
-				<UserfriendlyName>Off</UserfriendlyName>
-				<HexValue>0x00000000</HexValue>
-			</CustomSettingValue>
-			<CustomSettingValue>
-				<UserfriendlyName>On</UserfriendlyName>
-				<HexValue>0x00000001</HexValue>
-			</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -540,6 +559,37 @@
 		<CustomSetting>
 			<UserfriendlyName>RTX HDR - Saturation</UserfriendlyName>
 			<HexSettingID>0x00DD48FF</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingMasks />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>RTX Digital Vibrance - Enable</UserfriendlyName>
+			<HexSettingID>0x00980880</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>RTX Digital Vibrance - Saturation Boost</UserfriendlyName>
+			<HexSettingID>0x00ABAB13</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingMasks />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>RTX Digital Vibrance - Intensity</UserfriendlyName>
+			<HexSettingID>0x00ABAB22</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingMasks />
@@ -7464,6 +7514,25 @@
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
+	 	<CustomSetting>
+			<UserfriendlyName>CUDA - Sysmem Fallback Policy</UserfriendlyName>
+			<HexSettingID>0x10ECECC9</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+				<UserfriendlyName>Default</UserfriendlyName>
+				<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+				<UserfriendlyName>Prefer no sysmem fallback</UserfriendlyName>
+				<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+				<UserfriendlyName>Prefer sysmem fallback</UserfriendlyName>
+				<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Extension Limit (OGL)</UserfriendlyName>
 			<HexSettingID>0x20FF7493</HexSettingID>
@@ -7559,12 +7628,32 @@
 			<SettingValues>
 				<CustomSettingValue>
 				<UserfriendlyName>MPO_INDICATOR_OFF</UserfriendlyName>
-				<HexValue>0</HexValue>
+				<HexValue>0x00000000</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
 				<UserfriendlyName>MPO_INDICATOR_ON</UserfriendlyName>
-				<HexValue>1</HexValue>
+				<HexValue>0x00000001</HexValue>
         </CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Vulkan/OpenGL present method</UserfriendlyName>
+			<HexSettingID>0x20D690F8</HexSettingID>
+			<GroupName>2 - Sync and Refresh</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+				<UserfriendlyName>Prefer native</UserfriendlyName>
+				<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+				<UserfriendlyName>Prefer layered on DXGI Swapchain</UserfriendlyName>
+				<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+				<UserfriendlyName>Auto</UserfriendlyName>
+				<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
 
