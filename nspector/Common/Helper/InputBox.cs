@@ -61,11 +61,11 @@ namespace nspector.Common.Helper
             buttonOk.Enabled = false;
 
             label.SetBounds(Dpi(9), Dpi(20), Dpi(372), Dpi(13));
-            textBox.SetBounds(Dpi(12), Dpi(36), Dpi(352), Dpi(20));
+            textBox.SetBounds(Dpi(12), Dpi(40), Dpi(352), Dpi(20));
             buttonOk.SetBounds(Dpi(228), Dpi(72), Dpi(75), Dpi(23));
             buttonCancel.SetBounds(Dpi(309), Dpi(72), Dpi(75), Dpi(23));
 
-            imageBox.SetBounds(Dpi(368), Dpi(36), Dpi(16), Dpi(16));
+            imageBox.SetBounds(Dpi(368), Dpi(40), Dpi(16), Dpi(16));
 
             label.AutoSize = true;
             imageBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
