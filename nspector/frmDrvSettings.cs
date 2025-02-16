@@ -631,6 +631,8 @@ namespace nspector
                 ResetSelectedValue();
         }
 
+        ToolTip appPathsTooltip = new ToolTip() { InitialDelay = 250 };
+
         private void ChangeCurrentProfile(string profileName)
         {
             if (profileName == GetBaseProfileName() || profileName == _baseProfileName)
@@ -649,6 +651,10 @@ namespace nspector
                 tssbRemoveApplication.Enabled = true;
             }
 
+            string appPathsTooltipText = "Double-click to add application path/name/ID";
+            if (profileName == GetBaseProfileName() || profileName == _baseProfileName || profileName.StartsWith("0x"))
+                appPathsTooltipText = "";
+            appPathsTooltip.SetToolTip(lblApplications, appPathsTooltipText);
 
             RefreshCurrentProfile();
         }
