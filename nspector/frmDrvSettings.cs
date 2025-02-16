@@ -1405,6 +1405,38 @@ namespace nspector
             Clipboard.SetText(sbSettings.ToString());
 
         }
+
+        private void lblApplications_DoubleClick(object sender, EventArgs e)
+        {
+            if (_CurrentProfile == GetBaseProfileName() || _CurrentProfile == _baseProfileName)
+                return;
+            if (_CurrentProfile.StartsWith("0x"))
+                return; // monitor/device profile
+
+            var applications = new Dictionary<string, string>();
+            _currentProfileSettingItems = _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
+
+            var existingPaths = new HashSet<string>(applications.Values, StringComparer.OrdinalIgnoreCase);
+            var appPath = "";
+
+            if (InputBox.Show("Add App Path", "Enter application path/filename/UWP ID to add to the profile", ref appPath, new List<string>(), "", 2048) == DialogResult.OK)
+            {
+                // Add new application path
+                if (!existingPaths.Contains(appPath))
+                {
+                    try
+                    {
+                        _drs.AddApplication(_CurrentProfile, appPath);
+                    }
+                    catch (NvapiException ex) // NVAPI_EXECUTABLE_ALREADY_IN_USE etc
+                    {
+                        MessageBox.Show(ex.Message, "NvAPI Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    RefreshCurrentProfile();
+                }
+            }
+        }
     }
 }
 
