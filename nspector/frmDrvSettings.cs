@@ -537,6 +537,10 @@ namespace nspector
         {
             ScaleFactor = lblWidth330.Width / 330;
 
+            // Later Windows versions changed DPI scaling method, check with Graphics and use it if larger
+            using (Graphics g = CreateGraphics())
+                ScaleFactor = Math.Max(ScaleFactor, Math.Max(g.DpiX / 96f, g.DpiY / 96f));
+
             chSettingID.Width = lblWidth330.Width;
             chSettingValueHex.Width = lblWidth96.Width;
         }
