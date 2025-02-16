@@ -408,6 +408,7 @@
             this.lblApplications.Size = new System.Drawing.Size(840, 17);
             this.lblApplications.TabIndex = 25;
             this.lblApplications.Text = "fsagame.exe, bond.exe, herozero.exe";
+            this.lblApplications.DoubleClick += new System.EventHandler(this.lblApplications_DoubleClick);
             // 
             // toolStripButton5
             // 
