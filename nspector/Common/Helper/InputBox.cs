@@ -88,7 +88,7 @@ namespace nspector.Common.Helper
                 buttonBrowse.Click += buttonBrowse_Click;
             }
 
-            imageBox.SetBounds(Dpi(368), Dpi(40), Dpi(16), Dpi(16));
+            imageBox.SetBounds(Dpi(368), Dpi(44), Dpi(16), Dpi(16));
 
             label.AutoSize = true;
             label.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;

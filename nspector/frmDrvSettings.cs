@@ -642,6 +642,7 @@ namespace nspector
                 tsbDeleteProfile.Enabled = false;
                 tsbAddApplication.Enabled = false;
                 tssbRemoveApplication.Enabled = false;
+                appPathsTooltip.SetToolTip(lblApplications, "");
             }
             else
             {
@@ -649,12 +650,8 @@ namespace nspector
                 tsbDeleteProfile.Enabled = true;
                 tsbAddApplication.Enabled = true;
                 tssbRemoveApplication.Enabled = true;
+                appPathsTooltip.SetToolTip(lblApplications, "Double-click to add application");
             }
-
-            string appPathsTooltipText = "Double-click to add application path/name/ID";
-            if (profileName == GetBaseProfileName() || profileName == _baseProfileName || profileName.StartsWith("0x"))
-                appPathsTooltipText = "";
-            appPathsTooltip.SetToolTip(lblApplications, appPathsTooltipText);
 
             RefreshCurrentProfile();
         }
@@ -816,7 +813,15 @@ namespace nspector
                 }
             }
             else
-                ResetCurrentProfile();
+            {
+                if (MessageBox.Show(this,
+                    "Restore profile to NVIDIA driver defaults?",
+                    "Restore profile",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    ResetCurrentProfile();
+                }
+            }
         }
 
         private void tsbRefreshProfile_Click(object sender, EventArgs e)
@@ -927,15 +932,24 @@ namespace nspector
 
         private void tsbAddApplication_Click(object sender, EventArgs e)
         {
-            var openDialog = new OpenFileDialog();
-            openDialog.DefaultExt = "*.exe";
-            openDialog.Filter = "Application EXE Name|*.exe|Application Absolute Path|*.exe";
+            if (_CurrentProfile == GetBaseProfileName() || _CurrentProfile == _baseProfileName)
+                return;
 
-            if (openDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var applications = new Dictionary<string, string>();
+            _currentProfileSettingItems = _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
+
+            var existingPaths = new HashSet<string>(applications.Values, StringComparer.OrdinalIgnoreCase);
+            var applicationName = "";
+
+            if (InputBox.Show("Add Application", "Enter an application path/filename/UWP ID to add to the profile:", ref applicationName, new List<string>(), "", 2048, true) == DialogResult.OK)
             {
-                string applicationName = new FileInfo(openDialog.FileName).Name;
-                if (openDialog.FilterIndex == 2)
-                    applicationName = openDialog.FileName;
+                // Add new application path
+                if (existingPaths.Contains(applicationName))
+                {
+                    MessageBox.Show("This application is already assigned to this profile!",
+                        "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 try
                 {
@@ -946,25 +960,26 @@ namespace nspector
                     if (ex.Status == Native.NVAPI2.NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE || ex.Status == Native.NVAPI2.NvAPI_Status.NVAPI_ERROR)
                     {
                         if (lblApplications.Text.ToUpper().IndexOf(" " + applicationName.ToUpper() + ",") != -1)
-                            MessageBox.Show("This application executable is already assigned to this profile!",
+                            MessageBox.Show("This application is already assigned to this profile!",
                                 "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         else
                         {
                             string profileNames = _scanner.FindProfilesUsingApplication(applicationName);
                             if (profileNames == "")
-                                MessageBox.Show("This application executable might already be assigned to another profile!",
+                                MessageBox.Show("This application might already be assigned to another profile!",
                                     "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             else
                                 MessageBox.Show(
-                                    "This application executable is already assigned to the following profiles: " +
+                                    "This application is already assigned to the following profiles: " +
                                     profileNames, "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                         throw;
                 }
+
+                RefreshCurrentProfile();
             }
-            RefreshCurrentProfile();
         }
 
         private void tssbRemoveApplication_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -1410,38 +1425,6 @@ namespace nspector
             
             Clipboard.SetText(sbSettings.ToString());
 
-        }
-
-        private void lblApplications_DoubleClick(object sender, EventArgs e)
-        {
-            if (_CurrentProfile == GetBaseProfileName() || _CurrentProfile == _baseProfileName)
-                return;
-            if (_CurrentProfile.StartsWith("0x"))
-                return; // monitor/device profile
-
-            var applications = new Dictionary<string, string>();
-            _currentProfileSettingItems = _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
-
-            var existingPaths = new HashSet<string>(applications.Values, StringComparer.OrdinalIgnoreCase);
-            var appPath = "";
-
-            if (InputBox.Show("Add App Path", "Enter application path/filename/UWP ID to add to the profile", ref appPath, new List<string>(), "", 2048) == DialogResult.OK)
-            {
-                // Add new application path
-                if (!existingPaths.Contains(appPath))
-                {
-                    try
-                    {
-                        _drs.AddApplication(_CurrentProfile, appPath);
-                    }
-                    catch (NvapiException ex) // NVAPI_EXECUTABLE_ALREADY_IN_USE etc
-                    {
-                        MessageBox.Show(ex.Message, "NvAPI Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    RefreshCurrentProfile();
-                }
-            }
         }
     }
 }
