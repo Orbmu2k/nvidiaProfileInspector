@@ -3251,6 +3251,10 @@
           <HexValue>0x00000008</HexValue>
         </CustomSettingValue>
         <CustomSettingValue>
+          <UserfriendlyName>Allow DXVK promotion</UserfriendlyName>
+          <HexValue>0x00080000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
           <UserfriendlyName>ENABLE_FULLSCREEN_WIN7_STEREO - enable Win7 fullscreen stereo mechanism</UserfriendlyName>
           <HexValue>0x10000000</HexValue>
         </CustomSettingValue>
