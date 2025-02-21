@@ -186,7 +186,7 @@ namespace nspector
                         lvSettings.Items[i].Selected = true;
                         lvSettings.Items[i].EnsureVisible();
 
-                        if (!cbProfiles.Focused)
+                        if (!cbProfiles.Focused && !cbFilter.Focused)
                         {
                             lvSettings.Select();
                             cbValues.Text = lvSettings.Items[i].SubItems[1].Text;
@@ -1305,15 +1305,15 @@ namespace nspector
 
             if (e.Control && e.KeyCode == Keys.F)
             {
-                SearchSetting();
+                //SearchSetting();
+                cbFilter.Focus();
             }
 
             if (e.KeyCode == Keys.Escape)
             {
+                cbFilter.Text = string.Empty;
                 RefreshCurrentProfile();
             }
-
-
         }
 
         private void SearchSetting()
@@ -1401,7 +1401,6 @@ namespace nspector
 
         }
 
-
         private void CopyModifiedSettingsToClipBoard()
         {
             var sbSettings = new StringBuilder();
@@ -1425,6 +1424,43 @@ namespace nspector
             
             Clipboard.SetText(sbSettings.ToString());
 
+        }
+
+        private void cbFilter_TextChanged(object sender, EventArgs e)
+        {
+            if (!tsbRefreshProfile.Enabled)
+                return;
+
+            var lowerInput = cbFilter.Text.Trim().ToLowerInvariant();
+
+            RefreshCurrentProfile();
+
+            if (lowerInput.Length > 0)
+            {
+                lvSettings.BeginUpdate();
+                foreach (ListViewItem itm in lvSettings.Items)
+                {
+                    if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
+                    {
+                        itm.Remove();
+                    }
+                }
+                lvSettings.EndUpdate();
+            }
+        }
+
+        private void cbFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                if (lvSettings.Items.Count > 0 && lvSettings.SelectedItems.Count == 0)
+                {
+                    lvSettings.Items[0].Selected = true;
+                    lvSettings.Items[0].EnsureVisible();
+                }
+
+                lvSettings.Select();
+            }
         }
     }
 }
