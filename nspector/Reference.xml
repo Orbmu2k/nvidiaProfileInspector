@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CustomSettingNames>
   <Settings>
+	<CustomSetting>
+		<UserfriendlyName>DLSS-FG - Private Flags</UserfriendlyName>
+		<HexSettingID>0x10E41DF6</HexSettingID>
+		<GroupName>8 - Extra</GroupName>
+		<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+		<SettingValues>
+			<CustomSettingValue>
+				<UserfriendlyName>Disable Scene Change Detection</UserfriendlyName>
+				<HexValue>0x00000001</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Use Full-Screen Threshold Override Settings</UserfriendlyName>
+				<HexValue>0x00000002</HexValue>
+			</CustomSettingValue>
+		</SettingValues>
+		<SettingMasks/>
+	</CustomSetting>
+	<CustomSetting>
+		<UserfriendlyName>RTX HDR - Driver Flags</UserfriendlyName>
+		<HexSettingID>0x00432F84</HexSettingID>
+		<GroupName>5 - Common</GroupName>
+		<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+		<SettingValues>
+			<CustomSettingValue>
+				<UserfriendlyName>Debug indicator</UserfriendlyName>
+				<HexValue>0x00000001</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Enable via driver</UserfriendlyName>
+				<HexValue>0x00000002</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Disable debanding</UserfriendlyName>
+				<HexValue>0x00000004</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Medium debanding</UserfriendlyName>
+				<HexValue>0x00000008</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Is VideoHDR [?]</UserfriendlyName>
+				<HexValue>0x00000010</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Debug visualisation 1</UserfriendlyName>
+				<HexValue>0x00000020</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Debug visualisation 2</UserfriendlyName>
+				<HexValue>0x00000040</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Use 24-bit instead of 10-bit [?]</UserfriendlyName>
+				<HexValue>0x00000080</HexValue>
+			</CustomSettingValue>
+		</SettingValues>
+		<SettingMasks />
+	</CustomSetting>
     <CustomSetting>
       <UserfriendlyName>Time</UserfriendlyName>
       <HexSettingID>0x70AD05C8</HexSettingID>

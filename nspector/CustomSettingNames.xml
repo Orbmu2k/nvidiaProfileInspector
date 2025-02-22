@@ -207,54 +207,43 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Forced Preset Letter</UserfriendlyName>
+			<UserfriendlyName>DLSS-FG - Private Flags</UserfriendlyName>
 			<HexSettingID>0x10E41DF6</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>8 - Extra</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingMasks/>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>DLSS-FG - Full-Screen Menu Detection</UserfriendlyName>
+			<HexSettingID>0x104596A1</HexSettingID>
+			<GroupName>8 - Extra</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Always use latest</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
-				</CustomSettingValue>
-			</SettingValues>
-			<SettingMasks/>
-		</CustomSetting>
-		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Flags (0x104596A1)</UserfriendlyName>
-			<HexSettingID>0x104596A1</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<DataType>DWORD</DataType>
-			<!-- DLSSG checks for these three values and adjusts something based on them, but not sure what effect is -->
-			<SettingValues>
-				<CustomSettingValue>
-					<UserfriendlyName>0</UserfriendlyName>
-					<HexValue>0x00000000</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>1</UserfriendlyName>
+					<UserfriendlyName>Allow (0x1)</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>2</UserfriendlyName>
+					<UserfriendlyName>Force Enable (0x101)</UserfriendlyName>
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Flags (0x104596A2)</UserfriendlyName>
+			<UserfriendlyName>DLSS-FG - Full-Screen Menu Override Coverage Threshold (float)</UserfriendlyName>
 			<HexSettingID>0x104596A2</HexSettingID>
 			<GroupName>8 - Extra</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Flags (0x104596A3)</UserfriendlyName>
+			<UserfriendlyName>DLSS-FG - Full-Screen Menu Override Alpha Threshold (float)</UserfriendlyName>
 			<HexSettingID>0x104596A3</HexSettingID>
 			<GroupName>8 - Extra</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
