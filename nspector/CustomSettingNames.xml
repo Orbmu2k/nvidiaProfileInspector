@@ -280,7 +280,7 @@
 					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Custom (pre-571 drivers only)</UserfriendlyName>
+					<UserfriendlyName>Custom</UserfriendlyName>
 					<HexValue>0x00000006</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -317,7 +317,7 @@
 					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Custom (pre-571 drivers only)</UserfriendlyName>
+					<UserfriendlyName>Custom</UserfriendlyName>
 					<HexValue>0x00000006</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
