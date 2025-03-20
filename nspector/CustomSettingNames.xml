@@ -327,7 +327,7 @@
 			<UserfriendlyName>DLSS - Forced Scaling Ratio (needs 'forced quality level: custom')</UserfriendlyName>
 			<HexSettingID>0x10E41DF5</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -612,7 +612,7 @@
 			<UserfriendlyName>DLSS-RR - Forced Scaling Ratio (needs 'forced quality level: custom')</UserfriendlyName>
 			<HexSettingID>0x10C7D4A2</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
