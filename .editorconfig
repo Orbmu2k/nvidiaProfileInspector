@@ -1,0 +1,5 @@
+root = true
+
+[{*.cs,*.csx}]
+indent_style = space
+indent_size = 4
