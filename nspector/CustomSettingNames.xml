@@ -1934,7 +1934,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Sharpening Filter V1 - Denoising Factor</UserfriendlyName>
+			<UserfriendlyName>Sharpening Filter V1 - Ignore Film Grain</UserfriendlyName>
 			<HexSettingID>0x002ED8CE</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
