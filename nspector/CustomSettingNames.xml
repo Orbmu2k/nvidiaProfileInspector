@@ -1501,7 +1501,7 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening v1 - Enabled</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening V1 - Enabled</UserfriendlyName>
 			<HexSettingID>0x00598928</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -1517,7 +1517,7 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening v1 - Value</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening V1 - Value</UserfriendlyName>
 			<HexSettingID>0x002ED8CD</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -1934,7 +1934,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening v1 - Denoising Factor</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening V1 - Denoising Factor</UserfriendlyName>
 			<HexSettingID>0x002ED8CE</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -2351,10 +2351,10 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening v2 - Enabled</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening V2 - Enabled</UserfriendlyName>
 			<HexSettingID>0x00ABAC21</HexSettingID>
 			<MinRequiredDriverVersion>300.00</MinRequiredDriverVersion>
-			<Description>NVIDIA Image Sharpening v2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. RECOMMENDED FOR RTX 20+ SERIES, USE V1 FOR GTX GPUs.</Description>
+			<Description>NVIDIA Image Sharpening V2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. RECOMMENDED FOR RTX 20+ SERIES, USE V1 ON GTX GPUs FOR NO PERFORMANCE PENALTY.</Description>
 			<GroupName>3 - Antialiasing</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
@@ -2369,10 +2369,10 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening v2 - Value</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening V2 - Value</UserfriendlyName>
 			<HexSettingID>0x00ABAB21</HexSettingID>
 			<MinRequiredDriverVersion>300</MinRequiredDriverVersion>
-			<Description>NVIDIA Image Sharpening v2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. RECOMMENDED FOR RTX 20+ SERIES, USE V1 FOR GTX GPUs.</Description>
+			<Description>NVIDIA Image Sharpening V2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. RECOMMENDED FOR RTX 20+ SERIES, USE V1 ON GTX GPUs FOR NO PERFORMANCE PENALTY.</Description>
 			<GroupName>3 - Antialiasing</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
