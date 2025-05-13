@@ -324,10 +324,11 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS - Forced Scaling Ratio (needs 'forced quality level: custom')</UserfriendlyName>
+			<UserfriendlyName>DLSS - Forced Scaling Ratio</UserfriendlyName>
 			<HexSettingID>0x10E41DF5</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
+			<Description>Needs 'forced quality level: custom'</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -609,10 +610,11 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-RR - Forced Scaling Ratio (needs 'forced quality level: custom')</UserfriendlyName>
+			<UserfriendlyName>DLSS-RR - Forced Scaling Ratio</UserfriendlyName>
 			<HexSettingID>0x10C7D4A2</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
+			<Description>Needs 'forced quality level: custom'</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1499,7 +1501,7 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening 1.0 - Enabled</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening v1 - Enabled</UserfriendlyName>
 			<HexSettingID>0x00598928</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -1515,7 +1517,7 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening 1.0 - Value</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening v1 - Value</UserfriendlyName>
 			<HexSettingID>0x002ED8CD</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -1932,7 +1934,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening 1.0 - Denoising Factor</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening v1 - Denoising Factor</UserfriendlyName>
 			<HexSettingID>0x002ED8CE</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -2349,9 +2351,10 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening 2.0 - Enabled</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening v2 - Enabled</UserfriendlyName>
 			<HexSettingID>0x00ABAC21</HexSettingID>
 			<MinRequiredDriverVersion>300.00</MinRequiredDriverVersion>
+			<Description>NVIDIA Image Sharpening v2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work.</Description>
 			<GroupName>3 - Antialiasing</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
@@ -2366,9 +2369,10 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening 2.0 - Value</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Image Sharpening v2 - Value</UserfriendlyName>
 			<HexSettingID>0x00ABAB21</HexSettingID>
 			<MinRequiredDriverVersion>300</MinRequiredDriverVersion>
+			<Description>NVIDIA Image Sharpening v2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work.</Description>
 			<GroupName>3 - Antialiasing</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
