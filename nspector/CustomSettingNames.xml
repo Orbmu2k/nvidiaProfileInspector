@@ -2354,7 +2354,7 @@
 			<UserfriendlyName>NVIDIA Image Sharpening v2 - Enabled</UserfriendlyName>
 			<HexSettingID>0x00ABAC21</HexSettingID>
 			<MinRequiredDriverVersion>300.00</MinRequiredDriverVersion>
-			<Description>NVIDIA Image Sharpening v2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work.</Description>
+			<Description>NVIDIA Image Sharpening v2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. RECOMMENDED FOR RTX 20+ SERIES, USE V1 FOR GTX GPUs.</Description>
 			<GroupName>3 - Antialiasing</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
@@ -2372,7 +2372,7 @@
 			<UserfriendlyName>NVIDIA Image Sharpening v2 - Value</UserfriendlyName>
 			<HexSettingID>0x00ABAB21</HexSettingID>
 			<MinRequiredDriverVersion>300</MinRequiredDriverVersion>
-			<Description>NVIDIA Image Sharpening v2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work.</Description>
+			<Description>NVIDIA Image Sharpening v2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. RECOMMENDED FOR RTX 20+ SERIES, USE V1 FOR GTX GPUs.</Description>
 			<GroupName>3 - Antialiasing</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
