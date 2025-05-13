@@ -1501,7 +1501,7 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening V1 - Enabled</UserfriendlyName>
+			<UserfriendlyName>Sharpening Filter V1 - Enabled</UserfriendlyName>
 			<HexSettingID>0x00598928</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -1517,7 +1517,7 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening V1 - Value</UserfriendlyName>
+			<UserfriendlyName>Sharpening Filter V1 - Value</UserfriendlyName>
 			<HexSettingID>0x002ED8CD</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -1934,7 +1934,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening V1 - Denoising Factor</UserfriendlyName>
+			<UserfriendlyName>Sharpening Filter V1 - Denoising Factor</UserfriendlyName>
 			<HexSettingID>0x002ED8CE</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
 			<GroupName>3 - Antialiasing</GroupName>
@@ -2351,10 +2351,10 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening V2 - Enabled</UserfriendlyName>
+			<UserfriendlyName>Sharpening Filter V2 - Enabled</UserfriendlyName>
 			<HexSettingID>0x00ABAC21</HexSettingID>
 			<MinRequiredDriverVersion>300.00</MinRequiredDriverVersion>
-			<Description>NVIDIA Image Sharpening V2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. RECOMMENDED FOR RTX 20+ SERIES, USE V1 ON GTX GPUs FOR NO PERFORMANCE PENALTY.</Description>
+			<Description>NVIDIA Image Scaling needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. No Performance Penalty on RTX 20+ Series, use V1 on GTX Series.</Description>
 			<GroupName>3 - Antialiasing</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
@@ -2369,10 +2369,10 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA Image Sharpening V2 - Value</UserfriendlyName>
+			<UserfriendlyName>Sharpening Filter V2 - Value</UserfriendlyName>
 			<HexSettingID>0x00ABAB21</HexSettingID>
 			<MinRequiredDriverVersion>300</MinRequiredDriverVersion>
-			<Description>NVIDIA Image Sharpening V2 needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. RECOMMENDED FOR RTX 20+ SERIES, USE V1 ON GTX GPUs FOR NO PERFORMANCE PENALTY.</Description>
+			<Description>NVIDIA Image Scaling needs to be enabled on NVIDIA Control Panel or NVIDIA App first to work. No Performance Penalty on RTX 20+ Series, use V1 on GTX Series.</Description>
 			<GroupName>3 - Antialiasing</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
