@@ -839,6 +839,30 @@
 		</SettingValues>
 		<SettingMasks />
 	</CustomSetting>
+	<CustomSetting>
+		<UserfriendlyName>Smooth Motion - Allowed APIs</UserfriendlyName>
+		<HexSettingID>0xB0CC0875</HexSettingID>
+		<GroupName>5 - Common</GroupName>
+		<MinRequiredDriverVersion>571.86</MinRequiredDriverVersion>
+		<SettingValues>
+			<CustomSettingValue>
+				<UserfriendlyName>None/All</UserfriendlyName>
+				<HexValue>0x00000000</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Allow DX12</UserfriendlyName>
+				<HexValue>0x00000001</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Allow DX11</UserfriendlyName>
+				<HexValue>0x00000002</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Allow Vulkan</UserfriendlyName>
+				<HexValue>0x00000004</HexValue>
+			</CustomSettingValue>
+		</SettingValues>
+	</CustomSetting>
     <CustomSetting>
       <UserfriendlyName>Time</UserfriendlyName>
       <HexSettingID>0x70AD05C8</HexSettingID>

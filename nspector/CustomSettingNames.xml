@@ -930,17 +930,132 @@
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>On (RTX 50 series and above)</UserfriendlyName>
+					<UserfriendlyName>On</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Smooth Motion - Feature Flags</UserfriendlyName>
+			<UserfriendlyName>Smooth Motion - Enabled APIs</UserfriendlyName>
+			<Description>If the setting doesn't exist in profile (greyed out) all APIs will be allowed, if setting exists and is set to 0, no APIs are allowed</Description>
 			<HexSettingID>0xB0CC0875</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>571.86</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000000 None</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000001 Allow DX12</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000002 Allow DX11</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000003 Allow DX12+DX11</UserfriendlyName>
+					<HexValue>0x00000003</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000004 Allow Vulkan</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000005 Allow DX12+Vulkan</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000006 Allow DX11+Vulkan</UserfriendlyName>
+					<HexValue>0x00000006</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000007 Allow All (DX12+DX11+Vulkan)</UserfriendlyName>
+					<HexValue>0x00000007</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Smooth Motion - Debug Log Level</UserfriendlyName>
+			<Description>Logs written to C:\NvPresent\</Description>
+			<HexSettingID>0xB053C379</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>1</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>2</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>3</UserfriendlyName>
+					<HexValue>0x00000003</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Smooth Motion - Debug Bars</UserfriendlyName>
+			<Description>Draws colored bars on generated frames.</Description>
+			<HexSettingID>0xB01B8B02</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Smooth Motion - Flip Metering 0</UserfriendlyName>
+			<Description>Shows "HW Flip Metering Supported via Internal queue" in log file when set.</Description>
+			<HexSettingID>0xB03A4546</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000000 Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0xFFFFFFFF On</UserfriendlyName>
+					<HexValue>0xFFFFFFFF</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Smooth Motion - Flip Metering 1</UserfriendlyName>
+			<Description>May change HW flip metering to "App queue" if set.</Description>
+			<HexSettingID>0xB03A4547</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000000 Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00000001</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0xFFFFFFFF</UserfriendlyName>
+					<HexValue>0xFFFFFFFF</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX HDR - Driver Flags</UserfriendlyName>
