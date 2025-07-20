@@ -942,6 +942,7 @@
 			<HexSettingID>0xB0CC0875</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>571.86</MinRequiredDriverVersion>
+			<OverrideDefault>0x00000007</OverrideDefault>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0x00000000 None</UserfriendlyName>
@@ -1488,7 +1489,21 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
+		<CustomSetting>
+			<UserfriendlyName>Shader Cache - Enabled (OpenGL)</UserfriendlyName>
+			<HexSettingID>0x208F3F2E</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Enable</UserfriendlyName>
 			<HexSettingID>0x000F00BA</HexSettingID>

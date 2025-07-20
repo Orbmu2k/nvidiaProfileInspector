@@ -70,6 +70,38 @@
 		</SettingValues>
 	</CustomSetting>
     <CustomSetting>
+		<UserfriendlyName>OGL_PERF_STRAT_DEPTH_COMPRESSION</UserfriendlyName>
+		<HexSettingID>0x20AB9B86</HexSettingID>
+		<GroupName>8 - Extra</GroupName>
+		<OverrideDefault>0x00000000</OverrideDefault>
+		<SettingValues>
+			<CustomSettingValue>
+				<UserfriendlyName>On</UserfriendlyName>
+				<HexValue>0x00000000</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Off</UserfriendlyName>
+				<HexValue>0x76165656</HexValue>
+			</CustomSettingValue>
+		</SettingValues>
+	</CustomSetting>
+    <CustomSetting>
+		<UserfriendlyName>OGL_PERF_STRAT_COLOR_COMPRESSION</UserfriendlyName>
+		<HexSettingID>0x20AB9B87</HexSettingID>
+		<GroupName>8 - Extra</GroupName>
+		<OverrideDefault>0x00000000</OverrideDefault>
+		<SettingValues>
+			<CustomSettingValue>
+				<UserfriendlyName>On</UserfriendlyName>
+				<HexValue>0x00000000</HexValue>
+			</CustomSettingValue>
+			<CustomSettingValue>
+				<UserfriendlyName>Off</UserfriendlyName>
+				<HexValue>0x76165656</HexValue>
+			</CustomSettingValue>
+		</SettingValues>
+	</CustomSetting>
+    <CustomSetting>
 		<UserfriendlyName>ACE power Mode CPU frequency</UserfriendlyName>
 		<HexSettingID>0x211020</HexSettingID>
 		<SettingValues>
@@ -1936,6 +1968,23 @@
       <HexSettingID>0x709ADADC</HexSettingID>
       <GroupName>7 - Stereo</GroupName>
       <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>TILED_CACHE</UserfriendlyName>
+      <HexSettingID>0x10523DC0</HexSettingID>
+      <Description />
+      <GroupName>8 - Extra</GroupName>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Off</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>On</UserfriendlyName>
+          <HexValue>0x00000001</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+      <SettingMasks />
     </CustomSetting>
     <CustomSetting>
       <UserfriendlyName>ASYNC10_ENABLE</UserfriendlyName>
