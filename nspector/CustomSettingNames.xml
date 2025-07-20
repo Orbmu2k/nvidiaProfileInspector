@@ -982,7 +982,7 @@
 			<UserfriendlyName>Smooth Motion - Debug Log Level</UserfriendlyName>
 			<Description>Logs written to C:\NvPresent\</Description>
 			<HexSettingID>0xB053C379</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>8 - Extra</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1007,7 +1007,7 @@
 			<UserfriendlyName>Smooth Motion - Debug Bars</UserfriendlyName>
 			<Description>Draws colored bars on generated frames.</Description>
 			<HexSettingID>0xB01B8B02</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>8 - Extra</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
