@@ -1970,8 +1970,8 @@
       <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
     </CustomSetting>
     <CustomSetting>
-      <UserfriendlyName>TILED_CACHE</UserfriendlyName>
-      <HexSettingID>0x10523DC0</HexSettingID>
+      <UserfriendlyName>TILEDCACHE (DX/OGL)</UserfriendlyName>
+      <HexSettingID>0x10F797A1</HexSettingID>
       <Description />
       <GroupName>8 - Extra</GroupName>
       <SettingValues>
@@ -1985,6 +1985,136 @@
         </CustomSettingValue>
       </SettingValues>
       <SettingMasks />
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>TILEDCACHE (Vulkan)</UserfriendlyName>
+      <HexSettingID>0x20523DD1</HexSettingID>
+      <Description />
+      <GroupName>8 - Extra</GroupName>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>On - dynamic</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>Off</UserfriendlyName>
+          <HexValue>0x00000001</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>On</UserfriendlyName>
+          <HexValue>0x00000002</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+      <SettingMasks />
+    </CustomSetting>
+    <CustomSetting>
+      <UserfriendlyName>TILEDCACHE_TILESIZE</UserfriendlyName>
+      <HexSettingID>0x1055F550</HexSettingID>
+      <Description />
+      <GroupName>8 - Extra</GroupName>
+      <OverrideDefault>0x00400040</OverrideDefault>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>64x64</UserfriendlyName>
+          <HexValue>0x00400040</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x16</UserfriendlyName>
+          <HexValue>0x00100010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x32</UserfriendlyName>
+          <HexValue>0x00100020</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x64</UserfriendlyName>
+          <HexValue>0x00100040</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x128</UserfriendlyName>
+          <HexValue>0x00100080</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x256</UserfriendlyName>
+          <HexValue>0x00100100</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x512</UserfriendlyName>
+          <HexValue>0x00100200</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x1024</UserfriendlyName>
+          <HexValue>0x00100400</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x2048</UserfriendlyName>
+          <HexValue>0x00100800</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>16x4096</UserfriendlyName>
+          <HexValue>0x00101000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>32x64</UserfriendlyName>
+          <HexValue>0x00200040</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>64x128</UserfriendlyName>
+          <HexValue>0x00400080</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>128x256</UserfriendlyName>
+          <HexValue>0x00800100</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>256x512</UserfriendlyName>
+          <HexValue>0x01000200</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>512x1024</UserfriendlyName>
+          <HexValue>0x02000400</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>1024x2048</UserfriendlyName>
+          <HexValue>0x04000800</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>2048x4096</UserfriendlyName>
+          <HexValue>0x08001000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>32x16</UserfriendlyName>
+          <HexValue>0x00200010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>64x16</UserfriendlyName>
+          <HexValue>0x00400010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>128x16</UserfriendlyName>
+          <HexValue>0x00800010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>256x16</UserfriendlyName>
+          <HexValue>0x01000010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>512x16</UserfriendlyName>
+          <HexValue>0x02000010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>1024x16</UserfriendlyName>
+          <HexValue>0x04000010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>2048x16</UserfriendlyName>
+          <HexValue>0x08000010</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>4096x16</UserfriendlyName>
+          <HexValue>0x10000010</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
     </CustomSetting>
     <CustomSetting>
       <UserfriendlyName>ASYNC10_ENABLE</UserfriendlyName>
