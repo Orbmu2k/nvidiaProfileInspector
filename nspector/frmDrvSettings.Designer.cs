@@ -447,7 +447,7 @@
             this.cbValues.BackColor = System.Drawing.SystemColors.Window;
             this.cbValues.FormattingEnabled = true;
             this.cbValues.Location = new System.Drawing.Point(961, 323);
-            this.cbValues.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.cbValues.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.cbValues.Name = "cbValues";
             this.cbValues.Size = new System.Drawing.Size(129, 32);
             this.cbValues.TabIndex = 5;
