@@ -567,6 +567,7 @@
             // txtFilter
             // 
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Name = "txtFilter";
             this.txtFilter.Size = new System.Drawing.Size(1540, 29);
