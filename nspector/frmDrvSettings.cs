@@ -1467,29 +1467,6 @@ namespace nspector
             }
         }
 
-        private void txtFilter_TextChangedD(object sender, EventArgs e)
-        {
-            RefreshCurrentProfile();
-
-            if (string.IsNullOrEmpty(txtFilter.Text.Trim()))
-            {
-                return;
-            }
-
-            var lowerInput = txtFilter.Text.Trim().ToLowerInvariant();
-            lvSettings.BeginUpdate();
-            foreach (ListViewItem itm in lvSettings.Items)
-            {
-                if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
-                {
-                    itm.Remove();
-                }
-            }
-            lvSettings.EndUpdate();
-
-            txtFilter.Focus(); // Setting listbox sometimes steals focus away
-        }
-
         private void EnableDevmode()
         {
             isDevMode = true;
