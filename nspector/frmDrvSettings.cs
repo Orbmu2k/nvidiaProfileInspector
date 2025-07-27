@@ -1297,25 +1297,39 @@ namespace nspector
                 CopyModifiedSettingsToClipBoard();
             }
 
-            if (e.Control && e.Alt && e.KeyCode == Keys.D)
+            else if (e.Control && e.Alt && e.KeyCode == Keys.D)
             {
                 EnableDevmode();
             }
 
-            if (Debugger.IsAttached && e.Control && e.KeyCode == Keys.T)
+            else if (Debugger.IsAttached && e.Control && e.KeyCode == Keys.T)
             {
                 TestStoreSettings();
             }
 
-            if (e.Control && e.KeyCode == Keys.F)
+            else if (e.Control && e.KeyCode == Keys.F)
             {
                 txtFilter.Focus();
             }
 
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
             {
                 RefreshCurrentProfile();
             }
+
+            else if (!e.Control && (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z ||
+                e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 ||
+                e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 ||
+                e.KeyCode == Keys.Space || e.KeyCode == Keys.OemPeriod))
+            {
+                txtFilter.Visible = true;
+                txtFilter.Focus();
+                txtFilter.Text += e.Shift ? e.KeyCode.ToString() : e.KeyCode.ToString().ToLower();
+                txtFilter.SelectionStart = txtFilter.Text.Length;
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+
         }
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
