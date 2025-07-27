@@ -1024,7 +1024,7 @@
 			<UserfriendlyName>Smooth Motion - Flip Metering 0</UserfriendlyName>
 			<Description>Shows "HW Flip Metering Supported via Internal queue" in log file when set.</Description>
 			<HexSettingID>0xB03A4546</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>8 - Extra</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0x00000000 Off</UserfriendlyName>
@@ -1041,7 +1041,7 @@
 			<UserfriendlyName>Smooth Motion - Flip Metering 1</UserfriendlyName>
 			<Description>May change HW flip metering to "App queue" if set.</Description>
 			<HexSettingID>0xB03A4547</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>8 - Extra</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0x00000000 Off</UserfriendlyName>
