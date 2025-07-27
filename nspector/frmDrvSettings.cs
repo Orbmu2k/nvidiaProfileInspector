@@ -635,6 +635,8 @@ namespace nspector
 
         private void ChangeCurrentProfile(string profileName)
         {
+            txtFilter.Text = "";
+
             if (profileName == GetBaseProfileName() || profileName == _baseProfileName)
             {
                 _CurrentProfile = _baseProfileName;
@@ -1104,6 +1106,8 @@ namespace nspector
 
         private async void RefreshAll()
         {
+            txtFilter.Text = "";
+
             RefreshProfilesCombo();
             await ScanProfilesSilentAsync(true, false);
 
@@ -1305,34 +1309,36 @@ namespace nspector
 
             if (e.Control && e.KeyCode == Keys.F)
             {
-                SearchSetting();
+                txtFilter.Focus();
             }
 
             if (e.KeyCode == Keys.Escape)
             {
                 RefreshCurrentProfile();
             }
-
-
         }
 
-        private void SearchSetting()
+        private void txtFilter_TextChanged(object sender, EventArgs e)
         {
-            string inputString = "";
-            if (InputBox.Show("Search Setting", "Please enter setting name:", ref inputString, new List<string>(), "", 2048) == System.Windows.Forms.DialogResult.OK)
+            RefreshCurrentProfile();
+
+            if (string.IsNullOrEmpty(txtFilter.Text.Trim()))
             {
-                var lowerInput = inputString.Trim().ToLowerInvariant();
-                lvSettings.BeginUpdate();
-                foreach(ListViewItem itm in lvSettings.Items)
-                {
-                    if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
-                    {
-                        itm.Remove();
-                    }
-                }
-                lvSettings.EndUpdate();
+                return;
             }
-            
+
+            var lowerInput = txtFilter.Text.Trim().ToLowerInvariant();
+            lvSettings.BeginUpdate();
+            foreach (ListViewItem itm in lvSettings.Items)
+            {
+                if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
+                {
+                    itm.Remove();
+                }
+            }
+            lvSettings.EndUpdate();
+
+            txtFilter.Focus(); // Setting listbox sometimes steals focus away
         }
 
         private void EnableDevmode()
@@ -1424,7 +1430,6 @@ namespace nspector
             }
             
             Clipboard.SetText(sbSettings.ToString());
-
         }
     }
 }
