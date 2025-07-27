@@ -1987,6 +1987,23 @@
       <SettingMasks />
     </CustomSetting>
     <CustomSetting>
+      <UserfriendlyName>TILEDCACHE (DX/OGL) (pre-526.47)</UserfriendlyName>
+      <HexSettingID>0x10523DC0</HexSettingID>
+      <Description />
+      <GroupName>8 - Extra</GroupName>
+      <SettingValues>
+        <CustomSettingValue>
+          <UserfriendlyName>Off</UserfriendlyName>
+          <HexValue>0x00000000</HexValue>
+        </CustomSettingValue>
+        <CustomSettingValue>
+          <UserfriendlyName>On</UserfriendlyName>
+          <HexValue>0x00000001</HexValue>
+        </CustomSettingValue>
+      </SettingValues>
+      <SettingMasks />
+    </CustomSetting>
+    <CustomSetting>
       <UserfriendlyName>TILEDCACHE (Vulkan)</UserfriendlyName>
       <HexSettingID>0x20523DD1</HexSettingID>
       <Description />
