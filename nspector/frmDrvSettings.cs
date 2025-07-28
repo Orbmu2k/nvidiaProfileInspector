@@ -42,6 +42,8 @@ namespace nspector
 
         private bool isDevMode = false;
 
+        private Dictionary<string, bool> _groupCollapsedStates = new();
+
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -190,6 +192,8 @@ namespace nspector
                     }
                 }
 
+                ApplySearchFilter();
+
                 lvSettings.EndUpdate();
 
                 GC.Collect();
@@ -209,7 +213,6 @@ namespace nspector
                     }
                 }
             }
-
         }
 
         private void RefreshProfilesCombo()
@@ -550,8 +553,6 @@ namespace nspector
             LoadGroupStates(Path.Combine(AppContext.BaseDirectory, "HiddenGroups.ini"));
         }
 
-        private Dictionary<string, bool> _groupCollapsedStates = new();
-
         private void lvSettings_GroupStateChanged(object sender, GroupStateChangedEventArgs e)
         {
             _groupCollapsedStates[e.Group.Header] = e.IsCollapsed;
@@ -580,10 +581,10 @@ namespace nspector
 
         private bool LoadGroupStates(string filePath)
         {
-            _groupCollapsedStates.Clear();
-
             if (!File.Exists(filePath))
                 return false;
+
+            _groupCollapsedStates.Clear();
 
             try
             {
@@ -707,8 +708,6 @@ namespace nspector
                 DeleteSelectedValue();
             else
                 ResetSelectedValue();
-
-            ApplySearchFilter();
         }
 
         ToolTip appPathsTooltip = new ToolTip() { InitialDelay = 250 };
@@ -921,8 +920,6 @@ namespace nspector
             catch { }
 
             StoreChangesOfProfileToDriver();
-
-            ApplySearchFilter();
         }
 
         private void tsbBitValueEditor_Click(object sender, EventArgs e)
@@ -1402,69 +1399,52 @@ namespace nspector
             else if (!e.Control && (e.KeyCode >= Keys.A && e.KeyCode <= Keys.Z ||
                 e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 ||
                 e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 ||
-                e.KeyCode == Keys.Space || e.KeyCode == Keys.OemPeriod))
+                e.KeyCode == Keys.Space || e.KeyCode == Keys.OemPeriod || 
+                e.KeyCode == Keys.Back))
             {
-                txtFilter.Visible = true;
                 txtFilter.Focus();
-                txtFilter.Text += e.Shift ? e.KeyCode.ToString() : e.KeyCode.ToString().ToLower();
+                if (e.KeyCode == Keys.Back)
+                {
+                    if (txtFilter.Text.Length > 0)
+                    {
+                        txtFilter.Text = txtFilter.Text.Substring(0, txtFilter.Text.Length - 1);
+                    }
+                }
+                else
+                {
+                    txtFilter.Text += e.Shift ? e.KeyCode.ToString() : e.KeyCode.ToString().ToLower();
+                }
                 txtFilter.SelectionStart = txtFilter.Text.Length;
                 e.SuppressKeyPress = true;
                 e.Handled = true;
             }
-
         }
 
-        private CancellationTokenSource cts;
-
-        private void ApplySearchFilter(CancellationTokenSource cts = null)
+        private void ApplySearchFilter()
         {
             var lowerInput = txtFilter.Text.Trim().ToLowerInvariant();
 
-            if (cts != null && cts.Token.IsCancellationRequested) return;
-
-            Invoke(new Action(() =>
+            if (string.IsNullOrEmpty(lowerInput))
             {
-                RefreshCurrentProfile();
+                return;
+            }
 
-                if (string.IsNullOrEmpty(lowerInput))
+            lvSettings.BeginUpdate();
+            foreach (ListViewItem itm in lvSettings.Items)
+            {
+                if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
                 {
-                    return;
+                    itm.Remove();
                 }
-
-                lvSettings.BeginUpdate();
-                foreach (ListViewItem itm in lvSettings.Items)
-                {
-                    if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
-                    {
-                        itm.Remove();
-                    }
-                }
-                lvSettings.EndUpdate();
-
-                txtFilter.Focus(); // Setting listbox sometimes steals focus away
-            }));
+            }
+            lvSettings.EndUpdate();
         }
 
         private async void txtFilter_TextChanged(object sender, EventArgs e)
         {
-            cts?.Cancel();
-            cts = new CancellationTokenSource();
+            RefreshCurrentProfile();
 
-            try
-            {
-                await Task.Delay(250, cts.Token); // search filter can be slow, wait for user to stop typing for ~250ms before we start refresh
-
-                if (cts.Token.IsCancellationRequested) return;
-
-                await Task.Run(() =>
-                {
-                    ApplySearchFilter(cts);
-                });
-            }
-            catch (TaskCanceledException)
-            {
-                // Ignore cancellation
-            }
+            txtFilter.Focus(); // Setting listbox sometimes steals focus away
         }
 
         private void EnableDevmode()

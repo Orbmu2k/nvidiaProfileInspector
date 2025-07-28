@@ -549,7 +549,7 @@ namespace nspector.Common
             });
         }
 
-        private string GetApplicationFingerprint(NVDRS_APPLICATION_V3 application)
+        private string GetApplicationFingerprint(NVDRS_APPLICATION_V4 application)
         {
             return $"{application.appName}|{application.fileInFolder}|{application.userFriendlyName}|{application.launcher}";
         }
