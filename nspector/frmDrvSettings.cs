@@ -1393,6 +1393,7 @@ namespace nspector
 
             else if (e.KeyCode == Keys.Escape)
             {
+                txtFilter.Text = "";
                 RefreshCurrentProfile();
             }
 
@@ -1536,6 +1537,14 @@ namespace nspector
             }
             
             Clipboard.SetText(sbSettings.ToString());
+        }
+
+        private void txtFilter_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                txtFilter.Text = "";
+            }
         }
     }
 }

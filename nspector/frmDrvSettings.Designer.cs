@@ -573,6 +573,7 @@
             this.txtFilter.TabIndex = 82;
             this.txtFilter.WatermarkText = "Search for setting...";
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
+            this.txtFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyUp);
             // 
             // frmDrvSettings
             // 
