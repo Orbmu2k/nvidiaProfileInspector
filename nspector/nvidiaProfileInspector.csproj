@@ -123,6 +123,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -136,6 +137,7 @@
     <Compile Include="Common\DrsSettingsMetaService.cs" />
     <Compile Include="Common\DrsUtil.cs" />
     <Compile Include="Common\Helper\DropDownMenuScrollWheelHandler.cs" />
+    <Compile Include="Common\Helper\GithubVersionHelper.cs" />
     <Compile Include="Common\Helper\ListViewGroupSorter.cs" />
     <Compile Include="Common\Helper\ShortcutResolver.cs" />
     <Compile Include="Common\Helper\SteamAppResolver.cs" />

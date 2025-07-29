@@ -515,6 +515,7 @@
             this.lvSettings.TabIndex = 2;
             this.lvSettings.UseCompatibleStateImageBehavior = false;
             this.lvSettings.View = System.Windows.Forms.View.Details;
+            this.lvSettings.GroupStateChanged += new System.EventHandler<nspector.GroupStateChangedEventArgs>(this.lvSettings_GroupStateChanged);
             this.lvSettings.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.lvSettings_ColumnWidthChanging);
             this.lvSettings.SelectedIndexChanged += new System.EventHandler(this.lvSettings_SelectedIndexChanged);
             this.lvSettings.DoubleClick += new System.EventHandler(this.lvSettings_DoubleClick);

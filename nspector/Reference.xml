@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- NOTE: 3D Vision settings will be hidden from NVPI when using driver later than 425.31, CTRL+ALT+D can be used to unhide if needed. -->
+<!-- NOTE: 3D Vision settings will be hidden from NVPI on drivers later than 425.31, CTRL+ALT+D can be used to unhide if needed. -->
 <CustomSettingNames>
 	<Settings>
 		<CustomSetting>
@@ -6408,6 +6408,23 @@
 			<GroupName>8 - Extra</GroupName>
 			<SettingValues>
       </SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>PS_CONST_FOLDING_GPU (0x006D6197)</UserfriendlyName>
+			<HexSettingID>0x006D6197</HexSettingID>
+			<Description/>
+			<GroupName>8 - Extra</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>PS_CONST_FOLDING_GPU_OFF</UserfriendlyName>
+					<HexValue>0xA2B53761</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>

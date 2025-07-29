@@ -40,6 +40,8 @@ namespace nspector
 
         public string _CurrentProfile = "";
 
+        private bool _isUpdateAvailable = false;
+
         private bool isDevMode = false;
 
         private Dictionary<string, bool> _groupCollapsedStates = new();
@@ -515,7 +517,7 @@ namespace nspector
         private void SetTitleVersion()
         {
             var numberFormat = new NumberFormatInfo() { NumberDecimalSeparator = "." };
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            var version = Assembly.GetExecutingAssembly().GetName().Version.ToString() + (_isUpdateAvailable ? " (update available on GitHub)" : "");
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
             var externalCsn = DrsServiceLocator.IsExternalCustomSettings ? " - CSN OVERRIDE!" : "";
             Text = $"{Application.ProductName} {version} - Geforce {DrsSettingsServiceBase.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}{externalCsn}";
@@ -542,6 +544,8 @@ namespace nspector
         {
             _skipScan = skipScan;
             InitializeComponent();
+            lblApplications.Text = "";
+
             InitTaskbarList();
             SetupDropFilesNative();
             SetupToolbar();
@@ -549,8 +553,6 @@ namespace nspector
 
             tscbShowCustomSettingNamesOnly.Checked = showCsnOnly;
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-
-            lvSettings.GroupStateChanged += lvSettings_GroupStateChanged;
 
             LoadGroupStates(Path.Combine(AppContext.BaseDirectory, "HiddenGroups.ini"));
         }
@@ -666,7 +668,7 @@ namespace nspector
                 tsbModifiedProfiles.Enabled = true;
         }
 
-        private void frmDrvSettings_Load(object sender, EventArgs e)
+        private async void frmDrvSettings_Load(object sender, EventArgs e)
         {
             SetupLayout();
             SetTitleVersion();
@@ -681,6 +683,28 @@ namespace nspector
             tssbRemoveApplication.Enabled = false;
 
             InitResetValueTooltip();
+
+            await CheckForUpdatesAsync();
+        }
+
+        private async Task CheckForUpdatesAsync()
+        {
+            _isUpdateAvailable = false;
+
+            try
+            {
+                bool updateAvailable = await GithubVersionHelper.IsUpdateAvailableAsync();
+
+                if (updateAvailable)
+                {
+                    _isUpdateAvailable = true;
+                    SetTitleVersion();
+                }
+            }
+            catch
+            {
+                // Ignore update check failures
+            }
         }
 
         private void InitResetValueTooltip()
