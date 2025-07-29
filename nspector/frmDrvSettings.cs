@@ -82,6 +82,8 @@ namespace nspector
             var group = FindOrCreateGroup(setting.GroupName);
 
             var settingName = isDevMode ? $"0x{setting.SettingId:X8} {setting.SettingText}" : setting.SettingText;
+            if (setting.IsSettingHidden)
+                settingName = "[H] " + settingName;
 
             var item = new ListViewItem(settingName);
             item.Tag = setting.SettingId;
@@ -158,7 +160,7 @@ namespace nspector
 
                 foreach (var settingItem in _currentProfileSettingItems)
                 {
-                    if (settingItem.IsSettingHidden) continue;
+                    if (settingItem.IsSettingHidden && !isDevMode) continue;
 
                     var itm = lvSettings.Items.Add(CreateListViewItem(settingItem));
                     if (Debugger.IsAttached && !settingItem.IsApiExposed)
@@ -516,7 +518,7 @@ namespace nspector
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
             var externalCsn = DrsServiceLocator.IsExternalCustomSettings ? " - CSN OVERRIDE!" : "";
-            Text = $"{Application.ProductName} {version} - Geforce {_drs.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}{externalCsn}";
+            Text = $"{Application.ProductName} {version} - Geforce {DrsSettingsServiceBase.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}{externalCsn}";
         }
 
         private static void InitMessageFilter(IntPtr handle)
@@ -714,8 +716,6 @@ namespace nspector
 
         private void ChangeCurrentProfile(string profileName)
         {
-            txtFilter.Text = "";
-
             if (profileName == GetBaseProfileName() || profileName == _baseProfileName)
             {
                 _CurrentProfile = _baseProfileName;
@@ -733,6 +733,8 @@ namespace nspector
                 tssbRemoveApplication.Enabled = true;
                 appPathsTooltip.SetToolTip(lblApplications, "Double-click to add application");
             }
+
+            txtFilter.Text = "";
 
             RefreshCurrentProfile();
         }
@@ -998,7 +1000,7 @@ namespace nspector
             }
             else if (MessageBox.Show(this, "Really delete this profile?\r\n\r\nNote: NVIDIA predefined profiles can not be restored until next driver installation!", "Delete Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                if (_drs.DriverVersion > 280 && _drs.DriverVersion < 310)
+                if (DrsSettingsServiceBase.DriverVersion > 280 && DrsSettingsServiceBase.DriverVersion < 310)
                     // hack for driverbug
                     _drs.DeleteProfileHard(_CurrentProfile);
                 else
@@ -1378,7 +1380,7 @@ namespace nspector
 
             else if (e.Control && e.Alt && e.KeyCode == Keys.D)
             {
-                EnableDevmode();
+                ToggleDevMode();
             }
 
             else if (Debugger.IsAttached && e.Control && e.KeyCode == Keys.T)
@@ -1445,15 +1447,25 @@ namespace nspector
         {
             RefreshCurrentProfile();
 
-            txtFilter.Focus(); // Setting listbox sometimes steals focus away
+            if(!string.IsNullOrEmpty(txtFilter.Text))
+                txtFilter.Focus(); // Setting listbox sometimes steals focus away
         }
 
-        private void EnableDevmode()
+        private void ToggleDevMode()
         {
-            isDevMode = true;
-            lvSettings.Font = new Font("Consolas", 9);
-            cbValues.Font = new Font("Consolas", 9);
-            lvSettings.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            isDevMode = !isDevMode;
+            if (isDevMode)
+            {
+                lvSettings.Font = new Font("Consolas", 9);
+                cbValues.Font = new Font("Consolas", 9);
+                lvSettings.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            }
+            else
+            {
+                lvSettings.Font = null;
+                cbValues.Font = null;
+                lvSettings.HeaderStyle = ColumnHeaderStyle.None;
+            }
             RefreshCurrentProfile();
         }
 

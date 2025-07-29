@@ -14,6 +14,7 @@ namespace nspector.Common
 {
     internal abstract class DrsSettingsServiceBase
     {
+        public static readonly float DriverVersion = GetDriverVersionInternal();
 
         protected DrsSettingsMetaService meta;
         protected DrsDecrypterService decrypter;
@@ -22,11 +23,9 @@ namespace nspector.Common
         {
             meta = metaService;
             decrypter = decrpterService;
-            DriverVersion = GetDriverVersionInternal();
         }
 
-        public readonly float DriverVersion;
-        private float GetDriverVersionInternal()
+        private static float GetDriverVersionInternal()
         {
             float result = 0f;
             uint sysDrvVersion = 0;

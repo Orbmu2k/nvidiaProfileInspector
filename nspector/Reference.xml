@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- NOTE: 3D Vision settings will be hidden from NVPI when using driver later than 425.31, CTRL+ALT+D can be used to unhide if needed. -->
 <CustomSettingNames>
 	<Settings>
 		<CustomSetting>
@@ -1975,6 +1976,7 @@
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
 			<OverrideDefault>0x00000001</OverrideDefault>
+			<MinRequiredDriverVersion>526.48</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1992,6 +1994,7 @@
 			<HexSettingID>0x10523DC0</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>526.47</MaxRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -3484,9 +3487,10 @@
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - Combined (Mode + Setting) (pre-526.47)</UserfriendlyName> 
-	  <HexSettingID>0x100B8EDE</HexSettingID>
+			<HexSettingID>0x100B8EDE</HexSettingID>
 			<Description/>
 			<GroupName>3 - Antialiasing</GroupName>
+			<MaxRequiredDriverVersion>526.47</MaxRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Application-controlled / Off</UserfriendlyName>
@@ -3804,6 +3808,7 @@
       <HexSettingID>0x10D7162F</HexSettingID>
 			<Description/>
 			<GroupName>3 - Antialiasing</GroupName>
+			<MinRequiredDriverVersion>526.48</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Application-controlled / Off</UserfriendlyName>
@@ -4264,6 +4269,7 @@
 			<HexSettingID>0x10F74257</HexSettingID>
 			<Description/>
 			<GroupName>4 - Texture Filtering</GroupName>
+			<MaxRequiredDriverVersion>526.47</MaxRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Application-controlled</UserfriendlyName>
@@ -4313,6 +4319,7 @@
 			<HexSettingID>0x10E30043</HexSettingID>
 			<Description/>
 			<GroupName>4 - Texture Filtering</GroupName>
+			<MinRequiredDriverVersion>526.48</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Application-controlled</UserfriendlyName>

@@ -421,7 +421,10 @@ namespace nspector.Common
         private bool GetIsSettingHidden(uint settingId)
         {
             var csnMeta = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.CustomSettings);
-            return (csnMeta != null && ((CustomSettingMetaService)csnMeta.Service).IsSettingHidden(settingId));
+            var refMeta = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.ReferenceSettings);
+
+            return (csnMeta != null && ((CustomSettingMetaService)csnMeta.Service).IsSettingHidden(settingId)) || 
+                refMeta != null && ((CustomSettingMetaService)refMeta.Service).IsSettingHidden(settingId);
         }
 
         private string GetDescription(uint settingId)

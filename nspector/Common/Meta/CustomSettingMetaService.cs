@@ -126,6 +126,21 @@ namespace nspector.Common.Meta
             var setting = customSettings.Settings
                .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
+            if (DrsSettingsServiceBase.DriverVersion > 0)
+            {
+                if (DrsSettingsServiceBase.DriverVersion > 425.31 && (settingId & 0xFF000000) == 0x70000000)
+                    return true; // 3D vision settings removed after 425.31
+
+                if (setting == null)
+                    return false;
+
+                if (setting.MinRequiredDriverVersion > 0 && setting.MinRequiredDriverVersion > DrsSettingsServiceBase.DriverVersion)
+                    return true;
+
+                if (setting.MaxRequiredDriverVersion > 0 && setting.MaxRequiredDriverVersion < DrsSettingsServiceBase.DriverVersion)
+                    return true;
+            }
+
             return setting?.Hidden ?? false;
         }
 
