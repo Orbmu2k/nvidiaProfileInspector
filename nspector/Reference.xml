@@ -471,6 +471,7 @@
 		<CustomSetting>
 			<UserfriendlyName>Shader Cache - Control Flags for automated testing</UserfriendlyName>
 			<HexSettingID>0xF4889C</HexSettingID>
+			<Hidden>true</Hidden> <!-- Only mentioned in nvapi, likely internal driver only -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName/>
@@ -623,6 +624,7 @@
 		<CustomSetting>
 			<UserfriendlyName>Frame Rate Limiter 2 Control</UserfriendlyName>
 			<HexSettingID>0x10834FFF</HexSettingID>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName/>
@@ -2646,6 +2648,7 @@
 			<HexSettingID>0x00837AAF</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -3423,6 +3426,7 @@
 			<HexSettingID>0x00F865E3</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled - Allow 2X tex where available</UserfriendlyName>
@@ -3444,6 +3448,7 @@
 			<HexSettingID>0x00FE8CC0</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Limit max amount of memory used for renaming on XP</UserfriendlyName>
@@ -4126,6 +4131,7 @@
 			<HexSettingID>0x102E048D</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>425.31</MaxRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Legacy</UserfriendlyName>
@@ -4172,6 +4178,7 @@
 			<HexSettingID>0x10510E76</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Dynamic</UserfriendlyName>
@@ -4193,6 +4200,7 @@
 			<HexSettingID>0x10528AB2</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>475.14</MaxRequiredDriverVersion> <!-- 475.14 last driver for kepler -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -4210,6 +4218,7 @@
 			<HexSettingID>0x106044CE</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Static - The driver always uses Alpha fraction set via PS_ALPHABETA_FRACTION</UserfriendlyName>
@@ -4231,6 +4240,7 @@
 			<HexSettingID>0x10842563</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575-->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Min</UserfriendlyName>
@@ -4766,6 +4776,7 @@
 			<HexSettingID>0x20334278</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>USE_APP_DETECT - Use App Detection to decide</UserfriendlyName>
@@ -4882,6 +4893,7 @@
 			<HexSettingID>0x203714A4</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Default</UserfriendlyName>
@@ -4959,6 +4971,7 @@
 			<HexSettingID>0x203D3FC9</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -5039,6 +5052,7 @@
 			<HexSettingID>0x204B6CBF</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disable - disable multimon buffer, fall back to older MM multimon</UserfriendlyName>
@@ -5183,6 +5197,7 @@
 			<HexSettingID>0x20696FC3</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -5200,6 +5215,7 @@
 			<HexSettingID>0x206C7691</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -5477,6 +5493,7 @@
 			<HexSettingID>0x2096FD59</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -5494,6 +5511,7 @@
 			<HexSettingID>0x209746C1</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0x00000001 SYNC_VID2VID - Vid2Vid copies (CopyTexImage) update remote gpus</UserfriendlyName>
@@ -5552,6 +5570,7 @@
 			<HexSettingID>0x209A0EE9</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>AUTO - Leave 2x TEX enabled</UserfriendlyName>
@@ -5675,6 +5694,7 @@
 			<HexSettingID>0x20A6EEBC</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disable</UserfriendlyName>
@@ -5692,6 +5712,7 @@
 			<HexSettingID>0x20AF671D</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disable</UserfriendlyName>
@@ -5709,6 +5730,7 @@
 			<HexSettingID>0x20AF9927</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disable</UserfriendlyName>
@@ -5785,6 +5807,7 @@
 			<HexSettingID>0x20BAC7FA</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -5887,6 +5910,7 @@
 			<HexSettingID>0x20C618F9</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled - disables TXL LOD WAR for HW bug</UserfriendlyName>
@@ -5934,6 +5958,7 @@
 			<HexSettingID>0x20D324C5</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>425.31</MaxRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>AUTOSELECT - Set the stereo mode based on the consumer stereo regkeys</UserfriendlyName>
@@ -6026,6 +6051,7 @@
 			<HexSettingID>0x20D59EDA</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -6119,6 +6145,7 @@
 			<HexSettingID>0x20EA260C</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Default</UserfriendlyName>
@@ -6229,6 +6256,7 @@
 			<HexSettingID>0x20EE02B2</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>FIFO - First client</UserfriendlyName>

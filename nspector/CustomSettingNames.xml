@@ -1612,6 +1612,7 @@
 			<UserfriendlyName>SLI - CFR Mode</UserfriendlyName>
 			<HexSettingID>0x20343843</HexSettingID>
 			<GroupName>6 - SLI</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Ansel - Enabled</UserfriendlyName>
@@ -7439,6 +7440,7 @@
 			<UserfriendlyName>SLI - Compatibility Bits (OGL)</UserfriendlyName>
 			<HexSettingID>0x209746C1</HexSettingID>
 			<GroupName>1 - Compatibility</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues/>
 		</CustomSetting>
 		<CustomSetting>
@@ -8196,6 +8198,7 @@
 			<UserfriendlyName>Multi-Display / Mixed-GPU Acceleration</UserfriendlyName>
 			<HexSettingID>0x200AEBFC</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Single display performance mode</UserfriendlyName>
