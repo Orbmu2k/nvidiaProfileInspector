@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -20,6 +21,10 @@ namespace nspector.Common.Helper
         public bool ShowCustomizedSettingNamesOnly { get; set; } = false;
 
         public bool ShowScannedUnknownSettings { get; set; } = false;
+
+        public List<string> HiddenSettingGroups { get; set; }
+
+        public bool DisableUpdateCheck { get; set; } = false;
 
         private static string GetSettingsFilename()
         {

@@ -14,7 +14,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static nspector.ListViewEx;
 
 namespace nspector
 {
@@ -40,11 +39,9 @@ namespace nspector
 
         public string _CurrentProfile = "";
 
-        private bool _isUpdateAvailable = false;
+        private bool _isDevMode = false;
 
-        private bool isDevMode = false;
-
-        private Dictionary<string, bool> _groupCollapsedStates = new();
+        private UserSettings _settings = null;
 
         protected override void WndProc(ref Message m)
         {
@@ -83,7 +80,7 @@ namespace nspector
         {
             var group = FindOrCreateGroup(setting.GroupName);
 
-            var settingName = isDevMode ? $"0x{setting.SettingId:X8} {setting.SettingText}" : setting.SettingText;
+            var settingName = _isDevMode ? $"0x{setting.SettingId:X8} {setting.SettingText}" : setting.SettingText;
             if (setting.IsSettingHidden)
                 settingName = "[H] " + settingName;
 
@@ -160,14 +157,23 @@ namespace nspector
                 _currentProfileSettingItems = _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
                 RefreshApplicationsCombosAndText(applications);
 
+                var searchFilter = txtFilter.Text.Trim().ToLowerInvariant();
+
                 foreach (var settingItem in _currentProfileSettingItems)
                 {
-                    if (settingItem.IsSettingHidden && !isDevMode) continue;
+                    if (settingItem.IsSettingHidden && !_isDevMode) continue;
 
-                    var itm = lvSettings.Items.Add(CreateListViewItem(settingItem));
+                    var item = CreateListViewItem(settingItem);
+
+                    // Apply search filter if set
+                    if (!string.IsNullOrEmpty(searchFilter) && !item.Text.ToLowerInvariant().Contains(searchFilter))
+                        continue;
+
+                    lvSettings.Items.Add(item);
+
                     if (Debugger.IsAttached && !settingItem.IsApiExposed)
                     {
-                        itm.ForeColor = Color.LightCoral;
+                        item.ForeColor = Color.LightCoral;
                     }
                 }
 
@@ -186,17 +192,15 @@ namespace nspector
 
                 foreach (ListViewGroup group in lvSettings.Groups)
                 {
-                    if (_groupCollapsedStates.TryGetValue(group.Header, out bool isCollapsed))
+                    if (_settings.HiddenSettingGroups.Contains(group.Header))
                     {
-                        lvSettings.SetGroupState(group, isCollapsed ? ListViewGroupState.Collapsed | ListViewGroupState.Collapsible : ListViewGroupState.Normal | ListViewGroupState.Collapsible);
+                        lvSettings.SetGroupState(group, ListViewGroupState.Collapsed | ListViewGroupState.Collapsible);
                     }
                     else
                     {
-                        lvSettings.SetGroupState(group, ListViewGroupState.Collapsible);
+                        lvSettings.SetGroupState(group, ListViewGroupState.Normal | ListViewGroupState.Collapsible);
                     }
                 }
-
-                ApplySearchFilter();
 
                 lvSettings.EndUpdate();
 
@@ -514,10 +518,10 @@ namespace nspector
             }
         }
 
-        private void SetTitleVersion()
+        private void SetTitleVersion(bool isUpdateAvailable = false)
         {
             var numberFormat = new NumberFormatInfo() { NumberDecimalSeparator = "." };
-            var version = Assembly.GetExecutingAssembly().GetName().Version.ToString() + (_isUpdateAvailable ? " (update available on GitHub)" : "");
+            var version = Assembly.GetExecutingAssembly().GetName().Version.ToString() + (isUpdateAvailable ? " (update available on GitHub)" : "");
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
             var externalCsn = DrsServiceLocator.IsExternalCustomSettings ? " - CSN OVERRIDE!" : "";
             Text = $"{Application.ProductName} {version} - Geforce {DrsSettingsServiceBase.DriverVersion.ToString("#.00", numberFormat)} - Profile Settings - {fileVersionInfo.LegalCopyright}{externalCsn}";
@@ -553,65 +557,6 @@ namespace nspector
 
             tscbShowCustomSettingNamesOnly.Checked = showCsnOnly;
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-
-            LoadGroupStates(Path.Combine(AppContext.BaseDirectory, "HiddenGroups.ini"));
-        }
-
-        private void lvSettings_GroupStateChanged(object sender, GroupStateChangedEventArgs e)
-        {
-            _groupCollapsedStates[e.Group.Header] = e.IsCollapsed;
-
-            SaveGroupStates(Path.Combine(AppContext.BaseDirectory, "HiddenGroups.ini"));
-        }
-
-        private bool SaveGroupStates(string filePath)
-        {
-            try
-            {
-                using (var writer = new StreamWriter(filePath))
-                {
-                    foreach (var kvp in _groupCollapsedStates)
-                    {
-                        writer.WriteLine($"{kvp.Key}={kvp.Value}");
-                    }
-                }
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private bool LoadGroupStates(string filePath)
-        {
-            if (!File.Exists(filePath))
-                return false;
-
-            _groupCollapsedStates.Clear();
-
-            try
-            {
-                foreach (var line in File.ReadAllLines(filePath))
-                {
-                    int lastEqualIndex = line.LastIndexOf('=');
-                    if (lastEqualIndex != -1)
-                    {
-                        var key = line.Substring(0, lastEqualIndex).Trim();
-                        var valueStr = line.Substring(lastEqualIndex + 1).Trim();
-
-                        if (bool.TryParse(valueStr, out bool value))
-                        {
-                            _groupCollapsedStates[key] = value;
-                        }
-                    }
-                }
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         public static double ScaleFactor = 1;
@@ -689,7 +634,9 @@ namespace nspector
 
         private async Task CheckForUpdatesAsync()
         {
-            _isUpdateAvailable = false;
+            // Allow disabling update check in case user doesn't want us to access internet, or just wants to stick to a certain version
+            if (_settings.DisableUpdateCheck || File.Exists(Path.Combine(AppContext.BaseDirectory, "DisableUpdateCheck.txt")))
+                return;
 
             try
             {
@@ -697,14 +644,23 @@ namespace nspector
 
                 if (updateAvailable)
                 {
-                    _isUpdateAvailable = true;
-                    SetTitleVersion();
+                    SetTitleVersion(updateAvailable);
                 }
             }
             catch
             {
                 // Ignore update check failures
             }
+        }
+
+        private void lvSettings_GroupStateChanged(object sender, GroupStateChangedEventArgs e)
+        {
+            if (e.IsCollapsed && !_settings.HiddenSettingGroups.Contains(e.Group.Header))
+                _settings.HiddenSettingGroups.Add(e.Group.Header);
+            else if (!e.IsCollapsed && _settings.HiddenSettingGroups.Contains(e.Group.Header))
+                _settings.HiddenSettingGroups.Remove(e.Group.Header);
+
+            SaveSettings();
         }
 
         private void InitResetValueTooltip()
@@ -769,6 +725,7 @@ namespace nspector
             {
                 ChangeCurrentProfile(cbProfiles.Text);
             }
+            lvSettings.Focus(); // Unfocus cbProfiles to fix toolstrip hover highlight
         }
 
         private void SetTaskbarProgress(int progress)
@@ -1329,7 +1286,7 @@ namespace nspector
 
         private void lvSettings_DoubleClick(object sender, EventArgs e)
         {
-            if (isDevMode && lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count == 1)
+            if (_isDevMode && lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count == 1)
             {
                 var settingId = ((uint)lvSettings.SelectedItems[0].Tag);
                 var settingName = lvSettings.SelectedItems[0].Text;
@@ -1357,36 +1314,36 @@ namespace nspector
 
         private void SaveSettings()
         {
-            var settings = UserSettings.LoadSettings();
-
+            if(_settings == null)
+                _settings = UserSettings.LoadSettings();
             if (WindowState == FormWindowState.Normal)
             {
-                settings.WindowTop = Top;
-                settings.WindowLeft = Left;
-                settings.WindowHeight = Height;
-                settings.WindowWidth = Width;
+                _settings.WindowTop = Top;
+                _settings.WindowLeft = Left;
+                _settings.WindowHeight = Height;
+                _settings.WindowWidth = Width;
             }
             else
             {
-                settings.WindowTop = RestoreBounds.Top;
-                settings.WindowLeft = RestoreBounds.Left;
-                settings.WindowHeight = RestoreBounds.Height;
-                settings.WindowWidth = RestoreBounds.Width;
+                _settings.WindowTop = RestoreBounds.Top;
+                _settings.WindowLeft = RestoreBounds.Left;
+                _settings.WindowHeight = RestoreBounds.Height;
+                _settings.WindowWidth = RestoreBounds.Width;
             }
-            settings.WindowState = WindowState;
-            settings.ShowCustomizedSettingNamesOnly = tscbShowCustomSettingNamesOnly.Checked;
-            settings.ShowScannedUnknownSettings = tscbShowScannedUnknownSettings.Checked;
-            settings.SaveSettings();
+            _settings.WindowState = WindowState;
+            _settings.ShowCustomizedSettingNamesOnly = tscbShowCustomSettingNamesOnly.Checked;
+            _settings.ShowScannedUnknownSettings = tscbShowScannedUnknownSettings.Checked;
+            _settings.SaveSettings();
         }
 
         private void LoadSettings()
         {
-            var settings = UserSettings.LoadSettings();
-            SetBounds(settings.WindowLeft, settings.WindowTop, settings.WindowWidth, settings.WindowHeight);
-            WindowState = settings.WindowState != FormWindowState.Minimized ? settings.WindowState : FormWindowState.Normal;
+            _settings = UserSettings.LoadSettings();
+            SetBounds(_settings.WindowLeft, _settings.WindowTop, _settings.WindowWidth, _settings.WindowHeight);
+            WindowState = _settings.WindowState != FormWindowState.Minimized ? _settings.WindowState : FormWindowState.Normal;
             HandleScreenConstraints();
-            tscbShowCustomSettingNamesOnly.Checked = settings.ShowCustomizedSettingNamesOnly;
-            tscbShowScannedUnknownSettings.Checked = !_skipScan && settings.ShowScannedUnknownSettings;
+            tscbShowCustomSettingNamesOnly.Checked = _settings.ShowCustomizedSettingNamesOnly;
+            tscbShowScannedUnknownSettings.Checked = !_skipScan && _settings.ShowScannedUnknownSettings;
         }
 
         private void frmDrvSettings_FormClosed(object sender, FormClosedEventArgs e)
@@ -1447,26 +1404,6 @@ namespace nspector
             }
         }
 
-        private void ApplySearchFilter()
-        {
-            var lowerInput = txtFilter.Text.Trim().ToLowerInvariant();
-
-            if (string.IsNullOrEmpty(lowerInput))
-            {
-                return;
-            }
-
-            lvSettings.BeginUpdate();
-            foreach (ListViewItem itm in lvSettings.Items)
-            {
-                if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
-                {
-                    itm.Remove();
-                }
-            }
-            lvSettings.EndUpdate();
-        }
-
         private async void txtFilter_TextChanged(object sender, EventArgs e)
         {
             RefreshCurrentProfile();
@@ -1477,8 +1414,8 @@ namespace nspector
 
         private void ToggleDevMode()
         {
-            isDevMode = !isDevMode;
-            if (isDevMode)
+            _isDevMode = !_isDevMode;
+            if (_isDevMode)
             {
                 lvSettings.Font = new Font("Consolas", 9);
                 cbValues.Font = new Font("Consolas", 9);

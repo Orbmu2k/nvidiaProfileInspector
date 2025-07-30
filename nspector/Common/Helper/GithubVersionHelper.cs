@@ -16,10 +16,6 @@ namespace nspector.Common.Helper
         {
             try
             {
-                // Allow disabling update check in case user doesn't want us to access internet, or just wants to stick to a certain version
-                if (File.Exists(Path.Combine(AppContext.BaseDirectory, "DisableUpdateCheck.txt")))
-                    return false;
-
                 var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
                 using var httpClient = new HttpClient();
