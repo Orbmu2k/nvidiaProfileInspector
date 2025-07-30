@@ -1518,6 +1518,10 @@ namespace nspector
             {
                 txtFilter.Text = "";
             }
+            else if (e.Control && e.Alt && e.KeyCode == Keys.D)
+            {
+                ToggleDevMode();
+            }
         }
     }
 }
