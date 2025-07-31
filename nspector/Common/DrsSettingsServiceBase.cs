@@ -301,6 +301,20 @@ namespace nspector.Common
             return apps.ToList();
         }
 
+        protected IntPtr FindApplicationByName(IntPtr hSession, string appName)
+        {
+            IntPtr hProfile = IntPtr.Zero;
+            NVDRS_APPLICATION_V4 app = new NVDRS_APPLICATION_V4();
+            app.version = NvapiDrsWrapper.NVDRS_APPLICATION_VER_V4;
+
+            var res = NvapiDrsWrapper.DRS_FindApplicationByName(hSession, new StringBuilder(appName), ref hProfile, ref app);
+
+            if (res != NvAPI_Status.NVAPI_OK)
+                throw new NvapiException("DRS_FindApplicationByName", res);
+
+            return hProfile;
+        }
+
         protected void SaveSettings(IntPtr hSession)
         {
             var nvRes = nvw.DRS_SaveSettings(hSession);

@@ -141,6 +141,27 @@ namespace nspector.Common
 
         }
 
+        public string GetProfileNameByExeName(string appName)
+        {
+            string profileName = string.Empty;
+
+            DrsSession((hSession) =>
+            {
+                var hProfile = FindApplicationByName(hSession, appName);
+                if (hProfile != IntPtr.Zero)
+                {
+                    var profile = GetProfileInfo(hSession, hProfile);
+
+                    if (profile.isPredefined == 0 || profile.numOfApps > 0)
+                    {
+                        profileName = profile.profileName;
+                    }
+                }
+            });
+
+            return profileName;
+        }
+
         public List<string> GetProfileNames(ref string baseProfileName)
         {
             var lstResult = new List<string>();

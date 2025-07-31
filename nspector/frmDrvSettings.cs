@@ -157,7 +157,7 @@ namespace nspector
                 _currentProfileSettingItems = _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
                 RefreshApplicationsCombosAndText(applications);
 
-                var searchFilter = txtFilter.Text.Trim().ToLowerInvariant();
+                var searchFilter = txtFilter.Text.Trim();
 
                 foreach (var settingItem in _currentProfileSettingItems)
                 {
@@ -167,8 +167,9 @@ namespace nspector
 
                     // Apply search filter if set
                     if (!string.IsNullOrEmpty(searchFilter) &&
-                        !item.Text.ToLowerInvariant().Contains(searchFilter) &&
-                        (settingItem.AlternateNames == null || !settingItem.AlternateNames.ToLower().Contains(searchFilter)))
+                        item.Text.IndexOf(searchFilter, StringComparison.OrdinalIgnoreCase) < 0 &&
+                        (settingItem.AlternateNames == null ||
+                         settingItem.AlternateNames.IndexOf(searchFilter, StringComparison.OrdinalIgnoreCase) < 0))
                     {
                         continue;
                     }
@@ -565,6 +566,9 @@ namespace nspector
 
             tscbShowCustomSettingNamesOnly.Checked = showCsnOnly;
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+            // KeyUp has to be set on the inner control for us to receive Enter key...
+            cbProfiles.Control.KeyUp += cbProfiles_KeyUp;
         }
 
         public static double ScaleFactor = 1;
@@ -715,7 +719,7 @@ namespace nspector
             }
             else
             {
-                _CurrentProfile = cbProfiles.Text;
+                _CurrentProfile = profileName;
                 tsbDeleteProfile.Enabled = true;
                 tsbAddApplication.Enabled = true;
                 tssbRemoveApplication.Enabled = true;
@@ -734,6 +738,25 @@ namespace nspector
                 ChangeCurrentProfile(cbProfiles.Text);
             }
             lvSettings.Focus(); // Unfocus cbProfiles to fix toolstrip hover highlight
+        }
+
+        private void cbProfiles_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                // KeyUp event is only fired when combobox item doesn't exist with the entered text
+                // Try searching for text as an exe/application name
+                try
+                {
+                    var profile = _drs.GetProfileNameByExeName(cbProfiles.Text);
+                    if (!string.IsNullOrEmpty(profile))
+                    {
+                        cbProfiles.Text = profile;
+                        ChangeCurrentProfile(profile);
+                    }
+                }
+                catch { }
+            }
         }
 
         private void SetTaskbarProgress(int progress)
@@ -1263,7 +1286,6 @@ namespace nspector
                     ImportProfiles(fileInfo.FullName);
                     return;
                 }
-
 
                 var profileName = "";
                 var exeFile = ShortcutResolver.ResolveExecuteable(files[0], out profileName);
