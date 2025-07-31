@@ -106,6 +106,17 @@ namespace nspector.Common
             return null;
         }
 
+        private string GetAlternateNames(uint settingId)
+        {
+            foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
+            {
+                var altNames = service.Service.GetAlternateNames(settingId);
+                if (altNames != null)
+                    return altNames;
+            }
+            return null;
+        }
+
         private uint GetDwordDefaultValue(uint settingId)
         {
             foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
@@ -301,13 +312,12 @@ namespace nspector.Common
             if (groupName == null)
                 groupName = GetLegacyGroupName(settingId, settingName);
 
-
-
             var result = new SettingMeta()
             {
                 SettingType = settingType,
                 SettingName = settingName,
                 GroupName = groupName,
+                AlternateNames = GetAlternateNames(settingId),
 
                 IsApiExposed = GetIsApiExposed(settingId),
                 IsSettingHidden = GetIsSettingHidden(settingId),
@@ -351,6 +361,7 @@ namespace nspector.Common
                 SettingName = settingMeta.SettingName,
                 SettingType = settingMeta.SettingType,
                 GroupName = settingMeta.GroupName,
+                AlternateNames = settingMeta.AlternateNames,
                 IsApiExposed = settingMeta.IsApiExposed,
                 IsSettingHidden = settingMeta.IsSettingHidden,
                 Description = settingMeta.Description,

@@ -13,6 +13,7 @@ namespace nspector.Common.CustomSettings
         public string HexSettingId { get; set; }
         public string Description { get; set; }
         public string GroupName { get; set; }
+        public string AlternateNames { get; set; }
         public string OverrideDefault { get; set; }
         public float MinRequiredDriverVersion { get; set; }
         public float MaxRequiredDriverVersion { get; set; }

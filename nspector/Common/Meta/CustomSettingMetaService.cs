@@ -111,6 +111,14 @@ namespace nspector.Common.Meta
             return null;
         }
 
+        public string GetAlternateNames(uint settingId)
+        {
+            var setting = customSettings.Settings
+               .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            return setting?.AlternateNames;
+        }
+
         public byte[] GetBinaryDefaultValue(uint settingId)
         {
             return null;

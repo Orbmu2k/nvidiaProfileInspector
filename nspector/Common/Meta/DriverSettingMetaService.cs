@@ -201,6 +201,11 @@ namespace nspector.Common.Meta
             return null;
         }
 
+        public string GetAlternateNames(uint settingId)
+        {
+            return null;
+        }
+
         public byte[] GetBinaryDefaultValue(uint settingId)
         {
             var settingMeta = GetSettingsMeta(settingId);

@@ -21,6 +21,8 @@
 
         public string GroupName { get; set; }
 
+        public string AlternateNames { get; set; }
+
         public SettingState State { get; set; }
 
         public bool IsStringValue { get; set; }

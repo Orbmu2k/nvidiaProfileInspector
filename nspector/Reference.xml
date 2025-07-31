@@ -6439,10 +6439,11 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>PS_CONST_FOLDING_GPU (0x006D6197)</UserfriendlyName>
+			<UserfriendlyName>PS_CONST_FOLDING_GPU</UserfriendlyName>
 			<HexSettingID>0x006D6197</HexSettingID>
 			<Description/>
 			<GroupName>8 - Extra</GroupName>
+			<AlternateNames>0x006D6197, 0x6D6197</AlternateNames>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0</UserfriendlyName>

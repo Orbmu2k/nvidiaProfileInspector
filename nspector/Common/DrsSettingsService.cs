@@ -471,6 +471,7 @@ namespace nspector.Common
                 SettingId = setting.settingId,
                 SettingText = settingMeta.SettingName,
                 GroupName = settingMeta.GroupName,
+                AlternateNames = settingMeta.AlternateNames,
                 ValueRaw = valueRaw,
                 ValueText = valueText,
                 State = settingState,

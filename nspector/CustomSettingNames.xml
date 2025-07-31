@@ -1508,6 +1508,7 @@
 			<UserfriendlyName>rBAR - Enable</UserfriendlyName>
 			<HexSettingID>0x000F00BA</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<AlternateNames>ReBAR - Enable, Resizable Bar - Enable</AlternateNames>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -1523,30 +1524,35 @@
 			<UserfriendlyName>rBAR - Options</UserfriendlyName>
 			<HexSettingID>0x000F00BB</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<AlternateNames>ReBAR - Options, Resizable Bar - Options</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Intel CPU Exclusion</UserfriendlyName>
 			<HexSettingID>0x00E942FC</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<AlternateNames>ReBAR - Intel CPU Exclusion, Resizable Bar - Intel CPU Exclusion</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Size Limit</UserfriendlyName>
 			<HexSettingID>0x000F00FF</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<AlternateNames>ReBAR - Size Limit, Resizable Bar - Size Limit</AlternateNames>
 			<DataType>BINARY</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Flags (0x000F00BE)</UserfriendlyName>
 			<HexSettingID>0x000F00BE</HexSettingID>
 			<GroupName>8 - Extra</GroupName>
+			<AlternateNames>ReBAR - Flags (0x000F00BE), Resizable Bar - Flags (0x000F00BE)</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Flags (0x000F00BF)</UserfriendlyName>
 			<HexSettingID>0x000F00BF</HexSettingID>
 			<GroupName>8 - Extra</GroupName>
+			<AlternateNames>ReBAR - Flags (0x000F00BF), Resizable Bar - Flags (0x000F00BF)</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 
@@ -8306,6 +8312,7 @@
 			<UserfriendlyName>Vulkan/OpenGL Present Method - Flags</UserfriendlyName>
 			<HexSettingID>0x20324987</HexSettingID>
 			<GroupName>2 - Sync and Refresh</GroupName>
+			<AlternateNames>OGL_DX_PRESENT_DEBUG</AlternateNames>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>

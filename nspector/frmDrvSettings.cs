@@ -166,8 +166,12 @@ namespace nspector
                     var item = CreateListViewItem(settingItem);
 
                     // Apply search filter if set
-                    if (!string.IsNullOrEmpty(searchFilter) && !item.Text.ToLowerInvariant().Contains(searchFilter))
+                    if (!string.IsNullOrEmpty(searchFilter) &&
+                        !item.Text.ToLowerInvariant().Contains(searchFilter) &&
+                        (settingItem.AlternateNames == null || !settingItem.AlternateNames.ToLower().Contains(searchFilter)))
+                    {
                         continue;
+                    }
 
                     lvSettings.Items.Add(item);
 
@@ -296,7 +300,11 @@ namespace nspector
 
                     var referenceSettings = DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == settingid);
 
-                    if (string.IsNullOrEmpty(settingMeta.Description) && !(referenceSettings?.HasConstraints ?? false))
+                    var description = settingMeta.Description;
+                    if (!string.IsNullOrEmpty(settingMeta.AlternateNames))
+                        description = $"Alternate names: {settingMeta.AlternateNames}\r\n{description}";
+
+                    if (string.IsNullOrEmpty(description) && !(referenceSettings?.HasConstraints ?? false))
                     {
                         tbSettingDescription.Text = "";
                         tbSettingDescription.Visible = false;
@@ -304,7 +312,7 @@ namespace nspector
                     }
                     else
                     {
-                        tbSettingDescription.Text = settingMeta.Description;
+                        tbSettingDescription.Text = description;
                         tbSettingDescription.Visible = true;
                         tbSettingDescription.BackColor = (referenceSettings?.HasConstraints ?? false) ? Color.LightCoral : SystemColors.Control;
                     }

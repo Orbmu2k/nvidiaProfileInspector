@@ -9,6 +9,8 @@ namespace nspector.Common.Meta
 
         public string GroupName { get; set; }
 
+        public string AlternateNames { get; set; }
+
         public string SettingName { get; set; }
 
         public string DefaultStringValue { get; set; }

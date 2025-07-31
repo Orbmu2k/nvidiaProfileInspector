@@ -43,6 +43,11 @@ namespace nspector.Common.Meta
             return null;
         }
 
+        public string GetAlternateNames(uint settingId)
+        {
+            return null;
+        }
+
         public uint? GetDwordDefaultValue(uint settingId)
         {
             return null;

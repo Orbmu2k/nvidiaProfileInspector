@@ -16,6 +16,8 @@ namespace nspector.Common.Meta
 
         string GetGroupName(uint settingId);
 
+        string GetAlternateNames(uint settingId);
+
         uint? GetDwordDefaultValue(uint settingId);
 
         string GetStringDefaultValue(uint settingId);
