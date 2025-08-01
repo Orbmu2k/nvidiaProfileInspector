@@ -22,7 +22,7 @@ namespace nspector.Common.Helper
 
         public bool ShowScannedUnknownSettings { get; set; } = false;
 
-        public List<string> HiddenSettingGroups { get; set; }
+        public List<string> HiddenSettingGroups { get; set; } = new List<string>();
 
         public bool DisableUpdateCheck { get; set; } = false;
 
