@@ -301,7 +301,7 @@ namespace nspector
 
                     var referenceSettings = DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == settingid);
 
-                    var description = settingMeta.Description;
+                    var description = DlssHelper.ReplaceDlssVersions(settingMeta.Description);
                     if (!string.IsNullOrEmpty(settingMeta.AlternateNames))
                         description = $"Alternate names: {settingMeta.AlternateNames}\r\n{description}";
 
@@ -313,7 +313,7 @@ namespace nspector
                     }
                     else
                     {
-                        tbSettingDescription.Text = description;
+                        tbSettingDescription.Text = description.Replace("\\r\\n", "\r\n");
                         tbSettingDescription.Visible = true;
                         tbSettingDescription.BackColor = (referenceSettings?.HasConstraints ?? false) ? Color.LightCoral : SystemColors.Control;
                     }

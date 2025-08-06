@@ -6,13 +6,14 @@
 			<HexSettingID>0x10E41E01</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<Description>If enabled, overrides DLSS with the latest global version installed (${DlssVersion}).\r\nNVIDIA periodically push OTA updates for the global version, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the global override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>On - DLSS overridden by latest available</UserfriendlyName>
+					<UserfriendlyName>On - DLSS overridden by latest installed (${DlssVersion})</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -23,13 +24,14 @@
 			<HexSettingID>0x10E41E02</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<Description>If enabled, overrides DLSS-RR with the latest global version installed (${DlssdVersion}).\r\nNVIDIA periodically push OTA updates for the global version, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the global override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>On - DLSS-RR overridden by latest available</UserfriendlyName>
+					<UserfriendlyName>On - DLSS-RR overridden by latest installed (${DlssdVersion})</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -40,13 +42,14 @@
 			<HexSettingID>0x10E41E03</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<Description>If enabled, overrides DLSS-FG with the latest global version installed (${DlssgVersion}).\r\nNVIDIA periodically push OTA updates for the global version, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the global override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>On - DLSS-FG overridden by latest available</UserfriendlyName>
+					<UserfriendlyName>On - DLSS-FG overridden by latest installed (${DlssgVersion})</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -156,7 +159,7 @@
 					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset E (unused)</UserfriendlyName>
+					<UserfriendlyName>Preset E</UserfriendlyName>
 					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>

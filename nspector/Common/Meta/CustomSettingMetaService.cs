@@ -3,6 +3,7 @@ using nspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using nspector.Common.Helper;
 
 namespace nspector.Common.Meta
 {
@@ -42,13 +43,19 @@ namespace nspector.Common.Meta
             }
         }
 
+        private string ProcessNameReplacements(string friendlyName)
+        {
+            // Apply string version replacements here before settings are fully loaded, so that string-to-value mappings can be preserved
+            return DlssHelper.ReplaceDlssVersions(friendlyName);
+        }
+
         public string GetSettingName(uint settingId)
         {
             var setting = customSettings.Settings
                 .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
             if (setting != null)
-                return setting.UserfriendlyName;
+                return ProcessNameReplacements(setting.UserfriendlyName);
 
             return null;
         }
@@ -86,7 +93,7 @@ namespace nspector.Common.Meta
                 {
                     ValuePos = i++,
                     Value = x.SettingValue,
-                    ValueName = _source == SettingMetaSource.CustomSettings ? x.UserfriendlyName : DrsUtil.GetDwordString(x.SettingValue) + " " + x.UserfriendlyName,
+                    ValueName = _source == SettingMetaSource.CustomSettings ? ProcessNameReplacements(x.UserfriendlyName) : DrsUtil.GetDwordString(x.SettingValue) + " " + ProcessNameReplacements(x.UserfriendlyName),
                 }).ToList();
             }
 

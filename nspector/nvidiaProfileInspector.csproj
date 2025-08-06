@@ -136,6 +136,7 @@
     <Compile Include="Common\DrsSessionScope.cs" />
     <Compile Include="Common\DrsSettingsMetaService.cs" />
     <Compile Include="Common\DrsUtil.cs" />
+    <Compile Include="Common\Helper\DlssHelper.cs" />
     <Compile Include="Common\Helper\DropDownMenuScrollWheelHandler.cs" />
     <Compile Include="Common\Helper\GithubVersionHelper.cs" />
     <Compile Include="Common\Helper\ListViewGroupSorter.cs" />
