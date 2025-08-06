@@ -570,6 +570,8 @@
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtFilter.Name = "txtFilter";
+            this.txtFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.txtFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.txtFilter.Size = new System.Drawing.Size(2118, 35);
             this.txtFilter.TabIndex = 82;
             this.txtFilter.WatermarkText = "Search for setting...";
