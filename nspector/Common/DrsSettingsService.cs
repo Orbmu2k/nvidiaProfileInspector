@@ -51,6 +51,11 @@ namespace nspector.Common
                     return fiDbInstaller.DirectoryName;
             }
 
+            string sys32Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), @"drivers\NVIDIA Corporation\Drs\dbInstaller.exe");
+
+            if (File.Exists(sys32Path))
+                return sys32Path;
+
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
                 @"NVIDIA Corporation\Drs");
         }
