@@ -8131,6 +8131,22 @@
 			</SettingValues>
 			<SettingMasks/>
 		</CustomSetting>
+				<CustomSetting>
+			<UserfriendlyName>PhysX - Force GPU Accelerated (RTX 50)</UserfriendlyName>
+			<HexSettingID>0x5067ECC4</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Power Management - Mode</UserfriendlyName>
 			<HexSettingID>0x1057EB71</HexSettingID>
@@ -9027,4 +9043,5 @@
     </CustomSetting>-->
 	</Settings>
 </CustomSettingNames>
+
 
