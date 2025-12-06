@@ -8131,7 +8131,7 @@
 			</SettingValues>
 			<SettingMasks/>
 		</CustomSetting>
-				<CustomSetting>
+	    <CustomSetting>
 			<UserfriendlyName>PhysX - Force GPU Accelerated (RTX 50)</UserfriendlyName>
 			<HexSettingID>0x5067ECC4</HexSettingID>
 			<GroupName>5 - Common</GroupName>
@@ -9043,5 +9043,6 @@
     </CustomSetting>-->
 	</Settings>
 </CustomSettingNames>
+
 
 
