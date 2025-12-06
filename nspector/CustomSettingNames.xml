@@ -8134,6 +8134,7 @@
 	    <CustomSetting>
 			<UserfriendlyName>PhysX - Force GPU Accelerated (RTX 50)</UserfriendlyName>
 			<HexSettingID>0x5067ECC4</HexSettingID>
+			<MinRequiredDriverVersion>591.44</MinRequiredDriverVersion>
 			<GroupName>5 - Common</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
@@ -9043,6 +9044,7 @@
     </CustomSetting>-->
 	</Settings>
 </CustomSettingNames>
+
 
 
 
