@@ -469,11 +469,11 @@
 					<HexValue>0x00000041</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>66% (Quality)</UserfriendlyName>
+					<UserfriendlyName>66%</UserfriendlyName>
 					<HexValue>0x00000042</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>67%</UserfriendlyName>
+					<UserfriendlyName>67% (Quality)</UserfriendlyName>
 					<HexValue>0x00000043</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -754,11 +754,11 @@
 					<HexValue>0x00000041</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>66% (Quality)</UserfriendlyName>
+					<UserfriendlyName>66%</UserfriendlyName>
 					<HexValue>0x00000042</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>67%</UserfriendlyName>
+					<UserfriendlyName>67% (Quality)</UserfriendlyName>
 					<HexValue>0x00000043</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -9027,3 +9027,4 @@
     </CustomSetting>-->
 	</Settings>
 </CustomSettingNames>
+
