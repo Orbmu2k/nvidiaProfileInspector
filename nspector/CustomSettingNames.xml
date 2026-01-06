@@ -110,11 +110,11 @@
 					<HexValue>0x0000000B</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset L (unused)</UserfriendlyName>
+					<UserfriendlyName>Preset L</UserfriendlyName>
 					<HexValue>0x0000000C</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset M (unused)</UserfriendlyName>
+					<UserfriendlyName>Preset M</UserfriendlyName>
 					<HexValue>0x0000000D</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -9044,6 +9044,7 @@
     </CustomSetting>-->
 	</Settings>
 </CustomSettingNames>
+
 
 
 
