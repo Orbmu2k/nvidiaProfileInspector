@@ -20,6 +20,27 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
+			<UserfriendlyName>DLSS - Forced Model Preset Profile</UserfriendlyName>
+			<HexSettingID>0x00634291</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>N/A</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Latest</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Custom</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
+		<CustomSetting>
 			<UserfriendlyName>DLSS-RR - Enable DLL Override</UserfriendlyName>
 			<HexSettingID>0x10E41E02</HexSettingID>
 			<GroupName>5 - Common</GroupName>
@@ -1483,6 +1504,10 @@
 					<HexValue>0x00002800</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
+					<UserfriendlyName>16GB</UserfriendlyName>
+					<HexValue>0x00004000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
 					<UserfriendlyName>100GB</UserfriendlyName>
 					<HexValue>0x00019000</HexValue>
 				</CustomSettingValue>
@@ -1621,7 +1646,7 @@
 			<UserfriendlyName>SLI - CFR Mode</UserfriendlyName>
 			<HexSettingID>0x20343843</HexSettingID>
 			<GroupName>6 - SLI</GroupName>
-			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion> <!-- Removed between 511.79 and R575 -->
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion><!-- Removed between 511.79 and R575 -->
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Ansel - Enabled</UserfriendlyName>
@@ -7449,7 +7474,7 @@
 			<UserfriendlyName>SLI - Compatibility Bits (OGL)</UserfriendlyName>
 			<HexSettingID>0x209746C1</HexSettingID>
 			<GroupName>1 - Compatibility</GroupName>
-			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
 			<SettingValues/>
 		</CustomSetting>
 		<CustomSetting>
@@ -8131,7 +8156,7 @@
 			</SettingValues>
 			<SettingMasks/>
 		</CustomSetting>
-	    <CustomSetting>
+		<CustomSetting>
 			<UserfriendlyName>PhysX - Enable 32-bits GPU Acceleration (RTX 50)</UserfriendlyName>
 			<HexSettingID>0x5067ECC4</HexSettingID>
 			<MinRequiredDriverVersion>591.44</MinRequiredDriverVersion>
@@ -8224,7 +8249,7 @@
 			<UserfriendlyName>Multi-Display / Mixed-GPU Acceleration</UserfriendlyName>
 			<HexSettingID>0x200AEBFC</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion> <!-- Removed before 511.79 -->
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Single display performance mode</UserfriendlyName>
