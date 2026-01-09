@@ -6,7 +6,7 @@
 			<HexSettingID>0x10E41E01</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>If enabled, overrides DLSS with the latest global version installed (${DlssVersion}).\r\nNVIDIA periodically push OTA updates for the global version, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the global override, certain games may also disallow using it.</Description>
+			<Description>If enabled, overrides DLSS with the latest global version installed (${DlssVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -24,6 +24,7 @@
 			<HexSettingID>0x00634291</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<Description>If "Forced Preset Letter" has no effect, this setting may need to be changed for the game to apply the custom preset.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -45,7 +46,7 @@
 			<HexSettingID>0x10E41E02</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>If enabled, overrides DLSS-RR with the latest global version installed (${DlssdVersion}).\r\nNVIDIA periodically push OTA updates for the global version, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the global override, certain games may also disallow using it.</Description>
+			<Description>If enabled, overrides DLSS-RR with the latest global version installed (${DlssdVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -63,7 +64,7 @@
 			<HexSettingID>0x10E41E03</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>If enabled, overrides DLSS-FG with the latest global version installed (${DlssgVersion}).\r\nNVIDIA periodically push OTA updates for the global version, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the global override, certain games may also disallow using it.</Description>
+			<Description>If enabled, overrides DLSS-FG with the latest global version installed (${DlssgVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -81,6 +82,7 @@
 			<HexSettingID>0x10E41DF3</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<Description>NOTE: "DLSS - Forced Model Preset Profile" setting may need to be changed for this to apply on certain games.\r\nIf set, overrides the DLSS preset/model used across all quality levels (may not be desirable on some levels).</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
