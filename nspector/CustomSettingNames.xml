@@ -89,27 +89,27 @@
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset A</UserfriendlyName>
+					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset B</UserfriendlyName>
+					<UserfriendlyName>Preset B (CNN)</UserfriendlyName>
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset C</UserfriendlyName>
+					<UserfriendlyName>Preset C (CNN)</UserfriendlyName>
 					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset D</UserfriendlyName>
+					<UserfriendlyName>Preset D (CNN)</UserfriendlyName>
 					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset E</UserfriendlyName>
+					<UserfriendlyName>Preset E (CNN)</UserfriendlyName>
 					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset F</UserfriendlyName>
+					<UserfriendlyName>Preset F (CNN)</UserfriendlyName>
 					<HexValue>0x00000006</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -125,19 +125,19 @@
 					<HexValue>0x00000009</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset J</UserfriendlyName>
+					<UserfriendlyName>Preset J (Transformer Gen 1)</UserfriendlyName>
 					<HexValue>0x0000000A</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset K</UserfriendlyName>
+					<UserfriendlyName>Preset K (Transformer Gen 1)</UserfriendlyName>
 					<HexValue>0x0000000B</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset L</UserfriendlyName>
+					<UserfriendlyName>Preset L (Transformer Gen 2)</UserfriendlyName>
 					<HexValue>0x0000000C</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset M</UserfriendlyName>
+					<UserfriendlyName>Preset M (Transformer Gen 2)</UserfriendlyName>
 					<HexValue>0x0000000D</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -166,23 +166,23 @@
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset A</UserfriendlyName>
+					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset B</UserfriendlyName>
+					<UserfriendlyName>Preset B (CNN)</UserfriendlyName>
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset C</UserfriendlyName>
+					<UserfriendlyName>Preset C (CNN)</UserfriendlyName>
 					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset D</UserfriendlyName>
+					<UserfriendlyName>Preset D (Transformer Gen 1)</UserfriendlyName>
 					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset E</UserfriendlyName>
+					<UserfriendlyName>Preset E (Transformer Gen 1)</UserfriendlyName>
 					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
