@@ -8336,6 +8336,31 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
+			<UserfriendlyName>NV_REG_ENABLE_GPU_FIRMWARE</UserfriendlyName>
+			<HexSettingID>0x0000000F</HexSettingID>
+			<Description/>
+			<GroupName>8 - Extra</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>NV_REG_ENABLE_GPU_FIRMWARE_MODE_DEFAULT</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>NV_REG_ENABLE_GPU_FIRMWARE_MODE_ENABLED</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>NV_REG_ENABLE_GPU_FIRMWARE_MODE_DISABLED</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>NV_REG_ENABLE_GPU_FIRMWARE_MODE_MASK</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
+		<CustomSetting>
 			<UserfriendlyName>Vulkan/OpenGL Present Method</UserfriendlyName>
 			<HexSettingID>0x20D690F8</HexSettingID>
 			<GroupName>2 - Sync and Refresh</GroupName>
