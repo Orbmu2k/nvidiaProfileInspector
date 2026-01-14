@@ -31,7 +31,7 @@
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Latest</UserfriendlyName>
+					<UserfriendlyName>Recommended</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -9096,6 +9096,7 @@
     </CustomSetting>-->
 	</Settings>
 </CustomSettingNames>
+
 
 
 
