@@ -643,6 +643,7 @@ namespace nspector
             LoadSettings();
 
             RefreshProfilesCombo();
+            RefreshCurrentProfile();
             cbProfiles.Text = GetBaseProfileName();
 
             tsbBitValueEditor.Enabled = false;
