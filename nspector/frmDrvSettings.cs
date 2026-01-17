@@ -41,6 +41,9 @@ namespace nspector
 
         private bool _isDevMode = false;
 
+        private string[] _profileNames = new string[0];
+        private bool _comboBoxUpdating = false;
+
         private UserSettings _settings = null;
 
         protected override void WndProc(ref Message m)
@@ -230,12 +233,20 @@ namespace nspector
 
         private void RefreshProfilesCombo()
         {
-            cbProfiles.Items.Clear();
+            var combo = (ComboBox)cbProfiles.ComboBox;
 
-            var profileNames = _drs.GetProfileNames(ref _baseProfileName);
-            cbProfiles.Items.AddRange(profileNames.Cast<object>().ToArray());
+            _comboBoxUpdating = true;
+            try
+            {
+                _profileNames = _drs.GetProfileNames(ref _baseProfileName).ToArray();
 
-            cbProfiles.Sorted = true;
+                combo.DataSource = null;
+                combo.DataSource = _profileNames;
+            }
+            finally
+            {
+                _comboBoxUpdating = false;
+            }
         }
 
         private void MoveComboToItemAndFill()
@@ -733,6 +744,11 @@ namespace nspector
 
         private void cbProfiles_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(_comboBoxUpdating)
+            {
+                return;
+            }
+
             if (cbProfiles.SelectedIndex > -1)
             {
                 ChangeCurrentProfile(cbProfiles.Text);
@@ -742,7 +758,12 @@ namespace nspector
 
         private void cbProfiles_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (_comboBoxUpdating)
+            {
+                return;
+            }
+
+            if (e.KeyCode == Keys.Enter)
             {
                 // KeyUp event is only fired when combobox item doesn't exist with the entered text
                 // Try searching for text as an exe/application name
@@ -820,12 +841,11 @@ namespace nspector
 
         private async Task ScanProfilesSilentAsync(bool scanPredefined, bool showProfileDialog)
         {
-            if (_skipScan)
+            if (_skipScan || _settings.ShowCustomizedSettingNamesOnly)
             {
 
-                if (scanPredefined && !_alreadyScannedForPredefinedSettings)
+                if (scanPredefined)
                 {
-                    _alreadyScannedForPredefinedSettings = true;
                     _meta.ResetMetaCache();
                     tsbModifiedProfiles.Enabled = true;
                     exportUserdefinedProfilesToolStripMenuItem.Enabled = false;
@@ -876,8 +896,13 @@ namespace nspector
             tsbRefreshProfile.Enabled = true;
         }
 
-        private void cbCustomSettingsOnly_CheckedChanged(object sender, EventArgs e)
+        private async void cbCustomSettingsOnly_CheckedChanged(object sender, EventArgs e)
         {
+            _settings.ShowCustomizedSettingNamesOnly = tscbShowCustomSettingNamesOnly.Checked;
+            if (!tscbShowCustomSettingNamesOnly.Checked && !_alreadyScannedForPredefinedSettings)
+            {
+                await ScanProfilesSilentAsync(true, false);
+            }
             RefreshCurrentProfile();
         }
 
@@ -1101,7 +1126,7 @@ namespace nspector
 
         private void ShowCreateProfileDialog(string nameProposal, string applicationName = null)
         {
-            var ignoreList = cbProfiles.Items.Cast<string>().ToList();
+            var ignoreList = _profileNames.ToList();
             string result = nameProposal;
 
             if (InputBox.Show("Create Profile", "Please enter profile name:", ref result, ignoreList, "", 2048) == System.Windows.Forms.DialogResult.OK)
@@ -1110,7 +1135,7 @@ namespace nspector
                 {
                     _drs.CreateProfile(result, applicationName);
                     RefreshProfilesCombo();
-                    cbProfiles.SelectedIndex = cbProfiles.Items.IndexOf(result);
+                    cbProfiles.SelectedIndex = Array.IndexOf(_profileNames, result);
                     AddToModifiedProfiles(result, true);
                 }
                 catch (NvapiException ex)
@@ -1204,7 +1229,7 @@ namespace nspector
             RefreshProfilesCombo();
             await ScanProfilesSilentAsync(true, false);
 
-            int idx = cbProfiles.Items.IndexOf(_CurrentProfile);
+            int idx = Array.IndexOf(_profileNames, _CurrentProfile);
             if (idx == -1 || _CurrentProfile == _baseProfileName)
                 cbProfiles.Text = GetBaseProfileName();
             else
@@ -1247,6 +1272,11 @@ namespace nspector
 
         private void cbProfiles_TextChanged(object sender, EventArgs e)
         {
+            if (_comboBoxUpdating)
+            {
+                return;
+            }
+
             if (cbProfiles.DroppedDown)
             {
                 string txt = cbProfiles.Text;
@@ -1295,7 +1325,7 @@ namespace nspector
                     if (profiles != "")
                     {
                         var profile = profiles.Split(';')[0];
-                        var idx = cbProfiles.Items.IndexOf(profile);
+                        var idx = Array.IndexOf(_profileNames, profile);
                         if (idx > -1)
                         {
                             cbProfiles.SelectedIndex = idx;

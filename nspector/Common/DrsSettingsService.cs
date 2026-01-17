@@ -178,8 +178,6 @@ namespace nspector.Common
                 var baseProfile = GetProfileInfo(hSession, hBase);
                 tmpBaseProfileName = baseProfile.profileName;
 
-                lstResult.Add("_GLOBAL_DRIVER_PROFILE (" + tmpBaseProfileName + ")");
-
                 var profileHandles = EnumProfileHandles(hSession);
                 foreach (IntPtr hProfile in profileHandles)
                 {
@@ -191,6 +189,11 @@ namespace nspector.Common
                     }
                 }
             });
+
+            lstResult.Sort(StringComparer.OrdinalIgnoreCase);
+
+            // Insert the global profile at the start
+            lstResult.Insert(0, "_GLOBAL_DRIVER_PROFILE (" + tmpBaseProfileName + ")");
 
             baseProfileName = tmpBaseProfileName;
             return lstResult;
