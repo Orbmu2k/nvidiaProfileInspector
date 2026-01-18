@@ -6636,23 +6636,6 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Antialiasing Fix (DX9)</UserfriendlyName>
-			<HexSettingID>0x000858F7</HexSettingID>
-			<MinRequiredDriverVersion>320.14</MinRequiredDriverVersion>
-			<GroupName>1 - Compatibility</GroupName>
-			<OverrideDefault>0x00000001</OverrideDefault>
-			<SettingValues>
-				<CustomSettingValue>
-					<UserfriendlyName>On</UserfriendlyName>
-					<HexValue>0x00000000</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Off</UserfriendlyName>
-					<HexValue>0x00000001</HexValue>
-				</CustomSettingValue>
-			</SettingValues>
-		</CustomSetting>
-		<CustomSetting>
 			<UserfriendlyName>Vertical Sync - Smooth AFR Behavior</UserfriendlyName>
 			<HexSettingID>0x101AE763</HexSettingID>
 			<MinRequiredDriverVersion>310.00</MinRequiredDriverVersion>
@@ -6682,42 +6665,6 @@
 				<CustomSettingValue>
 					<UserfriendlyName>On</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
-				</CustomSettingValue>
-			</SettingValues>
-			<SettingMasks/>
-		</CustomSetting>
-		<CustomSetting>
-			<UserfriendlyName>Flip Indicator</UserfriendlyName>
-			<HexSettingID>0x002CF156</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
-			<SettingValues>
-				<CustomSettingValue>
-					<UserfriendlyName>Disabled</UserfriendlyName>
-					<HexValue>0x00000000</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>GRAPH_FLIP_FPS - FPS graph, measured on display hw flip</UserfriendlyName>
-					<HexValue>0x00000001</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>GRAPH_PRESENT_FPS - FPS graph, measured when the user mode driver starts processing present</UserfriendlyName>
-					<HexValue>0x00000002</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>GRAPH_APP_PRESENT_FPS - FPS graph, measured on app present</UserfriendlyName>
-					<HexValue>0x00000004</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>DISPLAY_PAGING - Add red paging indicator bars to the GRAPH_PRESENT_FPS graph</UserfriendlyName>
-					<HexValue>0x00000008</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>DISPLAY_APP_THREAD_WAIT - Add app thread wait time indiator bars to the GRAPH_APP_PRESENT_FPS graph</UserfriendlyName>
-					<HexValue>0x00000010</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Enabled - Enable everything</UserfriendlyName>
-					<HexValue>0x000001FF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks/>
