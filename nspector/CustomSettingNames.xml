@@ -8050,6 +8050,22 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Extension Limit (OGL)</UserfriendlyName>
+			<HexSettingID>0x20FF7493</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
 
 		<!-- SLI Settings -->
 		<CustomSetting>
