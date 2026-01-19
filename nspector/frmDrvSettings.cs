@@ -844,11 +844,12 @@ namespace nspector
 
         private async Task ScanProfilesSilentAsync(bool scanPredefined, bool showProfileDialog)
         {
-            if (_skipScan || _settings.ShowCustomizedSettingNamesOnly)
+            if (_skipScan)
             {
 
-                if (scanPredefined)
+                if (scanPredefined && !_alreadyScannedForPredefinedSettings)
                 {
+                    _alreadyScannedForPredefinedSettings = true;
                     _meta.ResetMetaCache();
                     tsbModifiedProfiles.Enabled = true;
                     exportUserdefinedProfilesToolStripMenuItem.Enabled = false;
@@ -899,13 +900,8 @@ namespace nspector
             tsbRefreshProfile.Enabled = true;
         }
 
-        private async void cbCustomSettingsOnly_CheckedChanged(object sender, EventArgs e)
+        private void cbCustomSettingsOnly_CheckedChanged(object sender, EventArgs e)
         {
-            _settings.ShowCustomizedSettingNamesOnly = tscbShowCustomSettingNamesOnly.Checked;
-            if (!tscbShowCustomSettingNamesOnly.Checked && !_alreadyScannedForPredefinedSettings)
-            {
-                await ScanProfilesSilentAsync(true, false);
-            }
             RefreshCurrentProfile();
         }
 
