@@ -2,7 +2,7 @@
 <CustomSettingNames>
 	<Settings>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-SR - Enable DLL Override</UserfriendlyName>
+			<UserfriendlyName>DLSS - Enable DLL Override</UserfriendlyName>
 			<HexSettingID>0x10E41E01</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -20,7 +20,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-SR - Forced Model Preset Profile</UserfriendlyName>
+			<UserfriendlyName>DLSS - Forced Model Preset Profile</UserfriendlyName>
 			<HexSettingID>0x00634291</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -78,11 +78,11 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-SR - Forced Preset Letter</UserfriendlyName>
+			<UserfriendlyName>DLSS - Forced Preset Letter</UserfriendlyName>
 			<HexSettingID>0x10E41DF3</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>NOTE: "DLSS-SR - Forced Model Preset Profile" setting may need to be changed for this to apply on certain games.\r\nIf set, overrides the DLSS preset/model used across all quality levels (may not be desirable on some levels).</Description>
+			<Description>NOTE: "DLSS - Forced Model Preset Profile" setting may need to be changed for this to apply on certain games.\r\nIf set, overrides the DLSS preset/model used across all quality levels (may not be desirable on some levels).</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -276,7 +276,7 @@
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-SR - Forced Quality Level</UserfriendlyName>
+			<UserfriendlyName>DLSS - Forced Quality Level</UserfriendlyName>
 			<HexSettingID>0x10AFB768</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -350,7 +350,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-SR - Forced Scaling Ratio</UserfriendlyName>
+			<UserfriendlyName>DLSS - Forced Scaling Ratio</UserfriendlyName>
 			<Description>Needs 'forced quality level: custom'</Description>
 			<HexSettingID>0x10E41DF5</HexSettingID>
 			<GroupName>5 - Common</GroupName>
