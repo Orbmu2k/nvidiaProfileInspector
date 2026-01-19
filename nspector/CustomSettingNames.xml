@@ -8051,6 +8051,196 @@
 			</SettingValues>
 		</CustomSetting>
 
+        <!-- SLI Settings -->
+		<CustomSetting>
+			<UserfriendlyName>SLI - CFR Mode</UserfriendlyName>
+			<HexSettingID>0x20343843</HexSettingID>
+			<GroupName>6 - SLI</GroupName>
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion><!-- Removed between 511.79 and R575 -->
+		</CustomSetting>
+				<CustomSetting>
+			<UserfriendlyName>SLI - Compatibility Bits (OGL)</UserfriendlyName>
+			<HexSettingID>0x209746C1</HexSettingID>
+			<GroupName>1 - Compatibility</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
+			<SettingValues/>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>SLI - Compatibility Bits (DX12)</UserfriendlyName>
+			<HexSettingID>0x00A04746</HexSettingID>
+			<GroupName>1 - Compatibility</GroupName>
+			<SettingValues/>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>SLI - Compatibility Bits (DX10 + DX11)</UserfriendlyName>
+			<HexSettingID>0x00A06946</HexSettingID>
+			<GroupName>1 - Compatibility</GroupName>
+			<SettingValues/>
+			<SettingMasks>
+				<CustomSettingMask>
+					<UserfriendlyName>SLI - Mode</UserfriendlyName>
+					<HexMask>0x0000000F</HexMask>
+					<MaskValues>
+						<CustomSettingValue>
+							<UserfriendlyName>Auto</UserfriendlyName>
+							<HexValue>0x00000000</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>Single</UserfriendlyName>
+							<HexValue>0x00000004</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>AFR</UserfriendlyName>
+							<HexValue>0x00000001</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>SFR</UserfriendlyName>
+							<HexValue>0x00000002</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>AFR-SFR</UserfriendlyName>
+							<HexValue>0x00000003</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>3 Way SLI AFR</UserfriendlyName>
+							<HexValue>0x00000006</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>4 Way SLI AFR</UserfriendlyName>
+							<HexValue>0x00000005</HexValue>
+						</CustomSettingValue>
+					</MaskValues>
+				</CustomSettingMask>
+			</SettingMasks>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>SLI - Compatibility Bits (DX9)</UserfriendlyName>
+			<HexSettingID>0x1095DEF8</HexSettingID>
+			<GroupName>1 - Compatibility</GroupName>
+			<SettingValues/>
+			<SettingMasks>
+				<CustomSettingMask>
+					<UserfriendlyName>SLI - Mode</UserfriendlyName>
+					<HexMask>0x00000007</HexMask>
+					<MaskValues>
+						<CustomSettingValue>
+							<UserfriendlyName>Auto</UserfriendlyName>
+							<HexValue>0x00000000</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>Single</UserfriendlyName>
+							<HexValue>0x00000004</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>AFR</UserfriendlyName>
+							<HexValue>0x00000001</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>SFR</UserfriendlyName>
+							<HexValue>0x00000002</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>AFR-SFR</UserfriendlyName>
+							<HexValue>0x00000003</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>3 Way SLI AFR</UserfriendlyName>
+							<HexValue>0x00000006</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>4 Way SLI AFR</UserfriendlyName>
+							<HexValue>0x00000005</HexValue>
+						</CustomSettingValue>
+					</MaskValues>
+				</CustomSettingMask>
+				<CustomSettingMask>
+					<UserfriendlyName>SLI - AFR Mode</UserfriendlyName>
+					<HexMask>0x02430000</HexMask>
+					<MaskValues>
+						<CustomSettingValue>
+							<UserfriendlyName>AFR 1</UserfriendlyName>
+							<HexValue>0x00000000</HexValue>
+						</CustomSettingValue>
+						<CustomSettingValue>
+							<UserfriendlyName>AFR 2</UserfriendlyName>
+							<HexValue>0x02430000</HexValue>
+						</CustomSettingValue>
+					</MaskValues>
+				</CustomSettingMask>
+			</SettingMasks>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>NVLINK - SLI Mode</UserfriendlyName>
+			<HexSettingID>0x00A06948</HexSettingID>
+			<GroupName>6 - SLI</GroupName>
+			<MinRequiredDriverVersion>410.00</MinRequiredDriverVersion>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>SLI Broadcast (DX9)</UserfriendlyName>
+			<HexSettingID>0x0095DEF9</HexSettingID>
+			<Description/>
+			<GroupName>1 - Compatibility</GroupName>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Do not use broadcast at all</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>DYNAMIC_BROADCAST_RENDER_TO_TEXTURE - Dynamic broadcast render to texture to all GPU's</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>STICKY_BROADCAST - Once a surface is marked for broadcast, keep this state regardless of future usage</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>PROPAGATE_BROADCAST_PROHIBITION_BETWEEN_RT_AND_ZB - If RT is prohibited from going to broadcast, force this on the corresponding ZB too</UserfriendlyName>
+					<HexValue>0x00000008</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>STATIC_BROADCAST_CLEARS_TO_TEXTURE - Static broadcast texture clears to all GPU's</UserfriendlyName>
+					<HexValue>0x00000010</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>STATIC_BROADCAST_RENDER_TO_TEXTURE - Static broadcast RTT ops to all GPU's</UserfriendlyName>
+					<HexValue>0x00000020</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>ALLOW_BROADCAST_ON_SMALLER_HDR_SURFACES - Do not disable dynamic broadcast on HDR surfaces smaller than primary</UserfriendlyName>
+					<HexValue>0x00000040</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>USE_BROADCAST_FLAGS_FROM_RT_OR_ZB - Allow to use broadcast flags on ZB together with flags on RT to make broadcast decision</UserfriendlyName>
+					<HexValue>0x00000100</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>FORCE_BROADCAST_ZB_CLEAR_IF_RT_IN_BROADCAST - Force broadcast clear on ZB, if the current RT in broadcast</UserfriendlyName>
+					<HexValue>0x00000200</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>IGNORE_DISCARD_ON_ZB_IF_RT_IN_BROADCAST - Ignore discard of ZB sync if bounded RT is in broadcast</UserfriendlyName>
+					<HexValue>0x00001000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>DISCARD_TEXTURING_SYNC_AFTER_BLIT_FROM_DISCARDABLE_SRC - Discard texturing sync after unicast blit from discardable source (like back buffer) on broadcast RTT</UserfriendlyName>
+					<HexValue>0x00002000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>BROADCAST_TO_CUBEMIP_TEXTURE - Broadcast to CUBE/MIP texture to all GPU's</UserfriendlyName>
+					<HexValue>0x00010000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>BROADCAST_ON_ZB_IN_TEXTURE_ON_PARTIAL_SRT - Static broadcast on shadow map atlases</UserfriendlyName>
+					<HexValue>0x00100000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>BROADCAST_ON_STENCIL_WRITE - Static broadcast on ZB with enabled and updated stencil</UserfriendlyName>
+					<HexValue>0x00200000</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
+
 		<!--<CustomSetting>
       <UserfriendlyName>StereoProfile</UserfriendlyName>
       <HexSettingID>0x701EB457</HexSettingID>
