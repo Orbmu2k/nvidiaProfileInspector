@@ -2,7 +2,7 @@
 <CustomSettingNames>
 	<Settings>
 		<CustomSetting>
-			<UserfriendlyName>DLSS - Enable DLL Override</UserfriendlyName>
+			<UserfriendlyName>DLSS-SR - Enable DLL Override</UserfriendlyName>
 			<HexSettingID>0x10E41E01</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -20,7 +20,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS - Forced Model Preset Profile</UserfriendlyName>
+			<UserfriendlyName>DLSS-SR - Forced Model Preset Profile</UserfriendlyName>
 			<HexSettingID>0x00634291</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -78,7 +78,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS - Forced Preset Letter</UserfriendlyName>
+			<UserfriendlyName>DLSS-SR - Forced Preset Letter</UserfriendlyName>
 			<HexSettingID>0x10E41DF3</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -125,19 +125,19 @@
 					<HexValue>0x00000009</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset J (Transformer Gen 1)</UserfriendlyName>
+					<UserfriendlyName>Preset J (Transformer Gen1)</UserfriendlyName>
 					<HexValue>0x0000000A</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset K (Transformer Gen 1)</UserfriendlyName>
+					<UserfriendlyName>Preset K (Transformer Gen1)</UserfriendlyName>
 					<HexValue>0x0000000B</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset L (Transformer Gen 2)</UserfriendlyName>
+					<UserfriendlyName>Preset L (Transformer Gen2)</UserfriendlyName>
 					<HexValue>0x0000000C</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset M (Transformer Gen 2)</UserfriendlyName>
+					<UserfriendlyName>Preset M (Transformer Gen2)</UserfriendlyName>
 					<HexValue>0x0000000D</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -178,11 +178,11 @@
 					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset D (Transformer Gen 1)</UserfriendlyName>
+					<UserfriendlyName>Preset D (Transformer Gen1)</UserfriendlyName>
 					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset E (Transformer Gen 1)</UserfriendlyName>
+					<UserfriendlyName>Preset E (Transformer Gen1)</UserfriendlyName>
 					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -276,7 +276,7 @@
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS - Forced Quality Level</UserfriendlyName>
+			<UserfriendlyName>DLSS-SR - Forced Quality Level</UserfriendlyName>
 			<HexSettingID>0x10AFB768</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -350,7 +350,8 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS - Forced Scaling Ratio (needs 'forced quality level: custom')</UserfriendlyName>
+			<UserfriendlyName>DLSS-SR - Forced Scaling Ratio</UserfriendlyName>
+			<Description>Needs 'forced quality level: custom'</Description>
 			<HexSettingID>0x10E41DF5</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
@@ -536,7 +537,7 @@
 					<HexValue>0x0000004C</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>77% (UltraQuality)</UserfriendlyName>
+					<UserfriendlyName>77% (Ultra Quality)</UserfriendlyName>
 					<HexValue>0x0000004D</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -635,7 +636,8 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-RR - Forced Scaling Ratio (needs 'forced quality level: custom')</UserfriendlyName>
+			<UserfriendlyName>DLSS-RR - Forced Scaling Ratio</UserfriendlyName>
+			<Description>Needs 'forced quality level: custom'</Description>
 			<HexSettingID>0x10C7D4A2</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
@@ -821,7 +823,7 @@
 					<HexValue>0x0000004C</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>77% (UltraQuality)</UserfriendlyName>
+					<UserfriendlyName>77% (Ultra Quality)</UserfriendlyName>
 					<HexValue>0x0000004D</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
