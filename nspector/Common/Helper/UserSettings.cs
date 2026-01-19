@@ -18,7 +18,7 @@ namespace nspector.Common.Helper
 
         public FormWindowState WindowState { get; set; }
 
-        public bool ShowCustomizedSettingNamesOnly { get; set; } = false;
+        public bool ShowCustomizedSettingNamesOnly { get; set; } = true;
 
         public bool ShowScannedUnknownSettings { get; set; } = false;
 
