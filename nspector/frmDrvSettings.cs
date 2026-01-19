@@ -43,6 +43,7 @@ namespace nspector
 
         private string[] _profileNames = new string[0];
         private bool _comboBoxUpdating = false;
+        private bool _formLoaded = false;
 
         private UserSettings _settings = null;
 
@@ -136,7 +137,7 @@ namespace nspector
 
         private SettingViewMode GetSettingViewMode()
         {
-            if (tscbShowCustomSettingNamesOnly.Checked)
+            if (cbFilter.SelectedIndex == 0)
                 return SettingViewMode.CustomSettingsOnly;
             else if (tscbShowScannedUnknownSettings.Checked)
                 return SettingViewMode.IncludeScannedSetttings;
@@ -575,7 +576,7 @@ namespace nspector
             SetupToolbar();
             SetupDpiAdjustments();
 
-            tscbShowCustomSettingNamesOnly.Checked = showCsnOnly;
+            cbFilter.SelectedIndex = showCsnOnly ? 0 : 1;
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             // KeyUp has to be set on the inner control for us to receive Enter key...
@@ -640,9 +641,9 @@ namespace nspector
         {
             SetupLayout();
             SetTitleVersion();
-            LoadSettings();
 
             RefreshProfilesCombo();
+            LoadSettings();
             RefreshCurrentProfile();
             cbProfiles.Text = GetBaseProfileName();
 
@@ -652,6 +653,8 @@ namespace nspector
             tssbRemoveApplication.Enabled = false;
 
             InitResetValueTooltip();
+
+            _formLoaded = true;
 
             await CheckForUpdatesAsync();
         }
@@ -900,9 +903,12 @@ namespace nspector
             tsbRefreshProfile.Enabled = true;
         }
 
-        private void cbCustomSettingsOnly_CheckedChanged(object sender, EventArgs e)
+        private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshCurrentProfile();
+            if (_formLoaded)
+            {
+                RefreshCurrentProfile();
+            }
         }
 
         internal void SetSelectedDwordValue(uint dwordValue)
@@ -1390,7 +1396,7 @@ namespace nspector
                 _settings.WindowWidth = RestoreBounds.Width;
             }
             _settings.WindowState = WindowState;
-            _settings.ShowCustomizedSettingNamesOnly = tscbShowCustomSettingNamesOnly.Checked;
+            _settings.ShowCustomizedSettingNamesOnly = cbFilter.SelectedIndex != 1;
             _settings.ShowScannedUnknownSettings = tscbShowScannedUnknownSettings.Checked;
             _settings.SaveSettings();
         }
@@ -1401,7 +1407,7 @@ namespace nspector
             SetBounds(_settings.WindowLeft, _settings.WindowTop, _settings.WindowWidth, _settings.WindowHeight);
             WindowState = _settings.WindowState != FormWindowState.Minimized ? _settings.WindowState : FormWindowState.Normal;
             HandleScreenConstraints();
-            tscbShowCustomSettingNamesOnly.Checked = _settings.ShowCustomizedSettingNamesOnly;
+            cbFilter.SelectedIndex = _settings.ShowCustomizedSettingNamesOnly ? 0 : 1;
             tscbShowScannedUnknownSettings.Checked = !_skipScan && _settings.ShowScannedUnknownSettings;
         }
 

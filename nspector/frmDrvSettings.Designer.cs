@@ -54,8 +54,6 @@
             this.importProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importAllProfilesNVIDIATextFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSep4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tscbShowCustomSettingNamesOnly = new System.Windows.Forms.ToolStripButton();
-            this.tsSep5 = new System.Windows.Forms.ToolStripSeparator();
             this.tscbShowScannedUnknownSettings = new System.Windows.Forms.ToolStripButton();
             this.tsbBitValueEditor = new System.Windows.Forms.ToolStripButton();
             this.tsSep6 = new System.Windows.Forms.ToolStripSeparator();
@@ -77,9 +75,13 @@
             this.chSettingValueHex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tbSettingDescription = new System.Windows.Forms.TextBox();
             this.pnlListview = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.txtFilter = new nspector.WatermarkTextBox();
+            this.cbFilter = new System.Windows.Forms.ComboBox();
+            this.ttFilter = new System.Windows.Forms.ToolTip(this.components);
             this.tsMain.SuspendLayout();
             this.pnlListview.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ilListView
@@ -93,7 +95,7 @@
             // 
             // pbMain
             // 
-            this.pbMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.pbMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbMain.Location = new System.Drawing.Point(12, 475);
             this.pbMain.Margin = new System.Windows.Forms.Padding(4);
@@ -104,7 +106,7 @@
             // tsMain
             // 
             this.tsMain.AllowMerge = false;
-            this.tsMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tsMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tsMain.AutoSize = false;
             this.tsMain.BackgroundImage = global::nspector.Properties.Resources.transparent16;
@@ -129,8 +131,6 @@
             this.tsbExportProfiles,
             this.tsbImportProfiles,
             this.tsSep4,
-            this.tscbShowCustomSettingNamesOnly,
-            this.tsSep5,
             this.tscbShowScannedUnknownSettings,
             this.tsbBitValueEditor,
             this.tsSep6,
@@ -271,28 +271,28 @@
             // exportCurrentProfileOnlyToolStripMenuItem
             // 
             this.exportCurrentProfileOnlyToolStripMenuItem.Name = "exportCurrentProfileOnlyToolStripMenuItem";
-            this.exportCurrentProfileOnlyToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.exportCurrentProfileOnlyToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
             this.exportCurrentProfileOnlyToolStripMenuItem.Text = "Export current profile only";
             this.exportCurrentProfileOnlyToolStripMenuItem.Click += new System.EventHandler(this.exportCurrentProfileOnlyToolStripMenuItem_Click);
             // 
             // exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem
             // 
             this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Name = "exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem";
-            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
             this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Text = "Export current profile including predefined settings";
             this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem.Click += new System.EventHandler(this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem_Click);
             // 
             // exportUserdefinedProfilesToolStripMenuItem
             // 
             this.exportUserdefinedProfilesToolStripMenuItem.Name = "exportUserdefinedProfilesToolStripMenuItem";
-            this.exportUserdefinedProfilesToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.exportUserdefinedProfilesToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
             this.exportUserdefinedProfilesToolStripMenuItem.Text = "Export all customized profiles";
             this.exportUserdefinedProfilesToolStripMenuItem.Click += new System.EventHandler(this.exportUserdefinedProfilesToolStripMenuItem_Click);
             // 
             // exportAllProfilesNVIDIATextFormatToolStripMenuItem
             // 
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Name = "exportAllProfilesNVIDIATextFormatToolStripMenuItem";
-            this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Size = new System.Drawing.Size(342, 22);
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Text = "Export all driver profiles (NVIDIA Text Format)";
             this.exportAllProfilesNVIDIATextFormatToolStripMenuItem.Click += new System.EventHandler(this.exportAllProfilesNVIDIATextFormatToolStripMenuItem_Click);
             // 
@@ -327,22 +327,6 @@
             // 
             this.tsSep4.Name = "tsSep4";
             this.tsSep4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tscbShowCustomSettingNamesOnly
-            // 
-            this.tscbShowCustomSettingNamesOnly.CheckOnClick = true;
-            this.tscbShowCustomSettingNamesOnly.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tscbShowCustomSettingNamesOnly.Image = global::nspector.Properties.Resources.filter_user;
-            this.tscbShowCustomSettingNamesOnly.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tscbShowCustomSettingNamesOnly.Name = "tscbShowCustomSettingNamesOnly";
-            this.tscbShowCustomSettingNamesOnly.Size = new System.Drawing.Size(24, 22);
-            this.tscbShowCustomSettingNamesOnly.Text = "Show the settings and values from CustomSettingNames file only.";
-            this.tscbShowCustomSettingNamesOnly.CheckedChanged += new System.EventHandler(this.cbCustomSettingsOnly_CheckedChanged);
-            // 
-            // tsSep5
-            // 
-            this.tsSep5.Name = "tsSep5";
-            this.tsSep5.Size = new System.Drawing.Size(6, 25);
             // 
             // tscbShowScannedUnknownSettings
             // 
@@ -398,7 +382,7 @@
             // 
             // lblApplications
             // 
-            this.lblApplications.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblApplications.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblApplications.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(185)))), ((int)(((byte)(0)))));
             this.lblApplications.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -551,16 +535,29 @@
             // 
             // pnlListview
             // 
-            this.pnlListview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.pnlListview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlListview.Controls.Add(this.panel1);
             this.pnlListview.Controls.Add(this.lvSettings);
-            this.pnlListview.Controls.Add(this.txtFilter);
             this.pnlListview.Controls.Add(this.tbSettingDescription);
             this.pnlListview.Location = new System.Drawing.Point(12, 52);
             this.pnlListview.Name = "pnlListview";
             this.pnlListview.Size = new System.Drawing.Size(840, 416);
             this.pnlListview.TabIndex = 82;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.txtFilter);
+            this.panel1.Controls.Add(this.cbFilter);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            this.panel1.Size = new System.Drawing.Size(840, 24);
+            this.panel1.TabIndex = 83;
             // 
             // txtFilter
             // 
@@ -570,13 +567,32 @@
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.txtFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.txtFilter.Size = new System.Drawing.Size(2118, 35);
+            this.txtFilter.Size = new System.Drawing.Size(719, 23);
             this.txtFilter.TabIndex = 82;
             this.txtFilter.WatermarkText = "Search for setting...";
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyUp);
+            // 
+            // cbFilter
+            // 
+            this.cbFilter.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFilter.Font = new System.Drawing.Font("Segoe UI", 8.37F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFilter.FormattingEnabled = true;
+            this.cbFilter.Items.AddRange(new object[] {
+            "Common Only",
+            "All Settings"});
+            this.cbFilter.Location = new System.Drawing.Point(719, 0);
+            this.cbFilter.Name = "cbFilter";
+            this.cbFilter.Size = new System.Drawing.Size(121, 21);
+            this.cbFilter.TabIndex = 0;
+            this.ttFilter.SetToolTip(this.cbFilter, "Common Only: only displays common settings from CustomSettingNames.xml\r\nAll Setti" +
+        "ngs: displays settings from all sources.");
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            // 
+            // ttFilter
+            // 
+            this.ttFilter.ToolTipTitle = "Settings Filter";
             // 
             // frmDrvSettings
             // 
@@ -606,6 +622,8 @@
             this.tsMain.PerformLayout();
             this.pnlListview.ResumeLayout(false);
             this.pnlListview.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -627,8 +645,6 @@
         private System.Windows.Forms.ToolStripSeparator tsSep3;
         private System.Windows.Forms.ToolStripButton tsbBitValueEditor;
         private System.Windows.Forms.ToolStripSeparator tsSep6;
-        private System.Windows.Forms.ToolStripButton tscbShowCustomSettingNamesOnly;
-        private System.Windows.Forms.ToolStripSeparator tsSep5;
         private System.Windows.Forms.ToolStripButton tscbShowScannedUnknownSettings;
         private System.Windows.Forms.ToolStripLabel tslProfiles;
         private System.Windows.Forms.Label lblApplications;
@@ -660,5 +676,8 @@
         private System.Windows.Forms.TextBox tbSettingDescription;
         private System.Windows.Forms.Panel pnlListview;
         private WatermarkTextBox txtFilter;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox cbFilter;
+        private System.Windows.Forms.ToolTip ttFilter;
     }
 }
