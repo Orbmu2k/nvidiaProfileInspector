@@ -766,18 +766,20 @@ namespace nspector
 
             if (e.KeyCode == Keys.Enter)
             {
-                // KeyUp event is only fired when combobox item doesn't exist with the entered text
-                // Try searching for text as an exe/application name
-                try
+                // Search by exe name if the text isn't already a valid profile name
+                if (!_profileNames.Contains(cbProfiles.Text))
                 {
-                    var profile = _drs.GetProfileNameByExeName(cbProfiles.Text);
-                    if (!string.IsNullOrEmpty(profile))
+                    try
                     {
-                        cbProfiles.Text = profile;
-                        ChangeCurrentProfile(profile);
+                        var profile = _drs.GetProfileNameByExeName(cbProfiles.Text);
+                        if (!string.IsNullOrEmpty(profile))
+                        {
+                            cbProfiles.Text = profile;
+                            ChangeCurrentProfile(profile);
+                        }
                     }
+                    catch { }
                 }
-                catch { }
             }
         }
 
