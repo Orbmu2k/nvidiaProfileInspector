@@ -489,12 +489,12 @@
             this.lvSettings.GridLines = true;
             this.lvSettings.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lvSettings.HideSelection = false;
-            this.lvSettings.Location = new System.Drawing.Point(0, 0);
+            this.lvSettings.Location = new System.Drawing.Point(0, 23);
             this.lvSettings.Margin = new System.Windows.Forms.Padding(4);
             this.lvSettings.MultiSelect = false;
             this.lvSettings.Name = "lvSettings";
             this.lvSettings.ShowItemToolTips = true;
-            this.lvSettings.Size = new System.Drawing.Size(840, 372);
+            this.lvSettings.Size = new System.Drawing.Size(840, 349);
             this.lvSettings.SmallImageList = this.ilListView;
             this.lvSettings.TabIndex = 2;
             this.lvSettings.UseCompatibleStateImageBehavior = false;
@@ -538,8 +538,8 @@
             this.pnlListview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlListview.Controls.Add(this.panel1);
             this.pnlListview.Controls.Add(this.lvSettings);
+            this.pnlListview.Controls.Add(this.panel1);
             this.pnlListview.Controls.Add(this.tbSettingDescription);
             this.pnlListview.Location = new System.Drawing.Point(12, 52);
             this.pnlListview.Name = "pnlListview";
@@ -555,8 +555,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.panel1.Size = new System.Drawing.Size(840, 24);
+            this.panel1.Size = new System.Drawing.Size(840, 23);
             this.panel1.TabIndex = 83;
             // 
             // txtFilter
