@@ -933,23 +933,6 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>CUDA - Force P2 State</UserfriendlyName>
-			<HexSettingID>0x50166C5E</HexSettingID>
-			<GroupName>5 - Common</GroupName>
-			<OverrideDefault>0x00000001</OverrideDefault>
-			<SettingValues>
-				<CustomSettingValue>
-					<UserfriendlyName>Off</UserfriendlyName>
-					<HexValue>0x00000000</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>On</UserfriendlyName>
-					<HexValue>0x00000001</HexValue>
-				</CustomSettingValue>
-			</SettingValues>
-			<SettingMasks/>
-		</CustomSetting>
-		<CustomSetting>
 			<UserfriendlyName>Version Override (OGL)</UserfriendlyName>
 			<HexSettingID>0x2046B3ED</HexSettingID>
 			<GroupName>5 - Common</GroupName>
