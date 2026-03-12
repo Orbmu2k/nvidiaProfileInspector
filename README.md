@@ -9,3 +9,4 @@ For more information how to use this tool, you can find some very good wikis her
 * https://www.pcgamingwiki.com/wiki/Nvidia_Profile_Inspector
 
 ![](npi_screenshot.png)
+
