@@ -23,9 +23,15 @@ jobs:
       run: |
         LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v3.0.0.0")
         LATEST_TAG="${LATEST_TAG#v}"
-        IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "$LATEST_TAG"
-        PATCH=$((PATCH + 1))
-        NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}.${BUILD:-0}"
+        # Split by dots and ensure all parts exist
+        MAJOR=$(echo "$LATEST_TAG" | cut -d'.' -f1)
+        MINOR=$(echo "$LATEST_TAG" | cut -d'.' -f2)
+        PATCH=$(echo "$LATEST_TAG" | cut -d'.' -f3)
+        BUILD=$(echo "$LATEST_TAG" | cut -d'.' -f4)
+        # Default to 0 if empty
+        PATCH=$(( ${PATCH:-0} + 1 ))
+        BUILD=${BUILD:-0}
+        NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}.${BUILD}"
         echo "version=v${NEW_VERSION}" >> $GITHUB_OUTPUT
 
   build:
