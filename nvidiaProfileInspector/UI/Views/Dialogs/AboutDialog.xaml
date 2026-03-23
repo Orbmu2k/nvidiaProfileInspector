@@ -1,0 +1,286 @@
+<Window
+    x:Class="nvidiaProfileInspector.UI.Views.Dialogs.AboutDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:nvidiaProfileInspector.UI.ViewModels"
+    Title="About NVIDIA Profile Inspector"
+    Width="450"
+    Height="Auto"
+    MinWidth="400"
+    MinHeight="200"
+    MaxWidth="500"
+    MaxHeight="700"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    SizeToContent="Height"
+    Style="{StaticResource DarkDialogWindowStyle}"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+
+        <!--  Circle Image Brush  -->
+        <Style x:Key="AvatarBorderStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="24" />
+            <Setter Property="Width" Value="48" />
+            <Setter Property="Height" Value="48" />
+            <Setter Property="Margin" Value="0,0,16,0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        </Style>
+
+        <Style x:Key="LinkButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Title Bar (Draggable Area)  -->
+        <Border
+            Grid.Row="0"
+            Padding="24,12,0,0"
+            Background="Transparent">
+            <Grid Height="32">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Foreground="{StaticResource TextPrimaryBrush}"
+                    Text="About" />
+
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="0,-12,0,0"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button
+                        Click="Close_Click"
+                        Style="{StaticResource CloseWindowButtonStyle}"
+                        ToolTip="Close">
+                        <Path
+                            Width="10"
+                            Height="10"
+                            Data="{StaticResource IconClose}"
+                            Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                            Stretch="Uniform" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!--  App Header  -->
+        <Border
+            Grid.Row="1"
+            Padding="24,24,24,16"
+            Background="{StaticResource Layer1BackgroundBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Path
+                    Width="48"
+                    Height="48"
+                    Margin="0,0,24,0"
+                    Data="{DynamicResource IconInspectorApp}"
+                    Fill="{StaticResource NvidiaGreenBrush}"
+                    Stretch="Uniform" />
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource TextPrimaryBrush}"
+                        Text="NVIDIA Profile Inspector" />
+                    <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource TextSecondaryBrush}" Text="Version " />
+                        <TextBlock
+                            FontWeight="SemiBold"
+                            Foreground="{StaticResource NvidiaGreenBrush}"
+                            Text="{Binding Version}" />
+                    </StackPanel>
+
+                    <Button
+                        Margin="0,8,0,0"
+                        Padding="0"
+                        HorizontalAlignment="Left"
+                        Command="{Binding OpenGitHubCommand}"
+                        Style="{StaticResource LinkButtonStyle}"
+                        ToolTip="View on GitHub" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!--  Update Information (Prominent)  -->
+        <Border
+            Grid.Row="2"
+            Padding="24,0,24,16"
+            Background="{StaticResource Layer1BackgroundBrush}"
+            Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border
+                Padding="16,12"
+                Background="#2A3026"
+                BorderBrush="{StaticResource NvidiaGreenBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Path
+                        Width="24"
+                        Height="24"
+                        Margin="0,0,16,0"
+                        Data="{DynamicResource IconInfo}"
+                        Fill="{StaticResource NvidiaGreenBrush}"
+                        Stretch="Uniform" />
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource TextPrimaryBrush}"
+                            Text="Update Available!" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{StaticResource TextSecondaryBrush}"
+                            Text="A newer version is available with latest features."
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <Button
+                        Grid.Column="2"
+                        Margin="12,0,0,0"
+                        Padding="16,6"
+                        Command="{Binding OpenGitHubCommand}"
+                        Content="GitHub Releases"
+                        Style="{StaticResource AccentButtonStyle}" />
+                </Grid>
+            </Border>
+        </Border>
+
+        <!--  Contributors Section  -->
+        <Border Grid.Row="3" Padding="24,0,24,24">
+            <StackPanel>
+                <TextBlock
+                    Margin="0,16,0,12"
+                    FontSize="11"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource TextSecondaryBrush}"
+                    Text="CONTRIBUTORS" />
+
+                <ItemsControl ItemsSource="{Binding Contributors}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,8"
+                                Padding="12"
+                                Background="{StaticResource Layer2BackgroundBrush}"
+                                BorderBrush="{StaticResource ControlBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border
+                                        Grid.Column="0"
+                                        Width="40"
+                                        Height="40"
+                                        Margin="0,0,12,0"
+                                        Background="#333"
+                                        CornerRadius="20">
+                                        <Border ClipToBounds="True" CornerRadius="20">
+                                            <Image
+                                                Width="40"
+                                                Height="40"
+                                                Source="{Binding AvatarUrl}"
+                                                Stretch="UniformToFill" />
+                                        </Border>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Foreground="{StaticResource TextPrimaryBrush}"
+                                            Text="{Binding Name}" />
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="{StaticResource TextSecondaryBrush}"
+                                            Text="{Binding Role}" />
+                                    </StackPanel>
+
+                                    <Button
+                                        Grid.Column="2"
+                                        Command="{Binding DataContext.OpenContributorProfileCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding ProfileUrl}"
+                                        Style="{StaticResource IconButtonStyle}"
+                                        ToolTip="View Profile">
+                                        <Path
+                                            Width="16"
+                                            Height="16"
+                                            Data="{DynamicResource IconUser}"
+                                            Fill="{StaticResource TextSecondaryBrush}"
+                                            Stretch="Uniform" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+
+        <!--  Footer / Buttons  -->
+        <Border
+            Grid.Row="4"
+            Padding="24"
+            Background="{StaticResource Layer2BackgroundBrush}"
+            CornerRadius="0,0,8,8">
+            <Button
+                MinWidth="100"
+                HorizontalAlignment="Right"
+                Click="Close_Click"
+                Content="Close"
+                Style="{StaticResource AccentButtonStyle}" />
+        </Border>
+    </Grid>
+</Window>

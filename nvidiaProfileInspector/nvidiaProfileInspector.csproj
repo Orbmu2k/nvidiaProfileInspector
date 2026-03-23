@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>n1.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>nvidiaProfileInspector</RootNamespace>
+    <AssemblyName>nvidiaProfileInspector</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Deterministic>true</Deterministic>
+    <Platforms>AnyCPU</Platforms>
+	<LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Management" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="CustomSettingNames.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Native\NVAPI\NvApiDriverSettings.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NvApiDriverSettings.cs</LastGenOutput>
+    </None>
+    <None Update="Reference.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="n1.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CustomSettingNames.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Native\NVAPI\NvApiDriverSettings.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NvApiDriverSettings.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

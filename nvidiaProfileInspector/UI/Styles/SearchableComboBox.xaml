@@ -1,0 +1,345 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:nvidiaProfileInspector.UI.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/UI/Styles/Colors.xaml" />
+        <ResourceDictionary Source="/UI/Styles/Icons.xaml" />
+        <ResourceDictionary Source="/UI/Styles/SearchableTextBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="controls:SearchableComboBox">
+        <Setter Property="Background" Value="#282828" />
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="12,4" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:SearchableComboBox">
+                    <Grid>
+                        <ToggleButton
+                            x:Name="ToggleButton"
+                            Grid.ColumnSpan="2"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            ClickMode="Press"
+                            Focusable="false"
+                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border
+                                        x:Name="Border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="4">
+                                        <Path
+                                            x:Name="Arrow"
+                                            Margin="0,0,10,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Data="M0,0 L4,4 L8,0 Z"
+                                            Fill="{StaticResource TextSecondaryBrush}" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter TargetName="Border" Property="Background" Value="#323232" />
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="true">
+                                            <Setter TargetName="Border" Property="Background" Value="#1A1A1A" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+
+                        <TextBox
+                            x:Name="PART_EditableTextBox"
+                            Margin="8,0,30,0"
+                            Padding="4,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            CaretBrush="{TemplateBinding Foreground}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
+                            Visibility="Collapsed" />
+
+                        <TextBlock
+                            x:Name="ContentSite"
+                            Margin="14,0,30,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            IsHitTestVisible="False"
+                            Text="{TemplateBinding Text}" />
+
+                        <Popup
+                            x:Name="Popup"
+                            Width="800"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            Placement="Bottom"
+                            PopupAnimation="Slide"
+                            VerticalOffset="2">
+                            <Grid
+                                x:Name="DropDown"
+                                MaxWidth="800"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                SnapsToDevicePixels="True">
+                                <Border
+                                    x:Name="DropDownBorder"
+                                    Margin="0,2,0,0"
+                                    Background="#1C1C1C"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <Grid FocusManager.IsFocusScope="True">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <!--  Search Box  -->
+                                        <controls:SearchableTextBox
+                                            x:Name="PART_SearchTextBox"
+                                            Grid.Row="0"
+                                            Margin="8,8,8,4"
+                                            Placeholder="{TemplateBinding Placeholder}"
+                                            Text="{Binding FilterText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:SearchableComboBox}, UpdateSourceTrigger=PropertyChanged}" />
+
+                                        <ScrollViewer
+                                            Grid.Row="1"
+                                            Margin="4,2,4,4"
+                                            SnapsToDevicePixels="True"
+                                            VerticalScrollBarVisibility="Auto">
+                                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEditable" Value="True">
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsEditable" Value="False">
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                    <Setter Property="Padding" Value="12,8" />
+                    <Setter Property="Margin" Value="2,1" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <Border
+                                    x:Name="border"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle
+                                            x:Name="SelectionIndicator"
+                                            Width="2"
+                                            Height="14"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Fill="{StaticResource NvidiaGreenBrush}"
+                                            Visibility="Collapsed" />
+                                        <ContentPresenter Grid.Column="1" VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#1AFFFFFF" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="IconSearchableComboBoxStyle" TargetType="controls:SearchableComboBox">
+        <Setter Property="Background" Value="#282828" />
+        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:SearchableComboBox">
+                    <Grid>
+                        <ToggleButton
+                            x:Name="ToggleButton"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            ClickMode="Press"
+                            Focusable="false"
+                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border
+                                        x:Name="Border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="4">
+                                        <Path
+                                            x:Name="Icon"
+                                            Width="16"
+                                            Height="16"
+                                            Data="{DynamicResource IconUser}"
+                                            Fill="{StaticResource TextSecondaryBrush}"
+                                            Stretch="Uniform" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter TargetName="Border" Property="Background" Value="#323232" />
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ControlBorderHoverBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="true">
+                                            <Setter TargetName="Border" Property="Background" Value="#1A1A1A" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+
+                        <Popup
+                            x:Name="Popup"
+                            Width="400"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            Placement="Bottom"
+                            PopupAnimation="Slide"
+                            VerticalOffset="4">
+                            <Grid
+                                x:Name="DropDown"
+                                MaxWidth="500"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                SnapsToDevicePixels="True">
+                                <Border
+                                    x:Name="DropDownBorder"
+                                    Background="#1C1C1C"
+                                    BorderBrush="{StaticResource ControlBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <Grid FocusManager.IsFocusScope="True">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <controls:SearchableTextBox
+                                            x:Name="PART_SearchTextBox"
+                                            Grid.Row="0"
+                                            Margin="8,8,8,4"
+                                            Placeholder="{TemplateBinding Placeholder}"
+                                            Text="{Binding FilterText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:SearchableComboBox}, UpdateSourceTrigger=PropertyChanged}" />
+
+                                        <ScrollViewer
+                                            Grid.Row="1"
+                                            Margin="4"
+                                            SnapsToDevicePixels="True"
+                                            VerticalScrollBarVisibility="Auto">
+                                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                    <Setter Property="Padding" Value="12,8" />
+                    <Setter Property="Margin" Value="2,1" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <Border
+                                    x:Name="border"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle
+                                            x:Name="SelectionIndicator"
+                                            Width="2"
+                                            Height="14"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Fill="{StaticResource NvidiaGreenBrush}"
+                                            Visibility="Collapsed" />
+                                        <ContentPresenter Grid.Column="1" VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#1AFFFFFF" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

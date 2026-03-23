@@ -1,0 +1,329 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:nvidiaProfileInspector.UI.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/UI/Styles/Icons.xaml" />
+        <ResourceDictionary Source="/UI/Styles/Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="controls:TitleBar">
+        <Setter Property="Background" Value="{StaticResource Layer1BackgroundBrush}" />
+        <Setter Property="TitleForeground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Padding" Value="16,12" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:TitleBar">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Left Section: Logo + Title or Custom LeftContent  -->
+                            <StackPanel
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+
+                                <ContentControl VerticalAlignment="Center" Content="{TemplateBinding IconContent}" />
+                                <ContentControl VerticalAlignment="Center" Content="{TemplateBinding LeftContent}" />
+                                <TextBlock
+                                    Margin="12,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="{TemplateBinding TitleFontSize}"
+                                    FontWeight="Bold"
+                                    Foreground="{TemplateBinding TitleForeground}"
+                                    Text="{TemplateBinding Title}" />
+                            </StackPanel>
+
+                            <!--  Center Section: Profile Selector and Actions  -->
+                            <ContentControl
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding CenterContent}"
+                                WindowChrome.IsHitTestVisibleInChrome="True" />
+
+                            <!--  Right Section: Window Controls and RightContent  -->
+                            <StackPanel
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                WindowChrome.IsHitTestVisibleInChrome="True">
+                                <ContentControl
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding RightContent}" />
+                                <StackPanel
+                                    Margin="0,-12,-16,0"
+                                    VerticalAlignment="Top"
+                                    Orientation="Horizontal"
+                                    WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <Button
+                                        x:Name="MinimizeButton"
+                                        Style="{StaticResource WindowButtonStyle}"
+                                        ToolTip="Minimize"
+                                        Visibility="{TemplateBinding ShowMinimizeButton,
+                                                                     Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Path
+                                            Width="10"
+                                            Height="10"
+                                            Data="{StaticResource IconMinimize}"
+                                            Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                            Stretch="Uniform" />
+                                    </Button>
+
+                                    <Button x:Name="MaximizeButton" Style="{StaticResource MaximizeWindowButtonStyle}" />
+
+                                    <Button
+                                        x:Name="CloseButton"
+                                        Style="{StaticResource CloseWindowButtonStyle}"
+                                        ToolTip="Close"
+                                        Visibility="{TemplateBinding ShowCloseButton,
+                                                                     Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Path
+                                            Width="10"
+                                            Height="10"
+                                            Data="{StaticResource IconClose}"
+                                            Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                            Stretch="Uniform" />
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:ActionBarButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        <Setter Property="TextForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="Margin" Value="0,0,4,0" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:ActionBarButton">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <StackPanel
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Path
+                                x:Name="IconPath"
+                                Width="{TemplateBinding IconWidth}"
+                                Height="{TemplateBinding IconHeight}"
+                                Margin="{TemplateBinding IconMargin}"
+                                Data="{TemplateBinding IconPath}"
+                                Fill="{TemplateBinding IconFill}"
+                                Stretch="Uniform"
+                                Visibility="{TemplateBinding ShowIcon,
+                                                             Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                            <TextBlock
+                                x:Name="TextBlock"
+                                VerticalAlignment="Center"
+                                FontSize="{TemplateBinding TextFontSize}"
+                                Foreground="{TemplateBinding TextForeground}"
+                                Text="{TemplateBinding Text}" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#323232" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="#444444" />
+                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
+                            <Setter Property="Opacity" Value="0.8" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="controls:ActionBarToggleButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        <Setter Property="IconFill" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
+        <Setter Property="TextForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="Margin" Value="0,0,4,0" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:ActionBarToggleButton">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True">
+                        <StackPanel
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Path
+                                x:Name="IconPath"
+                                Width="{TemplateBinding IconWidth}"
+                                Height="{TemplateBinding IconHeight}"
+                                Margin="{TemplateBinding IconMargin}"
+                                Data="{TemplateBinding IconPath}"
+                                Fill="{TemplateBinding IconFill}"
+                                Stretch="Uniform"
+                                Visibility="{TemplateBinding ShowIcon,
+                                                             Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                            <TextBlock
+                                x:Name="TextBlock"
+                                VerticalAlignment="Center"
+                                FontSize="{TemplateBinding TextFontSize}"
+                                Foreground="{TemplateBinding TextForeground}"
+                                Text="{TemplateBinding Text}" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#323232" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="#444444" />
+                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#2D2D2D" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={StaticResource LabBrush}}" />
+                            <Setter Property="Foreground" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={StaticResource LabBrush}}" />
+                            <Setter TargetName="IconPath" Property="Fill" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={StaticResource LabBrush}}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
+                            <Setter Property="Opacity" Value="0.8" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="controls:ChoiceCard">
+        <Setter Property="Background" Value="{StaticResource Layer2BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="20,16" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:ChoiceCard">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="12"
+                        SnapsToDevicePixels="True">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Icon  -->
+                            <Border
+                                Grid.Column="0"
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,16,0"
+                                Background="{StaticResource Layer3BackgroundBrush}"
+                                CornerRadius="8">
+                                <Path
+                                    x:Name="IconPath"
+                                    Width="20"
+                                    Height="20"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="{TemplateBinding IconPath}"
+                                    Fill="{TemplateBinding IconFill}"
+                                    Stretch="Uniform" />
+                            </Border>
+
+                            <!--  Text Content  -->
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock
+                                    Margin="0,0,0,2"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Text="{TemplateBinding Title}" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="{StaticResource TextSecondaryBrush}"
+                                    Text="{TemplateBinding Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <!--  Chevron (optional, but good for action cards)  -->
+                            <Path
+                                Grid.Column="2"
+                                Width="6"
+                                Height="10"
+                                Margin="12,0,0,0"
+                                VerticalAlignment="Center"
+                                Data="M1,1 L5,5 L1,9"
+                                Stretch="Uniform"
+                                Stroke="{StaticResource TextSecondaryBrush}"
+                                StrokeThickness="1.5" />
+
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#323232" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="#666666" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
+                            <Setter Property="Opacity" Value="0.9" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,19 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:nvidiaProfileInspector.UI.Converters">
+
+    <converters:StateToIconConverter x:Key="StateToIconConverter" />
+    <converters:StateToSettingIconColorConverter x:Key="StateToSettingIconColorConverter" />
+    <converters:StateToColorConverter x:Key="StateToColorConverter" />
+    <converters:StateToTooltipConverter x:Key="StateToTooltipConverter" />
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <converters:ModifiedToBrushConverter x:Key="ModifiedToBrushConverter" />
+    <converters:StringNotEmptyToVisibilityConverter x:Key="StringNotEmptyToVisibilityConverter" />
+    <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" />
+    <converters:MessageBoxButtonToVisibilityConverter x:Key="MessageBoxButtonToVisibilityConverter" />
+    <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter" />
+    <converters:SettingMetaSourceToIconConverter x:Key="SettingMetaSourceToIconConverter" />
+    <converters:FavoriteToBrushConverter x:Key="FavoriteToBrushConverter" />
+
+</ResourceDictionary>

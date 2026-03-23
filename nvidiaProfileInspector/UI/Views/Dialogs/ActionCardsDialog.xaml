@@ -1,0 +1,207 @@
+<Window
+    x:Class="nvidiaProfileInspector.UI.Views.Dialogs.ActionCardsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:nvidiaProfileInspector.UI.Controls"
+    Title="Actions"
+    Width="550"
+    Height="Auto"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    SizeToContent="Height"
+    Style="{StaticResource DarkDialogWindowStyle}"
+    WindowStartupLocation="CenterOwner">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Title Bar (Draggable Area)  -->
+        <Border
+            Grid.Row="0"
+            Padding="24,12,0,0"
+            Background="Transparent">
+            <Grid Height="32">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Back Button  -->
+                <Button
+                    x:Name="BackButton"
+                    Grid.Column="0"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center"
+                    Click="Back_Click"
+                    Style="{StaticResource IconButtonStyle}"
+                    ToolTip="Go back"
+                    Visibility="Collapsed"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
+                    >
+                    <Path
+                        Width="10"
+                        Height="10"
+                        Data="M10,2 L2,10 L10,18"
+                        Stretch="Uniform"
+                        Stroke="{StaticResource TextPrimaryBrush}"
+                        StrokeThickness="2" />
+                </Button>
+
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Foreground="{StaticResource TextPrimaryBrush}"
+                    Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
+
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="0,-12,0,0"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button
+                        Click="Cancel_Click"
+                        Style="{StaticResource CloseWindowButtonStyle}"
+                        ToolTip="Close">
+                        <Path
+                            Width="10"
+                            Height="10"
+                            Data="{StaticResource IconClose}"
+                            Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                            Stretch="Uniform" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!--  Description/Subtitle  -->
+        <Border Grid.Row="1" Padding="24,12,24,0">
+            <TextBlock
+                x:Name="SubtitleTextBlock"
+                FontSize="13"
+                Foreground="{StaticResource TextSecondaryBrush}"
+                TextWrapping="Wrap"
+                Visibility="Collapsed" />
+        </Border>
+
+        <!--  View Container  -->
+        <Grid Grid.Row="2">
+            <!--  Cards View  -->
+            <ItemsControl x:Name="CardsContainer" Margin="24,24,24,24">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <controls:ChoiceCard
+                            Title="{Binding Title}"
+                            Click="Card_Click"
+                            Description="{Binding Description}"
+                            IconFill="{Binding IconFill}"
+                            IconPath="{Binding IconPath}"
+                            Tag="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!--  Profile Selection View  -->
+            <Grid
+                x:Name="SelectionContainer"
+                Margin="24,12,24,24"
+                Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ListBox
+                    x:Name="ProfilesListBox"
+                    Grid.Row="0"
+                    Height="350"
+                    ItemContainerStyle="{StaticResource DarkListBoxItemStyle}"
+                    Style="{StaticResource DarkListBoxStyle}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox
+                                Margin="4"
+                                Content="{Binding ProfileName}"
+                                IsChecked="{Binding IsSelected}"
+                                Style="{StaticResource DarkCheckBoxStyle}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Grid Grid.Row="1" Margin="0,16,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            MinWidth="40"
+                            Margin="0,0,4,0"
+                            Padding="8,4"
+                            Click="SelectAll_Click"
+                            Content="All"
+                            Style="{StaticResource DarkButtonStyle}"
+                            ToolTip="Select all profiles" />
+                        <Button
+                            MinWidth="40"
+                            Margin="0,0,4,0"
+                            Padding="8,4"
+                            Click="SelectNone_Click"
+                            Content="None"
+                            Style="{StaticResource DarkButtonStyle}"
+                            ToolTip="Deselect all profiles" />
+                        <Button
+                            MinWidth="40"
+                            Padding="8,4"
+                            Click="Invert_Click"
+                            Content="Invert"
+                            Style="{StaticResource DarkButtonStyle}"
+                            ToolTip="Invert selection" />
+                    </StackPanel>
+
+                    <CheckBox
+                        x:Name="IncludePredefinedCheckBox"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Content="Include predefined settings"
+                        Foreground="{StaticResource TextSecondaryBrush}" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!--  Selection Footer (only for selection view)  -->
+        <Border
+            x:Name="SelectionFooter"
+            Grid.Row="3"
+            Padding="24"
+            Background="{StaticResource Layer2BackgroundBrush}"
+            CornerRadius="0,0,8,8"
+            Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    MinWidth="80"
+                    Margin="0,0,8,0"
+                    Click="Cancel_Click"
+                    Content="Cancel"
+                    Style="{StaticResource DarkButtonStyle}"
+                    ToolTip="Cancel and close" />
+                <Button
+                    MinWidth="120"
+                    Click="ExportSelected_Click"
+                    Content="Export Selected"
+                    Style="{StaticResource AccentButtonStyle}"
+                    ToolTip="Export selected profiles" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

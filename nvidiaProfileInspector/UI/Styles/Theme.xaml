@@ -1,0 +1,54 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <!--  Icons already loaded in App.xaml  -->
+        <ResourceDictionary Source="/UI/Styles/Colors.xaml" />
+        <ResourceDictionary Source="/UI/Styles/Converters.xaml" />
+        <ResourceDictionary Source="/UI/Styles/ScrollBars.xaml" />
+        <ResourceDictionary Source="/UI/Styles/Buttons.xaml" />
+        <ResourceDictionary Source="/UI/Styles/TextBoxes.xaml" />
+        <ResourceDictionary Source="/UI/Styles/ComboBoxes.xaml" />
+        <ResourceDictionary Source="/UI/Styles/SearchableTextBox.xaml" />
+        <ResourceDictionary Source="/UI/Styles/SearchableComboBox.xaml" />
+        <ResourceDictionary Source="/UI/Styles/ListViews.xaml" />
+        <ResourceDictionary Source="/UI/Styles/ToolTips.xaml" />
+        <ResourceDictionary Source="/UI/Styles/Common.xaml" />
+        <ResourceDictionary Source="/UI/Styles/Applications.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Window Style  -->
+    <Style x:Key="DarkWindowStyle" TargetType="Window">
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome
+                    CaptionHeight="40"
+                    CornerRadius="0"
+                    GlassFrameThickness="4"
+                    NonClientFrameEdges="None"
+                    UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="DarkDialogWindowStyle"
+        BasedOn="{StaticResource DarkWindowStyle}"
+        TargetType="Window">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome
+                    CaptionHeight="40"
+                    CornerRadius="8"
+                    GlassFrameThickness="4"
+                    NonClientFrameEdges="None"
+                    UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

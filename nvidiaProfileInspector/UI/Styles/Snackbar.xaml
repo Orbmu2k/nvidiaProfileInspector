@@ -1,0 +1,129 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:nvidiaProfileInspector.UI.Controls">
+    <DropShadowEffect
+        x:Key="DropShadowEffect"
+        BlurRadius="15"
+        Direction="270"
+        Opacity="0.4"
+        ShadowDepth="3"
+        Color="Black" />
+    <Style TargetType="{x:Type controls:NotificationSnackbar}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NotificationSnackbar}">
+                    <Grid
+                        x:Name="SnackbarRoot"
+                        Margin="0,0,0,32"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Opacity="0"
+                        RenderTransformOrigin="0.5,1">
+                        <Grid.RenderTransform>
+                            <TranslateTransform Y="20" />
+                        </Grid.RenderTransform>
+
+                        <Border
+                            MaxWidth="500"
+                            Padding="16,12"
+                            Background="{StaticResource Layer3BackgroundBrush}"
+                            BorderBrush="{StaticResource ControlBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="12"
+                            Effect="{StaticResource DropShadowEffect}">
+
+                            <StackPanel Orientation="Horizontal">
+                                <Path
+                                    x:Name="TypeIcon"
+                                    Width="18"
+                                    Height="18"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Stretch="Uniform" />
+
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="13"
+                                    Foreground="{StaticResource TextPrimaryBrush}"
+                                    Text="{TemplateBinding Message}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsActive" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="SnackbarRoot"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="SnackbarRoot"
+                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                            To="0"
+                                            Duration="0:0:0.4">
+                                            <DoubleAnimation.EasingFunction>
+                                                <BackEase Amplitude="0.3" EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="SnackbarRoot"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="0"
+                                            Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseIn" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="SnackbarRoot"
+                                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                            To="20"
+                                            Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseIn" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="Information">
+                            <Setter TargetName="TypeIcon" Property="Data" Value="{StaticResource IconInfo}" />
+                            <Setter TargetName="TypeIcon" Property="Fill" Value="{StaticResource AccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="Success">
+                            <Setter TargetName="TypeIcon" Property="Data" Value="{StaticResource IconApply}" />
+                            <Setter TargetName="TypeIcon" Property="Fill" Value="{StaticResource NvidiaGreenBrush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="Error">
+                            <Setter TargetName="TypeIcon" Property="Data" Value="{StaticResource IconClose}" />
+                            <Setter TargetName="TypeIcon" Property="Fill" Value="{StaticResource ErrorBrush}" />
+                        </Trigger>
+                        <Trigger Property="Type" Value="Warning">
+                            <Setter TargetName="TypeIcon" Property="Data" Value="{StaticResource IconInfo}" />
+                            <Setter TargetName="TypeIcon" Property="Fill" Value="{StaticResource WarningBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
