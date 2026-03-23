@@ -72,7 +72,7 @@ jobs:
       if: github.event_name == 'push'
       uses: actions/upload-artifact@v4
       with:
-        name: nvidiaProfileInspector-net48
+        name: nvidiaProfileInspector
         path: publish\net48\*
 
   release:
@@ -86,11 +86,13 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
-        name: nvidiaProfileInspector-net48
+        name: nvidiaProfileInspector
         path: artifact
 
     - name: Create ZIP
-      run: zip -r nvidiaProfileInspector-net48.zip artifact/*
+      run: |
+        cd artifact
+        zip -r ../nvidiaProfileInspector.zip *
 
     - name: Create Pre-Release
       uses: softprops/action-gh-release@v2
@@ -99,4 +101,4 @@ jobs:
         name: Release ${{ needs.build.outputs.version }}
         prerelease: true
         generate_release_notes: true
-        files: nvidiaProfileInspector-net48.zip
+        files: nvidiaProfileInspector.zip
