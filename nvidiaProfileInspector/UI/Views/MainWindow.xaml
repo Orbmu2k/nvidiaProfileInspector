@@ -121,10 +121,42 @@
                     <Grid>
                         <Button
                             x:Name="AppearanceButton"
-                            Command="{Binding ToggleThemeCommand}"
-                            Style="{StaticResource HeaderIconButtonStyle}"
+                            Command="{Binding ToggleAppearanceMenuCommand}"
                             ToolTip="Appearance"
-                            Margin="4,0">
+                            Margin="4,0"
+                            Width="32"
+                            Height="32"
+                            Cursor="Hand"
+                            Padding="0"
+                            Background="{DynamicResource Layer2BackgroundBrush}"
+                            BorderBrush="{DynamicResource ControlBorderBrush}"
+                            BorderThickness="1">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border
+                                        x:Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="4"
+                                        SnapsToDevicePixels="True">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding IsAppearanceMenuOpen}" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
                             <Path
                                 Width="18"
                                 Height="18"
@@ -133,6 +165,7 @@
                                 Stretch="Uniform" />
                         </Button>
                         <Popup
+                            x:Name="AppearancePopup"
                             IsOpen="{Binding IsAppearanceMenuOpen, Mode=TwoWay}"
                             StaysOpen="False"
                             PlacementTarget="{Binding ElementName=AppearanceButton}"

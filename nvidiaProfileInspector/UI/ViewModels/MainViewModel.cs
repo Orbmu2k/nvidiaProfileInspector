@@ -64,6 +64,7 @@ using System.Windows.Input;
         private bool _isSnackbarActive;
         private int _snackbarToken;
         private bool _isAppearanceMenuOpen;
+        private DateTime _appearanceMenuClosedAt = DateTime.MinValue;
         private bool _isDarkTheme = true;
         private bool _isCompactDensity;
 
@@ -301,7 +302,14 @@ using System.Windows.Input;
         public bool IsAppearanceMenuOpen
         {
             get => _isAppearanceMenuOpen;
-            set => SetProperty(ref _isAppearanceMenuOpen, value, nameof(IsAppearanceMenuOpen));
+            set
+            {
+                if (SetProperty(ref _isAppearanceMenuOpen, value, nameof(IsAppearanceMenuOpen)))
+                {
+                    if (!value)
+                        _appearanceMenuClosedAt = DateTime.UtcNow;
+                }
+            }
         }
 
         public bool IsDarkTheme
@@ -344,7 +352,7 @@ using System.Windows.Input;
         public AsyncRelayCommand ScanCommand { get; private set; }
         public AsyncRelayCommand CheckUpdateCommand { get; private set; }
         public ICommand ShowAboutCommand { get; private set; }
-        public ICommand ToggleThemeCommand { get; private set; }
+        public ICommand ToggleAppearanceMenuCommand { get; private set; }
         public ICommand SetThemeCommand { get; private set; }
         public ICommand SetDensityCommand { get; private set; }
 
@@ -389,7 +397,7 @@ using System.Windows.Input;
             ScanCommand = new AsyncRelayCommand(async () => await ScanProfilesAsync());
             CheckUpdateCommand = new AsyncRelayCommand(CheckForUpdatesAsync);
             ShowAboutCommand = new RelayCommand(_ => ShowAbout());
-            ToggleThemeCommand = new RelayCommand(_ => ToggleAppearanceMenu());
+            ToggleAppearanceMenuCommand = new RelayCommand(_ => ToggleAppearanceMenu());
             SetThemeCommand = new RelayCommand(param => ApplyTheme(param as string));
             SetDensityCommand = new RelayCommand(param => ApplyDensity(param as string));
         }
@@ -514,6 +522,8 @@ using System.Windows.Input;
 
         private async void RefreshAll()
         {
+            if (IsScanning)
+                return;
             DrsSessionScope.DestroyGlobalSession();
             FilterText = "";
             await ScanProfilesAsync(true);
@@ -984,7 +994,14 @@ using System.Windows.Input;
 
          private void ToggleAppearanceMenu()
          {
-             IsAppearanceMenuOpen = !IsAppearanceMenuOpen;
+             if (IsAppearanceMenuOpen)
+             {
+                 IsAppearanceMenuOpen = false;
+             }
+             else if ((DateTime.UtcNow - _appearanceMenuClosedAt).TotalMilliseconds > 300)
+             {
+                 IsAppearanceMenuOpen = true;
+             }
          }
 
          private void ApplyTheme(string theme)
@@ -1023,7 +1040,7 @@ using System.Windows.Input;
 
         private async Task ScanProfilesAsync(bool onlyModified = false)
         {
-            if (_isScanning)
+            if (IsScanning)
                 return;
 
             _uiContext = SynchronizationContext.Current;
