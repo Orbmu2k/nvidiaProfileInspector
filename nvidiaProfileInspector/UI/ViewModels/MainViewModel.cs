@@ -362,14 +362,16 @@ using System.Windows.Input;
         public ICommand NavigateToGlobalCommand { get; private set; }
         public ICommand RefreshCurrentProfileCommand { get; private set; }
         public ICommand ClearFilterCommand { get; private set; }
+        public ICommand FocusFilterCommand { get; private set; }
         public ICommand ToggleFavoriteCommand { get; private set; }
         public AsyncRelayCommand ScanCommand { get; private set; }
         public AsyncRelayCommand CheckUpdateCommand { get; private set; }
         public ICommand ShowAboutCommand { get; private set; }
-public ICommand ToggleAppearanceMenuCommand { get; private set; }
+        public ICommand ToggleAppearanceMenuCommand { get; private set; }
         public ICommand SetThemeCommand { get; private set; }
         public ICommand SetDensityCommand { get; private set; }
 
+        public event Action OnFocusFilter;
         public event Action<uint, uint, string> OnOpenBitEditor;
         public event Action<string> OnShowMessage;
         public event Action<string> OnShowError;
@@ -407,11 +409,12 @@ public ICommand ToggleAppearanceMenuCommand { get; private set; }
             ToggleDevModeCommand = new RelayCommand(ToggleDevMode);
             NavigateToGlobalCommand = new RelayCommand(_ => NavigateToGlobalProfile());
             ClearFilterCommand = new RelayCommand(_ => FilterText = "");
+            FocusFilterCommand = new RelayCommand(_ => OnFocusFilter?.Invoke());
             ToggleFavoriteCommand = new RelayCommand(ToggleFavorite);
             ScanCommand = new AsyncRelayCommand(async () => await ScanProfilesAsync());
             CheckUpdateCommand = new AsyncRelayCommand(CheckForUpdatesAsync);
             ShowAboutCommand = new RelayCommand(_ => ShowAbout());
-ToggleAppearanceMenuCommand = new RelayCommand(_ => ToggleAppearanceMenu());
+            ToggleAppearanceMenuCommand = new RelayCommand(_ => ToggleAppearanceMenu());
             SetThemeCommand = new RelayCommand(param => ApplyTheme(param as string));
             SetDensityCommand = new RelayCommand(param => ApplyDensity(param as string));
         }

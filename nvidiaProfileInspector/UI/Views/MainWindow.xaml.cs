@@ -18,6 +18,7 @@ namespace nvidiaProfileInspector.UI.Views
             InitializeComponent();
             _viewModel = App.Bootstrapper.Resolve<MainViewModel>();
             _viewModel.OnOpenBitEditor += OnOpenBitEditor;
+            _viewModel.OnFocusFilter += () => FilterTextBox.Focus();
             DataContext = _viewModel;
         }
 
