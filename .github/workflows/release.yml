@@ -9,38 +9,34 @@ on:
       - release
 
 jobs:
-  get-version:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
     outputs:
-      version: ${{ steps.version.outputs.version }}
+      version: ${{ steps.get-version.outputs.version }}
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
-    - name: Get next version
-      id: version
-      run: |
-        LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v3.0.0.0")
-        LATEST_TAG="${LATEST_TAG#v}"
-        # Split by dots and ensure all parts exist
-        MAJOR=$(echo "$LATEST_TAG" | cut -d'.' -f1)
-        MINOR=$(echo "$LATEST_TAG" | cut -d'.' -f2)
-        PATCH=$(echo "$LATEST_TAG" | cut -d'.' -f3)
-        BUILD=$(echo "$LATEST_TAG" | cut -d'.' -f4)
-        # Default to 0 if empty
-        PATCH=$(( ${PATCH:-0} + 1 ))
-        BUILD=${BUILD:-0}
-        NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}.${BUILD}"
-        echo "version=v${NEW_VERSION}" >> $GITHUB_OUTPUT
-
-  build:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v4
-
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2
+
+    - name: Get next version
+      id: get-version
+      run: |
+        $LATEST_TAG = git describe --tags --abbrev=0 2>$null
+        if ([string]::IsNullOrEmpty($LATEST_TAG)) {
+            $LATEST_TAG = "v3.0.0.0"
+        }
+        $LATEST_TAG = $LATEST_TAG.TrimStart('v')
+        $PARTS = $LATEST_TAG.Split('.')
+        $MAJOR = $PARTS[0]
+        $MINOR = $PARTS[1]
+        $PATCH = [int]$PARTS[2] + 1
+        $BUILD = if ($PARTS.Count -ge 4) { $PARTS[3] } else { "0" }
+        $NEW_VERSION = "${MAJOR}.${MINOR}.${PATCH}.${BUILD}"
+        echo "version=v${NEW_VERSION}" >> $env:GITHUB_OUTPUT
+      shell: pwsh
 
     - name: Restore NuGet packages
       run: nuget restore nvidiaProfileInspector\nvidiaProfileInspector.sln
@@ -48,15 +44,18 @@ jobs:
     - name: Update AssemblyInfo (release only)
       if: github.event_name == 'push'
       run: |
-        $VERSION = "${{ needs.get-version.outputs.version }}"
+        $VERSION = "${{ steps.get-version.outputs.version }}"
         $VERSION = $VERSION.TrimStart('v')
         $PARTS = $VERSION.Split('.')
-        $ASSEMBLY_VERSION = "$($PARTS[0]).$($PARTS[1]).$($PARTS[2]).$($PARTS[3] ?? '0')"
+        $ASSEMBLY_VERSION = "$($PARTS[0]).$($PARTS[1]).$($PARTS[2]).$($PARTS[3])"
         $FILE = "nvidiaProfileInspector\Properties\AssemblyInfo.cs"
         $CONTENT = Get-Content $FILE -Raw
         $CONTENT = $CONTENT -replace 'AssemblyVersion\(".*"\)', "AssemblyVersion(`"$ASSEMBLY_VERSION`")"
         $CONTENT = $CONTENT -replace 'AssemblyFileVersion\(".*"\)', "AssemblyFileVersion(`"$VERSION`")"
         Set-Content $FILE $CONTENT
+        Write-Host "Updated AssemblyInfo to version: $VERSION"
+        Write-Host "AssemblyVersion: $ASSEMBLY_VERSION"
+      shell: pwsh
 
     - name: Build
       run: msbuild /m /p:Configuration=Release nvidiaProfileInspector\nvidiaProfileInspector.sln
@@ -67,6 +66,7 @@ jobs:
         $artifactDir = "publish\net48"
         New-Item -ItemType Directory -Force -Path $artifactDir
         Copy-Item "nvidiaProfileInspector\bin\Release\net48\*" -Destination $artifactDir -Recurse
+      shell: pwsh
 
     - name: Upload Artifact (release only)
       if: github.event_name == 'push'
@@ -76,7 +76,7 @@ jobs:
         path: publish\net48\*
 
   release:
-    needs: [build, get-version]
+    needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     permissions:
@@ -95,8 +95,8 @@ jobs:
     - name: Create Pre-Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ needs.get-version.outputs.version }}
-        name: Release ${{ needs.get-version.outputs.version }}
+        tag_name: ${{ needs.build.outputs.version }}
+        name: Release ${{ needs.build.outputs.version }}
         prerelease: true
         generate_release_notes: true
         files: nvidiaProfileInspector-net48.zip
