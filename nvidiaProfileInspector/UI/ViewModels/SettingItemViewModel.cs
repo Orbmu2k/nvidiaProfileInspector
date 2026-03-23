@@ -51,6 +51,23 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 DisplayName = SettingText;
         }
 
+        private void InvalidateValueNameItems()
+        {
+            _cachedValueNameItems = null;
+            OnPropertyChanged(nameof(ValueNameItems));
+        }
+
+        public void UpdateValueSources(
+            List<SettingValue<uint>> dwordValues,
+            List<SettingValue<string>> stringValues,
+            List<SettingValue<byte[]>> binaryValues)
+        {
+            DwordValues = dwordValues;
+            StringValues = stringValues;
+            BinaryValues = binaryValues;
+            InvalidateValueNameItems();
+        }
+
         public List<SettingValueItem> ValueNameItems
         {
             get

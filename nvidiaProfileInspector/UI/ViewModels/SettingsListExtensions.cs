@@ -17,11 +17,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             target.OriginalItem = source.OriginalItem;
 
-            // Update SelectedValue to match the new ValueText
+            target.UpdateValueSources(source.DwordValues, source.StringValues, source.BinaryValues);
+            // Restore the current display value after refreshing the value source list.
             target.SelectedValue = source.SelectedValue;
-            target.StringValues = source.StringValues;
-            target.DwordValues = source.DwordValues;
-            target.BinaryValues = source.BinaryValues;
             target.IsModified = source.IsModified;
 
             // Fire PropertyChanged for all derived properties using Reflection
