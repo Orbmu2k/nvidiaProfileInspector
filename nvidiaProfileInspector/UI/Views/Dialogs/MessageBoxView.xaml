@@ -40,7 +40,7 @@
                     VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="SemiBold"
-                    Foreground="{StaticResource TextPrimaryBrush}"
+                    Foreground="{DynamicResource TextPrimaryBrush}"
                     Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
 
                 <StackPanel
@@ -91,7 +91,7 @@
                 <TextBlock
                     VerticalAlignment="Top"
                     FontSize="14"
-                    Foreground="{StaticResource TextSecondaryBrush}"
+                    Foreground="{DynamicResource TextSecondaryBrush}"
                     LineHeight="20"
                     Text="{Binding Message}"
                     TextWrapping="Wrap" />
@@ -102,7 +102,7 @@
         <Border
             Grid.Row="2"
             Padding="24"
-            Background="{StaticResource Layer2BackgroundBrush}"
+            Background="{DynamicResource Layer2BackgroundBrush}"
             CornerRadius="0,0,8,8">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <!--  OK Button  -->

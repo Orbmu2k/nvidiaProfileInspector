@@ -48,7 +48,7 @@
                         Height="10"
                         Data="M10,2 L2,10 L10,18"
                         Stretch="Uniform"
-                        Stroke="{StaticResource TextPrimaryBrush}"
+                        Stroke="{DynamicResource TextPrimaryBrush}"
                         StrokeThickness="2" />
                 </Button>
 
@@ -57,7 +57,7 @@
                     VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="SemiBold"
-                    Foreground="{StaticResource TextPrimaryBrush}"
+                    Foreground="{DynamicResource TextPrimaryBrush}"
                     Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
 
                 <StackPanel
@@ -86,7 +86,7 @@
             <TextBlock
                 x:Name="SubtitleTextBlock"
                 FontSize="13"
-                Foreground="{StaticResource TextSecondaryBrush}"
+                Foreground="{DynamicResource TextSecondaryBrush}"
                 TextWrapping="Wrap"
                 Visibility="Collapsed" />
         </Border>
@@ -175,7 +175,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Content="Include predefined settings"
-                        Foreground="{StaticResource TextSecondaryBrush}" />
+                        Foreground="{DynamicResource TextSecondaryBrush}" />
                 </Grid>
             </Grid>
         </Grid>
@@ -185,7 +185,7 @@
             x:Name="SelectionFooter"
             Grid.Row="3"
             Padding="24"
-            Background="{StaticResource Layer2BackgroundBrush}"
+            Background="{DynamicResource Layer2BackgroundBrush}"
             CornerRadius="0,0,8,8"
             Visibility="Collapsed">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">

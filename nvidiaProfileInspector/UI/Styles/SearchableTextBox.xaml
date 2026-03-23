@@ -9,14 +9,14 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="controls:SearchableTextBox">
-        <Setter Property="Background" Value="#282828" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="12,4" />
         <Setter Property="MinHeight" Value="32" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="CaretBrush" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:SearchableTextBox">
@@ -44,7 +44,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Data="{StaticResource IconSearch}"
-                                    Fill="{StaticResource TextDisabledBrush}"
+                                    Fill="{DynamicResource TextDisabledBrush}"
                                     Stretch="Uniform" />
 
                                 <!--  Placeholder  -->
@@ -52,7 +52,7 @@
                                     x:Name="PlaceholderText"
                                     Margin="36,0"
                                     VerticalAlignment="Center"
-                                    Foreground="{StaticResource TextDisabledBrush}"
+                                    Foreground="{DynamicResource TextDisabledBrush}"
                                     IsHitTestVisible="False"
                                     Text="{TemplateBinding Placeholder}"
                                     Visibility="Collapsed" />
@@ -82,14 +82,14 @@
                                             Width="8"
                                             Height="8"
                                             Data="M0,0 L8,8 M8,0 L0,8"
-                                            Stroke="{StaticResource TextSecondaryBrush}"
+                                            Stroke="{DynamicResource TextSecondaryBrush}"
                                             StrokeEndLineCap="Round"
                                             StrokeStartLineCap="Round"
                                             StrokeThickness="1.5" />
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="btnBorder" Property="Background" Value="#1AFFFFFF" />
+                                            <Setter TargetName="btnBorder" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -104,7 +104,7 @@
                             <Setter TargetName="border" Property="Opacity" Value="0.5" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource NvidiaGreenBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
                             <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
                         </Trigger>
                     </ControlTemplate.Triggers>

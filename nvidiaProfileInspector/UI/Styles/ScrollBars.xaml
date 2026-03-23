@@ -16,16 +16,16 @@
                         Width="6"
                         Margin="2"
                         HorizontalAlignment="Right"
-                        Background="#40FFFFFF"
+                        Background="{DynamicResource ScrollBarThumbBrush}"
                         CornerRadius="3"
                         SnapsToDevicePixels="True" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="rectangle" Property="Background" Value="#60FFFFFF" />
+                            <Setter TargetName="rectangle" Property="Background" Value="{DynamicResource ScrollBarThumbHoverBrush}" />
                             <Setter TargetName="rectangle" Property="Width" Value="8" />
                         </Trigger>
                         <Trigger Property="IsDragging" Value="true">
-                            <Setter TargetName="rectangle" Property="Background" Value="#80FFFFFF" />
+                            <Setter TargetName="rectangle" Property="Background" Value="{DynamicResource ScrollBarThumbPressedBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -92,16 +92,16 @@
                                                         Height="6"
                                                         Margin="2"
                                                         VerticalAlignment="Bottom"
-                                                        Background="#40FFFFFF"
+                                                        Background="{DynamicResource ScrollBarThumbBrush}"
                                                         CornerRadius="3"
                                                         SnapsToDevicePixels="True" />
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="true">
-                                                            <Setter TargetName="rectangle" Property="Background" Value="#60FFFFFF" />
+                                                            <Setter TargetName="rectangle" Property="Background" Value="{DynamicResource ScrollBarThumbHoverBrush}" />
                                                             <Setter TargetName="rectangle" Property="Height" Value="8" />
                                                         </Trigger>
                                                         <Trigger Property="IsDragging" Value="true">
-                                                            <Setter TargetName="rectangle" Property="Background" Value="#80FFFFFF" />
+                                                            <Setter TargetName="rectangle" Property="Background" Value="{DynamicResource ScrollBarThumbPressedBrush}" />
                                                         </Trigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>

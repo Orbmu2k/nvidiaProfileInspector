@@ -7,9 +7,9 @@
 
     <!--  Button Style  -->
     <Style x:Key="DarkButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource Layer2BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="{StaticResource ControlBorderThickness}" />
         <Setter Property="Padding" Value="16,8" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -30,11 +30,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#323232" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ControlBorderHoverBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                             <Setter Property="Opacity" Value="0.8" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
@@ -51,7 +51,7 @@
         x:Key="AccentButtonStyle"
         BasedOn="{StaticResource DarkButtonStyle}"
         TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource NvidiaGreenBrush}" />
+        <Setter Property="Background" Value="{DynamicResource NvidiaGreenBrush}" />
         <Setter Property="Foreground" Value="#000000" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontWeight" Value="SemiBold" />
@@ -68,10 +68,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource NvidiaGreenHoverBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource NvidiaGreenHoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource NvidiaGreenPressedBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource NvidiaGreenPressedBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.5" />
@@ -102,10 +102,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#2A2A2A" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -115,8 +115,8 @@
 
     <!--  Header Icon Button Style (Flat version of ComboBox appearance)  -->
     <Style x:Key="HeaderIconButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="#282828" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Width" Value="32" />
         <Setter Property="Height" Value="32" />
@@ -136,11 +136,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#323232" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ControlBorderHoverBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -151,7 +151,7 @@
     <!--  ToolBar Button Style  -->
     <Style x:Key="ToolBarButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="8,4" />
         <Setter Property="Margin" Value="0,0,8,0" />
@@ -169,11 +169,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#323232" />
-                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.4" />
@@ -187,7 +187,7 @@
     <!--  ActionBar Button Style (Modern/Fluent)  -->
     <Style x:Key="ActionBarButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="Padding" Value="10,6" />
         <Setter Property="Margin" Value="0,0,4,0" />
         <Setter Property="Height" Value="36" />
@@ -211,12 +211,12 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#323232" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="#444444" />
-                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                             <Setter Property="Opacity" Value="0.8" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
@@ -231,7 +231,7 @@
     <!--  Title Bar Button Style  -->
     <Style x:Key="WindowButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="Width" Value="46" />
         <Setter Property="Height" Value="32" />
         <Setter Property="Padding" Value="0" />
@@ -248,11 +248,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1FFFFFFF" />
-                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#11FFFFFF" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HighlightOverlayBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.2" />

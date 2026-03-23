@@ -27,8 +27,8 @@
                         <Border
                             MaxWidth="500"
                             Padding="16,12"
-                            Background="{StaticResource Layer3BackgroundBrush}"
-                            BorderBrush="{StaticResource ControlBorderBrush}"
+                            Background="{DynamicResource Layer3BackgroundBrush}"
+                            BorderBrush="{DynamicResource ControlBorderBrush}"
                             BorderThickness="1"
                             CornerRadius="12"
                             Effect="{StaticResource DropShadowEffect}">
@@ -45,7 +45,7 @@
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontSize="13"
-                                    Foreground="{StaticResource TextPrimaryBrush}"
+                                    Foreground="{DynamicResource TextPrimaryBrush}"
                                     Text="{TemplateBinding Message}"
                                     TextWrapping="Wrap" />
                             </StackPanel>
@@ -106,19 +106,19 @@
 
                         <Trigger Property="Type" Value="Information">
                             <Setter TargetName="TypeIcon" Property="Data" Value="{StaticResource IconInfo}" />
-                            <Setter TargetName="TypeIcon" Property="Fill" Value="{StaticResource AccentBrush}" />
+                            <Setter TargetName="TypeIcon" Property="Fill" Value="{DynamicResource AccentBrush}" />
                         </Trigger>
                         <Trigger Property="Type" Value="Success">
                             <Setter TargetName="TypeIcon" Property="Data" Value="{StaticResource IconApply}" />
-                            <Setter TargetName="TypeIcon" Property="Fill" Value="{StaticResource NvidiaGreenBrush}" />
+                            <Setter TargetName="TypeIcon" Property="Fill" Value="{DynamicResource NvidiaGreenBrush}" />
                         </Trigger>
                         <Trigger Property="Type" Value="Error">
                             <Setter TargetName="TypeIcon" Property="Data" Value="{StaticResource IconClose}" />
-                            <Setter TargetName="TypeIcon" Property="Fill" Value="{StaticResource ErrorBrush}" />
+                            <Setter TargetName="TypeIcon" Property="Fill" Value="{DynamicResource ErrorBrush}" />
                         </Trigger>
                         <Trigger Property="Type" Value="Warning">
                             <Setter TargetName="TypeIcon" Property="Data" Value="{StaticResource IconInfo}" />
-                            <Setter TargetName="TypeIcon" Property="Fill" Value="{StaticResource WarningBrush}" />
+                            <Setter TargetName="TypeIcon" Property="Fill" Value="{DynamicResource WarningBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

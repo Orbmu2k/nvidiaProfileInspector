@@ -35,7 +35,7 @@
                     VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="SemiBold"
-                    Foreground="{StaticResource TextPrimaryBrush}"
+                    Foreground="{DynamicResource TextPrimaryBrush}"
                     Text="{Binding Title}" />
 
                 <StackPanel
@@ -72,7 +72,7 @@
                 Grid.Row="0"
                 Margin="0,0,0,16"
                 FontSize="14"
-                Foreground="{StaticResource TextSecondaryBrush}"
+                Foreground="{DynamicResource TextSecondaryBrush}"
                 Text="{Binding Prompt}"
                 TextWrapping="Wrap" />
 
@@ -91,7 +91,7 @@
                 Margin="0,4,0,12"
                 HorizontalAlignment="Left"
                 FontSize="12"
-                Foreground="{StaticResource ErrorBrush}"
+                Foreground="{DynamicResource ErrorBrush}"
                 Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=InputTextBox}"
                 TextTrimming="CharacterEllipsis" />
 
@@ -124,7 +124,7 @@
         <Border
             Grid.Row="2"
             Padding="24"
-            Background="{StaticResource Layer2BackgroundBrush}"
+            Background="{DynamicResource Layer2BackgroundBrush}"
             CornerRadius="0,0,8,8">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button

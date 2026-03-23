@@ -321,6 +321,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public AsyncRelayCommand ScanCommand { get; private set; }
         public AsyncRelayCommand CheckUpdateCommand { get; private set; }
         public ICommand ShowAboutCommand { get; private set; }
+        public ICommand ToggleThemeCommand { get; private set; }
 
         public event Action<uint, uint, string> OnOpenBitEditor;
         public event Action<string> OnShowMessage;
@@ -363,6 +364,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             ScanCommand = new AsyncRelayCommand(async () => await ScanProfilesAsync());
             CheckUpdateCommand = new AsyncRelayCommand(CheckForUpdatesAsync);
             ShowAboutCommand = new RelayCommand(_ => ShowAbout());
+            ToggleThemeCommand = new RelayCommand(_ => ToggleTheme());
         }
 
         public async Task InitializeAsync()
@@ -944,6 +946,24 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             _groupedSettingsView.IsLiveGrouping = true;
             _groupedSettingsView.IsLiveFiltering = true;
+        }
+
+        private void ToggleTheme()
+        {
+            var app = Application.Current;
+            var mergedDicts = app.Resources.MergedDictionaries;
+            
+            var existingTheme = mergedDicts.FirstOrDefault(d => 
+                d.Source != null && (d.Source.OriginalString.Contains("DarkTheme.xaml") || d.Source.OriginalString.Contains("LightTheme.xaml")));
+
+            if (existingTheme != null)
+            {
+                bool isDark = existingTheme.Source.OriginalString.Contains("DarkTheme.xaml");
+                var newSource = isDark ? "/UI/Themes/LightTheme.xaml" : "/UI/Themes/DarkTheme.xaml";
+                
+                mergedDicts.Remove(existingTheme);
+                mergedDicts.Add(new ResourceDictionary { Source = new Uri(newSource, UriKind.Relative) });
+            }
         }
 
         private void ShowAbout()

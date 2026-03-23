@@ -34,7 +34,7 @@
                     VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="SemiBold"
-                    Foreground="{StaticResource TextPrimaryBrush}"
+                    Foreground="{DynamicResource TextPrimaryBrush}"
                     Text="Bit Value Editor" />
 
                 <StackPanel
@@ -75,7 +75,7 @@
                 <TextBlock
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
-                    Foreground="{StaticResource TextSecondaryBrush}"
+                    Foreground="{DynamicResource TextSecondaryBrush}"
                     Text="Current Value: " />
                 <TextBox
                     x:Name="CurrentValueTextBox"
@@ -108,7 +108,7 @@
                 <TextBlock
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
-                    Foreground="{StaticResource TextSecondaryBrush}"
+                    Foreground="{DynamicResource TextSecondaryBrush}"
                     Text="Filter: " />
                 <TextBox
                     x:Name="FilterTextBox"
@@ -166,7 +166,7 @@
                 <TextBlock
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
-                    Foreground="{StaticResource TextSecondaryBrush}"
+                    Foreground="{DynamicResource TextSecondaryBrush}"
                     Text="Game Path: " />
                 <TextBox
                     x:Name="GamePathTextBox"
@@ -199,7 +199,7 @@
                 Grid.Row="4"
                 Margin="0,8,0,0"
                 FontSize="12"
-                Foreground="{StaticResource TextSecondaryBrush}" />
+                Foreground="{DynamicResource TextSecondaryBrush}" />
         </Grid>
     </Grid>
 </Window>

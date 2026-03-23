@@ -12,13 +12,13 @@
 
     <!--  TextBox Style  -->
     <Style x:Key="DarkTextBoxStyle" TargetType="TextBox">
-        <Setter Property="Background" Value="{StaticResource Layer1BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer1BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="14,4" />
-        <Setter Property="CaretBrush" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="SelectionBrush" Value="{StaticResource NvidiaGreenBrush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource NvidiaGreenBrush}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
@@ -39,14 +39,14 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ControlBorderHoverBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource NvidiaGreenBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
                             <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
                         </Trigger>
                         <Trigger Property="Validation.HasError" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ErrorBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
                             <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -58,13 +58,13 @@
 
     <!--  PlaceholderClearTextBox Style  -->
     <Style TargetType="controls:PlaceholderClearTextBox">
-        <Setter Property="Background" Value="{StaticResource Layer1BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer1BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="14,4,32,4" />
-        <Setter Property="CaretBrush" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="SelectionBrush" Value="{StaticResource NvidiaGreenBrush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource NvidiaGreenBrush}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
@@ -92,7 +92,7 @@
                             Margin="14,0"
                             VerticalAlignment="Center"
                             FontSize="{TemplateBinding FontSize}"
-                            Foreground="{StaticResource TextDisabledBrush}"
+                            Foreground="{DynamicResource TextDisabledBrush}"
                             IsHitTestVisible="False"
                             Text="{TemplateBinding Placeholder}"
                             Visibility="Collapsed" />
@@ -116,7 +116,7 @@
                                 Data="M0,0 L8,8 M8,0 L0,8"
                                 IsHitTestVisible="False"
                                 Stretch="Uniform"
-                                Stroke="{StaticResource TextSecondaryBrush}"
+                                Stroke="{DynamicResource TextSecondaryBrush}"
                                 StrokeEndLineCap="Round"
                                 StrokeStartLineCap="Round"
                                 StrokeThickness="1.5" />
@@ -131,14 +131,14 @@
                             <Setter TargetName="ClearButton" Property="Visibility" Value="Visible" />
                         </DataTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ControlBorderHoverBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource NvidiaGreenBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
                             <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
                         </Trigger>
                         <Trigger Property="Validation.HasError" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ErrorBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
                             <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
                         </Trigger>
                     </ControlTemplate.Triggers>

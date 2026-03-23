@@ -7,7 +7,7 @@
 
     <Style x:Key="DarkCheckBoxStyle" TargetType="CheckBox">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Padding" Value="8,0,0,0" />
         <Setter Property="Cursor" Value="Hand" />
@@ -22,7 +22,7 @@
                                 Width="18"
                                 Height="18"
                                 Background="Transparent"
-                                BorderBrush="{StaticResource ControlBorderBrush}"
+                                BorderBrush="{DynamicResource ControlBorderBrush}"
                                 BorderThickness="1"
                                 CornerRadius="4">
                                 <Path
@@ -43,12 +43,12 @@
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ControlBorderHoverBrush}" />
-                            <Setter TargetName="border" Property="Background" Value="#10FFFFFF" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HighlightOverlayBrush}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource NvidiaGreenBrush}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource NvidiaGreenBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource NvidiaGreenBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
@@ -63,8 +63,8 @@
     <Style BasedOn="{StaticResource DarkCheckBoxStyle}" TargetType="CheckBox" />
 
     <Style x:Key="DarkProgressBarStyle" TargetType="ProgressBar">
-        <Setter Property="Background" Value="{StaticResource Layer1BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource NvidiaGreenBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer1BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource NvidiaGreenBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Height" Value="4" />
         <Setter Property="Template">
@@ -92,7 +92,7 @@
     </Style>
 
     <Style TargetType="Separator">
-        <Setter Property="Background" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="Margin" Value="4,4" />
         <Setter Property="Height" Value="1" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -109,7 +109,7 @@
         x:Key="ToolBarSeparatorStyle"
         BasedOn="{StaticResource {x:Type Separator}}"
         TargetType="Separator">
-        <Setter Property="Background" Value="#444444" />
+        <Setter Property="Background" Value="{DynamicResource ControlBorderHoverBrush}" />
         <Setter Property="Width" Value="1" />
         <Setter Property="Height" Value="16" />
         <Setter Property="Margin" Value="8,0,12,0" />
@@ -118,9 +118,9 @@
 
     <!--  Badge Styles  -->
     <Style x:Key="BadgeButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="#2A2A20" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource NvidiaGreenBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ModifiedSettingBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="12,6" />
         <Setter Property="Margin" Value="4,2" />
@@ -141,15 +141,15 @@
                             <TextBlock
                                 Margin="8,0,0,0"
                                 FontWeight="Bold"
-                                Foreground="{StaticResource TextSecondaryBrush}"
+                                Foreground="{DynamicResource TextSecondaryBrush}"
                                 Text="×"
                                 Visibility="{Binding DataContext.RemoveApplicationCommand, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibilityConverter}}" />
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource ErrorBrush}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource ErrorBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ErrorBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
                             <Setter Property="Foreground" Value="White" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -160,8 +160,8 @@
 
     <Style x:Key="BadgeAddButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource NvidiaGreenBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource NvidiaGreenBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource NvidiaGreenBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="12,6" />
         <Setter Property="Margin" Value="4,2" />
@@ -188,7 +188,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource NvidiaGreenBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource NvidiaGreenBrush}" />
                             <Setter Property="Foreground" Value="#000000" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -199,9 +199,9 @@
 
     <!--  Context Menu  -->
     <Style TargetType="ContextMenu">
-        <Setter Property="Background" Value="{StaticResource Layer3BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="Template">
@@ -221,7 +221,7 @@
 
     <Style TargetType="MenuItem">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Padding" Value="12,8" />
         <Setter Property="Template">
             <Setter.Value>
@@ -253,13 +253,13 @@
                                 Grid.Column="2"
                                 Margin="20,0,0,0"
                                 VerticalAlignment="Center"
-                                Foreground="{StaticResource TextSecondaryBrush}"
+                                Foreground="{DynamicResource TextSecondaryBrush}"
                                 Text="{TemplateBinding InputGestureText}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsHighlighted" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#3D3D3D" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ControlBorderBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.4" />
@@ -272,26 +272,26 @@
 
     <!--  DataGrid Style  -->
     <Style x:Key="DarkDataGridStyle" TargetType="DataGrid">
-        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="RowBackground" Value="Transparent" />
-        <Setter Property="AlternatingRowBackground" Value="#252525" />
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource ListViewAlternatingRowBrush}" />
         <Setter Property="GridLinesVisibility" Value="None" />
-        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource ControlBorderBrush}" />
-        <Setter Property="VerticalGridLinesBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource ControlBorderBrush}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="HeadersVisibility" Value="Column" />
     </Style>
 
     <Style x:Key="DarkDataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
-        <Setter Property="Background" Value="{StaticResource Layer1BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer1BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="Padding" Value="12,8" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridColumnHeader">
@@ -320,7 +320,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource NvidiaGreenBrush}" />
+                <Setter Property="Background" Value="{DynamicResource NvidiaGreenBrush}" />
                 <Setter Property="Foreground" Value="#000000" />
             </Trigger>
         </Style.Triggers>
@@ -328,9 +328,9 @@
 
     <!--  ListBox Style  -->
     <Style x:Key="DarkListBoxStyle" TargetType="ListBox">
-        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="Template">
@@ -354,7 +354,7 @@
 
     <Style x:Key="DarkListBoxItemStyle" TargetType="ListBoxItem">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Padding" Value="8,4" />
         <Setter Property="Template">
             <Setter.Value>
@@ -369,10 +369,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1AFFFFFF" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#25FFFFFF" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

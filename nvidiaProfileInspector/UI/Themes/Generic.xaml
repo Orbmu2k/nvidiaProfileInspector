@@ -9,8 +9,8 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="controls:TitleBar">
-        <Setter Property="Background" Value="{StaticResource Layer1BackgroundBrush}" />
-        <Setter Property="TitleForeground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer1BackgroundBrush}" />
+        <Setter Property="TitleForeground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Padding" Value="16,12" />
         <Setter Property="Template">
             <Setter.Value>
@@ -103,7 +103,7 @@
 
     <Style TargetType="controls:ActionBarButton">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="TextForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
         <Setter Property="Padding" Value="10,6" />
         <Setter Property="Margin" Value="0,0,4,0" />
@@ -145,27 +145,24 @@
                                 Text="{TemplateBinding Text}" />
                         </StackPanel>
                     </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#323232" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="#444444" />
-                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
-                            <Setter Property="Opacity" Value="0.8" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" Value="0.3" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+<ControlTemplate.Triggers>
+<Trigger Property="IsMouseOver" Value="True">
+<Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+<Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+</Trigger>
+<Trigger Property="IsPressed" Value="True">
+<Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
+<Setter Property="Opacity" Value="0.8" />
+</Trigger>
+</ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     <Style TargetType="controls:ActionBarToggleButton">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
         <Setter Property="IconFill" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
         <Setter Property="TextForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
         <Setter Property="Padding" Value="10,6" />
@@ -209,21 +206,21 @@
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#323232" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="#444444" />
-                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#2D2D2D" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={StaticResource LabBrush}}" />
-                            <Setter Property="Foreground" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={StaticResource LabBrush}}" />
-                            <Setter TargetName="IconPath" Property="Fill" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={StaticResource LabBrush}}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
-                            <Setter Property="Opacity" Value="0.8" />
-                        </Trigger>
+<Trigger Property="IsMouseOver" Value="True">
+<Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+<Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+</Trigger>
+<Trigger Property="IsChecked" Value="True">
+<Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+<Setter TargetName="border" Property="BorderBrush" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
+<Setter Property="Foreground" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
+<Setter TargetName="IconPath" Property="Fill" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
+</Trigger>
+<Trigger Property="IsPressed" Value="True">
+<Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
+<Setter Property="Opacity" Value="0.8" />
+</Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.3" />
                         </Trigger>
@@ -235,9 +232,9 @@
 
 
     <Style TargetType="controls:ChoiceCard">
-        <Setter Property="Background" Value="{StaticResource Layer2BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="20,16" />
         <Setter Property="Margin" Value="0,0,0,12" />
@@ -267,7 +264,7 @@
                                 Width="40"
                                 Height="40"
                                 Margin="0,0,16,0"
-                                Background="{StaticResource Layer3BackgroundBrush}"
+                                Background="{DynamicResource Layer3BackgroundBrush}"
                                 CornerRadius="8">
                                 <Path
                                     x:Name="IconPath"
@@ -290,7 +287,7 @@
                                     Text="{TemplateBinding Title}" />
                                 <TextBlock
                                     FontSize="12"
-                                    Foreground="{StaticResource TextSecondaryBrush}"
+                                    Foreground="{DynamicResource TextSecondaryBrush}"
                                     Text="{TemplateBinding Description}"
                                     TextWrapping="Wrap" />
                             </StackPanel>
@@ -304,24 +301,21 @@
                                 VerticalAlignment="Center"
                                 Data="M1,1 L5,5 L1,9"
                                 Stretch="Uniform"
-                                Stroke="{StaticResource TextSecondaryBrush}"
+                                Stroke="{DynamicResource TextSecondaryBrush}"
                                 StrokeThickness="1.5" />
 
                         </Grid>
                     </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#323232" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="#666666" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A1A1A" />
-                            <Setter Property="Opacity" Value="0.9" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" Value="0.3" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+<ControlTemplate.Triggers>
+<Trigger Property="IsMouseOver" Value="True">
+<Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+</Trigger>
+<Trigger Property="IsPressed" Value="True">
+<Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
+<Setter Property="Opacity" Value="0.9" />
+</Trigger>
+</ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -7,9 +7,9 @@
 
     <!--  Application Chip Style  -->
     <Style x:Key="ApplicationChipStyle" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource Layer2BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="12,4" />
         <Setter Property="Margin" Value="0,2,8,2" />
@@ -34,7 +34,7 @@
                                 Height="12"
                                 Margin="4,0,8,0"
                                 Data="{StaticResource IconGame}"
-                                Fill="{StaticResource NvidiaGreenBrush}"
+                                Fill="{DynamicResource NvidiaGreenBrush}"
                                 Stretch="Uniform" />
                             <TextBlock
                                 x:Name="Text"
@@ -48,8 +48,8 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#3D2B2B" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ErrorBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ApplicationRemoveBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
                             <Setter TargetName="Text" Property="Foreground" Value="White" />
                             <Setter TargetName="Icon" Property="Data" Value="{StaticResource IconDelete}" />
                             <Setter TargetName="Icon" Property="Fill" Value="White" />
@@ -66,8 +66,8 @@
     <!--  Add Application Button Style  -->
     <Style x:Key="AddApplicationButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource NvidiaGreenBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource NvidiaGreenBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource NvidiaGreenBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="12,4" />
         <Setter Property="Margin" Value="0,2,12,2" />
@@ -98,11 +98,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#154CC331" />
-                            <Setter Property="Foreground" Value="{StaticResource NvidiaGreenHoverBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ApplicationAddBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource NvidiaGreenHoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#254CC331" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ApplicationAddHoverBrush}" />
                             <Setter Property="Opacity" Value="0.8" />
                         </Trigger>
                     </ControlTemplate.Triggers>

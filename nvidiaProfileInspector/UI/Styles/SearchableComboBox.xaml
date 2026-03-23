@@ -10,9 +10,9 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="controls:SearchableComboBox">
-        <Setter Property="Background" Value="#282828" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="12,4" />
         <Setter Property="MinHeight" Value="32" />
@@ -54,14 +54,14 @@
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Center"
                                             Data="M0,0 L4,4 L8,0 Z"
-                                            Fill="{StaticResource TextSecondaryBrush}" />
+                                            Fill="{DynamicResource TextSecondaryBrush}" />
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter TargetName="Border" Property="Background" Value="#323232" />
+                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
                                         </Trigger>
                                         <Trigger Property="IsChecked" Value="true">
-                                            <Setter TargetName="Border" Property="Background" Value="#1A1A1A" />
+                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -106,7 +106,7 @@
                                 <Border
                                     x:Name="DropDownBorder"
                                     Margin="0,2,0,0"
-                                    Background="#1C1C1C"
+                                    Background="{DynamicResource WindowBackgroundBrush}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
@@ -154,7 +154,7 @@
             <Setter.Value>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
                     <Setter Property="Padding" Value="12,8" />
                     <Setter Property="Margin" Value="2,1" />
                     <Setter Property="Template">
@@ -176,14 +176,14 @@
                                             Height="14"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Fill="{StaticResource NvidiaGreenBrush}"
+                                            Fill="{DynamicResource NvidiaGreenBrush}"
                                             Visibility="Collapsed" />
                                         <ContentPresenter Grid.Column="1" VerticalAlignment="Center" />
                                     </Grid>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="border" Property="Background" Value="#1AFFFFFF" />
+                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />
@@ -199,8 +199,8 @@
     </Style>
 
     <Style x:Key="IconSearchableComboBoxStyle" TargetType="controls:SearchableComboBox">
-        <Setter Property="Background" Value="#282828" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Width" Value="32" />
         <Setter Property="Height" Value="32" />
@@ -230,16 +230,16 @@
                                             Width="16"
                                             Height="16"
                                             Data="{DynamicResource IconUser}"
-                                            Fill="{StaticResource TextSecondaryBrush}"
+                                            Fill="{DynamicResource TextSecondaryBrush}"
                                             Stretch="Uniform" />
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter TargetName="Border" Property="Background" Value="#323232" />
-                                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ControlBorderHoverBrush}" />
+                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
                                         </Trigger>
                                         <Trigger Property="IsChecked" Value="true">
-                                            <Setter TargetName="Border" Property="Background" Value="#1A1A1A" />
+                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -262,8 +262,8 @@
                                 SnapsToDevicePixels="True">
                                 <Border
                                     x:Name="DropDownBorder"
-                                    Background="#1C1C1C"
-                                    BorderBrush="{StaticResource ControlBorderBrush}"
+                                    Background="{DynamicResource WindowBackgroundBrush}"
+                                    BorderBrush="{DynamicResource ControlBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
                                     <Grid FocusManager.IsFocusScope="True">
@@ -298,7 +298,7 @@
             <Setter.Value>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
                     <Setter Property="Padding" Value="12,8" />
                     <Setter Property="Margin" Value="2,1" />
                     <Setter Property="Template">
@@ -320,14 +320,14 @@
                                             Height="14"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Fill="{StaticResource NvidiaGreenBrush}"
+                                            Fill="{DynamicResource NvidiaGreenBrush}"
                                             Visibility="Collapsed" />
                                         <ContentPresenter Grid.Column="1" VerticalAlignment="Center" />
                                     </Grid>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="border" Property="Background" Value="#1AFFFFFF" />
+                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />

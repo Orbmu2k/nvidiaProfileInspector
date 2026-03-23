@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UI/Styles/Icons.xaml" />
+                <ResourceDictionary Source="/UI/Themes/DarkTheme.xaml" />
                 <ResourceDictionary Source="/UI/Styles/Theme.xaml" />
                 <ResourceDictionary Source="/UI/Styles/Snackbar.xaml" />
                 <ResourceDictionary Source="/UI/Themes/Generic.xaml" />

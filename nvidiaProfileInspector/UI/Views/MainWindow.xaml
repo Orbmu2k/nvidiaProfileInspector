@@ -62,40 +62,53 @@
             Title="NVIDIA Profile Inspector"
             Grid.Row="0"
             TitleFontSize="16"
-            TitleForeground="{StaticResource TextPrimaryBrush}">
+            TitleForeground="{DynamicResource TextPrimaryBrush}">
             <controls:TitleBar.RightContent>
-                <Button
-                    Command="{Binding ShowAboutCommand}"
-                    Style="{StaticResource HeaderIconButtonStyle}"
-                    ToolTip="About">
-                    <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Command="{Binding ToggleThemeCommand}"
+                        Style="{StaticResource HeaderIconButtonStyle}"
+                        ToolTip="Change Theme">
                         <Path
                             Width="18"
                             Height="18"
-                            Data="{DynamicResource IconInfo}"
-                            Fill="{StaticResource TextSecondaryBrush}"
+                            Data="{DynamicResource IconTheme}"
+                            Fill="{DynamicResource TextSecondaryBrush}"
                             Stretch="Uniform" />
-                        <!--  Update Badge  -->
-                        <Border
-                            Width="8"
-                            Height="8"
-                            Margin="0,-2,-2,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Background="{StaticResource NvidiaGreenBrush}"
-                            BorderBrush="{StaticResource WindowBackgroundBrush}"
-                            BorderThickness="1"
-                            CornerRadius="4"
-                            Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
-                    </Grid>
-                </Button>
+                    </Button>
+                    <Button
+                        Command="{Binding ShowAboutCommand}"
+                        Style="{StaticResource HeaderIconButtonStyle}"
+                        ToolTip="About">
+                        <Grid>
+                            <Path
+                                Width="18"
+                                Height="18"
+                                Data="{DynamicResource IconInfo}"
+                                Fill="{DynamicResource TextSecondaryBrush}"
+                                Stretch="Uniform" />
+                            <!--  Update Badge  -->
+                            <Border
+                                Width="8"
+                                Height="8"
+                                Margin="0,-2,-2,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Background="{DynamicResource NvidiaGreenBrush}"
+                                BorderBrush="{DynamicResource WindowBackgroundBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        </Grid>
+                    </Button>
+                </StackPanel>
             </controls:TitleBar.RightContent>
             <controls:TitleBar.IconContent>
                 <Path
                     Width="20"
                     Height="20"
                     Data="{StaticResource IconInspectorApp}"
-                    Fill="{StaticResource NvidiaGreenBrush}"
+                    Fill="{DynamicResource NvidiaGreenBrush}"
                     Stretch="Uniform" />
             </controls:TitleBar.IconContent>
 
@@ -112,7 +125,7 @@
                             Width="18"
                             Height="18"
                             Data="{DynamicResource IconGlobe}"
-                            Fill="{StaticResource AccentBrush}"
+                            Fill="{DynamicResource AccentBrush}"
                             Stretch="Uniform" />
                     </Button>
 
@@ -147,8 +160,8 @@
         <Border
             Grid.Row="1"
             Padding="16,8"
-            Background="{StaticResource Layer2BackgroundBrush}"
-            BorderBrush="{StaticResource ControlBorderBrush}"
+            Background="{DynamicResource Layer2BackgroundBrush}"
+            BorderBrush="{DynamicResource ControlBorderBrush}"
             BorderThickness="0,0,0,1">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -163,7 +176,7 @@
                     <!--  Profile Actions  -->
                     <controls:ActionBarButton
                         Command="{Binding RestoreProfileCommand}"
-                        IconFill="{StaticResource TextSecondaryBrush}"
+                        IconFill="{DynamicResource TextSecondaryBrush}"
                         IconPath="{DynamicResource IconNvidia}"
                         Text="Defaults"
                         ToolTip="Restore profile to NVIDIA default settings" />
@@ -171,28 +184,28 @@
                     <controls:ActionBarButton
                         Command="{Binding CreateProfileCommand}"
                         Cursor="Hand"
-                        IconFill="{StaticResource TextSecondaryBrush}"
+                        IconFill="{DynamicResource TextSecondaryBrush}"
                         IconPath="{DynamicResource IconAdd}"
                         Text="New"
                         ToolTip="Create a new profile" />
 
                     <controls:ActionBarButton
                         Command="{Binding DeleteProfileCommand}"
-                        IconFill="{StaticResource TextSecondaryBrush}"
+                        IconFill="{DynamicResource TextSecondaryBrush}"
                         IconPath="{DynamicResource IconDelete}"
                         Text="Delete"
                         ToolTip="Delete the current profile" />
 
                     <controls:ActionBarButton
                         Command="{Binding CopySettingsCommand}"
-                        IconFill="{StaticResource TextSecondaryBrush}"
+                        IconFill="{DynamicResource TextSecondaryBrush}"
                         IconPath="{DynamicResource IconCopy}"
                         Text="Copy"
                         ToolTip="Copy settings to clipboard" />
 
                     <controls:ActionBarButton
                         Command="{Binding OpenBitEditorCommand}"
-                        IconFill="{StaticResource TextSecondaryBrush}"
+                        IconFill="{DynamicResource TextSecondaryBrush}"
                         IconPath="{DynamicResource IconBitEditor}"
                         Text="Bit Editor"
                         ToolTip="Open the Bit Value Editor" />
@@ -205,7 +218,7 @@
                     <controls:ActionBarButton
                         x:Name="ExportButton"
                         Click="ExportButton_Click"
-                        IconFill="{StaticResource TextSecondaryBrush}"
+                        IconFill="{DynamicResource TextSecondaryBrush}"
                         IconPath="{DynamicResource IconExport}"
                         Text="Export"
                         ToolTip="Export profiles to file" />
@@ -213,7 +226,7 @@
                     <controls:ActionBarButton
                         x:Name="ImportButton"
                         Click="ImportButton_Click"
-                        IconFill="{StaticResource TextSecondaryBrush}"
+                        IconFill="{DynamicResource TextSecondaryBrush}"
                         IconPath="{DynamicResource IconImport}"
                         Text="Import"
                         ToolTip="Import profiles from file" />
@@ -238,7 +251,7 @@
 
                     <controls:ActionBarButton
                         Command="{Binding RefreshCommand}"
-                        IconFill="{StaticResource TextSecondaryBrush}"
+                        IconFill="{DynamicResource TextSecondaryBrush}"
                         IconPath="{DynamicResource IconRefresh}"
                         Text="Refresh"
                         ToolTip="Refresh all profiles" />
@@ -247,11 +260,11 @@
                         Command="{Binding ApplyCommand}"
                         Cursor="Hand"
                         FontWeight="Bold"
-                        IconFill="{StaticResource NvidiaGreenBrush}"
+                        IconFill="{DynamicResource NvidiaGreenBrush}"
                         IconPath="{DynamicResource IconApply}"
                         Text="Apply Changes"
                         TextFontSize="11"
-                        TextForeground="{StaticResource TextPrimaryBrush}"
+                        TextForeground="{DynamicResource TextPrimaryBrush}"
                         ToolTip="Apply all changes and save" />
                 </StackPanel>
             </Grid>
@@ -260,8 +273,8 @@
         <Border
             Grid.Row="2"
             Padding="16,8"
-            Background="{StaticResource Layer1BackgroundBrush}"
-            BorderBrush="{StaticResource ControlBorderBrush}"
+            Background="{DynamicResource Layer1BackgroundBrush}"
+            BorderBrush="{DynamicResource ControlBorderBrush}"
             BorderThickness="0,0,0,1"
             Visibility="{Binding ShowApplicationsArea, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid>
@@ -363,7 +376,7 @@
                         <GridView.ColumnHeaderContainerStyle>
                             <Style TargetType="GridViewColumnHeader">
                                 <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
                                 <Setter Property="Padding" Value="8,8" />
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                 <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -372,7 +385,7 @@
                                         <ControlTemplate TargetType="GridViewColumnHeader">
                                             <Border
                                                 Background="{TemplateBinding Background}"
-                                                BorderBrush="{StaticResource ControlBorderBrush}"
+                                                BorderBrush="{DynamicResource ControlBorderBrush}"
                                                 BorderThickness="0,0,0,1">
                                                 <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
                                             </Border>
@@ -470,7 +483,7 @@
                                                             Height="12"
                                                             Margin="0,0,8,0"
                                                             Data="{Binding Source, Converter={StaticResource SettingMetaSourceToIconConverter}, Mode=OneWay}"
-                                                            Fill="{StaticResource TextSecondaryBrush}"
+                                                            Fill="{DynamicResource TextSecondaryBrush}"
                                                             Stretch="Uniform" />
                                                         <TextBlock Text="{Binding ValueName, Mode=OneWay}" TextTrimming="CharacterEllipsis" />
                                                     </StackPanel>
@@ -493,7 +506,7 @@
                                                 Width="14"
                                                 Height="14"
                                                 Data="{DynamicResource IconRestore}"
-                                                Fill="{StaticResource NvidiaGreenBrush}"
+                                                Fill="{DynamicResource NvidiaGreenBrush}"
                                                 Stretch="Uniform" />
                                         </Button>
                                     </Grid>
@@ -544,7 +557,7 @@
             Grid.Row="4"
             Margin="16,0,16,16"
             Padding="12"
-            Background="{StaticResource Layer3BackgroundBrush}"
+            Background="{DynamicResource Layer3BackgroundBrush}"
             CornerRadius="8"
             Visibility="{Binding SettingDescription, Converter={StaticResource StringNotEmptyToVisibilityConverter}}">
             <StackPanel>
@@ -552,7 +565,7 @@
                     Margin="0,0,0,4"
                     FontSize="10"
                     FontWeight="Bold"
-                    Foreground="{StaticResource NvidiaGreenBrush}"
+                    Foreground="{DynamicResource NvidiaGreenBrush}"
                     Text="DESCRIPTION" />
                 <TextBox
                     MaxHeight="80"
@@ -572,7 +585,7 @@
         <Border
             Grid.Row="5"
             Padding="8,8"
-            Background="{StaticResource Layer1BackgroundBrush}">
+            Background="{DynamicResource Layer1BackgroundBrush}">
             <Grid>
                 <ProgressBar
                     VerticalAlignment="Center"

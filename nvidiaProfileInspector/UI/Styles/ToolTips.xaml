@@ -5,9 +5,9 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="DarkToolTipStyle" TargetType="ToolTip">
-        <Setter Property="Background" Value="{StaticResource Layer3BackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="10,6" />
         <Setter Property="FontSize" Value="12" />

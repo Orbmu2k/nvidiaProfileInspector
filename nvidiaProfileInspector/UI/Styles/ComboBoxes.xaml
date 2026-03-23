@@ -6,9 +6,9 @@
 
     <!--  Simple Dark ComboBox Style for basic ComboBoxes  -->
     <Style x:Key="DarkComboBoxStyle" TargetType="ComboBox">
-        <Setter Property="Background" Value="#282828" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="12,4" />
         <Setter Property="MinHeight" Value="32" />
@@ -40,7 +40,7 @@
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Center"
                                             Data="M0,0 L4,4 L8,0 Z"
-                                            Fill="{StaticResource TextSecondaryBrush}" />
+                                            Fill="{DynamicResource TextSecondaryBrush}" />
                                     </Border>
                                 </ControlTemplate>
                             </ToggleButton.Template>
@@ -68,7 +68,7 @@
                                 SnapsToDevicePixels="True">
                                 <Border
                                     x:Name="DropDownBorder"
-                                    Background="#1C1C1C"
+                                    Background="{DynamicResource WindowBackgroundBrush}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="4">
@@ -89,7 +89,7 @@
             <Setter.Value>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
                     <Setter Property="Padding" Value="12,8" />
                     <Setter Property="Template">
                         <Setter.Value>
@@ -103,7 +103,7 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="border" Property="Background" Value="#1AFFFFFF" />
+                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

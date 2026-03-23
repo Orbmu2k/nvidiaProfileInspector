@@ -17,8 +17,8 @@
 
     <!--  Window Style  -->
     <Style x:Key="DarkWindowStyle" TargetType="Window">
-        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="UseLayoutRounding" Value="True" />

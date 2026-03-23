@@ -6,9 +6,9 @@
 
     <!--  ListView Style  -->
     <Style x:Key="DarkListViewStyle" TargetType="ListView">
-        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
@@ -42,7 +42,7 @@
 
     <Style x:Key="DarkListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Padding" Value="4,4" />
         <Setter Property="Margin" Value="0,2" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -60,10 +60,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#2A2A2A" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#323232" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
                             <Setter Property="FontWeight" Value="SemiBold" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -81,12 +81,12 @@
                         <Border
                             Margin="8,0"
                             Padding="4,4,4,8"
-                            BorderBrush="{StaticResource ControlBorderBrush}"
+                            BorderBrush="{DynamicResource ControlBorderBrush}"
                             BorderThickness="0,0,0,1">
                             <TextBlock
                                 FontSize="12"
                                 FontWeight="Bold"
-                                Foreground="{StaticResource NvidiaGreenBrush}"
+                                Foreground="{DynamicResource NvidiaGreenBrush}"
                                 Text="{Binding Name}" />
                         </Border>
                         <ItemsPresenter Margin="8,4" />

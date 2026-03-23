@@ -28,7 +28,7 @@
             <Setter Property="Height" Value="48" />
             <Setter Property="Margin" Value="0,0,16,0" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
         </Style>
 
         <Style x:Key="LinkButtonStyle" TargetType="Button">
@@ -74,7 +74,7 @@
                     VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="SemiBold"
-                    Foreground="{StaticResource TextPrimaryBrush}"
+                    Foreground="{DynamicResource TextPrimaryBrush}"
                     Text="About" />
 
                 <StackPanel
@@ -102,7 +102,7 @@
         <Border
             Grid.Row="1"
             Padding="24,24,24,16"
-            Background="{StaticResource Layer1BackgroundBrush}">
+            Background="{DynamicResource Layer1BackgroundBrush}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -114,20 +114,20 @@
                     Height="48"
                     Margin="0,0,24,0"
                     Data="{DynamicResource IconInspectorApp}"
-                    Fill="{StaticResource NvidiaGreenBrush}"
+                    Fill="{DynamicResource NvidiaGreenBrush}"
                     Stretch="Uniform" />
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock
                         FontSize="20"
                         FontWeight="Bold"
-                        Foreground="{StaticResource TextPrimaryBrush}"
+                        Foreground="{DynamicResource TextPrimaryBrush}"
                         Text="NVIDIA Profile Inspector" />
                     <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
-                        <TextBlock Foreground="{StaticResource TextSecondaryBrush}" Text="Version " />
+                        <TextBlock Foreground="{DynamicResource TextSecondaryBrush}" Text="Version " />
                         <TextBlock
                             FontWeight="SemiBold"
-                            Foreground="{StaticResource NvidiaGreenBrush}"
+                            Foreground="{DynamicResource NvidiaGreenBrush}"
                             Text="{Binding Version}" />
                     </StackPanel>
 
@@ -146,12 +146,12 @@
         <Border
             Grid.Row="2"
             Padding="24,0,24,16"
-            Background="{StaticResource Layer1BackgroundBrush}"
+            Background="{DynamicResource Layer1BackgroundBrush}"
             Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
             <Border
                 Padding="16,12"
                 Background="#2A3026"
-                BorderBrush="{StaticResource NvidiaGreenBrush}"
+                BorderBrush="{DynamicResource NvidiaGreenBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
                 <Grid>
@@ -166,18 +166,18 @@
                         Height="24"
                         Margin="0,0,16,0"
                         Data="{DynamicResource IconInfo}"
-                        Fill="{StaticResource NvidiaGreenBrush}"
+                        Fill="{DynamicResource NvidiaGreenBrush}"
                         Stretch="Uniform" />
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
                             FontSize="14"
                             FontWeight="Bold"
-                            Foreground="{StaticResource TextPrimaryBrush}"
+                            Foreground="{DynamicResource TextPrimaryBrush}"
                             Text="Update Available!" />
                         <TextBlock
                             FontSize="12"
-                            Foreground="{StaticResource TextSecondaryBrush}"
+                            Foreground="{DynamicResource TextSecondaryBrush}"
                             Text="A newer version is available with latest features."
                             TextWrapping="Wrap" />
                     </StackPanel>
@@ -200,7 +200,7 @@
                     Margin="0,16,0,12"
                     FontSize="11"
                     FontWeight="Bold"
-                    Foreground="{StaticResource TextSecondaryBrush}"
+                    Foreground="{DynamicResource TextSecondaryBrush}"
                     Text="CONTRIBUTORS" />
 
                 <ItemsControl ItemsSource="{Binding Contributors}">
@@ -209,8 +209,8 @@
                             <Border
                                 Margin="0,0,0,8"
                                 Padding="12"
-                                Background="{StaticResource Layer2BackgroundBrush}"
-                                BorderBrush="{StaticResource ControlBorderBrush}"
+                                Background="{DynamicResource Layer2BackgroundBrush}"
+                                BorderBrush="{DynamicResource ControlBorderBrush}"
                                 BorderThickness="1"
                                 CornerRadius="8">
                                 <Grid>
@@ -240,11 +240,11 @@
                                         <TextBlock
                                             FontSize="14"
                                             FontWeight="SemiBold"
-                                            Foreground="{StaticResource TextPrimaryBrush}"
+                                            Foreground="{DynamicResource TextPrimaryBrush}"
                                             Text="{Binding Name}" />
                                         <TextBlock
                                             FontSize="12"
-                                            Foreground="{StaticResource TextSecondaryBrush}"
+                                            Foreground="{DynamicResource TextSecondaryBrush}"
                                             Text="{Binding Role}" />
                                     </StackPanel>
 
@@ -258,7 +258,7 @@
                                             Width="16"
                                             Height="16"
                                             Data="{DynamicResource IconUser}"
-                                            Fill="{StaticResource TextSecondaryBrush}"
+                                            Fill="{DynamicResource TextSecondaryBrush}"
                                             Stretch="Uniform" />
                                     </Button>
                                 </Grid>
@@ -273,7 +273,7 @@
         <Border
             Grid.Row="4"
             Padding="24"
-            Background="{StaticResource Layer2BackgroundBrush}"
+            Background="{DynamicResource Layer2BackgroundBrush}"
             CornerRadius="0,0,8,8">
             <Button
                 MinWidth="100"
