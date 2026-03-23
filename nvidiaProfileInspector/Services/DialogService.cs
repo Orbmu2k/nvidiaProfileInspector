@@ -22,6 +22,9 @@ namespace nvidiaProfileInspector.Services
         public bool? ShowInputDialog(string title, string prompt, ref string value, bool allowBrowse = false, Func<string, string> validationFunc = null)
         {
             var dialog = new UI.Views.Dialogs.InputDialog(title, prompt, value, allowBrowse, validationFunc);
+            var mainWindow = App.Current.MainWindow;
+            if (mainWindow != null)
+                dialog.Owner = mainWindow;
             var result = dialog.ShowDialog();
             if (result == true)
                 value = dialog.InputValue;

@@ -610,14 +610,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void CreateProfile()
         {
             var dialog = new Views.Dialogs.InputDialog("Create Profile",
-                "Enter a unique name for your new custom driver profile.",
-                "", false, (val) =>
-                {
-                    if (string.IsNullOrWhiteSpace(val)) return "Expected is a unique profile name.";
-                    if (_profileNames.Any(p => p.Equals(val, StringComparison.OrdinalIgnoreCase)))
-                        return "Profile name must be unique.";
-                    return null;
-                });
+            "Enter a unique name for your new custom driver profile.",
+            "", false, (val) =>
+            {
+                if (string.IsNullOrWhiteSpace(val)) return "Expected is a unique profile name.";
+                if (_profileNames.Any(p => p.Equals(val, StringComparison.OrdinalIgnoreCase)))
+                    return "Profile name must be unique.";
+                return null;
+            });
+            dialog.Owner = App.Current.MainWindow;
 
             if (dialog.ShowDialog() == true && !string.IsNullOrWhiteSpace(dialog.InputValue))
             {
@@ -661,12 +662,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public void AddApplication()
         {
             var dialog = new Views.Dialogs.InputDialog("Add Application",
-                "To link a new application, enter its filename (e.g. game.exe) or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.",
-                "", true, (val) =>
-                {
-                    if (string.IsNullOrWhiteSpace(val)) return "Expected a filename, UWP ID, or absolute path.";
-                    return null;
-                });
+            "To link a new application, enter its filename (e.g. game.exe) or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.",
+            "", true, (val) =>
+            {
+                if (string.IsNullOrWhiteSpace(val)) return "Expected a filename, UWP ID, or absolute path.";
+                return null;
+            });
+            dialog.Owner = App.Current.MainWindow;
 
             if (dialog.ShowDialog() == true && !string.IsNullOrWhiteSpace(dialog.InputValue))
             {
