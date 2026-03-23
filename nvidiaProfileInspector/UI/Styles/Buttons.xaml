@@ -300,26 +300,30 @@
         x:Key="MaximizeWindowButtonStyle"
         BasedOn="{StaticResource WindowButtonStyle}"
         TargetType="Button">
-        <Setter Property="Content">
+        <Setter Property="ContentTemplate">
             <Setter.Value>
-                <Path
-                    Width="10"
-                    Height="10"
-                    Data="{StaticResource IconMaximize}"
-                    Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
-                    Stretch="Uniform" />
+                <DataTemplate>
+                    <Path
+                        Width="10"
+                        Height="10"
+                        Data="{StaticResource IconMaximize}"
+                        Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                        Stretch="Uniform" />
+                </DataTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
-                <Setter Property="Content">
+                <Setter Property="ContentTemplate">
                     <Setter.Value>
-                        <Path
-                            Width="10"
-                            Height="10"
-                            Data="{StaticResource IconWindowRestore}"
-                            Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
-                            Stretch="Uniform" />
+                        <DataTemplate>
+                            <Path
+                                Width="10"
+                                Height="10"
+                                Data="{StaticResource IconWindowRestore}"
+                                Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                Stretch="Uniform" />
+                        </DataTemplate>
                     </Setter.Value>
                 </Setter>
                 <Setter Property="ToolTip" Value="Restore Down" />

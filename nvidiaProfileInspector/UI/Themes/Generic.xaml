@@ -42,7 +42,8 @@
 
                             <!--  Center Section: Profile Selector and Actions  -->
                             <ContentControl
-                                Grid.Column="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding CenterContent}"
