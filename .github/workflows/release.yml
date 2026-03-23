@@ -1,0 +1,93 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    branches:
+      - release
+
+jobs:
+  get-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Get next version
+      id: version
+      run: |
+        LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+        IFS='.' read -r MAJOR MINOR PATCH <<< "${LATEST_TAG//v/}"
+        PATCH=$((PATCH + 1))
+        NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+        echo "version=v${NEW_VERSION}" >> $GITHUB_OUTPUT
+
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Restore NuGet packages
+      run: nuget restore nvidiaProfileInspector\nvidiaProfileInspector.sln
+
+    - name: Update AssemblyInfo (release only)
+      if: github.event_name == 'push'
+      run: |
+        $VERSION = "${{ needs.get-version.outputs.version }}"
+        $VERSION = $VERSION.TrimStart('v')
+        $FILE = "nvidiaProfileInspector\Properties\AssemblyInfo.cs"
+        $CONTENT = Get-Content $FILE -Raw
+        $CONTENT = $CONTENT -replace 'AssemblyVersion\(".*"\)', "AssemblyVersion(`"$VERSION.0`")"
+        $CONTENT = $CONTENT -replace 'AssemblyFileVersion\(".*"\)', "AssemblyFileVersion(`"$VERSION`")"
+        Set-Content $FILE $CONTENT
+
+    - name: Build
+      run: msbuild /m /p:Configuration=Release nvidiaProfileInspector\nvidiaProfileInspector.sln
+
+    - name: Create Release Artifact (release only)
+      if: github.event_name == 'push'
+      run: |
+        $artifactDir = "publish\net48"
+        New-Item -ItemType Directory -Force -Path $artifactDir
+        Copy-Item "nvidiaProfileInspector\bin\Release\net48\*" -Destination $artifactDir -Recurse
+
+    - name: Upload Artifact (release only)
+      if: github.event_name == 'push'
+      uses: actions/upload-artifact@v4
+      with:
+        name: nvidiaProfileInspector-net48
+        path: publish\net48\*
+
+  release:
+    needs: [build, get-version]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
+
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: nvidiaProfileInspector-net48
+        path: artifact
+
+    - name: Create ZIP
+      run: zip -r nvidiaProfileInspector-net48.zip artifact/*
+
+    - name: Create Pre-Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ needs.get-version.outputs.version }}
+        name: Release ${{ needs.get-version.outputs.version }}
+        prerelease: true
+        generate_release_notes: true
+        files: nvidiaProfileInspector-net48.zip
