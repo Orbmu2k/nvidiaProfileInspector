@@ -64,46 +64,7 @@
             Cursor=""
             TitleFontSize="16"
             TitleForeground="{DynamicResource TitleBrush}">
-            <controls:TitleBar.RightContent>
-                <StackPanel Orientation="Horizontal">
-                    <Button
-                        Command="{Binding ToggleThemeCommand}"
-                        Style="{StaticResource HeaderIconButtonStyle}"
-                        ToolTip="Change Theme">
-                        <Path
-                            Width="18"
-                            Height="18"
-                            Data="{DynamicResource IconTheme}"
-                            Fill="{DynamicResource TextSecondaryBrush}"
-                            Stretch="Uniform" />
-                    </Button>
-                    <Button
-                        Command="{Binding ShowAboutCommand}"
-                        Style="{StaticResource HeaderIconButtonStyle}"
-                        ToolTip="About">
-                        <Grid>
-                            <Path
-                                Width="18"
-                                Height="18"
-                                Data="{DynamicResource IconInfo}"
-                                Fill="{DynamicResource TextSecondaryBrush}"
-                                Stretch="Uniform" />
-                            <!--  Update Badge  -->
-                            <Border
-                                Width="8"
-                                Height="8"
-                                Margin="0,-2,-2,0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                Background="{DynamicResource NvidiaGreenBrush}"
-                                BorderBrush="{DynamicResource WindowBackgroundBrush}"
-                                BorderThickness="1"
-                                CornerRadius="4"
-                                Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
-                        </Grid>
-                    </Button>
-                </StackPanel>
-            </controls:TitleBar.RightContent>
+
             <controls:TitleBar.IconContent>
                 <Path
                     Width="20"
@@ -155,6 +116,48 @@
                         ToolTip="View Modified Profiles" />
                 </StackPanel>
             </controls:TitleBar.CenterContent>
+            <controls:TitleBar.RightContent>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Command="{Binding ToggleThemeCommand}"
+                        Style="{StaticResource HeaderIconButtonStyle}"
+                        ToolTip="Change Theme"
+                        Margin="4,0">
+                        <Path
+                            Width="18"
+                            Height="18"
+                            Data="{DynamicResource IconTheme}"
+                            Fill="{DynamicResource TextSecondaryBrush}"
+                            Stretch="Uniform" />
+                    </Button>
+                    <Button
+                        Command="{Binding ShowAboutCommand}"
+                        Style="{StaticResource HeaderIconButtonStyle}"
+                        ToolTip="About"
+                        Margin="4,0">
+                        <Grid>
+                            <Path
+                                Width="18"
+                                Height="18"
+                                Data="{DynamicResource IconInfo}"
+                                Fill="{DynamicResource TextSecondaryBrush}"
+                                Stretch="Uniform" />
+                            <!--  Update Badge  -->
+                            <Border
+                                Width="8"
+                                Height="8"
+                                Margin="0,-2,-2,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Background="{DynamicResource NvidiaGreenBrush}"
+                                BorderBrush="{DynamicResource WindowBackgroundBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        </Grid>
+                    </Button>
+                </StackPanel>
+            </controls:TitleBar.RightContent>
         </controls:TitleBar>
 
         <!--  Command Bar  -->
@@ -243,6 +246,7 @@
                     <controls:ActionBarToggleButton
                         IconPath="{DynamicResource IconLab}"
                         IsChecked="{Binding ShowScannedUnknownSettings}"
+                        ToggledColor="{DynamicResource ErrorBrush}"
                         Text="Lab"
                         ToolTip="Show unknown settings from NVIDIA predefined profiles" />
 

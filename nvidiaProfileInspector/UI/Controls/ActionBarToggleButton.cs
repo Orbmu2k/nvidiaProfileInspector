@@ -59,16 +59,16 @@ namespace nvidiaProfileInspector.UI.Controls
             set => SetValue(IconMarginProperty, value);
         }
 
-        public static readonly DependencyProperty IconFillProperty = DependencyProperty.Register(
-            nameof(IconFill),
+        public static readonly DependencyProperty ToggledColorProperty = DependencyProperty.Register(
+            nameof(ToggledColor),
             typeof(Brush),
             typeof(ActionBarToggleButton),
             new PropertyMetadata(null));
 
-        public Brush IconFill
+        public Brush ToggledColor
         {
-            get => (Brush)GetValue(IconFillProperty);
-            set => SetValue(IconFillProperty, value);
+            get => (Brush)GetValue(ToggledColorProperty);
+            set => SetValue(ToggledColorProperty, value);
         }
 
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(

@@ -163,7 +163,7 @@
     <Style TargetType="controls:ActionBarToggleButton">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
-        <Setter Property="IconFill" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
+        <Setter Property="ToggledColor" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
         <Setter Property="TextForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}" />
         <Setter Property="Padding" Value="10,6" />
         <Setter Property="Margin" Value="0,0,4,0" />
@@ -192,7 +192,7 @@
                                 Height="{TemplateBinding IconHeight}"
                                 Margin="{TemplateBinding IconMargin}"
                                 Data="{TemplateBinding IconPath}"
-                                Fill="{TemplateBinding IconFill}"
+                                Fill="{TemplateBinding TextForeground}"
                                 Stretch="Uniform"
                                 Visibility="{TemplateBinding ShowIcon,
                                                              Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -213,9 +213,10 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
-                            <Setter Property="Foreground" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
-                            <Setter TargetName="IconPath" Property="Fill" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{Binding ToggledColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="IconPath" Property="Fill" Value="{Binding ToggledColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="TextBlock" Property="Foreground" Value="{Binding ToggledColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter Property="Foreground" Value="{Binding ToggledColor, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
