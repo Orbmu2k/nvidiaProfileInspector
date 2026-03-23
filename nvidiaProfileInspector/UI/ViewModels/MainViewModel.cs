@@ -948,23 +948,30 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _groupedSettingsView.IsLiveFiltering = true;
         }
 
-        private void ToggleTheme()
-        {
-            var app = Application.Current;
-            var mergedDicts = app.Resources.MergedDictionaries;
-            
-            var existingTheme = mergedDicts.FirstOrDefault(d => 
-                d.Source != null && (d.Source.OriginalString.Contains("DarkTheme.xaml") || d.Source.OriginalString.Contains("LightTheme.xaml")));
+private void ToggleTheme()
+{
+var app = Application.Current;
+var mergedDicts = app.Resources.MergedDictionaries;
 
-            if (existingTheme != null)
-            {
-                bool isDark = existingTheme.Source.OriginalString.Contains("DarkTheme.xaml");
-                var newSource = isDark ? "/UI/Themes/LightTheme.xaml" : "/UI/Themes/DarkTheme.xaml";
-                
-                mergedDicts.Remove(existingTheme);
-                mergedDicts.Add(new ResourceDictionary { Source = new Uri(newSource, UriKind.Relative) });
-            }
-        }
+var existingTheme = mergedDicts.FirstOrDefault(d =>
+d.Source != null && (d.Source.OriginalString.Contains("DarkTheme.xaml") || d.Source.OriginalString.Contains("LightTheme.xaml") || d.Source.OriginalString.Contains("SlateLightTheme.xaml")));
+
+if (existingTheme != null)
+{
+string newSource;
+if (existingTheme.Source.OriginalString.Contains("DarkTheme.xaml"))
+newSource = "/UI/Themes/LightTheme.xaml";
+else if (existingTheme.Source.OriginalString.Contains("LightTheme.xaml"))
+newSource = "/UI/Themes/SlateLightTheme.xaml";
+else if (existingTheme.Source.OriginalString.Contains("SlateLightTheme.xaml"))
+newSource = "/UI/Themes/DarkTheme.xaml";
+else
+return;
+
+mergedDicts.Remove(existingTheme);
+mergedDicts.Add(new ResourceDictionary { Source = new Uri(newSource, UriKind.Relative) });
+}
+}
 
         private void ShowAbout()
         {
