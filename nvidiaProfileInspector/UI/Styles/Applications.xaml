@@ -32,17 +32,18 @@
                                 x:Name="Icon"
                                 Width="12"
                                 Height="12"
-                                Margin="4,0,8,0"
+                                Margin="6,0,8,0"
                                 Data="{StaticResource IconGame}"
                                 Fill="{DynamicResource NvidiaGreenBrush}"
                                 Stretch="Uniform" />
                             <TextBlock
                                 x:Name="Text"
                                 MaxWidth="160"
+                                Margin="0,0,6,0"
                                 VerticalAlignment="Center"
                                 Foreground="{TemplateBinding Foreground}"
                                 Text="{Binding Name}"
-                                TextTrimming="CharacterEllipsis" />
+                                TextTrimming="None" />
 
                         </StackPanel>
                     </Border>
