@@ -43,8 +43,8 @@
     <Style x:Key="DarkListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-        <Setter Property="Padding" Value="4,4" />
-        <Setter Property="Margin" Value="0,2" />
+        <Setter Property="Padding" Value="{DynamicResource ListItemPadding}" />
+        <Setter Property="Margin" Value="{DynamicResource ListItemMargin}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
@@ -77,10 +77,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GroupItem">
-                    <StackPanel Margin="0,8,0,4">
+                    <StackPanel Margin="{DynamicResource GroupHeaderOuterMargin}">
                         <Border
                             Margin="8,0"
-                            Padding="4,4,4,8"
+                            Padding="{DynamicResource GroupHeaderPadding}"
                             BorderBrush="{DynamicResource ControlBorderBrush}"
                             BorderThickness="0,0,0,1">
                             <TextBlock
@@ -89,7 +89,7 @@
                                 Foreground="{DynamicResource NvidiaGreenBrush}"
                                 Text="{Binding Name}" />
                         </Border>
-                        <ItemsPresenter Margin="8,4" />
+                        <ItemsPresenter Margin="{DynamicResource GroupItemsPresenterMargin}" />
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>

@@ -11,13 +11,19 @@ namespace nvidiaProfileInspector.Services
     {
         private const string DarkTheme = "DarkTheme.xaml";
         private const string SlateLightTheme = "SlateLightTheme.xaml";
-        
-        private static readonly string[] ValidThemes = { 
-            DarkTheme, 
-            SlateLightTheme 
+
+        private static readonly string[] ValidThemes = {
+            DarkTheme,
+            SlateLightTheme
         };
 
+        private static readonly string[] ValidDensities = { "Modern", "Compact" };
+
         public string CurrentTheme { get; private set; }
+        public string CurrentDensity { get; private set; } = "Modern";
+
+        public bool IsDarkTheme => string.Equals(CurrentTheme, DarkTheme, StringComparison.OrdinalIgnoreCase);
+        public bool IsCompactDensity => string.Equals(CurrentDensity, "Compact", StringComparison.OrdinalIgnoreCase);
 
         public ThemeManager()
         {
@@ -30,10 +36,12 @@ namespace nvidiaProfileInspector.Services
             {
                 var settings = UserSettings.LoadSettings();
                 ApplyAndPersistTheme(NormalizeThemeName(settings.Theme), savePreference: false);
+                ApplyDensity(NormalizeDensity(settings.DisplayDensity), savePreference: false);
             }
             catch
             {
                 ApplyAndPersistTheme(DarkTheme, savePreference: false);
+                ApplyDensity("Modern", savePreference: false);
             }
         }
 
@@ -50,6 +58,54 @@ namespace nvidiaProfileInspector.Services
             }
         }
 
+        public void SetTheme(string themeName)
+        {
+            try
+            {
+                var normalized = NormalizeThemeName(themeName);
+                ApplyAndPersistTheme(normalized, savePreference: true);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error setting theme: {ex.Message}");
+            }
+        }
+
+        public void SetDensity(string density)
+        {
+            ApplyDensity(NormalizeDensity(density), savePreference: true);
+        }
+
+        private void ApplyDensity(string density, bool savePreference)
+        {
+            CurrentDensity = density;
+
+            var app = Application.Current;
+            if (app == null)
+                return;
+
+            bool compact = string.Equals(density, "Compact", StringComparison.OrdinalIgnoreCase);
+
+            app.Resources["ListItemPadding"] = compact ? new Thickness(2, 1, 2, 1) : new Thickness(4, 4, 4, 4);
+            app.Resources["ListItemMargin"] = compact ? new Thickness(0, 1, 0, 1) : new Thickness(0, 2, 0, 2);
+            app.Resources["GroupHeaderOuterMargin"] = compact ? new Thickness(0, 4, 0, 2) : new Thickness(0, 8, 0, 4);
+            app.Resources["GroupHeaderPadding"] = compact ? new Thickness(4, 2, 4, 4) : new Thickness(4, 4, 4, 8);
+            app.Resources["GroupItemsPresenterMargin"] = compact ? new Thickness(8, 2, 8, 2) : new Thickness(8, 4, 8, 4);
+
+            if (savePreference)
+                SaveDensityPreference(density);
+        }
+
+        private static string NormalizeDensity(string density)
+        {
+            if (string.IsNullOrWhiteSpace(density))
+                return "Modern";
+
+            return ValidDensities.FirstOrDefault(d =>
+                       string.Equals(d, density, StringComparison.OrdinalIgnoreCase))
+                   ?? "Modern";
+        }
+
         private void SaveThemePreference(string themeName)
         {
             try
@@ -61,6 +117,20 @@ namespace nvidiaProfileInspector.Services
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error saving theme preference: {ex.Message}");
+            }
+        }
+
+        private void SaveDensityPreference(string density)
+        {
+            try
+            {
+                var settings = UserSettings.LoadSettings();
+                settings.DisplayDensity = density;
+                settings.SaveSettings();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error saving density preference: {ex.Message}");
             }
         }
 

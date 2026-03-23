@@ -118,18 +118,230 @@
             </controls:TitleBar.CenterContent>
             <controls:TitleBar.RightContent>
                 <StackPanel Orientation="Horizontal">
-                    <Button
-                        Command="{Binding ToggleThemeCommand}"
-                        Style="{StaticResource HeaderIconButtonStyle}"
-                        ToolTip="Change Theme"
-                        Margin="4,0">
-                        <Path
-                            Width="18"
-                            Height="18"
-                            Data="{DynamicResource IconTheme}"
-                            Fill="{DynamicResource TextSecondaryBrush}"
-                            Stretch="Uniform" />
-                    </Button>
+                    <Grid>
+                        <Button
+                            x:Name="AppearanceButton"
+                            Command="{Binding ToggleThemeCommand}"
+                            Style="{StaticResource HeaderIconButtonStyle}"
+                            ToolTip="Appearance"
+                            Margin="4,0">
+                            <Path
+                                Width="18"
+                                Height="18"
+                                Data="{DynamicResource IconTheme}"
+                                Fill="{DynamicResource TextSecondaryBrush}"
+                                Stretch="Uniform" />
+                        </Button>
+                        <Popup
+                            IsOpen="{Binding IsAppearanceMenuOpen, Mode=TwoWay}"
+                            StaysOpen="False"
+                            PlacementTarget="{Binding ElementName=AppearanceButton}"
+                            Placement="Bottom"
+                            HorizontalOffset="-68"
+                            VerticalOffset="4"
+                            AllowsTransparency="True">
+                            <Border
+                                Background="{DynamicResource Layer2BackgroundBrush}"
+                                BorderBrush="{DynamicResource ControlBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="8"
+                                Margin="8,0,8,8">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="16" Opacity="0.25" ShadowDepth="4" Direction="270" />
+                                </Border.Effect>
+                                <StackPanel Width="140">
+                                    <!--  Theme Section  -->
+                                    <TextBlock
+                                        Text="THEME"
+                                        FontSize="10"
+                                        FontWeight="Bold"
+                                        Foreground="{DynamicResource TextSecondaryBrush}"
+                                        Margin="6,4,6,4" />
+                                    <Button
+                                        Command="{Binding SetThemeCommand}"
+                                        CommandParameter="Dark"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        HorizontalContentAlignment="Stretch"
+                                        Padding="6,5"
+                                        Margin="0,1">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    x:Name="bd"
+                                                    Background="{TemplateBinding Background}"
+                                                    CornerRadius="4"
+                                                    Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Stretch" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border
+                                                Width="14" Height="14"
+                                                CornerRadius="7"
+                                                BorderThickness="1.5"
+                                                BorderBrush="{DynamicResource TextSecondaryBrush}"
+                                                Background="Transparent"
+                                                Margin="0,0,8,0"
+                                                VerticalAlignment="Center">
+                                                <Ellipse
+                                                    Width="8" Height="8"
+                                                    Fill="{DynamicResource NvidiaGreenBrush}"
+                                                    Visibility="{Binding IsDarkTheme, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                            </Border>
+                                            <TextBlock Text="Dark" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="12" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Command="{Binding SetThemeCommand}"
+                                        CommandParameter="Light"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        HorizontalContentAlignment="Stretch"
+                                        Padding="6,5"
+                                        Margin="0,1">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    x:Name="bd"
+                                                    Background="{TemplateBinding Background}"
+                                                    CornerRadius="4"
+                                                    Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Stretch" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border
+                                                Width="14" Height="14"
+                                                CornerRadius="7"
+                                                BorderThickness="1.5"
+                                                BorderBrush="{DynamicResource TextSecondaryBrush}"
+                                                Background="Transparent"
+                                                Margin="0,0,8,0"
+                                                VerticalAlignment="Center">
+                                                <Ellipse
+                                                    Width="8" Height="8"
+                                                    Fill="{DynamicResource NvidiaGreenBrush}"
+                                                    Visibility="{Binding IsDarkTheme, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}" />
+                                            </Border>
+                                            <TextBlock Text="Light" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="12" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                    <!--  Separator  -->
+                                    <Border
+                                        Height="1"
+                                        Margin="6,6"
+                                        Background="{DynamicResource ControlBorderBrush}" />
+                                    <!--  Density Section  -->
+                                    <TextBlock
+                                        Text="DENSITY"
+                                        FontSize="10"
+                                        FontWeight="Bold"
+                                        Foreground="{DynamicResource TextSecondaryBrush}"
+                                        Margin="6,4,6,4" />
+                                    <Button
+                                        Command="{Binding SetDensityCommand}"
+                                        CommandParameter="Modern"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        HorizontalContentAlignment="Stretch"
+                                        Padding="6,5"
+                                        Margin="0,1">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    x:Name="bd"
+                                                    Background="{TemplateBinding Background}"
+                                                    CornerRadius="4"
+                                                    Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Stretch" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border
+                                                Width="14" Height="14"
+                                                CornerRadius="7"
+                                                BorderThickness="1.5"
+                                                BorderBrush="{DynamicResource TextSecondaryBrush}"
+                                                Background="Transparent"
+                                                Margin="0,0,8,0"
+                                                VerticalAlignment="Center">
+                                                <Ellipse
+                                                    Width="8" Height="8"
+                                                    Fill="{DynamicResource NvidiaGreenBrush}"
+                                                    Visibility="{Binding IsCompactDensity, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}" />
+                                            </Border>
+                                            <TextBlock Text="Modern" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="12" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Command="{Binding SetDensityCommand}"
+                                        CommandParameter="Compact"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        HorizontalContentAlignment="Stretch"
+                                        Padding="6,5"
+                                        Margin="0,1">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    x:Name="bd"
+                                                    Background="{TemplateBinding Background}"
+                                                    CornerRadius="4"
+                                                    Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Stretch" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border
+                                                Width="14" Height="14"
+                                                CornerRadius="7"
+                                                BorderThickness="1.5"
+                                                BorderBrush="{DynamicResource TextSecondaryBrush}"
+                                                Background="Transparent"
+                                                Margin="0,0,8,0"
+                                                VerticalAlignment="Center">
+                                                <Ellipse
+                                                    Width="8" Height="8"
+                                                    Fill="{DynamicResource NvidiaGreenBrush}"
+                                                    Visibility="{Binding IsCompactDensity, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                            </Border>
+                                            <TextBlock Text="Compact" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="12" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+                    </Grid>
                     <Button
                         Command="{Binding ShowAboutCommand}"
                         Style="{StaticResource HeaderIconButtonStyle}"

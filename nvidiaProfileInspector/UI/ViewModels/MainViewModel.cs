@@ -63,6 +63,9 @@ using System.Windows.Input;
         private string _snackbarType;
         private bool _isSnackbarActive;
         private int _snackbarToken;
+        private bool _isAppearanceMenuOpen;
+        private bool _isDarkTheme = true;
+        private bool _isCompactDensity;
 
         public MainViewModel(
             DrsSettingsMetaService metaService,
@@ -295,6 +298,24 @@ using System.Windows.Input;
             set => SetProperty(ref _isSnackbarActive, value, nameof(IsSnackbarActive));
         }
 
+        public bool IsAppearanceMenuOpen
+        {
+            get => _isAppearanceMenuOpen;
+            set => SetProperty(ref _isAppearanceMenuOpen, value, nameof(IsAppearanceMenuOpen));
+        }
+
+        public bool IsDarkTheme
+        {
+            get => _isDarkTheme;
+            set => SetProperty(ref _isDarkTheme, value, nameof(IsDarkTheme));
+        }
+
+        public bool IsCompactDensity
+        {
+            get => _isCompactDensity;
+            set => SetProperty(ref _isCompactDensity, value, nameof(IsCompactDensity));
+        }
+
         public ListCollectionView GroupedSettingsView => _groupedSettingsView;
         public ICollectionView ProfilesView => _profilesView;
         public ICollectionView ModifiedProfilesView => _modifiedProfilesView;
@@ -324,6 +345,8 @@ using System.Windows.Input;
         public AsyncRelayCommand CheckUpdateCommand { get; private set; }
         public ICommand ShowAboutCommand { get; private set; }
         public ICommand ToggleThemeCommand { get; private set; }
+        public ICommand SetThemeCommand { get; private set; }
+        public ICommand SetDensityCommand { get; private set; }
 
         public event Action<uint, uint, string> OnOpenBitEditor;
         public event Action<string> OnShowMessage;
@@ -366,7 +389,9 @@ using System.Windows.Input;
             ScanCommand = new AsyncRelayCommand(async () => await ScanProfilesAsync());
             CheckUpdateCommand = new AsyncRelayCommand(CheckForUpdatesAsync);
             ShowAboutCommand = new RelayCommand(_ => ShowAbout());
-            ToggleThemeCommand = new RelayCommand(_ => ToggleTheme());
+            ToggleThemeCommand = new RelayCommand(_ => ToggleAppearanceMenu());
+            SetThemeCommand = new RelayCommand(param => ApplyTheme(param as string));
+            SetDensityCommand = new RelayCommand(param => ApplyDensity(param as string));
         }
 
         public async Task InitializeAsync()
@@ -389,6 +414,13 @@ using System.Windows.Input;
             _showCustomizedSettingsOnly = settings.ShowCustomizedSettingNamesOnly;
             _showScannedUnknownSettings = settings.ShowScannedUnknownSettings;
             _filterTypeIndex = _showCustomizedSettingsOnly ? 0 : 1;
+
+            if (App.Bootstrapper != null)
+            {
+                var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
+                _isDarkTheme = themeManager.IsDarkTheme;
+                _isCompactDensity = themeManager.IsCompactDensity;
+            }
         }
 
         private void SaveFavorites()
@@ -950,14 +982,31 @@ using System.Windows.Input;
              _groupedSettingsView.IsLiveFiltering = true;
          }
 
-         private void ToggleTheme()
+         private void ToggleAppearanceMenu()
          {
-             if (App.Bootstrapper != null)
-             {
-                 var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
-                 themeManager.ToggleTheme();
-                RefreshCurrentProfile();
-             }
+             IsAppearanceMenuOpen = !IsAppearanceMenuOpen;
+         }
+
+         private void ApplyTheme(string theme)
+         {
+             if (string.IsNullOrEmpty(theme) || App.Bootstrapper == null)
+                 return;
+
+             var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
+             var themeName = theme == "Dark" ? "DarkTheme.xaml" : "SlateLightTheme.xaml";
+             themeManager.SetTheme(themeName);
+             IsDarkTheme = themeManager.IsDarkTheme;
+             RefreshCurrentProfile();
+         }
+
+         private void ApplyDensity(string density)
+         {
+             if (string.IsNullOrEmpty(density) || App.Bootstrapper == null)
+                 return;
+
+             var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
+             themeManager.SetDensity(density);
+             IsCompactDensity = themeManager.IsCompactDensity;
          }
 
          private void ShowAbout()

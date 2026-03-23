@@ -32,6 +32,8 @@ namespace nvidiaProfileInspector.Common.Helper
 
 public string Theme { get; set; } = "DarkTheme.xaml";
 
+        public string DisplayDensity { get; set; } = "Modern";
+
         private static string GetSettingsFilename()
         {
             var fiPortalbleSettings = new FileInfo("settings.xml");
