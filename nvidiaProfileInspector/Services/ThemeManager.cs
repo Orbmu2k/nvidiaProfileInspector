@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -6,143 +7,49 @@ using nvidiaProfileInspector.Common.Helper;
 
 namespace nvidiaProfileInspector.Services
 {
-    /// <summary>
-    /// Manages application themes including loading, saving, and switching themes.
-    /// </summary>
     public class ThemeManager
     {
         private const string DarkTheme = "DarkTheme.xaml";
-        private const string LightTheme = "LightTheme.xaml";
         private const string SlateLightTheme = "SlateLightTheme.xaml";
         
-        private static readonly string[] ValidThemes = { DarkTheme, LightTheme, SlateLightTheme };
+        private static readonly string[] ValidThemes = { 
+            DarkTheme, 
+            SlateLightTheme 
+        };
 
-        /// <summary>
-        /// Gets the current theme name.
-        /// </summary>
         public string CurrentTheme { get; private set; }
 
-        /// <summary>
-        /// Initializes a new instance of the ThemeManager class.
-        /// </summary>
         public ThemeManager()
         {
             LoadSavedTheme();
         }
 
-        /// <summary>
-        /// Loads the saved theme from user settings or defaults to DarkTheme.
-        /// </summary>
         public void LoadSavedTheme()
         {
             try
             {
                 var settings = UserSettings.LoadSettings();
-                var themeName = settings.Theme ?? DarkTheme;
-
-                // Ensure themeName has .xaml extension
-                if (!themeName.EndsWith(".xaml"))
-                    themeName = DarkTheme;
-
-                // Validate theme
-                if (!ValidThemes.Contains(themeName))
-                    themeName = DarkTheme;
-
-                CurrentTheme = themeName;
-                ApplyTheme(themeName);
+                ApplyAndPersistTheme(NormalizeThemeName(settings.Theme), savePreference: false);
             }
             catch
             {
-                // Default to dark theme on error
-                CurrentTheme = DarkTheme;
-                ApplyTheme(DarkTheme);
+                ApplyAndPersistTheme(DarkTheme, savePreference: false);
             }
         }
 
-        /// <summary>
-        /// Toggles to the next theme in the sequence: Dark -> Light -> SlateLight -> Dark.
-        /// </summary>
         public void ToggleTheme()
         {
             try
             {
-                var app = Application.Current;
-                if (app == null) return;
-
-                var mergedDicts = app.Resources.MergedDictionaries;
-                var existingTheme = mergedDicts.FirstOrDefault(d =>
-                    d.Source != null && (d.Source.OriginalString.Contains(DarkTheme) ||
-                                         d.Source.OriginalString.Contains(LightTheme) ||
-                                         d.Source.OriginalString.Contains(SlateLightTheme)));
-
-                string newSource;
-                if (existingTheme != null)
-                {
-                    if (existingTheme.Source.OriginalString.Contains(DarkTheme))
-                        newSource = LightTheme;
-                    else if (existingTheme.Source.OriginalString.Contains(LightTheme))
-                        newSource = SlateLightTheme;
-                    else if (existingTheme.Source.OriginalString.Contains(SlateLightTheme))
-                        newSource = DarkTheme;
-                    else
-                        newSource = DarkTheme; // fallback
-
-                    // Update the theme dictionary
-                    mergedDicts.Remove(existingTheme);
-                    mergedDicts.Add(new ResourceDictionary { Source = new Uri($"/UI/Themes/{newSource}", UriKind.Relative) });
-                }
-                else
-                {
-                    // No theme found, apply dark theme
-                    newSource = DarkTheme;
-                    ApplyTheme(newSource);
-                }
-
-                // Save the new theme preference
-                CurrentTheme = newSource;
-                SaveThemePreference(newSource);
+                var currentTheme = GetCurrentAppliedThemeName();
+                ApplyAndPersistTheme(GetNextThemeName(currentTheme), savePreference: true);
             }
             catch (Exception ex)
             {
-                // Log error but don't crash
                 System.Diagnostics.Debug.WriteLine($"Error toggling theme: {ex.Message}");
             }
         }
 
-        /// <summary>
-        /// Applies the specified theme to the application resources.
-        /// </summary>
-        /// <param name="themeName">The name of the theme to apply.</param>
-        private void ApplyTheme(string themeName)
-        {
-            try
-            {
-                var app = Application.Current;
-                if (app == null) return;
-
-                var mergedDicts = app.Resources.MergedDictionaries;
-                var themeDict = mergedDicts.FirstOrDefault(d =>
-                    d.Source != null && (d.Source.OriginalString.Contains("DarkTheme.xaml") ||
-                                         d.Source.OriginalString.Contains("LightTheme.xaml") ||
-                                         d.Source.OriginalString.Contains("SlateLightTheme.xaml")));
-
-                if (themeDict != null)
-                {
-                    string newSource = $"/UI/Themes/{themeName}";
-                    mergedDicts.Remove(themeDict);
-                    mergedDicts.Add(new ResourceDictionary { Source = new Uri(newSource, UriKind.Relative) });
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error applying theme: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Saves the theme preference to user settings.
-        /// </summary>
-        /// <param name="themeName">The name of the theme to save.</param>
         private void SaveThemePreference(string themeName)
         {
             try
@@ -155,6 +62,98 @@ namespace nvidiaProfileInspector.Services
             {
                 System.Diagnostics.Debug.WriteLine($"Error saving theme preference: {ex.Message}");
             }
+        }
+
+        private static ResourceDictionary GetThemeDictionary(IList<ResourceDictionary> mergedDicts)
+        {
+            return mergedDicts.FirstOrDefault(d => GetThemeName(d.Source) != null);
+        }
+
+        private static string GetCurrentAppliedThemeName()
+        {
+            var app = Application.Current;
+            if (app == null)
+                return null;
+
+            return GetThemeName(GetThemeDictionary(app.Resources.MergedDictionaries)?.Source);
+        }
+
+        private static string GetThemeName(Uri source)
+        {
+            if (source == null)
+                return null;
+
+            var themeName = Path.GetFileName(source.OriginalString);
+            return ValidThemes.FirstOrDefault(validTheme =>
+                string.Equals(validTheme, themeName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static string NormalizeThemeName(string themeName)
+        {
+            if (string.IsNullOrWhiteSpace(themeName))
+                return DarkTheme;
+
+            if (!themeName.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase))
+                return DarkTheme;
+
+            return ValidThemes.FirstOrDefault(validTheme =>
+                       string.Equals(validTheme, themeName, StringComparison.OrdinalIgnoreCase))
+                   ?? DarkTheme;
+        }
+
+        private static string GetNextThemeName(string currentTheme)
+        {
+            if (ValidThemes.Length == 0)
+                return DarkTheme;
+
+            if (string.IsNullOrWhiteSpace(currentTheme))
+                return ValidThemes[0];
+
+            var currentThemeIndex = Array.FindIndex(
+                ValidThemes,
+                theme => string.Equals(theme, currentTheme, StringComparison.OrdinalIgnoreCase));
+
+            if (currentThemeIndex < 0)
+                return ValidThemes[0];
+
+            var nextThemeIndex = (currentThemeIndex + 1) % ValidThemes.Length;
+            return ValidThemes[nextThemeIndex];
+        }
+
+        private void ApplyAndPersistTheme(string themeName, bool savePreference)
+        {
+            var app = Application.Current;
+            if (app == null)
+                return;
+
+            var normalizedThemeName = NormalizeThemeName(themeName);
+            var mergedDicts = app.Resources.MergedDictionaries;
+            var themeDict = GetThemeDictionary(mergedDicts);
+
+            ReplaceThemeDictionary(mergedDicts, themeDict, normalizedThemeName);
+
+            CurrentTheme = normalizedThemeName;
+
+            if (savePreference)
+                SaveThemePreference(normalizedThemeName);
+        }
+
+        private static void ReplaceThemeDictionary(IList<ResourceDictionary> mergedDicts, ResourceDictionary existingTheme, string themeName)
+        {
+            var newThemeDictionary = new ResourceDictionary
+            {
+                Source = new Uri($"/UI/Themes/{themeName}", UriKind.Relative)
+            };
+
+            if (existingTheme == null)
+            {
+                mergedDicts.Add(newThemeDictionary);
+                return;
+            }
+
+            var index = mergedDicts.IndexOf(existingTheme);
+            mergedDicts.RemoveAt(index);
+            mergedDicts.Insert(index, newThemeDictionary);
         }
     }
 }

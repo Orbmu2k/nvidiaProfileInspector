@@ -30,6 +30,8 @@ namespace nvidiaProfileInspector.Common.Helper
 
         public List<uint> FavoriteSettingIds { get; set; } = new List<uint>();
 
+public string Theme { get; set; } = "DarkTheme.xaml";
+
         private static string GetSettingsFilename()
         {
             var fiPortalbleSettings = new FileInfo("settings.xml");

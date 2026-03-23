@@ -50,9 +50,9 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource ApplicationRemoveBrush}" />
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
-                            <Setter TargetName="Text" Property="Foreground" Value="White" />
+                            <Setter TargetName="Text" Property="Foreground" Value="{DynamicResource ApplicationRemoveForegroundBrush}" />
                             <Setter TargetName="Icon" Property="Data" Value="{StaticResource IconDelete}" />
-                            <Setter TargetName="Icon" Property="Fill" Value="White" />
+                            <Setter TargetName="Icon" Property="Fill" Value="{DynamicResource ApplicationRemoveForegroundBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Opacity" Value="0.7" />

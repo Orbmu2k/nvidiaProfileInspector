@@ -10,7 +10,7 @@
     <Color x:Key="Layer3BackgroundColor">#E8EAED</Color>
 
     <!--  NVIDIA Green Brand Colors  -->
-    <Color x:Key="NvidiaGreenColor">#76B900</Color>
+    <Color x:Key="NvidiaGreenColor">#66A900</Color>
     <Color x:Key="NvidiaGreenHoverColor">#8AD400</Color>
     <Color x:Key="NvidiaGreenPressedColor">#659F00</Color>
 
@@ -76,6 +76,7 @@
 
     <!--  Special Purpose Brushes  -->
     <SolidColorBrush x:Key="ApplicationRemoveBrush" Color="#FEF2F2" />
+    <SolidColorBrush x:Key="ApplicationRemoveForegroundBrush" Color="#1A1D21" />
     <SolidColorBrush x:Key="ApplicationAddBrush" Color="#ECFDF5" />
     <SolidColorBrush x:Key="ApplicationAddHoverBrush" Color="#D1FAE5" />
     <SolidColorBrush x:Key="ListViewAlternatingRowBrush" Color="#F9FAFB" />

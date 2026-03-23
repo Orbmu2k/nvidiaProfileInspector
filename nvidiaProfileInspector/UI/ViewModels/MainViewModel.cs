@@ -956,6 +956,7 @@ using System.Windows.Input;
              {
                  var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
                  themeManager.ToggleTheme();
+                RefreshCurrentProfile();
              }
          }
 
