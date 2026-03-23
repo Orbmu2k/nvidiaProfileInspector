@@ -262,7 +262,11 @@ using System.Windows.Input;
         public bool IsUpdateAvailable
         {
             get => _isUpdateAvailable;
-            set => SetProperty(ref _isUpdateAvailable, value, nameof(IsUpdateAvailable));
+            set
+            {
+                if (SetProperty(ref _isUpdateAvailable, value, nameof(IsUpdateAvailable)))
+                    OnPropertyChanged(nameof(VersionText));
+            }
         }
 
         public SettingItemViewModel SelectedSetting
@@ -297,6 +301,16 @@ using System.Windows.Input;
         {
             get => _isSnackbarActive;
             set => SetProperty(ref _isSnackbarActive, value, nameof(IsSnackbarActive));
+        }
+
+        public string VersionText
+        {
+            get
+            {
+                var v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                var ver = v != null ? $"v{v.Major}.{v.Minor}.{v.Build}.{v.Revision}" : "";
+                return _isUpdateAvailable ? $"{ver} (update available)" : ver;
+            }
         }
 
         public bool IsAppearanceMenuOpen
@@ -352,7 +366,7 @@ using System.Windows.Input;
         public AsyncRelayCommand ScanCommand { get; private set; }
         public AsyncRelayCommand CheckUpdateCommand { get; private set; }
         public ICommand ShowAboutCommand { get; private set; }
-        public ICommand ToggleAppearanceMenuCommand { get; private set; }
+public ICommand ToggleAppearanceMenuCommand { get; private set; }
         public ICommand SetThemeCommand { get; private set; }
         public ICommand SetDensityCommand { get; private set; }
 
@@ -397,7 +411,7 @@ using System.Windows.Input;
             ScanCommand = new AsyncRelayCommand(async () => await ScanProfilesAsync());
             CheckUpdateCommand = new AsyncRelayCommand(CheckForUpdatesAsync);
             ShowAboutCommand = new RelayCommand(_ => ShowAbout());
-            ToggleAppearanceMenuCommand = new RelayCommand(_ => ToggleAppearanceMenu());
+ToggleAppearanceMenuCommand = new RelayCommand(_ => ToggleAppearanceMenu());
             SetThemeCommand = new RelayCommand(param => ApplyTheme(param as string));
             SetDensityCommand = new RelayCommand(param => ApplyDensity(param as string));
         }

@@ -59,7 +59,7 @@
 
         <!--  Header / Title Bar  -->
         <controls:TitleBar
-            Title="NVIDIA Profile Inspector"
+            Title=""
             Grid.Row="0"
             Cursor=""
             TitleFontSize="16"
@@ -73,6 +73,53 @@
                     Fill="{DynamicResource NvidiaGreenBrush}"
                     Stretch="Uniform" />
             </controls:TitleBar.IconContent>
+
+            <controls:TitleBar.LeftContent>
+                <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                    <TextBlock
+                        Text="NVIDIA Profile Inspector"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource TitleBrush}"
+                        VerticalAlignment="Center" />
+                    <!--  Version (static, when no update)  -->
+                    <TextBlock
+                        Text="{Binding VersionText}"
+                        FontSize="11"
+                        Foreground="{DynamicResource TextSecondaryBrush}"
+                        VerticalAlignment="Center"
+                        Margin="8,3,0,0"
+                        Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}" />
+                    <!--  Version as link (when update available)  -->
+                    <Button
+                        Command="{Binding ShowAboutCommand}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        Margin="8,3,0,0"
+                        ToolTip="New version available — click for details"
+                        WindowChrome.IsHitTestVisibleInChrome="True"
+                        Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <TextBlock
+                                    x:Name="txt"
+                                    Text="{Binding VersionText}"
+                                    FontSize="11"
+                                    Foreground="{DynamicResource NvidiaGreenBrush}"
+                                    TextDecorations="Underline" />
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="txt" Property="Opacity" Value="0.7" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </controls:TitleBar.LeftContent>
 
             <controls:TitleBar.CenterContent>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
