@@ -21,10 +21,11 @@ jobs:
     - name: Get next version
       id: version
       run: |
-        LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-        IFS='.' read -r MAJOR MINOR PATCH <<< "${LATEST_TAG//v/}"
+        LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v3.0.0.0")
+        LATEST_TAG="${LATEST_TAG#v}"
+        IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "$LATEST_TAG"
         PATCH=$((PATCH + 1))
-        NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+        NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}.${BUILD:-0}"
         echo "version=v${NEW_VERSION}" >> $GITHUB_OUTPUT
 
   build:
@@ -43,9 +44,11 @@ jobs:
       run: |
         $VERSION = "${{ needs.get-version.outputs.version }}"
         $VERSION = $VERSION.TrimStart('v')
+        $PARTS = $VERSION.Split('.')
+        $ASSEMBLY_VERSION = "$($PARTS[0]).$($PARTS[1]).$($PARTS[2]).$($PARTS[3] ?? '0')"
         $FILE = "nvidiaProfileInspector\Properties\AssemblyInfo.cs"
         $CONTENT = Get-Content $FILE -Raw
-        $CONTENT = $CONTENT -replace 'AssemblyVersion\(".*"\)', "AssemblyVersion(`"$VERSION.0`")"
+        $CONTENT = $CONTENT -replace 'AssemblyVersion\(".*"\)', "AssemblyVersion(`"$ASSEMBLY_VERSION`")"
         $CONTENT = $CONTENT -replace 'AssemblyFileVersion\(".*"\)', "AssemblyFileVersion(`"$VERSION`")"
         Set-Content $FILE $CONTENT
 
