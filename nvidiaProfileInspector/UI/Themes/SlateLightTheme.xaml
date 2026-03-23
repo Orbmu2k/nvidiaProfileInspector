@@ -1,82 +1,84 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-<!-- NVIDIA Corporate Slate Light Theme - Fluent 2 Design -->
-<!-- Clean, professional slate gray tones with NVIDIA green accents -->
+    <!--  NVIDIA Corporate Slate Light Theme - Fluent 2 Design  -->
+    <!--  Clean, professional slate gray tones with NVIDIA green accents  -->
 
-<!-- Base Colors - Slate inspired with subtle warmth -->
-<Color x:Key="WindowBackgroundColor">#F5F6F8</Color>
-<Color x:Key="Layer1BackgroundColor">#FFFFFF</Color>
-<Color x:Key="Layer2BackgroundColor">#F0F2F5</Color>
-<Color x:Key="Layer3BackgroundColor">#E8EAED</Color>
+    <!--  Base Colors - Slate inspired with subtle warmth  -->
+    <Color x:Key="WindowBackgroundColor">#F5F6F8</Color>
+    <Color x:Key="Layer1BackgroundColor">#FFFFFF</Color>
+    <Color x:Key="Layer2BackgroundColor">#F0F2F5</Color>
+    <Color x:Key="Layer3BackgroundColor">#E8EAED</Color>
 
-<!-- NVIDIA Green Brand Colors -->
-<Color x:Key="NvidiaGreenColor">#76B900</Color>
-<Color x:Key="NvidiaGreenHoverColor">#8AD400</Color>
-<Color x:Key="NvidiaGreenPressedColor">#659F00</Color>
+    <!--  NVIDIA Green Brand Colors  -->
+    <Color x:Key="NvidiaGreenColor">#76B900</Color>
+    <Color x:Key="NvidiaGreenHoverColor">#8AD400</Color>
+    <Color x:Key="NvidiaGreenPressedColor">#659F00</Color>
 
-<!-- Text Colors - Refined slate grays -->
-<Color x:Key="TextPrimaryColor">#1A1D21</Color>
-<Color x:Key="TextSecondaryColor">#5C6470</Color>
-<Color x:Key="TextDisabledColor">#9CA3AF</Color>
+    <!--  Text Colors - Refined slate grays  -->
+    <Color x:Key="TitleColor">#5C6470</Color>
+    <Color x:Key="TextPrimaryColor">#1A1D21</Color>
+    <Color x:Key="TextSecondaryColor">#5C6470</Color>
+    <Color x:Key="TextDisabledColor">#9CA3AF</Color>
 
-<!-- Accent Colors - Professional blue for secondary accents -->
-<Color x:Key="UserAccentColor">#0078D4</Color>
-<Color x:Key="UserAccentHoverColor">#005A9E</Color>
+    <!--  Accent Colors - Professional blue for secondary accents  -->
+    <Color x:Key="UserAccentColor">#0078D4</Color>
+    <Color x:Key="UserAccentHoverColor">#005A9E</Color>
 
-<!-- Control Border Colors - Subtle slate tones -->
-<Color x:Key="ControlBorderColor">#D1D5DB</Color>
-<Color x:Key="ControlBorderHoverColor">#9CA3AF</Color>
-<Color x:Key="AccentBorderColor">#76B900</Color>
+    <!--  Control Border Colors - Subtle slate tones  -->
+    <Color x:Key="ControlBorderColor">#D1D5DB</Color>
+    <Color x:Key="ControlBorderHoverColor">#9CA3AF</Color>
+    <Color x:Key="AccentBorderColor">#76B900</Color>
 
-<!-- Status Colors -->
-<Color x:Key="SuccessColor">#059669</Color>
-<Color x:Key="ErrorColor">#DC2626</Color>
-<Color x:Key="WarningColor">#F59E0B</Color>
-<Color x:Key="QuestionColor">#0078D4</Color>
-<Color x:Key="LabColor">#C239B3</Color>
+    <!--  Status Colors  -->
+    <Color x:Key="SuccessColor">#059669</Color>
+    <Color x:Key="ErrorColor">#DC2626</Color>
+    <Color x:Key="WarningColor">#F59E0B</Color>
+    <Color x:Key="QuestionColor">#0078D4</Color>
+    <Color x:Key="LabColor">#C239B3</Color>
 
-<!-- Brushes -->
-<SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}" />
-<SolidColorBrush x:Key="Layer1BackgroundBrush" Color="{StaticResource Layer1BackgroundColor}" />
-<SolidColorBrush x:Key="Layer2BackgroundBrush" Color="{StaticResource Layer2BackgroundColor}" />
-<SolidColorBrush x:Key="Layer3BackgroundBrush" Color="{StaticResource Layer3BackgroundColor}" />
+    <!--  Brushes  -->
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}" />
+    <SolidColorBrush x:Key="Layer1BackgroundBrush" Color="{StaticResource Layer1BackgroundColor}" />
+    <SolidColorBrush x:Key="Layer2BackgroundBrush" Color="{StaticResource Layer2BackgroundColor}" />
+    <SolidColorBrush x:Key="Layer3BackgroundBrush" Color="{StaticResource Layer3BackgroundColor}" />
 
-<SolidColorBrush x:Key="NvidiaGreenBrush" Color="{StaticResource NvidiaGreenColor}" />
-<SolidColorBrush x:Key="AccentBrush" Color="{StaticResource UserAccentColor}" />
-<SolidColorBrush x:Key="UserAccentBrush" Color="{StaticResource UserAccentColor}" />
-<SolidColorBrush x:Key="NvidiaGreenHoverBrush" Color="{StaticResource NvidiaGreenHoverColor}" />
-<SolidColorBrush x:Key="NvidiaGreenPressedBrush" Color="{StaticResource NvidiaGreenPressedColor}" />
+    <SolidColorBrush x:Key="NvidiaGreenBrush" Color="{StaticResource NvidiaGreenColor}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource UserAccentColor}" />
+    <SolidColorBrush x:Key="UserAccentBrush" Color="{StaticResource UserAccentColor}" />
+    <SolidColorBrush x:Key="NvidiaGreenHoverBrush" Color="{StaticResource NvidiaGreenHoverColor}" />
+    <SolidColorBrush x:Key="NvidiaGreenPressedBrush" Color="{StaticResource NvidiaGreenPressedColor}" />
 
-<SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}" />
-<SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextPrimaryColor}" />
-<SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}" />
-<SolidColorBrush x:Key="TextDisabledBrush" Color="{StaticResource TextDisabledColor}" />
+    <SolidColorBrush x:Key="TitleBrush" Color="{StaticResource TitleColor}" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}" />
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextPrimaryColor}" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}" />
+    <SolidColorBrush x:Key="TextDisabledBrush" Color="{StaticResource TextDisabledColor}" />
 
-<SolidColorBrush x:Key="ControlBorderBrush" Color="{StaticResource ControlBorderColor}" />
-<SolidColorBrush x:Key="ControlBorderHoverBrush" Color="{StaticResource ControlBorderHoverColor}" />
-<SolidColorBrush x:Key="AccentBorderBrush" Color="{StaticResource AccentBorderColor}" />
+    <SolidColorBrush x:Key="ControlBorderBrush" Color="{StaticResource ControlBorderColor}" />
+    <SolidColorBrush x:Key="ControlBorderHoverBrush" Color="{StaticResource ControlBorderHoverColor}" />
+    <SolidColorBrush x:Key="AccentBorderBrush" Color="{StaticResource AccentBorderColor}" />
 
-<SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}" />
-<SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
-<SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
-<SolidColorBrush x:Key="QuestionBrush" Color="{StaticResource QuestionColor}" />
-<SolidColorBrush x:Key="LabBrush" Color="{StaticResource LabColor}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}" />
+    <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
+    <SolidColorBrush x:Key="QuestionBrush" Color="{StaticResource QuestionColor}" />
+    <SolidColorBrush x:Key="LabBrush" Color="{StaticResource LabColor}" />
 
-<!-- Overlay / Transparency Brushes - Slate tinted -->
-<SolidColorBrush x:Key="HighlightOverlayBrush" Color="#081A1D21" />
-<SolidColorBrush x:Key="HoverOverlayBrush" Color="#0A1A1D21" />
-<SolidColorBrush x:Key="PressedOverlayBrush" Color="#141A1D21" />
+    <!--  Overlay / Transparency Brushes - Slate tinted  -->
+    <SolidColorBrush x:Key="HighlightOverlayBrush" Color="#081A1D21" />
+    <SolidColorBrush x:Key="HoverOverlayBrush" Color="#0A1A1D21" />
+    <SolidColorBrush x:Key="PressedOverlayBrush" Color="#141A1D21" />
 
-<!-- Scrollbar Colors -->
-<SolidColorBrush x:Key="ScrollBarThumbBrush" Color="#201A1D21" />
-<SolidColorBrush x:Key="ScrollBarThumbHoverBrush" Color="#301A1D21" />
-<SolidColorBrush x:Key="ScrollBarThumbPressedBrush" Color="#451A1D21" />
+    <!--  Scrollbar Colors  -->
+    <SolidColorBrush x:Key="ScrollBarThumbBrush" Color="#201A1D21" />
+    <SolidColorBrush x:Key="ScrollBarThumbHoverBrush" Color="#301A1D21" />
+    <SolidColorBrush x:Key="ScrollBarThumbPressedBrush" Color="#451A1D21" />
 
-<!-- Special Purpose Brushes -->
-<SolidColorBrush x:Key="ApplicationRemoveBrush" Color="#FEF2F2" />
-<SolidColorBrush x:Key="ApplicationAddBrush" Color="#ECFDF5" />
-<SolidColorBrush x:Key="ApplicationAddHoverBrush" Color="#D1FAE5" />
-<SolidColorBrush x:Key="ListViewAlternatingRowBrush" Color="#F9FAFB" />
-<SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#FEF3C7" />
+    <!--  Special Purpose Brushes  -->
+    <SolidColorBrush x:Key="ApplicationRemoveBrush" Color="#FEF2F2" />
+    <SolidColorBrush x:Key="ApplicationAddBrush" Color="#ECFDF5" />
+    <SolidColorBrush x:Key="ApplicationAddHoverBrush" Color="#D1FAE5" />
+    <SolidColorBrush x:Key="ListViewAlternatingRowBrush" Color="#F9FAFB" />
+    <SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#FEF3C7" />
 
 </ResourceDictionary>

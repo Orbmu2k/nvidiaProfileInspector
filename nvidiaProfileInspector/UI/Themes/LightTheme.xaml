@@ -10,6 +10,7 @@
     <Color x:Key="NvidiaGreenHoverColor">#8AD400</Color>
     <Color x:Key="NvidiaGreenPressedColor">#659F00</Color>
 
+    <Color x:Key="TitleColor">#282828</Color>
     <Color x:Key="TextPrimaryColor">#1A1A1A</Color>
     <Color x:Key="TextSecondaryColor">#666666</Color>
     <Color x:Key="TextDisabledColor">#A0A0A0</Color>
@@ -39,6 +40,7 @@
     <SolidColorBrush x:Key="NvidiaGreenHoverBrush" Color="{StaticResource NvidiaGreenHoverColor}" />
     <SolidColorBrush x:Key="NvidiaGreenPressedBrush" Color="{StaticResource NvidiaGreenPressedColor}" />
 
+    <SolidColorBrush x:Key="TitleBrush" Color="{StaticResource TitleColor}" />
     <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}" />
     <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextPrimaryColor}" />
     <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}" />

@@ -3,5 +3,5 @@
     <CornerRadius x:Key="ControlCornerRadius">8</CornerRadius>
     <CornerRadius x:Key="OverlayCornerRadius">12</CornerRadius>
     <Thickness x:Key="ControlBorderThickness">1</Thickness>
-    
+
 </ResourceDictionary>

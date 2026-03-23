@@ -61,8 +61,9 @@
         <controls:TitleBar
             Title="NVIDIA Profile Inspector"
             Grid.Row="0"
+            Cursor=""
             TitleFontSize="16"
-            TitleForeground="{DynamicResource TextPrimaryBrush}">
+            TitleForeground="{DynamicResource TitleBrush}">
             <controls:TitleBar.RightContent>
                 <StackPanel Orientation="Horizontal">
                     <Button

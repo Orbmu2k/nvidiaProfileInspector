@@ -10,7 +10,7 @@
 
     <Style TargetType="controls:TitleBar">
         <Setter Property="Background" Value="{DynamicResource Layer1BackgroundBrush}" />
-        <Setter Property="TitleForeground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="TitleForeground" Value="{DynamicResource TitleBrush}" />
         <Setter Property="Padding" Value="16,12" />
         <Setter Property="Template">
             <Setter.Value>
@@ -145,17 +145,17 @@
                                 Text="{TemplateBinding Text}" />
                         </StackPanel>
                     </Border>
-<ControlTemplate.Triggers>
-<Trigger Property="IsMouseOver" Value="True">
-<Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
-<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
-<Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-</Trigger>
-<Trigger Property="IsPressed" Value="True">
-<Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
-<Setter Property="Opacity" Value="0.8" />
-</Trigger>
-</ControlTemplate.Triggers>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
+                            <Setter Property="Opacity" Value="0.8" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -206,21 +206,21 @@
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
-<Trigger Property="IsMouseOver" Value="True">
-<Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
-<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
-<Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-</Trigger>
-<Trigger Property="IsChecked" Value="True">
-<Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
-<Setter TargetName="border" Property="BorderBrush" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
-<Setter Property="Foreground" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
-<Setter TargetName="IconPath" Property="Fill" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
-</Trigger>
-<Trigger Property="IsPressed" Value="True">
-<Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
-<Setter Property="Opacity" Value="0.8" />
-</Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter Property="Foreground" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="IconPath" Property="Fill" Value="{Binding IconFill, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
+                            <Setter Property="Opacity" Value="0.8" />
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.3" />
                         </Trigger>
@@ -306,16 +306,16 @@
 
                         </Grid>
                     </Border>
-<ControlTemplate.Triggers>
-<Trigger Property="IsMouseOver" Value="True">
-<Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
-<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
-</Trigger>
-<Trigger Property="IsPressed" Value="True">
-<Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
-<Setter Property="Opacity" Value="0.9" />
-</Trigger>
-</ControlTemplate.Triggers>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBrush}" />
+                            <Setter Property="Opacity" Value="0.9" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
