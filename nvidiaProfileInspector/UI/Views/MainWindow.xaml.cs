@@ -1,5 +1,6 @@
 namespace nvidiaProfileInspector.UI.Views
 {
+    using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector;
     using nvidiaProfileInspector.UI.ViewModels;
     using nvidiaProfileInspector.UI.Views.Dialogs;
@@ -19,6 +20,12 @@ namespace nvidiaProfileInspector.UI.Views
             _viewModel = App.Bootstrapper.Resolve<MainViewModel>();
             _viewModel.OnOpenBitEditor += OnOpenBitEditor;
             DataContext = _viewModel;
+            SourceInitialized += MainWindow_SourceInitialized;
+        }
+
+        private void MainWindow_SourceInitialized(object sender, EventArgs e)
+        {
+            WindowBackdropHelper.TryApplyTo(this);
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)

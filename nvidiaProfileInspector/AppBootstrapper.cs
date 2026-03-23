@@ -24,17 +24,17 @@ namespace nvidiaProfileInspector
             var customSettings = LoadCustomSettings();
             var referenceSettings = LoadReferenceSettings();
 
-            var metaService = new DrsSettingsMetaService(customSettings, referenceSettings);
-            var decrypterService = new DrsDecrypterService(metaService);
-            var scannerService = new DrsScannerService(metaService, decrypterService);
-            var settingService = new DrsSettingsService(metaService, decrypterService);
-            var importService = new DrsImportService(metaService, settingService, scannerService, decrypterService);
+            //var metaService = new DrsSettingsMetaService(customSettings, referenceSettings);
+            //var decrypterService = new DrsDecrypterService(metaService);
+            //var scannerService = new DrsScannerService(metaService, decrypterService);
+            //var settingService = new DrsSettingsService(metaService, decrypterService);
+            //var importService = new DrsImportService(metaService, settingService, scannerService, decrypterService);
 
-            _container.RegisterInstance<DrsSettingsMetaService>(metaService);
-            _container.RegisterInstance<DrsDecrypterService>(decrypterService);
-            _container.RegisterInstance<DrsScannerService>(scannerService);
-            _container.RegisterInstance<DrsSettingsService>(settingService);
-            _container.RegisterInstance<DrsImportService>(importService);
+            //_container.RegisterInstance<DrsSettingsMetaService>(metaService);
+            //_container.RegisterInstance<DrsDecrypterService>(decrypterService);
+            //_container.RegisterInstance<DrsScannerService>(scannerService);
+            //_container.RegisterInstance<DrsSettingsService>(settingService);
+            //_container.RegisterInstance<DrsImportService>(importService);
 
              _container.Register<BitEditorService>();
              _container.RegisterSingleton<DialogService>();

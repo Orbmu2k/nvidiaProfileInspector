@@ -8,6 +8,8 @@
     <Color x:Key="Layer1BackgroundColor">#FFFFFF</Color>
     <Color x:Key="Layer2BackgroundColor">#F0F2F5</Color>
     <Color x:Key="Layer3BackgroundColor">#E8EAED</Color>
+    <Color x:Key="TitleBarBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="TitleBarBackdropColor">#44F5F6F8</Color>
 
     <!--  NVIDIA Green Brand Colors  -->
     <Color x:Key="NvidiaGreenColor">#66A900</Color>
@@ -41,6 +43,8 @@
     <SolidColorBrush x:Key="Layer1BackgroundBrush" Color="{StaticResource Layer1BackgroundColor}" />
     <SolidColorBrush x:Key="Layer2BackgroundBrush" Color="{StaticResource Layer2BackgroundColor}" />
     <SolidColorBrush x:Key="Layer3BackgroundBrush" Color="{StaticResource Layer3BackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarBackdropBrush" Color="{StaticResource TitleBarBackdropColor}" />
 
     <SolidColorBrush x:Key="NvidiaGreenBrush" Color="{StaticResource NvidiaGreenColor}" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource UserAccentColor}" />

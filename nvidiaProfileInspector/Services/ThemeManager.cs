@@ -10,10 +10,12 @@ namespace nvidiaProfileInspector.Services
     public class ThemeManager
     {
         private const string DarkTheme = "DarkTheme.xaml";
+        private const string LightTheme = "LightTheme.xaml";
         private const string SlateLightTheme = "SlateLightTheme.xaml";
         
         private static readonly string[] ValidThemes = { 
-            DarkTheme, 
+            DarkTheme,
+            LightTheme,
             SlateLightTheme 
         };
 

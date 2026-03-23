@@ -22,14 +22,15 @@
         <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        <Setter Property="WindowStyle" Value="None" />
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome
                     CaptionHeight="40"
                     CornerRadius="0"
-                    GlassFrameThickness="4"
+                    GlassFrameThickness="0,1,0,0"
                     NonClientFrameEdges="None"
+                    ResizeBorderThickness="6"
                     UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>
@@ -44,8 +45,9 @@
                 <WindowChrome
                     CaptionHeight="40"
                     CornerRadius="8"
-                    GlassFrameThickness="4"
+                    GlassFrameThickness="0,1,0,0"
                     NonClientFrameEdges="None"
+                    ResizeBorderThickness="6"
                     UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>

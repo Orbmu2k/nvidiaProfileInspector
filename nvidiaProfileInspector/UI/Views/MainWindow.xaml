@@ -16,6 +16,7 @@
     MinHeight="450"
     d:DataContext="{x:Static vm:DesignTimeData.MainViewModel}"
     AllowDrop="True"
+    Background="Transparent"
     Closing="Window_Closing"
     Cursor="Hand"
     Drop="Window_Drop"
@@ -61,6 +62,7 @@
         <controls:TitleBar
             Title="NVIDIA Profile Inspector"
             Grid.Row="0"
+            Background="{DynamicResource TitleBarBackdropBrush}"
             Cursor=""
             TitleFontSize="16"
             TitleForeground="{DynamicResource TitleBrush}">
@@ -160,179 +162,178 @@
             </controls:TitleBar.RightContent>
         </controls:TitleBar>
 
-        <!--  Command Bar  -->
         <Border
             Grid.Row="1"
-            Padding="16,8"
-            Background="{DynamicResource Layer2BackgroundBrush}"
-            BorderBrush="{DynamicResource ControlBorderBrush}"
-            BorderThickness="0,0,0,1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <StackPanel
-                    Grid.Column="0"
-                    Cursor=""
-                    Orientation="Horizontal">
-                    <!--  Profile Actions  -->
-                    <controls:ActionBarButton
-                        Command="{Binding RestoreProfileCommand}"
-                        IconFill="{DynamicResource TextSecondaryBrush}"
-                        IconPath="{DynamicResource IconNvidia}"
-                        Text="Defaults"
-                        ToolTip="Restore profile to NVIDIA default settings" />
-
-                    <controls:ActionBarButton
-                        Command="{Binding CreateProfileCommand}"
-                        Cursor="Hand"
-                        IconFill="{DynamicResource TextSecondaryBrush}"
-                        IconPath="{DynamicResource IconAdd}"
-                        Text="New"
-                        ToolTip="Create a new profile" />
-
-                    <controls:ActionBarButton
-                        Command="{Binding DeleteProfileCommand}"
-                        IconFill="{DynamicResource TextSecondaryBrush}"
-                        IconPath="{DynamicResource IconDelete}"
-                        Text="Delete"
-                        ToolTip="Delete the current profile" />
-
-                    <controls:ActionBarButton
-                        Command="{Binding CopySettingsCommand}"
-                        IconFill="{DynamicResource TextSecondaryBrush}"
-                        IconPath="{DynamicResource IconCopy}"
-                        Text="Copy"
-                        ToolTip="Copy settings to clipboard" />
-
-                    <controls:ActionBarButton
-                        Command="{Binding OpenBitEditorCommand}"
-                        IconFill="{DynamicResource TextSecondaryBrush}"
-                        IconPath="{DynamicResource IconBitEditor}"
-                        Text="Bit Editor"
-                        ToolTip="Open the Bit Value Editor" />
-
-
-
-                    <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
-
-                    <!--  Data Actions  -->
-                    <controls:ActionBarButton
-                        x:Name="ExportButton"
-                        Click="ExportButton_Click"
-                        IconFill="{DynamicResource TextSecondaryBrush}"
-                        IconPath="{DynamicResource IconExport}"
-                        Text="Export"
-                        ToolTip="Export profiles to file" />
-
-                    <controls:ActionBarButton
-                        x:Name="ImportButton"
-                        Click="ImportButton_Click"
-                        IconFill="{DynamicResource TextSecondaryBrush}"
-                        IconPath="{DynamicResource IconImport}"
-                        Text="Import"
-                        ToolTip="Import profiles from file" />
-
-
-
-                </StackPanel>
-
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-
-
-
-                    <controls:ActionBarToggleButton
-                        IconPath="{DynamicResource IconLab}"
-                        IsChecked="{Binding ShowScannedUnknownSettings}"
-                        ToggledColor="{DynamicResource ErrorBrush}"
-                        Text="Lab"
-                        ToolTip="Show unknown settings from NVIDIA predefined profiles" />
-
-
-                    <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
-
-
-                    <controls:ActionBarButton
-                        Command="{Binding RefreshCommand}"
-                        IconFill="{DynamicResource TextSecondaryBrush}"
-                        IconPath="{DynamicResource IconRefresh}"
-                        Text="Refresh"
-                        ToolTip="Refresh all profiles" />
-
-                    <controls:ActionBarButton
-                        Command="{Binding ApplyCommand}"
-                        Cursor="Hand"
-                        FontWeight="Bold"
-                        IconFill="{DynamicResource NvidiaGreenBrush}"
-                        IconPath="{DynamicResource IconApply}"
-                        Text="Apply Changes"
-                        TextFontSize="11"
-                        TextForeground="{DynamicResource TextPrimaryBrush}"
-                        ToolTip="Apply all changes and save" />
-                </StackPanel>
-            </Grid>
-        </Border>
-        <!--  Applications Area with Badges  -->
-        <Border
-            Grid.Row="2"
-            Padding="16,8"
-            Background="{DynamicResource Layer1BackgroundBrush}"
-            BorderBrush="{DynamicResource ControlBorderBrush}"
-            BorderThickness="0,0,0,1"
-            Visibility="{Binding ShowApplicationsArea, Converter={StaticResource BoolToVisibilityConverter}}">
+            Grid.RowSpan="5"
+            Background="{DynamicResource Layer1BackgroundBrush}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
 
+                <!--  Command Bar  -->
+                <Border
+                    Grid.Row="0"
+                    Padding="16,8"
+                    Background="{DynamicResource Layer2BackgroundBrush}"
+                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                    BorderThickness="0,0,0,1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                <StackPanel
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Orientation="Horizontal">
-                    <Button
-                        Click="AddApplication_Click"
-                        Content="Add Application"
-                        Style="{StaticResource AddApplicationButtonStyle}"
-                        ToolTip="Add a new application to this profile" />
-                    <Separator Margin="0,4,0,4" Style="{StaticResource ToolBarSeparatorStyle}" />
-                </StackPanel>
+                        <StackPanel
+                            Grid.Column="0"
+                            Cursor=""
+                            Orientation="Horizontal">
+                            <controls:ActionBarButton
+                                Command="{Binding RestoreProfileCommand}"
+                                IconFill="{DynamicResource TextSecondaryBrush}"
+                                IconPath="{DynamicResource IconNvidia}"
+                                Text="Defaults"
+                                ToolTip="Restore profile to NVIDIA default settings" />
 
+                            <controls:ActionBarButton
+                                Command="{Binding CreateProfileCommand}"
+                                Cursor="Hand"
+                                IconFill="{DynamicResource TextSecondaryBrush}"
+                                IconPath="{DynamicResource IconAdd}"
+                                Text="New"
+                                ToolTip="Create a new profile" />
+
+                            <controls:ActionBarButton
+                                Command="{Binding DeleteProfileCommand}"
+                                IconFill="{DynamicResource TextSecondaryBrush}"
+                                IconPath="{DynamicResource IconDelete}"
+                                Text="Delete"
+                                ToolTip="Delete the current profile" />
+
+                            <controls:ActionBarButton
+                                Command="{Binding CopySettingsCommand}"
+                                IconFill="{DynamicResource TextSecondaryBrush}"
+                                IconPath="{DynamicResource IconCopy}"
+                                Text="Copy"
+                                ToolTip="Copy settings to clipboard" />
+
+                            <controls:ActionBarButton
+                                Command="{Binding OpenBitEditorCommand}"
+                                IconFill="{DynamicResource TextSecondaryBrush}"
+                                IconPath="{DynamicResource IconBitEditor}"
+                                Text="Bit Editor"
+                                ToolTip="Open the Bit Value Editor" />
+
+                            <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
+
+                            <controls:ActionBarButton
+                                x:Name="ExportButton"
+                                Click="ExportButton_Click"
+                                IconFill="{DynamicResource TextSecondaryBrush}"
+                                IconPath="{DynamicResource IconExport}"
+                                Text="Export"
+                                ToolTip="Export profiles to file" />
+
+                            <controls:ActionBarButton
+                                x:Name="ImportButton"
+                                Click="ImportButton_Click"
+                                IconFill="{DynamicResource TextSecondaryBrush}"
+                                IconPath="{DynamicResource IconImport}"
+                                Text="Import"
+                                ToolTip="Import profiles from file" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <controls:ActionBarToggleButton
+                                IconPath="{DynamicResource IconLab}"
+                                IsChecked="{Binding ShowScannedUnknownSettings}"
+                                ToggledColor="{DynamicResource ErrorBrush}"
+                                Text="Lab"
+                                ToolTip="Show unknown settings from NVIDIA predefined profiles" />
+
+                            <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
+
+                            <controls:ActionBarButton
+                                Command="{Binding RefreshCommand}"
+                                IconFill="{DynamicResource TextSecondaryBrush}"
+                                IconPath="{DynamicResource IconRefresh}"
+                                Text="Refresh"
+                                ToolTip="Refresh all profiles" />
+
+                            <controls:ActionBarButton
+                                Command="{Binding ApplyCommand}"
+                                Cursor="Hand"
+                                FontWeight="Bold"
+                                IconFill="{DynamicResource NvidiaGreenBrush}"
+                                IconPath="{DynamicResource IconApply}"
+                                Text="Apply Changes"
+                                TextFontSize="11"
+                                TextForeground="{DynamicResource TextPrimaryBrush}"
+                                ToolTip="Apply all changes and save" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!--  Applications Area with Badges  -->
                 <Border
                     Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="12,0,0,0">
-                    <ItemsControl ItemsSource="{Binding Applications}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button
-                                    Click="RemoveApplication_Click"
-                                    Style="{StaticResource ApplicationChipStyle}"
-                                    Tag="{Binding}"
-                                    ToolTip="{Binding Key}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    Padding="16,8"
+                    Background="{DynamicResource Layer1BackgroundBrush}"
+                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                    BorderThickness="0,0,0,1"
+                    Visibility="{Binding ShowApplicationsArea, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Orientation="Horizontal">
+                            <Button
+                                Click="AddApplication_Click"
+                                Content="Add Application"
+                                Style="{StaticResource AddApplicationButtonStyle}"
+                                ToolTip="Add a new application to this profile" />
+                            <Separator Margin="0,4,0,4" Style="{StaticResource ToolBarSeparatorStyle}" />
+                        </StackPanel>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="12,0,0,0">
+                            <ItemsControl ItemsSource="{Binding Applications}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            Click="RemoveApplication_Click"
+                                            Style="{StaticResource ApplicationChipStyle}"
+                                            Tag="{Binding}"
+                                            ToolTip="{Binding Key}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+                    </Grid>
                 </Border>
-            </Grid>
-        </Border>
 
-
-
-        <!--  Settings List Area  -->
-        <Grid Grid.Row="3" Margin="16,16,16,8">
+                <!--  Settings List Area  -->
+                <Grid Grid.Row="2" Margin="16,16,16,8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -555,48 +556,50 @@
                     </GroupStyle>
                 </ListView.GroupStyle>
             </ListView>
-        </Grid>
+                </Grid>
 
-        <!--  Setting Description  -->
-        <Border
-            Grid.Row="4"
-            Margin="16,0,16,16"
-            Padding="12"
-            Background="{DynamicResource Layer3BackgroundBrush}"
-            CornerRadius="8"
-            Visibility="{Binding SettingDescription, Converter={StaticResource StringNotEmptyToVisibilityConverter}}">
-            <StackPanel>
-                <TextBlock
-                    Margin="0,0,0,4"
-                    FontSize="10"
-                    FontWeight="Bold"
-                    Foreground="{DynamicResource NvidiaGreenBrush}"
-                    Text="DESCRIPTION" />
-                <TextBox
-                    MaxHeight="80"
-                    Padding="0"
-                    AcceptsReturn="True"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    IsReadOnly="True"
-                    Style="{StaticResource DarkTextBoxStyle}"
-                    Text="{Binding SettingDescription, Mode=OneWay}"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto" />
-            </StackPanel>
-        </Border>
+                <!--  Setting Description  -->
+                <Border
+                    Grid.Row="3"
+                    Margin="16,0,16,16"
+                    Padding="12"
+                    Background="{DynamicResource Layer3BackgroundBrush}"
+                    CornerRadius="8"
+                    Visibility="{Binding SettingDescription, Converter={StaticResource StringNotEmptyToVisibilityConverter}}">
+                    <StackPanel>
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            FontSize="10"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource NvidiaGreenBrush}"
+                            Text="DESCRIPTION" />
+                        <TextBox
+                            MaxHeight="80"
+                            Padding="0"
+                            AcceptsReturn="True"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            IsReadOnly="True"
+                            Style="{StaticResource DarkTextBoxStyle}"
+                            Text="{Binding SettingDescription, Mode=OneWay}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+                    </StackPanel>
+                </Border>
 
-        <!--  Footer / Progress  -->
-        <Border
-            Grid.Row="5"
-            Padding="8,8"
-            Background="{DynamicResource Layer1BackgroundBrush}">
-            <Grid>
-                <ProgressBar
-                    VerticalAlignment="Center"
-                    Maximum="100"
-                    Style="{StaticResource DarkProgressBarStyle}"
-                    Value="{Binding ScanProgress}" />
+                <!--  Footer / Progress  -->
+                <Border
+                    Grid.Row="4"
+                    Padding="8,8"
+                    Background="{DynamicResource Layer1BackgroundBrush}">
+                    <Grid>
+                        <ProgressBar
+                            VerticalAlignment="Center"
+                            Maximum="100"
+                            Style="{StaticResource DarkProgressBarStyle}"
+                            Value="{Binding ScanProgress}" />
+                    </Grid>
+                </Border>
             </Grid>
         </Border>
 

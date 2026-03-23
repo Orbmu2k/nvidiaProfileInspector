@@ -439,11 +439,11 @@ namespace nvidiaProfileInspector.Native.NVAPI2
         {
             if (IntPtr.Size == 4)
             {
-                return "nvapi.dll";
+                return "nvapi.dllx";
             }
             else
             {
-                return "nvapi64.dll";
+                return "nvapi64.dllx";
             }
         }
 

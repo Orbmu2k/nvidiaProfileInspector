@@ -9,9 +9,9 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="controls:TitleBar">
-        <Setter Property="Background" Value="{DynamicResource Layer1BackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource TitleBarBackgroundBrush}" />
         <Setter Property="TitleForeground" Value="{DynamicResource TitleBrush}" />
-        <Setter Property="Padding" Value="16,12" />
+        <Setter Property="Padding" Value="16,8,16,6" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:TitleBar">
@@ -55,16 +55,24 @@
                                 Orientation="Horizontal"
                                 WindowChrome.IsHitTestVisibleInChrome="True">
                                 <ContentControl
-                                    Margin="0,0,12,0"
+                                    Margin="0,0,8,0"
                                     VerticalAlignment="Center"
                                     Content="{TemplateBinding RightContent}" />
-                                <StackPanel
-                                    Margin="0,-12,-16,0"
+                                <Grid
+                                    Width="138"
+                                    Height="32"
+                                    Margin="0,-8,-6,0"
                                     VerticalAlignment="Top"
-                                    Orientation="Horizontal"
                                     WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="46" />
+                                        <ColumnDefinition Width="46" />
+                                        <ColumnDefinition Width="46" />
+                                    </Grid.ColumnDefinitions>
+
                                     <Button
                                         x:Name="MinimizeButton"
+                                        Grid.Column="0"
                                         Style="{StaticResource WindowButtonStyle}"
                                         ToolTip="Minimize"
                                         Visibility="{TemplateBinding ShowMinimizeButton,
@@ -77,10 +85,14 @@
                                             Stretch="Uniform" />
                                     </Button>
 
-                                    <Button x:Name="MaximizeButton" Style="{StaticResource MaximizeWindowButtonStyle}" />
+                                    <Button
+                                        x:Name="MaximizeButton"
+                                        Grid.Column="1"
+                                        Style="{StaticResource MaximizeWindowButtonStyle}" />
 
                                     <Button
                                         x:Name="CloseButton"
+                                        Grid.Column="2"
                                         Style="{StaticResource CloseWindowButtonStyle}"
                                         ToolTip="Close"
                                         Visibility="{TemplateBinding ShowCloseButton,
@@ -92,7 +104,7 @@
                                             Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
                                             Stretch="Uniform" />
                                     </Button>
-                                </StackPanel>
+                                </Grid>
                             </StackPanel>
                         </Grid>
                     </Border>

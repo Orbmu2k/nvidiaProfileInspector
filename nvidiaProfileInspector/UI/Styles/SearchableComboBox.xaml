@@ -61,7 +61,8 @@
                                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
                                         </Trigger>
                                         <Trigger Property="IsChecked" Value="true">
-                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -106,7 +107,7 @@
                                 <Border
                                     x:Name="DropDownBorder"
                                     Margin="0,2,0,0"
-                                    Background="{DynamicResource WindowBackgroundBrush}"
+                                    Background="{DynamicResource Layer1BackgroundBrush}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
@@ -239,7 +240,8 @@
                                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
                                         </Trigger>
                                         <Trigger Property="IsChecked" Value="true">
-                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ControlBorderHoverBrush}" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -262,7 +264,7 @@
                                 SnapsToDevicePixels="True">
                                 <Border
                                     x:Name="DropDownBorder"
-                                    Background="{DynamicResource WindowBackgroundBrush}"
+                                    Background="{DynamicResource Layer1BackgroundBrush}"
                                     BorderBrush="{DynamicResource ControlBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
