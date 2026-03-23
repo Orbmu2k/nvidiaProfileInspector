@@ -393,7 +393,7 @@ namespace nvidiaProfileInspector.Native.NVAPI2
         public uint numOfSettings;
     }
 
-    public class NvapiDrsWrapper
+    public partial class NvapiDrsWrapper
     {
 
         #region CONSTANTS
@@ -423,6 +423,7 @@ namespace nvidiaProfileInspector.Native.NVAPI2
 
         private static readonly Lazy<NvapiDrsWrapper> _instance = new Lazy<NvapiDrsWrapper>(() => new NvapiDrsWrapper());
         public static NvapiDrsWrapper Instance => _instance.Value;
+        public bool IsMockMode { get; private set; }
 
         [DllImport("kernel32.dll")]
         private static extern IntPtr LoadLibrary(String dllname);
@@ -439,11 +440,11 @@ namespace nvidiaProfileInspector.Native.NVAPI2
         {
             if (IntPtr.Size == 4)
             {
-                return "nvapi.dllx";
+                return "nvapi.dll";
             }
             else
             {
-                return "nvapi64.dllx";
+                return "nvapi64.dll";
             }
         }
 
@@ -729,6 +730,54 @@ namespace nvidiaProfileInspector.Native.NVAPI2
         #endregion
         private NvapiDrsWrapper()
         {
+            if (ShouldUseMock())
+            {
+                IsMockMode = true;
+                InitializeMockState();
+                NvAPI_Initialize = MockNvAPI_Initialize;
+                Initialize = MockInitialize;
+                Unload = MockUnload;
+                GetErrorMessage = MockGetErrorMessage;
+                GetInterfaceVersionString = MockGetInterfaceVersionString;
+                SYS_GetDriverAndBranchVersion = MockSYS_GetDriverAndBranchVersion;
+                DRS_CreateSession = MockDRS_CreateSession;
+                DRS_DestroySession = MockDRS_DestroySession;
+                DRS_LoadSettings = MockDRS_LoadSettings;
+                DRS_SaveSettings = MockDRS_SaveSettings;
+                DRS_LoadSettingsFromFile = MockDRS_LoadSettingsFromFile;
+                DRS_SaveSettingsToFile = MockDRS_SaveSettingsToFile;
+                DRS_LoadSettingsFromFileEx = MockDRS_LoadSettingsFromFileEx;
+                DRS_SaveSettingsToFileEx = MockDRS_SaveSettingsToFileEx;
+                DRS_CreateProfile = MockDRS_CreateProfile;
+                DRS_DeleteProfile = MockDRS_DeleteProfile;
+                DRS_SetCurrentGlobalProfile = MockDRS_SetCurrentGlobalProfile;
+                DRS_GetCurrentGlobalProfile = MockDRS_GetCurrentGlobalProfile;
+                DRS_GetProfileInfo = MockDRS_GetProfileInfo;
+                DRS_SetProfileInfo = MockDRS_SetProfileInfo;
+                DRS_FindProfileByName = MockDRS_FindProfileByName;
+                DRS_EnumProfiles = MockDRS_EnumProfiles;
+                DRS_GetNumProfiles = MockDRS_GetNumProfiles;
+                DRS_CreateApplication = MockDRS_CreateApplication;
+                DRS_DeleteApplicationEx = MockDRS_DeleteApplicationEx;
+                DRS_DeleteApplication = MockDRS_DeleteApplication;
+                DRS_GetApplicationInfo = MockDRS_GetApplicationInfo;
+                DRS_EnumApplicationsInternal = MockDRS_EnumApplications;
+                DRS_FindApplicationByName = MockDRS_FindApplicationByName;
+                _DRS_SetSetting = MockDRS_SetSetting;
+                _DRS_GetSetting = MockDRS_GetSetting;
+                DRS_EnumSettingsInternal = MockDRS_EnumSettings;
+                DRS_EnumAvailableSettingIdsInternal = MockDRS_EnumAvailableSettingIds;
+                DRS_EnumAvailableSettingValuesInternal = MockDRS_EnumAvailableSettingValues;
+                DRS_GetSettingIdFromName = MockDRS_GetSettingIdFromName;
+                DRS_GetSettingNameFromId = MockDRS_GetSettingNameFromId;
+                DRS_DeleteProfileSetting = MockDRS_DeleteProfileSetting;
+                DRS_RestoreAllDefaults = MockDRS_RestoreAllDefaults;
+                DRS_RestoreProfileDefault = MockDRS_RestoreProfileDefault;
+                DRS_RestoreProfileDefaultSetting = MockDRS_RestoreProfileDefaultSetting;
+                DRS_GetBaseProfile = MockDRS_GetBaseProfile;
+                return;
+            }
+
             IntPtr lib = LoadLibrary(GetDllName());
             if (lib != IntPtr.Zero)
             {

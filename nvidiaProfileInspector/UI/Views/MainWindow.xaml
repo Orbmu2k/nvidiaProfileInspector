@@ -60,6 +60,7 @@
 
         <!--  Header / Title Bar  -->
         <controls:TitleBar
+            x:Name="AppTitleBar"
             Title="NVIDIA Profile Inspector"
             Grid.Row="0"
             Background="{DynamicResource TitleBarBackdropBrush}"

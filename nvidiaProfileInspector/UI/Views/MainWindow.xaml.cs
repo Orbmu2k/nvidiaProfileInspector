@@ -20,7 +20,18 @@ namespace nvidiaProfileInspector.UI.Views
             _viewModel = App.Bootstrapper.Resolve<MainViewModel>();
             _viewModel.OnOpenBitEditor += OnOpenBitEditor;
             DataContext = _viewModel;
+            ApplyMockTitle();
             SourceInitialized += MainWindow_SourceInitialized;
+        }
+
+        private void ApplyMockTitle()
+        {
+            if (!Native.NVAPI2.NvapiDrsWrapper.Instance.IsMockMode)
+                return;
+
+            const string mockTitle = "NVIDIA Profile Inspector - MOCK!";
+            Title = mockTitle;
+            AppTitleBar.Title = mockTitle;
         }
 
         private void MainWindow_SourceInitialized(object sender, EventArgs e)
