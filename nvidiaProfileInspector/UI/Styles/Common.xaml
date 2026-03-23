@@ -343,7 +343,9 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{StaticResource ControlCornerRadius}"
                         SnapsToDevicePixels="True">
-                        <ItemsPresenter />
+                        <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                            <ItemsPresenter />
+                        </ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

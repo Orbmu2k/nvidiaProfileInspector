@@ -42,8 +42,7 @@
                     Style="{StaticResource IconButtonStyle}"
                     ToolTip="Go back"
                     Visibility="Collapsed"
-                    WindowChrome.IsHitTestVisibleInChrome="True"
-                    >
+                    WindowChrome.IsHitTestVisibleInChrome="True">
                     <Path
                         Width="10"
                         Height="10"
@@ -124,6 +123,8 @@
                     Grid.Row="0"
                     Height="350"
                     ItemContainerStyle="{StaticResource DarkListBoxItemStyle}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
                     Style="{StaticResource DarkListBoxStyle}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
