@@ -1,19 +1,21 @@
 namespace nvidiaProfileInspector.UI.ViewModels
 {
-    using nvidiaProfileInspector.Common;
-    using nvidiaProfileInspector.Common.Helper;
-    using nvidiaProfileInspector.Native.WINAPI;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using System.Windows.Data;
-    using System.Windows.Input;
+using nvidiaProfileInspector.Common;
+using nvidiaProfileInspector.Common.Helper;
+using nvidiaProfileInspector.Native.WINAPI;
+using nvidiaProfileInspector.Services;
+using nvidiaProfileInspector;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
 
     public static class MessageBoxEx
     {
@@ -945,35 +947,19 @@ namespace nvidiaProfileInspector.UI.ViewModels
             Settings.IncrementalPatchSettingsListOrdered(sortedSettings, (s1, s2) => s1.SettingId == s2.SettingId);
 
             _groupedSettingsView.IsLiveGrouping = true;
-            _groupedSettingsView.IsLiveFiltering = true;
-        }
+             _groupedSettingsView.IsLiveFiltering = true;
+         }
 
-private void ToggleTheme()
-{
-var app = Application.Current;
-var mergedDicts = app.Resources.MergedDictionaries;
+         private void ToggleTheme()
+         {
+             if (App.Bootstrapper != null)
+             {
+                 var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
+                 themeManager.ToggleTheme();
+             }
+         }
 
-var existingTheme = mergedDicts.FirstOrDefault(d =>
-d.Source != null && (d.Source.OriginalString.Contains("DarkTheme.xaml") || d.Source.OriginalString.Contains("LightTheme.xaml") || d.Source.OriginalString.Contains("SlateLightTheme.xaml")));
-
-if (existingTheme != null)
-{
-string newSource;
-if (existingTheme.Source.OriginalString.Contains("DarkTheme.xaml"))
-newSource = "/UI/Themes/LightTheme.xaml";
-else if (existingTheme.Source.OriginalString.Contains("LightTheme.xaml"))
-newSource = "/UI/Themes/SlateLightTheme.xaml";
-else if (existingTheme.Source.OriginalString.Contains("SlateLightTheme.xaml"))
-newSource = "/UI/Themes/DarkTheme.xaml";
-else
-return;
-
-mergedDicts.Remove(existingTheme);
-mergedDicts.Add(new ResourceDictionary { Source = new Uri(newSource, UriKind.Relative) });
-}
-}
-
-        private void ShowAbout()
+         private void ShowAbout()
         {
             var dialog = new Views.Dialogs.AboutDialog(IsUpdateAvailable);
             var owner = Application.Current.Windows.Cast<Window>()
