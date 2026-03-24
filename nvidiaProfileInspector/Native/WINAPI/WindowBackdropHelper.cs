@@ -5,9 +5,14 @@ namespace nvidiaProfileInspector.Native.WINAPI
     using System.Windows;
     using System.Windows.Interop;
     using System.Windows.Media;
+    using nvidiaProfileInspector.Common.Helper;
+    using nvidiaProfileInspector.Native.NVAPI2;
+    using nvidiaProfileInspector.UI.Controls;
 
     internal static class WindowBackdropHelper
     {
+        private const int AccentDisabled = 0;
+        private const int AccentEnableGradient = 1;
         private const int AccentEnableBlurBehind = 3;
 
         private const int WcaAccentPolicy = 19;
@@ -18,7 +23,10 @@ namespace nvidiaProfileInspector.Native.WINAPI
         private const int DwmwaSystemBackdropType = 38;
 
         private const int DwmsbtAuto = 0;
+        private const int DwmsbtNone = 1;
         private const int DwmsbtMainWindow = 2;
+        private const int DwmsbtTransientWindow = 3;
+        private const int DwmsbtTabbedWindow = 4;
 
         private const int Windows10Build = 10240;
         private const int Windows10DarkModeBuild = 17763;
@@ -40,15 +48,19 @@ namespace nvidiaProfileInspector.Native.WINAPI
                 return;
 
             var backdropConfig = ResolveBackdropConfig(window);
+            var win11Mode = GetWin11BackdropMode();
+            ApplyTitleBarBackground(window, version, win11Mode);
 
             TrySetImmersiveDarkMode(handle, version, backdropConfig.UseDarkMode);
-            ExtendFrameIntoTitleBar(handle);
 
             if (version.Build >= Windows11Build)
             {
-                if (!TryEnableWindows11Mica(handle, version))
+                ExtendFrameIntoTitleBar(handle);
+
+                if (!TryEnableWindows11Mica(handle, version, win11Mode))
                 {
-                    TryEnableWindows10Backdrop(handle, backdropConfig.GradientColor);
+                    if (win11Mode != Win11BackdropMode.Disabled)
+                        TryEnableWindows10Backdrop(handle, backdropConfig.GradientColor);
                 }
 
                 return;
@@ -56,29 +68,114 @@ namespace nvidiaProfileInspector.Native.WINAPI
 
             if (version.Build >= Windows10Build)
             {
+                if (win11Mode == Win11BackdropMode.Disabled)
+                {
+                    TryDisableWindows10Backdrop(handle, backdropConfig.DisabledGradientColor);
+                    return;
+                }
+
+                ExtendFrameIntoTitleBar(handle);
                 TryEnableWindows10Backdrop(handle, backdropConfig.GradientColor);
             }
         }
 
-        private static bool TryEnableWindows11Mica(IntPtr handle, Version version)
+        private static bool TryEnableWindows11Mica(IntPtr handle, Version version, Win11BackdropMode mode)
         {
+            if (mode == Win11BackdropMode.Disabled)
+            {
+                return TrySetSystemBackdrop(handle, DwmsbtNone);
+            }
+
+            if (mode == Win11BackdropMode.Legacy)
+            {
+                return TryEnableLegacyMica(handle);
+            }
+
             if (version.Build >= Windows11BackdropBuild)
             {
-                var backdropType = DwmsbtMainWindow;
-                if (DwmSetWindowAttribute(handle, DwmwaSystemBackdropType, ref backdropType, Marshal.SizeOf(typeof(int))) == 0)
+                var backdropType = GetSystemBackdropType(mode);
+                if (TrySetSystemBackdrop(handle, backdropType))
                     return true;
             }
 
+            return TryEnableLegacyMica(handle);
+        }
+
+        private static bool TrySetSystemBackdrop(IntPtr handle, int backdropType)
+        {
+            return DwmSetWindowAttribute(handle, DwmwaSystemBackdropType, ref backdropType, Marshal.SizeOf(typeof(int))) == 0;
+        }
+
+        private static int GetSystemBackdropType(Win11BackdropMode mode)
+        {
+            switch (mode)
+            {
+                case Win11BackdropMode.Disabled:
+                    return DwmsbtNone;
+                case Win11BackdropMode.MainWindow:
+                    return DwmsbtMainWindow;
+                case Win11BackdropMode.Acrylic:
+                    return DwmsbtTransientWindow;
+                case Win11BackdropMode.Tabbed:
+                case Win11BackdropMode.Default:
+                default:
+                    return DwmsbtTabbedWindow;
+            }
+        }
+
+        private static bool TryEnableLegacyMica(IntPtr handle)
+        {
             var enabled = 1;
             return DwmSetWindowAttribute(handle, DwmwaMicaEffect, ref enabled, Marshal.SizeOf(typeof(int))) == 0;
         }
 
+        private static Win11BackdropMode GetWin11BackdropMode()
+        {
+            try
+            {
+                var settings = UserSettings.LoadSettings();
+                var configuredMode = NvapiDrsWrapper.Instance.IsMockMode
+                                         ? NvapiDrsWrapper.Instance.GetMockWin11BackdropMode()
+                                         : settings?.Win11BackdropMode;
+
+                if (string.Equals(configuredMode, "MainWindow", StringComparison.OrdinalIgnoreCase))
+                    return Win11BackdropMode.MainWindow;
+
+                if (string.Equals(configuredMode, "Acrylic", StringComparison.OrdinalIgnoreCase))
+                    return Win11BackdropMode.Acrylic;
+
+                if (string.Equals(configuredMode, "Tabbed", StringComparison.OrdinalIgnoreCase))
+                    return Win11BackdropMode.Tabbed;
+
+                if (string.Equals(configuredMode, "Disabled", StringComparison.OrdinalIgnoreCase))
+                    return Win11BackdropMode.Disabled;
+
+                if (string.Equals(configuredMode, "Legacy", StringComparison.OrdinalIgnoreCase))
+                    return Win11BackdropMode.Legacy;
+            }
+            catch
+            {
+            }
+
+            return Win11BackdropMode.Default;
+        }
+
         private static void TryEnableWindows10Backdrop(IntPtr handle, int gradientColor)
+        {
+            ApplyWindows10Accent(handle, AccentEnableBlurBehind, 2, gradientColor);
+        }
+
+        private static void TryDisableWindows10Backdrop(IntPtr handle, int gradientColor)
+        {
+            ApplyWindows10Accent(handle, AccentEnableGradient, 2, gradientColor);
+        }
+
+        private static void ApplyWindows10Accent(IntPtr handle, int accentState, int accentFlags, int gradientColor)
         {
             var accent = new AccentPolicy
             {
-                AccentState = AccentEnableBlurBehind,
-                AccentFlags = 2,
+                AccentState = accentState,
+                AccentFlags = accentFlags,
                 GradientColor = gradientColor,
             };
 
@@ -117,6 +214,44 @@ namespace nvidiaProfileInspector.Native.WINAPI
             DwmExtendFrameIntoClientArea(handle, ref margins);
         }
 
+        private static void ApplyTitleBarBackground(Window window, Version version, Win11BackdropMode mode)
+        {
+            if (!(window.FindName("AppTitleBar") is TitleBar titleBar))
+                return;
+
+            if (mode == Win11BackdropMode.Disabled)
+            {
+                ApplyTitleBarResourceBackground(titleBar, "TitleBarBackgroundBrush");
+                return;
+            }
+
+            if (version.Build >= Windows11Build)
+            {
+                ApplyTitleBarTransparentBackground(titleBar);
+                return;
+            }
+
+            if (window.TryFindResource("TitleBarBackdropBrush") != null)
+            {
+                ApplyTitleBarResourceBackground(titleBar, "TitleBarBackdropBrush");
+                return;
+            }
+
+            ApplyTitleBarTransparentBackground(titleBar);
+        }
+
+        private static void ApplyTitleBarResourceBackground(TitleBar titleBar, string resourceKey)
+        {
+            titleBar.ClearValue(TitleBar.BackgroundProperty);
+            titleBar.SetResourceReference(TitleBar.BackgroundProperty, resourceKey);
+        }
+
+        private static void ApplyTitleBarTransparentBackground(TitleBar titleBar)
+        {
+            titleBar.ClearValue(TitleBar.BackgroundProperty);
+            titleBar.Background = Brushes.Transparent;
+        }
+
         private static void TrySetImmersiveDarkMode(IntPtr handle, Version version, bool enabledValue)
         {
             if (version.Build < Windows10DarkModeBuild)
@@ -134,6 +269,10 @@ namespace nvidiaProfileInspector.Native.WINAPI
                                 ?? TryGetResourceColor(window, "Layer1BackgroundBrush")
                                 ?? Colors.White;
 
+            var disabledTitleBarColor = TryGetResourceColor(window, "TitleBarBackgroundBrush")
+                                        ?? TryGetResourceColor(window, "Layer1BackgroundBrush")
+                                        ?? titleBarColor;
+
             var referenceColor = TryGetResourceColor(window, "WindowBackgroundBrush")
                                  ?? TryGetResourceColor(window, "Layer1BackgroundBrush")
                                  ?? titleBarColor;
@@ -145,6 +284,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
 
             return new BackdropConfig
             {
+                DisabledGradientColor = ToAbgrInt(Color.FromArgb(byte.MaxValue, disabledTitleBarColor.R, disabledTitleBarColor.G, disabledTitleBarColor.B)),
                 UseDarkMode = isDark,
                 GradientColor = ToAbgrInt(Color.FromArgb(overlayAlpha, titleBarColor.R, titleBarColor.G, titleBarColor.B))
             };
@@ -211,8 +351,20 @@ namespace nvidiaProfileInspector.Native.WINAPI
 
         private struct BackdropConfig
         {
+            public int DisabledGradientColor;
             public int GradientColor;
             public bool UseDarkMode;
         }
+
+        private enum Win11BackdropMode
+        {
+            Default,
+            MainWindow,
+            Acrylic,
+            Tabbed,
+            Disabled,
+            Legacy
+        }
+
     }
 }

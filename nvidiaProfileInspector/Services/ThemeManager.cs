@@ -21,6 +21,8 @@ namespace nvidiaProfileInspector.Services
 
         public string CurrentTheme { get; private set; }
 
+        public event Action<string> ThemeChanged;
+
         public ThemeManager()
         {
             LoadSavedTheme();
@@ -135,6 +137,8 @@ namespace nvidiaProfileInspector.Services
             ReplaceThemeDictionary(mergedDicts, themeDict, normalizedThemeName);
 
             CurrentTheme = normalizedThemeName;
+
+            ThemeChanged?.Invoke(normalizedThemeName);
 
             if (savePreference)
                 SaveThemePreference(normalizedThemeName);

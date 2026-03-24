@@ -36,6 +36,8 @@ namespace nvidiaProfileInspector
             _container.RegisterInstance<DrsSettingsService>(settingService);
             _container.RegisterInstance<DrsImportService>(importService);
 
+            metaService.ResetMetaCache();
+
             _container.Register<BitEditorService>();
              _container.RegisterSingleton<DialogService>();
              _container.RegisterSingleton<UpdateService>();

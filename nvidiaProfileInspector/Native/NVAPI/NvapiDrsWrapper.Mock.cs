@@ -5,11 +5,26 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
+using nvidiaProfileInspector.Common.Helper;
+using nvidiaProfileInspector.Native.WINAPI;
 
 namespace nvidiaProfileInspector.Native.NVAPI2
 {
     public partial class NvapiDrsWrapper
     {
+        public const uint MockWin11BackdropSettingId = 0x00F01111;
+
+        private static readonly string[] MockWin11BackdropModes =
+        {
+            "Default",
+            "MainWindow",
+            "Tabbed",
+            "Acrylic",
+            "Disabled",
+            "Legacy"
+        };
+
         private readonly object _mockSync = new object();
         private readonly Dictionary<IntPtr, MockSessionState> _mockSessions = new Dictionary<IntPtr, MockSessionState>();
         private readonly Dictionary<IntPtr, MockProfileState> _mockProfilesByHandle = new Dictionary<IntPtr, MockProfileState>();
@@ -18,6 +33,7 @@ namespace nvidiaProfileInspector.Native.NVAPI2
         private IntPtr _mockCurrentGlobalProfileHandle = IntPtr.Zero;
         private int _mockNextSessionId = 1;
         private int _mockNextProfileHandle = 1;
+        private string _mockWin11BackdropMode = "Default";
 
         private static bool ShouldUseMock()
         {
@@ -35,9 +51,13 @@ namespace nvidiaProfileInspector.Native.NVAPI2
                 _mockCurrentGlobalProfileHandle = IntPtr.Zero;
                 _mockNextSessionId = 1;
                 _mockNextProfileHandle = 1;
+                _mockWin11BackdropMode = GetConfiguredMockBackdropMode();
 
                 var baseProfile = CreateMockProfile("Base Profile", isPredefined: true);
                 _mockCurrentGlobalProfileHandle = baseProfile.Handle;
+                RegisterMockBackdropSettingDefinition();
+                baseProfile.Settings[MockWin11BackdropSettingId] = CreateMockBackdropSetting();
+                baseProfile.RefreshCounts();
             }
         }
 
@@ -431,6 +451,9 @@ namespace nvidiaProfileInspector.Native.NVAPI2
             if (EnsureMockSession(hSession) != NvAPI_Status.NVAPI_OK)
                 return NvAPI_Status.NVAPI_INVALID_HANDLE;
 
+            if (pSetting.settingId == MockWin11BackdropSettingId)
+                return ApplyMockBackdropModeSetting(hProfile, ref pSetting);
+
             lock (_mockSync)
             {
                 if (!_mockProfilesByHandle.TryGetValue(hProfile, out var profile))
@@ -572,6 +595,9 @@ namespace nvidiaProfileInspector.Native.NVAPI2
             if (EnsureMockSession(hSession) != NvAPI_Status.NVAPI_OK)
                 return NvAPI_Status.NVAPI_INVALID_HANDLE;
 
+            if (settingId == MockWin11BackdropSettingId)
+                return ResetMockBackdropMode(hProfile);
+
             lock (_mockSync)
             {
                 if (!_mockProfilesByHandle.TryGetValue(hProfile, out var profile))
@@ -629,6 +655,9 @@ namespace nvidiaProfileInspector.Native.NVAPI2
 
         private NvAPI_Status MockDRS_RestoreProfileDefaultSetting(IntPtr hSession, IntPtr hProfile, uint settingId)
         {
+            if (settingId == MockWin11BackdropSettingId)
+                return ResetMockBackdropMode(hProfile);
+
             return MockDRS_DeleteProfileSetting(hSession, hProfile, settingId);
         }
 
@@ -741,6 +770,173 @@ namespace nvidiaProfileInspector.Native.NVAPI2
                 return definition.Name;
 
             return string.Format("0x{0:X8}", settingId);
+        }
+
+        private void RegisterMockBackdropSettingDefinition()
+        {
+            _mockSettingDefinitions[MockWin11BackdropSettingId] = new MockSettingDefinition
+            {
+                Name = "Win11 Backdrop Mode",
+                SettingType = NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
+                DefaultValue = CreateStringUnion(_mockWin11BackdropMode),
+                Values = MockWin11BackdropModes.Select(CreateStringUnion).ToList(),
+            };
+        }
+
+        private string GetConfiguredMockBackdropMode()
+        {
+            var configuredMode = UserSettings.LoadSettings().Win11BackdropMode;
+            if (MockWin11BackdropModes.Any(x => x.Equals(configuredMode, StringComparison.OrdinalIgnoreCase)))
+                return MockWin11BackdropModes.First(x => x.Equals(configuredMode, StringComparison.OrdinalIgnoreCase));
+
+            return "Default";
+        }
+
+        private NVDRS_SETTING CreateMockBackdropSetting()
+        {
+            return new NVDRS_SETTING
+            {
+                version = NVDRS_SETTING_VER,
+                settingId = MockWin11BackdropSettingId,
+                settingName = "Win11 Backdrop Mode",
+                settingType = NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
+                settingLocation = NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION,
+                isCurrentPredefined = 0,
+                isPredefinedValid = 1,
+                predefinedValue = CreateStringUnion(_mockWin11BackdropMode),
+                currentValue = CreateStringUnion(_mockWin11BackdropMode),
+            };
+        }
+
+        private NvAPI_Status ApplyMockBackdropModeSetting(IntPtr hProfile, ref NVDRS_SETTING setting)
+        {
+            try
+            {
+                var mode = setting.currentValue.stringValue;
+                if (!MockWin11BackdropModes.Any(x => x.Equals(mode, StringComparison.OrdinalIgnoreCase)))
+                    mode = "Default";
+
+                _mockWin11BackdropMode = mode;
+
+                RegisterMockBackdropSettingDefinition();
+
+                if (Application.Current?.MainWindow != null)
+                    WindowBackdropHelper.TryApplyTo(Application.Current.MainWindow);
+
+                setting.version = NVDRS_SETTING_VER;
+                setting.settingName = GetMockSettingName(setting.settingId);
+                setting.settingType = NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE;
+                setting.settingLocation = NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION;
+                setting.isCurrentPredefined = 0;
+                setting.isPredefinedValid = 1;
+                setting.predefinedValue = CreateStringUnion(mode);
+                setting.currentValue = CreateStringUnion(mode);
+
+                lock (_mockSync)
+                {
+                    if (_mockProfilesByHandle.TryGetValue(hProfile, out var profile))
+                    {
+                        profile.Settings[MockWin11BackdropSettingId] = CloneSetting(setting);
+                        profile.RefreshCounts();
+                    }
+                }
+
+                return NvAPI_Status.NVAPI_OK;
+            }
+            catch
+            {
+                return NvAPI_Status.NVAPI_ERROR;
+            }
+        }
+
+        private NvAPI_Status ResetMockBackdropMode(IntPtr hProfile)
+        {
+            try
+            {
+                _mockWin11BackdropMode = GetConfiguredMockBackdropMode();
+                RegisterMockBackdropSettingDefinition();
+
+                lock (_mockSync)
+                {
+                    if (_mockProfilesByHandle.TryGetValue(hProfile, out var profile))
+                    {
+                        profile.Settings[MockWin11BackdropSettingId] = CreateMockBackdropSetting();
+                        profile.RefreshCounts();
+                    }
+                }
+
+                if (Application.Current?.MainWindow != null)
+                    WindowBackdropHelper.TryApplyTo(Application.Current.MainWindow);
+
+                return NvAPI_Status.NVAPI_OK;
+            }
+            catch
+            {
+                return NvAPI_Status.NVAPI_ERROR;
+            }
+        }
+
+        private static NVDRS_SETTING_UNION CreateStringUnion(string value)
+        {
+            var union = new NVDRS_SETTING_UNION();
+            union.stringValue = value ?? string.Empty;
+            return union;
+        }
+
+        public string GetMockWin11BackdropMode()
+        {
+            lock (_mockSync)
+            {
+                return string.IsNullOrWhiteSpace(_mockWin11BackdropMode) ? "Default" : _mockWin11BackdropMode;
+            }
+        }
+
+        public bool TryGetMockSettingValueType(uint settingId, out NVDRS_SETTING_TYPE settingType)
+        {
+            lock (_mockSync)
+            {
+                if (_mockSettingDefinitions.TryGetValue(settingId, out var definition))
+                {
+                    settingType = definition.SettingType;
+                    return true;
+                }
+            }
+
+            settingType = default;
+            return false;
+        }
+
+        public bool TryGetMockSettingName(uint settingId, out string name)
+        {
+            lock (_mockSync)
+            {
+                if (_mockSettingDefinitions.TryGetValue(settingId, out var definition) && !string.IsNullOrWhiteSpace(definition.Name))
+                {
+                    name = definition.Name;
+                    return true;
+                }
+            }
+
+            name = null;
+            return false;
+        }
+
+        public IReadOnlyList<string> GetMockStringSettingValues(uint settingId)
+        {
+            lock (_mockSync)
+            {
+                if (_mockSettingDefinitions.TryGetValue(settingId, out var definition)
+                    && definition.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
+                {
+                    return definition.Values
+                        .Select(x => x.stringValue)
+                        .Where(x => !string.IsNullOrWhiteSpace(x))
+                        .Distinct(StringComparer.OrdinalIgnoreCase)
+                        .ToList();
+                }
+            }
+
+            return Array.Empty<string>();
         }
 
         private static bool AreEqual(NVDRS_SETTING_UNION left, NVDRS_SETTING_UNION right, NVDRS_SETTING_TYPE type)
