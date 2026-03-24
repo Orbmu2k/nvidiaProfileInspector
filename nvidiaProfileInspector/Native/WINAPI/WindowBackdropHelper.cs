@@ -200,15 +200,24 @@ namespace nvidiaProfileInspector.Native.WINAPI
         private static void ExtendFrameIntoTitleBar(Window window, IntPtr handle, Version version)
         {
             var topMargin = GetTitleBarFrameHeight(window, version);
+            var dpiScale = GetDpiScale(window);
+            var scaledTopMargin = (int)Math.Ceiling(topMargin * dpiScale);
+
             var margins = new Margins
             {
                 Left = 0,
                 Right = 0,
-                Top = topMargin,
+                Top = scaledTopMargin,
                 Bottom = 0
             };
 
             DwmExtendFrameIntoClientArea(handle, ref margins);
+        }
+
+        private static double GetDpiScale(Visual visual)
+        {
+            var source = PresentationSource.FromVisual(visual);
+            return source?.CompositionTarget?.TransformToDevice.M22 ?? 1.0;
         }
 
         private static int GetTitleBarFrameHeight(Window window, Version version)
