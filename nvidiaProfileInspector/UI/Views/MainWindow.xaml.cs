@@ -1,7 +1,8 @@
 namespace nvidiaProfileInspector.UI.Views
 {
-    using nvidiaProfileInspector;
     using nvidiaProfileInspector.Native.WINAPI;
+    using nvidiaProfileInspector.Services;
+    using nvidiaProfileInspector;
     using nvidiaProfileInspector.UI.ViewModels;
     using nvidiaProfileInspector.UI.Views.Dialogs;
     using System;
@@ -15,14 +16,33 @@ namespace nvidiaProfileInspector.UI.Views
     public partial class MainWindow : Window
     {
         private readonly MainViewModel _viewModel;
+        private readonly ThemeManager _themeManager;
 
         public MainWindow()
         {
             InitializeComponent();
             _viewModel = App.Bootstrapper.Resolve<MainViewModel>();
+            _themeManager = App.Bootstrapper.Resolve<ThemeManager>();
             _viewModel.OnOpenBitEditor += OnOpenBitEditor;
             _viewModel.OnFocusFilter += () => FilterTextBox.Focus();
+            _themeManager.ThemeChanged += OnThemeChanged;
             DataContext = _viewModel;
+            ApplyMockTitle();
+            SourceInitialized += MainWindow_SourceInitialized;
+        }
+
+        private void ApplyMockTitle()
+        {
+            if (!Native.NVAPI2.NvapiDrsWrapper.Instance.IsMockMode)
+                return;
+
+            const string mockTitle = "NVIDIA Profile Inspector - MOCK!";
+            Title = mockTitle;
+        }
+
+        private void MainWindow_SourceInitialized(object sender, EventArgs e)
+        {
+            WindowBackdropHelper.TryApplyTo(this);
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -56,6 +76,14 @@ namespace nvidiaProfileInspector.UI.Views
             await _viewModel.InitializeAsync();
         }
 
+        private void OnThemeChanged(string themeName)
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                WindowBackdropHelper.TryApplyTo(this);
+            }), System.Windows.Threading.DispatcherPriority.Loaded);
+        }
+
         private void RestoreWindowSettings()
         {
             var settings = Common.Helper.UserSettings.LoadSettings();
@@ -80,6 +108,7 @@ namespace nvidiaProfileInspector.UI.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            _themeManager.ThemeChanged -= OnThemeChanged;
             _viewModel.SaveSettings(Left, Top, Width, Height, WindowState);
         }
 

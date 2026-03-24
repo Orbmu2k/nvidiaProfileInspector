@@ -2,6 +2,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 {
 using nvidiaProfileInspector.Common;
 using nvidiaProfileInspector.Common.Helper;
+using nvidiaProfileInspector.Native.NVAPI2;
 using nvidiaProfileInspector.Native.WINAPI;
 using nvidiaProfileInspector.Services;
 using nvidiaProfileInspector;
@@ -67,6 +68,7 @@ using System.Windows.Input;
         private DateTime _appearanceMenuClosedAt = DateTime.MinValue;
         private bool _isDarkTheme = true;
         private bool _isCompactDensity;
+        private string _currentBackdropMode = "Tabbed";
 
         public MainViewModel(
             DrsSettingsMetaService metaService,
@@ -338,6 +340,14 @@ using System.Windows.Input;
             set => SetProperty(ref _isCompactDensity, value, nameof(IsCompactDensity));
         }
 
+        public bool IsBackdropMica => string.Equals(_currentBackdropMode, "MainWindow", StringComparison.OrdinalIgnoreCase);
+
+        public bool IsBackdropMicaVariant => string.Equals(_currentBackdropMode, "Tabbed", StringComparison.OrdinalIgnoreCase);
+
+        public bool IsBackdropAcrylic => string.Equals(_currentBackdropMode, "Acrylic", StringComparison.OrdinalIgnoreCase);
+
+        public bool IsBackdropDisabled => string.Equals(_currentBackdropMode, "Disabled", StringComparison.OrdinalIgnoreCase);
+
         public ListCollectionView GroupedSettingsView => _groupedSettingsView;
         public ICollectionView ProfilesView => _profilesView;
         public ICollectionView ModifiedProfilesView => _modifiedProfilesView;
@@ -370,6 +380,7 @@ using System.Windows.Input;
         public ICommand ToggleAppearanceMenuCommand { get; private set; }
         public ICommand SetThemeCommand { get; private set; }
         public ICommand SetDensityCommand { get; private set; }
+        public ICommand SetBackdropModeCommand { get; private set; }
 
         public event Action OnFocusFilter;
         public event Action<uint, uint, string> OnOpenBitEditor;
@@ -417,6 +428,7 @@ using System.Windows.Input;
             ToggleAppearanceMenuCommand = new RelayCommand(_ => ToggleAppearanceMenu());
             SetThemeCommand = new RelayCommand(param => ApplyTheme(param as string));
             SetDensityCommand = new RelayCommand(param => ApplyDensity(param as string));
+            SetBackdropModeCommand = new RelayCommand(param => ApplyBackdropMode(param as string));
         }
 
         public async Task InitializeAsync()
@@ -446,6 +458,8 @@ using System.Windows.Input;
                 _isDarkTheme = themeManager.IsDarkTheme;
                 _isCompactDensity = themeManager.IsCompactDensity;
             }
+
+            RefreshBackdropMode();
         }
 
         private void SaveFavorites()
@@ -470,6 +484,10 @@ using System.Windows.Input;
             settings.WindowState = state;
             settings.ShowCustomizedSettingNamesOnly = _showCustomizedSettingsOnly;
             settings.ShowScannedUnknownSettings = _showScannedUnknownSettings;
+
+            if (NvapiDrsWrapper.Instance.IsMockMode)
+                settings.Win11BackdropMode = NvapiDrsWrapper.Instance.GetMockWin11BackdropMode();
+
             settings.SaveSettings();
         }
 
@@ -1041,6 +1059,62 @@ using System.Windows.Input;
              var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
              themeManager.SetDensity(density);
              IsCompactDensity = themeManager.IsCompactDensity;
+         }
+
+         private void ApplyBackdropMode(string mode)
+         {
+             var normalizedMode = NormalizeBackdropMode(mode);
+             if (string.IsNullOrEmpty(normalizedMode))
+                 return;
+
+             if (NvapiDrsWrapper.Instance.IsMockMode)
+             {
+                 NvapiDrsWrapper.Instance.SetMockWin11BackdropMode(normalizedMode);
+             }
+             else
+             {
+                 var settings = UserSettings.LoadSettings();
+                 settings.Win11BackdropMode = normalizedMode;
+                 settings.SaveSettings();
+             }
+
+             _currentBackdropMode = normalizedMode;
+             NotifyBackdropModeChanged();
+
+             if (Application.Current?.MainWindow != null)
+                 WindowBackdropHelper.TryApplyTo(Application.Current.MainWindow);
+         }
+
+         private void RefreshBackdropMode()
+         {
+             var configuredMode = NvapiDrsWrapper.Instance.IsMockMode
+                 ? NvapiDrsWrapper.Instance.GetMockWin11BackdropMode()
+                 : UserSettings.LoadSettings().Win11BackdropMode;
+
+             _currentBackdropMode = NormalizeBackdropMode(configuredMode);
+             NotifyBackdropModeChanged();
+         }
+
+         private static string NormalizeBackdropMode(string mode)
+         {
+             if (string.Equals(mode, "MainWindow", StringComparison.OrdinalIgnoreCase))
+                 return "MainWindow";
+
+             if (string.Equals(mode, "Acrylic", StringComparison.OrdinalIgnoreCase))
+                 return "Acrylic";
+
+             if (string.Equals(mode, "Disabled", StringComparison.OrdinalIgnoreCase))
+                 return "Disabled";
+
+             return "Tabbed";
+         }
+
+         private void NotifyBackdropModeChanged()
+         {
+             OnPropertyChanged(nameof(IsBackdropMica));
+             OnPropertyChanged(nameof(IsBackdropMicaVariant));
+             OnPropertyChanged(nameof(IsBackdropAcrylic));
+             OnPropertyChanged(nameof(IsBackdropDisabled));
          }
 
          private void ShowAbout()

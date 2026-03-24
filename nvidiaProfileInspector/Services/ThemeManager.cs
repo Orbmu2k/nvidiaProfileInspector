@@ -10,10 +10,12 @@ namespace nvidiaProfileInspector.Services
     public class ThemeManager
     {
         private const string DarkTheme = "DarkTheme.xaml";
+        private const string LightTheme = "LightTheme.xaml";
         private const string SlateLightTheme = "SlateLightTheme.xaml";
 
         private static readonly string[] ValidThemes = {
             DarkTheme,
+            LightTheme,
             SlateLightTheme
         };
 
@@ -24,6 +26,8 @@ namespace nvidiaProfileInspector.Services
 
         public bool IsDarkTheme => string.Equals(CurrentTheme, DarkTheme, StringComparison.OrdinalIgnoreCase);
         public bool IsCompactDensity => string.Equals(CurrentDensity, "Compact", StringComparison.OrdinalIgnoreCase);
+
+        public event Action<string> ThemeChanged;
 
         public ThemeManager()
         {
@@ -203,6 +207,8 @@ namespace nvidiaProfileInspector.Services
             ReplaceThemeDictionary(mergedDicts, themeDict, normalizedThemeName);
 
             CurrentTheme = normalizedThemeName;
+
+            ThemeChanged?.Invoke(normalizedThemeName);
 
             if (savePreference)
                 SaveThemePreference(normalizedThemeName);

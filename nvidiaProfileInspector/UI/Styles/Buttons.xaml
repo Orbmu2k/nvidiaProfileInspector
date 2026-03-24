@@ -231,7 +231,7 @@
     <!--  Title Bar Button Style  -->
     <Style x:Key="WindowButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="Width" Value="46" />
         <Setter Property="Height" Value="32" />
         <Setter Property="Padding" Value="0" />
@@ -243,16 +243,17 @@
                     <Border
                         x:Name="border"
                         Background="{TemplateBinding Background}"
+                        CornerRadius="0"
                         SnapsToDevicePixels="True">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="#24FFFFFF" />
                             <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HighlightOverlayBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="#33FFFFFF" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.2" />
@@ -274,6 +275,7 @@
                     <Border
                         x:Name="border"
                         Background="{TemplateBinding Background}"
+                        CornerRadius="0"
                         SnapsToDevicePixels="True">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>

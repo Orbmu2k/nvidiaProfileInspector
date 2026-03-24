@@ -5,6 +5,13 @@
     <Color x:Key="Layer1BackgroundColor">#202020</Color>
     <Color x:Key="Layer2BackgroundColor">#282828</Color>
     <Color x:Key="Layer3BackgroundColor">#323232</Color>
+    <Color x:Key="TitleBarBackgroundColor">#202020</Color>
+    <Color x:Key="TitleBarBackdropColor">#88202020</Color>
+    <Color x:Key="TitleBarControlBackgroundColor">#D4282828</Color>
+    <Color x:Key="TitleBarControlHoverBackgroundColor">#EA323232</Color>
+    <Color x:Key="TitleBarControlBorderColor">#88525252</Color>
+    <Color x:Key="TitleBarControlBorderHoverColor">#AA6A6A6A</Color>
+    <Color x:Key="TitleBarPopupBackgroundColor">#F0202020</Color>
 
     <Color x:Key="NvidiaGreenColor">#76B900</Color>
     <Color x:Key="NvidiaGreenHoverColor">#8AD400</Color>
@@ -33,6 +40,13 @@
     <SolidColorBrush x:Key="Layer1BackgroundBrush" Color="{StaticResource Layer1BackgroundColor}" />
     <SolidColorBrush x:Key="Layer2BackgroundBrush" Color="{StaticResource Layer2BackgroundColor}" />
     <SolidColorBrush x:Key="Layer3BackgroundBrush" Color="{StaticResource Layer3BackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarBackdropBrush" Color="{StaticResource TitleBarBackdropColor}" />
+    <SolidColorBrush x:Key="TitleBarControlBackgroundBrush" Color="{StaticResource TitleBarControlBackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarControlHoverBackgroundBrush" Color="{StaticResource TitleBarControlHoverBackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarControlBorderBrush" Color="{StaticResource TitleBarControlBorderColor}" />
+    <SolidColorBrush x:Key="TitleBarControlBorderHoverBrush" Color="{StaticResource TitleBarControlBorderHoverColor}" />
+    <SolidColorBrush x:Key="TitleBarPopupBackgroundBrush" Color="{StaticResource TitleBarPopupBackgroundColor}" />
 
     <SolidColorBrush x:Key="NvidiaGreenBrush" Color="{StaticResource NvidiaGreenColor}" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource UserAccentColor}" />

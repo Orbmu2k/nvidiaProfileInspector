@@ -30,9 +30,11 @@ namespace nvidiaProfileInspector.Common.Helper
 
         public List<uint> FavoriteSettingIds { get; set; } = new List<uint>();
 
-public string Theme { get; set; } = "DarkTheme.xaml";
+        public string Theme { get; set; } = "DarkTheme.xaml";
 
         public string DisplayDensity { get; set; } = "Modern";
+
+        public string Win11BackdropMode { get; set; } = "Default";
 
         private static string GetSettingsFilename()
         {
