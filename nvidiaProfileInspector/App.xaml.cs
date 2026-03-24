@@ -18,6 +18,7 @@ using System.Windows.Threading;
     public partial class App : Application
     {
         private static Mutex _mutex;
+        private static bool _mutexOwned;
         private static AppBootstrapper _bootstrapper;
         private static string _logFilePath;
 
@@ -48,10 +49,9 @@ using System.Windows.Threading;
                 return;
             }
 
-            bool createdNew;
-            _mutex = new Mutex(true, "nvidiaProfileInspector", out createdNew);
+            _mutex = new Mutex(true, "nvidiaProfileInspector", out _mutexOwned);
 
-            if (!createdNew)
+            if (!_mutexOwned)
             {
                 MessageBoxViewModel.Show("NVIDIA Profile Inspector is already running.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 Shutdown();
@@ -104,8 +104,6 @@ using System.Windows.Threading;
                 HandleException(ex, isShutdown: true);
             }
         }
-
-
 
         private void HandleException(Exception exception, bool isShutdown = false)
         {
@@ -182,7 +180,8 @@ using System.Windows.Threading;
         protected override void OnExit(ExitEventArgs e)
         {
             _bootstrapper?.Dispose();
-            _mutex?.ReleaseMutex();
+            if (_mutexOwned)
+                _mutex?.ReleaseMutex();
             _mutex?.Dispose();
             base.OnExit(e);
         }
