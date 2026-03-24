@@ -1,8 +1,8 @@
 namespace nvidiaProfileInspector.UI.Views
 {
+    using nvidiaProfileInspector;
     using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector.Services;
-    using nvidiaProfileInspector;
     using nvidiaProfileInspector.UI.ViewModels;
     using nvidiaProfileInspector.UI.Views.Dialogs;
     using System;

@@ -1,19 +1,17 @@
 namespace nvidiaProfileInspector
 {
-using nvidiaProfileInspector.Common;
-using nvidiaProfileInspector.Common.Helper;
-using nvidiaProfileInspector.Native.WINAPI;
-using nvidiaProfileInspector.Services;
-using nvidiaProfileInspector.UI.ViewModels;
-using nvidiaProfileInspector.UI.Views;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Windows;
-using System.Windows.Threading;
+    using nvidiaProfileInspector.Common;
+    using nvidiaProfileInspector.Native.WINAPI;
+    using nvidiaProfileInspector.Services;
+    using nvidiaProfileInspector.UI.ViewModels;
+    using nvidiaProfileInspector.UI.Views;
+    using System;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Reflection;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Threading;
 
     public partial class App : Application
     {
@@ -58,19 +56,19 @@ using System.Windows.Threading;
                 return;
             }
 
-             _bootstrapper = new AppBootstrapper();
-             _bootstrapper.Initialize();
+            _bootstrapper = new AppBootstrapper();
+            _bootstrapper.Initialize();
 
-             // Load saved theme using ThemeManager
-             var themeManager = _bootstrapper.Resolve<ThemeManager>();
-             themeManager.LoadSavedTheme();
+            // Load saved theme using ThemeManager
+            var themeManager = _bootstrapper.Resolve<ThemeManager>();
+            themeManager.LoadSavedTheme();
 
-             // Defer MainWindow creation to ensure resources are loaded
-             Dispatcher.BeginInvoke(new Action(() =>
-             {
-                 var mainWindow = new MainWindow();
-                 mainWindow.Show();
-             }), DispatcherPriority.Background);
+            // Defer MainWindow creation to ensure resources are loaded
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var mainWindow = new MainWindow();
+                mainWindow.Show();
+            }), DispatcherPriority.Background);
         }
 
         private void HandleFileArgument(string filePath)

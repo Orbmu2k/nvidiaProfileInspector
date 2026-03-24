@@ -1,9 +1,9 @@
+using nvidiaProfileInspector.Common.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using nvidiaProfileInspector.Common.Helper;
 
 namespace nvidiaProfileInspector.Services
 {

@@ -72,43 +72,43 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
             }
         }
 
-private void ShowCardsView()
-{
-// Restore original title and subtitle
-this.Title = _originalTitle;
-this.SubtitleTextBlock.Text = _originalSubtitle;
-this.SubtitleTextBlock.Visibility = string.IsNullOrEmpty(_originalSubtitle) ? Visibility.Collapsed : Visibility.Visible;
+        private void ShowCardsView()
+        {
+            // Restore original title and subtitle
+            this.Title = _originalTitle;
+            this.SubtitleTextBlock.Text = _originalSubtitle;
+            this.SubtitleTextBlock.Visibility = string.IsNullOrEmpty(_originalSubtitle) ? Visibility.Collapsed : Visibility.Visible;
 
-// Switch views
-this.CardsContainer.Visibility = Visibility.Visible;
-this.SelectionContainer.Visibility = Visibility.Collapsed;
-this.SelectionFooter.Visibility = Visibility.Collapsed;
-this.BackButton.Visibility = Visibility.Collapsed;
+            // Switch views
+            this.CardsContainer.Visibility = Visibility.Visible;
+            this.SelectionContainer.Visibility = Visibility.Collapsed;
+            this.SelectionFooter.Visibility = Visibility.Collapsed;
+            this.BackButton.Visibility = Visibility.Collapsed;
 
-// Clear selection state if needed
-SelectedItem = null;
-}
+            // Clear selection state if needed
+            SelectedItem = null;
+        }
 
-private void ShowProfileSelectionView()
-{
-this.Title = "Select Profiles";
-this.SubtitleTextBlock.Text = "Please choose the profiles you want to export:";
-this.SubtitleTextBlock.Visibility = Visibility.Visible;
+        private void ShowProfileSelectionView()
+        {
+            this.Title = "Select Profiles";
+            this.SubtitleTextBlock.Text = "Please choose the profiles you want to export:";
+            this.SubtitleTextBlock.Visibility = Visibility.Visible;
 
-if (_selectionViewModel == null)
-{
-_selectionViewModel = TinyIoC.Resolve<ExportProfilesViewModel>();
-this.ProfilesListBox.ItemsSource = _selectionViewModel.Profiles;
-}
+            if (_selectionViewModel == null)
+            {
+                _selectionViewModel = TinyIoC.Resolve<ExportProfilesViewModel>();
+                this.ProfilesListBox.ItemsSource = _selectionViewModel.Profiles;
+            }
 
-this.CardsContainer.Visibility = Visibility.Collapsed;
-this.SelectionContainer.Visibility = Visibility.Visible;
-this.SelectionFooter.Visibility = Visibility.Visible;
-this.BackButton.Visibility = Visibility.Visible;
+            this.CardsContainer.Visibility = Visibility.Collapsed;
+            this.SelectionContainer.Visibility = Visibility.Visible;
+            this.SelectionFooter.Visibility = Visibility.Visible;
+            this.BackButton.Visibility = Visibility.Visible;
 
-// Reset the IncludePredefinedCheckBox state
-IncludePredefinedCheckBox.IsChecked = _selectionViewModel.IncludePredefined;
-}
+            // Reset the IncludePredefinedCheckBox state
+            IncludePredefinedCheckBox.IsChecked = _selectionViewModel.IncludePredefined;
+        }
 
         private void SelectAll_Click(object sender, RoutedEventArgs e)
         {

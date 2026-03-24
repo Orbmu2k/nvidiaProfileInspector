@@ -1,22 +1,22 @@
 namespace nvidiaProfileInspector.UI.ViewModels
 {
-using nvidiaProfileInspector.Common;
-using nvidiaProfileInspector.Common.Helper;
-using nvidiaProfileInspector.Native.NVAPI2;
-using nvidiaProfileInspector.Native.WINAPI;
-using nvidiaProfileInspector.Services;
-using nvidiaProfileInspector;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Input;
+    using nvidiaProfileInspector;
+    using nvidiaProfileInspector.Common;
+    using nvidiaProfileInspector.Common.Helper;
+    using nvidiaProfileInspector.Native.NVAPI2;
+    using nvidiaProfileInspector.Native.WINAPI;
+    using nvidiaProfileInspector.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Data;
+    using System.Windows.Input;
 
     public static class MessageBoxEx
     {
@@ -1033,104 +1033,104 @@ using System.Windows.Input;
             Settings.IncrementalPatchSettingsListOrdered(sortedSettings, (s1, s2) => s1.SettingId == s2.SettingId);
 
             _groupedSettingsView.IsLiveGrouping = true;
-             _groupedSettingsView.IsLiveFiltering = true;
-         }
+            _groupedSettingsView.IsLiveFiltering = true;
+        }
 
-         private void ToggleAppearanceMenu()
-         {
-             if (IsAppearanceMenuOpen)
-             {
-                 IsAppearanceMenuOpen = false;
-             }
-             else if ((DateTime.UtcNow - _appearanceMenuClosedAt).TotalMilliseconds > 300)
-             {
-                 IsAppearanceMenuOpen = true;
-             }
-         }
+        private void ToggleAppearanceMenu()
+        {
+            if (IsAppearanceMenuOpen)
+            {
+                IsAppearanceMenuOpen = false;
+            }
+            else if ((DateTime.UtcNow - _appearanceMenuClosedAt).TotalMilliseconds > 300)
+            {
+                IsAppearanceMenuOpen = true;
+            }
+        }
 
-         private void ApplyTheme(string theme)
-         {
-             if (string.IsNullOrEmpty(theme) || App.Bootstrapper == null)
-                 return;
+        private void ApplyTheme(string theme)
+        {
+            if (string.IsNullOrEmpty(theme) || App.Bootstrapper == null)
+                return;
 
-             var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
-             var themeName = theme == "Dark" ? "DarkTheme.xaml" : "SlateLightTheme.xaml";
-             themeManager.SetTheme(themeName);
-             IsDarkTheme = themeManager.IsDarkTheme;
-             RefreshCurrentProfile();
-         }
+            var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
+            var themeName = theme == "Dark" ? "DarkTheme.xaml" : "SlateLightTheme.xaml";
+            themeManager.SetTheme(themeName);
+            IsDarkTheme = themeManager.IsDarkTheme;
+            RefreshCurrentProfile();
+        }
 
-         private void ApplyDensity(string density)
-         {
-             if (string.IsNullOrEmpty(density) || App.Bootstrapper == null)
-                 return;
+        private void ApplyDensity(string density)
+        {
+            if (string.IsNullOrEmpty(density) || App.Bootstrapper == null)
+                return;
 
-             var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
-             themeManager.SetDensity(density);
-             IsCompactDensity = themeManager.IsCompactDensity;
-         }
+            var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
+            themeManager.SetDensity(density);
+            IsCompactDensity = themeManager.IsCompactDensity;
+        }
 
-         private void ApplyBackdropMode(string mode)
-         {
-             var normalizedMode = NormalizeBackdropMode(mode);
-             if (string.IsNullOrEmpty(normalizedMode))
-                 return;
+        private void ApplyBackdropMode(string mode)
+        {
+            var normalizedMode = NormalizeBackdropMode(mode);
+            if (string.IsNullOrEmpty(normalizedMode))
+                return;
 
-             if (NvapiDrsWrapper.Instance.IsMockMode)
-             {
-                 NvapiDrsWrapper.Instance.SetMockWin11BackdropMode(normalizedMode);
-             }
-             else
-             {
-                 var settings = UserSettings.LoadSettings();
-                 settings.Win11BackdropMode = normalizedMode;
-                 settings.SaveSettings();
-             }
+            if (NvapiDrsWrapper.Instance.IsMockMode)
+            {
+                NvapiDrsWrapper.Instance.SetMockWin11BackdropMode(normalizedMode);
+            }
+            else
+            {
+                var settings = UserSettings.LoadSettings();
+                settings.Win11BackdropMode = normalizedMode;
+                settings.SaveSettings();
+            }
 
-             _currentBackdropMode = normalizedMode;
-             NotifyBackdropModeChanged();
+            _currentBackdropMode = normalizedMode;
+            NotifyBackdropModeChanged();
 
-             if (Application.Current?.MainWindow != null)
-                 WindowBackdropHelper.TryApplyTo(Application.Current.MainWindow);
-         }
+            if (Application.Current?.MainWindow != null)
+                WindowBackdropHelper.TryApplyTo(Application.Current.MainWindow);
+        }
 
-         private void RefreshBackdropMode()
-         {
-             var configuredMode = NvapiDrsWrapper.Instance.IsMockMode
-                 ? NvapiDrsWrapper.Instance.GetMockWin11BackdropMode()
-                 : UserSettings.LoadSettings().Win11BackdropMode;
+        private void RefreshBackdropMode()
+        {
+            var configuredMode = NvapiDrsWrapper.Instance.IsMockMode
+                ? NvapiDrsWrapper.Instance.GetMockWin11BackdropMode()
+                : UserSettings.LoadSettings().Win11BackdropMode;
 
-             _currentBackdropMode = NormalizeBackdropMode(configuredMode);
-             NotifyBackdropModeChanged();
-         }
+            _currentBackdropMode = NormalizeBackdropMode(configuredMode);
+            NotifyBackdropModeChanged();
+        }
 
-         private static string NormalizeBackdropMode(string mode)
-         {
-             if (string.Equals(mode, "Default", StringComparison.OrdinalIgnoreCase))
-                 return "Default";
+        private static string NormalizeBackdropMode(string mode)
+        {
+            if (string.Equals(mode, "Default", StringComparison.OrdinalIgnoreCase))
+                return "Default";
 
-             if (string.Equals(mode, "MainWindow", StringComparison.OrdinalIgnoreCase))
-                 return "MainWindow";
+            if (string.Equals(mode, "MainWindow", StringComparison.OrdinalIgnoreCase))
+                return "MainWindow";
 
-             if (string.Equals(mode, "Acrylic", StringComparison.OrdinalIgnoreCase))
-                 return "Acrylic";
+            if (string.Equals(mode, "Acrylic", StringComparison.OrdinalIgnoreCase))
+                return "Acrylic";
 
-             if (string.Equals(mode, "Disabled", StringComparison.OrdinalIgnoreCase))
-                 return "Disabled";
+            if (string.Equals(mode, "Disabled", StringComparison.OrdinalIgnoreCase))
+                return "Disabled";
 
-             return "Tabbed";
-         }
+            return "Tabbed";
+        }
 
-         private void NotifyBackdropModeChanged()
-         {
-             OnPropertyChanged(nameof(IsBackdropGlass));
-             OnPropertyChanged(nameof(IsBackdropMica));
-             OnPropertyChanged(nameof(IsBackdropMicaVariant));
-             OnPropertyChanged(nameof(IsBackdropAcrylic));
-             OnPropertyChanged(nameof(IsBackdropDisabled));
-         }
+        private void NotifyBackdropModeChanged()
+        {
+            OnPropertyChanged(nameof(IsBackdropGlass));
+            OnPropertyChanged(nameof(IsBackdropMica));
+            OnPropertyChanged(nameof(IsBackdropMicaVariant));
+            OnPropertyChanged(nameof(IsBackdropAcrylic));
+            OnPropertyChanged(nameof(IsBackdropDisabled));
+        }
 
-         private void ShowAbout()
+        private void ShowAbout()
         {
             var dialog = new Views.Dialogs.AboutDialog(IsUpdateAvailable);
             var owner = Application.Current.Windows.Cast<Window>()

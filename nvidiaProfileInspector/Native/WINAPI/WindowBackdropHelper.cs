@@ -1,5 +1,8 @@
 namespace nvidiaProfileInspector.Native.WINAPI
 {
+    using nvidiaProfileInspector.Common.Helper;
+    using nvidiaProfileInspector.Native.NVAPI2;
+    using nvidiaProfileInspector.UI.Controls;
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
@@ -7,9 +10,6 @@ namespace nvidiaProfileInspector.Native.WINAPI
     using System.Windows.Interop;
     using System.Windows.Media;
     using System.Windows.Shell;
-    using nvidiaProfileInspector.Common.Helper;
-    using nvidiaProfileInspector.Native.NVAPI2;
-    using nvidiaProfileInspector.UI.Controls;
 
     internal static class WindowBackdropHelper
     {

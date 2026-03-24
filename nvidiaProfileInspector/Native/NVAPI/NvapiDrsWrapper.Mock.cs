@@ -1,3 +1,5 @@
+using nvidiaProfileInspector.Common.Helper;
+using nvidiaProfileInspector.Native.WINAPI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,8 +8,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
-using nvidiaProfileInspector.Common.Helper;
-using nvidiaProfileInspector.Native.WINAPI;
 
 namespace nvidiaProfileInspector.Native.NVAPI2
 {

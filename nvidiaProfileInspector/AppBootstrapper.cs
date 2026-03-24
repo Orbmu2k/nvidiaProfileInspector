@@ -39,14 +39,14 @@ namespace nvidiaProfileInspector
             metaService.ResetMetaCache();
 
             _container.Register<BitEditorService>();
-             _container.RegisterSingleton<DialogService>();
-             _container.RegisterSingleton<UpdateService>();
-             _container.RegisterSingleton<ThemeManager>();
+            _container.RegisterSingleton<DialogService>();
+            _container.RegisterSingleton<UpdateService>();
+            _container.RegisterSingleton<ThemeManager>();
 
-             _container.Register<UI.ViewModels.MainViewModel>(autoResolve: true);
-             _container.Register<UI.ViewModels.SettingsListViewModel>(autoResolve: true);
-             _container.Register<UI.ViewModels.ExportProfilesViewModel>(autoResolve: true);
-             _container.Register<UI.ViewModels.AboutViewModel>(autoResolve: true);
+            _container.Register<UI.ViewModels.MainViewModel>(autoResolve: true);
+            _container.Register<UI.ViewModels.SettingsListViewModel>(autoResolve: true);
+            _container.Register<UI.ViewModels.ExportProfilesViewModel>(autoResolve: true);
+            _container.Register<UI.ViewModels.AboutViewModel>(autoResolve: true);
 
             TinyIoC.Setup(_container);
         }
