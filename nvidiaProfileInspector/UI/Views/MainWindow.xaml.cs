@@ -1,22 +1,28 @@
 namespace nvidiaProfileInspector.UI.Views
 {
     using nvidiaProfileInspector;
+    using nvidiaProfileInspector.Common.Helper;
     using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector.Services;
+    using nvidiaProfileInspector.UI.Controls;
     using nvidiaProfileInspector.UI.ViewModels;
     using nvidiaProfileInspector.UI.Views.Dialogs;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Interop;
     using System.Windows.Media;
+    using System.Windows.Threading;
 
     public partial class MainWindow : Window
     {
         private readonly MainViewModel _viewModel;
         private readonly ThemeManager _themeManager;
+        private HwndSource _windowSource;
+        private bool _mainWindowNativeDropRegistered;
 
         public MainWindow()
         {
@@ -50,14 +56,42 @@ namespace nvidiaProfileInspector.UI.Views
             base.OnSourceInitialized(e);
 
             var handle = new WindowInteropHelper(this).Handle;
-            HwndSource.FromHwnd(handle)?.AddHook(WndProc);
+            RegisterMainWindowNativeDrop(handle);
+            var exStyle = DragAcceptNativeHelper.GetWindowLongPtr(handle, DragAcceptNativeHelper.GWL_EXSTYLE).ToInt64();
+            if ((exStyle & DragAcceptNativeHelper.WS_EX_ACCEPTFILES) == 0)
+            {
+                DragAcceptNativeHelper.SetWindowLongPtr(
+                    handle,
+                    DragAcceptNativeHelper.GWL_EXSTYLE,
+                    new IntPtr(exStyle | DragAcceptNativeHelper.WS_EX_ACCEPTFILES));
+            }
 
-            MessageHelper.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0,
-                MessageHelper.SWP_FRAMECHANGED | MessageHelper.SWP_NOMOVE | MessageHelper.SWP_NOSIZE | MessageHelper.SWP_NOZORDER | MessageHelper.SWP_NOOWNERZORDER);
+            DragAcceptNativeHelper.DragAcceptFiles(handle, true);
+            _windowSource = HwndSource.FromHwnd(handle);
+            _windowSource?.AddHook(WndProc);
         }
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            if (msg == DragAcceptNativeHelper.WM_DROPFILES)
+            {
+                try
+                {
+                    var files = DragAcceptNativeHelper.GetDroppedFiles(wParam);
+                    if (files.Length > 0)
+                    {
+                        HandleDroppedFiles(files);
+                        handled = true;
+                    }
+                }
+                finally
+                {
+                    DragAcceptNativeHelper.DragFinish(wParam);
+                }
+
+                return IntPtr.Zero;
+            }
+
             // Fix controls jumping/flickering during resize
             // Based on https://github.com/sourcechord/FluentWPF/issues/102#issuecomment-903709242
             if (msg == MessageHelper.WM_NCCALCSIZE && wParam != IntPtr.Zero)
@@ -68,6 +102,59 @@ namespace nvidiaProfileInspector.UI.Views
             }
 
             return IntPtr.Zero;
+        }
+
+        private void HandleDroppedFiles(string[] files)
+        {
+            if (files == null || files.Length != 1)
+                return;
+
+            var droppedFile = files[0];
+            var extension = Path.GetExtension(droppedFile)?.ToLowerInvariant();
+
+            if (extension == ".nip")
+            {
+                try
+                {
+                    var report = _viewModel.ImportFile(droppedFile);
+                    _viewModel.RefreshCommand.Execute(null);
+
+                    if (string.IsNullOrEmpty(report))
+                        MessageBoxViewModel.Show("Profile(s) imported successfully!", "Import", MessageBoxButton.OK, MessageBoxImage.Information);
+                    else
+                        MessageBoxViewModel.Show($"Some profile(s) could not be imported!\r\n\r\n{report}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxViewModel.Show($"Import Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                return;
+            }
+
+            string profileName;
+            var applicationName = Common.Helper.ShortcutResolver.ResolveExecuteable(droppedFile, out profileName);
+            if (string.IsNullOrEmpty(applicationName))
+                return;
+
+            var profiles = _viewModel.FindProfilesUsingApplication(applicationName);
+            if (!string.IsNullOrEmpty(profiles))
+            {
+                var profile = profiles.Split(';')[0];
+                _viewModel.SelectProfile(profile);
+                return;
+            }
+
+            var result = MessageBoxViewModel.Show(
+                "Would you like to create a new profile for this application?",
+                "Profile not found!",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _viewModel.ShowCreateProfileDialog(profileName, applicationName);
+            }
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -109,34 +196,25 @@ namespace nvidiaProfileInspector.UI.Views
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _themeManager.ThemeChanged -= OnThemeChanged;
+
             _viewModel.SaveSettings(Left, Top, Width, Height, WindowState);
         }
 
-        private void Window_Drop(object sender, DragEventArgs e)
+        private void RegisterMainWindowNativeDrop(IntPtr handle)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                if (files.Length > 0)
-                {
-                    var extension = System.IO.Path.GetExtension(files[0]).ToLowerInvariant();
-                    if (extension == ".nip")
-                    {
-                        try
-                        {
-                            var report = _viewModel.ImportFile(files[0]);
-                            if (string.IsNullOrEmpty(report))
-                                MessageBoxViewModel.Show("Profile(s) imported successfully!", "Import", MessageBoxButton.OK, MessageBoxImage.Information);
-                            else
-                                MessageBoxViewModel.Show($"Some profile(s) could not be imported!\r\n\r\n{report}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBoxViewModel.Show($"Import Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                }
-            }
+            if (_mainWindowNativeDropRegistered || handle == IntPtr.Zero)
+                return;
+
+            DragAcceptNativeHelper.RevokeDragDrop(handle);
+
+            DragAcceptNativeHelper.ChangeWindowMessageFilter(DragAcceptNativeHelper.WM_DROPFILES, DragAcceptNativeHelper.MSGFLT_ADD);
+            DragAcceptNativeHelper.ChangeWindowMessageFilter(DragAcceptNativeHelper.WM_COPYDATA, DragAcceptNativeHelper.MSGFLT_ADD);
+            DragAcceptNativeHelper.ChangeWindowMessageFilter(DragAcceptNativeHelper.WM_COPYGLOBALDATA, DragAcceptNativeHelper.MSGFLT_ADD);
+            DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle, DragAcceptNativeHelper.WM_DROPFILES, DragAcceptNativeHelper.MSGFLT_ALLOW, IntPtr.Zero);
+            DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle, DragAcceptNativeHelper.WM_COPYDATA, DragAcceptNativeHelper.MSGFLT_ALLOW, IntPtr.Zero);
+            DragAcceptNativeHelper.ChangeWindowMessageFilterEx(handle, DragAcceptNativeHelper.WM_COPYGLOBALDATA, DragAcceptNativeHelper.MSGFLT_ALLOW, IntPtr.Zero);
+            DragAcceptNativeHelper.DragAcceptFiles(handle, true);
+            _mainWindowNativeDropRegistered = true;
         }
 
         private void OnOpenBitEditor(uint settingId, uint value, string settingName)
@@ -290,5 +368,15 @@ namespace nvidiaProfileInspector.UI.Views
             _viewModel.RefreshCurrentProfileCommand.Execute(null);
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            if (_windowSource != null)
+            {
+                _windowSource.RemoveHook(WndProc);
+                _windowSource = null;
+            }
+
+            base.OnClosed(e);
+        }
     }
 }

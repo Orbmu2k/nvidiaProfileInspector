@@ -1,8 +1,7 @@
 {
   "profiles": {
     "nvidiaProfileInspector": {
-      "commandName": "Project",
-      "commandLineArgs": "-mock"
+      "commandName": "Project"
     }
   }
 }

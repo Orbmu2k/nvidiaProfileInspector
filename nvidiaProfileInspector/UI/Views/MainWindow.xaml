@@ -15,11 +15,9 @@
     MinWidth="1000"
     MinHeight="450"
     d:DataContext="{x:Static vm:DesignTimeData.MainViewModel}"
-    AllowDrop="True"
     Background="Transparent"
     Closing="Window_Closing"
     Cursor="Hand"
-    Drop="Window_Drop"
     Loaded="Window_Loaded"
     Style="{StaticResource DarkWindowStyle}"
     WindowStartupLocation="CenterScreen"
@@ -42,7 +40,7 @@
         <KeyBinding Key="Escape" Command="{Binding ClearFilterCommand}" />
     </Window.InputBindings>
 
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <!--  Header/Title  -->
@@ -766,6 +764,7 @@
                     BorderThickness="0,0,0,1">
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -829,7 +828,7 @@
                                 ToolTip="Import profiles from file" />
                         </StackPanel>
 
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
                             <controls:ActionBarToggleButton
                                 IconPath="{DynamicResource IconLab}"
                                 IsChecked="{Binding ShowScannedUnknownSettings}"

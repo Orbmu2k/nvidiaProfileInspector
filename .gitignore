@@ -362,4 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /nul
-/nvidiaProfileInspector/.dotnet
+.dotnet

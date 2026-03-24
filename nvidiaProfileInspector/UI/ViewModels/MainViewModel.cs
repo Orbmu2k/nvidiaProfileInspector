@@ -699,9 +699,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void CreateProfile()
         {
+            ShowCreateProfileDialog("");
+        }
+
+        public bool ShowCreateProfileDialog(string nameProposal, string applicationName = null)
+        {
             var dialog = new Views.Dialogs.InputDialog("Create Profile",
             "Enter a unique name for your new custom driver profile.",
-            "", false, (val) =>
+            nameProposal ?? "", false, (val) =>
             {
                 if (string.IsNullOrWhiteSpace(val)) return "Expected is a unique profile name.";
                 if (_profileNames.Any(p => p.Equals(val, StringComparison.OrdinalIgnoreCase)))
@@ -714,15 +719,18 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 try
                 {
-                    _settingService.CreateProfile(dialog.InputValue);
+                    _settingService.CreateProfile(dialog.InputValue, applicationName);
                     RefreshProfilesCombo();
                     CurrentProfile = dialog.InputValue;
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     OnShowError?.Invoke(ex.Message);
                 }
             }
+
+            return false;
         }
 
         private void DeleteProfile()
@@ -931,6 +939,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             if (_profileNames.Contains(profileName))
                 CurrentProfile = profileName;
+        }
+
+        public string FindProfilesUsingApplication(string applicationName)
+        {
+            return _scannerService.FindProfilesUsingApplication(applicationName);
         }
 
         private void OpenBitEditor()
