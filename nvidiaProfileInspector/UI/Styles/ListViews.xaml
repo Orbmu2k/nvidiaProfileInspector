@@ -1,8 +1,14 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="clr-namespace:nvidiaProfileInspector.UI.Behaviors"
+    xmlns:converters="clr-namespace:nvidiaProfileInspector.UI.Converters">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UI/Styles/Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <converters:GroupExpandedConverter x:Key="GroupExpandedConverter" />
 
     <!--  ListView Style  -->
     <Style x:Key="DarkListViewStyle" TargetType="ListView">
@@ -72,25 +78,89 @@
         </Setter>
     </Style>
 
+    <!--  Group Expander Style (toggle on right)  -->
+    <Style x:Key="GroupExpanderStyle" TargetType="Expander">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <StackPanel>
+                        <ToggleButton
+                            x:Name="HeaderToggle"
+                            Content="{TemplateBinding Header}"
+                            Cursor="Hand"
+                            IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                            OverridesDefaultStyle="True">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border
+                                        Margin="8,0"
+                                        Padding="{DynamicResource GroupHeaderPadding}"
+                                        Background="Transparent"
+                                        BorderBrush="{DynamicResource ControlBorderBrush}"
+                                        BorderThickness="0,0,0,1">
+                                        <DockPanel>
+                                            <Path
+                                                x:Name="Arrow"
+                                                DockPanel.Dock="Right"
+                                                Margin="8,0,4,0"
+                                                VerticalAlignment="Center"
+                                                Data="M0,0 L4,4 L8,0 Z"
+                                                Fill="{DynamicResource TextSecondaryBrush}"
+                                                RenderTransformOrigin="0.5,0.5">
+                                                <Path.RenderTransform>
+                                                    <RotateTransform Angle="0" />
+                                                </Path.RenderTransform>
+                                            </Path>
+                                            <ContentPresenter ContentSource="Content" />
+                                        </DockPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="Arrow" Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <RotateTransform Angle="180" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource NvidiaGreenBrush}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ContentPresenter x:Name="ExpandContent" Visibility="Collapsed" />
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ExpandContent" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--  Group Header Style  -->
     <Style x:Key="ListViewGroupHeaderStyle" TargetType="GroupItem">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GroupItem">
-                    <StackPanel Margin="{DynamicResource GroupHeaderOuterMargin}">
-                        <Border
-                            Margin="8,0"
-                            Padding="{DynamicResource GroupHeaderPadding}"
-                            BorderBrush="{DynamicResource ControlBorderBrush}"
-                            BorderThickness="0,0,0,1">
+                    <Expander
+                        Margin="{DynamicResource GroupHeaderOuterMargin}"
+                        behaviors:GroupExpanderPersistBehavior.PersistGroupName="{Binding Name}"
+                        IsExpanded="{Binding Name, Mode=OneWay, Converter={StaticResource GroupExpandedConverter}}"
+                        Style="{StaticResource GroupExpanderStyle}">
+                        <Expander.Header>
                             <TextBlock
                                 FontSize="12"
                                 FontWeight="Bold"
                                 Foreground="{DynamicResource NvidiaGreenBrush}"
                                 Text="{Binding Name}" />
-                        </Border>
+                        </Expander.Header>
                         <ItemsPresenter Margin="{DynamicResource GroupItemsPresenterMargin}" />
-                    </StackPanel>
+                    </Expander>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

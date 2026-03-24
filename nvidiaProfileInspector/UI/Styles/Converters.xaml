@@ -16,5 +16,6 @@
     <converters:SettingMetaSourceToIconConverter x:Key="SettingMetaSourceToIconConverter" />
     <converters:FavoriteToBrushConverter x:Key="FavoriteToBrushConverter" />
     <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+    <converters:GroupExpandedConverter x:Key="GroupExpandedConverter" />
 
 </ResourceDictionary>
