@@ -37,6 +37,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
         private const int Windows11BackdropBuild = 22621;
         private const int TitleBarFrameHeight = 48;
         private const int MinimumWin11TitleBarFrameHeight = 54;
+        private const int Win11ExtraTitleBarFrameHeight = 20;
 
         public static void TryApplyTo(Window window)
         {
@@ -222,7 +223,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
             }
 
             if (version.Build >= Windows11Build)
-                frameHeight = Math.Max(frameHeight, MinimumWin11TitleBarFrameHeight);
+                frameHeight = Math.Max(frameHeight, MinimumWin11TitleBarFrameHeight) + Win11ExtraTitleBarFrameHeight;
 
             return frameHeight;
         }
