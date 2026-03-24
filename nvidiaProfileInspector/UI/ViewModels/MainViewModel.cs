@@ -33,7 +33,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private readonly DrsScannerService _scannerService;
         private readonly DrsImportService _importService;
 
-        private ObservableCollection<string> _profileNames = new ObservableCollection<string>();
+        private ObservableCollection<ProfileListItem> _profileNames = new ObservableCollection<ProfileListItem>();
         private string _currentProfile;
         private string _baseProfileName = "";
         private string _filterText = "";
@@ -50,12 +50,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private ListCollectionView _groupedSettingsView;
         private CancellationTokenSource _scanCancellationTokenSource;
         private int _filterTypeIndex;
-        private string _profileFilterText = "";
-        private string _modifiedProfileFilterText = "";
-        private bool _isFiltering;
         private bool _isInitializing;
-        private ListCollectionView _profilesView;
-        private ListCollectionView _modifiedProfilesView;
         private SynchronizationContext _uiContext;
         private ITaskbarList3 _taskbarList;
         private IntPtr _windowHandle;
@@ -102,8 +97,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void LoadDesignTimeData()
         {
             IsDesignMode = true;
-            _profileNames.Add("Global Profile");
-            _profileNames.Add("Sample Game Profile");
+            _profileNames.Add(new ProfileListItem(DrsSettingsService.GlobalProfileName, false));
+            _profileNames.Add(new ProfileListItem("Sample Game Profile", false));
             _currentProfile = "Sample Game Profile";
             _showCustomizedSettingsOnly = true;
             _filterTypeIndex = 0;
@@ -123,7 +118,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             InitializeCommands();
         }
 
-        public ObservableCollection<string> ProfileNames => _profileNames;
+        public ObservableCollection<ProfileListItem> ProfileNames => _profileNames;
 
 
         public bool IsGlobalProfile => string.IsNullOrEmpty(_currentProfile) || _currentProfile == _baseProfileName;
@@ -149,17 +144,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
             set
             {
-                var profileNameToCheck = value;
-                if (profileNameToCheck == DrsSettingsService.GlobalProfileName)
-                {
-                    profileNameToCheck = null;
-                }
-
-                if (SetProperty(ref _currentProfile, profileNameToCheck, nameof(CurrentProfile)))
-                {
-                    if (!_isFiltering && !_isInitializing)
-                        OnCurrentProfileChanged();
-                }
+                SetCurrentProfile(value);
             }
         }
 
@@ -172,36 +157,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     OnFilterTextChanged();
             }
         }
-
-        public string ProfileFilterText
-        {
-            get => _profileFilterText;
-            set
-            {
-                if (SetProperty(ref _profileFilterText, value, nameof(ProfileFilterText)))
-                {
-                    _isFiltering = value.Length > 0;
-                    ProfilesView?.Refresh();
-                    _isFiltering = false;
-                }
-            }
-        }
-
-        public string ModifiedProfileFilterText
-        {
-            get => _modifiedProfileFilterText;
-            set
-            {
-                if (SetProperty(ref _modifiedProfileFilterText, value, nameof(ModifiedProfileFilterText)))
-                {
-                    _isFiltering = value.Length > 0;
-                    ModifiedProfilesView?.Refresh();
-                    _isFiltering = false;
-                }
-            }
-        }
-
-
 
         public int FilterTypeIndex
         {
@@ -358,11 +313,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public bool IsWindows10 => !_isWindows11;
 
         public ListCollectionView GroupedSettingsView => _groupedSettingsView;
-        public ICollectionView ProfilesView => _profilesView;
-        public ICollectionView ModifiedProfilesView => _modifiedProfilesView;
 
         public ObservableCollection<SettingItemViewModel> Settings { get; } = new ObservableCollection<SettingItemViewModel>();
-        public ObservableCollection<string> ModifiedProfiles { get; } = new ObservableCollection<string>();
+        public ObservableCollection<ModifiedProfileItem> ModifiedProfiles { get; } = new ObservableCollection<ModifiedProfileItem>();
         public ObservableCollection<ApplicationItem> Applications { get; } = new ObservableCollection<ApplicationItem>();
 
         public ICommand RefreshCommand { get; private set; }
@@ -418,7 +371,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             ApplyCommand = new RelayCommand(ApplyChanges);
             RestoreProfileCommand = new AsyncRelayCommand(RestoreProfileAsync);
             CreateProfileCommand = new RelayCommand(CreateProfile);
-            DeleteProfileCommand = new RelayCommand(DeleteProfile);
+            DeleteProfileCommand = new AsyncRelayCommand(DeleteProfileAsync);
             AddApplicationCommand = new RelayCommand(_ => AddApplication());
             RemoveApplicationCommand = new RelayCommand(param => RemoveApplication(param as ApplicationItem));
             ExportProfileCommand = new RelayCommand(ExportProfile);
@@ -449,7 +402,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _isInitializing = false;
             await CheckForUpdatesAsync();
             RefreshCurrentProfile();
-            CurrentProfile = _profileNames.FirstOrDefault();
+            CurrentProfile = _profileNames.FirstOrDefault()?.ProfileName;
             OnPropertyChanged(nameof(IsGlobalProfile));
             OnPropertyChanged(nameof(ShowApplicationsArea));
         }
@@ -578,27 +531,43 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _profileNames.Clear();
             var names = _settingService.GetProfileNames(ref _baseProfileName);
             foreach (var name in names)
-                _profileNames.Add(name);
+                _profileNames.Add(new ProfileListItem(name, _scannerService.UserProfiles.Contains(name)));
+
+            ModifiedProfiles.Clear();
+            foreach (var profile in _scannerService.ModifiedProfiles.OrderBy(x => x))
+            {
+                ModifiedProfiles.Add(new ModifiedProfileItem(
+                    profile,
+                    _scannerService.UserProfiles.Contains(profile)));
+            }
 
             OnPropertyChanged(nameof(IsGlobalProfile));
             OnPropertyChanged(nameof(ShowApplicationsArea));
 
-            if (_profilesView == null)
-            {
-                _profilesView = new ListCollectionView(_profileNames);
-                _profilesView.Filter = (obj) =>
-                {
-                    if (string.IsNullOrWhiteSpace(_profileFilterText)) return true;
-                    return obj.ToString().IndexOf(_profileFilterText, StringComparison.OrdinalIgnoreCase) >= 0;
-                };
-                OnPropertyChanged(nameof(ProfilesView));
-            }
-
-            if (string.IsNullOrEmpty(_currentProfile) || !_profileNames.Contains(_currentProfile))
-                CurrentProfile = _profileNames.FirstOrDefault();
+            if (string.IsNullOrEmpty(_currentProfile) || !_profileNames.Any(x => x.ProfileName == _currentProfile))
+                SetCurrentProfile(_profileNames.FirstOrDefault()?.ProfileName, forceNotify: true);
             else
             {
+                SetCurrentProfile(_currentProfile, forceNotify: true);
+            }
+        }
+
+        private void SetCurrentProfile(string profileName, bool forceNotify = false)
+        {
+            var profileNameToCheck = profileName;
+            if (profileNameToCheck == DrsSettingsService.GlobalProfileName)
+                profileNameToCheck = null;
+
+            if (SetProperty(ref _currentProfile, profileNameToCheck, nameof(CurrentProfile)))
+            {
+                if (!_isInitializing)
+                    OnCurrentProfileChanged();
+            }
+            else if (forceNotify)
+            {
                 OnPropertyChanged(nameof(CurrentProfile));
+                OnPropertyChanged(nameof(IsGlobalProfile));
+                OnPropertyChanged(nameof(ShowApplicationsArea));
             }
         }
 
@@ -681,7 +650,53 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
-        private async Task RestoreProfileAsync()
+        private void RemoveModifiedProfileFromCache(string profileName)
+        {
+            if (string.IsNullOrWhiteSpace(profileName))
+                return;
+
+            var modifiedProfile = ModifiedProfiles.FirstOrDefault(x =>
+                x.ProfileName.Equals(profileName, StringComparison.OrdinalIgnoreCase));
+            if (modifiedProfile != null)
+                ModifiedProfiles.Remove(modifiedProfile);
+
+            _scannerService.ModifiedProfiles.RemoveAll(x =>
+                x.Equals(profileName, StringComparison.OrdinalIgnoreCase));
+
+            _scannerService.UserProfiles.RemoveWhere(x =>
+                x.Equals(profileName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private void AddModifiedProfileToCache(string profileName, bool isUserDefined)
+        {
+            if (string.IsNullOrWhiteSpace(profileName))
+                return;
+
+            if (!ModifiedProfiles.Any(x => x.ProfileName.Equals(profileName, StringComparison.OrdinalIgnoreCase)))
+            {
+                var insertIndex = 0;
+                while (insertIndex < ModifiedProfiles.Count &&
+                       string.Compare(ModifiedProfiles[insertIndex].ProfileName, profileName, StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    insertIndex++;
+                }
+
+                ModifiedProfiles.Insert(insertIndex, new ModifiedProfileItem(profileName, isUserDefined));
+            }
+
+            if (!_scannerService.ModifiedProfiles.Any(x => x.Equals(profileName, StringComparison.OrdinalIgnoreCase)))
+            {
+                _scannerService.ModifiedProfiles.Add(profileName);
+                _scannerService.ModifiedProfiles = _scannerService.ModifiedProfiles
+                    .OrderBy(x => x)
+                    .ToList();
+            }
+
+            if (isUserDefined)
+                _scannerService.UserProfiles.Add(profileName);
+        }
+
+        private Task RestoreProfileAsync()
         {
             var result = MessageBoxEx.Show(
                 "Restore profile to NVIDIA driver defaults?",
@@ -693,8 +708,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 bool removeFromModified;
                 _settingService.ResetProfile(_currentProfile, out removeFromModified);
+
+                if (removeFromModified)
+                    RemoveModifiedProfileFromCache(_currentProfile);
+
+                RefreshProfilesCombo();
                 RefreshCurrentProfile();
             }
+
+            return Task.CompletedTask;
         }
 
         private void CreateProfile()
@@ -709,7 +731,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             nameProposal ?? "", false, (val) =>
             {
                 if (string.IsNullOrWhiteSpace(val)) return "Expected is a unique profile name.";
-                if (_profileNames.Any(p => p.Equals(val, StringComparison.OrdinalIgnoreCase)))
+                if (_profileNames.Any(p => p.ProfileName.Equals(val, StringComparison.OrdinalIgnoreCase)))
                     return "Profile name must be unique.";
                 return null;
             });
@@ -720,8 +742,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 try
                 {
                     _settingService.CreateProfile(dialog.InputValue, applicationName);
+                    AddModifiedProfileToCache(dialog.InputValue, isUserDefined: true);
                     RefreshProfilesCombo();
-                    CurrentProfile = dialog.InputValue;
+                    SetCurrentProfile(dialog.InputValue, forceNotify: true);
                     return true;
                 }
                 catch (Exception ex)
@@ -733,7 +756,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             return false;
         }
 
-        private void DeleteProfile()
+        private Task DeleteProfileAsync()
         {
             var result = MessageBoxEx.Show(
                 $"Really delete this profile?\r\n\r\nNote: NVIDIA predefined profiles can not be restored until next driver installation!",
@@ -745,9 +768,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 try
                 {
+                    var deletedProfileName = _currentProfile;
                     _settingService.DeleteProfile(_currentProfile);
+                    RemoveModifiedProfileFromCache(deletedProfileName);
                     RefreshProfilesCombo();
-                    CurrentProfile = _profileNames.FirstOrDefault();
+                    SetCurrentProfile(DrsSettingsService.GlobalProfileName, forceNotify: true);
                     ShowSnackbar("Profile successfully deleted.", "Success");
                 }
                 catch (Exception ex)
@@ -755,6 +780,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     OnShowError?.Invoke(ex.Message);
                 }
             }
+
+            return Task.CompletedTask;
         }
 
         public void AddApplication()
@@ -937,8 +964,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         public void SelectProfile(string profileName)
         {
-            if (_profileNames.Contains(profileName))
-                CurrentProfile = profileName;
+            if (_profileNames.Any(x => x.ProfileName == profileName))
+                SetCurrentProfile(profileName, forceNotify: true);
         }
 
         public string FindProfilesUsingApplication(string applicationName)
@@ -1009,7 +1036,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void NavigateToGlobalProfile()
         {
             if (_profileNames.Count > 0)
-                CurrentProfile = _profileNames[0];
+                SetCurrentProfile(_profileNames[0].ProfileName, forceNotify: true);
         }
 
         private void ToggleFavorite(object parameter)
@@ -1201,20 +1228,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
                 ModifiedProfiles.Clear();
                 foreach (var profile in _scannerService.ModifiedProfiles)
-                    ModifiedProfiles.Add(profile);
-
-                if (_modifiedProfilesView == null)
                 {
-                    _modifiedProfilesView = new ListCollectionView(ModifiedProfiles);
-                    _modifiedProfilesView.Filter = (obj) =>
-                    {
-                        if (string.IsNullOrWhiteSpace(_modifiedProfileFilterText)) return true;
-                        return obj.ToString().IndexOf(_modifiedProfileFilterText, StringComparison.OrdinalIgnoreCase) >= 0;
-                    };
-                    OnPropertyChanged(nameof(ModifiedProfilesView));
+                    ModifiedProfiles.Add(new ModifiedProfileItem(
+                        profile,
+                        _scannerService.UserProfiles.Contains(profile)));
                 }
 
                 _metaService.ResetMetaCache();
+                RefreshProfilesCombo();
                 RefreshCurrentProfile();
                 ScanStatus = "";
 
@@ -1247,10 +1268,5 @@ namespace nvidiaProfileInspector.UI.ViewModels
             catch { }
         }
 
-        public class ApplicationItem
-        {
-            public string Key { get; set; }
-            public string Name { get; set; }
-        }
     }
 }

@@ -28,6 +28,10 @@ namespace nvidiaProfileInspector.UI.Controls
         DependencyProperty.Register(nameof(FilterText), typeof(string), typeof(SearchableComboBox),
         new PropertyMetadata(string.Empty, OnFilterTextChanged));
 
+        public static readonly DependencyProperty SyncSelectedItemToTextProperty =
+        DependencyProperty.Register(nameof(SyncSelectedItemToText), typeof(bool), typeof(SearchableComboBox),
+        new PropertyMetadata(true));
+
         public string Placeholder
         {
             get => (string)GetValue(PlaceholderProperty);
@@ -38,6 +42,12 @@ namespace nvidiaProfileInspector.UI.Controls
         {
             get => (string)GetValue(FilterTextProperty);
             set => SetValue(FilterTextProperty, value);
+        }
+
+        public bool SyncSelectedItemToText
+        {
+            get => (bool)GetValue(SyncSelectedItemToTextProperty);
+            set => SetValue(SyncSelectedItemToTextProperty, value);
         }
 
         private static void OnFilterTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -54,6 +64,19 @@ namespace nvidiaProfileInspector.UI.Controls
         {
             base.OnApplyTemplate();
             DropDownOpened += SearchableComboBox_DropDownOpened;
+            SyncDisplayedText();
+        }
+
+        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+        {
+            base.OnSelectionChanged(e);
+            SyncDisplayedText();
+        }
+
+        protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
+        {
+            base.OnItemsSourceChanged(oldValue, newValue);
+            SyncDisplayedText();
         }
 
         private async void SearchableComboBox_DropDownOpened(object? sender, EventArgs e)
@@ -117,6 +140,12 @@ namespace nvidiaProfileInspector.UI.Controls
             {
                 _isApplyingFilter = false;
             }
+        }
+
+        private void SyncDisplayedText()
+        {
+            if (!IsEditable && SyncSelectedItemToText)
+                Text = SelectedItem?.ToString() ?? SelectedValue?.ToString() ?? string.Empty;
         }
     }
 }

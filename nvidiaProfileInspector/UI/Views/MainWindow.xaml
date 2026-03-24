@@ -154,21 +154,94 @@
                         Margin="0,0,0,0"
                         IsEditable="False"
                         IsSynchronizedWithCurrentItem="False"
-                        ItemsSource="{Binding ProfilesView}"
+                        ItemsSource="{Binding ProfileNames}"
                         MaxDropDownHeight="500"
                         Placeholder="Search profiles..."
-                        SelectedItem="{Binding CurrentProfile}" />
+                        SelectedValue="{Binding CurrentProfile}"
+                        SelectedValuePath="ProfileName">
+                        <controls:SearchableComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:ProfileListItem}">
+                                <Grid ToolTip="{Binding ProfileTypeLabel}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Path
+                                        Width="14"
+                                        Height="14"
+                                        Margin="0,0,8,0"
+                                        VerticalAlignment="Center"
+                                        Fill="{DynamicResource TextSecondaryBrush}"
+                                        Stretch="Uniform">
+                                        <Path.Style>
+                                            <Style TargetType="Path">
+                                                <Setter Property="Data" Value="{DynamicResource IconNvidia}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsGlobal}" Value="True">
+                                                        <Setter Property="Data" Value="{DynamicResource IconGlobe}" />
+                                                        <Setter Property="Fill" Value="{DynamicResource AccentBrush}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsUserDefined}" Value="True">
+                                                        <Setter Property="Data" Value="{DynamicResource IconUser}" />
+                                                        <Setter Property="Fill" Value="{DynamicResource NvidiaGreenBrush}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Path.Style>
+                                    </Path>
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding ProfileName}" />
+                                </Grid>
+                            </DataTemplate>
+                        </controls:SearchableComboBox.ItemTemplate>
+                    </controls:SearchableComboBox>
 
                     <!--  Modified Profiles Selector  -->
                     <controls:SearchableComboBox
                         x:Name="ModifiedProfilesCombo"
                         Margin="8,0,0,0"
-                        ItemsSource="{Binding ModifiedProfilesView}"
+                        ItemsSource="{Binding ModifiedProfiles}"
                         MaxDropDownHeight="500"
                         Placeholder="Search modified profiles..."
                         SelectionChanged="ModifiedProfilesCombo_SelectionChanged"
                         Style="{DynamicResource IconSearchableComboBoxStyle}"
-                        ToolTip="View Modified Profiles" />
+                        ToolTip="View Modified Profiles">
+                        <controls:SearchableComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:ModifiedProfileItem}">
+                                <Grid ToolTip="{Binding ProfileTypeLabel}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Path
+                                        Width="14"
+                                        Height="14"
+                                        Margin="0,0,8,0"
+                                        VerticalAlignment="Center"
+                                        Fill="{DynamicResource TextSecondaryBrush}"
+                                        Stretch="Uniform">
+                                        <Path.Style>
+                                            <Style TargetType="Path">
+                                                <Setter Property="Data" Value="{DynamicResource IconNvidia}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsUserDefined}" Value="True">
+                                                        <Setter Property="Data" Value="{DynamicResource IconUser}" />
+                                                        <Setter Property="Fill" Value="{DynamicResource NvidiaGreenBrush}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Path.Style>
+                                    </Path>
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding ProfileName}" />
+                                </Grid>
+                            </DataTemplate>
+                        </controls:SearchableComboBox.ItemTemplate>
+                    </controls:SearchableComboBox>
                 </StackPanel>
             </controls:TitleBar.CenterContent>
             <controls:TitleBar.RightContent>
@@ -1060,6 +1133,7 @@
                                                     ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
                                                     MaxDropDownHeight="400"
                                                     Placeholder="Search values..."
+                                                    SyncSelectedItemToText="False"
                                                     Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Visibility="Collapsed">
                                                     <controls:SearchableComboBox.ItemTemplate>

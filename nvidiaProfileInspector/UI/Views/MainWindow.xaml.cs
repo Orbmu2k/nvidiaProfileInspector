@@ -261,7 +261,7 @@ namespace nvidiaProfileInspector.UI.Views
 
         private void RemoveApplication_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn && btn.Tag is MainViewModel.ApplicationItem app)
+            if (sender is Button btn && btn.Tag is ApplicationItem app)
             {
                 _viewModel.RemoveApplication(app);
             }
@@ -269,9 +269,9 @@ namespace nvidiaProfileInspector.UI.Views
 
         private void ModifiedProfilesCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ComboBox combo && combo.SelectedItem is string profileName && combo.IsDropDownOpen)
+            if (sender is ComboBox combo && combo.SelectedItem is ModifiedProfileItem profile && combo.IsDropDownOpen)
             {
-                _viewModel.SelectProfile(profileName);
+                _viewModel.SelectProfile(profile.ProfileName);
                 combo.SelectedIndex = -1;
             }
         }
