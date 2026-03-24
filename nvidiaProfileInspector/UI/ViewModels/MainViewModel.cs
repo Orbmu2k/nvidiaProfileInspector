@@ -69,6 +69,7 @@ using System.Windows.Input;
         private bool _isDarkTheme = true;
         private bool _isCompactDensity;
         private string _currentBackdropMode = "Tabbed";
+        private readonly bool _isWindows11 = Environment.OSVersion.Version.Build >= 22000;
 
         public MainViewModel(
             DrsSettingsMetaService metaService,
@@ -342,11 +343,19 @@ using System.Windows.Input;
 
         public bool IsBackdropMica => string.Equals(_currentBackdropMode, "MainWindow", StringComparison.OrdinalIgnoreCase);
 
-        public bool IsBackdropMicaVariant => string.Equals(_currentBackdropMode, "Tabbed", StringComparison.OrdinalIgnoreCase);
+        public bool IsBackdropMicaVariant =>
+            string.Equals(_currentBackdropMode, "Tabbed", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(_currentBackdropMode, "Default", StringComparison.OrdinalIgnoreCase);
 
         public bool IsBackdropAcrylic => string.Equals(_currentBackdropMode, "Acrylic", StringComparison.OrdinalIgnoreCase);
 
         public bool IsBackdropDisabled => string.Equals(_currentBackdropMode, "Disabled", StringComparison.OrdinalIgnoreCase);
+
+        public bool IsBackdropGlass => !_isWindows11 && !IsBackdropDisabled;
+
+        public bool IsWindows11 => _isWindows11;
+
+        public bool IsWindows10 => !_isWindows11;
 
         public ListCollectionView GroupedSettingsView => _groupedSettingsView;
         public ICollectionView ProfilesView => _profilesView;
@@ -1097,6 +1106,9 @@ using System.Windows.Input;
 
          private static string NormalizeBackdropMode(string mode)
          {
+             if (string.Equals(mode, "Default", StringComparison.OrdinalIgnoreCase))
+                 return "Default";
+
              if (string.Equals(mode, "MainWindow", StringComparison.OrdinalIgnoreCase))
                  return "MainWindow";
 
@@ -1111,6 +1123,7 @@ using System.Windows.Input;
 
          private void NotifyBackdropModeChanged()
          {
+             OnPropertyChanged(nameof(IsBackdropGlass));
              OnPropertyChanged(nameof(IsBackdropMica));
              OnPropertyChanged(nameof(IsBackdropMicaVariant));
              OnPropertyChanged(nameof(IsBackdropAcrylic));

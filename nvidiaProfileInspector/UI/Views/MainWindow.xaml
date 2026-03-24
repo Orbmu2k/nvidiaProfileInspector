@@ -439,6 +439,50 @@
                                         Foreground="{DynamicResource TextSecondaryBrush}"
                                         Margin="6,4,6,4" />
                                     <Button
+                                        Visibility="{Binding IsWindows10, Converter={StaticResource BoolToVisibilityConverter}}"
+                                        Command="{Binding SetBackdropModeCommand}"
+                                        CommandParameter="Default"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        HorizontalContentAlignment="Stretch"
+                                        Padding="6,5"
+                                        Margin="0,1">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    x:Name="bd"
+                                                    Background="{TemplateBinding Background}"
+                                                    CornerRadius="4"
+                                                    Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Stretch" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="{DynamicResource Layer3BackgroundBrush}" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border
+                                                Width="14" Height="14"
+                                                CornerRadius="7"
+                                                BorderThickness="1.5"
+                                                BorderBrush="{DynamicResource TextSecondaryBrush}"
+                                                Background="Transparent"
+                                                Margin="0,0,8,0"
+                                                VerticalAlignment="Center">
+                                                <Ellipse
+                                                    Width="8" Height="8"
+                                                    Fill="{DynamicResource NvidiaGreenBrush}"
+                                                    Visibility="{Binding IsBackdropGlass, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                            </Border>
+                                            <TextBlock Text="Glass" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="12" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Visibility="{Binding IsWindows11, Converter={StaticResource BoolToVisibilityConverter}}"
                                         Command="{Binding SetBackdropModeCommand}"
                                         CommandParameter="MainWindow"
                                         Background="Transparent"
@@ -481,6 +525,7 @@
                                         </StackPanel>
                                     </Button>
                                     <Button
+                                        Visibility="{Binding IsWindows11, Converter={StaticResource BoolToVisibilityConverter}}"
                                         Command="{Binding SetBackdropModeCommand}"
                                         CommandParameter="Tabbed"
                                         Background="Transparent"
@@ -523,6 +568,7 @@
                                         </StackPanel>
                                     </Button>
                                     <Button
+                                        Visibility="{Binding IsWindows11, Converter={StaticResource BoolToVisibilityConverter}}"
                                         Command="{Binding SetBackdropModeCommand}"
                                         CommandParameter="Acrylic"
                                         Background="Transparent"
