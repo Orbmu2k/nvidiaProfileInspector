@@ -120,7 +120,7 @@ namespace nvidiaProfileInspector.UI.Views
                     _viewModel.RefreshCommand.Execute(null);
 
                     if (string.IsNullOrEmpty(report))
-                        MessageBoxViewModel.Show("Profile(s) imported successfully!", "Import", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _viewModel.ShowSnackbar("Profile(s) imported successfully!", "Success");
                     else
                         MessageBoxViewModel.Show($"Some profile(s) could not be imported!\r\n\r\n{report}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
