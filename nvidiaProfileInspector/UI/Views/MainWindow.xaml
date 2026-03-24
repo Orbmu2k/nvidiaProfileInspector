@@ -67,6 +67,13 @@
             Cursor=""
             TitleFontSize="16"
             TitleForeground="{DynamicResource TitleBrush}">
+            <controls:TitleBar.Resources>
+                <SolidColorBrush x:Key="Layer1BackgroundBrush" Color="{DynamicResource TitleBarPopupBackgroundColor}" />
+                <SolidColorBrush x:Key="Layer2BackgroundBrush" Color="{DynamicResource TitleBarControlBackgroundColor}" />
+                <SolidColorBrush x:Key="Layer3BackgroundBrush" Color="{DynamicResource TitleBarControlHoverBackgroundColor}" />
+                <SolidColorBrush x:Key="ControlBorderBrush" Color="{DynamicResource TitleBarControlBorderColor}" />
+                <SolidColorBrush x:Key="ControlBorderHoverBrush" Color="{DynamicResource TitleBarControlBorderHoverColor}" />
+            </controls:TitleBar.Resources>
 
             <controls:TitleBar.IconContent>
                 <Path

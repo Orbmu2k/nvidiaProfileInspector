@@ -7,6 +7,11 @@
     <Color x:Key="Layer3BackgroundColor">#E5E5E5</Color>
     <Color x:Key="TitleBarBackgroundColor">#FFFFFF</Color>
     <Color x:Key="TitleBarBackdropColor">#33F7F7F7</Color>
+    <Color x:Key="TitleBarControlBackgroundColor">#F0FFFFFF</Color>
+    <Color x:Key="TitleBarControlHoverBackgroundColor">#FAFFFFFF</Color>
+    <Color x:Key="TitleBarControlBorderColor">#A6CFCFCF</Color>
+    <Color x:Key="TitleBarControlBorderHoverColor">#C0999999</Color>
+    <Color x:Key="TitleBarPopupBackgroundColor">#FAFFFFFF</Color>
 
     <Color x:Key="NvidiaGreenColor">#76B900</Color>
     <Color x:Key="NvidiaGreenHoverColor">#8AD400</Color>
@@ -37,6 +42,11 @@
     <SolidColorBrush x:Key="Layer3BackgroundBrush" Color="{StaticResource Layer3BackgroundColor}" />
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackgroundColor}" />
     <SolidColorBrush x:Key="TitleBarBackdropBrush" Color="{StaticResource TitleBarBackdropColor}" />
+    <SolidColorBrush x:Key="TitleBarControlBackgroundBrush" Color="{StaticResource TitleBarControlBackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarControlHoverBackgroundBrush" Color="{StaticResource TitleBarControlHoverBackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarControlBorderBrush" Color="{StaticResource TitleBarControlBorderColor}" />
+    <SolidColorBrush x:Key="TitleBarControlBorderHoverBrush" Color="{StaticResource TitleBarControlBorderHoverColor}" />
+    <SolidColorBrush x:Key="TitleBarPopupBackgroundBrush" Color="{StaticResource TitleBarPopupBackgroundColor}" />
 
     <SolidColorBrush x:Key="NvidiaGreenBrush" Color="{StaticResource NvidiaGreenColor}" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource UserAccentColor}" />

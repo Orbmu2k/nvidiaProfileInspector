@@ -1,6 +1,7 @@
 namespace nvidiaProfileInspector.Native.WINAPI
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Interop;
@@ -11,6 +12,8 @@ namespace nvidiaProfileInspector.Native.WINAPI
 
     internal static class WindowBackdropHelper
     {
+        private static readonly HashSet<IntPtr> InitialDisabledBypassHandles = new HashSet<IntPtr>();
+
         private const int AccentDisabled = 0;
         private const int AccentEnableGradient = 1;
         private const int AccentEnableBlurBehind = 3;
@@ -49,6 +52,9 @@ namespace nvidiaProfileInspector.Native.WINAPI
             var backdropConfig = ResolveBackdropConfig(window);
             var win11Mode = GetWin11BackdropMode();
             ApplyTitleBarBackground(window, version, win11Mode);
+
+            if (ShouldSkipNativeBackdropInitialization(window, handle, win11Mode))
+                return;
 
             TrySetImmersiveDarkMode(handle, version, backdropConfig.UseDarkMode);
 
@@ -236,6 +242,24 @@ namespace nvidiaProfileInspector.Native.WINAPI
         {
             titleBar.ClearValue(TitleBar.BackgroundProperty);
             titleBar.Background = Brushes.Transparent;
+        }
+
+        private static bool ShouldSkipNativeBackdropInitialization(Window window, IntPtr handle, Win11BackdropMode mode)
+        {
+            if (mode != Win11BackdropMode.Disabled)
+                return false;
+
+            if (window.IsLoaded)
+                return false;
+
+            lock (InitialDisabledBypassHandles)
+            {
+                if (InitialDisabledBypassHandles.Contains(handle))
+                    return false;
+
+                InitialDisabledBypassHandles.Add(handle);
+                return true;
+            }
         }
 
         private static void TrySetImmersiveDarkMode(IntPtr handle, Version version, bool enabledValue)
