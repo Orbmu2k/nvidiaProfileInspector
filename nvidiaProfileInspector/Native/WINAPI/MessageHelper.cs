@@ -36,6 +36,10 @@ namespace nvidiaProfileInspector.Native.WINAPI
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool GetWindowPlacement(int hWnd, ref WINDOWPLACEMENT lpwndpl);
 
+        [DllImport("User32.dll")]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
+            int x, int y, int cx, int cy, uint uFlags);
+
         #region Message Constants
 
         public const int WM_NULL = 0x00;
@@ -278,6 +282,12 @@ namespace nvidiaProfileInspector.Native.WINAPI
 
         #endregion
 
+        public const uint SWP_FRAMECHANGED = 0x0020;
+        public const uint SWP_NOMOVE = 0x0002;
+        public const uint SWP_NOSIZE = 0x0001;
+        public const uint SWP_NOZORDER = 0x0004;
+        public const uint SWP_NOOWNERZORDER = 0x0200;
+
         //Used for WM_COPYDATA for string messages
         public struct COPYDATASTRUCT
         {
@@ -287,7 +297,6 @@ namespace nvidiaProfileInspector.Native.WINAPI
             public string lpData;
         }
 
-
         public struct WINDOWPLACEMENT
         {
             public int length;
@@ -296,6 +305,20 @@ namespace nvidiaProfileInspector.Native.WINAPI
             public System.Drawing.Point ptMinPosition;
             public System.Drawing.Point ptMaxPosition;
             public System.Drawing.Rectangle rcNormalPosition;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left, Top, Right, Bottom;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct NCCALCSIZE_PARAMS
+        {
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+            public RECT[] rgrc;
+            public IntPtr lppos;
         }
 
         public bool bringAppToFront(int hWnd)

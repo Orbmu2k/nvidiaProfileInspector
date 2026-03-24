@@ -1,12 +1,15 @@
 namespace nvidiaProfileInspector.UI.Views
 {
     using nvidiaProfileInspector;
+    using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector.UI.ViewModels;
     using nvidiaProfileInspector.UI.Views.Dialogs;
     using System;
     using System.Collections.Generic;
+    using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Interop;
     using System.Windows.Media;
 
     public partial class MainWindow : Window
@@ -20,6 +23,31 @@ namespace nvidiaProfileInspector.UI.Views
             _viewModel.OnOpenBitEditor += OnOpenBitEditor;
             _viewModel.OnFocusFilter += () => FilterTextBox.Focus();
             DataContext = _viewModel;
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            var handle = new WindowInteropHelper(this).Handle;
+            HwndSource.FromHwnd(handle)?.AddHook(WndProc);
+
+            MessageHelper.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0,
+                MessageHelper.SWP_FRAMECHANGED | MessageHelper.SWP_NOMOVE | MessageHelper.SWP_NOSIZE | MessageHelper.SWP_NOZORDER | MessageHelper.SWP_NOOWNERZORDER);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            // Fix controls jumping/flickering during resize
+            // Based on https://github.com/sourcechord/FluentWPF/issues/102#issuecomment-903709242
+            if (msg == MessageHelper.WM_NCCALCSIZE && wParam != IntPtr.Zero)
+            {
+                var param = Marshal.PtrToStructure<MessageHelper.NCCALCSIZE_PARAMS>(lParam);
+                param.rgrc[0].Bottom -= 1;
+                Marshal.StructureToPtr(param, lParam, false);
+            }
+
+            return IntPtr.Zero;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
