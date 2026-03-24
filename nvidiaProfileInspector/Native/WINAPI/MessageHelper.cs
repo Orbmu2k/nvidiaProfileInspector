@@ -40,6 +40,12 @@ namespace nvidiaProfileInspector.Native.WINAPI
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
             int x, int y, int cx, int cy, uint uFlags);
 
+        [DllImport("User32.dll")]
+        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, int dwFlags);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
+
         #region Message Constants
 
         public const int WM_NULL = 0x00;
@@ -288,6 +294,8 @@ namespace nvidiaProfileInspector.Native.WINAPI
         public const uint SWP_NOZORDER = 0x0004;
         public const uint SWP_NOOWNERZORDER = 0x0200;
 
+        public const int MONITOR_DEFAULTTONEAREST = 2;
+
         //Used for WM_COPYDATA for string messages
         public struct COPYDATASTRUCT
         {
@@ -319,6 +327,32 @@ namespace nvidiaProfileInspector.Native.WINAPI
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
             public RECT[] rgrc;
             public IntPtr lppos;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MINMAXINFO
+        {
+            public POINT ptReserved;
+            public POINT ptMaxSize;
+            public POINT ptMaxPosition;
+            public POINT ptMinTrackSize;
+            public POINT ptMaxTrackSize;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int X;
+            public int Y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MONITORINFO
+        {
+            public int cbSize;
+            public RECT rcMonitor;
+            public RECT rcWork;
+            public uint dwFlags;
         }
 
         public bool bringAppToFront(int hWnd)

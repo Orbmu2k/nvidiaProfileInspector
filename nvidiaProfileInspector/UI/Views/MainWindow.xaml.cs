@@ -101,6 +101,35 @@ namespace nvidiaProfileInspector.UI.Views
                 Marshal.StructureToPtr(param, lParam, false);
             }
 
+            // Constrain maximized window to the monitor's work area so it doesn't cover the taskbar.
+            if (msg == MessageHelper.WM_GETMINMAXINFO)
+            {
+                var monitor = MessageHelper.MonitorFromWindow(hwnd, MessageHelper.MONITOR_DEFAULTTONEAREST);
+                if (monitor != IntPtr.Zero)
+                {
+                    var monitorInfo = new MessageHelper.MONITORINFO { cbSize = Marshal.SizeOf<MessageHelper.MONITORINFO>() };
+                    if (MessageHelper.GetMonitorInfo(monitor, ref monitorInfo))
+                    {
+                        var work = monitorInfo.rcWork;
+                        var monitor_rect = monitorInfo.rcMonitor;
+                        var mmi = Marshal.PtrToStructure<MessageHelper.MINMAXINFO>(lParam);
+                        mmi.ptMaxPosition = new MessageHelper.POINT
+                        {
+                            X = work.Left - monitor_rect.Left,
+                            Y = work.Top - monitor_rect.Top
+                        };
+                        mmi.ptMaxSize = new MessageHelper.POINT
+                        {
+                            X = work.Right - work.Left,
+                            Y = work.Bottom - work.Top
+                        };
+                        Marshal.StructureToPtr(mmi, lParam, false);
+                    }
+                }
+                handled = true;
+            }
+
+
             return IntPtr.Zero;
         }
 
