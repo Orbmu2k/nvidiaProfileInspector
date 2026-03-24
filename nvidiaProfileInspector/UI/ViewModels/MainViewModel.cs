@@ -1251,6 +1251,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             public string Key { get; set; }
             public string Name { get; set; }
+            public string KeyDisplay => Key?.TrimEnd('|');
         }
     }
 }
