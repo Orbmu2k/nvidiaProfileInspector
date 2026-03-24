@@ -978,7 +978,7 @@
                                             Click="RemoveApplication_Click"
                                             Style="{StaticResource ApplicationChipStyle}"
                                             Tag="{Binding}"
-                                            ToolTip="{Binding Key}" />
+                                            ToolTip="{Binding KeyDisplay}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

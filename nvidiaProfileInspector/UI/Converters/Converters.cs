@@ -283,6 +283,24 @@ namespace nvidiaProfileInspector.UI.Converters
         }
     }
 
+    public class GroupExpandedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var groupName = value as string;
+            if (string.IsNullOrEmpty(groupName))
+                return true;
+
+            var settings = Common.Helper.UserSettings.LoadSettings();
+            return settings?.HiddenSettingGroups == null || !settings.HiddenSettingGroups.Contains(groupName);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class FavoriteToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
