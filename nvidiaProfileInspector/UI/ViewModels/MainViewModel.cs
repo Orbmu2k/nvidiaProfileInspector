@@ -2,6 +2,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 {
 using nvidiaProfileInspector.Common;
 using nvidiaProfileInspector.Common.Helper;
+using nvidiaProfileInspector.Native.NVAPI2;
 using nvidiaProfileInspector.Native.WINAPI;
 using nvidiaProfileInspector.Services;
 using nvidiaProfileInspector;
@@ -413,6 +414,10 @@ using System.Windows.Input;
             settings.WindowState = state;
             settings.ShowCustomizedSettingNamesOnly = _showCustomizedSettingsOnly;
             settings.ShowScannedUnknownSettings = _showScannedUnknownSettings;
+
+            if (NvapiDrsWrapper.Instance.IsMockMode)
+                settings.Win11BackdropMode = NvapiDrsWrapper.Instance.GetMockWin11BackdropMode();
+
             settings.SaveSettings();
         }
 

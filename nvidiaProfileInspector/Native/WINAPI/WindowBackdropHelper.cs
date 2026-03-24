@@ -19,7 +19,6 @@ namespace nvidiaProfileInspector.Native.WINAPI
 
         private const int DwmwaUseImmersiveDarkModeBefore20H1 = 19;
         private const int DwmwaUseImmersiveDarkMode = 20;
-        private const int DwmwaMicaEffect = 1029;
         private const int DwmwaSystemBackdropType = 38;
 
         private const int DwmsbtAuto = 0;
@@ -86,11 +85,6 @@ namespace nvidiaProfileInspector.Native.WINAPI
                 return TrySetSystemBackdrop(handle, DwmsbtNone);
             }
 
-            if (mode == Win11BackdropMode.Legacy)
-            {
-                return TryEnableLegacyMica(handle);
-            }
-
             if (version.Build >= Windows11BackdropBuild)
             {
                 var backdropType = GetSystemBackdropType(mode);
@@ -98,7 +92,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
                     return true;
             }
 
-            return TryEnableLegacyMica(handle);
+            return false;
         }
 
         private static bool TrySetSystemBackdrop(IntPtr handle, int backdropType)
@@ -123,12 +117,6 @@ namespace nvidiaProfileInspector.Native.WINAPI
             }
         }
 
-        private static bool TryEnableLegacyMica(IntPtr handle)
-        {
-            var enabled = 1;
-            return DwmSetWindowAttribute(handle, DwmwaMicaEffect, ref enabled, Marshal.SizeOf(typeof(int))) == 0;
-        }
-
         private static Win11BackdropMode GetWin11BackdropMode()
         {
             try
@@ -150,8 +138,6 @@ namespace nvidiaProfileInspector.Native.WINAPI
                 if (string.Equals(configuredMode, "Disabled", StringComparison.OrdinalIgnoreCase))
                     return Win11BackdropMode.Disabled;
 
-                if (string.Equals(configuredMode, "Legacy", StringComparison.OrdinalIgnoreCase))
-                    return Win11BackdropMode.Legacy;
             }
             catch
             {
@@ -362,8 +348,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
             MainWindow,
             Acrylic,
             Tabbed,
-            Disabled,
-            Legacy
+            Disabled
         }
 
     }

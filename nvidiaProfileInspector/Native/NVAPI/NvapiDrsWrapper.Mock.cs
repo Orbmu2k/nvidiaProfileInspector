@@ -21,8 +21,7 @@ namespace nvidiaProfileInspector.Native.NVAPI2
             "MainWindow",
             "Tabbed",
             "Acrylic",
-            "Disabled",
-            "Legacy"
+            "Disabled"
         };
 
         private readonly object _mockSync = new object();
@@ -938,7 +937,6 @@ namespace nvidiaProfileInspector.Native.NVAPI2
 
             return Array.Empty<string>();
         }
-
         private static bool AreEqual(NVDRS_SETTING_UNION left, NVDRS_SETTING_UNION right, NVDRS_SETTING_TYPE type)
         {
             switch (type)
