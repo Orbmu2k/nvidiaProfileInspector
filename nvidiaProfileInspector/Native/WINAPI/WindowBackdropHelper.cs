@@ -6,6 +6,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
     using System.Windows;
     using System.Windows.Interop;
     using System.Windows.Media;
+    using System.Windows.Shell;
     using nvidiaProfileInspector.Common.Helper;
     using nvidiaProfileInspector.Native.NVAPI2;
     using nvidiaProfileInspector.UI.Controls;
@@ -35,6 +36,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
         private const int Windows11Build = 22000;
         private const int Windows11BackdropBuild = 22621;
         private const int TitleBarFrameHeight = 48;
+        private const int MinimumWin11TitleBarFrameHeight = 54;
 
         public static void TryApplyTo(Window window)
         {
@@ -52,6 +54,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
             var backdropConfig = ResolveBackdropConfig(window);
             var win11Mode = GetWin11BackdropMode();
             ApplyTitleBarBackground(window, version, win11Mode);
+            SyncWindowChromeCaptionHeight(window, version);
 
             if (ShouldSkipNativeBackdropInitialization(window, handle, win11Mode))
                 return;
@@ -60,7 +63,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
 
             if (version.Build >= Windows11Build)
             {
-                ExtendFrameIntoTitleBar(handle);
+                ExtendFrameIntoTitleBar(window, handle, version);
 
                 if (!TryEnableWindows11Mica(handle, version, win11Mode))
                 {
@@ -79,7 +82,7 @@ namespace nvidiaProfileInspector.Native.WINAPI
                     return;
                 }
 
-                ExtendFrameIntoTitleBar(handle);
+                ExtendFrameIntoTitleBar(window, handle, version);
                 TryEnableWindows10Backdrop(handle, backdropConfig.GradientColor);
             }
         }
@@ -193,17 +196,35 @@ namespace nvidiaProfileInspector.Native.WINAPI
             }
         }
 
-        private static void ExtendFrameIntoTitleBar(IntPtr handle)
+        private static void ExtendFrameIntoTitleBar(Window window, IntPtr handle, Version version)
         {
+            var topMargin = GetTitleBarFrameHeight(window, version);
             var margins = new Margins
             {
                 Left = 0,
                 Right = 0,
-                Top = TitleBarFrameHeight,
+                Top = topMargin,
                 Bottom = 0
             };
 
             DwmExtendFrameIntoClientArea(handle, ref margins);
+        }
+
+        private static int GetTitleBarFrameHeight(Window window, Version version)
+        {
+            var frameHeight = TitleBarFrameHeight;
+
+            if (window?.FindName("AppTitleBar") is FrameworkElement titleBar)
+            {
+                var actualHeight = titleBar.ActualHeight;
+                if (actualHeight > 0)
+                    frameHeight = Math.Max(frameHeight, (int)Math.Ceiling(actualHeight));
+            }
+
+            if (version.Build >= Windows11Build)
+                frameHeight = Math.Max(frameHeight, MinimumWin11TitleBarFrameHeight);
+
+            return frameHeight;
         }
 
         private static void ApplyTitleBarBackground(Window window, Version version, Win11BackdropMode mode)
@@ -260,6 +281,39 @@ namespace nvidiaProfileInspector.Native.WINAPI
                 InitialDisabledBypassHandles.Add(handle);
                 return true;
             }
+        }
+
+        private static void SyncWindowChromeCaptionHeight(Window window, Version version)
+        {
+            if (version.Build < Windows11Build)
+                return;
+
+            if (!(window?.FindName("AppTitleBar") is FrameworkElement titleBar))
+                return;
+
+            var actualHeight = titleBar.ActualHeight;
+            if (actualHeight <= 0)
+                return;
+
+            var chrome = WindowChrome.GetWindowChrome(window);
+            if (chrome == null)
+                return;
+
+            var captionHeight = Math.Ceiling(actualHeight);
+            if (captionHeight <= 0 || Math.Abs(chrome.CaptionHeight - captionHeight) <= 0.5)
+                return;
+
+            var updatedChrome = new WindowChrome
+            {
+                CaptionHeight = captionHeight,
+                CornerRadius = chrome.CornerRadius,
+                GlassFrameThickness = chrome.GlassFrameThickness,
+                NonClientFrameEdges = chrome.NonClientFrameEdges,
+                ResizeBorderThickness = chrome.ResizeBorderThickness,
+                UseAeroCaptionButtons = chrome.UseAeroCaptionButtons
+            };
+
+            WindowChrome.SetWindowChrome(window, updatedChrome);
         }
 
         private static void TrySetImmersiveDarkMode(IntPtr handle, Version version, bool enabledValue)

@@ -9,7 +9,7 @@
     <Color x:Key="Layer2BackgroundColor">#F0F2F5</Color>
     <Color x:Key="Layer3BackgroundColor">#E8EAED</Color>
     <Color x:Key="TitleBarBackgroundColor">#FFFFFF</Color>
-    <Color x:Key="TitleBarBackdropColor">#33F7F7F7</Color>
+    <Color x:Key="TitleBarBackdropColor">#22FFFFFF</Color>
     <Color x:Key="TitleBarControlBackgroundColor">#EEF9FAFB</Color>
     <Color x:Key="TitleBarControlHoverBackgroundColor">#F8FCFCFD</Color>
     <Color x:Key="TitleBarControlBorderColor">#AFC7CCD3</Color>
