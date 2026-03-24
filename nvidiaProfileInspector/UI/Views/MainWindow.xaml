@@ -157,6 +157,7 @@
                         ItemsSource="{Binding ProfileNames}"
                         MaxDropDownHeight="500"
                         Placeholder="Search profiles..."
+                        SyncSelectedItemToText="True"
                         SelectedValue="{Binding CurrentProfile}"
                         SelectedValuePath="ProfileName">
                         <controls:SearchableComboBox.ItemTemplate>
@@ -206,6 +207,7 @@
                         MaxDropDownHeight="500"
                         Placeholder="Search modified profiles..."
                         SelectionChanged="ModifiedProfilesCombo_SelectionChanged"
+                        SyncSelectedItemToText="True"
                         Style="{DynamicResource IconSearchableComboBoxStyle}"
                         ToolTip="View Modified Profiles">
                         <controls:SearchableComboBox.ItemTemplate>

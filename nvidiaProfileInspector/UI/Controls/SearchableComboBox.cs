@@ -30,7 +30,7 @@ namespace nvidiaProfileInspector.UI.Controls
 
         public static readonly DependencyProperty SyncSelectedItemToTextProperty =
         DependencyProperty.Register(nameof(SyncSelectedItemToText), typeof(bool), typeof(SearchableComboBox),
-        new PropertyMetadata(true));
+        new PropertyMetadata(false));
 
         public string Placeholder
         {
