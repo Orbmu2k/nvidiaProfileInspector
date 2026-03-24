@@ -40,14 +40,14 @@
         x:Key="DarkDialogWindowStyle"
         BasedOn="{StaticResource DarkWindowStyle}"
         TargetType="Window">
+        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome
                     CaptionHeight="40"
                     CornerRadius="8"
-                    GlassFrameThickness="0,1,0,0"
+                    GlassFrameThickness="4"
                     NonClientFrameEdges="None"
-                    ResizeBorderThickness="6"
                     UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>
