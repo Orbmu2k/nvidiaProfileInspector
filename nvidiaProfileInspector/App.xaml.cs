@@ -31,7 +31,7 @@ namespace nvidiaProfileInspector
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            if (!HasArgument(e, "-mock") && NvapiDrsWrapper.Instance.NvAPI_Initialize != null)
+            if (!HasArgument(e, "-mock") && NvapiDrsWrapper.Instance.NvAPI_Initialize == null)
             {
                 MessageBoxViewModel.Show("No compatible NVIDIA GPU was detected on your system.", "NVIDIA Profile Inspector", MessageBoxButton.OK, MessageBoxImage.Error);
                 Shutdown();
