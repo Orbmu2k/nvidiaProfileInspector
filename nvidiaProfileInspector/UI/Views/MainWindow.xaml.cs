@@ -169,6 +169,7 @@ namespace nvidiaProfileInspector.UI.Views
             {
                 var profile = profiles.Split(';')[0];
                 _viewModel.SelectProfile(profile);
+                _viewModel.ShowSnackbar($"Profile for '{applicationName}' has been selected!", "Success");
                 return;
             }
 
