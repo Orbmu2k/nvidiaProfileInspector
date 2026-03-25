@@ -209,7 +209,7 @@ namespace nvidiaProfileInspector.Common
                 if (match != null)
                 {
                     var scName = sc.ValueName ?? "";
-                    var parenIdx = scName.LastIndexOf(" (");
+                    var parenIdx = scName.IndexOf(" (");
                     if (parenIdx >= 0)
                         match.ValueName = match.ValueName + scName.Substring(parenIdx);
                 }
