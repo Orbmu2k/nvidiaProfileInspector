@@ -30,7 +30,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:SearchableComboBox">
-                    <Grid>
+                    <Grid >
                         <ToggleButton
                             x:Name="ToggleButton"
                             Grid.ColumnSpan="2"
@@ -79,6 +79,10 @@
                             BorderThickness="0"
                             CaretBrush="{TemplateBinding Foreground}"
                             Foreground="{TemplateBinding Foreground}"
+                            VerticalScrollBarVisibility="Hidden"
+                            HorizontalScrollBarVisibility="Hidden"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
                             Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="NoWrap"
                             Visibility="Collapsed" />
@@ -86,9 +90,10 @@
                         <TextBlock
                             x:Name="ContentSite"
                             Margin="14,0,30,0"
-                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             IsHitTestVisible="False"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="NoWrap"
                             Text="{TemplateBinding Text}" />
 
                         <Popup
