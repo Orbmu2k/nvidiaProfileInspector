@@ -94,6 +94,6 @@
     <SolidColorBrush x:Key="ApplicationAddBrush" Color="#ECFDF5" />
     <SolidColorBrush x:Key="ApplicationAddHoverBrush" Color="#D1FAE5" />
     <SolidColorBrush x:Key="ListViewAlternatingRowBrush" Color="#F9FAFB" />
-    <SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#FEF3C7" />
+    <SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#140078D4" />
 
 </ResourceDictionary>

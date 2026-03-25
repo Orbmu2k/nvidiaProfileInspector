@@ -9,6 +9,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Linq;
@@ -90,6 +91,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             OnShowMessage += (msg) => ShowSnackbar(msg, "Information");
             OnShowError += (msg) => ShowSnackbar(msg, "Error");
+
+            Settings.CollectionChanged += OnSettingsCollectionChanged;
         }
 
         public bool IsDesignMode { get; private set; }
@@ -311,6 +314,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public bool IsWindows11 => _isWindows11;
 
         public bool IsWindows10 => !_isWindows11;
+        public bool HasPendingChanges => Settings.Any(x => x.IsModified);
 
         public ListCollectionView GroupedSettingsView => _groupedSettingsView;
 
@@ -377,7 +381,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             ExportProfileCommand = new RelayCommand(ExportProfile);
             ImportProfileCommand = new RelayCommand(ImportProfile);
             OpenBitEditorCommand = new RelayCommand(OpenBitEditor, () => SelectedSetting != null);
-            ResetValueCommand = new RelayCommand(ResetValue, () => SelectedSetting?.IsUserDefined == true);
+            ResetValueCommand = new RelayCommand(ResetValue);
             CopySettingsCommand = new RelayCommand(CopySettingsToClipboard);
             ToggleDevModeCommand = new RelayCommand(ToggleDevMode);
             NavigateToGlobalCommand = new RelayCommand(_ => NavigateToGlobalProfile());
@@ -506,6 +510,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 description = $"Alternate names: {_selectedSetting.AlternateNames}\r\n{description}";
 
             SettingDescription = description?.Replace("\\r\\n", "\r\n") ?? "";
+
+            OnPropertyChanged(nameof(HasPendingChanges));
         }
 
         private SettingViewMode GetSettingViewMode()
@@ -626,6 +632,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 OnPropertyChanged(nameof(GroupedSettingsView));
                 Debug.WriteLine("Initialized GroupedSettingsView");
             }
+
+            
+            for(var i = 0; i < Settings.Count; i++)
+            {
+                Settings[i].IsModified = false;
+            }
+            OnPropertyChanged(nameof(HasPendingChanges));
         }
 
         private void ApplyChanges()
@@ -634,7 +647,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             var settingsToStore = new List<KeyValuePair<uint, string>>();
 
-            foreach (var item in Settings.Where(x => x.HasChanged))
+            foreach (var item in Settings)
             {
                 var original = item.OriginalItem;
                 var currentValue = item.SelectedValue;
@@ -648,6 +661,35 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 _settingService.StoreSettingsToProfile(_currentProfile, settingsToStore);
                 AddModifiedProfileToCache(_currentProfile, _scannerService.UserProfiles.Contains(_currentProfile));
                 RefreshCurrentProfile();
+            }
+        }
+
+        private void OnSettingsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.OldItems != null)
+            {
+                foreach (SettingItemViewModel item in e.OldItems)
+                {
+                    item.PropertyChanged -= OnSettingItemPropertyChanged;
+                }
+            }
+
+            if (e.NewItems != null)
+            {
+                foreach (SettingItemViewModel item in e.NewItems)
+                {
+                    item.PropertyChanged += OnSettingItemPropertyChanged;
+                }
+            }
+
+            OnPropertyChanged(nameof(HasPendingChanges));
+        }
+
+        private void OnSettingItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SettingItemViewModel.SelectedValue))
+            {
+                OnPropertyChanged(nameof(HasPendingChanges));
             }
         }
 
@@ -1004,8 +1046,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
-        private void ResetValue()
+        private void ResetValue(object parameter)
         {
+            if (parameter is SettingItemViewModel item && item.IsModified)
+            {
+                item.ResetToOriginalValue();
+                return;
+            }
 
             if (_selectedSetting == null || !_selectedSetting.IsUserDefined)
                 return;

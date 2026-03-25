@@ -159,17 +159,20 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (SetProperty(ref _selectedValue, value, nameof(SelectedValue)))
                 {
                     IsModified = !string.IsNullOrEmpty(value) && value != _originalValue;
-                    OnPropertyChanged(nameof(HasChanged));
+                    OnPropertyChanged(nameof(IsModified));
                 }
             }
         }
-
-        public bool HasChanged => !string.IsNullOrEmpty(_selectedValue) && _selectedValue != _originalValue;
 
         public bool IsModified
         {
             get => _isModified;
             set => SetProperty(ref _isModified, value, nameof(IsModified));
+        }
+
+        public void ResetToOriginalValue()
+        {
+            SelectedValue = _originalValue;
         }
 
         public SettingItem OriginalItem

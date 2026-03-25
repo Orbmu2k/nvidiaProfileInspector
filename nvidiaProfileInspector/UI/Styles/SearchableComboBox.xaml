@@ -80,8 +80,8 @@
                             CaretBrush="{TemplateBinding Foreground}"
                             Foreground="{TemplateBinding Foreground}"
                             Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
-                            Visibility="Collapsed" 
-                            TextWrapping = "NoWrap"/>
+                            TextWrapping="NoWrap"
+                            Visibility="Collapsed" />
 
                         <TextBlock
                             x:Name="ContentSite"
@@ -129,9 +129,9 @@
                                         <ScrollViewer
                                             Grid.Row="1"
                                             Margin="4,2,4,4"
+                                            HorizontalScrollBarVisibility="Auto"
                                             SnapsToDevicePixels="True"
-                                            VerticalScrollBarVisibility="Auto"
-                                            HorizontalScrollBarVisibility="Auto">
+                                            VerticalScrollBarVisibility="Auto">
                                             <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
                                         </ScrollViewer>
                                     </Grid>
