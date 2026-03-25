@@ -1,6 +1,7 @@
 namespace nvidiaProfileInspector
 {
     using nvidiaProfileInspector.Common;
+    using nvidiaProfileInspector.Native.NVAPI2;
     using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector.Services;
     using nvidiaProfileInspector.UI.ViewModels;
@@ -8,6 +9,7 @@ namespace nvidiaProfileInspector
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Windows;
@@ -22,8 +24,21 @@ namespace nvidiaProfileInspector
 
         public static AppBootstrapper Bootstrapper => _bootstrapper;
 
+        private bool HasArgument(StartupEventArgs e, string name)
+        {
+           return e.Args.Any(_ => string.Equals(_, name, StringComparison.InvariantCultureIgnoreCase));
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
+            if (!HasArgument(e, "-mock") && NvapiDrsWrapper.Instance.NvAPI_Initialize != null)
+            {
+                MessageBoxViewModel.Show("No compatible NVIDIA GPU was detected on your system.", "NVIDIA Profile Inspector", MessageBoxButton.OK, MessageBoxImage.Error);
+                Shutdown();
+                return;
+            }
+
+
             if (!Debugger.IsAttached)
             {
                 DispatcherUnhandledException += App_DispatcherUnhandledException;
