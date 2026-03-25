@@ -1,4 +1,7 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:nvidiaProfileInspector.UI.Controls">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UI/Styles/Colors.xaml" />
@@ -46,8 +49,9 @@
                         x:Name="Bg"
                         Background="Transparent"
                         SnapsToDevicePixels="true">
-                        <Track
+                        <controls:MinThumbTrack
                             x:Name="PART_Track"
+                            MinThumbLength="24"
                             IsDirectionReversed="true"
                             IsEnabled="{TemplateBinding IsEnabled}">
                             <Track.DecreaseRepeatButton>
@@ -59,7 +63,7 @@
                             <Track.Thumb>
                                 <Thumb Style="{StaticResource ScrollBarThumb}" />
                             </Track.Thumb>
-                        </Track>
+                        </controls:MinThumbTrack>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
