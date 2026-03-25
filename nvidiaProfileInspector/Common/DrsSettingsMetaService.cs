@@ -155,6 +155,13 @@ namespace nvidiaProfileInspector.Common
             return null;
         }
 
+        private static bool ValuesEqual<T>(T a, T b)
+        {
+            if (a is byte[] ba && b is byte[] bb)
+                return ba.SequenceEqual(bb);
+            return EqualityComparer<T>.Default.Equals(a, b);
+        }
+
         private List<SettingValue<T>> MergeSettingValues<T>(List<SettingValue<T>> a, List<SettingValue<T>> b)
         {
             if (b == null)
@@ -170,12 +177,12 @@ namespace nvidiaProfileInspector.Common
             {
                 var currentNonScannedValues = a.Where(xa => xa.ValueSource != SettingMetaSource.ScannedSettings).Select(xa => xa.Value).ToList();
 
-                var newNonScannedValues = b.Where(xb => !currentNonScannedValues.Contains(xb.Value)).ToList();
+                var newNonScannedValues = b.Where(xb => !currentNonScannedValues.Any(cv => ValuesEqual(cv, xb.Value))).ToList();
                 a.AddRange(newNonScannedValues);
 
                 foreach (var settingValue in a)
                 {
-                    var bVal = b.FirstOrDefault(x => x.Value.Equals(settingValue.Value) && settingValue.ValueSource != SettingMetaSource.ScannedSettings);
+                    var bVal = b.FirstOrDefault(x => ValuesEqual(x.Value, settingValue.Value) && settingValue.ValueSource != SettingMetaSource.ScannedSettings);
                     if (bVal != null && bVal.ValueName != null)
                     {
                         settingValue.ValueName = bVal.ValueName;
@@ -192,6 +199,26 @@ namespace nvidiaProfileInspector.Common
                 return a.ToList();
         }
 
+        private List<SettingValue<T>> DeduplicateScannedValues<T>(List<SettingValue<T>> values)
+        {
+            var scanned = values.Where(x => x.ValueSource == SettingMetaSource.ScannedSettings).ToList();
+            foreach (var sc in scanned)
+            {
+                var match = values.FirstOrDefault(x => x.ValueSource != SettingMetaSource.ScannedSettings
+                    && ValuesEqual(x.Value, sc.Value));
+                if (match != null)
+                {
+                    var scName = sc.ValueName ?? "";
+                    var parenIdx = scName.LastIndexOf(" (");
+                    if (parenIdx >= 0)
+                        match.ValueName = match.ValueName + scName.Substring(parenIdx);
+                }
+            }
+            values.RemoveAll(x => x.ValueSource == SettingMetaSource.ScannedSettings
+                && values.Any(ns => ns.ValueSource != SettingMetaSource.ScannedSettings && ValuesEqual(ns.Value, x.Value)));
+            return values;
+        }
+
         private List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
         {
             var result = new List<SettingValue<byte[]>>();
@@ -201,7 +228,7 @@ namespace nvidiaProfileInspector.Common
                 result = MergeSettingValues(result, service.Service.GetBinaryValues(settingId));
             }
 
-            return result;
+            return DeduplicateScannedValues(result);
         }
 
         private List<SettingValue<string>> GetStringValues(uint settingId)
@@ -213,7 +240,7 @@ namespace nvidiaProfileInspector.Common
                 result = MergeSettingValues(result, service.Service.GetStringValues(settingId));
             }
 
-            return result;
+            return DeduplicateScannedValues(result);
         }
 
         private List<SettingValue<uint>> GetDwordValues(uint settingId)
@@ -224,6 +251,8 @@ namespace nvidiaProfileInspector.Common
             {
                 result = MergeSettingValues(result, service.Service.GetDwordValues(settingId));
             }
+
+            result = DeduplicateScannedValues(result);
 
             if (result != null)
             {

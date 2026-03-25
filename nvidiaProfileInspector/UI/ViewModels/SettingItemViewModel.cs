@@ -90,10 +90,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                         items.AddRange(BinaryValues.Where(v => !string.IsNullOrEmpty(v.ValueName))
                         .Select(v => new SettingValueItem { ValueName = v.ValueName, Source = v.ValueSource }));
                     }
-                    _cachedValueNameItems = items
-                        .OrderBy(v => v.Source == SettingMetaSource.CustomSettings ? 0 : 1)
-                        .ThenBy(v => v.Source == SettingMetaSource.ReferenceSettings ? 0 : 1)
-                        .ToList();
+                    _cachedValueNameItems = items;
                 }
                 return _cachedValueNameItems;
             }
