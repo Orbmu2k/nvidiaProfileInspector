@@ -1465,7 +1465,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<CustomSetting>
 			<UserfriendlyName>Shader Cache - Cache Size</UserfriendlyName>
 			<HexSettingID>0x00AC8497</HexSettingID>
@@ -1571,7 +1570,51 @@
 			<HexSettingID>0x000F00FF</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<AlternateNames>ReBAR - Size Limit, Resizable Bar - Size Limit</AlternateNames>
+			<Description>Default Size Limit value for most of the whitelisted games is '1GB', some games MAY benefit of a higher size bar.</Description>
 			<DataType>BINARY</DataType>
+			<OverrideDefault>0x0000000040000000</OverrideDefault>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>200MB</UserfriendlyName>
+					<HexValue>0x000000000C800000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>300MB</UserfriendlyName>
+					<HexValue>0x0000000012C00000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>1GB</UserfriendlyName>
+					<HexValue>0x0000000040000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>1.5GB</UserfriendlyName>
+					<HexValue>0x0000000060000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>2GB</UserfriendlyName>
+					<HexValue>0x0000000080000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>4GB</UserfriendlyName>
+					<HexValue>0x0000000100000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>8GB</UserfriendlyName>
+					<HexValue>0x0000000200000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>10GB</UserfriendlyName>
+					<HexValue>0x0000000280000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>12GB</UserfriendlyName>
+					<HexValue>0x0000000300000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>16GB</UserfriendlyName>
+					<HexValue>0x0000000400000000</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Flags (0x000F00BE)</UserfriendlyName>
@@ -1587,7 +1630,6 @@
 			<AlternateNames>ReBAR - Flags (0x000F00BF), Resizable Bar - Flags (0x000F00BF)</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
-
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Support Indicator Overlay</UserfriendlyName>
 			<HexSettingID>0x008DF510</HexSettingID>
@@ -1603,7 +1645,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<CustomSetting>
 			<UserfriendlyName>Raytracing - (DXR) Enabled</UserfriendlyName>
 			<HexSettingID>0x00DE429A</HexSettingID>
@@ -1620,7 +1661,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<CustomSetting>
 			<UserfriendlyName>Raytracing - (Vulkan RT) Enabled</UserfriendlyName>
 			<HexSettingID>0x20BC1A2B</HexSettingID>
@@ -1637,7 +1677,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<!--<CustomSetting>
       <HexSettingID>0x0005F512</HexSettingID>
       <Hidden>true</Hidden>
@@ -1650,7 +1689,8 @@
 			<UserfriendlyName>SLI - CFR Mode</UserfriendlyName>
 			<HexSettingID>0x20343843</HexSettingID>
 			<GroupName>6 - SLI</GroupName>
-			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion><!-- Removed between 511.79 and R575 -->
+			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion>
+			<!-- Removed between 511.79 and R575 -->
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Ansel - Enabled</UserfriendlyName>
@@ -7478,7 +7518,8 @@
 			<UserfriendlyName>SLI - Compatibility Bits (OGL)</UserfriendlyName>
 			<HexSettingID>0x209746C1</HexSettingID>
 			<GroupName>1 - Compatibility</GroupName>
-			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
+			<!-- Removed before 511.79 -->
 			<SettingValues/>
 		</CustomSetting>
 		<CustomSetting>
@@ -8253,7 +8294,8 @@
 			<UserfriendlyName>Multi-Display / Mixed-GPU Acceleration</UserfriendlyName>
 			<HexSettingID>0x200AEBFC</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
+			<!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Single display performance mode</UserfriendlyName>
@@ -8374,7 +8416,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<!--<CustomSetting>
       <UserfriendlyName>StereoProfile</UserfriendlyName>
       <HexSettingID>0x701EB457</HexSettingID>
@@ -9073,12 +9114,3 @@
     </CustomSetting>-->
 	</Settings>
 </CustomSettingNames>
-
-
-
-
-
-
-
-
-
