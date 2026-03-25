@@ -1051,6 +1051,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (parameter is SettingItemViewModel item && item.IsModified)
             {
                 item.ResetToOriginalValue();
+                OnPropertyChanged(nameof(HasPendingChanges));
                 return;
             }
 
