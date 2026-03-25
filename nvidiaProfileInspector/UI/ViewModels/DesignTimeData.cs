@@ -6,6 +6,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
     public static class DesignTimeData
     {
         public static MainViewModel MainViewModel => new MainViewModel(null, null, null, null);
+        public static BitEditorViewModel BitEditorViewModel => new BitEditorViewModel(
+            0x10F9DC81,
+            0x0000100D,
+            "Antialiasing Compatibility Flags",
+            null,
+            null,
+            null);
 
         public static ObservableCollection<SettingItemViewModel> SampleSettings { get; } = new ObservableCollection<SettingItemViewModel>
         {

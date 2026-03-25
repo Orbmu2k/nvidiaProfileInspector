@@ -3,76 +3,39 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
     using Microsoft.Win32;
     using nvidiaProfileInspector.UI.ViewModels;
     using System;
-    using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Media;
 
     public partial class BitEditorDialog : Window
     {
         private readonly BitEditorViewModel _viewModel;
+        private ScrollViewer _bitsScrollViewer;
 
         public Action<uint> OnValueChanged { get; set; }
+
+        public BitEditorDialog()
+        {
+            InitializeComponent();
+            _viewModel = DesignTimeData.BitEditorViewModel;
+            InitializeViewModel();
+            StatusTextBlock.Text = "Designer preview";
+        }
 
         public BitEditorDialog(uint settingId, uint initialValue, string settingName)
         {
             InitializeComponent();
 
             _viewModel = BitEditorViewModel.Create(settingId, initialValue, settingName);
+            InitializeViewModel();
+        }
+
+        private void InitializeViewModel()
+        {
+            DataContext = _viewModel;
             _viewModel.OnValueChanged = (value) => OnValueChanged?.Invoke(value);
-            _viewModel.OnShowMessage = (msg) => StatusTextBlock.Text = msg;
 
             Title = _viewModel.Title;
-            CurrentValueTextBox.Text = _viewModel.CurrentValueHex;
-
-            BitsDataGrid.ItemsSource = _viewModel.Bits;
-
-            foreach (var bit in _viewModel.Bits)
-            {
-                bit.PropertyChanged += Bit_PropertyChanged;
-            }
-
-            CurrentValueTextBox.TextChanged += (s, e) => UpdateCurrentValueDisplay();
-        }
-
-        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var filter = FilterTextBox.Text.ToLowerInvariant();
-            var filtered = _viewModel.Bits.Where(b =>
-                string.IsNullOrEmpty(filter) ||
-                b.MaskDescription.ToLowerInvariant().Contains(filter) ||
-                b.BitLabel.Contains(filter));
-
-            BitsDataGrid.ItemsSource = new ObservableCollection<BitItemViewModel>(filtered);
-        }
-
-        private void Bit_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(BitItemViewModel.IsChecked))
-            {
-                var bit = sender as BitItemViewModel;
-                if (bit != null)
-                {
-                    uint mask = (uint)1 << bit.BitIndex;
-                    if (bit.IsChecked)
-                        _viewModel.CurrentValue |= mask;
-                    else
-                        _viewModel.CurrentValue &= ~mask;
-
-                    UpdateCurrentValueDisplay();
-                }
-            }
-        }
-
-        private void UpdateCurrentValueDisplay()
-        {
-            CurrentValueTextBox.Text = $"0x{_viewModel.CurrentValue:X8}";
-        }
-
-        private void Apply_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.ApplyToProfile();
-            StatusTextBlock.Text = "Value applied to profile.";
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -90,19 +53,81 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
 
             if (dialog.ShowDialog() == true)
             {
-                GamePathTextBox.Text = dialog.FileName;
+                _viewModel.GamePath = dialog.FileName;
             }
-        }
-
-        private async void ApplyLaunch_Click(object sender, RoutedEventArgs e)
-        {
-            await _viewModel.ApplyAndLaunchAsync();
-            Close();
         }
 
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
             SystemCommands.MinimizeWindow(this);
+        }
+
+        private void BitsListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            _bitsScrollViewer = FindVisualChild<ScrollViewer>(BitsListView);
+            if (_bitsScrollViewer != null)
+                _bitsScrollViewer.ScrollChanged += BitsScrollViewer_ScrollChanged;
+
+            UpdateVisibleRange();
+        }
+
+        private void BitsListView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateVisibleRange();
+        }
+
+        private void BitsScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            UpdateVisibleRange();
+        }
+
+        private void UpdateVisibleRange()
+        {
+            if (_viewModel == null || BitsListView == null || BitsListView.Items.Count == 0)
+                return;
+
+            var firstVisibleIndex = int.MaxValue;
+            var lastVisibleIndex = -1;
+
+            for (int index = 0; index < BitsListView.Items.Count; index++)
+            {
+                if (!(BitsListView.ItemContainerGenerator.ContainerFromIndex(index) is ListViewItem item))
+                    continue;
+
+                var itemBounds = item.TransformToAncestor(BitsListView).TransformBounds(new Rect(0, 0, item.ActualWidth, item.ActualHeight));
+                if (itemBounds.Bottom <= 0 || itemBounds.Top >= BitsListView.ActualHeight)
+                    continue;
+
+                firstVisibleIndex = Math.Min(firstVisibleIndex, index);
+                lastVisibleIndex = Math.Max(lastVisibleIndex, index);
+            }
+
+            if (lastVisibleIndex < 0)
+            {
+                firstVisibleIndex = 0;
+                lastVisibleIndex = BitsListView.Items.Count - 1;
+            }
+
+            _viewModel.UpdateVisibleRange(firstVisibleIndex, lastVisibleIndex);
+        }
+
+        private static T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+        {
+            if (parent == null)
+                return null;
+
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is T typedChild)
+                    return typedChild;
+
+                var result = FindVisualChild<T>(child);
+                if (result != null)
+                    return result;
+            }
+
+            return null;
         }
     }
 }
