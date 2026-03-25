@@ -1,4 +1,5 @@
-﻿using nvidiaProfileInspector.Native.WINAPI;
+using nvidiaProfileInspector.Native.WINAPI;
+using System;
 using System.IO;
 
 namespace nvidiaProfileInspector.Common.Helper
@@ -13,10 +14,10 @@ namespace nvidiaProfileInspector.Common.Helper
             {
                 if (line.StartsWith("URL="))
                 {
-                    string[] splitLine = line.Split('=');
-                    if (splitLine.Length > 0)
+                    var separatorIndex = line.IndexOf('=');
+                    if (separatorIndex >= 0 && separatorIndex < line.Length - 1)
                     {
-                        return splitLine[1];
+                        return line.Substring(separatorIndex + 1);
                     }
                 }
             }
@@ -47,19 +48,26 @@ namespace nvidiaProfileInspector.Common.Helper
         private static string ResolveFromShellLinkFile(string filename)
         {
             var shellLink = new ShellLink(filename);
-            if (shellLink.Arguments.StartsWith(SteamAppResolver.SteamUrlPattern))
+            var arguments = shellLink.Arguments ?? string.Empty;
+            if (arguments.StartsWith(SteamAppResolver.SteamUrlPattern, StringComparison.OrdinalIgnoreCase))
             {
                 var resolver = new SteamAppResolver();
-                return resolver.ResolveExeFromSteamUrl(shellLink.Arguments);
+                return resolver.ResolveExeFromSteamUrl(arguments);
+            }
+
+            if (arguments.StartsWith(EpicAppResolver.EpicUrlPattern, StringComparison.OrdinalIgnoreCase))
+            {
+                var resolver = new EpicAppResolver();
+                return resolver.ResolveExeFromUrl(arguments);
             }
 
             var targetInfo = new FileInfo(shellLink.Target);
             if (targetInfo.Name.ToLowerInvariant() == SteamAppResolver.SteamExeName)
             {
-                if (shellLink.Arguments.Contains(SteamAppResolver.SteamArgumentPattern))
+                if (arguments.IndexOf(SteamAppResolver.SteamArgumentPattern, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     var resolver = new SteamAppResolver();
-                    return resolver.ResolveExeFromSteamArguments(shellLink.Arguments);
+                    return resolver.ResolveExeFromSteamArguments(arguments);
                 }
             }
 
@@ -73,11 +81,18 @@ namespace nvidiaProfileInspector.Common.Helper
         private static string ResolveFromUrlFile(string filename)
         {
             var url = GetUrlFromInternetShortcut(filename);
-            if (url.StartsWith(SteamAppResolver.SteamUrlPattern))
+            if (url.StartsWith(SteamAppResolver.SteamUrlPattern, StringComparison.OrdinalIgnoreCase))
             {
                 var resolver = new SteamAppResolver();
                 return resolver.ResolveExeFromSteamUrl(url);
             }
+
+            if (url.StartsWith(EpicAppResolver.EpicUrlPattern, StringComparison.OrdinalIgnoreCase))
+            {
+                var resolver = new EpicAppResolver();
+                return resolver.ResolveExeFromUrl(url);
+            }
+
             return "";
         }
 
