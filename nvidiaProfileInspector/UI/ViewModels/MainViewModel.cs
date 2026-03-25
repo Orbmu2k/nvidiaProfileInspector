@@ -646,6 +646,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (settingsToStore.Count > 0)
             {
                 _settingService.StoreSettingsToProfile(_currentProfile, settingsToStore);
+                AddModifiedProfileToCache(_currentProfile, _scannerService.UserProfiles.Contains(_currentProfile));
                 RefreshCurrentProfile();
             }
         }
