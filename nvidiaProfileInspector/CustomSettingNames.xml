@@ -6,14 +6,14 @@
 			<HexSettingID>0x10E41E01</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>If enabled, overrides DLSS with the latest global version installed (${DlssVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
+			<Description>If enabled, overrides DLSS-SR with the latest global version installed (${DlssVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>On - DLSS overridden by latest installed (${DlssVersion})</UserfriendlyName>
+					<UserfriendlyName>On - DLSS-SR overridden by latest installed (${DlssVersion})</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -350,17 +350,18 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS - Forced Scaling Ratio (needs 'forced quality level: custom')</UserfriendlyName>
+			<UserfriendlyName>DLSS - Forced Scaling Ratio</UserfriendlyName>
 			<HexSettingID>0x10E41DF5</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
+			<Description>Set up 'DLSS - Forced Quality Level: Custom' before choosing the custom value.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>33% (UltraPerformance)</UserfriendlyName>
+					<UserfriendlyName>33% (Ultra Performance)</UserfriendlyName>
 					<HexValue>0x00000021</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -536,7 +537,7 @@
 					<HexValue>0x0000004C</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>77% (UltraQuality)</UserfriendlyName>
+					<UserfriendlyName>77% (Ultra Quality)</UserfriendlyName>
 					<HexValue>0x0000004D</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -635,17 +636,18 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-RR - Forced Scaling Ratio (needs 'forced quality level: custom')</UserfriendlyName>
+			<UserfriendlyName>DLSS-RR - Forced Scaling Ratio</UserfriendlyName>
 			<HexSettingID>0x10C7D4A2</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
+			<Description>Set up 'DLSS-RR - Forced Quality Level: Custom' before choosing the custom value.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>33% (UltraPerformance)</UserfriendlyName>
+					<UserfriendlyName>33% (Ultra Performance)</UserfriendlyName>
 					<HexValue>0x00000021</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -821,7 +823,7 @@
 					<HexValue>0x0000004C</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>77% (UltraQuality)</UserfriendlyName>
+					<UserfriendlyName>77% (Ultra Quality)</UserfriendlyName>
 					<HexValue>0x0000004D</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -1463,7 +1465,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<CustomSetting>
 			<UserfriendlyName>Shader Cache - Cache Size</UserfriendlyName>
 			<HexSettingID>0x00AC8497</HexSettingID>
@@ -1569,7 +1570,51 @@
 			<HexSettingID>0x000F00FF</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<AlternateNames>ReBAR - Size Limit, Resizable Bar - Size Limit</AlternateNames>
+			<Description>Default Size Limit value for most of the whitelisted games is '1GB', some games MAY benefit of a higher size bar.</Description>
 			<DataType>BINARY</DataType>
+			<OverrideDefault>0x0000000040000000</OverrideDefault>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>200MB</UserfriendlyName>
+					<HexValue>0x000000000C800000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>300MB</UserfriendlyName>
+					<HexValue>0x0000000012C00000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>1GB</UserfriendlyName>
+					<HexValue>0x0000000040000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>1.5GB</UserfriendlyName>
+					<HexValue>0x0000000060000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>2GB</UserfriendlyName>
+					<HexValue>0x0000000080000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>4GB</UserfriendlyName>
+					<HexValue>0x0000000100000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>8GB</UserfriendlyName>
+					<HexValue>0x0000000200000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>10GB</UserfriendlyName>
+					<HexValue>0x0000000280000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>12GB</UserfriendlyName>
+					<HexValue>0x0000000300000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>16GB</UserfriendlyName>
+					<HexValue>0x0000000400000000</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Flags (0x000F00BE)</UserfriendlyName>
@@ -1585,7 +1630,6 @@
 			<AlternateNames>ReBAR - Flags (0x000F00BF), Resizable Bar - Flags (0x000F00BF)</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
-
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Support Indicator Overlay</UserfriendlyName>
 			<HexSettingID>0x008DF510</HexSettingID>
@@ -1601,7 +1645,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<CustomSetting>
 			<UserfriendlyName>Raytracing - (DXR) Enabled</UserfriendlyName>
 			<HexSettingID>0x00DE429A</HexSettingID>
@@ -1618,7 +1661,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<CustomSetting>
 			<UserfriendlyName>Raytracing - (Vulkan RT) Enabled</UserfriendlyName>
 			<HexSettingID>0x20BC1A2B</HexSettingID>
@@ -1635,7 +1677,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<!--<CustomSetting>
       <HexSettingID>0x0005F512</HexSettingID>
       <Hidden>true</Hidden>
@@ -8372,7 +8413,6 @@
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
-
 		<!--<CustomSetting>
       <UserfriendlyName>StereoProfile</UserfriendlyName>
       <HexSettingID>0x701EB457</HexSettingID>
@@ -9071,12 +9111,3 @@
     </CustomSetting>-->
 	</Settings>
 </CustomSettingNames>
-
-
-
-
-
-
-
-
-
