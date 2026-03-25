@@ -396,7 +396,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public async Task InitializeAsync()
         {
             _isInitializing = true;
-            RefreshProfilesCombo();
+            RefreshProfilesCombo(null);
             RefreshCurrentProfile();
             await ScanProfilesAsync();
             _isInitializing = false;
@@ -526,7 +526,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             await ScanProfilesAsync(true);
         }
 
-        private void RefreshProfilesCombo()
+        private void RefreshProfilesCombo(string lastCurrentProfile)
         {
             _profileNames.Clear();
             var names = _settingService.GetProfileNames(ref _baseProfileName);
@@ -544,11 +544,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
             OnPropertyChanged(nameof(IsGlobalProfile));
             OnPropertyChanged(nameof(ShowApplicationsArea));
 
-            if (string.IsNullOrEmpty(_currentProfile) || !_profileNames.Any(x => x.ProfileName == _currentProfile))
+            if (string.IsNullOrEmpty(lastCurrentProfile) || !_profileNames.Any(x => x.ProfileName == lastCurrentProfile))
                 SetCurrentProfile(_profileNames.FirstOrDefault()?.ProfileName, forceNotify: true);
             else
             {
-                SetCurrentProfile(_currentProfile, forceNotify: true);
+                SetCurrentProfile(lastCurrentProfile, forceNotify: true);
             }
         }
 
@@ -706,14 +706,20 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             if (result == MessageBoxResult.Yes)
             {
+                var lastProfile = _currentProfile;
+
                 bool removeFromModified;
                 _settingService.ResetProfile(_currentProfile, out removeFromModified);
 
                 if (removeFromModified)
                     RemoveModifiedProfileFromCache(_currentProfile);
 
-                RefreshProfilesCombo();
+                
+                RefreshProfilesCombo(lastProfile);
+                
                 RefreshCurrentProfile();
+
+                ShowSnackbar($"Profile successfully restored to driver defaults!", "Success"); 
             }
 
             return Task.CompletedTask;
@@ -743,8 +749,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 {
                     _settingService.CreateProfile(dialog.InputValue, applicationName);
                     AddModifiedProfileToCache(dialog.InputValue, isUserDefined: true);
-                    RefreshProfilesCombo();
-                    SetCurrentProfile(dialog.InputValue, forceNotify: true);
+                    RefreshProfilesCombo(dialog.InputValue);
                     return true;
                 }
                 catch (Exception ex)
@@ -771,7 +776,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     var deletedProfileName = _currentProfile;
                     _settingService.DeleteProfile(_currentProfile);
                     RemoveModifiedProfileFromCache(deletedProfileName);
-                    RefreshProfilesCombo();
+                    RefreshProfilesCombo(null);
                     SetCurrentProfile(DrsSettingsService.GlobalProfileName, forceNotify: true);
                     ShowSnackbar("Profile successfully deleted.", "Success");
                 }
@@ -1226,16 +1231,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 await _scannerService.ScanProfileSettingsAsync(onlyModified, progress, _scanCancellationTokenSource.Token);
 
-                ModifiedProfiles.Clear();
-                foreach (var profile in _scannerService.ModifiedProfiles)
-                {
-                    ModifiedProfiles.Add(new ModifiedProfileItem(
-                        profile,
-                        _scannerService.UserProfiles.Contains(profile)));
-                }
-
                 _metaService.ResetMetaCache();
-                RefreshProfilesCombo();
+                RefreshProfilesCombo(_currentProfile);
                 RefreshCurrentProfile();
                 ScanStatus = "";
 
