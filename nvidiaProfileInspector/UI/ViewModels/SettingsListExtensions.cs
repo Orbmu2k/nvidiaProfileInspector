@@ -14,10 +14,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (source == null || target == null)
                 return;
 
-
             target.OriginalItem = source.OriginalItem;
 
-            target.UpdateValueSources(source.DwordValues, source.StringValues, source.BinaryValues);
+            // When the list is only reordered, source and target can be the same instance.
+            // Reapplying value sources in that case invalidates the combo box item source and
+            // can clear the currently displayed setting value in the ListView cell.
+            if (!ReferenceEquals(source, target))
+                target.UpdateValueSources(source.DwordValues, source.StringValues, source.BinaryValues);
+
             // Restore the current display value after refreshing the value source list.
             target.SelectedValue = source.SelectedValue;
             target.IsModified = source.IsModified;

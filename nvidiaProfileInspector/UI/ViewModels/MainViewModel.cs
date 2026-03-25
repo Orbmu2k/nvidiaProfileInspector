@@ -1053,9 +1053,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (setting == null)
                 return;
 
-            var toggledSettingId = setting.SettingId;
-
-
             setting.IsFavorite = !setting.IsFavorite;
 
             SaveFavorites();
