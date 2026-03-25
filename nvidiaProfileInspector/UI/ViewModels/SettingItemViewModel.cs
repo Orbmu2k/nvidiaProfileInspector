@@ -90,7 +90,10 @@ namespace nvidiaProfileInspector.UI.ViewModels
                         items.AddRange(BinaryValues.Where(v => !string.IsNullOrEmpty(v.ValueName))
                         .Select(v => new SettingValueItem { ValueName = v.ValueName, Source = v.ValueSource }));
                     }
-                    _cachedValueNameItems = items;
+                    _cachedValueNameItems = items
+                        .OrderBy(v => v.Source == SettingMetaSource.CustomSettings ? 0 : 1)
+                        .ThenBy(v => v.Source == SettingMetaSource.ReferenceSettings ? 0 : 1)
+                        .ToList();
                 }
                 return _cachedValueNameItems;
             }
@@ -109,6 +112,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         }
 
         public uint SettingId => _item.SettingId;
+        public string SettingIdHex => string.Format("0x{0:X8}", _item.SettingId);
         public string SettingText => _item.SettingText;
         public string ValueText => _item.ValueText;
         public string ValueRaw => _item.ValueRaw;

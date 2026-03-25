@@ -38,6 +38,10 @@
             Command="{Binding RefreshCommand}"
             Modifiers="Ctrl" />
         <KeyBinding Key="Escape" Command="{Binding ClearFilterCommand}" />
+        <KeyBinding
+            Key="D"
+            Command="{Binding ToggleDevModeCommand}"
+            Modifiers="Ctrl+Alt" />
     </Window.InputBindings>
 
     <Grid x:Name="MainGrid">
@@ -1104,7 +1108,9 @@
                                                 Margin="12,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="{Binding State, Converter={StaticResource StateToSettingIconColorConverter}, Mode=OneWay}"
-                                                Text="{Binding DisplayName, Mode=OneWay}" />
+                                                Text="{Binding DisplayName, Mode=OneWay}"
+                                                ToolTip="{Binding SettingIdHex, Mode=OneWay}"
+                                                ToolTipService.IsEnabled="{Binding DataContext.IsDevMode, RelativeSource={RelativeSource AncestorType=Window}}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -1190,7 +1196,7 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
-                                <GridViewColumn Width="104" Header="HEX">
+                                <GridViewColumn Width="200" Header="HEX">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
@@ -1198,7 +1204,9 @@
                                                 VerticalAlignment="Center"
                                                 FontFamily="Consolas"
                                                 Foreground="{Binding State, Converter={StaticResource StateToColorConverter}, Mode=OneWay}"
-                                                Text="{Binding ValueRaw, Mode=OneWay}" />
+                                                Text="{Binding ValueRaw, Mode=OneWay}"
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTip="{Binding ValueRaw, Mode=OneWay}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

@@ -128,11 +128,41 @@ namespace nvidiaProfileInspector.Common.Meta
 
         public byte[] GetBinaryDefaultValue(uint settingId)
         {
+            var setting = customSettings.Settings
+               .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            if (setting != null && !string.IsNullOrEmpty(setting.DataType)
+                && setting.DataType.Equals("BINARY", StringComparison.OrdinalIgnoreCase)
+                && !string.IsNullOrEmpty(setting.OverrideDefault))
+            {
+                return DrsUtil.ParseBinaryByInputSafe(setting.OverrideDefault.Trim());
+            }
+
             return null;
         }
 
         public List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
         {
+            var setting = customSettings.Settings
+               .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            if (setting != null && setting.SettingValues != null
+                && !string.IsNullOrEmpty(setting.DataType)
+                && setting.DataType.Equals("BINARY", StringComparison.OrdinalIgnoreCase))
+            {
+                var i = 0;
+                return setting.SettingValues.Select(x =>
+                {
+                    var binaryValue = DrsUtil.ParseBinaryByInputSafe(x.HexValue?.Trim());
+                    return new SettingValue<byte[]>(Source)
+                    {
+                        ValuePos = i++,
+                        Value = binaryValue,
+                        ValueName = ProcessNameReplacements(x.UserfriendlyName),
+                    };
+                }).ToList();
+            }
+
             return null;
         }
 

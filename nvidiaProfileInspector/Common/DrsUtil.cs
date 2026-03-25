@@ -82,7 +82,7 @@ namespace nvidiaProfileInspector.Common
         public static string GetBinarySettingValueName(SettingMeta meta, byte[] binaryValue)
         {
             var settingValue = meta.BinaryValues?
-                       .FirstOrDefault(x => x.Value.Equals(binaryValue));
+                       .FirstOrDefault(x => x.Value != null && binaryValue != null && x.Value.SequenceEqual(binaryValue));
 
             return settingValue == null ? GetBinaryString(binaryValue) : settingValue.ValueName;
         }
