@@ -55,6 +55,7 @@
                                     Foreground="{DynamicResource TextDisabledBrush}"
                                     IsHitTestVisible="False"
                                     Text="{TemplateBinding Placeholder}"
+                                    TextWrapping="NoWrap"
                                     Visibility="Collapsed" />
                             </Grid>
                         </Border>
