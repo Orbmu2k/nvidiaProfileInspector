@@ -9,13 +9,13 @@
     xmlns:vm="clr-namespace:nvidiaProfileInspector.UI.ViewModels"
     Title="Bit Value Editor"
     Width="1241"
-    Height="860"
-    MinHeight="620"
-    MaxHeight="960"
+    Height="864"
+    MinHeight="864"
+    MaxHeight="1320"
+    d:DataContext="{x:Static vm:DesignTimeData.BitEditorViewModel}"
     SizeToContent="Manual"
     Style="{StaticResource DarkDialogWindowStyle}"
     WindowStartupLocation="CenterOwner"
-    d:DataContext="{x:Static vm:DesignTimeData.BitEditorViewModel}"
     mc:Ignorable="d">
 
     <Window.Resources>
@@ -35,9 +35,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style
-            x:Key="BitEditorGridHeaderStyle"
-            TargetType="GridViewColumnHeader">
+        <Style x:Key="BitEditorGridHeaderStyle" TargetType="GridViewColumnHeader">
             <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
             <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
             <Setter Property="FontSize" Value="10" />
@@ -48,13 +46,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="GridViewColumnHeader">
                         <Border
+                            Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{DynamicResource ControlBorderBrush}"
-                            BorderThickness="0,0,0,1"
-                            Padding="{TemplateBinding Padding}">
-                            <ContentPresenter
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="Center" />
+                            BorderThickness="0,0,0,1">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -171,11 +167,11 @@
                 <ListView
                     x:Name="BitsListView"
                     Grid.Row="1"
-                    AlternationCount="2"
-                    ItemsSource="{Binding FilteredBits}"
-                    ItemContainerStyle="{StaticResource BitEditorListViewItemStyle}"
-                    Loaded="BitsListView_Loaded"
                     MinHeight="360"
+                    AlternationCount="2"
+                    ItemContainerStyle="{StaticResource BitEditorListViewItemStyle}"
+                    ItemsSource="{Binding FilteredBits}"
+                    Loaded="BitsListView_Loaded"
                     SelectionMode="Single"
                     SizeChanged="BitsListView_SizeChanged"
                     Style="{StaticResource DarkListViewStyle}">
@@ -251,9 +247,7 @@
                 </Border>
             </Grid>
 
-            <Grid
-                Grid.Row="3"
-                Margin="0,16,0,0">
+            <Grid Grid.Row="3" Margin="0,16,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="410" />
@@ -261,8 +255,8 @@
 
                 <Border
                     Grid.Column="0"
-                    Padding="16"
                     Margin="0,0,8,0"
+                    Padding="16"
                     Background="{DynamicResource Layer2BackgroundBrush}"
                     BorderBrush="{DynamicResource ControlBorderBrush}"
                     BorderThickness="1"
@@ -278,7 +272,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3">
                             <TextBlock
                                 FontSize="14"
                                 FontWeight="SemiBold"

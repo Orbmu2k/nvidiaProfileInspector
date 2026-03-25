@@ -51,9 +51,9 @@
                         SnapsToDevicePixels="true">
                         <controls:MinThumbTrack
                             x:Name="PART_Track"
-                            MinThumbLength="24"
                             IsDirectionReversed="true"
-                            IsEnabled="{TemplateBinding IsEnabled}">
+                            IsEnabled="{TemplateBinding IsEnabled}"
+                            MinThumbLength="24">
                             <Track.DecreaseRepeatButton>
                                 <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Opacity="0" />
                             </Track.DecreaseRepeatButton>

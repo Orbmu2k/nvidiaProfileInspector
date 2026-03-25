@@ -83,6 +83,6 @@
     <SolidColorBrush x:Key="ApplicationRemoveForegroundBrush" Color="#1A1A1A" />
     <SolidColorBrush x:Key="ApplicationAddHoverBrush" Color="#D1F1D1" />
     <SolidColorBrush x:Key="ListViewAlternatingRowBrush" Color="#08000000" />
-    <SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#15000000" />
+    <SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#140078D4" />
 
 </ResourceDictionary>

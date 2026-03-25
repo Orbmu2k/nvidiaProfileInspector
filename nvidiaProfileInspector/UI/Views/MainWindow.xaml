@@ -161,9 +161,9 @@
                         ItemsSource="{Binding ProfileNames}"
                         MaxDropDownHeight="500"
                         Placeholder="Search profiles..."
-                        SyncSelectedItemToText="True"
                         SelectedValue="{Binding CurrentProfile}"
-                        SelectedValuePath="ProfileName">
+                        SelectedValuePath="ProfileName"
+                        SyncSelectedItemToText="True">
                         <controls:SearchableComboBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type vm:ProfileListItem}">
                                 <Grid ToolTip="{Binding ProfileTypeLabel}">
@@ -211,8 +211,8 @@
                         MaxDropDownHeight="500"
                         Placeholder="Search modified profiles..."
                         SelectionChanged="ModifiedProfilesCombo_SelectionChanged"
-                        SyncSelectedItemToText="True"
                         Style="{DynamicResource IconSearchableComboBoxStyle}"
+                        SyncSelectedItemToText="True"
                         ToolTip="View Modified Profiles">
                         <controls:SearchableComboBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type vm:ModifiedProfileItem}">
@@ -925,15 +925,45 @@
                                 ToolTip="Refresh all profiles" />
 
                             <controls:ActionBarButton
+                                Command="{Binding RefreshCurrentProfileCommand}"
+                                IconPath="{DynamicResource IconRestore}"
+                                Text="Reset"
+                                ToolTip="Reset current profile changes">
+                                <controls:ActionBarButton.Style>
+                                    <Style BasedOn="{StaticResource {x:Type controls:ActionBarButton}}" TargetType="controls:ActionBarButton">
+                                        <Setter Property="IconFill" Value="{DynamicResource TextSecondaryBrush}" />
+                                        <Setter Property="TextForeground" Value="{DynamicResource TextSecondaryBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasPendingChanges}" Value="True">
+                                                <Setter Property="IconFill" Value="{DynamicResource NvidiaGreenBrush}" />
+                                                <Setter Property="TextForeground" Value="{DynamicResource TextPrimaryBrush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </controls:ActionBarButton.Style>
+                            </controls:ActionBarButton>
+
+                            <controls:ActionBarButton
                                 Command="{Binding ApplyCommand}"
                                 Cursor="Hand"
                                 FontWeight="Bold"
-                                IconFill="{DynamicResource NvidiaGreenBrush}"
                                 IconPath="{DynamicResource IconApply}"
                                 Text="Apply Changes"
                                 TextFontSize="11"
-                                TextForeground="{DynamicResource TextPrimaryBrush}"
-                                ToolTip="Apply all changes and save" />
+                                ToolTip="Apply all changes and save">
+                                <controls:ActionBarButton.Style>
+                                    <Style BasedOn="{StaticResource {x:Type controls:ActionBarButton}}" TargetType="controls:ActionBarButton">
+                                        <Setter Property="IconFill" Value="{DynamicResource TextSecondaryBrush}" />
+                                        <Setter Property="TextForeground" Value="{DynamicResource TextSecondaryBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasPendingChanges}" Value="True">
+                                                <Setter Property="IconFill" Value="{DynamicResource NvidiaGreenBrush}" />
+                                                <Setter Property="TextForeground" Value="{DynamicResource TextPrimaryBrush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </controls:ActionBarButton.Style>
+                            </controls:ActionBarButton>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -1033,10 +1063,18 @@
                         x:Name="SettingsListView"
                         Grid.Row="1"
                         behaviors:ScrollIntoViewForListView.Enable="{Binding ScrollIntoViewEnabled}"
-                        ItemContainerStyle="{StaticResource DarkListViewItemStyle}"
                         ItemsSource="{Binding GroupedSettingsView, IsAsync=True}"
                         SelectedItem="{Binding SelectedSetting}"
                         Style="{StaticResource DarkListViewStyle}">
+                        <ListView.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource DarkListViewItemStyle}" TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsModified}" Value="True">
+                                        <Setter Property="Background" Value="{DynamicResource ModifiedSettingBackgroundBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
                                 <GridView.ColumnHeaderContainerStyle>
@@ -1065,6 +1103,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Path
+                                                x:Name="SettingStateIcon"
                                                 Width="14"
                                                 Height="14"
                                                 HorizontalAlignment="Center"
@@ -1072,6 +1111,13 @@
                                                 Fill="{Binding State, Converter={StaticResource StateToSettingIconColorConverter}, Mode=OneWay}"
                                                 Stretch="Uniform"
                                                 ToolTip="{Binding State, Converter={StaticResource StateToTooltipConverter}, Mode=OneWay}" />
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsModified}" Value="True">
+                                                    <Setter TargetName="SettingStateIcon" Property="Data" Value="{DynamicResource IconUser}" />
+                                                    <Setter TargetName="SettingStateIcon" Property="Fill" Value="{DynamicResource TextPrimaryBrush}" />
+                                                    <Setter TargetName="SettingStateIcon" Property="ToolTip" Value="User-modified Setting" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -1105,12 +1151,18 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
+                                                x:Name="SettingNameText"
                                                 Margin="12,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="{Binding State, Converter={StaticResource StateToSettingIconColorConverter}, Mode=OneWay}"
                                                 Text="{Binding DisplayName, Mode=OneWay}"
                                                 ToolTip="{Binding SettingIdHex, Mode=OneWay}"
                                                 ToolTipService.IsEnabled="{Binding DataContext.IsDevMode, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsModified}" Value="True">
+                                                    <Setter TargetName="SettingNameText" Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -1168,6 +1220,7 @@
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
                                                     Command="{Binding DataContext.ResetValueCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding}"
                                                     Style="{StaticResource IconButtonStyle}"
                                                     ToolTip="Reset setting to default value"
                                                     Visibility="Collapsed">
@@ -1180,6 +1233,9 @@
                                                 </Button>
                                             </Grid>
                                             <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsModified}" Value="True">
+                                                    <Setter TargetName="DisplayText" Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
                                                     <Setter TargetName="DisplayText" Property="Visibility" Value="Collapsed" />
                                                     <Setter TargetName="EditComboBox" Property="Visibility" Value="Visible" />
@@ -1191,6 +1247,10 @@
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter TargetName="RestoreButton" Property="Visibility" Value="Visible" />
                                                 </MultiDataTrigger>
+                                                <DataTrigger Binding="{Binding IsModified}" Value="True">
+                                                    <Setter TargetName="RestoreButton" Property="Visibility" Value="Visible" />
+                                                    <Setter TargetName="RestoreButton" Property="ToolTip" Value="Reset setting to original value" />
+                                                </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -1200,6 +1260,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
+                                                x:Name="HexValueText"
                                                 Margin="12,0,0,0"
                                                 VerticalAlignment="Center"
                                                 FontFamily="Consolas"
@@ -1207,6 +1268,11 @@
                                                 Text="{Binding ValueRaw, Mode=OneWay}"
                                                 TextTrimming="CharacterEllipsis"
                                                 ToolTip="{Binding ValueRaw, Mode=OneWay}" />
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsModified}" Value="True">
+                                                    <Setter TargetName="HexValueText" Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
