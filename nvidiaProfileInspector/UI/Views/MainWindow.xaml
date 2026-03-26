@@ -1170,7 +1170,7 @@
                                 <GridViewColumn Width="450" Header="VALUE">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Grid >
+                                            <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
@@ -1190,12 +1190,14 @@
                                                     Margin="-2,-1,4,-1"
                                                     Padding="8,4"
                                                     HorizontalAlignment="Stretch"
+                                                    Cursor=""
+                                                    IsEditable="True"
                                                     ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
                                                     MaxDropDownHeight="400"
                                                     Placeholder="Search values..."
                                                     SyncSelectedItemToText="False"
                                                     Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Visibility="Collapsed" Cursor="">
+                                                    Visibility="Collapsed">
                                                     <controls:SearchableComboBox.ItemTemplate>
                                                         <DataTemplate>
                                                             <StackPanel Orientation="Horizontal">
