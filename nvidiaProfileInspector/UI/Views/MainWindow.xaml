@@ -1125,53 +1125,24 @@
                                 <GridViewColumn Width="32" Header="">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <ContentControl x:Name="FavHost" Content="{Binding}">
-                                                <ContentControl.Style>
-                                                    <Style TargetType="ContentControl">
-                                                        <Setter Property="ContentTemplate">
-                                                            <Setter.Value>
-                                                                <DataTemplate>
-                                                                    <Path
-                                                                        Width="14"
-                                                                        Height="14"
-                                                                        HorizontalAlignment="Center"
-                                                                        Data="{StaticResource IconStar}"
-                                                                        Fill="{Binding IsFavorite, Converter={StaticResource FavoriteToBrushConverter}, Mode=OneWay}"
-                                                                        Stretch="Uniform" />
-                                                                </DataTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
-                                                                <Setter Property="ContentTemplate">
-                                                                    <Setter.Value>
-                                                                        <DataTemplate>
-                                                                            <Button
-                                                                                Width="20"
-                                                                                Height="20"
-                                                                                Padding="0"
-                                                                                Background="Transparent"
-                                                                                BorderThickness="0"
-                                                                                Command="{Binding DataContext.ToggleFavoriteCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                                CommandParameter="{Binding}"
-                                                                                Cursor="Hand"
-                                                                                Style="{StaticResource IconButtonStyle}"
-                                                                                ToolTip="Toggle Favorite">
-                                                                                <Path
-                                                                                    Width="14"
-                                                                                    Height="14"
-                                                                                    Data="{StaticResource IconStar}"
-                                                                                    Fill="{Binding IsFavorite, Converter={StaticResource FavoriteToBrushConverter}, Mode=OneWay}"
-                                                                                    Stretch="Uniform" />
-                                                                            </Button>
-                                                                        </DataTemplate>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </ContentControl.Style>
-                                            </ContentControl>
+                                            <Button
+                                                Width="20"
+                                                Height="20"
+                                                Padding="0"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Command="{Binding DataContext.ToggleFavoriteCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}"
+                                                Cursor="Hand"
+                                                Style="{StaticResource IconButtonStyle}"
+                                                ToolTip="Toggle Favorite">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Data="{StaticResource IconStar}"
+                                                    Fill="{Binding IsFavorite, Converter={StaticResource FavoriteToBrushConverter}, Mode=OneWay}"
+                                                    Stretch="Uniform" />
+                                            </Button>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -1204,7 +1175,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <!--  Display mode: Simple TextBlock (lightweight, used for non-selected rows)  -->
+                                                <!--  Display mode: Simple TextBlock (lightweight)  -->
                                                 <TextBlock
                                                     x:Name="DisplayText"
                                                     Margin="12,0"
@@ -1212,16 +1183,59 @@
                                                     Foreground="{Binding State, Converter={StaticResource StateToColorConverter}, Mode=OneWay}"
                                                     Text="{Binding SelectedValue, Mode=OneWay}"
                                                     TextWrapping="NoWrap" />
-                                                <!--  Edit mode: ComboBox only created when row is selected  -->
-                                                <ContentControl
-                                                    x:Name="EditHost"
+                                                <!--  Edit mode: Full ComboBox (only for selected row)  -->
+                                                <controls:SearchableComboBox
+                                                    x:Name="EditComboBox"
                                                     Grid.Column="0"
-                                                    Visibility="Collapsed" />
-                                                <!--  Reset Button (deferred, only created when needed)  -->
-                                                <ContentControl
-                                                    x:Name="RestoreHost"
+                                                    Margin="-2,-1,4,-1"
+                                                    Padding="8,4"
+                                                    HorizontalAlignment="Stretch"
+                                                    Cursor=""
+                                                    IsEditable="True"
+                                                    ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
+                                                    MaxDropDownHeight="400"
+                                                    Placeholder="Search values..."
+                                                    SyncSelectedItemToText="False"
+                                                    Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Visibility="Collapsed">
+                                                    <controls:SearchableComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Path
+                                                                    Width="12"
+                                                                    Height="12"
+                                                                    Margin="0,0,8,0"
+                                                                    Data="{Binding Source, Converter={StaticResource SettingMetaSourceToIconConverter}, Mode=OneWay}"
+                                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                                    Stretch="Uniform" />
+                                                                <TextBlock
+                                                                    Text="{Binding ValueName, Mode=OneWay}"
+                                                                    TextTrimming="CharacterEllipsis"
+                                                                    TextWrapping="NoWrap" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </controls:SearchableComboBox.ItemTemplate>
+                                                </controls:SearchableComboBox>
+                                                <!--  Reset Button  -->
+                                                <Button
+                                                    x:Name="RestoreButton"
                                                     Grid.Column="1"
-                                                    Visibility="Collapsed" />
+                                                    Width="28"
+                                                    Height="28"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Command="{Binding DataContext.ResetValueCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource IconButtonStyle}"
+                                                    ToolTip="Reset setting to default value"
+                                                    Visibility="Collapsed">
+                                                    <Path
+                                                        Width="14"
+                                                        Height="14"
+                                                        Data="{DynamicResource IconRestore}"
+                                                        Fill="{DynamicResource NvidiaGreenBrush}"
+                                                        Stretch="Uniform" />
+                                                </Button>
                                             </Grid>
                                             <DataTemplate.Triggers>
                                                 <DataTrigger Binding="{Binding IsModified}" Value="True">
@@ -1229,99 +1243,18 @@
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
                                                     <Setter TargetName="DisplayText" Property="Visibility" Value="Collapsed" />
-                                                    <Setter TargetName="EditHost" Property="Visibility" Value="Visible" />
-                                                    <Setter TargetName="EditHost" Property="ContentTemplate">
-                                                        <Setter.Value>
-                                                            <DataTemplate>
-                                                                <controls:SearchableComboBox
-                                                                    Margin="-2,-1,4,-1"
-                                                                    Padding="8,4"
-                                                                    HorizontalAlignment="Stretch"
-                                                                    Cursor=""
-                                                                    IsEditable="True"
-                                                                    ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
-                                                                    MaxDropDownHeight="400"
-                                                                    Placeholder="Search values..."
-                                                                    SyncSelectedItemToText="False"
-                                                                    Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                                                    <controls:SearchableComboBox.ItemTemplate>
-                                                                        <DataTemplate>
-                                                                            <StackPanel Orientation="Horizontal">
-                                                                                <Path
-                                                                                    Width="12"
-                                                                                    Height="12"
-                                                                                    Margin="0,0,8,0"
-                                                                                    Data="{Binding Source, Converter={StaticResource SettingMetaSourceToIconConverter}, Mode=OneWay}"
-                                                                                    Fill="{DynamicResource TextSecondaryBrush}"
-                                                                                    Stretch="Uniform" />
-                                                                                <TextBlock
-                                                                                    Text="{Binding ValueName, Mode=OneWay}"
-                                                                                    TextTrimming="CharacterEllipsis"
-                                                                                    TextWrapping="NoWrap" />
-                                                                            </StackPanel>
-                                                                        </DataTemplate>
-                                                                    </controls:SearchableComboBox.ItemTemplate>
-                                                                </controls:SearchableComboBox>
-                                                            </DataTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter TargetName="EditHost" Property="Content" Value="{Binding}" />
+                                                    <Setter TargetName="EditComboBox" Property="Visibility" Value="Visible" />
                                                 </DataTrigger>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding IsUserDefined}" Value="True" />
                                                         <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True" />
                                                     </MultiDataTrigger.Conditions>
-                                                    <Setter TargetName="RestoreHost" Property="Visibility" Value="Visible" />
-                                                    <Setter TargetName="RestoreHost" Property="ContentTemplate">
-                                                        <Setter.Value>
-                                                            <DataTemplate>
-                                                                <Button
-                                                                    Width="28"
-                                                                    Height="28"
-                                                                    HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"
-                                                                    Command="{Binding DataContext.ResetValueCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                                    CommandParameter="{Binding}"
-                                                                    Style="{StaticResource IconButtonStyle}"
-                                                                    ToolTip="Reset setting to default value">
-                                                                    <Path
-                                                                        Width="14"
-                                                                        Height="14"
-                                                                        Data="{DynamicResource IconRestore}"
-                                                                        Fill="{DynamicResource NvidiaGreenBrush}"
-                                                                        Stretch="Uniform" />
-                                                                </Button>
-                                                            </DataTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter TargetName="RestoreHost" Property="Content" Value="{Binding}" />
+                                                    <Setter TargetName="RestoreButton" Property="Visibility" Value="Visible" />
                                                 </MultiDataTrigger>
                                                 <DataTrigger Binding="{Binding IsModified}" Value="True">
-                                                    <Setter TargetName="RestoreHost" Property="Visibility" Value="Visible" />
-                                                    <Setter TargetName="RestoreHost" Property="ContentTemplate">
-                                                        <Setter.Value>
-                                                            <DataTemplate>
-                                                                <Button
-                                                                    Width="28"
-                                                                    Height="28"
-                                                                    HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"
-                                                                    Command="{Binding DataContext.ResetValueCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                                    CommandParameter="{Binding}"
-                                                                    Style="{StaticResource IconButtonStyle}"
-                                                                    ToolTip="Reset setting to original value">
-                                                                    <Path
-                                                                        Width="14"
-                                                                        Height="14"
-                                                                        Data="{DynamicResource IconRestore}"
-                                                                        Fill="{DynamicResource NvidiaGreenBrush}"
-                                                                        Stretch="Uniform" />
-                                                                </Button>
-                                                            </DataTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter TargetName="RestoreHost" Property="Content" Value="{Binding}" />
+                                                    <Setter TargetName="RestoreButton" Property="Visibility" Value="Visible" />
+                                                    <Setter TargetName="RestoreButton" Property="ToolTip" Value="Reset setting to original value" />
                                                 </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>
