@@ -21,7 +21,8 @@
         <Setter Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="True" />
         <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling" />
         <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel" />
-        <Setter Property="VirtualizingPanel.CacheLength" Value="2" />
+        <Setter Property="VirtualizingPanel.CacheLength" Value="10" />
+        <Setter Property="VirtualizingPanel.CacheLengthUnit" Value="Page" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
