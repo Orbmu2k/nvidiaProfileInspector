@@ -1572,7 +1572,6 @@
 			<AlternateNames>ReBAR - Size Limit, Resizable Bar - Size Limit</AlternateNames>
 			<Description>Default Size Limit value for most of the whitelisted games is '1GB', some games MAY benefit of a higher size bar.</Description>
 			<DataType>BINARY</DataType>
-			<OverrideDefault>0x0000000040000000</OverrideDefault>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>200MB</UserfriendlyName>
