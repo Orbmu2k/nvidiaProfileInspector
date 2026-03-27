@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace nvidiaProfileInspector.UI.Controls
@@ -63,8 +64,22 @@ namespace nvidiaProfileInspector.UI.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            IsTextSearchEnabled = false;
             DropDownOpened += SearchableComboBox_DropDownOpened;
             SyncDisplayedText();
+        }
+
+        protected override void OnPreviewGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            // When an item gets focus (e.g. on hover), redirect focus back to the search textbox
+            if (IsDropDownOpen && _searchTextBox != null
+                && e.NewFocus is ComboBoxItem)
+            {
+                e.Handled = true;
+                _searchTextBox.Focus();
+                return;
+            }
+            base.OnPreviewGotKeyboardFocus(e);
         }
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
