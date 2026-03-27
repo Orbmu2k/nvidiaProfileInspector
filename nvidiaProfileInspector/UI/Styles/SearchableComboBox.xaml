@@ -30,7 +30,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:SearchableComboBox">
-                    <Grid >
+                    <Grid TextOptions.TextFormattingMode="Display">
                         <ToggleButton
                             x:Name="ToggleButton"
                             Grid.ColumnSpan="2"
@@ -116,7 +116,9 @@
                                     Background="{DynamicResource Layer1BackgroundBrush}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="8">
+                                    CornerRadius="8"
+                                    TextOptions.TextFormattingMode="Display"
+                                    RenderOptions.ClearTypeHint="Enabled">
                                     <Grid FocusManager.IsFocusScope="True">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -274,7 +276,9 @@
                                     Background="{DynamicResource Layer1BackgroundBrush}"
                                     BorderBrush="{DynamicResource ControlBorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="8">
+                                    CornerRadius="8"
+                                    TextOptions.TextFormattingMode="Display"
+                                    RenderOptions.ClearTypeHint="Enabled">
                                     <Grid FocusManager.IsFocusScope="True">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
