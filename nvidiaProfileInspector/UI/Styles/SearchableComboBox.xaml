@@ -191,15 +191,18 @@
                                         <ContentPresenter Grid.Column="1" VerticalAlignment="Center" />
                                     </Grid>
                                 </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />
-                                        <Setter Property="FontWeight" Value="SemiBold" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />
+                                            <Setter Property="FontWeight" Value="SemiBold" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -340,6 +343,9 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
                                         <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="True">

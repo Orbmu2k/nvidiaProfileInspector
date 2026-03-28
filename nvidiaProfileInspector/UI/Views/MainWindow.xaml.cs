@@ -13,6 +13,7 @@ namespace nvidiaProfileInspector.UI.Views
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Interop;
+    using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Threading;
 
@@ -323,6 +324,44 @@ namespace nvidiaProfileInspector.UI.Views
                 _viewModel.SelectProfile(profile.ProfileName);
                 combo.SelectedIndex = -1;
             }
+        }
+
+        private void ModifiedProfilesCombo_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Enter
+                || sender is not ComboBox combo
+                || !combo.IsDropDownOpen)
+            {
+                return;
+            }
+
+            var focusedProfile = GetFocusedModifiedProfileItem() ?? combo.SelectedItem as ModifiedProfileItem;
+            if (focusedProfile == null)
+            {
+                return;
+            }
+
+            e.Handled = true;
+            combo.IsDropDownOpen = false;
+            _viewModel.SelectProfile(focusedProfile.ProfileName);
+            combo.SelectedIndex = -1;
+        }
+
+        private ModifiedProfileItem GetFocusedModifiedProfileItem()
+        {
+            DependencyObject current = Keyboard.FocusedElement as DependencyObject;
+
+            while (current != null)
+            {
+                if (current is ComboBoxItem comboBoxItem && comboBoxItem.DataContext is ModifiedProfileItem profile)
+                {
+                    return profile;
+                }
+
+                current = VisualTreeHelper.GetParent(current);
+            }
+
+            return null;
         }
 
         private void ExportButton_Click(object sender, RoutedEventArgs e)

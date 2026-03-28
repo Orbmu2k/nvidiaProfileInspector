@@ -210,6 +210,7 @@
                         ItemsSource="{Binding ModifiedProfiles}"
                         MaxDropDownHeight="500"
                         Placeholder="Search modified profiles..."
+                        PreviewKeyDown="ModifiedProfilesCombo_PreviewKeyDown"
                         SelectionChanged="ModifiedProfilesCombo_SelectionChanged"
                         Style="{DynamicResource IconSearchableComboBoxStyle}"
                         SyncSelectedItemToText="True"
@@ -1195,6 +1196,8 @@
                                                     ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
                                                     MaxDropDownHeight="400"
                                                     Placeholder="Search values..."
+                                                    DeferSelectionUntilCommit="True"
+                                                    PreserveSelectionOnKeyboardFocus="True"
                                                     SyncSelectedItemToText="False"
                                                     Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Visibility="Collapsed">
