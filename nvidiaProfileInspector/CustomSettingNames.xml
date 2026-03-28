@@ -8410,6 +8410,10 @@
 					<UserfriendlyName>0x00080004 Allow promoting DXVK to DXGI/DirectFlip</UserfriendlyName>
 					<HexValue>0x00080004</HexValue>
 				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x000802A5 Treat DXVK as Native</UserfriendlyName>
+					<HexValue>0x000802A5</HexValue>
+				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
 		<!--<CustomSetting>
