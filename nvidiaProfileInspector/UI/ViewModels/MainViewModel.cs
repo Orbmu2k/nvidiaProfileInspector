@@ -12,6 +12,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -397,12 +398,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
             SetBackdropModeCommand = new RelayCommand(param => ApplyBackdropMode(param as string));
         }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(bool skipInitialScan = false)
         {
             _isInitializing = true;
             RefreshProfilesCombo(null);
             RefreshCurrentProfile();
-            await ScanProfilesAsync();
+
+            if (!skipInitialScan)
+                await ScanProfilesAsync();
+
             _isInitializing = false;
             await CheckForUpdatesAsync();
             RefreshCurrentProfile();
@@ -958,7 +962,28 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             try
             {
-                var report = _importService.ImportProfiles(filePath);
+                var report = ImportFiles(new[] { filePath });
+                return report ?? "";
+            }
+            catch (Exception ex)
+            {
+                OnShowError?.Invoke($"Import Error: {ex.Message}");
+                return ex.Message;
+            }
+        }
+
+        public string ImportFiles(IEnumerable<string> filePaths)
+        {
+            try
+            {
+                var normalizedFiles = (filePaths ?? Enumerable.Empty<string>())
+                    .Where(File.Exists)
+                    .Where(path => string.Equals(Path.GetExtension(path), ".nip", StringComparison.InvariantCultureIgnoreCase))
+                    .Select(Path.GetFullPath)
+                    .Distinct(StringComparer.InvariantCultureIgnoreCase)
+                    .ToArray();
+                var report = _importService.ImportProfiles(normalizedFiles);
+
                 RefreshCurrentProfile();
                 return report ?? "";
             }
@@ -974,16 +999,53 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA Profile Inspector Profiles|*.nip"
+                Filter = "NVIDIA Profile Inspector Profiles|*.nip",
+                Multiselect = true
             };
 
             if (dialog.ShowDialog() == true)
             {
-                var report = ImportFile(dialog.FileName);
+                var report = ImportFiles(dialog.FileNames);
                 if (string.IsNullOrEmpty(report))
                     ShowSnackbar("Profile(s) successfully imported!", "Success");
                 else
                     ShowSnackbar($"Some profile(s) could not imported!\r\n\r\n{report}", "Warning");
+            }
+        }
+
+        public void MergeImportedProfiles()
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                DefaultExt = "*.nip",
+                Filter = "NVIDIA Profile Inspector Profiles|*.nip",
+                Multiselect = true
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                var normalizedFiles = dialog.FileNames
+                    .Where(File.Exists)
+                    .Where(path => string.Equals(Path.GetExtension(path), ".nip", StringComparison.InvariantCultureIgnoreCase))
+                    .Select(Path.GetFullPath)
+                    .Distinct(StringComparer.InvariantCultureIgnoreCase)
+                    .ToArray();
+
+                try
+                {
+                    var report = _importService.MergeProfiles(normalizedFiles);
+                    RefreshProfilesCombo(_currentProfile);
+                    RefreshCurrentProfile();
+
+                    if (string.IsNullOrEmpty(report))
+                        ShowSnackbar("Imported profile(s) were merged successfully.", "Success");
+                    else
+                        ShowSnackbar($"Merge completed with warnings:\r\n\r\n{report}", "Warning");
+                }
+                catch (Exception ex)
+                {
+                    OnShowError?.Invoke($"Import Error: {ex.Message}");
+                }
             }
         }
 
