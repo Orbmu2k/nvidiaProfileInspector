@@ -1106,13 +1106,16 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             SaveFavorites();
 
-            ReorderSettingsWithPosition();
+            ReorderSettingsWithPosition(setting.IsFavorite);
         }
 
-        public void ReorderSettingsWithPosition()
+        public void ReorderSettingsWithPosition(bool targetIsFavorit)
         {
-            _groupedSettingsView.IsLiveGrouping = false;
-            _groupedSettingsView.IsLiveFiltering = false;
+            if (!targetIsFavorit)
+            {
+                _groupedSettingsView.IsLiveGrouping = false;
+                _groupedSettingsView.IsLiveFiltering = false;
+            }
 
             var sortedSettings = Settings
                 .OrderByDescending(x => x.IsFavorite)
@@ -1123,8 +1126,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             Settings.IncrementalPatchSettingsListOrdered(sortedSettings, (s1, s2) => s1.SettingId == s2.SettingId);
 
-            _groupedSettingsView.IsLiveGrouping = true;
-            _groupedSettingsView.IsLiveFiltering = true;
+            if (!targetIsFavorit)
+            {
+                _groupedSettingsView.IsLiveGrouping = true;
+                _groupedSettingsView.IsLiveFiltering = true;
+            }
         }
 
         private void ToggleAppearanceMenu()
