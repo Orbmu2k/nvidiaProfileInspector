@@ -1196,6 +1196,7 @@
                                                     ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
                                                     MaxDropDownHeight="400"
                                                     Placeholder="Search values..."
+                                                    DeferSelectionUntilCommit="True"
                                                     PreserveSelectionOnKeyboardFocus="True"
                                                     SyncSelectedItemToText="False"
                                                     Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

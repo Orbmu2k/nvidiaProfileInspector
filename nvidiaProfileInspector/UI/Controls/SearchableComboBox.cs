@@ -15,6 +15,7 @@ namespace nvidiaProfileInspector.UI.Controls
         private IEnumerable? _originalSource;
         private bool _isApplyingFilter;
         private bool _allowFocusOnItems;
+        private object _pendingSelectedItem;
 
         static SearchableComboBox()
         {
@@ -36,6 +37,10 @@ namespace nvidiaProfileInspector.UI.Controls
 
         public static readonly DependencyProperty PreserveSelectionOnKeyboardFocusProperty =
         DependencyProperty.Register(nameof(PreserveSelectionOnKeyboardFocus), typeof(bool), typeof(SearchableComboBox),
+        new PropertyMetadata(false));
+
+        public static readonly DependencyProperty DeferSelectionUntilCommitProperty =
+        DependencyProperty.Register(nameof(DeferSelectionUntilCommit), typeof(bool), typeof(SearchableComboBox),
         new PropertyMetadata(false));
 
         public string Placeholder
@@ -60,6 +65,12 @@ namespace nvidiaProfileInspector.UI.Controls
         {
             get => (bool)GetValue(PreserveSelectionOnKeyboardFocusProperty);
             set => SetValue(PreserveSelectionOnKeyboardFocusProperty, value);
+        }
+
+        public bool DeferSelectionUntilCommit
+        {
+            get => (bool)GetValue(DeferSelectionUntilCommitProperty);
+            set => SetValue(DeferSelectionUntilCommitProperty, value);
         }
 
         private static void OnFilterTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -104,6 +115,56 @@ namespace nvidiaProfileInspector.UI.Controls
             SyncDisplayedText();
         }
 
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            if (DeferSelectionUntilCommit && IsDropDownOpen && (e.Key == Key.Up || e.Key == Key.Down))
+            {
+                var currentIndex = GetFocusedItemIndex();
+                if (currentIndex >= 0)
+                {
+                    var direction = e.Key == Key.Down ? 1 : -1;
+                    var nextIndex = currentIndex + direction;
+                    if (nextIndex >= 0 && nextIndex < Items.Count)
+                    {
+                        e.Handled = true;
+                        _ = FocusItemByIndexAsync(nextIndex);
+                        return;
+                    }
+                }
+            }
+
+            if (DeferSelectionUntilCommit && IsDropDownOpen && e.Key == Key.Enter)
+            {
+                var itemToCommit = GetFocusedOrPendingItem();
+                if (itemToCommit != null)
+                {
+                    e.Handled = true;
+                    CommitDeferredSelection(itemToCommit);
+                    IsDropDownOpen = false;
+                    return;
+                }
+            }
+
+            base.OnPreviewKeyDown(e);
+        }
+
+        protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
+        {
+            if (DeferSelectionUntilCommit && IsDropDownOpen)
+            {
+                var itemToCommit = ContainerFromElement((DependencyObject)e.OriginalSource) as ComboBoxItem;
+                if (itemToCommit?.DataContext != null)
+                {
+                    CommitDeferredSelection(itemToCommit.DataContext);
+                    IsDropDownOpen = false;
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            base.OnPreviewMouseLeftButtonUp(e);
+        }
+
         protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
         {
             base.OnItemsSourceChanged(oldValue, newValue);
@@ -113,6 +174,7 @@ namespace nvidiaProfileInspector.UI.Controls
         private async void SearchableComboBox_DropDownOpened(object? sender, EventArgs e)
         {
             FilterText = string.Empty;
+            _pendingSelectedItem = null;
             AttachSearchTextBox();
             if (_searchTextBox != null)
             {
@@ -150,7 +212,7 @@ namespace nvidiaProfileInspector.UI.Controls
 
         private async Task FocusCurrentOrFirstItemAsync()
         {
-            var targetItem = SelectedItem;
+            var targetItem = GetFocusedOrPendingItem() ?? SelectedItem;
             if (targetItem == null || !Items.Cast<object>().Contains(targetItem))
             {
                 targetItem = Items.Cast<object>().FirstOrDefault();
@@ -188,6 +250,7 @@ namespace nvidiaProfileInspector.UI.Controls
                 {
                     await Dispatcher.InvokeAsync(() =>
                     {
+                        _pendingSelectedItem = comboBoxItem.DataContext;
                         _allowFocusOnItems = true;
                         comboBoxItem.BringIntoView();
                         comboBoxItem.Focus();
@@ -248,6 +311,60 @@ namespace nvidiaProfileInspector.UI.Controls
         {
             if (!IsEditable && SyncSelectedItemToText)
                 Text = SelectedItem?.ToString() ?? SelectedValue?.ToString() ?? string.Empty;
+        }
+
+        private object GetFocusedOrPendingItem()
+        {
+            if (Keyboard.FocusedElement is DependencyObject focusedElement)
+            {
+                var comboBoxItem = ContainerFromElement(focusedElement) as ComboBoxItem;
+                if (comboBoxItem?.DataContext != null)
+                    return comboBoxItem.DataContext;
+            }
+
+            return _pendingSelectedItem;
+        }
+
+        private void CommitDeferredSelection(object itemToCommit)
+        {
+            SelectedItem = itemToCommit;
+            _pendingSelectedItem = null;
+        }
+
+        private int GetFocusedItemIndex()
+        {
+            var focusedItem = GetFocusedOrPendingItem();
+            return focusedItem == null ? -1 : Items.IndexOf(focusedItem);
+        }
+
+        private async Task FocusItemByIndexAsync(int index)
+        {
+            if (index < 0 || index >= Items.Count)
+                return;
+
+            var targetItem = Items[index];
+            for (var attempt = 0; attempt < 3; attempt++)
+            {
+                var comboBoxItem = await Dispatcher.InvokeAsync(() =>
+                {
+                    UpdateLayout();
+                    return ItemContainerGenerator.ContainerFromIndex(index) as ComboBoxItem;
+                }, DispatcherPriority.Input);
+
+                if (comboBoxItem != null)
+                {
+                    await Dispatcher.InvokeAsync(() =>
+                    {
+                        _pendingSelectedItem = targetItem;
+                        _allowFocusOnItems = true;
+                        comboBoxItem.BringIntoView();
+                        comboBoxItem.Focus();
+                    }, DispatcherPriority.Input);
+                    return;
+                }
+
+                await Task.Delay(25);
+            }
         }
     }
 }
