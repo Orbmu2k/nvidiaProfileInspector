@@ -135,9 +135,15 @@
                         Margin="0,8,0,0"
                         Padding="0"
                         HorizontalAlignment="Left"
-                        Command="{Binding OpenGitHubCommand}"
+                        Command="{Binding OpenGitHubRepositoryCommand}"
                         Style="{StaticResource LinkButtonStyle}"
-                        ToolTip="View on GitHub" />
+                        ToolTip="Open GitHub repository">
+                        <TextBlock
+                            FontSize="11"
+                            Foreground="{DynamicResource TextSecondaryBrush}"
+                            Text="github.com/Orbmu2k/nvidiaProfileInspector"
+                            TextDecorations="Underline" />
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>
@@ -196,6 +202,24 @@
         <!--  Contributors Section  -->
         <Border Grid.Row="3" Padding="24,0,24,24">
             <StackPanel>
+                <Border
+                    Margin="0,16,0,8"
+                    Padding="12"
+                    Background="{DynamicResource Layer2BackgroundBrush}"
+                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <CheckBox
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextPrimaryBrush}"
+                        IsChecked="{Binding IsAutomaticUpdateCheckEnabled}">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextPrimaryBrush}"
+                            Text="Check for available updates" />
+                    </CheckBox>
+                </Border>
+
                 <TextBlock
                     Margin="0,16,0,12"
                     FontSize="11"
