@@ -71,6 +71,8 @@
 
                         <TextBox
                             x:Name="PART_EditableTextBox"
+                            MinLines="1"
+                            MaxLines="1"
                             Margin="8,0,30,0"
                             Padding="4,0"
                             HorizontalAlignment="Stretch"
