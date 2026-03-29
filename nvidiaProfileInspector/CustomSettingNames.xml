@@ -4,9 +4,9 @@
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Enable DLL Override</UserfriendlyName>
 			<HexSettingID>0x10E41E01</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>If enabled, overrides DLSS-SR with the latest global version installed (${DlssVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
+			<Description>Controls whether DLSS Super Resolution is overridden with the globally installed replacement DLL.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -17,14 +17,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Forced Model Preset Profile</UserfriendlyName>
 			<HexSettingID>0x00634291</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>If "Forced Preset Letter" has no effect, this setting may need to be changed for the game to apply the custom preset.</Description>
+			<Description>Selects how the driver resolves the forced DLSS preset profile when a preset override is requested.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -39,14 +39,14 @@
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-RR - Enable DLL Override</UserfriendlyName>
 			<HexSettingID>0x10E41E02</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>If enabled, overrides DLSS-RR with the latest global version installed (${DlssdVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
+			<Description>Controls whether DLSS Ray Reconstruction is overridden with the globally installed replacement DLL.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -57,14 +57,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Enable DLL Override</UserfriendlyName>
 			<HexSettingID>0x10E41E03</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>If enabled, overrides DLSS-FG with the latest global version installed (${DlssgVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
+			<Description>Controls whether DLSS Frame Generation is overridden with the globally installed replacement DLL.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -75,14 +75,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Forced Preset Letter</UserfriendlyName>
 			<HexSettingID>0x10E41DF3</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>NOTE: "DLSS - Forced Model Preset Profile" setting may need to be changed for this to apply on certain games.\r\nIf set, overrides the DLSS preset/model used across all quality levels (may not be desirable on some levels).</Description>
+			<Description>Forces a specific DLSS Super Resolution model preset for all quality modes that honor preset overrides.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -153,12 +153,13 @@
 					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-RR - Forced Preset Letter</UserfriendlyName>
 			<HexSettingID>0x10E41DF7</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Forces a specific DLSS Ray Reconstruction model preset when the application honors preset overrides.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -230,19 +231,21 @@
 					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Private Flags</UserfriendlyName>
 			<HexSettingID>0x10E41DF6</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<Description>Stores advanced private DLSS Frame Generation flags intended for internal or experimental use.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Full-Screen Menu Detection</UserfriendlyName>
 			<HexSettingID>0x104596A1</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<Description>Controls the full-screen menu detection mode used by DLSS Frame Generation heuristics.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -259,26 +262,29 @@
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Full-Screen Menu Override Coverage Threshold (float)</UserfriendlyName>
 			<HexSettingID>0x104596A2</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<Description>Sets the screen-coverage threshold used by the DLSS Frame Generation full-screen menu override heuristic.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Full-Screen Menu Override Alpha Threshold (float)</UserfriendlyName>
 			<HexSettingID>0x104596A3</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<Description>Sets the alpha threshold used by the DLSS Frame Generation full-screen menu override heuristic.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Forced Quality Level</UserfriendlyName>
 			<HexSettingID>0x10AFB768</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Forces a predefined DLSS Super Resolution quality level for the profile.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -310,12 +316,13 @@
 					<HexValue>0x00000006</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-RR - Forced Quality Level</UserfriendlyName>
 			<HexSettingID>0x10BD9423</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Forces a predefined DLSS Ray Reconstruction quality level for the profile.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -347,14 +354,14 @@
 					<HexValue>0x00000006</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Forced Scaling Ratio</UserfriendlyName>
 			<HexSettingID>0x10E41DF5</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
-			<Description>Set up 'DLSS - Forced Quality Level: Custom' before choosing the custom value.</Description>
+			<Description>Overrides the DLSS Super Resolution internal scaling ratio with a profile-defined percentage.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -633,14 +640,14 @@
 					<HexValue>0x00000064</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-RR - Forced Scaling Ratio</UserfriendlyName>
 			<HexSettingID>0x10C7D4A2</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
-			<Description>Set up 'DLSS-RR - Forced Quality Level: Custom' before choosing the custom value.</Description>
+			<Description>Overrides the DLSS Ray Reconstruction internal scaling ratio with a profile-defined percentage.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -919,12 +926,13 @@
 					<HexValue>0x00000064</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Multi-Frame-Generation Count</UserfriendlyName>
 			<HexSettingID>0x104D6667</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Selects the multi-frame generation cadence used by supported DLSS Frame Generation implementations.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
@@ -945,12 +953,13 @@
 					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Smooth Motion - Enable</UserfriendlyName>
 			<HexSettingID>0xB0D384C0</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables Smooth Motion for the profile.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>571.86</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -962,13 +971,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Smooth Motion - Enabled APIs</UserfriendlyName>
-			<Description>If the setting doesn't exist in profile (greyed out) all APIs will be allowed, if setting exists and is set to 0, no APIs are allowed</Description>
+			<Description>Selects which graphics APIs are allowed to use Smooth Motion.</Description>
 			<HexSettingID>0xB0CC0875</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>571.86</MinRequiredDriverVersion>
 			<OverrideDefault>0x00000007</OverrideDefault>
 			<SettingValues>
@@ -1008,9 +1017,9 @@
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Smooth Motion - Debug Log Level</UserfriendlyName>
-			<Description>Logs written to C:\NvPresent\</Description>
+			<Description>Selects the verbosity level for Smooth Motion diagnostic logging.</Description>
 			<HexSettingID>0xB053C379</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1029,13 +1038,13 @@
 					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Smooth Motion - Debug Bars</UserfriendlyName>
-			<Description>Draws colored bars on generated frames.</Description>
+			<Description>Controls whether Smooth Motion debug bar overlays are rendered.</Description>
 			<HexSettingID>0xB01B8B02</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1046,13 +1055,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Smooth Motion - Flip Metering 0</UserfriendlyName>
-			<Description>Shows "HW Flip Metering Supported via public queue" in log file when set.</Description>
+			<Description>Controls the first Smooth Motion flip-metering diagnostic mode.</Description>
 			<HexSettingID>0xB03A4546</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0x00000000 Off</UserfriendlyName>
@@ -1063,13 +1072,13 @@
 					<HexValue>0xFFFFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Smooth Motion - Flip Metering 1</UserfriendlyName>
-			<Description>May change HW flip metering to "App queue" if set.</Description>
+			<Description>Controls the second Smooth Motion flip-metering diagnostic mode.</Description>
 			<HexSettingID>0xB03A4547</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0x00000000 Off</UserfriendlyName>
@@ -1084,13 +1093,13 @@
 					<HexValue>0xFFFFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX HDR - Driver Flags</UserfriendlyName>
-			<Description>Allows reducing deband strength to preserve details &amp; enable indicator.&#xD;&#xA;When any driver flags are set HDR will be applied via driver instead of through NVOverlay (driver doesn't support customizing brightness/contrast/saturation)</Description>
+			<Description>Controls advanced RTX HDR driver flags and feature toggles.</Description>
 			<HexSettingID>0x00432F84</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1118,12 +1127,13 @@
 					<HexValue>0x00000023</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX HDR - Enable</UserfriendlyName>
 			<HexSettingID>0x00DD48FB</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables RTX HDR processing for the profile.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1135,40 +1145,45 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX HDR - Peak Brightness</UserfriendlyName>
 			<HexSettingID>0x00DD48FC</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Sets the target peak brightness used by RTX HDR tone mapping.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX HDR - Middle Grey</UserfriendlyName>
 			<HexSettingID>0x00DD48FD</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Sets the RTX HDR middle-grey reference used for tone mapping.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX HDR - Contrast</UserfriendlyName>
 			<HexSettingID>0x00DD48FE</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Sets the RTX HDR contrast adjustment applied by the profile.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX HDR - Saturation</UserfriendlyName>
 			<HexSettingID>0x00DD48FF</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Sets the RTX HDR saturation adjustment applied after tone mapping.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX Digital Vibrance - Enable</UserfriendlyName>
 			<HexSettingID>0x00980880</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables the RTX Digital Vibrance post-processing path.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1180,26 +1195,29 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX Digital Vibrance - Saturation Boost</UserfriendlyName>
 			<HexSettingID>0x00ABAB13</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Sets the additional saturation boost applied by RTX Digital Vibrance.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>RTX Digital Vibrance - Intensity</UserfriendlyName>
 			<HexSettingID>0x00ABAB22</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Sets the RTX Digital Vibrance intensity value applied by the profile.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Override Performance to be Ultra Performance</UserfriendlyName>
 			<HexSettingID>0x10AFB76C</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<Description>Remaps the Performance quality selection to use the Ultra Performance path.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1211,12 +1229,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Override DLSS modes to be DLAA</UserfriendlyName>
 			<HexSettingID>0x10E41DF4</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<Description>Redirects DLSS Super Resolution quality modes to operate as DLAA-style full-resolution rendering.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1228,12 +1247,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Frame Rate Limiter - Background Application</UserfriendlyName>
 			<HexSettingID>0x10835005</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Sets the frame-rate cap applied when the profiled application is running in the background.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1468,7 +1488,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Shader Cache - Cache Size</UserfriendlyName>
 			<HexSettingID>0x00AC8497</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Selects the maximum shader cache size allowed for this profile.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1523,7 +1544,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Shader Cache - Enabled (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x208F3F2E</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables the OpenGL shader cache for this profile.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -1538,8 +1560,8 @@
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Enable</UserfriendlyName>
 			<HexSettingID>0x000F00BA</HexSettingID>
-			<GroupName>5 - Common</GroupName>
-			<AlternateNames>ReBAR - Enable, Resizable Bar - Enable</AlternateNames>
+			<Description>Enables or disables profile-controlled Resizable BAR behavior.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -1554,23 +1576,22 @@
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Options</UserfriendlyName>
 			<HexSettingID>0x000F00BB</HexSettingID>
-			<GroupName>5 - Common</GroupName>
-			<AlternateNames>ReBAR - Options, Resizable Bar - Options</AlternateNames>
+			<Description>Defines the primary Resizable BAR option bitfield used by the driver.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Intel CPU Exclusion</UserfriendlyName>
 			<HexSettingID>0x00E942FC</HexSettingID>
-			<GroupName>5 - Common</GroupName>
-			<AlternateNames>ReBAR - Intel CPU Exclusion, Resizable Bar - Intel CPU Exclusion</AlternateNames>
+			<Description>Stores the Intel CPU exclusion mask used by the Resizable BAR policy logic.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Size Limit</UserfriendlyName>
 			<HexSettingID>0x000F00FF</HexSettingID>
-			<GroupName>5 - Common</GroupName>
-			<AlternateNames>ReBAR - Size Limit, Resizable Bar - Size Limit</AlternateNames>
-			<Description>Default Size Limit value for most of the whitelisted games is '1GB', some games MAY benefit of a higher size bar.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<Description>Sets the maximum Resizable BAR aperture size allowed for this profile.</Description>
 			<DataType>BINARY</DataType>
 			<OverrideDefault>0x0000000040000000</OverrideDefault>
 			<SettingValues>
@@ -1619,21 +1640,22 @@
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Flags (0x000F00BE)</UserfriendlyName>
 			<HexSettingID>0x000F00BE</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
-			<AlternateNames>ReBAR - Flags (0x000F00BE), Resizable Bar - Flags (0x000F00BE)</AlternateNames>
+			<Description>Stores auxiliary Resizable BAR driver flags for advanced compatibility handling.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Flags (0x000F00BF)</UserfriendlyName>
 			<HexSettingID>0x000F00BF</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
-			<AlternateNames>ReBAR - Flags (0x000F00BF), Resizable Bar - Flags (0x000F00BF)</AlternateNames>
+			<Description>Stores secondary Resizable BAR driver flags for advanced compatibility handling.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Support Indicator Overlay</UserfriendlyName>
 			<HexSettingID>0x008DF510</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Controls the on-screen overlay that reports whether the current presentation path supports G-SYNC.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1648,7 +1670,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Raytracing - (DXR) Enabled</UserfriendlyName>
 			<HexSettingID>0x00DE429A</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables DirectX Raytracing support for this profile.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000001</OverrideDefault>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1664,7 +1687,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Raytracing - (Vulkan RT) Enabled</UserfriendlyName>
 			<HexSettingID>0x20BC1A2B</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables Vulkan ray tracing support for this profile.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000001</OverrideDefault>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1686,15 +1710,10 @@
       <Hidden>true</Hidden>
     </CustomSetting>-->
 		<CustomSetting>
-			<UserfriendlyName>SLI - CFR Mode</UserfriendlyName>
-			<HexSettingID>0x20343843</HexSettingID>
-			<GroupName>6 - SLI</GroupName>
-			<MaxRequiredDriverVersion>575.00</MaxRequiredDriverVersion><!-- Removed between 511.79 and R575 -->
-		</CustomSetting>
-		<CustomSetting>
 			<UserfriendlyName>Ansel - Enabled</UserfriendlyName>
 			<HexSettingID>0x1075D972</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables NVIDIA Ansel support for the profile.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1710,7 +1729,8 @@
 			<UserfriendlyName>Sharpening Filter - Enabled</UserfriendlyName>
 			<HexSettingID>0x00598928</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Enables or disables the driver image sharpening filter.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -1726,7 +1746,8 @@
 			<UserfriendlyName>Sharpening - Value</UserfriendlyName>
 			<HexSettingID>0x002ED8CD</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Sets the sharpening intensity applied by the driver image sharpening filter.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0.00</UserfriendlyName>
@@ -2137,13 +2158,14 @@
 					<HexValue>0x00000064</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Sharpening - Ignore Film Grain</UserfriendlyName>
 			<HexSettingID>0x002ED8CE</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Controls how strongly detected film grain is excluded from the driver sharpening pass.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>0.00</UserfriendlyName>
@@ -2554,13 +2576,14 @@
 					<HexValue>0x00000064</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Frame Rate Limiter V3</UserfriendlyName>
 			<HexSettingID>0x10835002</HexSettingID>
 			<MinRequiredDriverVersion>441.87</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Sets the foreground frame-rate cap applied by the third-generation driver frame limiter.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6491,14 +6514,14 @@
 					<HexValue>0x000003E8</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Ultra Low Latency - CPL State</UserfriendlyName>
 			<HexSettingID>0x0005F543</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<MinRequiredDriverVersion>430.00</MinRequiredDriverVersion>
-			<Description>This setting just keeps track of ULL setting for the nvidia control panel. No need to change it.</Description>
+			<Description>Sets the Control Panel state exposed for Ultra Low Latency mode.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6517,7 +6540,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Ultra Low Latency - Enabled</UserfriendlyName>
 			<HexSettingID>0x10835000</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Enables or disables the driver Ultra Low Latency scheduling path for this profile.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<MinRequiredDriverVersion>430.00</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6531,15 +6555,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>NVLINK - SLI Mode</UserfriendlyName>
-			<HexSettingID>0x00A06948</HexSettingID>
-			<GroupName>6 - SLI</GroupName>
-			<MinRequiredDriverVersion>410.00</MinRequiredDriverVersion>
-		</CustomSetting>
-		<CustomSetting>
 			<UserfriendlyName>Texture Filtering - Quality Substitution</UserfriendlyName>
 			<HexSettingID>0x00CE2692</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Controls whether the selected texture filtering quality preset is replaced by a profile override.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<MinRequiredDriverVersion>418.00</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6551,12 +6570,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - MFAA Enabled</UserfriendlyName>
 			<HexSettingID>0x0098C1AC</HexSettingID>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Enables or disables multi-frame sampled antialiasing for this profile.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<MinRequiredDriverVersion>344.11</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6568,12 +6588,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Prefered Refreshrate</UserfriendlyName>
 			<HexSettingID>0x0064B541</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Selects the preferred display refresh-rate policy used for this profile.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Use the 3D application setting</UserfriendlyName>
@@ -6584,13 +6605,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Indicator Overlay</UserfriendlyName>
 			<HexSettingID>0x10029538</HexSettingID>
 			<MinRequiredDriverVersion>331.00</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Controls the on-screen overlay that reports active G-SYNC status.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6601,13 +6623,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Application Mode</UserfriendlyName>
 			<HexSettingID>0x1194F158</HexSettingID>
 			<MinRequiredDriverVersion>331.00</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Selects the G-SYNC operating mode advertised to the application.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6622,13 +6645,14 @@
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Global Mode</UserfriendlyName>
 			<HexSettingID>0x1094F1F7</HexSettingID>
 			<MinRequiredDriverVersion>331.00</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Selects the global G-SYNC operating mode for this profile.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6643,13 +6667,14 @@
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Global Feature</UserfriendlyName>
 			<HexSettingID>0x1094F157</HexSettingID>
 			<MinRequiredDriverVersion>331.00</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Globally enables or disables G-SYNC support for this profile.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6660,13 +6685,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Application State</UserfriendlyName>
 			<HexSettingID>0x10A879CF</HexSettingID>
 			<MinRequiredDriverVersion>331.00</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Controls the effective G-SYNC state applied when the profile is active.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Allow</UserfriendlyName>
@@ -6689,13 +6715,14 @@
 					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Application Requested State</UserfriendlyName>
 			<HexSettingID>0x10A879AC</HexSettingID>
 			<MinRequiredDriverVersion>331.00</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Controls the application-requested G-SYNC state.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Allow</UserfriendlyName>
@@ -6718,13 +6745,14 @@
 					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Prevent Anisotropic Filtering</UserfriendlyName>
 			<HexSettingID>0x103BCCB5</HexSettingID>
 			<MinRequiredDriverVersion>331.00</MinRequiredDriverVersion>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Prevents the application or driver from enabling anisotropic filtering for this profile.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6735,13 +6763,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Shader Cache - Enabled</UserfriendlyName>
 			<HexSettingID>0x00198FFF</HexSettingID>
 			<MinRequiredDriverVersion>337.50</MinRequiredDriverVersion>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables the Direct3D shader cache for this profile.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000001</OverrideDefault>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6753,13 +6782,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing Fix (DX9)</UserfriendlyName>
 			<HexSettingID>0x000858F7</HexSettingID>
 			<MinRequiredDriverVersion>320.14</MinRequiredDriverVersion>
-			<GroupName>1 - Compatibility</GroupName>
+			<Description>Enables or disables the Direct3D 9 antialiasing fix path for applications that require profile-based AA handling.</Description>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000001</OverrideDefault>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6776,7 +6806,8 @@
 			<UserfriendlyName>Vertical Sync - Smooth AFR Behavior</UserfriendlyName>
 			<HexSettingID>0x101AE763</HexSettingID>
 			<MinRequiredDriverVersion>310.00</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Controls how vertical synchronization behaves when smooth AFR multi-GPU pacing is active.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6787,13 +6818,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Texture Filtering - LOD Bias Auto-Adjust (for SGSSAA)</UserfriendlyName>
 			<HexSettingID>0x00638E8F</HexSettingID>
 			<MinRequiredDriverVersion>313.00</MinRequiredDriverVersion>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Enables automatic negative LOD bias adjustment when sparse grid supersampling is active.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6804,12 +6836,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Flip Indicator</UserfriendlyName>
 			<HexSettingID>0x002CF156</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Selects the debug overlay mode used to display flip-model and presentation status information.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -6840,13 +6873,14 @@
 					<HexValue>0x000001FF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - FXAA Enabled</UserfriendlyName>
 			<HexSettingID>0x1074C972</HexSettingID>
 			<MinRequiredDriverVersion>300.00</MinRequiredDriverVersion>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Enables or disables driver-forced FXAA for this profile.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6857,13 +6891,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - FXAA Indicator Overlay</UserfriendlyName>
 			<HexSettingID>0x1068FB9C</HexSettingID>
 			<MinRequiredDriverVersion>300.00</MinRequiredDriverVersion>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Controls the on-screen overlay that indicates when FXAA is active.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -6874,13 +6909,14 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - FXAA Enabled (predefined by NVIDIA)</UserfriendlyName>
 			<HexSettingID>0x1034CB89</HexSettingID>
 			<MinRequiredDriverVersion>300.00</MinRequiredDriverVersion>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Controls the predefined FXAA state applied by the driver profile.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disallowed</UserfriendlyName>
@@ -6891,12 +6927,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - Line Gamma</UserfriendlyName>
 			<HexSettingID>0x2089BF6C</HexSettingID>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Selects the line gamma adjustment mode used during antialiasing.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -6911,12 +6948,13 @@
 					<HexValue>0x00000023</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Texture Filtering - LOD Bias (DX)</UserfriendlyName>
 			<HexSettingID>0x00738E8F</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Sets the Direct3D texture LOD bias override for this profile.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>-3.0000</UserfriendlyName>
@@ -7115,12 +7153,13 @@
 					<HexValue>0x00000018</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Texture Filtering - LOD Bias (OGL)</UserfriendlyName>
 			<HexSettingID>0x20403F79</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Sets the OpenGL texture LOD bias override for this profile.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>-3.0000</UserfriendlyName>
@@ -7511,145 +7550,38 @@
 					<HexValue>0x00000030</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
-		</CustomSetting>
-		<CustomSetting>
-			<UserfriendlyName>SLI - Compatibility Bits (OGL)</UserfriendlyName>
-			<HexSettingID>0x209746C1</HexSettingID>
-			<GroupName>1 - Compatibility</GroupName>
-			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
-			<SettingValues/>
-		</CustomSetting>
-		<CustomSetting>
-			<UserfriendlyName>SLI - Compatibility Bits (DX12)</UserfriendlyName>
-			<HexSettingID>0x00A04746</HexSettingID>
-			<GroupName>1 - Compatibility</GroupName>
-			<SettingValues/>
-		</CustomSetting>
-		<CustomSetting>
-			<UserfriendlyName>SLI - Compatibility Bits (DX10 + DX11)</UserfriendlyName>
-			<HexSettingID>0x00A06946</HexSettingID>
-			<GroupName>1 - Compatibility</GroupName>
-			<SettingValues/>
-			<SettingMasks>
-				<CustomSettingMask>
-					<UserfriendlyName>SLI - Mode</UserfriendlyName>
-					<HexMask>0x0000000F</HexMask>
-					<MaskValues>
-						<CustomSettingValue>
-							<UserfriendlyName>Auto</UserfriendlyName>
-							<HexValue>0x00000000</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>Single</UserfriendlyName>
-							<HexValue>0x00000004</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>AFR</UserfriendlyName>
-							<HexValue>0x00000001</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>SFR</UserfriendlyName>
-							<HexValue>0x00000002</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>AFR-SFR</UserfriendlyName>
-							<HexValue>0x00000003</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>3 Way SLI AFR</UserfriendlyName>
-							<HexValue>0x00000006</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>4 Way SLI AFR</UserfriendlyName>
-							<HexValue>0x00000005</HexValue>
-						</CustomSettingValue>
-					</MaskValues>
-				</CustomSettingMask>
-			</SettingMasks>
-		</CustomSetting>
-		<CustomSetting>
-			<UserfriendlyName>SLI - Compatibility Bits (DX9)</UserfriendlyName>
-			<HexSettingID>0x1095DEF8</HexSettingID>
-			<GroupName>1 - Compatibility</GroupName>
-			<SettingValues/>
-			<SettingMasks>
-				<CustomSettingMask>
-					<UserfriendlyName>SLI - Mode</UserfriendlyName>
-					<HexMask>0x00000007</HexMask>
-					<MaskValues>
-						<CustomSettingValue>
-							<UserfriendlyName>Auto</UserfriendlyName>
-							<HexValue>0x00000000</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>Single</UserfriendlyName>
-							<HexValue>0x00000004</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>AFR</UserfriendlyName>
-							<HexValue>0x00000001</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>SFR</UserfriendlyName>
-							<HexValue>0x00000002</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>AFR-SFR</UserfriendlyName>
-							<HexValue>0x00000003</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>3 Way SLI AFR</UserfriendlyName>
-							<HexValue>0x00000006</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>4 Way SLI AFR</UserfriendlyName>
-							<HexValue>0x00000005</HexValue>
-						</CustomSettingValue>
-					</MaskValues>
-				</CustomSettingMask>
-				<CustomSettingMask>
-					<UserfriendlyName>SLI - AFR Mode</UserfriendlyName>
-					<HexMask>0x02430000</HexMask>
-					<MaskValues>
-						<CustomSettingValue>
-							<UserfriendlyName>AFR 1</UserfriendlyName>
-							<HexValue>0x00000000</HexValue>
-						</CustomSettingValue>
-						<CustomSettingValue>
-							<UserfriendlyName>AFR 2</UserfriendlyName>
-							<HexValue>0x02430000</HexValue>
-						</CustomSettingValue>
-					</MaskValues>
-				</CustomSettingMask>
-			</SettingMasks>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - Compatibility (DX9)</UserfriendlyName>
 			<HexSettingID>0x00D55F7D</HexSettingID>
-			<GroupName>1 - Compatibility</GroupName>
-			<SettingValues/>
-			<SettingMasks/>
+			<Description>Defines the Direct3D 9 antialiasing compatibility bitfield used for application-specific AA behavior.</Description>
+			<GroupName>01 - Compatibility</GroupName>
+			<SettingValues />
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - Compatibility (DX1x)</UserfriendlyName>
 			<HexSettingID>0x00E32F8A</HexSettingID>
-			<GroupName>1 - Compatibility</GroupName>
-			<SettingValues/>
-			<SettingMasks/>
+			<Description>Defines the Direct3D 10 and Direct3D 11 antialiasing compatibility bitfield used for application-specific AA behavior.</Description>
+			<GroupName>01 - Compatibility</GroupName>
+			<SettingValues />
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Ambient Occlusion - Compatibility</UserfriendlyName>
 			<HexSettingID>0x002C7F45</HexSettingID>
-			<GroupName>1 - Compatibility</GroupName>
-			<SettingValues/>
-			<SettingMasks/>
+			<Description>Defines the ambient occlusion compatibility bitfield used for application-specific driver workarounds.</Description>
+			<GroupName>01 - Compatibility</GroupName>
+			<SettingValues />
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - Gamma Correction</UserfriendlyName>
 			<HexSettingID>0x107D639D</HexSettingID>
 			<OverrideDefault>0x00000002</OverrideDefault>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Enables or disables gamma-correct antialiasing resolve behavior.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -7660,12 +7592,13 @@
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing (MSAA) - Behavior Flags</UserfriendlyName>
 			<HexSettingID>0x10ECDB82</HexSettingID>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Controls advanced MSAA behavior flags and application-compatibility overrides.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>None</UserfriendlyName>
@@ -7700,12 +7633,13 @@
 					<HexValue>0x00040000</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing (MSAA) - Mode</UserfriendlyName>
 			<HexSettingID>0x107EFC5B</HexSettingID>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Selects whether MSAA is application-controlled, enhanced, or fully overridden by the driver.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Application-controlled</UserfriendlyName>
@@ -7720,12 +7654,13 @@
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing (MSAA) - Setting</UserfriendlyName>
 			<HexSettingID>0x10D773D2</HexSettingID>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Selects the MSAA sample pattern and quality level applied by the driver.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Application-controlled / Off</UserfriendlyName>
@@ -7808,12 +7743,13 @@
 					<HexValue>0x00000029</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - Transparency Multisampling</UserfriendlyName>
 			<HexSettingID>0x10FC2D9C</HexSettingID>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Controls whether transparency multisampling is used for alpha-tested geometry.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -7824,12 +7760,13 @@
 					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Antialiasing - Transparency Supersampling</UserfriendlyName>
 			<HexSettingID>0x10D48A85</HexSettingID>
-			<GroupName>3 - Antialiasing</GroupName>
+			<Description>Selects the transparency supersampling mode for alpha-tested geometry.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off / Multisampling</UserfriendlyName>
@@ -7864,12 +7801,13 @@
 					<HexValue>0x00000038</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Anisotropic Filtering - Mode</UserfriendlyName>
 			<HexSettingID>0x10D2BB16</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Selects whether anisotropic filtering is application-controlled or forced by the driver.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Application-controlled</UserfriendlyName>
@@ -7880,12 +7818,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Anisotropic Filtering - Setting</UserfriendlyName>
 			<HexSettingID>0x101E61A9</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Selects the anisotropic filtering level applied when the driver forces AF.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off [Point]</UserfriendlyName>
@@ -7920,12 +7859,13 @@
 					<HexValue>0x00000010</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Anisotropic Filter - Optimization</UserfriendlyName>
 			<HexSettingID>0x0084CD70</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Enables or disables the driver anisotropic filtering optimization path.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -7936,12 +7876,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Anisotropic Filter - Sample Optimization</UserfriendlyName>
 			<HexSettingID>0x00E73211</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Enables or disables sample-count optimizations for anisotropic filtering.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -7952,12 +7893,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Texture Filtering - Negative LOD bias</UserfriendlyName>
 			<HexSettingID>0x0019BB68</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Controls whether negative texture LOD bias is clamped or allowed.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Allow</UserfriendlyName>
@@ -7968,12 +7910,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Texture Filtering - Quality</UserfriendlyName>
 			<HexSettingID>0x00CE2691</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Selects the global texture filtering quality preset.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Quality</UserfriendlyName>
@@ -7992,12 +7935,13 @@
 					<HexValue>0xFFFFFFF6</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Texture Filtering - Trilinear Optimization</UserfriendlyName>
 			<HexSettingID>0x002ECAF2</HexSettingID>
-			<GroupName>4 - Texture Filtering</GroupName>
+			<Description>Enables or disables the trilinear filtering optimization path.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>On ( will be ignored if using high quality )</UserfriendlyName>
@@ -8008,12 +7952,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Ambient Occlusion  - Usage</UserfriendlyName>
 			<HexSettingID>0x00664339</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Enables or disables ambient occlusion usage for the profile.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -8024,12 +7969,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Ambient Occlusion - Setting</UserfriendlyName>
 			<HexSettingID>0x00667329</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Selects the ambient occlusion quality mode applied when the feature is enabled.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -8048,12 +7994,13 @@
           <HexValue>0x00000003</HexValue>
         </CustomSettingValue>-->
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Maximum Pre-Rendered Frames</UserfriendlyName>
 			<HexSettingID>0x007BA09E</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Sets the maximum number of frames the CPU may queue ahead of GPU execution.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Use the 3D application setting</UserfriendlyName>
@@ -8092,12 +8039,13 @@
 					<HexValue>0x00000008</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Threaded Optimization</UserfriendlyName>
 			<HexSettingID>0x20C1221E</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Selects whether driver worker-thread optimization is disabled, enabled, or left to the driver default.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Auto</UserfriendlyName>
@@ -8112,12 +8060,13 @@
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Triple Buffering</UserfriendlyName>
 			<HexSettingID>0x20FDD1F9</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Enables or disables driver-controlled triple buffering for compatible presentation paths.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -8128,12 +8077,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Vertical Sync</UserfriendlyName>
 			<HexSettingID>0x00A879CF</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Selects the vertical synchronization mode applied by the driver.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Force off</UserfriendlyName>
@@ -8164,13 +8114,14 @@
 					<HexValue>0x13245256</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Vertical Sync - Tear Control</UserfriendlyName>
 			<HexSettingID>0x005A375C</HexSettingID>
 			<MinRequiredDriverVersion>300.00</MinRequiredDriverVersion>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Controls tear handling for the vertical synchronization path.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Standard</UserfriendlyName>
@@ -8181,12 +8132,13 @@
 					<HexValue>0x99941284</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>PhysX - Indicator Overlay</UserfriendlyName>
 			<HexSettingID>0x1094F16F</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Controls the on-screen overlay that indicates active PhysX acceleration.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>On</UserfriendlyName>
@@ -8197,13 +8149,14 @@
 					<HexValue>0x34534064</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>PhysX - Enable 32-bits GPU Acceleration (RTX 50)</UserfriendlyName>
 			<HexSettingID>0x5067ECC4</HexSettingID>
 			<MinRequiredDriverVersion>591.44</MinRequiredDriverVersion>
-			<GroupName>5 - Common</GroupName>
+			<Description>Controls whether 32-bit PhysX GPU acceleration emulation is enabled for supported RTX 50-series hardware.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -8214,12 +8167,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Power Management - Mode</UserfriendlyName>
 			<HexSettingID>0x1057EB71</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Selects the GPU power-management policy used while this profile is active.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Adaptive</UserfriendlyName>
@@ -8234,12 +8188,13 @@
 					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>CUDA - Force P2 State</UserfriendlyName>
 			<HexSettingID>0x50166C5E</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Controls whether CUDA workloads are forced into the P2 performance state.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000001</OverrideDefault>
 			<SettingValues>
 				<CustomSettingValue>
@@ -8251,12 +8206,13 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>CUDA - Sysmem Fallback Policy</UserfriendlyName>
 			<HexSettingID>0x10ECECC9</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Selects how CUDA handles fallback to system memory when local video memory is insufficient.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Default</UserfriendlyName>
@@ -8275,7 +8231,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Extension Limit (OGL)</UserfriendlyName>
 			<HexSettingID>0x20FF7493</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Controls whether the OpenGL extension exposure limit is enforced for this profile.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
@@ -8286,13 +8243,15 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Multi-Display / Mixed-GPU Acceleration</UserfriendlyName>
 			<HexSettingID>0x200AEBFC</HexSettingID>
-			<GroupName>5 - Common</GroupName>
-			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
+			<Description>Selects the driver acceleration policy used for multi-display and mixed-GPU environments.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
+			<!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Single display performance mode</UserfriendlyName>
@@ -8307,12 +8266,13 @@
 					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
-			<SettingMasks/>
+			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Version Override (OGL)</UserfriendlyName>
 			<HexSettingID>0x2046B3ED</HexSettingID>
-			<GroupName>5 - Common</GroupName>
+			<Description>Overrides the OpenGL version reported to the application.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -8363,7 +8323,8 @@
 		<CustomSetting>
 			<UserfriendlyName>MPO_INDICATOR</UserfriendlyName>
 			<HexSettingID>0x00A88888</HexSettingID>
-			<GroupName>8 - Extra</GroupName>
+			<Description>Controls the debug indicator for multiplane overlay usage.</Description>
+			<GroupName>09 - Advanced and Experimental</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -8379,7 +8340,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Vulkan/OpenGL Present Method</UserfriendlyName>
 			<HexSettingID>0x20D690F8</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
+			<Description>Selects the presentation method used for Vulkan and OpenGL swap operations.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -8399,8 +8361,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Vulkan/OpenGL Present Method - Flags</UserfriendlyName>
 			<HexSettingID>0x20324987</HexSettingID>
-			<GroupName>2 - Sync and Refresh</GroupName>
-			<AlternateNames>OGL_DX_PRESENT_DEBUG</AlternateNames>
+			<Description>Controls auxiliary flags for the Vulkan and OpenGL presentation method.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -8416,7 +8378,7 @@
 		<!--<CustomSetting>
       <UserfriendlyName>StereoProfile</UserfriendlyName>
       <HexSettingID>0x701EB457</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <SettingValues>
         <CustomSettingValue>
           -->
@@ -8440,7 +8402,7 @@
       -->
 		<!-- There are two alternate IDs for StereoConvergence: 0x7077bace and 0x7084807e -->
 		<!--
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <OverrideDefault>0x40800000</OverrideDefault>
       -->
 		<!--
@@ -8612,7 +8574,7 @@
     <CustomSetting>
       <UserfriendlyName>LaserXAdjust</UserfriendlyName>
       <HexSettingID>0x7057e831</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <OverrideDefault>0x3f800000</OverrideDefault>
       <SettingValues>
         <CustomSettingValue>
@@ -8784,7 +8746,7 @@
     <CustomSetting>
       <UserfriendlyName>LaserYAdjust</UserfriendlyName>
       <HexSettingID>0x70225308</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <OverrideDefault>0x3f800000</OverrideDefault>
       <SettingValues>
         <CustomSettingValue>
@@ -8956,7 +8918,7 @@
     <CustomSetting>
       <UserfriendlyName>StereoTextureEnable</UserfriendlyName>
       <HexSettingID>0x70EDB381</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <OverrideDefault>0x00000023</OverrideDefault>
       <SettingValues>
         <CustomSettingValue>
@@ -9032,7 +8994,7 @@
     <CustomSetting>
       <UserfriendlyName>StereoCutoff</UserfriendlyName>
       <HexSettingID>0x709A1DDF</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <OverrideDefault>0x00000001</OverrideDefault>
       <SettingValues>
         <CustomSettingValue>
@@ -9048,7 +9010,7 @@
     <CustomSetting>
       <UserfriendlyName>StereoCutoffDepthNear</UserfriendlyName>
       <HexSettingID>0x7050E011</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <OverrideDefault>0x3F800000</OverrideDefault>
       -->
 		<!-- this is an arbitrary float -->
@@ -9057,7 +9019,7 @@
     <CustomSetting>
       <UserfriendlyName>StereoCutoffDepthFar</UserfriendlyName>
       <HexSettingID>0x70ADD220</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <OverrideDefault>0x461C4000</OverrideDefault>
       -->
 		<!-- this is an arbitrary float -->
@@ -9066,7 +9028,7 @@
     <CustomSetting>
       <UserfriendlyName>StereoMemoEnabled</UserfriendlyName>
       <HexSettingID>0x707F4B45</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <OverrideDefault>0x00000001</OverrideDefault>
       <SettingValues>
         <CustomSettingValue>
@@ -9082,7 +9044,7 @@
     <CustomSetting>
       <UserfriendlyName>StereoFlagsDX10</UserfriendlyName>
       <HexSettingID>0x702442FC</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <SettingValues>
         <CustomSettingValue>
           <UserfriendlyName>0x00004000 STEREO_COMPUTE_ENABLE</UserfriendlyName>
@@ -9097,7 +9059,7 @@
     <CustomSetting>
       <UserfriendlyName>StereoUseMatrix</UserfriendlyName>
       <HexSettingID>0x70E34A78</HexSettingID>
-      <GroupName>7 - Stereo</GroupName>
+      <GroupName>07 - Stereo</GroupName>
       <SettingValues>
         <CustomSettingValue>
           <UserfriendlyName>Only adjust vertex position</UserfriendlyName>
