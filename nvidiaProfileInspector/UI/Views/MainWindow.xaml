@@ -1233,6 +1233,7 @@
                                                     ToolTip="Reset setting to default value"
                                                     Visibility="Collapsed">
                                                     <Path
+                                                        x:Name="RestoreButtonIcon"
                                                         Width="14"
                                                         Height="14"
                                                         Data="{DynamicResource IconRestore}"
@@ -1252,12 +1253,16 @@
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding IsUserDefined}" Value="True" />
                                                         <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True" />
+                                                        <Condition Binding="{Binding IsModified}" Value="False" />
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter TargetName="RestoreButton" Property="Visibility" Value="Visible" />
+                                                    <Setter TargetName="RestoreButton" Property="ToolTip" Value="Reset setting to NVIDIA default value" />
+                                                    <Setter TargetName="RestoreButtonIcon" Property="Data" Value="{DynamicResource IconNvidia}" />
                                                 </MultiDataTrigger>
                                                 <DataTrigger Binding="{Binding IsModified}" Value="True">
                                                     <Setter TargetName="RestoreButton" Property="Visibility" Value="Visible" />
-                                                    <Setter TargetName="RestoreButton" Property="ToolTip" Value="Reset setting to original value" />
+                                                    <Setter TargetName="RestoreButton" Property="ToolTip" Value="Reset unsaved change" />
+                                                    <Setter TargetName="RestoreButtonIcon" Property="Data" Value="{DynamicResource IconRestore}" />
                                                 </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>
