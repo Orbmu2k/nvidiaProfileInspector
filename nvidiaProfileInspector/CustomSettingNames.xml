@@ -922,7 +922,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Multi-Frame-Generation Count</UserfriendlyName>
+			<UserfriendlyName>DLSS-FG - Fixed Multi-Frame-Generation Count</UserfriendlyName>
 			<HexSettingID>0x104D6667</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
