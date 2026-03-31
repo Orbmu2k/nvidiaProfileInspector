@@ -1524,7 +1524,7 @@
 			<UserfriendlyName>Shader Cache - Pre-compile Shader Options</UserfriendlyName>
 			<HexSettingID>0x00EAD189</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<Description>This setting lets the GPU pre-compile shaders while system is in idle, the settings controls how much system utilization this can take, from low to high.</Description>
+			<Description>This setting lets the NVIDIA Auto Shader Compilation, this compiles shaders while system is in idle, the settings controls how much system utilization this can take, from low to high.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
