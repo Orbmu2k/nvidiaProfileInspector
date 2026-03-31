@@ -2848,23 +2848,23 @@
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Up to 2x</UserfriendlyName>
-					<HexValue>0x00000002</HexValue>
+					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Up to 3x</UserfriendlyName>
-					<HexValue>0x00000003</HexValue>
+					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Up to 4x</UserfriendlyName>
-					<HexValue>0x00000004</HexValue>
+					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Up to 5x</UserfriendlyName>
-					<HexValue>0x00000005</HexValue>
+					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Up to 6x</UserfriendlyName>
-					<HexValue>0x00000006</HexValue>
+					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks/>
