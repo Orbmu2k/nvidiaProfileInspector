@@ -78,38 +78,37 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS - Forced Preset Letter</UserfriendlyName>
-			<HexSettingID>0x10E41DF3</HexSettingID>
+			<UserfriendlyName>DLSS-FG - Forced Preset Letter</UserfriendlyName>
+			<HexSettingID>0x10E41DF1</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<Description>NOTE: "DLSS - Forced Model Preset Profile" setting may need to be changed for this to apply on certain games.\r\nIf set, overrides the DLSS preset/model used across all quality levels (may not be desirable on some levels).</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
+					<UserfriendlyName>Preset A</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset B (CNN)</UserfriendlyName>
+					<UserfriendlyName>Preset B</UserfriendlyName>
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset C (CNN)</UserfriendlyName>
+					<UserfriendlyName>Preset C (unused)</UserfriendlyName>
 					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset D (CNN)</UserfriendlyName>
+					<UserfriendlyName>Preset D (unused)</UserfriendlyName>
 					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset E (CNN)</UserfriendlyName>
+					<UserfriendlyName>Preset E (unused)</UserfriendlyName>
 					<HexValue>0x00000005</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset F (CNN)</UserfriendlyName>
+					<UserfriendlyName>Preset F (unused)</UserfriendlyName>
 					<HexValue>0x00000006</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -125,19 +124,19 @@
 					<HexValue>0x00000009</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset J (Transformer Gen 1)</UserfriendlyName>
+					<UserfriendlyName>Preset J (unused)</UserfriendlyName>
 					<HexValue>0x0000000A</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset K (Transformer Gen 1)</UserfriendlyName>
+					<UserfriendlyName>Preset K (unused)</UserfriendlyName>
 					<HexValue>0x0000000B</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset L (Transformer Gen 2)</UserfriendlyName>
+					<UserfriendlyName>Preset L (unused)</UserfriendlyName>
 					<HexValue>0x0000000C</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset M (Transformer Gen 2)</UserfriendlyName>
+					<UserfriendlyName>Preset M (unused)</UserfriendlyName>
 					<HexValue>0x0000000D</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
@@ -150,7 +149,7 @@
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
+					<HexValue>0x00FFFFFE</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks/>
@@ -922,7 +921,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Fixed Multi-Frame-Generation Count</UserfriendlyName>
+			<UserfriendlyName>DLSS-MFG - Fixed Frame Generation Count</UserfriendlyName>
 			<HexSettingID>0x104D6667</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
@@ -956,7 +955,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Frame Generation Mode</UserfriendlyName>
+			<UserfriendlyName>DLSS-FG - Forced Mode</UserfriendlyName>
 			<HexSettingID>0x10308298</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -977,7 +976,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Target Dynamic Frame Rate</UserfriendlyName>
+			<UserfriendlyName>DLSS-MFG - Target Dynamic Frame Rate</UserfriendlyName>
 			<HexSettingID>0x10CF4125</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
@@ -2758,7 +2757,7 @@
 			<SettingMasks/>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Maximum Dynamic Frame Generation Count</UserfriendlyName>
+			<UserfriendlyName>DLSS-MFG - Dynamic Frame Generation Count</UserfriendlyName>
 			<HexSettingID>0x10562D0F</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
