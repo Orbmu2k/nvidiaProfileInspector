@@ -81,6 +81,7 @@
 			<UserfriendlyName>DLSS-FG - Forced Preset Letter</UserfriendlyName>
 			<HexSettingID>0x10E41DF1</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<Description>NOTE: "DLSS - Forced Model Preset Profile" setting may need to be changed for this to apply on certain games.\r\nIf set, overrides the DLSS preset/model used across all quality levels (may not be desirable on some levels).</Description>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -150,6 +151,84 @@
 				<CustomSettingValue>
 					<UserfriendlyName>Use recommended preset</UserfriendlyName>
 					<HexValue>0x00FFFFFE</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks/>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>DLSS - Forced Preset Letter</UserfriendlyName>
+			<HexSettingID>0x10E41DF3</HexSettingID>
+			<GroupName>5 - Common</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<Description>NOTE: "DLSS - Forced Model Preset Profile" setting may need to be changed for this to apply on certain games.\r\nIf set, overrides the DLSS preset/model used across all quality levels (may not be desirable on some levels).</Description>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>N/A</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset B (CNN)</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset C (CNN)</UserfriendlyName>
+					<HexValue>0x00000003</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset D (CNN)</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset E (CNN)</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset F (CNN)</UserfriendlyName>
+					<HexValue>0x00000006</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset G (unused)</UserfriendlyName>
+					<HexValue>0x00000007</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset H (unused)</UserfriendlyName>
+					<HexValue>0x00000008</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset I (unused)</UserfriendlyName>
+					<HexValue>0x00000009</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset J (Transformer Gen 1)</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset K (Transformer Gen 1)</UserfriendlyName>
+					<HexValue>0x0000000B</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset L (Transformer Gen 2)</UserfriendlyName>
+					<HexValue>0x0000000C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset M (Transformer Gen 2)</UserfriendlyName>
+					<HexValue>0x0000000D</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset N (unused)</UserfriendlyName>
+					<HexValue>0x0000000E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks/>
