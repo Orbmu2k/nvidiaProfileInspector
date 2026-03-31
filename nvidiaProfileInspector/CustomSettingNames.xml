@@ -1037,6 +1037,7 @@
 			<UserfriendlyName>DLSS-FG - Forced Mode</UserfriendlyName>
 			<HexSettingID>0x10308298</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<Description>This sets up the mode for Frame Generation, Fixed mode uses the "Fixed Frame Generation Count" and Dynamic uses "Dynamic Frame Generation Count".</Description>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
