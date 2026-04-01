@@ -1037,7 +1037,7 @@
 			<UserfriendlyName>DLSS-FG - Forced Mode</UserfriendlyName>
 			<HexSettingID>0x10308298</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<Description>This sets up the mode for Frame Generation, Fixed mode uses the "Fixed Frame Generation Count" and Dynamic uses "Dynamic Frame Generation Count".</Description>
+			<Description>This sets up the mode for Frame Generation. Dynamic mode requires driver 595.97 or newer for all features.</Description>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1059,7 +1059,7 @@
 			<UserfriendlyName>DLSS-MFG - Target Dynamic Frame Rate</UserfriendlyName>
 			<HexSettingID>0x10CF4125</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>595.97</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -2840,7 +2840,7 @@
 			<UserfriendlyName>DLSS-MFG - Dynamic Frame Generation Count</UserfriendlyName>
 			<HexSettingID>0x10562D0F</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>595.97</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -3446,6 +3446,7 @@
 			<UserfriendlyName>Shader Cache - Pre-compile Shader Options</UserfriendlyName>
 			<HexSettingID>0x00EAD189</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<MinRequiredDriverVersion>595.97</MinRequiredDriverVersion>
 			<Description>This setting is NVIDIA Auto Shader Compilation, toggle it on to make CPU compile shaders while system is in idle, the settings controls how much system utilization this can take, from low to high.</Description>
 			<SettingValues>
 				<CustomSettingValue>
