@@ -312,7 +312,7 @@ namespace nvidiaProfileInspector.Common
             var groupName = GetGroupName(settingId);
 
             if (groupName == null)
-                groupName = GetLegacyGroupName(settingId, settingName);
+                groupName = GetFallbackGroupName(settingId, settingName);
 
             var result = new SettingMeta()
             {
@@ -410,21 +410,28 @@ namespace nvidiaProfileInspector.Common
             }
         }
 
-        private string GetLegacyGroupName(uint settingId, string settingName)
+        private string GetFallbackGroupName(uint settingId, string settingName)
         {
+            if ((settingId & 0x70000000) == 0x70000000)
+                return "09 - Stereo";
+
+            if ((settingId & 0x20000000) == 0x20000000)
+                return "10 - OpenGL";
+
             if (settingName == null)
-                return null;
+                return "11 - Experimental and Unknown";
 
-            if (settingName.ToUpper().Contains("SLI"))
-                return "6 - SLI";
-            else if (settingName.ToUpper().Contains("STEREO"))
-                return "7 - Stereo";
-            else if (settingName.StartsWith("0x"))
-                return "Unknown";
-            else
-                return "Other";
+            var normalizedName = settingName.ToUpperInvariant();
 
+            if (normalizedName.Contains("STEREO"))
+                return "09 - Stereo";
+
+            if (normalizedName.Contains("OGL") || normalizedName.Contains("OPENGL"))
+                return "10 - OpenGL";
+
+            return "11 - Experimental and Unknown";
         }
+
         private bool GetIsApiExposed(uint settingId)
         {
             var driverMeta = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.DriverSettings);
