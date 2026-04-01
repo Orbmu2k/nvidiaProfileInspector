@@ -343,21 +343,21 @@
 			<UserfriendlyName>DLSS-FG - Full-Screen Menu Override Coverage Threshold (float)</UserfriendlyName>
 			<HexSettingID>0x104596A2</HexSettingID>
 			<GroupName>8 - Extra</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			0</MinRequiredDriverVersion>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Full-Screen Menu Override Alpha Threshold (float)</UserfriendlyName>
 			<HexSettingID>0x104596A3</HexSettingID>
 			<GroupName>8 - Extra</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			0</MinRequiredDriverVersion>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Forced Quality Level</UserfriendlyName>
 			<HexSettingID>0x10AFB768</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Performance</UserfriendlyName>
@@ -394,7 +394,7 @@
 			<UserfriendlyName>DLSS-RR - Forced Quality Level</UserfriendlyName>
 			<HexSettingID>0x10BD9423</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Performance</UserfriendlyName>
@@ -431,7 +431,7 @@
 			<UserfriendlyName>DLSS - Forced Scaling Ratio</UserfriendlyName>
 			<HexSettingID>0x10E41DF5</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>572.83</MinRequiredDriverVersion>
+			572.83</MinRequiredDriverVersion>
 			<Description>Set up 'DLSS - Forced Quality Level: Custom' before choosing the custom value.</Description>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1004,7 +1004,7 @@
 			<HexSettingID>0x104D6667</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>595.97</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -1037,7 +1037,7 @@
 			<UserfriendlyName>DLSS-FG - Forced Mode</UserfriendlyName>
 			<HexSettingID>0x10308298</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<Description>This sets up the mode for Frame Generation, Fixed mode uses the "Fixed Frame Generation Count" and Dynamic uses "Dynamic Frame Generation Count".</Description>
+			<Description>This sets up the mode for Frame Generation, Dynamic mode requires driver 595.97 or newer.</Description>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1059,7 +1059,7 @@
 			<UserfriendlyName>DLSS-MFG - Target Dynamic Frame Rate</UserfriendlyName>
 			<HexSettingID>0x10CF4125</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>595.97</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -2840,7 +2840,7 @@
 			<UserfriendlyName>DLSS-MFG - Dynamic Frame Generation Count</UserfriendlyName>
 			<HexSettingID>0x10562D0F</HexSettingID>
 			<GroupName>5 - Common</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>595.97</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -3446,6 +3446,7 @@
 			<UserfriendlyName>Shader Cache - Pre-compile Shader Options</UserfriendlyName>
 			<HexSettingID>0x00EAD189</HexSettingID>
 			<GroupName>5 - Common</GroupName>
+			<MinRequiredDriverVersion>595.97</MinRequiredDriverVersion>
 			<Description>This setting is NVIDIA Auto Shader Compilation, toggle it on to make CPU compile shaders while system is in idle, the settings controls how much system utilization this can take, from low to high.</Description>
 			<SettingValues>
 				<CustomSettingValue>
