@@ -1004,7 +1004,7 @@
 			<HexSettingID>0x104D6667</HexSettingID>
 			<GroupName>5 - Common</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<MinRequiredDriverVersion>595.97</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
