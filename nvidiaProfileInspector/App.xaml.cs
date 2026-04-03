@@ -47,6 +47,19 @@ namespace nvidiaProfileInspector
                 return;
             }
 
+            if (startupOptions.ExportCustomized)
+            {
+                base.OnStartup(e);
+                _bootstrapper = new AppBootstrapper();
+                _bootstrapper.Initialize();
+                var path = Path.Combine(
+                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                    $"CustomProfiles_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.nip");
+                _bootstrapper.Resolve<nvidiaProfileInspector.Common.DrsImportService>().ExportAllCustomizedProfiles(path);
+                Shutdown();
+                return;
+            }
+
             if (!HasArgument(e.Args, "-mock") && NvapiDrsWrapper.Instance.NvAPI_Initialize == null)
             {
                 MessageBoxViewModel.Show("No compatible NVIDIA GPU was detected on your system.", "NVIDIA Profile Inspector", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -149,7 +162,8 @@ namespace nvidiaProfileInspector
                 CreateCustomSettingNames = HasArgument(arguments, "-createCSN"),
                 ShowOnlyCustomizedSettings = HasArgument(arguments, "-showOnlyCSN"),
                 DisableInitialScan = HasArgument(arguments, "-disableScan"),
-                IsSilentMode = HasArgument(arguments, "-silentImport") || HasArgument(arguments, "-silent")
+                IsSilentMode = HasArgument(arguments, "-silentImport") || HasArgument(arguments, "-silent"),
+                ExportCustomized = HasArgument(arguments, "-exportCustomized")
             };
         }
 
@@ -351,6 +365,7 @@ namespace nvidiaProfileInspector
             public bool IsSilentMode { get; set; }
             public string[] NipFiles { get; set; } = Array.Empty<string>();
             public bool ShowOnlyCustomizedSettings { get; set; }
+            public bool ExportCustomized { get; set; }
             public bool HasImportFiles => NipFiles.Length > 0;
         }
     }
