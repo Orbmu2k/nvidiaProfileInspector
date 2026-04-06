@@ -9,30 +9,34 @@ namespace nvidiaProfileInspector.Common
 {
     public abstract class DrsSettingsServiceBase
     {
-        public static readonly float DriverVersion = GetDriverVersionInternal();
+        public static readonly float DriverVersion;
+        public static readonly string DriverBranch;
 
         protected DrsSettingsMetaService meta;
         protected DrsDecrypterService decrypter;
 
-        public DrsSettingsServiceBase(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService = null)
+        static DrsSettingsServiceBase()
         {
-            meta = metaService;
-            decrypter = decrpterService;
-        }
-
-        private static float GetDriverVersionInternal()
-        {
-            float result = 0f;
+            float version = 0f;
+            string branch = "";
             uint sysDrvVersion = 0;
             var sysDrvBranch = new StringBuilder((int)NvapiDrsWrapper.NVAPI_SHORT_STRING_MAX);
 
             if (nvw.Instance.SYS_GetDriverAndBranchVersion(ref sysDrvVersion, sysDrvBranch) == NvAPI_Status.NVAPI_OK)
             {
-                try { result = (float)(sysDrvVersion / 100f); }
+                try { version = (float)(sysDrvVersion / 100f); }
                 catch { }
+                branch = sysDrvBranch.ToString();
             }
 
-            return result;
+            DriverVersion = version;
+            DriverBranch = branch;
+        }
+
+        public DrsSettingsServiceBase(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService = null)
+        {
+            meta = metaService;
+            decrypter = decrpterService;
         }
 
         protected void DrsSession(Action<IntPtr> action, bool forceNonGlobalSession = false, bool preventLoadSettings = false)

@@ -193,6 +193,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
             set => SetProperty(ref _scanStatus, value, nameof(ScanStatus));
         }
 
+        private string _statusBarText = "";
+        public string StatusBarText
+        {
+            get => _statusBarText;
+            set => SetProperty(ref _statusBarText, value, nameof(StatusBarText));
+        }
+
         public bool ShowScannedUnknownSettings
         {
             get => _showScannedUnknownSettings;
@@ -413,6 +420,70 @@ namespace nvidiaProfileInspector.UI.ViewModels
             CurrentProfile = _profileNames.FirstOrDefault()?.ProfileName;
             OnPropertyChanged(nameof(IsGlobalProfile));
             OnPropertyChanged(nameof(ShowApplicationsArea));
+            UpdateStatusBarText();
+        }
+
+        private void UpdateStatusBarText()
+        {
+            try
+            {
+                var parts = new List<string>();
+
+                // Driver version and branch
+                var version = DrsSettingsServiceBase.DriverVersion;
+                var branch = DrsSettingsServiceBase.DriverBranch;
+                if (version > 0)
+                {
+                    var driverText = $"Driver: {version:0.00}";
+                    if (!string.IsNullOrEmpty(branch))
+                        driverText += $" ({branch})";
+                    parts.Add(driverText);
+                }
+
+                // Profile count
+                var profileCount = _settingService.GetTotalProfileCount();
+                parts.Add($"{profileCount} profiles");
+
+                // Known / total settings
+                var knownIds = new HashSet<uint>();
+                if (_metaService.CustomMeta != null)
+                    foreach (var id in _metaService.CustomMeta.GetSettingIds()) knownIds.Add(id);
+                if (_metaService.ReferenceMeta != null)
+                    foreach (var id in _metaService.ReferenceMeta.GetSettingIds()) knownIds.Add(id);
+                var cachedSettings = _scannerService.CachedSettings;
+                if (cachedSettings != null && cachedSettings.Count > 0)
+                {
+                    // Show total known settings loaded from all XMLs, known settings that are in use in profiles, and total number seen in profiles.
+                    var scannedIds = new HashSet<uint>(cachedSettings.Select(s => s.SettingId));
+                    var inUse = knownIds.Count(id => scannedIds.Contains(id));
+                    parts.Add($"{knownIds.Count} known settings ({inUse} in profiles / {scannedIds.Count} seen)");
+                }
+                else
+                {
+                    parts.Add($"{knownIds.Count} known settings");
+                }
+
+                // Try fetching OTA profile update datetime
+                var otaRelPath = @"NVIDIA Corporation\Drs\update.bin";
+                var otaCandidates = new[]
+                {
+                    @"C:\ProgramData\" + otaRelPath,
+                    Path.Combine(Environment.GetEnvironmentVariable("SystemDrive") ?? @"C:", @"ProgramData", otaRelPath),
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), otaRelPath),
+                };
+                var otaPath = otaCandidates.FirstOrDefault(File.Exists);
+                if (otaPath != null)
+                {
+                    var otaTime = File.GetLastWriteTime(otaPath);
+                    parts.Add($"Last OTA profile update: {otaTime.ToString("g")}");
+                }
+
+                StatusBarText = string.Join("  \u2022  ", parts);
+            }
+            catch
+            {
+                StatusBarText = "";
+            }
         }
 
         private void LoadSettings()
@@ -534,6 +605,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             DrsSessionScope.DestroyGlobalSession();
             FilterText = "";
             await ScanProfilesAsync(true);
+            UpdateStatusBarText();
         }
 
         private void RefreshProfilesCombo(string lastCurrentProfile)
