@@ -805,17 +805,66 @@
                                 Fill="{DynamicResource TextSecondaryBrush}"
                                 Stretch="Uniform" />
                             <!--  Update Badge  -->
-                            <Border
-                                Width="8"
-                                Height="8"
-                                Margin="0,-2,-2,0"
+                            <Grid
+                                Margin="0,-4,-4,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
-                                Background="{DynamicResource NvidiaGreenBrush}"
-                                BorderBrush="{DynamicResource WindowBackgroundBrush}"
-                                BorderThickness="1"
-                                CornerRadius="4"
-                                Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <!--  Ripple Effect  -->
+                                <Ellipse
+                                    Width="10"
+                                    Height="10"
+                                    Fill="{DynamicResource NvidiaGreenBrush}"
+                                    Opacity="0.4"
+                                    IsHitTestVisible="False"
+                                    RenderTransformOrigin="0.5,0.5">
+                                    <Ellipse.RenderTransform>
+                                        <ScaleTransform x:Name="RippleScale" ScaleX="1" ScaleY="1" />
+                                    </Ellipse.RenderTransform>
+                                    <Ellipse.Style>
+                                        <Style TargetType="Ellipse">
+                                            <Style.Triggers>
+                                                <Trigger Property="Visibility" Value="Visible">
+                                                    <Trigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard RepeatBehavior="Forever">
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                    To="2.5"
+                                                                    Duration="0:0:2.0" />
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                    To="2.5"
+                                                                    Duration="0:0:2.0" />
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="Opacity"
+                                                                    To="0"
+                                                                    Duration="0:0:2.0" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.EnterActions>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Ellipse.Style>
+                                </Ellipse>
+                                <!--  Core Dot  -->
+                                <Border
+                                    Width="10"
+                                    Height="10"
+                                    Background="{DynamicResource NvidiaGreenBrush}"
+                                    BorderBrush="{DynamicResource WindowBackgroundBrush}"
+                                    BorderThickness="1.5"
+                                    CornerRadius="5">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="8"
+                                            ShadowDepth="0"
+                                            Color="#76b900"
+                                            Opacity="0.8" />
+                                    </Border.Effect>
+                                </Border>
+                            </Grid>
                         </Grid>
                     </Button>
                 </StackPanel>
