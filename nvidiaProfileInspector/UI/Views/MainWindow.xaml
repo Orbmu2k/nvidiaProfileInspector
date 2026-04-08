@@ -910,6 +910,13 @@
 
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                             <controls:ActionBarToggleButton
+                                IconPath="{DynamicResource IconUser}"
+                                IsChecked="{Binding ShowUserChangedOnly}"
+                                Text="Modified"
+                                ToggledColor="{DynamicResource NvidiaGreenBrush}"
+                                ToolTip="Show only settings that have been changed by the user" />
+
+                            <controls:ActionBarToggleButton
                                 IconPath="{DynamicResource IconLab}"
                                 IsChecked="{Binding ShowScannedUnknownSettings}"
                                 Text="Lab"

@@ -44,6 +44,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private string _scanStatus = "";
         private bool _showCustomizedSettingsOnly;
         private bool _showScannedUnknownSettings;
+        private bool _showUserChangedOnly;
         private bool _isDevMode;
         private int _scanProgress;
         private bool _isScanning;
@@ -105,6 +106,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _profileNames.Add(new ProfileListItem("Sample Game Profile", false));
             _currentProfile = "Sample Game Profile";
             _showCustomizedSettingsOnly = true;
+            _showUserChangedOnly = false;
             _filterTypeIndex = 0;
 
             foreach (var item in DesignTimeData.SampleSettings)
@@ -207,6 +209,19 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 if (SetProperty(ref _showScannedUnknownSettings, value, nameof(ShowScannedUnknownSettings)))
                     RefreshCurrentProfileCommand.Execute(null);
+            }
+        }
+
+        public bool ShowUserChangedOnly
+        {
+            get => _showUserChangedOnly;
+            set
+            {
+                if (SetProperty(ref _showUserChangedOnly, value, nameof(ShowUserChangedOnly)))
+                {
+                    if (_groupedSettingsView != null)
+                        _groupedSettingsView.Filter = FilterPredicate;
+                }
             }
         }
 
@@ -554,11 +569,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private bool FilterPredicate(object obj)
         {
-            if (string.IsNullOrWhiteSpace(_filterText))
-                return true;
-
             if (obj is SettingItemViewModel item)
             {
+                if (_showUserChangedOnly && !item.IsUserDefined && !item.IsModified)
+                    return false;
+
+                if (string.IsNullOrWhiteSpace(_filterText))
+                    return true;
+
                 string nameToCheck = item.DisplayName ?? "";
                 string altNamesToCheck = item.AlternateNames ?? "";
 
