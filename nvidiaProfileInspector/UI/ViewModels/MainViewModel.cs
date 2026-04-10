@@ -12,6 +12,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Threading;
@@ -70,6 +71,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private bool _isCompactDensity;
         private string _currentBackdropMode = "Tabbed";
         private readonly bool _isWindows11 = Environment.OSVersion.Version.Build >= 22000;
+        private string _statusDriverText = "";
+        private string _statusProfilesText = "";
+        private string _statusSettingsText = "";
+        private string _statusOtaText = "";
+        private string _statusModeText = "";
 
         public MainViewModel(
             DrsSettingsMetaService metaService,
@@ -173,6 +179,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (SetProperty(ref _filterTypeIndex, value, nameof(FilterTypeIndex)))
                 {
                     _showCustomizedSettingsOnly = value == 0;
+                    UpdateStatusBarText();
                     RefreshCurrentProfileCommand.Execute(null);
                 }
             }
@@ -222,13 +229,25 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public int ScanProgress
         {
             get => _scanProgress;
-            set => SetProperty(ref _scanProgress, value, nameof(ScanProgress));
+            set
+            {
+                if (SetProperty(ref _scanProgress, value, nameof(ScanProgress)))
+                    OnPropertyChanged(nameof(ScanProgressText));
+            }
         }
 
         public bool IsScanning
         {
             get => _isScanning;
-            set => SetProperty(ref _isScanning, value, nameof(IsScanning));
+            set
+            {
+                if (SetProperty(ref _isScanning, value, nameof(IsScanning)))
+                {
+                    OnPropertyChanged(nameof(IsStatusFooterVisible));
+                    OnPropertyChanged(nameof(IsProgressFooterVisible));
+                    OnPropertyChanged(nameof(ScanProgressText));
+                }
+            }
         }
 
         public bool IsUpdateAvailable
@@ -237,7 +256,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
             set
             {
                 if (SetProperty(ref _isUpdateAvailable, value, nameof(IsUpdateAvailable)))
+                {
                     OnPropertyChanged(nameof(VersionText));
+                    OnPropertyChanged(nameof(StatusVersionText));
+                    OnPropertyChanged(nameof(StatusUpdateHintText));
+                }
             }
         }
 
@@ -280,10 +303,46 @@ namespace nvidiaProfileInspector.UI.ViewModels
             get
             {
                 var v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-                var ver = v != null ? $"v{v.Major}.{v.Minor}.{v.Build}.{v.Revision}" : "";
-                return _isUpdateAvailable ? $"{ver} (update available)" : ver;
+                return v != null ? $"v{v.Major}.{v.Minor}.{v.Build}.{v.Revision}" : "";
             }
         }
+
+        public bool IsStatusFooterVisible => !IsScanning;
+        public bool IsProgressFooterVisible => IsScanning;
+        public string ScanProgressText => IsScanning ? $"{ScanProgress}%" : "";
+        public string StatusDriverText
+        {
+            get => _statusDriverText;
+            set => SetProperty(ref _statusDriverText, value, nameof(StatusDriverText));
+        }
+
+        public string StatusProfilesText
+        {
+            get => _statusProfilesText;
+            set => SetProperty(ref _statusProfilesText, value, nameof(StatusProfilesText));
+        }
+
+        public string StatusSettingsText
+        {
+            get => _statusSettingsText;
+            set => SetProperty(ref _statusSettingsText, value, nameof(StatusSettingsText));
+        }
+
+        public string StatusOtaText
+        {
+            get => _statusOtaText;
+            set => SetProperty(ref _statusOtaText, value, nameof(StatusOtaText));
+        }
+
+        public string StatusModeText
+        {
+            get => _statusModeText;
+            set => SetProperty(ref _statusModeText, value, nameof(StatusModeText));
+        }
+
+        public string StatusVersionText => VersionText;
+        public string StatusUpdateHintText => "Update available";
+        public bool IsExternalCustomSettingsIndicatorVisible => App.Bootstrapper?.IsExternalCustomSettings ?? false;
 
         public bool IsAppearanceMenuOpen
         {
@@ -376,6 +435,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public ICommand SetThemeCommand { get; private set; }
         public ICommand SetDensityCommand { get; private set; }
         public ICommand SetBackdropModeCommand { get; private set; }
+        public ICommand ShowCustomSettingsOverrideInfoCommand { get; private set; }
 
         public event Action OnFocusFilter;
         public event Action<uint, uint, string> OnOpenBitEditor;
@@ -424,6 +484,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             SetThemeCommand = new RelayCommand(param => ApplyTheme(param as string));
             SetDensityCommand = new RelayCommand(param => ApplyDensity(param as string));
             SetBackdropModeCommand = new RelayCommand(param => ApplyBackdropMode(param as string));
+            ShowCustomSettingsOverrideInfoCommand = new RelayCommand(_ => ShowCustomSettingsOverrideInfo());
         }
 
         public async Task InitializeAsync(bool skipInitialScan = false)
@@ -455,15 +516,21 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 var branch = DrsSettingsServiceBase.DriverBranch;
                 if (version > 0)
                 {
-                    var driverText = $"Driver: {version:0.00}";
+                    var driverText = $"Driver: {version.ToString("0.00", CultureInfo.InvariantCulture)}";
                     if (!string.IsNullOrEmpty(branch))
                         driverText += $" ({branch})";
                     parts.Add(driverText);
+                    StatusDriverText = driverText;
+                }
+                else
+                {
+                    StatusDriverText = "Driver unavailable";
                 }
 
                 // Profile count
                 var profileCount = _settingService.GetTotalProfileCount();
                 parts.Add($"{profileCount} profiles");
+                StatusProfilesText = $"{profileCount} profiles";
 
                 // Known / total settings
                 var knownIds = new HashSet<uint>();
@@ -477,12 +544,18 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     // Show total known settings loaded from all XMLs, known settings that are in use in profiles, and total number seen in profiles.
                     var scannedIds = new HashSet<uint>(cachedSettings.Select(s => s.SettingId));
                     var inUse = knownIds.Count(id => scannedIds.Contains(id));
-                    parts.Add($"{knownIds.Count} known settings ({inUse} in profiles / {scannedIds.Count} seen)");
+                    var settingsText = $"{knownIds.Count} known ({inUse} in profiles / {scannedIds.Count} seen)";
+                    parts.Add(settingsText);
+                    StatusSettingsText = settingsText;
                 }
                 else
                 {
-                    parts.Add($"{knownIds.Count} known settings");
+                    var settingsText = $"{knownIds.Count} known settings";
+                    parts.Add(settingsText);
+                    StatusSettingsText = settingsText;
                 }
+
+                StatusModeText = IsExternalCustomSettingsIndicatorVisible ? "CSN file override" : "";
 
                 // Try fetching OTA profile update datetime
                 var otaRelPath = @"NVIDIA Corporation\Drs\update.bin";
@@ -496,7 +569,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (otaPath != null)
                 {
                     var otaTime = File.GetLastWriteTime(otaPath);
-                    parts.Add($"Last OTA profile update: {otaTime.ToString("g")}");
+                    var otaText = $"OTA {otaTime:g}";
+                    parts.Add($"Last OTA profile update: {otaTime:g}");
+                    StatusOtaText = otaText;
+                }
+                else
+                {
+                    StatusOtaText = "OTA unknown";
                 }
 
                 StatusBarText = string.Join("  \u2022  ", parts);
@@ -504,6 +583,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
             catch
             {
                 StatusBarText = "";
+                StatusDriverText = "";
+                StatusProfilesText = "";
+                StatusSettingsText = "";
+                StatusOtaText = "";
+                StatusModeText = "";
             }
         }
 
@@ -1406,6 +1490,22 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 dialog.Owner = owner;
 
             dialog.ShowDialog();
+        }
+
+        private void ShowCustomSettingsOverrideInfo()
+        {
+            MessageBoxEx.Show(
+                "CustomSettingNames.xml is being loaded from the application directory instead of the embedded default resource.\r\n\r\n" +
+                "This usually means the custom setting metadata has been overridden locally. That can be intentional, but it also means names, groups, descriptions, and values may be older than the build you are running.\r\n\r\n" +
+                "Possible consequences:\r\n" +
+                "- outdated or mismatched setting names\r\n" +
+                "- stale descriptions or value labels\r\n" +
+                "- missing newly embedded settings or metadata fixes\r\n" +
+                "- grouping differences compared to the embedded defaults\r\n\r\n" +
+                "If that is not intended, remove or rename the external CustomSettingNames.xml in the app folder so the embedded resource is used again.",
+                "Custom Settings Override",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
         }
 
         private async Task ScanProfilesAsync(bool onlyModified = false)

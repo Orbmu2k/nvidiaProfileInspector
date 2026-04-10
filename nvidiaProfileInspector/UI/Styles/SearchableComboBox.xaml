@@ -71,8 +71,6 @@
 
                         <TextBox
                             x:Name="PART_EditableTextBox"
-                            MinLines="1"
-                            MaxLines="1"
                             Margin="8,0,30,0"
                             Padding="4,0"
                             HorizontalAlignment="Stretch"
@@ -81,12 +79,14 @@
                             BorderThickness="0"
                             CaretBrush="{TemplateBinding Foreground}"
                             Foreground="{TemplateBinding Foreground}"
-                            VerticalScrollBarVisibility="Hidden"
                             HorizontalScrollBarVisibility="Hidden"
+                            MaxLines="1"
+                            MinLines="1"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
                             Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="NoWrap"
+                            VerticalScrollBarVisibility="Hidden"
                             Visibility="Collapsed" />
 
                         <TextBlock
@@ -94,9 +94,9 @@
                             Margin="14,0,30,0"
                             VerticalAlignment="Center"
                             IsHitTestVisible="False"
+                            Text="{TemplateBinding Text}"
                             TextTrimming="CharacterEllipsis"
-                            TextWrapping="NoWrap"
-                            Text="{TemplateBinding Text}" />
+                            TextWrapping="NoWrap" />
 
                         <Popup
                             x:Name="Popup"
@@ -119,8 +119,8 @@
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8"
-                                    TextOptions.TextFormattingMode="Display"
-                                    RenderOptions.ClearTypeHint="Enabled">
+                                    RenderOptions.ClearTypeHint="Enabled"
+                                    TextOptions.TextFormattingMode="Display">
                                     <Grid FocusManager.IsFocusScope="True">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -193,18 +193,18 @@
                                         <ContentPresenter Grid.Column="1" VerticalAlignment="Center" />
                                     </Grid>
                                 </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
-                                        </Trigger>
-                                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
-                                        </Trigger>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />
-                                            <Setter Property="FontWeight" Value="SemiBold" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource HoverOverlayBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -282,8 +282,8 @@
                                     BorderBrush="{DynamicResource ControlBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8"
-                                    TextOptions.TextFormattingMode="Display"
-                                    RenderOptions.ClearTypeHint="Enabled">
+                                    RenderOptions.ClearTypeHint="Enabled"
+                                    TextOptions.TextFormattingMode="Display">
                                     <Grid FocusManager.IsFocusScope="True">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />

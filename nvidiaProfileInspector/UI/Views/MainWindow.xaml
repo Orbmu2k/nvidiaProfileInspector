@@ -94,42 +94,6 @@
                         FontWeight="Bold"
                         Foreground="{DynamicResource TitleBrush}"
                         Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" />
-                    <!--  Version (static, when no update)  -->
-                    <TextBlock
-                        Margin="8,3,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="11"
-                        Foreground="{DynamicResource TextSecondaryBrush}"
-                        Text="{Binding VersionText}"
-                        Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}" />
-                    <!--  Version as link (when update available)  -->
-                    <Button
-                        Margin="8,3,0,0"
-                        Padding="0"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Command="{Binding ShowAboutCommand}"
-                        Cursor="Hand"
-                        ToolTip="New version available — click for details"
-                        Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}"
-                        WindowChrome.IsHitTestVisibleInChrome="True">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <TextBlock
-                                    x:Name="txt"
-                                    FontSize="11"
-                                    Foreground="{DynamicResource NvidiaGreenBrush}"
-                                    Text="{Binding VersionText}"
-                                    TextDecorations="Underline" />
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="txt" Property="Opacity" Value="0.7" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
                 </StackPanel>
             </controls:TitleBar.LeftContent>
 
@@ -911,8 +875,8 @@
                                     Width="10"
                                     Height="10"
                                     Fill="{DynamicResource NvidiaGreenBrush}"
-                                    Opacity="0.4"
                                     IsHitTestVisible="False"
+                                    Opacity="0.4"
                                     RenderTransformOrigin="0.5,0.5">
                                     <Ellipse.RenderTransform>
                                         <ScaleTransform x:Name="RippleScale" ScaleX="1" ScaleY="1" />
@@ -955,9 +919,9 @@
                                     <Border.Effect>
                                         <DropShadowEffect
                                             BlurRadius="8"
+                                            Opacity="0.8"
                                             ShadowDepth="0"
-                                            Color="#76b900"
-                                            Opacity="0.8" />
+                                            Color="#76b900" />
                                     </Border.Effect>
                                 </Border>
                             </Grid>
@@ -1341,11 +1305,11 @@
                                                     Padding="8,4"
                                                     HorizontalAlignment="Stretch"
                                                     Cursor=""
+                                                    DeferSelectionUntilCommit="True"
                                                     IsEditable="True"
                                                     ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
                                                     MaxDropDownHeight="400"
                                                     Placeholder="Search values..."
-                                                    DeferSelectionUntilCommit="True"
                                                     PreserveSelectionOnKeyboardFocus="True"
                                                     SyncSelectedItemToText="False"
                                                     Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -1483,27 +1447,110 @@
                 <!--  Footer / Progress  -->
                 <Border
                     Grid.Row="4"
-                    Padding="8,4"
+                    Padding="10,6"
                     Background="{DynamicResource Layer1BackgroundBrush}">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <ProgressBar
-                            Grid.Row="0"
-                            VerticalAlignment="Center"
-                            Maximum="100"
-                            Style="{StaticResource DarkProgressBarStyle}"
-                            Value="{Binding ScanProgress}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Margin="0,4,0,0"
-                            FontSize="11"
-                            Foreground="{DynamicResource TextSecondaryBrush}"
-                            Opacity="0.7"
-                            Text="{Binding StatusBarText}"
-                            TextTrimming="CharacterEllipsis" />
+                        <Grid Visibility="{Binding IsProgressFooterVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Center"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource NvidiaGreenBrush}"
+                                Text="Scanning profiles" />
+                            <ProgressBar
+                                Grid.Column="1"
+                                Height="12"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Center"
+                                Maximum="100"
+                                Style="{StaticResource DarkProgressBarStyle}"
+                                Value="{Binding ScanProgress}" />
+                            <TextBlock
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                Text="{Binding ScanProgressText}" />
+                        </Grid>
+                        <Grid Visibility="{Binding IsStatusFooterVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    Content="{Binding StatusDriverText}"
+                                    Cursor="Arrow"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource TextPrimaryBrush}"
+                                    IsHitTestVisible="False"
+                                    IsTabStop="False"
+                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                <Button
+                                    Content="{Binding StatusProfilesText}"
+                                    Cursor="Arrow"
+                                    IsHitTestVisible="False"
+                                    IsTabStop="False"
+                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                <Button
+                                    Content="{Binding StatusSettingsText}"
+                                    Cursor="Arrow"
+                                    IsHitTestVisible="False"
+                                    IsTabStop="False"
+                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                <Button
+                                    Content="{Binding StatusOtaText}"
+                                    Cursor="Arrow"
+                                    IsHitTestVisible="False"
+                                    IsTabStop="False"
+                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                <Button
+                                    Margin="0,0,10,0"
+                                    Click="CustomSettingsOverrideChip_Click"
+                                    Content="{Binding StatusModeText}"
+                                    Style="{StaticResource WarningStatusChipButtonStyle}"
+                                    Visibility="{Binding IsExternalCustomSettingsIndicatorVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <Button.ToolTip>
+                                        <ToolTip Content="Custom settings are loaded from an external CustomSettingNames.xml file" />
+                                    </Button.ToolTip>
+                                </Button>
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Column="2"
+                                Margin="12,0,0,0"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    Margin="0,0,10,0"
+                                    Content="{Binding StatusVersionText}"
+                                    Cursor="Arrow"
+                                    FontSize="12"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource TextPrimaryBrush}"
+                                    IsHitTestVisible="False"
+                                    IsTabStop="False"
+                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                <Button
+                                    Margin="0"
+                                    Command="{Binding ShowAboutCommand}"
+                                    Content="{Binding StatusUpdateHintText}"
+                                    Style="{StaticResource AccentStatusChipButtonStyle}"
+                                    Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </Border>
             </Grid>

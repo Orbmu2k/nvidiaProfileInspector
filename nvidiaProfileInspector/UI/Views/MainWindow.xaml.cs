@@ -237,6 +237,22 @@ namespace nvidiaProfileInspector.UI.Views
             _viewModel.SaveSettings(Left, Top, Width, Height, WindowState);
         }
 
+        private void CustomSettingsOverrideChip_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxEx.Show(
+                "CustomSettingNames.xml is being loaded from the application directory instead of the embedded default resource.\r\n\r\n" +
+                "This means the custom setting metadata has been overridden locally. That can be intentional, but names, groups, descriptions, and values may no longer match the embedded defaults shipped with this build.\r\n\r\n" +
+                "Possible consequences:\r\n" +
+                "- outdated or mismatched setting names\r\n" +
+                "- stale descriptions or value labels\r\n" +
+                "- missing newer embedded settings or metadata fixes\r\n" +
+                "- grouping differences compared to the embedded defaults\r\n\r\n" +
+                "If that is not intended, remove or rename the external CustomSettingNames.xml in the application folder so the embedded resource is used again.",
+                "Custom Settings Override",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+
         private void RegisterMainWindowNativeDrop(IntPtr handle)
         {
             if (_mainWindowNativeDropRegistered || handle == IntPtr.Zero)
