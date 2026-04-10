@@ -24,9 +24,10 @@ namespace nvidiaProfileInspector.Common.Meta
         private Dictionary<ESetting, Type> CreateSettingEnumTypeCache()
         {
             var result = new Dictionary<ESetting, Type>();
+            var driverSettingsNamespace = typeof(ESetting).Namespace;
 
             var drsEnumTypes = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.Namespace == "nspector.Native.NvApi.DriverSettings"
+                .Where(t => t.Namespace == driverSettingsNamespace
                     && t.IsEnum && t.Name.StartsWith("EValues_")).ToList();
 
             var settingIdNames = Enum.GetNames(typeof(ESetting)).Distinct().ToList();
