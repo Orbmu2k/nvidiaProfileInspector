@@ -11,10 +11,10 @@ namespace nvidiaProfileInspector.Common
     {
 
         private ISettingMetaService ConstantMeta;
-        private ISettingMetaService CustomMeta;
+        public ISettingMetaService CustomMeta;
         public ISettingMetaService DriverMeta;
         private ISettingMetaService ScannedMeta;
-        private ISettingMetaService ReferenceMeta;
+        public ISettingMetaService ReferenceMeta;
 
         private readonly CustomSettingNames _customSettings;
         private readonly CustomSettingNames _referenceSettings;

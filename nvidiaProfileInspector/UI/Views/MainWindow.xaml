@@ -1334,14 +1334,27 @@
                 <!--  Footer / Progress  -->
                 <Border
                     Grid.Row="4"
-                    Padding="8,8"
+                    Padding="8,4"
                     Background="{DynamicResource Layer1BackgroundBrush}">
                     <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
                         <ProgressBar
+                            Grid.Row="0"
                             VerticalAlignment="Center"
                             Maximum="100"
                             Style="{StaticResource DarkProgressBarStyle}"
                             Value="{Binding ScanProgress}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Margin="0,4,0,0"
+                            FontSize="11"
+                            Foreground="{DynamicResource TextSecondaryBrush}"
+                            Opacity="0.7"
+                            Text="{Binding StatusBarText}"
+                            TextTrimming="CharacterEllipsis" />
                     </Grid>
                 </Border>
             </Grid>

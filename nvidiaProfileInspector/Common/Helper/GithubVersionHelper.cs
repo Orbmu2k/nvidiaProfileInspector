@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -8,8 +9,7 @@ namespace nvidiaProfileInspector.Common.Helper
 {
     public static class GithubVersionHelper
     {
-        // Check latest release info (ignores pre-release versions)
-        private const string _repoUrl = "https://api.github.com/repos/Orbmu2k/nvidiaProfileInspector/releases/latest";
+        private const string _releasesUrl = "https://api.github.com/repos/Orbmu2k/nvidiaProfileInspector/releases";
 
         public static async Task<bool> IsUpdateAvailableAsync()
         {
@@ -21,23 +21,47 @@ namespace nvidiaProfileInspector.Common.Helper
                 httpClient.Timeout = TimeSpan.FromSeconds(10);
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "nvidiaProfileInspector/" + currentVersion.ToString());
 
-                var response = await httpClient.GetAsync(_repoUrl);
+                var response = await httpClient.GetAsync(_releasesUrl);
                 if (!response.IsSuccessStatusCode)
                     return false;
 
                 var content = await response.Content.ReadAsStringAsync();
 
-                var tagName = ExtractJsonString(content, "tag_name");
+                var releases = ParseReleases(content);
 
-                if (string.IsNullOrEmpty(tagName))
-                    return false;
-
-                var versionString = tagName.TrimStart('v').Trim();
-
-                if (Version.TryParse(versionString, out Version latestVersion))
+                // Check if the current version matches a pre-release tag
+                bool currentIsPreRelease = false;
+                bool foundRelease = false;
+                foreach (var release in releases)
                 {
-                    return latestVersion > currentVersion;
+                    if (release.Version != null && release.Version.Equals(currentVersion))
+                    {
+                        currentIsPreRelease = release.IsPreRelease;
+                        foundRelease = true;
+                        break;
+                    }
                 }
+
+                if(!foundRelease)
+                {
+                    // Failed to find this version as a release, treat it as a pre-release version.
+                    currentIsPreRelease = true;
+                }
+
+                // Find the latest version; include pre-releases only if current is a pre-release
+                Version latestVersion = null;
+                foreach (var release in releases)
+                {
+                    if (release.Version == null)
+                        continue;
+                    if (!currentIsPreRelease && release.IsPreRelease)
+                        continue;
+                    if (latestVersion == null || release.Version > latestVersion)
+                        latestVersion = release.Version;
+                }
+
+                if (latestVersion != null)
+                    return latestVersion > currentVersion;
 
                 return false;
             }
@@ -47,23 +71,31 @@ namespace nvidiaProfileInspector.Common.Helper
             }
         }
 
-        private static string ExtractJsonString(string json, string fieldName)
+        private static List<(Version Version, bool IsPreRelease)> ParseReleases(string json)
         {
-            var pattern = $"\"{fieldName}\"\\s*:\\s*\"([^\"\\\\]*(\\\\.[^\"\\\\]*)*)\"";
-            var match = Regex.Match(json, pattern);
+            var releases = new List<(Version Version, bool IsPreRelease)>();
 
-            if (match.Success)
+            var tagMatches = Regex.Matches(json, "\"tag_name\"\\s*:\\s*\"([^\"\\\\]*(\\\\.[^\"\\\\]*)*)\"");
+            var prereleaseMatches = Regex.Matches(json, "\"prerelease\"\\s*:\\s*(true|false)");
+
+            var count = Math.Min(tagMatches.Count, prereleaseMatches.Count);
+            for (int i = 0; i < count; i++)
             {
-                var value = match.Groups[1].Value;
-                value = value.Replace("\\\"", "\"");
-                value = value.Replace("\\\\", "\\");
-                value = value.Replace("\\n", "\n");
-                value = value.Replace("\\r", "\r");
-                value = value.Replace("\\t", "\t");
-                return value;
+                var tagName = tagMatches[i].Groups[1].Value.TrimStart('v').Trim();
+                var isPreRelease = prereleaseMatches[i].Groups[1].Value == "true";
+
+                if (Version.TryParse(tagName, out Version version))
+                {
+                    // Normalize 3-part versions (e.g. 3.0.0) to 4-part (3.0.0.0)
+                    // so they compare correctly with the assembly version
+                    if (version.Revision == -1)
+                        version = new Version(version.Major, version.Minor, version.Build, 0);
+
+                    releases.Add((version, isPreRelease));
+                }
             }
 
-            return null;
+            return releases;
         }
     }
 }

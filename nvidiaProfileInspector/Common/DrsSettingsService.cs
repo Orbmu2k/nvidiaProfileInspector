@@ -176,6 +176,11 @@ namespace nvidiaProfileInspector.Common
             return profileName;
         }
 
+        public int GetTotalProfileCount()
+        {
+            return DrsSession((hSession) => EnumProfileHandles(hSession).Count);
+        }
+
         public List<string> GetProfileNames(ref string baseProfileName)
         {
             var lstResult = new List<string>();
