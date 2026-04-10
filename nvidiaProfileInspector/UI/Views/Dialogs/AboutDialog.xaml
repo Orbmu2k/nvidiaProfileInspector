@@ -156,7 +156,7 @@
             Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
             <Border
                 Padding="16,12"
-                Background="#2A3026"
+                Background="{DynamicResource ApplicationAddBrush}"
                 BorderBrush="{DynamicResource NvidiaGreenBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
@@ -201,8 +201,15 @@
 
         <!--  Contributors Section  -->
         <Border Grid.Row="3" Padding="24,0,24,24">
-            <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
                 <Border
+                    Grid.Row="0"
                     Margin="0,16,0,8"
                     Padding="12"
                     Background="{DynamicResource Layer2BackgroundBrush}"
@@ -221,76 +228,83 @@
                 </Border>
 
                 <TextBlock
-                    Margin="0,16,0,12"
+                    Grid.Row="1"
+                    Margin="0,12,0,10"
                     FontSize="11"
                     FontWeight="Bold"
                     Foreground="{DynamicResource TextSecondaryBrush}"
                     Text="CONTRIBUTORS" />
 
-                <ItemsControl ItemsSource="{Binding Contributors}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border
-                                Margin="0,0,0,8"
-                                Padding="12"
-                                Background="{DynamicResource Layer2BackgroundBrush}"
-                                BorderBrush="{DynamicResource ControlBorderBrush}"
-                                BorderThickness="1"
-                                CornerRadius="8">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                <ScrollViewer
+                    Grid.Row="2"
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled"
+                    CanContentScroll="True">
+                    <ItemsControl ItemsSource="{Binding Contributors}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Margin="0,0,0,6"
+                                    Padding="10"
+                                    Background="{DynamicResource Layer2BackgroundBrush}"
+                                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <Border
-                                        Grid.Column="0"
-                                        Width="40"
-                                        Height="40"
-                                        Margin="0,0,12,0"
-                                        Background="#333"
-                                        CornerRadius="20">
-                                        <Border ClipToBounds="True" CornerRadius="20">
-                                            <Image
-                                                Width="40"
-                                                Height="40"
-                                                Source="{Binding AvatarUrl}"
-                                                Stretch="UniformToFill" />
+                                        <Border
+                                            Grid.Column="0"
+                                            Width="32"
+                                            Height="32"
+                                            Margin="0,0,10,0"
+                                            Background="#333"
+                                            CornerRadius="16">
+                                            <Border ClipToBounds="True" CornerRadius="16">
+                                                <Image
+                                                    Width="32"
+                                                    Height="32"
+                                                    Source="{Binding AvatarUrl}"
+                                                    Stretch="UniformToFill" />
+                                            </Border>
                                         </Border>
-                                    </Border>
 
-                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                        <TextBlock
-                                            FontSize="14"
-                                            FontWeight="SemiBold"
-                                            Foreground="{DynamicResource TextPrimaryBrush}"
-                                            Text="{Binding Name}" />
-                                        <TextBlock
-                                            FontSize="12"
-                                            Foreground="{DynamicResource TextSecondaryBrush}"
-                                            Text="{Binding Role}" />
-                                    </StackPanel>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock
+                                                FontSize="13"
+                                                FontWeight="SemiBold"
+                                                Foreground="{DynamicResource TextPrimaryBrush}"
+                                                Text="{Binding Name}" />
+                                            <TextBlock
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                                Text="{Binding Role}" />
+                                        </StackPanel>
 
-                                    <Button
-                                        Grid.Column="2"
-                                        Command="{Binding DataContext.OpenContributorProfileCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                        CommandParameter="{Binding ProfileUrl}"
-                                        Style="{StaticResource IconButtonStyle}"
-                                        ToolTip="View Profile">
-                                        <Path
-                                            Width="16"
-                                            Height="16"
-                                            Data="{DynamicResource IconUser}"
-                                            Fill="{DynamicResource TextSecondaryBrush}"
-                                            Stretch="Uniform" />
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+                                        <Button
+                                            Grid.Column="2"
+                                            Command="{Binding DataContext.OpenContributorProfileCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding ProfileUrl}"
+                                            Style="{StaticResource IconButtonStyle}"
+                                            ToolTip="View Profile">
+                                            <Path
+                                                Width="16"
+                                                Height="16"
+                                                Data="{DynamicResource IconUser}"
+                                                Fill="{DynamicResource TextSecondaryBrush}"
+                                                Stretch="Uniform" />
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
         </Border>
 
         <!--  Footer / Buttons  -->
