@@ -1490,42 +1490,46 @@
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
                                 <Button
+                                    Margin="0,0,10,0"
+                                    Click="CustomSettingsOverrideChip_Click"
+                                    Content="{Binding StatusModeText}"
+                                    Style="{StaticResource WarningStatusChipButtonStyle}"
+                                    Visibility="{Binding StatusModeText, Converter={StaticResource StringNotEmptyToVisibilityConverter}}"
+                                    WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <Button.ToolTip>
+                                        <ToolTip Content="Custom settings are loaded from an external CustomSettingNames.xml file" />
+                                    </Button.ToolTip>
+                                </Button>
+                                <Button
                                     Content="{Binding StatusDriverText}"
                                     Cursor="Arrow"
                                     FontWeight="SemiBold"
                                     Foreground="{DynamicResource TextPrimaryBrush}"
                                     IsHitTestVisible="False"
                                     IsTabStop="False"
-                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                    Style="{StaticResource StatusChipButtonStyle}"
+                                    Visibility="{Binding StatusDriverText, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
                                 <Button
                                     Content="{Binding StatusProfilesText}"
                                     Cursor="Arrow"
                                     IsHitTestVisible="False"
                                     IsTabStop="False"
-                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                    Style="{StaticResource StatusChipButtonStyle}"
+                                    Visibility="{Binding StatusProfilesText, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
                                 <Button
                                     Content="{Binding StatusSettingsText}"
                                     Cursor="Arrow"
                                     IsHitTestVisible="False"
                                     IsTabStop="False"
-                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                    Style="{StaticResource StatusChipButtonStyle}"
+                                    Visibility="{Binding StatusSettingsText, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
                                 <Button
                                     Content="{Binding StatusOtaText}"
                                     Cursor="Arrow"
                                     IsHitTestVisible="False"
                                     IsTabStop="False"
-                                    Style="{StaticResource StatusChipButtonStyle}" />
-                                <Button
-                                    Margin="0,0,10,0"
-                                    Click="CustomSettingsOverrideChip_Click"
-                                    Content="{Binding StatusModeText}"
-                                    Style="{StaticResource WarningStatusChipButtonStyle}"
-                                    Visibility="{Binding IsExternalCustomSettingsIndicatorVisible, Converter={StaticResource BoolToVisibilityConverter}}"
-                                    WindowChrome.IsHitTestVisibleInChrome="True">
-                                    <Button.ToolTip>
-                                        <ToolTip Content="Custom settings are loaded from an external CustomSettingNames.xml file" />
-                                    </Button.ToolTip>
-                                </Button>
+                                    Style="{StaticResource StatusChipButtonStyle}"
+                                    Visibility="{Binding StatusOtaText, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
                             </StackPanel>
                             <StackPanel
                                 Grid.Column="2"
@@ -1541,7 +1545,8 @@
                                     Foreground="{DynamicResource TextPrimaryBrush}"
                                     IsHitTestVisible="False"
                                     IsTabStop="False"
-                                    Style="{StaticResource StatusChipButtonStyle}" />
+                                    Style="{StaticResource StatusChipButtonStyle}"
+                                    Visibility="{Binding StatusVersionText, Converter={StaticResource StringNotEmptyToVisibilityConverter}}" />
                                 <Button
                                     Margin="0"
                                     Command="{Binding ShowAboutCommand}"

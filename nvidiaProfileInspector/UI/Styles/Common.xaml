@@ -224,6 +224,7 @@
                             FontSize="{TemplateBinding FontSize}"
                             FontWeight="{TemplateBinding FontWeight}"
                             Foreground="{TemplateBinding Foreground}"
+                            IsHitTestVisible="False"
                             Text="{TemplateBinding Content}" />
                     </Border>
                     <ControlTemplate.Triggers>
