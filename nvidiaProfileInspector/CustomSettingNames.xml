@@ -1571,6 +1571,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x000F00BA</HexSettingID>
 			<Description>Enables or disables profile-controlled Resizable BAR behavior.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
+			<AlternateNames>ReBAR - Enable, Resizable Bar - Enable</AlternateNames>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Disabled</UserfriendlyName>
@@ -1587,6 +1588,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x000F00BB</HexSettingID>
 			<Description>Defines the primary Resizable BAR option bitfield used by the driver.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
+			<AlternateNames>ReBAR - Options, Resizable Bar - Options</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
@@ -1594,6 +1596,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x00E942FC</HexSettingID>
 			<Description>Stores the Intel CPU exclusion mask used by the Resizable BAR policy logic.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
+			<AlternateNames>ReBAR - Intel CPU Exclusion, Resizable Bar - Intel CPU Exclusion</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
@@ -1601,6 +1604,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x000F00FF</HexSettingID>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<Description>Default Size Limit value for most of the whitelisted games is '1GB', some games MAY benefit of a higher size bar.</Description>
+			<AlternateNames>ReBAR - Size Limit, Resizable Bar - Size Limit</AlternateNames>
 			<DataType>BINARY</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1650,6 +1654,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x000F00BE</HexSettingID>
 			<Description>Stores auxiliary Resizable BAR driver flags for advanced compatibility handling.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
+			<AlternateNames>ReBAR - Flags (0x000F00BE), Resizable Bar - Flags (0x000F00BE)</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
@@ -1657,6 +1662,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x000F00BF</HexSettingID>
 			<Description>Stores secondary Resizable BAR driver flags for advanced compatibility handling.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
+			<AlternateNames>ReBAR - Flags (0x000F00BF), Resizable Bar - Flags (0x000F00BF)</AlternateNames>
 			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
@@ -8371,6 +8377,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x20324987</HexSettingID>
 			<Description>Controls auxiliary flags for the Vulkan and OpenGL presentation method.</Description>
 			<GroupName>02 - Sync and Refresh</GroupName>
+			<AlternateNames>OGL_DX_PRESENT_DEBUG</AlternateNames>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
