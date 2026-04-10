@@ -1,47 +1,46 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Clean White Theme - Neutral high-contrast light mode  -->
+    <!--  Uses graphite and slate grays for interaction states to align with the lighter variants  -->
 
-    <!--  NVIDIA Corporate Slate Light Theme - Fluent 2 Design  -->
-    <!--  Clean, professional slate gray tones with NVIDIA green accents  -->
-
-    <!--  Base Colors - Slate inspired with subtle warmth  -->
-    <Color x:Key="WindowBackgroundColor">#F5F6F8</Color>
+    <!--  Base Colors - Ultra clean white with sharp borders  -->
+    <Color x:Key="WindowBackgroundColor">#FFFFFF</Color>
     <Color x:Key="Layer1BackgroundColor">#FFFFFF</Color>
-    <Color x:Key="Layer2BackgroundColor">#F0F2F5</Color>
-    <Color x:Key="Layer3BackgroundColor">#E8EAED</Color>
+    <Color x:Key="Layer2BackgroundColor">#F3F4F6</Color>
+    <Color x:Key="Layer3BackgroundColor">#E5E7EB</Color>
     <Color x:Key="TitleBarBackgroundColor">#FFFFFF</Color>
     <Color x:Key="TitleBarBackdropColor">#22FFFFFF</Color>
-    <Color x:Key="TitleBarControlBackgroundColor">#EEF9FAFB</Color>
-    <Color x:Key="TitleBarControlHoverBackgroundColor">#F8FCFCFD</Color>
-    <Color x:Key="TitleBarControlBorderColor">#AFC7CCD3</Color>
-    <Color x:Key="TitleBarControlBorderHoverColor">#C89CA3AF</Color>
+    <Color x:Key="TitleBarControlBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="TitleBarControlHoverBackgroundColor">#F3F4F6</Color>
+    <Color x:Key="TitleBarControlBorderColor">#D1D5DB</Color>
+    <Color x:Key="TitleBarControlBorderHoverColor">#9CA3AF</Color>
     <Color x:Key="TitleBarPopupBackgroundColor">#FAFFFFFF</Color>
 
-    <!--  NVIDIA Green Brand Colors  -->
-    <Color x:Key="NvidiaGreenColor">#66A900</Color>
-    <Color x:Key="NvidiaGreenHoverColor">#8AD400</Color>
-    <Color x:Key="NvidiaGreenPressedColor">#659F00</Color>
+    <!--  Brand Colors - Keep a restrained green for indicators, with neutral grays for interaction states  -->
+    <Color x:Key="NvidiaGreenColor">#76B900</Color>
+    <Color x:Key="NvidiaGreenHoverColor">#9CA3AF</Color>
+    <Color x:Key="NvidiaGreenPressedColor">#6B7280</Color>
 
-    <!--  Text Colors - Refined slate grays  -->
-    <Color x:Key="TitleColor">#1A1D21</Color>
-    <Color x:Key="TextPrimaryColor">#1A1D21</Color>
-    <Color x:Key="TextSecondaryColor">#5C6470</Color>
+    <!--  Text Colors - Deep Graphite for maximum legibility and contrast against white and green  -->
+    <Color x:Key="TitleColor">#111827</Color>
+    <Color x:Key="TextPrimaryColor">#1F2937</Color>
+    <Color x:Key="TextSecondaryColor">#4B5563</Color>
     <Color x:Key="TextDisabledColor">#9CA3AF</Color>
 
-    <!--  Accent Colors - Professional blue for secondary accents  -->
+    <!--  Accent Colors - Distinct Web Blue for Global/User identities to contrast the Nvidia Green  -->
     <Color x:Key="UserAccentColor">#0078D4</Color>
-    <Color x:Key="UserAccentHoverColor">#005A9E</Color>
+    <Color x:Key="UserAccentHoverColor">#0099FF</Color>
 
-    <!--  Control Border Colors - Subtle slate tones  -->
+    <!--  Control Border Colors - Sharp contrast dividing lines  -->
     <Color x:Key="ControlBorderColor">#D1D5DB</Color>
     <Color x:Key="ControlBorderHoverColor">#9CA3AF</Color>
-    <Color x:Key="AccentBorderColor">#76B900</Color>
+    <Color x:Key="AccentBorderColor">#9CA3AF</Color>
 
-    <!--  Status Colors  -->
-    <Color x:Key="SuccessColor">#059669</Color>
-    <Color x:Key="ErrorColor">#DC2626</Color>
+    <!--  Status Colors - Modern sharp  -->
+    <Color x:Key="SuccessColor">#10B981</Color>
+    <Color x:Key="ErrorColor">#EF4444</Color>
     <Color x:Key="WarningColor">#F59E0B</Color>
-    <Color x:Key="QuestionColor">#0078D4</Color>
-    <Color x:Key="LabColor">#C239B3</Color>
+    <Color x:Key="QuestionColor">#3B82F6</Color>
+    <Color x:Key="LabColor">#6B7280</Color>
 
     <!--  Brushes  -->
     <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}" />
@@ -51,11 +50,12 @@
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackgroundColor}" />
     <SolidColorBrush x:Key="TitleBarBackdropBrush" Color="{StaticResource TitleBarBackdropColor}" />
     <SolidColorBrush x:Key="TitleBarControlBackgroundBrush" Color="{StaticResource TitleBarControlBackgroundColor}" />
-    <SolidColorBrush x:Key="TitleBarControlHoverBackgroundBrush" Color="{StaticResource TitleBarControlHoverBackgroundColor}" />
+    <SolidColorBrush x:Key="TitleBarControlHoverBackgroundBrush" Color="{StaticResource TitleBarControlBorderColor}" />
     <SolidColorBrush x:Key="TitleBarControlBorderBrush" Color="{StaticResource TitleBarControlBorderColor}" />
     <SolidColorBrush x:Key="TitleBarControlBorderHoverBrush" Color="{StaticResource TitleBarControlBorderHoverColor}" />
     <SolidColorBrush x:Key="TitleBarPopupBackgroundBrush" Color="{StaticResource TitleBarPopupBackgroundColor}" />
 
+    <!--  Keep the base indicator green while hover and pressed states stay neutral  -->
     <SolidColorBrush x:Key="NvidiaGreenBrush" Color="{StaticResource NvidiaGreenColor}" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource UserAccentColor}" />
     <SolidColorBrush x:Key="UserAccentBrush" Color="{StaticResource UserAccentColor}" />
@@ -78,22 +78,23 @@
     <SolidColorBrush x:Key="QuestionBrush" Color="{StaticResource QuestionColor}" />
     <SolidColorBrush x:Key="LabBrush" Color="{StaticResource LabColor}" />
 
-    <!--  Overlay / Transparency Brushes - Slate tinted  -->
+    <!--  Overlay / Transparency Brushes - Match the Slate light variant  -->
     <SolidColorBrush x:Key="HighlightOverlayBrush" Color="#081A1D21" />
     <SolidColorBrush x:Key="HoverOverlayBrush" Color="#0A1A1D21" />
     <SolidColorBrush x:Key="PressedOverlayBrush" Color="#141A1D21" />
 
-    <!--  Scrollbar Colors  -->
+    <!--  Scrollbar Colors - Match the Slate light transparency treatment  -->
     <SolidColorBrush x:Key="ScrollBarThumbBrush" Color="#201A1D21" />
     <SolidColorBrush x:Key="ScrollBarThumbHoverBrush" Color="#301A1D21" />
     <SolidColorBrush x:Key="ScrollBarThumbPressedBrush" Color="#451A1D21" />
 
     <!--  Special Purpose Brushes  -->
     <SolidColorBrush x:Key="ApplicationRemoveBrush" Color="#FEF2F2" />
-    <SolidColorBrush x:Key="ApplicationRemoveForegroundBrush" Color="#1A1D21" />
+    <SolidColorBrush x:Key="ApplicationRemoveForegroundBrush" Color="#EF4444" />
     <SolidColorBrush x:Key="ApplicationAddBrush" Color="#ECFDF5" />
-    <SolidColorBrush x:Key="ApplicationAddHoverBrush" Color="#D1FAE5" />
+    <SolidColorBrush x:Key="ApplicationAddHoverBrush" Color="#D1D5DB" />
     <SolidColorBrush x:Key="ListViewAlternatingRowBrush" Color="#F9FAFB" />
-    <SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#223B82F6" />
+    <!--  Modified setting background: Neutral highlight to match the other light variants  -->
+    <SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#14111827" />
 
 </ResourceDictionary>

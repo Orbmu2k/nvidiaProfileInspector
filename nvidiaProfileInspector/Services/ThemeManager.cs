@@ -10,13 +10,15 @@ namespace nvidiaProfileInspector.Services
     public class ThemeManager
     {
         private const string DarkTheme = "DarkTheme.xaml";
-        private const string LightTheme = "LightTheme.xaml";
         private const string SlateLightTheme = "SlateLightTheme.xaml";
+        private const string MidnightTheme = "MidnightTheme.xaml";
+        private const string CleanWhiteTheme = "CleanWhiteTheme.xaml";
 
         private static readonly string[] ValidThemes = {
             DarkTheme,
-            LightTheme,
-            SlateLightTheme
+            SlateLightTheme,
+            MidnightTheme,
+            CleanWhiteTheme
         };
 
         private static readonly string[] ValidDensities = { "Modern", "Compact" };

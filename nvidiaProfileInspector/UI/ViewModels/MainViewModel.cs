@@ -64,6 +64,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private bool _isAppearanceMenuOpen;
         private DateTime _appearanceMenuClosedAt = DateTime.MinValue;
         private bool _isDarkTheme = true;
+        private bool _isMidnightTheme;
+        private bool _isCleanWhiteTheme;
+        private bool _isSlateTheme;
         private bool _isCompactDensity;
         private string _currentBackdropMode = "Tabbed";
         private readonly bool _isWindows11 = Environment.OSVersion.Version.Build >= 22000;
@@ -301,6 +304,24 @@ namespace nvidiaProfileInspector.UI.ViewModels
             set => SetProperty(ref _isDarkTheme, value, nameof(IsDarkTheme));
         }
 
+        public bool IsMidnightTheme
+        {
+            get => _isMidnightTheme;
+            set => SetProperty(ref _isMidnightTheme, value, nameof(IsMidnightTheme));
+        }
+
+        public bool IsSlateTheme
+        {
+            get => _isSlateTheme;
+            set => SetProperty(ref _isSlateTheme, value, nameof(IsSlateTheme));
+        }
+
+        public bool IsCleanWhiteTheme
+        {
+            get => _isCleanWhiteTheme;
+            set => SetProperty(ref _isCleanWhiteTheme, value, nameof(IsCleanWhiteTheme));
+        }
+
         public bool IsCompactDensity
         {
             get => _isCompactDensity;
@@ -496,12 +517,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (App.Bootstrapper != null)
             {
                 var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
-                _isDarkTheme = themeManager.IsDarkTheme;
+                UpdateThemeProperties(themeManager);
                 _isCompactDensity = themeManager.IsCompactDensity;
             }
 
             RefreshBackdropMode();
         }
+
+
 
         private void SaveFavorites()
         {
@@ -1279,15 +1302,27 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
+        private void UpdateThemeProperties(ThemeManager themeManager)
+        {
+            IsDarkTheme = themeManager.CurrentTheme == "DarkTheme.xaml";
+            IsMidnightTheme = themeManager.CurrentTheme == "MidnightTheme.xaml";
+            IsSlateTheme = themeManager.CurrentTheme == "SlateLightTheme.xaml";
+            IsCleanWhiteTheme = themeManager.CurrentTheme == "CleanWhiteTheme.xaml";
+        }
+
         private void ApplyTheme(string theme)
         {
             if (string.IsNullOrEmpty(theme) || App.Bootstrapper == null)
                 return;
 
             var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
-            var themeName = theme == "Dark" ? "DarkTheme.xaml" : "SlateLightTheme.xaml";
+            var themeName = "DarkTheme.xaml";
+            if (theme == "Midnight") themeName = "MidnightTheme.xaml";
+            else if (theme == "Slate") themeName = "SlateLightTheme.xaml";
+            else if (theme == "CleanWhite") themeName = "CleanWhiteTheme.xaml";
+            
             themeManager.SetTheme(themeName);
-            IsDarkTheme = themeManager.IsDarkTheme;
+            UpdateThemeProperties(themeManager);
             RefreshCurrentProfile();
         }
 
