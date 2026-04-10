@@ -1158,13 +1158,24 @@
                         <!--  Setting Types  -->
                         <ComboBox
                             Grid.Column="1"
-                            Width="155"
+                            Width="190"
                             Margin="12,0,0,0"
                             SelectedIndex="{Binding FilterTypeIndex}"
-                            Style="{StaticResource DarkComboBoxStyle}"
                             ToolTip="Filter settings by type">
+                            <ComboBox.Style>
+                                <Style BasedOn="{StaticResource DarkComboBoxStyle}" TargetType="ComboBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FilterTypeIndex}" Value="2">
+                                            <Setter Property="BorderBrush" Value="{DynamicResource WarningBrush}" />
+                                            <Setter Property="BorderThickness" Value="2" />
+                                            <Setter Property="ToolTip" Value="User modified filter is active. Only settings with a user-defined profile override or a currently unsaved edit are shown." />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
                             <ComboBoxItem Content="Common Settings" />
                             <ComboBoxItem Content="Show All Settings" />
+                            <ComboBoxItem Content="User Modified Settings" />
                         </ComboBox>
                     </Grid>
 

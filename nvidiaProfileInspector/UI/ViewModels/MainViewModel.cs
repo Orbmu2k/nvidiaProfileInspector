@@ -43,7 +43,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private string _applicationsText = "";
         private string _settingDescription = "";
         private string _scanStatus = "";
-        private bool _showCustomizedSettingsOnly;
         private bool _showScannedUnknownSettings;
         private bool _isDevMode;
         private int _scanProgress;
@@ -113,7 +112,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _profileNames.Add(new ProfileListItem(DrsSettingsService.GlobalProfileName, false));
             _profileNames.Add(new ProfileListItem("Sample Game Profile", false));
             _currentProfile = "Sample Game Profile";
-            _showCustomizedSettingsOnly = true;
             _filterTypeIndex = 0;
 
             foreach (var item in DesignTimeData.SampleSettings)
@@ -178,8 +176,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 if (SetProperty(ref _filterTypeIndex, value, nameof(FilterTypeIndex)))
                 {
-                    _showCustomizedSettingsOnly = value == 0;
-                    UpdateStatusBarText();
                     RefreshCurrentProfileCommand.Execute(null);
                 }
             }
@@ -594,9 +590,10 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void LoadSettings()
         {
             var settings = Common.Helper.UserSettings.LoadSettings();
-            _showCustomizedSettingsOnly = settings.ShowCustomizedSettingNamesOnly;
             _showScannedUnknownSettings = settings.ShowScannedUnknownSettings;
-            _filterTypeIndex = _showCustomizedSettingsOnly ? 0 : 1;
+            _filterTypeIndex = settings.SettingsFilterMode >= 0
+                ? settings.SettingsFilterMode
+                : 0;
 
             if (App.Bootstrapper != null)
             {
@@ -630,7 +627,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             settings.WindowWidth = (int)width;
             settings.WindowHeight = (int)height;
             settings.WindowState = state;
-            settings.ShowCustomizedSettingNamesOnly = _showCustomizedSettingsOnly;
+            settings.SettingsFilterMode = _filterTypeIndex;
             settings.ShowScannedUnknownSettings = _showScannedUnknownSettings;
 
             if (NvapiDrsWrapper.Instance.IsMockMode)
@@ -661,11 +658,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private bool FilterPredicate(object obj)
         {
-            if (string.IsNullOrWhiteSpace(_filterText))
-                return true;
-
             if (obj is SettingItemViewModel item)
             {
+                if (_filterTypeIndex == 2 && !item.IsUserDefined && !item.IsModified)
+                    return false;
+
+                if (string.IsNullOrWhiteSpace(_filterText))
+                    return true;
+
                 string nameToCheck = item.DisplayName ?? "";
                 string altNamesToCheck = item.AlternateNames ?? "";
 
@@ -698,7 +698,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private SettingViewMode GetSettingViewMode()
         {
-            if (_showCustomizedSettingsOnly)
+            if (_filterTypeIndex == 0)
                 return SettingViewMode.CustomSettingsOnly;
             if (_showScannedUnknownSettings)
                 return SettingViewMode.IncludeScannedSetttings;
@@ -813,11 +813,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 _groupedSettingsView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(SettingItemViewModel.GroupNameForDisplay)));
                 _groupedSettingsView.Filter = FilterPredicate;
                 OnPropertyChanged(nameof(GroupedSettingsView));
-                Debug.WriteLine("Initialized GroupedSettingsView");
+            }
+            else
+            {
+                _groupedSettingsView.Filter = FilterPredicate;
+                OnPropertyChanged(nameof(GroupedSettingsView));
             }
 
-            
-            for(var i = 0; i < Settings.Count; i++)
+
+            for (var i = 0; i < Settings.Count; i++)
             {
                 Settings[i].IsModified = false;
             }

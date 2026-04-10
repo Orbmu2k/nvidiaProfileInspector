@@ -20,7 +20,7 @@ namespace nvidiaProfileInspector.Common.Helper
 
         public WindowState WindowState { get; set; }
 
-        public bool ShowCustomizedSettingNamesOnly { get; set; } = true;
+        public int SettingsFilterMode { get; set; } = -1;
 
         public bool ShowScannedUnknownSettings { get; set; } = false;
 

@@ -75,6 +75,7 @@
     <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}" />
     <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
+    <SolidColorBrush x:Key="WarningTintBrush" Color="#33FFB800" />
     <SolidColorBrush x:Key="QuestionBrush" Color="{StaticResource QuestionColor}" />
     <SolidColorBrush x:Key="LabBrush" Color="{StaticResource LabColor}" />
 
