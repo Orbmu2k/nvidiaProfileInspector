@@ -90,13 +90,15 @@
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-                    <Setter Property="Padding" Value="12,8" />
+                    <Setter Property="Padding" Value="{DynamicResource ComboBoxItemPadding}" />
+                    <Setter Property="Margin" Value="{DynamicResource ComboBoxItemMargin}" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ComboBoxItem">
                                 <Border
                                     x:Name="border"
                                     Padding="{TemplateBinding Padding}"
+                                    Margin="{TemplateBinding Margin}"
                                     Background="{TemplateBinding Background}"
                                     CornerRadius="4">
                                     <ContentPresenter VerticalAlignment="Center" />

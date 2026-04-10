@@ -94,6 +94,8 @@ namespace nvidiaProfileInspector.Services
 
             app.Resources["ListItemPadding"] = compact ? new Thickness(2, 1, 2, 1) : new Thickness(4, 4, 4, 4);
             app.Resources["ListItemMargin"] = compact ? new Thickness(0, 1, 0, 1) : new Thickness(0, 2, 0, 2);
+            app.Resources["ComboBoxItemPadding"] = compact ? new Thickness(12, 5, 12, 5) : new Thickness(12, 8, 12, 8);
+            app.Resources["ComboBoxItemMargin"] = compact ? new Thickness(2, 0, 2, 0) : new Thickness(2, 1, 2, 1);
             app.Resources["GroupHeaderOuterMargin"] = compact ? new Thickness(0, 4, 0, 2) : new Thickness(0, 8, 0, 4);
             app.Resources["GroupHeaderPadding"] = compact ? new Thickness(4, 2, 4, 4) : new Thickness(4, 4, 4, 8);
             app.Resources["GroupItemsPresenterMargin"] = compact ? new Thickness(8, 2, 8, 2) : new Thickness(8, 4, 8, 4);

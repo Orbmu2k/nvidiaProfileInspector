@@ -101,7 +101,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -872,7 +871,7 @@
 			<UserfriendlyName>Indicator Vertical Sync</UserfriendlyName>
 			<HexSettingID>0x00280880</HexSettingID>
 			<Description>Toggle Fullscreen Indicator on or off / Manage other indicator add-ons</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -967,7 +966,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1088,7 +1086,7 @@
 			<UserfriendlyName>Vertical Sync Expr Behaviors</UserfriendlyName>
 			<HexSettingID>0x80857A28</HexSettingID>
 			<Description>Collect usage statistics</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -1914,7 +1912,6 @@
 			<HexSettingID>0x100D51F7</HexSettingID>
 			<Description>Specifies denylisting combinations for Ansel. Set this per-game.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
-			<Hidden>true</Hidden>
 			<DataType>STRING</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -1924,7 +1921,6 @@
 			<Description>Determines if Ansel is allowed to be loaded and activated offline without the need for any network checks.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1961,7 +1957,6 @@
 			<Description>Controls the predefined driver behavior associated with "Leftcolorfilter0". This setting affects rendering features, post-processing, or image pipeline behavior.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -1971,7 +1966,6 @@
 			<Description>Controls the predefined driver behavior associated with "Leftcolorfilter1". This setting affects rendering features, post-processing, or image pipeline behavior.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -1981,7 +1975,6 @@
 			<Description>Controls the predefined driver behavior associated with "Linecodecolor". This setting affects rendering features, post-processing, or image pipeline behavior.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -1992,7 +1985,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -2051,7 +2043,6 @@
 			<Description>Controls the predefined driver behavior associated with "Rightcolorfilter0". This setting affects rendering features, post-processing, or image pipeline behavior.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -2061,7 +2052,6 @@
 			<Description>Controls the predefined driver behavior associated with "Rightcolorfilter1". This setting affects rendering features, post-processing, or image pipeline behavior.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -2130,7 +2120,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x200EF1B9 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x200EF1B9</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x200EF1B9". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2142,9 +2131,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x20105454 (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - VirtualProtect WriteWatch Heap Lock</UserfriendlyName>
 			<HexSettingID>0x20105454</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20105454". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Controls heap locking for the OpenGL VirtualProtect WriteWatch performance strategy.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2162,7 +2151,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x201067FA (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x201067FA</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x201067FA". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2176,7 +2164,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x201067FB (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x201067FB</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x201067FB". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2326,7 +2313,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x201F7CE2 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x201F7CE2</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x201F7CE2". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2380,7 +2366,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20244EA6 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20244EA6</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20244EA6". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2462,7 +2447,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x202717DD (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x202717DD</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x202717DD". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2540,9 +2524,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x202ED4BA (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - ZCull Flags</UserfriendlyName>
 			<HexSettingID>0x202ED4BA</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x202ED4BA". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Controls OpenGL ZCull behavior flags for layered resources, context switching, and depth-format handling.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2606,7 +2590,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20301FD6 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20301FD6</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20301FD6". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2708,7 +2691,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x2033F75B (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x2033F75B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x2033F75B". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2730,7 +2712,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20350A3C (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20350A3C</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20350A3C". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2742,9 +2723,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x20394A56 (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - Disabled MSAA Depth Sampling Method</UserfriendlyName>
 			<HexSettingID>0x20394A56</HexSettingID>
-			<Description>Sets the depth (Z) sampling method for multisampling buffers when the multisampling is disabled.\nWhen using single-sample depth buffers or when multisampling is enabled, this setting is ignored by hardware.</Description>
+			<Description>Selects the depth (Z) sampling method used for multisample buffers when multisampling is disabled.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2760,9 +2741,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x203A0819 (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - Multi-GPU Support Bits</UserfriendlyName>
 			<HexSettingID>0x203A0819</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x203A0819". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Controls OpenGL multi-GPU support flags and synchronization behavior.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<DataType>BINARY</DataType>
 			<SettingValues />
@@ -2892,7 +2873,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x2047516A (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x2047516A</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x2047516A". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2922,9 +2902,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x204A5341 (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - GPU Disconnect Message Box</UserfriendlyName>
 			<HexSettingID>0x204A5341</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x204A5341". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Controls WGL message-box behavior when the OpenGL GPU disconnect path is hit.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -2994,7 +2974,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20523DCF (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20523DCF</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20523DCF". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3078,7 +3057,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x2058BC06 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x2058BC06</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x2058BC06". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3118,7 +3096,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x2062AF0C (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x2062AF0C</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x2062AF0C". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3172,7 +3149,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x206F6E1B (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x206F6E1B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x206F6E1B". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3186,7 +3162,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x206F6E1C (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x206F6E1C</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x206F6E1C". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3200,7 +3175,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x206F6E1D (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x206F6E1D</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x206F6E1D". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3232,7 +3206,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20784B74 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20784B74</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20784B74". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3246,7 +3219,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20784B75 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20784B75</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20784B75". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3260,7 +3232,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x207AB856 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x207AB856</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x207AB856". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3274,7 +3245,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x207F057E (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x207F057E</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x207F057E". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3324,9 +3294,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x2082C57D (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - VirtualProtect WriteWatch</UserfriendlyName>
 			<HexSettingID>0x2082C57D</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x2082C57D". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Controls the OpenGL VirtualProtect WriteWatch performance strategy.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3426,9 +3396,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x2089A332 (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - ZCull Performance Strategy Mode</UserfriendlyName>
 			<HexSettingID>0x2089A332</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x2089A332". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Selects the ZCull mode used by the OpenGL performance strategy.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3656,9 +3626,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x209765AF (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>Vulkan - Depth/Stencil Compute Copy Override</UserfriendlyName>
 			<HexSettingID>0x209765AF</HexSettingID>
-			<Description>Controls whether we override aspect's VK_IMAGE_ASPECT_STENCIL_BIT to set When choosing a path to fulfill VkCmdCopyImage call with on VK_IMAGE_ASPECT_DEPTH_BIT set in aspect and at least one of the source image and destination image in depth/stencil interleaved format. When enabled, we actually use compute copy to copy both depth component and stencil component for better performance. Make sure not breaking application's functionality before enable this.</Description>
+			<Description>Controls whether Vulkan depth/stencil image copies use a compute path to copy interleaved depth and stencil data together.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3712,7 +3682,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x209E7D4A (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x209E7D4A</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x209E7D4A". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3726,7 +3695,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x209E7D4B (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x209E7D4B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x209E7D4B". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3740,7 +3708,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20A03B11 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20A03B11</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20A03B11". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3772,7 +3739,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20A3D20D (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20A3D20D</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20A3D20D". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3832,9 +3798,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x20A84C92 (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - Window-Based Render GPU Selection</UserfriendlyName>
 			<HexSettingID>0x20A84C92</HexSettingID>
-			<Description>When ON, the default render GPU for same-quadro HW configs is determined by position of the window associated with the HDC passed to SetPixelFormat. When OFF, or when not a same-quadro HW config, the default is determined by OGL_IMPLICIT_GPU_AFFINITY. The use of gpu_affinity always overrides the default. This feature is exposed on vista and newer.</Description>
+			<Description>Selects the default OpenGL render GPU from the window position for same-Quadro hardware configurations.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -3854,9 +3820,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x20AB097B (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - WGL Abort Behavior</UserfriendlyName>
 			<HexSettingID>0x20AB097B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20AB097B". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Selects how WGL handles fatal abort paths.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4006,7 +3972,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20B5F2B2 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20B5F2B2</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20B5F2B2". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4038,7 +4003,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20BABA5A (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20BABA5A</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20BABA5A". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4052,7 +4016,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20BAC892 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20BAC892</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20BAC892". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4066,7 +4029,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20BADA12 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20BADA12</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20BADA12". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4564,9 +4526,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x20C732A2 (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>Vulkan - Expose Texture Dirty Tile Map Extension</UserfriendlyName>
 			<HexSettingID>0x20C732A2</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20C732A2". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Controls exposure of the VK_NV_texture_dirty_tile_map extension.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4584,7 +4546,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20C7A9D3 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20C7A9D3</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20C7A9D3". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4612,7 +4573,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20CA3E21 (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20CA3E21</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20CA3E21". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4626,7 +4586,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20CC604B (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20CC604B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20CC604B". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4640,7 +4599,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20CD42DF (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20CD42DF</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20CD42DF". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4654,7 +4612,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20D0CE3C (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20D0CE3C</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20D0CE3C". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4860,9 +4817,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x20D5B86D (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - Swap Group Control</UserfriendlyName>
 			<HexSettingID>0x20D5B86D</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20D5B86D". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Controls OpenGL swap-group behavior, including WDDM barrier binding and fullscreen flipping policy.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4894,9 +4851,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x20D6CE25 (OpenGL)</UserfriendlyName>
+			<UserfriendlyName>OpenGL - Texture Host Copy Skip Flags</UserfriendlyName>
 			<HexSettingID>0x20D6CE25</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20D6CE25". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
+			<Description>Controls flags for skipping host-side texture copies during OpenGL texture allocation.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -4936,7 +4893,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20D95F5B (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20D95F5B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20D95F5B". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -5172,7 +5128,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20F995AB (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20F995AB</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20F995AB". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -5212,7 +5167,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x20FEAF0D (OpenGL)</UserfriendlyName>
 			<HexSettingID>0x20FEAF0D</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0x20FEAF0D". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -5226,7 +5180,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0xB0CAD70F (OpenGL)</UserfriendlyName>
 			<HexSettingID>0xB0CAD70F</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "OpenGL Setting 0xB0CAD70F". This setting affects driver scheduling, memory policy, compute behavior, or system-level feature control.</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -5596,7 +5549,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -5688,7 +5640,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -5958,7 +5909,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -5996,7 +5946,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6016,7 +5965,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6054,7 +6002,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6234,7 +6181,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6320,7 +6266,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6366,7 +6311,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6434,7 +6378,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6472,7 +6415,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6506,7 +6448,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -6782,7 +6723,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -7366,6 +7306,7 @@
 			<Description>Map() of staging buffer without DISCARD or NO_OVERWRITE is a problem unless we can map cached copy.  Smaller values can cause uncached maps to stall but larger values incur lots of memcpy() overhead.  Testing has found 8kb to be a sensible tradeoff (Outlook in sensitive to larger values). SLI uses a minimum value of 4mb.</Description>
 			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -7434,7 +7375,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>526.47</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -7695,6 +7635,7 @@
 			<Description>Disable SLI (Explicitly set through NVAPI)</Description>
 			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -9826,7 +9767,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -10236,8 +10176,9 @@
 			<UserfriendlyName>Slimosaic Control</UserfriendlyName>
 			<HexSettingID>0x00F713BC</HexSettingID>
 			<Description>Control strategies used to improve Mosaic and Surround performance</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -10311,14 +10252,22 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x701EB457 (Stereo)</UserfriendlyName>
+			<UserfriendlyName>Stereo - Profile Enable</UserfriendlyName>
 			<HexSettingID>0x701EB457</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereo Setting 0x701EB457". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Enables or disables the NVIDIA stereo profile path.</Description>
 			<GroupName>09 - Stereo</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
-			<SettingValues />
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Stereo - VR Support Flags</UserfriendlyName>
@@ -10354,7 +10303,6 @@
 		<CustomSetting>
 			<UserfriendlyName>0x70D76B8F (Stereo)</UserfriendlyName>
 			<HexSettingID>0x70D76B8F</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereo Setting 0x70D76B8F". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
 			<GroupName>09 - Stereo</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<Hidden>true</Hidden>
@@ -10914,12 +10862,11 @@
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Laserxadjust</UserfriendlyName>
+			<UserfriendlyName>Stereo - Laser Sight X Offset</UserfriendlyName>
 			<HexSettingID>0x7057E831</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Laserxadjust". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Adjusts the horizontal position of the stereo laser sight overlay.</Description>
 			<GroupName>09 - Stereo</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
+			<OverrideDefault>0x3F800000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -11089,12 +11036,11 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Laseryadjust</UserfriendlyName>
+			<UserfriendlyName>Stereo - Laser Sight Y Offset</UserfriendlyName>
 			<HexSettingID>0x70225308</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Laseryadjust". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Adjusts the vertical position of the stereo laser sight overlay.</Description>
 			<GroupName>09 - Stereo</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
+			<OverrideDefault>0x3F800000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -11360,7 +11306,6 @@
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>425.31</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -11961,12 +11906,11 @@
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Stereoconvergence</UserfriendlyName>
+			<UserfriendlyName>Stereo - Convergence</UserfriendlyName>
 			<HexSettingID>0x708DB8C5</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereoconvergence". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Sets the stereo convergence distance as a floating-point value.</Description>
 			<GroupName>09 - Stereo</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
+			<OverrideDefault>0x40800000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -12158,12 +12102,11 @@
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Stereocutoff</UserfriendlyName>
+			<UserfriendlyName>Stereo - Cutoff Mode</UserfriendlyName>
 			<HexSettingID>0x709A1DDF</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereocutoff". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Selects which stereo cutoff depth limit is used.</Description>
 			<GroupName>09 - Stereo</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
+			<OverrideDefault>0x00000001</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -12177,22 +12120,20 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Stereocutoffdepthfar</UserfriendlyName>
+			<UserfriendlyName>Stereo - Cutoff Far Depth</UserfriendlyName>
 			<HexSettingID>0x70ADD220</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereocutoffdepthfar". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Sets the far stereo cutoff depth as a floating-point value.</Description>
 			<GroupName>09 - Stereo</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
+			<OverrideDefault>0x461C4000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Stereocutoffdepthnear</UserfriendlyName>
+			<UserfriendlyName>Stereo - Cutoff Near Depth</UserfriendlyName>
 			<HexSettingID>0x7050E011</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereocutoffdepthnear". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Sets the near stereo cutoff depth as a floating-point value.</Description>
 			<GroupName>09 - Stereo</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
+			<OverrideDefault>0x3F800000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -12267,12 +12208,11 @@
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Stereoflagsdx10</UserfriendlyName>
+			<UserfriendlyName>Stereo - DX10 Compute Flags</UserfriendlyName>
 			<HexSettingID>0x702442FC</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereoflagsdx10". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Controls DX10 stereo compute handling flags.</Description>
 			<GroupName>09 - Stereo</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -12395,14 +12335,22 @@
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Stereomemoenabled</UserfriendlyName>
+			<UserfriendlyName>Stereo - Memoization</UserfriendlyName>
 			<HexSettingID>0x707F4B45</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereomemoenabled". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Enables or disables stereo memoization.</Description>
 			<GroupName>09 - Stereo</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
+			<OverrideDefault>0x00000001</OverrideDefault>
 			<DataType>DWORD</DataType>
-			<SettingValues />
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>Stereomiscflags</UserfriendlyName>
@@ -12575,12 +12523,11 @@
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Stereotextureenable</UserfriendlyName>
+			<UserfriendlyName>Stereo - Texture Flags</UserfriendlyName>
 			<HexSettingID>0x70EDB381</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereotextureenable". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Controls stereo texture allocation, separation, and depth-buffer handling flags.</Description>
 			<GroupName>09 - Stereo</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
+			<OverrideDefault>0x00000023</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -12694,12 +12641,11 @@
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Stereousematrix</UserfriendlyName>
+			<UserfriendlyName>Stereo - Matrix Correction</UserfriendlyName>
 			<HexSettingID>0x70E34A78</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Stereousematrix". This setting affects stereo rendering behavior or stereo-specific compatibility logic.</Description>
+			<Description>Selects whether stereo matrix correction is used for halo-type rendering issues.</Description>
 			<GroupName>09 - Stereo</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -13105,8 +13051,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00031DFE (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00031DFE</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00031DFE". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13120,7 +13065,7 @@
 			<UserfriendlyName>Experimental - Way to choose CBV bind mechanism</UserfriendlyName>
 			<HexSettingID>0x00035AED</HexSettingID>
 			<Description>Way to choose CBV bind mechanism.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13157,8 +13102,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x0007E67D (Unknown)</UserfriendlyName>
 			<HexSettingID>0x0007E67D</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x0007E67D". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13171,8 +13115,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x000BC863 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x000BC863</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x000BC863". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13185,8 +13128,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x000C0584 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x000C0584</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x000C0584". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13199,8 +13141,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x000C0585 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x000C0585</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x000C0585". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13213,8 +13154,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x000EF432 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x000EF432</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x000EF432". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13228,7 +13168,7 @@
 			<UserfriendlyName>Experimental - The number of bytes in ring buffer per D3D11 immediate context</UserfriendlyName>
 			<HexSettingID>0x00110999</HexSettingID>
 			<Description>The number of bytes in ring buffer per D3D11 immediate context.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13239,10 +13179,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x0011099A (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Aftermath - Forced Disable Flags Mask</UserfriendlyName>
 			<HexSettingID>0x0011099A</HexSettingID>
-			<Description>Enabling a bit in this mask guarantees that the corresponding flag in AFTERMATH_FLAGS will be force-disabled. This disable happens after all other flag-setting logic and will override all preceding settings.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Masks NVIDIA Aftermath flags so selected flags are force-disabled after other flag selection logic runs.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13260,7 +13200,7 @@
 			<UserfriendlyName>Experimental - The WAR, which means it will set NV_PGRAPH_PRI_GPCS_TC_FLUSH_CRETERION = 1(END_OF_CBE)</UserfriendlyName>
 			<HexSettingID>0x00120513</HexSettingID>
 			<Description>ENABLE the WAR, which means it will set NV_PGRAPH_PRI_GPCS_TC_FLUSH_CRETERION = 1(END_OF_CBE).</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13278,7 +13218,7 @@
 			<UserfriendlyName>Experimental - Specify the sysmem heap in which to allocate the pushbuffer</UserfriendlyName>
 			<HexSettingID>0x0012FA6F</HexSettingID>
 			<Description>Specify the sysmem heap in which to allocate the pushbuffer.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13296,7 +13236,7 @@
 			<UserfriendlyName>Experimental - Root Table Promotion Timing</UserfriendlyName>
 			<HexSettingID>0x00132A94</HexSettingID>
 			<Description>Controls when the we promote descriptor table entries to the root table</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13325,8 +13265,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00172ABF (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00172ABF</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00172ABF". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13340,7 +13279,7 @@
 			<UserfriendlyName>Experimental - Shader Disk Cache Directory</UserfriendlyName>
 			<HexSettingID>0x00199FFF</HexSettingID>
 			<Description>If specified, shader disk cache will be stored in this directory</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<DataType>STRING</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -13348,7 +13287,7 @@
 			<UserfriendlyName>Experimental - The amount of VA space in bytes reserved for the shader heap</UserfriendlyName>
 			<HexSettingID>0x001ABC0F</HexSettingID>
 			<Description>Sets the amount of VA space in bytes reserved for the shader heap (must be in multiple of 64kb). This is only on Win10+ for Dx1X &amp; Dx12 ( Dx1X requires SHADER_HEAP_MULTIBLOCK_ENABLE ). There are separate default enums for DX11 and DX12 (DX12 requires additional space for DXR shaders) which should be selected at runtime</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13374,7 +13313,7 @@
 			<UserfriendlyName>Experimental - Constant Tracking Volatility Threshold</UserfriendlyName>
 			<HexSettingID>0x001B026A</HexSettingID>
 			<Description>if our volatility factor exceeds this threshold, stop tracking the const</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13388,7 +13327,7 @@
 			<UserfriendlyName>Experimental - Comma-separated list of scheduler names</UserfriendlyName>
 			<HexSettingID>0x001F0EDE</HexSettingID>
 			<Description>Comma-separated list of scheduler names, corrseponding to the list of shader names specified by DXR_RAYGEN_SCHEDULER_OVERRIDE_PATTERNS. If fewer elements than pattern list, last entry is used for remaining patterns.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<DataType>STRING</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -13396,7 +13335,7 @@
 			<UserfriendlyName>Experimental - Applies OCGknob RelaxConvBlockDef=1</UserfriendlyName>
 			<HexSettingID>0x0021F8D9</HexSettingID>
 			<Description>Applies OCGknob RelaxConvBlockDef=1. Applied only to TU10x+. Will be ignored if knobString or knobFile is specified.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13414,7 +13353,7 @@
 			<UserfriendlyName>Experimental - BVH build batching options</UserfriendlyName>
 			<HexSettingID>0x00225C2B</HexSettingID>
 			<Description>BVH build batching options</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13464,7 +13403,7 @@
 			<UserfriendlyName>Experimental - Assume stride-aligned root VA for [RW]StructuredBuffer (DXR only)</UserfriendlyName>
 			<HexSettingID>0x002533F7</HexSettingID>
 			<Description>Assume stride-aligned root VA for [RW]StructuredBuffer (DXR only)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13482,7 +13421,7 @@
 			<UserfriendlyName>Experimental - Use driver created sync objs in InterChannelSync</UserfriendlyName>
 			<HexSettingID>0x002808D9</HexSettingID>
 			<Description>Use driver created sync objs in InterChannelSync, as a WAR for msaction bug 2867804 in Vibranium hws. Noop in 19577+ hws or in non-hws.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13500,7 +13439,7 @@
 			<UserfriendlyName>Experimental - Max optional shader compilation threads allowed</UserfriendlyName>
 			<HexSettingID>0x00313537</HexSettingID>
 			<Description>Max optional shader compilation threads allowed</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13518,7 +13457,7 @@
 			<UserfriendlyName>Experimental - Disable specific features for the perf strat</UserfriendlyName>
 			<HexSettingID>0x0032147A</HexSettingID>
 			<Description>Disable specific features for the perf strat</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13539,8 +13478,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00328423 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00328423</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00328423". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13553,8 +13491,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x0032B134 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x0032B134</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x0032B134". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13567,8 +13504,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x0034FC24 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x0034FC24</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x0034FC24". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13582,7 +13518,7 @@
 			<UserfriendlyName>Experimental - Disable all asserts in debug drivers</UserfriendlyName>
 			<HexSettingID>0x00367A46</HexSettingID>
 			<Description>Disable all asserts in debug drivers.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13600,7 +13536,7 @@
 			<UserfriendlyName>Experimental - Maxwell discard behavior controls</UserfriendlyName>
 			<HexSettingID>0x003940A1</HexSettingID>
 			<Description>Maxwell discard behavior controls.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13637,8 +13573,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x003BA602 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x003BA602</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x003BA602". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13652,7 +13587,7 @@
 			<UserfriendlyName>Experimental - T$ always to avoid HW Bug 3123136</UserfriendlyName>
 			<HexSettingID>0x003DD400</HexSettingID>
 			<Description>Enables T$ always to avoid HW Bug 3123136</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13670,7 +13605,7 @@
 			<UserfriendlyName>Experimental - Clear specific BVH build flags</UserfriendlyName>
 			<HexSettingID>0x004208BD</HexSettingID>
 			<Description>Clear specific BVH build flags. Applied before DXR_BVH_BUILD_FLAG_FORCE_ENABLE_MASK.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13711,8 +13646,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x0043C7A2 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x0043C7A2</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x0043C7A2". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13726,7 +13660,7 @@
 			<UserfriendlyName>Experimental - Low latency mode settings</UserfriendlyName>
 			<HexSettingID>0x0045AB1F</HexSettingID>
 			<Description>Low latency mode settings. Disabled by default (to enable set VSYNCMODE=VIRTUAL).  When enabled this provides a mode which is similar to 'vsync ON' - i.e, no tearing, but has fps/latency similar to 'vsync OFF'. The idea is to let the app render as fast it can and present the latest frame at vblank. The BLEND mode enables temporal supersampling using a exponential decay filter by making use of the additional rendered frames to smoothen out the animation.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13756,7 +13690,7 @@
 			<UserfriendlyName>Experimental - Default Scheduler Override</UserfriendlyName>
 			<HexSettingID>0x00473934</HexSettingID>
 			<Description>Override the default scheduler</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13774,7 +13708,7 @@
 			<UserfriendlyName>Experimental - DXR Shader Compile Flags</UserfriendlyName>
 			<HexSettingID>0x00473935</HexSettingID>
 			<Description>Extra flags passed to DXR shader compiles and pipeline creation</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13803,8 +13737,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00481376 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00481376</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00481376". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13818,7 +13751,7 @@
 			<UserfriendlyName>Experimental - Deferred Barrier Execution</UserfriendlyName>
 			<HexSettingID>0x0049C741</HexSettingID>
 			<Description>Defer barriers until needed.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13875,8 +13808,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x004A5CE5 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x004A5CE5</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x004A5CE5". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13887,10 +13819,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x00503F9A (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Perf Strategy - Copy Tracker</UserfriendlyName>
 			<HexSettingID>0x00503F9A</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00503F9A". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls the performance-strategy copy tracker.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13908,7 +13840,7 @@
 			<UserfriendlyName>Experimental - Raygen Shader Inlining Mode</UserfriendlyName>
 			<HexSettingID>0x0050A159</HexSettingID>
 			<Description>Mode for inlining other shaders into raygen shader when trace depth &lt;= 1</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13930,7 +13862,7 @@
 			<UserfriendlyName>Experimental - AutoVRS VR-Only Mode</UserfriendlyName>
 			<HexSettingID>0x00524253</HexSettingID>
 			<Description>Defines whether to allow AutoVRS Perfstrat only for VR games or not</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -13960,7 +13892,7 @@
 			<UserfriendlyName>Experimental - Regkey disables cache invalidates on subchannel switches on GA10x+</UserfriendlyName>
 			<HexSettingID>0x00524621</HexSettingID>
 			<Description>Regkey disables cache invalidates on subchannel switches on GA10x+. Specify, which particular switches are affected. Also, specify if any caches need to be excluded from override</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14034,7 +13966,7 @@
 			<UserfriendlyName>Experimental - G-SYNC LCD Overdrive</UserfriendlyName>
 			<HexSettingID>0x00598888</HexSettingID>
 			<Description>Enable GSync LCD Overdrive.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14051,8 +13983,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x005B1407 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x005B1407</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x005B1407". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14063,10 +13994,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x005D35DE (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Dispatch Helper - Flags</UserfriendlyName>
 			<HexSettingID>0x005D35DE</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x005D35DE". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Configures dispatch-helper flags for core dispatch allocation and debug tracking behavior.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14099,8 +14030,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x005E3DFF (Unknown)</UserfriendlyName>
 			<HexSettingID>0x005E3DFF</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x005E3DFF". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14117,8 +14047,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x005E46DC (Unknown)</UserfriendlyName>
 			<HexSettingID>0x005E46DC</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x005E46DC". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14132,7 +14061,7 @@
 			<UserfriendlyName>Experimental - Pipeline Module Recompilation Limit</UserfriendlyName>
 			<HexSettingID>0x005EC6EF</HexSettingID>
 			<Description>Allow recompilation of modules at pipeline creation if there are at most this number of modules.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14147,10 +14076,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x005F69AB (Unknown)</UserfriendlyName>
+			<UserfriendlyName>WDDM v2 - Residency Flags</UserfriendlyName>
 			<HexSettingID>0x005F69AB</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x005F69AB". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls WDDM v2 residency binding, paging waits, and eviction behavior.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14180,7 +14109,7 @@
 			<UserfriendlyName>Experimental - D3D12 Resource Binding Support</UserfriendlyName>
 			<HexSettingID>0x00667432</HexSettingID>
 			<Description>D3D12 Resource Binding Support</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14201,8 +14130,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x0069367A (Unknown)</UserfriendlyName>
 			<HexSettingID>0x0069367A</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x0069367A". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14216,7 +14144,7 @@
 			<UserfriendlyName>Experimental - CBC Compression Heuristic Flags</UserfriendlyName>
 			<HexSettingID>0x006B76AF</HexSettingID>
 			<Description>Flags to control cbc compression heuristic</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14234,7 +14162,7 @@
 			<UserfriendlyName>Experimental - Default DSC Blitter Usage</UserfriendlyName>
 			<HexSettingID>0x006DA690</HexSettingID>
 			<Description>use DSC as default blitter</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14260,7 +14188,7 @@
 			<UserfriendlyName>Experimental - Raygen Scheduler Override Shader List</UserfriendlyName>
 			<HexSettingID>0x006EA049</HexSettingID>
 			<Description>Comma-separated list of raygen shader names for which to override the scheduler selection. Wildcards allowed. Corresponds to shader list in DXR_RAYGEN_SCHEDULER_OVERRIDE_TYPES.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<DataType>STRING</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -14268,7 +14196,7 @@
 			<UserfriendlyName>Experimental - Device Thread Queue Size</UserfriendlyName>
 			<HexSettingID>0x006EA977</HexSettingID>
 			<Description>Total size (bytes) of the queue used to pass operations to the device thread.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14282,7 +14210,7 @@
 			<UserfriendlyName>Experimental - RT Instance Compile Limit</UserfriendlyName>
 			<HexSettingID>0x00757CF8</HexSettingID>
 			<Description>Maximum number of RT instances to compile per app shader</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14296,7 +14224,7 @@
 			<UserfriendlyName>Experimental - Foreground Detection Policy</UserfriendlyName>
 			<HexSettingID>0x0078EEE8</HexSettingID>
 			<Description>Controls the way to  decide whether app is running in foreground</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14318,7 +14246,7 @@
 			<UserfriendlyName>Experimental - DispatchRays Experimental Scheduler Memory</UserfriendlyName>
 			<HexSettingID>0x0082703B</HexSettingID>
 			<Description>Bytes of memory to allocate for DXR DispatchRays when using some experimental schedulers</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14332,7 +14260,7 @@
 			<UserfriendlyName>Experimental - Sample Interleave Settings</UserfriendlyName>
 			<HexSettingID>0x00854CAB</HexSettingID>
 			<Description>additional settings for the sample interleave feature</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14398,7 +14326,7 @@
 			<UserfriendlyName>Experimental - Buffer Compression Disable</UserfriendlyName>
 			<HexSettingID>0x0085F726</HexSettingID>
 			<Description>This regkey disables compression for buffer resources. This includes DX12 heaps. Make sure to include this key when disabling all types of compression</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14420,8 +14348,9 @@
 			<UserfriendlyName>Experimental - SLI Test Mode</UserfriendlyName>
 			<HexSettingID>0x008D624B</HexSettingID>
 			<Description>Enable a test sli mode, which renders the same content on all gpus</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -14438,8 +14367,9 @@
 			<UserfriendlyName>Experimental - Decoded Video Multi-GPU Availability</UserfriendlyName>
 			<HexSettingID>0x008D624E</HexSettingID>
 			<Description>Makes decoded video available on all GPUs</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -14451,8 +14381,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x008E7FC9 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x008E7FC9</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x008E7FC9". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14471,10 +14400,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x008F14F5 (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Perf Strategy - Load Balance Mode</UserfriendlyName>
 			<HexSettingID>0x008F14F5</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x008F14F5". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Selects the performance-strategy load-balancing mode.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14505,10 +14434,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x0092D8B9 (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Constant Folding - GPU Pixel Shaders</UserfriendlyName>
 			<HexSettingID>0x0092D8B9</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x0092D8B9". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls GPU-side constant folding for pixel shaders.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14535,10 +14464,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x0092D8BA (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Constant Folding - GPU Vertex Shaders</UserfriendlyName>
 			<HexSettingID>0x0092D8BA</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x0092D8BA". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls GPU-side constant folding for vertex shaders.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14565,10 +14494,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x0092D8BD (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Constant Folding - GPU Ray Tracing Shaders</UserfriendlyName>
 			<HexSettingID>0x0092D8BD</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x0092D8BD". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls GPU-side constant folding for ray tracing shaders.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14598,7 +14527,7 @@
 			<UserfriendlyName>Experimental - Stencil ZBC Disable</UserfriendlyName>
 			<HexSettingID>0x00939833</HexSettingID>
 			<Description>DISABLE_STENCIL_ZBC for Dx12 apps</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14613,10 +14542,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x009FD0F9 (Unknown)</UserfriendlyName>
+			<UserfriendlyName>ZCull - Behavior Flags</UserfriendlyName>
 			<HexSettingID>0x009FD0F9</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x009FD0F9". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls ZCull behavior flags for viewport regions, shader heuristics, and backing-store policy.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14650,7 +14579,7 @@
 			<UserfriendlyName>Experimental - ZF32+GREATER PRI Hack</UserfriendlyName>
 			<HexSettingID>0x009FD0FA</HexSettingID>
 			<Description>Enable/disable the PRI hack used for the ZF32+GREATER depth state combination to make HW defaults better match</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14669,10 +14598,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x009FD0FB (Unknown)</UserfriendlyName>
+			<UserfriendlyName>ZCull - Dirty Draw Validation</UserfriendlyName>
 			<HexSettingID>0x009FD0FB</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x009FD0FB". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls validation for ZCull dirty-draw behavior.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14690,8 +14619,9 @@
 			<UserfriendlyName>Experimental - Multichip app specific hacks for single app</UserfriendlyName>
 			<HexSettingID>0x00A08746</HexSettingID>
 			<Description>multichip app specific hacks for single app</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -14832,7 +14762,7 @@
 			<UserfriendlyName>Experimental - UAV Clear Serialization</UserfriendlyName>
 			<HexSettingID>0x00A1131F</HexSettingID>
 			<Description>Force serialize UAV Clear (when uses DSC)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14850,8 +14780,9 @@
 			<UserfriendlyName>Experimental - Single-Node SCG Graphics Queue</UserfriendlyName>
 			<HexSettingID>0x00A1232F</HexSettingID>
 			<Description>Enable single node SCG on DX12 graphics queue, GP10x and beyond only</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -14868,7 +14799,7 @@
 			<UserfriendlyName>Experimental - Hardware Bug Workaround Flags</UserfriendlyName>
 			<HexSettingID>0x00A25F24</HexSettingID>
 			<Description>Controls various HW bug WARs that may not be enabled by default</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14886,8 +14817,9 @@
 			<UserfriendlyName>Experimental - Legacy Application SCG Enablement</UserfriendlyName>
 			<HexSettingID>0x00A25FC4</HexSettingID>
 			<Description>enables SCG for legacy apps</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -14936,7 +14868,7 @@
 			<UserfriendlyName>Experimental - Low-Priority 3D Channel Timeslice</UserfriendlyName>
 			<HexSettingID>0x00A34323</HexSettingID>
 			<Description>Set the timeslice value for the 3D channel to low priority.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14954,7 +14886,7 @@
 			<UserfriendlyName>Experimental - DX12 Multiple VA Management Per Heap</UserfriendlyName>
 			<HexSettingID>0x00A34F23</HexSettingID>
 			<Description>Controls the enablement of multiple VA management per heap for DX12 in WDDMv2.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14979,8 +14911,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00A44B6D (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00A44B6D</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00A44B6D". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -14991,10 +14922,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x00A4F311 (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Constant Folding - Pixel Shader Control</UserfriendlyName>
 			<HexSettingID>0x00A4F311</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00A4F311". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls pixel-shader constant folding.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15011,8 +14942,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00A80267 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00A80267</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00A80267". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15025,8 +14955,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00A879FC (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00A879FC</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00A879FC". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15040,7 +14969,7 @@
 			<UserfriendlyName>Experimental - OS Variable Refresh Rate Override</UserfriendlyName>
 			<HexSettingID>0x00A879FF</HexSettingID>
 			<Description>Explicit override for the operating system variable refresh rate state.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15058,7 +14987,7 @@
 			<UserfriendlyName>Experimental - Static Object Threshold</UserfriendlyName>
 			<HexSettingID>0x00A89790</HexSettingID>
 			<Description>Threshold used to determine whether an object is treated as static. This value is divided by 1000.0 before being passed to the filter shader. It is stored as a DWORD because the DRS setting path does not expose floating-point values.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15075,8 +15004,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00ACA319 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00ACA319</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00ACA319". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15090,7 +15018,7 @@
 			<UserfriendlyName>Experimental - DiscardResource Clear Conditions</UserfriendlyName>
 			<HexSettingID>0x00ACBCC1</HexSettingID>
 			<Description>In what situations should we issue a clear for DiscardResource for the purposes of tiled resources and aliasing</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15128,7 +15056,7 @@
 			<UserfriendlyName>Experimental - Heap Compression Support</UserfriendlyName>
 			<HexSettingID>0x00ACFCC0</HexSettingID>
 			<Description>Enable support for Compressing Heaps on TIER2 Turing+ Architecture only</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15146,7 +15074,7 @@
 			<UserfriendlyName>Experimental - DSR Apply Disable</UserfriendlyName>
 			<HexSettingID>0x00ADA000</HexSettingID>
 			<Description>Disallow DSR apply</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15163,8 +15091,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00AEFFEA (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00AEFFEA</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00AEFFEA". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15182,7 +15109,7 @@
 			<UserfriendlyName>Experimental - Primary Surface Memory Compression</UserfriendlyName>
 			<HexSettingID>0x00B21C03</HexSettingID>
 			<Description>Controls the use of memory compression for primaries.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15239,8 +15166,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00BADBE4 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00BADBE4</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00BADBE4". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15258,8 +15184,9 @@
 			<UserfriendlyName>Experimental - Single-Node SCG Compute Queue</UserfriendlyName>
 			<HexSettingID>0x00BEFB7B</HexSettingID>
 			<Description>Enable single-node driver SCG channel on compute queues</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -15275,8 +15202,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00C09D1A (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00C09D1A</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00C09D1A". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15289,8 +15215,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00C36E12 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00C36E12</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00C36E12". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15303,8 +15228,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00C45376 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00C45376</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00C45376". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15318,7 +15242,7 @@
 			<UserfriendlyName>Experimental - UMD Metering Control</UserfriendlyName>
 			<HexSettingID>0x00C96F61</HexSettingID>
 			<Description>UMD metering control</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15352,7 +15276,7 @@
 			<UserfriendlyName>Experimental - Invariant Constant Histogram Threshold</UserfriendlyName>
 			<HexSettingID>0x00CA0D60</HexSettingID>
 			<Description>Minimum number of histogram hits for invariant constants</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15366,7 +15290,7 @@
 			<UserfriendlyName>Experimental - Emulation Type Flags</UserfriendlyName>
 			<HexSettingID>0x00CBE001</HexSettingID>
 			<Description>This regkey specifies the types of emulation to be done</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15400,7 +15324,7 @@
 			<UserfriendlyName>Experimental - Emulation Shader Stage Flags</UserfriendlyName>
 			<HexSettingID>0x00CBE002</HexSettingID>
 			<Description>This regkey specifies the shader stages to which emulation applies. Flags are BIT(DsiShaderType)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15442,7 +15366,7 @@
 			<UserfriendlyName>Experimental - Convert-to-LDG Functionality Flags</UserfriendlyName>
 			<HexSettingID>0x00CBE005</HexSettingID>
 			<Description>This regkey specifies enabled functionality used by convert-to-LDG</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15512,7 +15436,7 @@
 			<UserfriendlyName>Experimental - LDC-to-LDG Translation Options</UserfriendlyName>
 			<HexSettingID>0x00CBE006</HexSettingID>
 			<Description>This regkey specifies LDC-to-LDG translation options (DXIL-only)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15537,8 +15461,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00CC0F79 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00CC0F79</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00CC0F79". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15552,8 +15475,9 @@
 			<UserfriendlyName>Experimental - Create HW Queue NoBroadcastWait</UserfriendlyName>
 			<HexSettingID>0x00CDF4EA</HexSettingID>
 			<Description>Enable D3DDDI_CREATEHWQUEUEFLAGS NoBroadcastWait for single-node driver SCG channel</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -15570,7 +15494,7 @@
 			<UserfriendlyName>Experimental - LMEM Per-SM Warp Throttling Limit</UserfriendlyName>
 			<HexSettingID>0x00D153A5</HexSettingID>
 			<Description>If this is set to a value other than zero, the LMEM bytes per SM warp throttling limit will be overridden. Allocation granularity is 128Kb and will be rounded up/enforced by the driver.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15584,7 +15508,7 @@
 			<UserfriendlyName>Experimental - Tex-Sampler Pair Resolve Method</UserfriendlyName>
 			<HexSettingID>0x00D98F93</HexSettingID>
 			<Description>Decides whether to use the MME program (default) or CPU to resolve tex-sampler pairs</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15614,7 +15538,7 @@
 			<UserfriendlyName>Experimental - DX12 Visibility Mask Ignore</UserfriendlyName>
 			<HexSettingID>0x00DB2372</HexSettingID>
 			<Description>ignore DX12 API visibility mask and force full visibility</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15632,7 +15556,7 @@
 			<UserfriendlyName>Experimental - DX9 Host Staging Buffer Size</UserfriendlyName>
 			<HexSettingID>0x00DB3859</HexSettingID>
 			<Description>This key is using for forcing size of host staging buffer on DX9</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15646,8 +15570,9 @@
 			<UserfriendlyName>Experimental - WDDM v2 SLI Control Bits</UserfriendlyName>
 			<HexSettingID>0x00DB4772</HexSettingID>
 			<Description>Bits to control WDDMv2 aspects of SLI</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -15683,8 +15608,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00DDA345 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00DDA345</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00DDA345". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15698,7 +15622,7 @@
 			<UserfriendlyName>Experimental - Descriptor Heap Read Timing</UserfriendlyName>
 			<HexSettingID>0x00DE5C4D</HexSettingID>
 			<Description>Controls when the desc heap contents are read for some bind points</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15716,7 +15640,7 @@
 			<UserfriendlyName>Experimental - UpdateTileMappings Fence Batching</UserfriendlyName>
 			<HexSettingID>0x00DE5C4E</HexSettingID>
 			<Description>Allows batching of fences when a run of UpdateTileMappings is called in sequence with no other CQ commands.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15734,7 +15658,7 @@
 			<UserfriendlyName>Experimental - SM Trap Handler and Dispatcher</UserfriendlyName>
 			<HexSettingID>0x00DEAD10</HexSettingID>
 			<Description>enable/disable SM's trap handler and dispatcher code</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15752,7 +15676,7 @@
 			<UserfriendlyName>Experimental - Volatility Factor Multiplier</UserfriendlyName>
 			<HexSettingID>0x00E3EA78</HexSettingID>
 			<Description>how much to multiply the volatility factor by with each new update</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15765,8 +15689,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00E52AC0 (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00E52AC0</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00E52AC0". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15777,10 +15700,10 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>0x00E86028 (Unknown)</UserfriendlyName>
+			<UserfriendlyName>Fermi - Subtiling Performance Knob A</UserfriendlyName>
 			<HexSettingID>0x00E86028</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00E86028". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Fermi subtile performance knob A.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15797,8 +15720,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00E942FE (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00E942FE</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00E942FE". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15812,7 +15734,7 @@
 			<UserfriendlyName>Experimental - PSO Library Flags</UserfriendlyName>
 			<HexSettingID>0x00ED0448</HexSettingID>
 			<Description>Flags that are used by PSO Library codepath</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15838,7 +15760,7 @@
 			<UserfriendlyName>Experimental - Dirty Tile Map Optimizations</UserfriendlyName>
 			<HexSettingID>0x00ED871B</HexSettingID>
 			<Description>enable/disable Dirty Tile Map opts</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15856,7 +15778,7 @@
 			<UserfriendlyName>Experimental - TileMapKernel Behavior Flags</UserfriendlyName>
 			<HexSettingID>0x00EFB71D</HexSettingID>
 			<Description>Flags used to control TileMapKernel/consumer shader behavior and code-generation. Please note SUQUERY_PER_THREAD_SUM and TILE_PER_THREAD_SUM are mutually exclusive.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15942,7 +15864,7 @@
 			<UserfriendlyName>Experimental - Sample Interleave Enabled Modes</UserfriendlyName>
 			<HexSettingID>0x00F42AE1</HexSettingID>
 			<Description>Enabled Modes for sample interleave (MFAA)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15975,8 +15897,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00F56ABE (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00F56ABE</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00F56ABE". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -15989,8 +15910,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00F56BBE (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00F56BBE</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00F56BBE". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16004,7 +15924,7 @@
 			<UserfriendlyName>Experimental - Tracked Semaphore Dumping</UserfriendlyName>
 			<HexSettingID>0x00FAF031</HexSettingID>
 			<Description>Controls functionality for dumping of various tracked semaphores</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16073,8 +15993,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00FBC00F (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00FBC00F</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00FBC00F". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16088,7 +16007,7 @@
 			<UserfriendlyName>Experimental - Generated Constant Expression Optimizations</UserfriendlyName>
 			<HexSettingID>0x00FC7620</HexSettingID>
 			<Description>enable/disable generatedConstExpressions opts</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16106,7 +16025,7 @@
 			<UserfriendlyName>Experimental - Pipelined Copy for Sync CE</UserfriendlyName>
 			<HexSettingID>0x00FCACB0</HexSettingID>
 			<Description>Enable Pipelined Copy for Sync CE aka Pipelined + Flush_Enable = False , supports DX12 only</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16123,8 +16042,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x00FE3B5B (Unknown)</UserfriendlyName>
 			<HexSettingID>0x00FE3B5B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Setting 0x00FE3B5B". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16137,8 +16055,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1005667D (Driver)</UserfriendlyName>
 			<HexSettingID>0x1005667D</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1005667D". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16151,8 +16068,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1008DFB8 (Driver)</UserfriendlyName>
 			<HexSettingID>0x1008DFB8</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1008DFB8". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16259,8 +16175,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10134FFE (Driver)</UserfriendlyName>
 			<HexSettingID>0x10134FFE</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10134FFE". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16285,8 +16200,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1018B187 (Driver)</UserfriendlyName>
 			<HexSettingID>0x1018B187</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1018B187". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16313,8 +16227,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1023E630 (Driver)</UserfriendlyName>
 			<HexSettingID>0x1023E630</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1023E630". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16327,8 +16240,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10255BA2 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10255BA2</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10255BA2". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16341,8 +16253,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10255BA4 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10255BA4</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10255BA4". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16355,8 +16266,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10255BA5 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10255BA5</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10255BA5". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16369,8 +16279,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10255BA6 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10255BA6</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10255BA6". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16403,8 +16312,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10255BB5 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10255BB5</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10255BB5". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16417,8 +16325,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10255BB7 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10255BB7</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10255BB7". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16431,8 +16338,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10284CD0 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10284CD0</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10284CD0". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16445,8 +16351,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1033E150 (Driver)</UserfriendlyName>
 			<HexSettingID>0x1033E150</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1033E150". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16459,8 +16364,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1041ABA0 (Driver)</UserfriendlyName>
 			<HexSettingID>0x1041ABA0</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1041ABA0". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16473,8 +16377,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10432A02 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10432A02</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10432A02". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16487,8 +16390,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10477FE1 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10477FE1</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10477FE1". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16501,8 +16403,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x105C1BE0 (Driver)</UserfriendlyName>
 			<HexSettingID>0x105C1BE0</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x105C1BE0". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16519,8 +16420,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1066ED2B (Driver)</UserfriendlyName>
 			<HexSettingID>0x1066ED2B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1066ED2B". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16533,8 +16433,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1069F7CF (Driver)</UserfriendlyName>
 			<HexSettingID>0x1069F7CF</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1069F7CF". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16547,8 +16446,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x1075ACB3 (Driver)</UserfriendlyName>
 			<HexSettingID>0x1075ACB3</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x1075ACB3". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16561,8 +16459,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10795518 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10795518</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10795518". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16579,8 +16476,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10795519 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10795519</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10795519". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16593,8 +16489,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10828F18 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10828F18</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10828F18". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16637,8 +16532,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10835025 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10835025</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10835025". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16651,8 +16545,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10835058 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10835058</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10835058". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16665,8 +16558,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10836D12 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10836D12</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10836D12". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16683,8 +16575,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x108BB790 (Driver)</UserfriendlyName>
 			<HexSettingID>0x108BB790</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x108BB790". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16697,8 +16588,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x108FA0E4 (Driver)</UserfriendlyName>
 			<HexSettingID>0x108FA0E4</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x108FA0E4". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16711,8 +16601,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x108FDC1E (Driver)</UserfriendlyName>
 			<HexSettingID>0x108FDC1E</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x108FDC1E". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16725,8 +16614,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x109B7DB3 (Driver)</UserfriendlyName>
 			<HexSettingID>0x109B7DB3</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x109B7DB3". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16757,8 +16645,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10AB9EF7 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10AB9EF7</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10AB9EF7". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16809,8 +16696,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10BFAA5B (Driver)</UserfriendlyName>
 			<HexSettingID>0x10BFAA5B</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10BFAA5B". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16831,8 +16717,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10C498C8 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10C498C8</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10C498C8". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16849,8 +16734,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10C4A7A1 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10C4A7A1</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10C4A7A1". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16863,8 +16747,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10C8C88A (Driver)</UserfriendlyName>
 			<HexSettingID>0x10C8C88A</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10C8C88A". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16877,8 +16760,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10D34DEA (Driver)</UserfriendlyName>
 			<HexSettingID>0x10D34DEA</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10D34DEA". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16895,8 +16777,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10D949E1 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10D949E1</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10D949E1". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16909,8 +16790,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10DC31A4 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10DC31A4</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10DC31A4". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16961,8 +16841,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x10F38AE4 (Driver)</UserfriendlyName>
 			<HexSettingID>0x10F38AE4</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x10F38AE4". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16975,8 +16854,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x5019EB12 (Driver)</UserfriendlyName>
 			<HexSettingID>0x5019EB12</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x5019EB12". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -16989,8 +16867,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x50243981 (Driver)</UserfriendlyName>
 			<HexSettingID>0x50243981</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x50243981". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17221,8 +17098,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x50D06C22 (Driver)</UserfriendlyName>
 			<HexSettingID>0x50D06C22</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x50D06C22". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17235,8 +17111,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x50F05342 (Driver)</UserfriendlyName>
 			<HexSettingID>0x50F05342</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x50F05342". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17249,8 +17124,7 @@
 		<CustomSetting>
 			<UserfriendlyName>0x50F3FEE2 (Driver)</UserfriendlyName>
 			<HexSettingID>0x50F3FEE2</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Driver Setting 0x50F3FEE2". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>11 - Unknown Driver Settings</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17264,7 +17138,7 @@
 			<UserfriendlyName>Experimental - rxinput.dll Injection</UserfriendlyName>
 			<HexSettingID>0x80303A19</HexSettingID>
 			<Description>Decide whether to inject rxinput.dll or not</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17282,7 +17156,7 @@
 			<UserfriendlyName>Experimental - Container Plugin Telemetry</UserfriendlyName>
 			<HexSettingID>0x80303E0F</HexSettingID>
 			<Description>Decide whether to use container plugin to send telemetry data</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17300,7 +17174,7 @@
 			<UserfriendlyName>Experimental - ShadowPlay Flags</UserfriendlyName>
 			<HexSettingID>0x809D5F60</HexSettingID>
 			<Description>ShadowPlay Flags. Bit0: if set, app is whitelisted for Desktop capture . Other bits are ununsed for now</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17355,8 +17229,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Allow Deepdvc Feature When User Is Offline</UserfriendlyName>
 			<HexSettingID>0x00980881</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Allow Deepdvc Feature When User Is Offline". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Allow Deepdvc Feature When User Is Offline.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17396,7 +17270,7 @@
 			<UserfriendlyName>Async10 Nvapi Mode</UserfriendlyName>
 			<HexSettingID>0x005F5A32</HexSettingID>
 			<Description>Control NVAPI processing behaviour</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17418,7 +17292,7 @@
 			<UserfriendlyName>Async10 OOO Query Limit</UserfriendlyName>
 			<HexSettingID>0x005F5A33</HexSettingID>
 			<Description>How many query getData calls are allowed before we consider it a gpu wait</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17470,7 +17344,7 @@
 			<UserfriendlyName>Autovrs Allow</UserfriendlyName>
 			<HexSettingID>0x00D5E9C6</HexSettingID>
 			<Description>AutoVRS - App allowlisted status</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17488,7 +17362,7 @@
 			<UserfriendlyName>Autovrs Settings</UserfriendlyName>
 			<HexSettingID>0x00D5E9C7</HexSettingID>
 			<Description>AutoVRS - Configuration Options</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17532,7 +17406,7 @@
 			<UserfriendlyName>Battery Boost</UserfriendlyName>
 			<HexSettingID>0x10115C89</HexSettingID>
 			<Description>Enables the Battery Boost functionality, cap FPS for DC mode only</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17562,7 +17436,7 @@
 			<UserfriendlyName>BM Offer Reclaim Dx1x</UserfriendlyName>
 			<HexSettingID>0x00DC68B0</HexSettingID>
 			<Description>DX10 - allowed in release configurations and explicit application overrides</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17584,7 +17458,7 @@
 			<UserfriendlyName>Control Display Rearrangement</UserfriendlyName>
 			<HexSettingID>0x10D91A4C</HexSettingID>
 			<Description>Displays rearrangement when crossed overall 16K resolution limit enabled or not</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17640,7 +17514,7 @@
 			<UserfriendlyName>CPU To GPU Upload Buffer Size</UserfriendlyName>
 			<HexSettingID>0x00DB3858</HexSettingID>
 			<Description>This key is using to set value of host staging buffer bank size, in bytes, mostly for early push. Total value is a (bank size) * 256</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17662,10 +17536,9 @@
 			<UserfriendlyName>Cull Before Fetch</UserfriendlyName>
 			<HexSettingID>0x10510E76</HexSettingID>
 			<Description>value for Cull Before Fetch (after Fermi)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -17686,7 +17559,7 @@
 			<UserfriendlyName>D3d9 Control Bits</UserfriendlyName>
 			<HexSettingID>0x0067345E</HexSettingID>
 			<Description>Various control bits (DX9)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17792,7 +17665,7 @@
 			<UserfriendlyName>Disable Z16</UserfriendlyName>
 			<HexSettingID>0x0017FD6D</HexSettingID>
 			<Description>Disable Z16 (replaces all Z16 requests with Z24X8)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17810,7 +17683,7 @@
 			<UserfriendlyName>Do Not Display This Profile In The Control Panel</UserfriendlyName>
 			<HexSettingID>0x106D5CFF</HexSettingID>
 			<Description>Indicates to the NVIDIA Control Panel that the associated configuration entry should not be displayed.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17827,8 +17700,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Dynamic Vibrance Intensity</UserfriendlyName>
 			<HexSettingID>0x00ABAB33</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Dynamic Vibrance Intensity". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Dynamic Vibrance Intensity.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -17921,8 +17794,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Dynamic Vibrance Saturation</UserfriendlyName>
 			<HexSettingID>0x00ABAB36</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Dynamic Vibrance Saturation". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Dynamic Vibrance Saturation.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18074,7 +17947,7 @@
 			<UserfriendlyName>Enable CE MS Hybrid</UserfriendlyName>
 			<HexSettingID>0x10FADC84</HexSettingID>
 			<Description>Enable CE for tranfers on MS hybrid</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18091,8 +17964,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Enable Disable Dynamic FPS Feature</UserfriendlyName>
 			<HexSettingID>0x10835018</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Enable Disable Dynamic FPS Feature". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Enable Disable Dynamic FPS Feature.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18110,7 +17983,7 @@
 			<UserfriendlyName>Enable Disable Dynamic FPS Feature Based On Nested Idle AND Framecomparison</UserfriendlyName>
 			<HexSettingID>0x1083501F</HexSettingID>
 			<Description>Maximum buffer time in microseconds. Default 1500 (1.5ms)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18127,8 +18000,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Enable Disable NV Framecomparator Feature</UserfriendlyName>
 			<HexSettingID>0x10835021</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Enable Disable NV Framecomparator Feature". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Enable Disable NV Framecomparator Feature.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18145,8 +18018,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Enable Disable NV Humanpresencedetector Feature</UserfriendlyName>
 			<HexSettingID>0x10838021</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Enable Disable NV Humanpresencedetector Feature". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Enable Disable NV Humanpresencedetector Feature.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18164,7 +18037,7 @@
 			<UserfriendlyName>Enable Gtx950 Specific Features</UserfriendlyName>
 			<HexSettingID>0x00041807</HexSettingID>
 			<Description>Enable GTX950 specific features. Currently used to enable FRM for GTX950</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18181,8 +18054,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Exceptions To Blocking Apps</UserfriendlyName>
 			<HexSettingID>0x104BC9A1</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Exceptions To Blocking Apps". Data type: STRING.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Exceptions To Blocking Apps.</Description>
+			<GroupName>01 - Compatibility</GroupName>
 			<DataType>STRING</DataType>
 			<SettingValues />
 		</CustomSetting>
@@ -18190,10 +18063,9 @@
 			<UserfriendlyName>Fermi Force 1X TEX</UserfriendlyName>
 			<HexSettingID>0x00F865E3</HexSettingID>
 			<Description>If enabled, this regkey will force 1x Tex on 2x Tex parts.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -18213,8 +18085,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Fermi Gf110 Voltage Drop WAR</UserfriendlyName>
 			<HexSettingID>0x00837AAF</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Fermi Gf110 Voltage Drop WAR". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Fermi Gf110 Voltage Drop WAR.</Description>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
 			<Hidden>true</Hidden>
@@ -18234,7 +18106,7 @@
 			<UserfriendlyName>Forceenabledccap</UserfriendlyName>
 			<HexSettingID>0x001208CB</HexSettingID>
 			<Description>Deferred context control flags</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18266,7 +18138,6 @@
 			<Description>Controls whether Ansel is blocked for the associated application configuration.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000001</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -18285,7 +18156,6 @@
 			<Description>Temporary allowlisting of apps allowed to enable Ansel</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -18301,8 +18171,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Game Filters Enable</UserfriendlyName>
 			<HexSettingID>0x00980896</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Game Filters Enable". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Game Filters Enable.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
@@ -18321,7 +18191,7 @@
 			<UserfriendlyName>Kepler Apply ALD WAR</UserfriendlyName>
 			<HexSettingID>0x00846411</HexSettingID>
 			<Description>Apply OCG shint ALD instruction WAR to prevent kepler HW hangs.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18339,7 +18209,7 @@
 			<UserfriendlyName>Kepler Clear SM Halfctl Ctrl Sctl CYA 6</UserfriendlyName>
 			<HexSettingID>0x007033AB</HexSettingID>
 			<Description>This key enables the WAR for the livelock in bug 1171386, clearing NV_PGRAPH_PRI_GPCS_TPCS_SM_HALFCTL_CTRL_SCTL_CYA_6.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18357,7 +18227,7 @@
 			<UserfriendlyName>Large VA</UserfriendlyName>
 			<HexSettingID>0x0007FBB6</HexSettingID>
 			<Description>Forces a context to use large VA space</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18407,6 +18277,7 @@
 			<Description>Threshold in megabytes for using of RT/ZB allocations as LinkInstanced (SLI DX9/10).</Description>
 			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -18422,9 +18293,10 @@
 		<CustomSetting>
 			<UserfriendlyName>Mcsfrloadbalance</UserfriendlyName>
 			<HexSettingID>0x103C2E03</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Mcsfrloadbalance". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Mcsfrloadbalance.</Description>
+			<GroupName>08 - SLI and NVLINK</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
+			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -18440,11 +18312,10 @@
 		<CustomSetting>
 			<UserfriendlyName>MS Ssaa Mode + Type</UserfriendlyName>
 			<HexSettingID>0x100B8EDE</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "MS Ssaa Mode + Type". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls MS Ssaa Mode + Type.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>526.47</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -18909,7 +18780,7 @@
 			<UserfriendlyName>MS Ssaa Transparency Mode</UserfriendlyName>
 			<HexSettingID>0x0043ED70</HexSettingID>
 			<Description>Transparency multisampling anti-aliasing modes.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -18975,7 +18846,7 @@
 			<UserfriendlyName>Overlay Indicator</UserfriendlyName>
 			<HexSettingID>0x11112256</HexSettingID>
 			<Description>NV private interface to adjust the behavior of the post processing engine</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19049,7 +18920,7 @@
 			<UserfriendlyName>Platform Boost</UserfriendlyName>
 			<HexSettingID>0x10834FFE</HexSettingID>
 			<Description>Enable AutoFL support.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19067,10 +18938,9 @@
 			<UserfriendlyName>PS Alphabeta</UserfriendlyName>
 			<HexSettingID>0x106044CE</HexSettingID>
 			<Description>Set the behavior for Alpha/Beta performance strategy (static or dynamic)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -19091,10 +18961,9 @@
 			<UserfriendlyName>PS Alphabeta Fraction</UserfriendlyName>
 			<HexSettingID>0x10842563</HexSettingID>
 			<Description>Fixed Alpha fraction to use when PS_ALPHABETA is in static mode</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<MaxRequiredDriverVersion>575</MaxRequiredDriverVersion>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -19114,7 +18983,7 @@
 		<CustomSetting>
 			<UserfriendlyName>PS Async Shader Scheduler Flags</UserfriendlyName>
 			<HexSettingID>0x00313536</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "PS Async Shader Scheduler Flags". Data type: DWORD.</Description>
+			<Description>Controls PS Async Shader Scheduler Flags.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
@@ -19173,7 +19042,7 @@
 			<UserfriendlyName>PS BM Defer Destroy Flags</UserfriendlyName>
 			<HexSettingID>0x00159046</HexSettingID>
 			<Description>WDDM1.0+ DX9/DX10</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19207,7 +19076,7 @@
 			<UserfriendlyName>PS Const Folding GPU</UserfriendlyName>
 			<HexSettingID>0x006D6197</HexSettingID>
 			<Description>controls new-style GPU-based const folding (dx12 only)</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19251,7 +19120,7 @@
 			<UserfriendlyName>PS Reduction Load Balanced</UserfriendlyName>
 			<HexSettingID>0x00DB834A</HexSettingID>
 			<Description>Reduction tracker load balancing.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19268,8 +19137,8 @@
 		<CustomSetting>
 			<UserfriendlyName>PS Surface Placement Allow</UserfriendlyName>
 			<HexSettingID>0x0090F680</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "PS Surface Placement Allow". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls PS Surface Placement Allow.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19493,9 +19362,8 @@
 			<UserfriendlyName>PS VB Promotion Flags</UserfriendlyName>
 			<HexSettingID>0x009E7462</HexSettingID>
 			<Description>Controls promotion of dynamic buffers</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
-			<Hidden>true</Hidden>
 			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
@@ -19520,7 +19388,7 @@
 			<UserfriendlyName>Read Only DSV Earlyz Hazard WAR Enable</UserfriendlyName>
 			<HexSettingID>0x008F7215</HexSettingID>
 			<Description>Track read-only DSVs as last having been bound to PS to catch WAR hazards between early-z and PS.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19537,8 +19405,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Rebar Expr Modes</UserfriendlyName>
 			<HexSettingID>0x00C09D09</HexSettingID>
-			<Description>Controls the predefined driver behavior associated with "Rebar Expr Modes". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Rebar Expr Modes.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19556,7 +19424,7 @@
 			<UserfriendlyName>Shadermaxregallowed</UserfriendlyName>
 			<HexSettingID>0x00BC6199</HexSettingID>
 			<Description>Specifies max register allowed when compiling/optimizing a shader</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19578,7 +19446,7 @@
 			<UserfriendlyName>Silk Smoothness Mode</UserfriendlyName>
 			<HexSettingID>0x00666634</HexSettingID>
 			<Description>Setting from which CPL will decide whether to show SILK Smoothness as normal or greyed out</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19596,7 +19464,7 @@
 			<UserfriendlyName>Silk Smoothness Strength</UserfriendlyName>
 			<HexSettingID>0x00987251</HexSettingID>
 			<Description>Silk reduces stutters in games caused by variable CPU or GPU workloads</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19626,7 +19494,7 @@
 			<UserfriendlyName>Validate Params</UserfriendlyName>
 			<HexSettingID>0x00A9D3C5</HexSettingID>
 			<Description>Enable parameter validation of different DX1x DDI functios</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>01 - Compatibility</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19652,7 +19520,7 @@
 			<UserfriendlyName>Watermarking Indicator</UserfriendlyName>
 			<HexSettingID>0x00380880</HexSettingID>
 			<Description>Toggle AIC Watermarking Indicator on or off</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19673,8 +19541,8 @@
 		<CustomSetting>
 			<UserfriendlyName>Watermarking Traceability</UserfriendlyName>
 			<HexSettingID>0x00390880</HexSettingID>
-			<Description>Controls the NVIDIA driver behavior associated with "Watermarking Traceability". Data type: DWORD.</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<Description>Controls Watermarking Traceability.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19696,7 +19564,7 @@
 			<UserfriendlyName>Whisper Mode</UserfriendlyName>
 			<HexSettingID>0x10115C8A</HexSettingID>
 			<Description>Enables the Whisper Mode functionality, cap FPS for AC mode only</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19726,7 +19594,7 @@
 			<UserfriendlyName>Whisper Mode Application FPS</UserfriendlyName>
 			<HexSettingID>0x10115C8B</HexSettingID>
 			<Description>Override FPS for Whisper Mode, can be set differently for each application</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>02 - Sync and Refresh</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19760,7 +19628,7 @@
 			<UserfriendlyName>WKS Feature Support Control</UserfriendlyName>
 			<HexSettingID>0x11D9DC84</HexSettingID>
 			<Description>NV private interface to enable/disable workstation features</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>
@@ -19863,10 +19731,737 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
+			<UserfriendlyName>Shader Cache - DLL Path</UserfriendlyName>
+			<HexSettingID>0x0019A002</HexSettingID>
+			<Description>Specifies the DLL path used for shader disk cache association.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<DataType>STRING</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Performance Counters - DX9 Export Only</UserfriendlyName>
+			<HexSettingID>0x00B65E72</HexSettingID>
+			<Description>Limits driver performance counter export to DirectX 9 workloads.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Shader Compiler - Offline Compile</UserfriendlyName>
+			<HexSettingID>0x00D74EF6</HexSettingID>
+			<Description>Controls whether the driver may use the offline shader compiler path.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
+			<OverrideDefault>0x07184358</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x07184358</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x64318112</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>iCafe - Logo Configuration</UserfriendlyName>
+			<HexSettingID>0x00DB1337</HexSettingID>
+			<Description>Controls driver-side iCafe logo presentation behavior.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Battery Boost - Application FPS Limit</UserfriendlyName>
+			<HexSettingID>0x10115C8C</HexSettingID>
+			<Description>Sets the Battery Boost frame-rate limit for the application.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>No override</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Minimum limit</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Maximum limit</UserfriendlyName>
+					<HexValue>0x000003FF</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Power Management - External Quiet Mode</UserfriendlyName>
+			<HexSettingID>0x10115C8D</HexSettingID>
+			<Description>Controls the external quiet-mode power policy.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>CUDA - Excluded GPUs</UserfriendlyName>
+			<HexSettingID>0x10354FF8</HexSettingID>
+			<Description>Lists universal GPU identifiers that should be excluded from CUDA device selection.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<DataType>STRING</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>NVIDIA Image Scaling - Quality Upscaling</UserfriendlyName>
+			<HexSettingID>0x10444444</HexSettingID>
+			<Description>Controls NVIDIA Image Scaling quality upscaling.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Application Profile - Notification Timeout</UserfriendlyName>
+			<HexSettingID>0x104554B6</HexSettingID>
+			<Description>Selects how long application profile notifications remain visible.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>9 seconds</UserfriendlyName>
+					<HexValue>0x00000009</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>15 seconds</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>30 seconds</UserfriendlyName>
+					<HexValue>0x0000001E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>1 minute</UserfriendlyName>
+					<HexValue>0x0000003C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>2 minutes</UserfriendlyName>
+					<HexValue>0x00000078</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Antialiasing - SLI AA</UserfriendlyName>
+			<HexSettingID>0x107AFC5B</HexSettingID>
+			<Description>Controls SLI antialiasing mode selection.</Description>
+			<GroupName>08 - SLI and NVLINK</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Idle Application - Dynamic FPS Limit</UserfriendlyName>
+			<HexSettingID>0x10835016</HexSettingID>
+			<Description>Sets the dynamic frame-rate limit used when an application is considered idle.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Idle Application - Threshold Time</UserfriendlyName>
+			<HexSettingID>0x10835017</HexSettingID>
+			<Description>Sets the time threshold in seconds before idle-application frame-rate limiting is applied.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Performance Counters - Export</UserfriendlyName>
+			<HexSettingID>0x108F0841</HexSettingID>
+			<Description>Controls whether driver performance counters are exported.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Variable Refresh Rate - Overlay Indicator</UserfriendlyName>
+			<HexSettingID>0x1095F16F</HexSettingID>
+			<Description>Controls the on-screen indicator for variable refresh rate activity.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
+			<OverrideDefault>0x00000001</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Latency Indicator - Auto Align</UserfriendlyName>
+			<HexSettingID>0x1095F170</HexSettingID>
+			<Description>Controls automatic alignment for the latency flash indicator.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
+			<OverrideDefault>0x00000001</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>GPU Power - Maximum Limit</UserfriendlyName>
+			<HexSettingID>0x10D1EF29</HexSettingID>
+			<Description>Defines the maximum GPU power value exposed to Direct3D and OpenGL driver paths.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<DataType>STRING</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Optimus - Compatibility Flags</UserfriendlyName>
+			<HexSettingID>0x10F9DC80</HexSettingID>
+			<Description>Controls Optimus compatibility and application GPU-selection behavior.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<OverrideDefault>0x00000010</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Integrated GPU</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enable discrete GPU</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>User editable</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Video profile flag</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Varying flag</UserfriendlyName>
+					<HexValue>0x00000008</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Auto-select</UserfriendlyName>
+					<HexValue>0x00000010</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Override</UserfriendlyName>
+					<HexValue>0x80000000</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Optimus - Maximum Resolution</UserfriendlyName>
+			<HexSettingID>0x10F9DC82</HexSettingID>
+			<Description>Limits the maximum resolution allowed for Optimus application handling.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Optimus - Maximum Antialiasing Level</UserfriendlyName>
+			<HexSettingID>0x10F9DC83</HexSettingID>
+			<Description>Limits the maximum antialiasing level allowed for Optimus application handling.</Description>
+			<GroupName>03 - Antialiasing and Sharpening</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Minimum</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Maximum</UserfriendlyName>
+					<HexValue>0x00000010</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Stereo - Swap Eyes</UserfriendlyName>
+			<HexSettingID>0x11AE435C</HexSettingID>
+			<Description>Controls eye-order exchange for workstation stereo output.</Description>
+			<GroupName>09 - Stereo</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Telemetry Monitor Level</UserfriendlyName>
+			<HexSettingID>0x202888C1</HexSettingID>
+			<Description>Selects the OpenGL telemetry monitor verbosity level.</Description>
+			<GroupName>10 - OpenGL</GroupName>
+			<OverrideDefault>0x00000004</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Critical</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Warning</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Information</UserfriendlyName>
+					<HexValue>0x00000003</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Most</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Verbose</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Force Stereo</UserfriendlyName>
+			<HexSettingID>0x204D9A0C</HexSettingID>
+			<Description>Controls forced OpenGL stereo rendering.</Description>
+			<GroupName>09 - Stereo</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Default Swap Interval</UserfriendlyName>
+			<HexSettingID>0x206A6582</HexSettingID>
+			<Description>Selects the default OpenGL swap interval and force policy.</Description>
+			<GroupName>10 - OpenGL</GroupName>
+			<OverrideDefault>0x00000001</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Tearing allowed</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>VSync interval 1</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Force on</UserfriendlyName>
+					<HexValue>0x10000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Force off</UserfriendlyName>
+					<HexValue>0xF0000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0xFFFFFFFF</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Default Swap Interval Fraction</UserfriendlyName>
+			<HexSettingID>0x206C4581</HexSettingID>
+			<Description>Selects the fractional scanline component for the OpenGL default swap interval.</Description>
+			<GroupName>10 - OpenGL</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0 scanlines</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>One full frame of scanlines</UserfriendlyName>
+					<HexValue>0x00000064</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Default Swap Interval Sign</UserfriendlyName>
+			<HexSettingID>0x20655CFA</HexSettingID>
+			<Description>Selects whether the OpenGL default swap interval fraction is applied as a positive or negative offset.</Description>
+			<GroupName>10 - OpenGL</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Positive</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Negative</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - GDI Compatibility</UserfriendlyName>
+			<HexSettingID>0x2072C5A3</HexSettingID>
+			<Description>Selects OpenGL GDI compatibility preference.</Description>
+			<GroupName>10 - OpenGL</GroupName>
+			<OverrideDefault>0x00000002</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Prefer disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Prefer enabled</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Auto</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Texture Filtering Quality</UserfriendlyName>
+			<HexSettingID>0x20797D6C</HexSettingID>
+			<Description>Selects the OpenGL quality/performance bias for texture filtering and related quality enhancements.</Description>
+			<GroupName>04 - Texture Filtering</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>High quality</UserfriendlyName>
+					<HexValue>0xFFFFFFF6</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Quality</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Performance</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>High performance</UserfriendlyName>
+					<HexValue>0x00000014</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Maximum Frames Allowed</UserfriendlyName>
+			<HexSettingID>0x208E55E3</HexSettingID>
+			<Description>Limits the number of OpenGL frames the driver may queue ahead.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL SLI - GPU Multicast</UserfriendlyName>
+			<HexSettingID>0x2092D3BE</HexSettingID>
+			<Description>Controls availability of the OpenGL GPU multicast path for SLI and Mosaic configurations.</Description>
+			<GroupName>08 - SLI and NVLINK</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disable</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enable</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Force disable</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Allow Mosaic</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Deep Color Scanout</UserfriendlyName>
+			<HexSettingID>0x2097C2F6</HexSettingID>
+			<Description>Controls OpenGL deep-color scanout support.</Description>
+			<GroupName>10 - OpenGL</GroupName>
+			<OverrideDefault>0x00000001</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disable</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enable</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Event Log Severity Threshold</UserfriendlyName>
+			<HexSettingID>0x209DF23E</HexSettingID>
+			<Description>Selects the minimum OpenGL event severity written to the driver event log.</Description>
+			<GroupName>10 - OpenGL</GroupName>
+			<OverrideDefault>0x00000004</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Critical</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Warning</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Information</UserfriendlyName>
+					<HexValue>0x00000003</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>All</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>OpenGL - Implicit GPU Affinity</UserfriendlyName>
+			<HexSettingID>0x20D0F3E6</HexSettingID>
+			<Description>Controls implicit GPU affinity behavior for OpenGL contexts.</Description>
+			<GroupName>10 - OpenGL</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>SLI - Visual Indicator</UserfriendlyName>
+			<HexSettingID>0x10287051</HexSettingID>
+			<Description>Controls the on-screen SLI split-frame rendering indicator.</Description>
+			<GroupName>08 - SLI and NVLINK</GroupName>
+			<OverrideDefault>0x34534064</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x34534064</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On</UserfriendlyName>
+					<HexValue>0x24545582</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>SLI - Rendering Mode</UserfriendlyName>
+			<HexSettingID>0x1033CED1</HexSettingID>
+			<Description>Selects the active SLI rendering distribution mode.</Description>
+			<GroupName>08 - SLI and NVLINK</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Auto-select</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Force single GPU</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Force AFR</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Force AFR2</UserfriendlyName>
+					<HexValue>0x00000003</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Force SFR</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Force AFR of SFR with 3-way AFR fallback</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Steam - Application ID</UserfriendlyName>
+			<HexSettingID>0x107CDDBC</HexSettingID>
+			<Description>Stores the Steam application identifier used for driver profile association.</Description>
+			<GroupName>07 - System, Memory and Compute</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>VAB - Default Data</UserfriendlyName>
+			<HexSettingID>0x00AB8687</HexSettingID>
+			<Description>Selects the default vertex attribute buffer data pattern used when API defaults are requested.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
+			<OverrideDefault>0xFFFFFFFF</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Zero</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Unsigned integer 1</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Float 1.0</UserfriendlyName>
+					<HexValue>0x3F800000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Float positive infinity</UserfriendlyName>
+					<HexValue>0x7F800000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Float NaN</UserfriendlyName>
+					<HexValue>0x7FC00000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use API defaults</UserfriendlyName>
+					<HexValue>0xFFFFFFFF</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Variable Refresh Rate - Control</UserfriendlyName>
+			<HexSettingID>0x10A879CE</HexSettingID>
+			<Description>Controls whether the variable refresh rate path is enabled.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
+			<OverrideDefault>0x00000001</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Disabled</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Enabled</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Not supported</UserfriendlyName>
+					<HexValue>0x9F95128E</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>Virtual Reality - Pre-Rendered Frames</UserfriendlyName>
+			<HexSettingID>0x10111133</HexSettingID>
+			<Description>Sets the maximum number of frames the CPU may queue ahead for virtual reality rendering.</Description>
+			<GroupName>02 - Sync and Refresh</GroupName>
+			<OverrideDefault>0x00000001</OverrideDefault>
+			<DataType>DWORD</DataType>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Use the 3D application setting</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>1</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
 			<UserfriendlyName>Write TO Host Staging Buffer Size</UserfriendlyName>
 			<HexSettingID>0x00F63A49</HexSettingID>
 			<Description>Set size of write staging buffer. If key is set to zero it will be ignored</Description>
-			<GroupName>11 - Experimental and Unknown</GroupName>
+			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<DataType>DWORD</DataType>
 			<SettingValues>

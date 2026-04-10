@@ -419,7 +419,7 @@ namespace nvidiaProfileInspector.Common
                 return "10 - OpenGL";
 
             if (settingName == null)
-                return "11 - Experimental and Unknown";
+                return "11 - Unknown Driver Settings";
 
             var normalizedName = settingName.ToUpperInvariant();
 
@@ -429,7 +429,7 @@ namespace nvidiaProfileInspector.Common
             if (normalizedName.Contains("OGL") || normalizedName.Contains("OPENGL"))
                 return "10 - OpenGL";
 
-            return "11 - Experimental and Unknown";
+            return "11 - Unknown Driver Settings";
         }
 
         private bool GetIsApiExposed(uint settingId)

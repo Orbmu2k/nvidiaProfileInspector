@@ -7,6 +7,8 @@
     <!--  Display Density (defaults = Modern, overridden by ThemeManager)  -->
     <Thickness x:Key="ListItemPadding">4,4,4,4</Thickness>
     <Thickness x:Key="ListItemMargin">0,2,0,2</Thickness>
+    <Thickness x:Key="ComboBoxItemPadding">12,8</Thickness>
+    <Thickness x:Key="ComboBoxItemMargin">2,1</Thickness>
     <Thickness x:Key="GroupHeaderOuterMargin">0,8,0,4</Thickness>
     <Thickness x:Key="GroupHeaderPadding">4,4,4,8</Thickness>
     <Thickness x:Key="GroupItemsPresenterMargin">8,4,8,4</Thickness>

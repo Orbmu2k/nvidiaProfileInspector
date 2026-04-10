@@ -49,6 +49,20 @@ namespace nvidiaProfileInspector.Common.Meta
             return DlssHelper.ReplaceDlssVersions(friendlyName);
         }
 
+        private string FormatDwordValueName(uint value, string friendlyName)
+        {
+            var valueName = ProcessNameReplacements(friendlyName);
+
+            if (_source == SettingMetaSource.CustomSettings)
+                return valueName;
+
+            var valueHex = DrsUtil.GetDwordString(value);
+            if (valueName != null && valueName.StartsWith(valueHex, StringComparison.OrdinalIgnoreCase))
+                return valueName;
+
+            return valueHex + " " + valueName;
+        }
+
         public string GetSettingName(uint settingId)
         {
             var setting = customSettings.Settings
@@ -93,7 +107,7 @@ namespace nvidiaProfileInspector.Common.Meta
                 {
                     ValuePos = i++,
                     Value = x.SettingValue,
-                    ValueName = _source == SettingMetaSource.CustomSettings ? ProcessNameReplacements(x.UserfriendlyName) : DrsUtil.GetDwordString(x.SettingValue) + " " + ProcessNameReplacements(x.UserfriendlyName),
+                    ValueName = FormatDwordValueName(x.SettingValue, x.UserfriendlyName),
                 }).ToList();
             }
 

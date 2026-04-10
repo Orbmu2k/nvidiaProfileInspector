@@ -167,8 +167,8 @@
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-                    <Setter Property="Padding" Value="12,8" />
-                    <Setter Property="Margin" Value="2,1" />
+                    <Setter Property="Padding" Value="{DynamicResource ComboBoxItemPadding}" />
+                    <Setter Property="Margin" Value="{DynamicResource ComboBoxItemMargin}" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ComboBoxItem">
@@ -317,8 +317,8 @@
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-                    <Setter Property="Padding" Value="12,8" />
-                    <Setter Property="Margin" Value="2,1" />
+                    <Setter Property="Padding" Value="{DynamicResource ComboBoxItemPadding}" />
+                    <Setter Property="Margin" Value="{DynamicResource ComboBoxItemMargin}" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ComboBoxItem">
