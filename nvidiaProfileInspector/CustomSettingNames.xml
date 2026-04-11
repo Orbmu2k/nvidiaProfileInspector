@@ -1663,7 +1663,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Stores secondary Resizable BAR driver flags for advanced compatibility handling.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Flags (0x000F00BF), Resizable Bar - Flags (0x000F00BF)</AlternateNames>
-			<DataType>DWORD</DataType>
+			<DataType>STRING</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Support Indicator Overlay</UserfriendlyName>
