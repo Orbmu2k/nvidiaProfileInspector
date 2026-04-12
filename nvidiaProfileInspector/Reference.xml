@@ -19779,8 +19779,7 @@
 			<HexSettingID>0x00DB1337</HexSettingID>
 			<Description>Controls driver-side iCafe logo presentation behavior.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<DataType>DWORD</DataType>
+			<DataType>STRING</DataType>
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
@@ -20318,8 +20317,7 @@
 			<HexSettingID>0x20D0F3E6</HexSettingID>
 			<Description>Controls implicit GPU affinity behavior for OpenGL contexts.</Description>
 			<GroupName>10 - OpenGL</GroupName>
-			<OverrideDefault>0x00000000</OverrideDefault>
-			<DataType>DWORD</DataType>
+			<DataType>STRING</DataType>
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
