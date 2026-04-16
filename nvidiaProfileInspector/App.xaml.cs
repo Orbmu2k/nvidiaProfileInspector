@@ -37,8 +37,15 @@ namespace nvidiaProfileInspector
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var startupOptions = ParseStartupOptions(e.Args);
 
+            if (!HasArgument(e.Args, "-mock") && (NvapiDrsWrapper.Instance.NvAPI_Initialize == null || NvapiDrsWrapper.Instance.SYS_GetDriverAndBranchVersion == null))
+            {
+                MessageBoxViewModel.Show("No compatible NVIDIA Driver was detected on your system. Your NVIDIA GPU might be disabled.", "NVIDIA Profile Inspector", MessageBoxButton.OK, MessageBoxImage.Error);
+                Shutdown();
+                return;
+            }
+
+            var startupOptions = ParseStartupOptions(e.Args);
             if (startupOptions.CreateCustomSettingNames)
             {
                 base.OnStartup(e);
@@ -60,12 +67,6 @@ namespace nvidiaProfileInspector
                 return;
             }
 
-            if (!HasArgument(e.Args, "-mock") && NvapiDrsWrapper.Instance.NvAPI_Initialize == null)
-            {
-                MessageBoxViewModel.Show("No compatible NVIDIA GPU was detected on your system.", "NVIDIA Profile Inspector", MessageBoxButton.OK, MessageBoxImage.Error);
-                Shutdown();
-                return;
-            }
 
 
             if (!Debugger.IsAttached)
