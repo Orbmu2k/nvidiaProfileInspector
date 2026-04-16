@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:nvidiaProfileInspector.UI.ViewModels"
-    Title="About NVIDIA Profile Inspector"
+    Title="About NVIDIA PROFILE INSPECTOR"
     Width="450"
     Height="Auto"
     MinWidth="400"
@@ -122,7 +122,7 @@
                         FontSize="20"
                         FontWeight="Bold"
                         Foreground="{DynamicResource TextPrimaryBrush}"
-                        Text="NVIDIA Profile Inspector" />
+                        Text="NVIDIA PROFILE INSPECTOR" />
                     <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
                         <TextBlock Foreground="{DynamicResource TextSecondaryBrush}" Text="Version " />
                         <TextBlock

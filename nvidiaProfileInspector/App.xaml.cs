@@ -40,7 +40,7 @@ namespace nvidiaProfileInspector
 
             if (!HasArgument(e.Args, "-mock") && (NvapiDrsWrapper.Instance.NvAPI_Initialize == null || NvapiDrsWrapper.Instance.SYS_GetDriverAndBranchVersion == null))
             {
-                MessageBoxViewModel.Show("No compatible NVIDIA Driver was detected on your system. Your NVIDIA GPU might be disabled.", "NVIDIA Profile Inspector", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxViewModel.Show("No compatible NVIDIA Driver was detected on your system. Your NVIDIA GPU might be disabled.", "NVIDIA PROFILE INSPECTOR", MessageBoxButton.OK, MessageBoxImage.Error);
                 Shutdown();
                 return;
             }
@@ -241,7 +241,7 @@ namespace nvidiaProfileInspector
                 return;
             }
 
-            MessageBoxViewModel.Show("NVIDIA Profile Inspector is already running.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBoxViewModel.Show("NVIDIA PROFILE INSPECTOR is already running.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         internal static string BuildImportFilesMessage(IEnumerable<string> filePaths)
@@ -298,7 +298,7 @@ namespace nvidiaProfileInspector
 
                 // Write detailed log
                 var logContent = new System.Text.StringBuilder();
-                logContent.AppendLine("=== NVIDIA Profile Inspector Crash Report ===");
+                logContent.AppendLine("=== NVIDIA PROFILE INSPECTOR Crash Report ===");
                 logContent.AppendLine($"Date/Time: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
                 logContent.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
                 logContent.AppendLine($"OS: {Environment.OSVersion}");

@@ -70,7 +70,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new SaveFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA Profile Inspector Profiles|*.nip"
+                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip"
             };
 
             if (dialog.ShowDialog() == true)

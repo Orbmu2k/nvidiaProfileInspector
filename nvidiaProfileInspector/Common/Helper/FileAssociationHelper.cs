@@ -10,7 +10,7 @@ namespace nvidiaProfileInspector.Common.Helper
     {
         private const string Extension = ".nip";
         private const string ProgId = "nvidiaProfileInspector.nip";
-        private const string FileTypeDescription = "NVIDIA Profile Inspector Profile";
+        private const string FileTypeDescription = "NVIDIA PROFILE INSPECTOR Profile";
         private const uint SHCNE_ASSOCCHANGED = 0x08000000;
         private const uint SHCNF_IDLIST = 0x0000;
 
@@ -62,7 +62,7 @@ namespace nvidiaProfileInspector.Common.Helper
 
                 using (var applicationsKey = classesRoot.CreateSubKey($@"Applications\{Path.GetFileName(executablePath)}"))
                 {
-                    applicationsKey.SetValue("FriendlyAppName", "NVIDIA Profile Inspector", RegistryValueKind.String);
+                    applicationsKey.SetValue("FriendlyAppName", "NVIDIA PROFILE INSPECTOR", RegistryValueKind.String);
 
                     using (var supportedTypesKey = applicationsKey.CreateSubKey("SupportedTypes"))
                     {

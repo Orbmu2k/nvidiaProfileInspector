@@ -9,7 +9,7 @@
     xmlns:helper="clr-namespace:nvidiaProfileInspector.Common.Helper"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:nvidiaProfileInspector.UI.ViewModels"
-    Title="NVIDIA Profile Inspector"
+    Title="NVIDIA PROFILE INSPECTOR"
     Width="1190"
     Height="750"
     MinWidth="1000"

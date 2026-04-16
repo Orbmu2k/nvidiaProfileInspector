@@ -1067,7 +1067,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA Profile Inspector Profiles|*.nip",
+                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
                 FileName = _currentProfile + ".nip"
             };
 
@@ -1083,7 +1083,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA Profile Inspector Profiles|*.nip",
+                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
                 FileName = _currentProfile + ".nip"
             };
 
@@ -1100,7 +1100,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA Profile Inspector Profiles|*.nip",
+                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
                 FileName = "all_profiles.nip"
             };
 
@@ -1132,7 +1132,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA Profile Inspector Profiles|*.nip"
+                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip"
             };
 
             if (dialog.ShowDialog() == true)
@@ -1182,7 +1182,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA Profile Inspector Profiles|*.nip",
+                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
                 Multiselect = true
             };
 
@@ -1201,7 +1201,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA Profile Inspector Profiles|*.nip",
+                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
                 Multiselect = true
             };
 
@@ -1313,7 +1313,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void CopySettingsToClipboard()
         {
             var sb = new System.Text.StringBuilder();
-            sb.AppendLine($"### NVIDIA Profile Inspector ###");
+            sb.AppendLine($"### NVIDIA PROFILE INSPECTOR ###");
             sb.AppendLine($"Profile: {_currentProfile}");
             sb.AppendLine();
 

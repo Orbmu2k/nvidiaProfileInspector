@@ -50,7 +50,7 @@ namespace nvidiaProfileInspector.UI.Views
             if (!Native.NVAPI2.NvapiDrsWrapper.Instance.IsMockMode)
                 return;
 
-            const string mockTitle = "NVIDIA Profile Inspector - MOCK!";
+            const string mockTitle = "NVIDIA PROFILE INSPECTOR - MOCK!";
             Title = mockTitle;
         }
 

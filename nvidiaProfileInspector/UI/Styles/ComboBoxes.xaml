@@ -97,8 +97,8 @@
                             <ControlTemplate TargetType="ComboBoxItem">
                                 <Border
                                     x:Name="border"
-                                    Padding="{TemplateBinding Padding}"
                                     Margin="{TemplateBinding Margin}"
+                                    Padding="{TemplateBinding Padding}"
                                     Background="{TemplateBinding Background}"
                                     CornerRadius="4">
                                     <ContentPresenter VerticalAlignment="Center" />
