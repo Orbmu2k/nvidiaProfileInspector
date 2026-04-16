@@ -11,7 +11,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.ComponentModel;
-    using System.Diagnostics;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -944,12 +943,12 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (removeFromModified)
                     RemoveModifiedProfileFromCache(_currentProfile);
 
-                
+
                 RefreshProfilesCombo(lastProfile);
-                
+
                 RefreshCurrentProfile();
 
-                ShowSnackbar($"Profile successfully restored to driver defaults!", "Success"); 
+                ShowSnackbar($"Profile successfully restored to driver defaults!", "Success");
             }
 
             return Task.CompletedTask;
@@ -1408,7 +1407,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (theme == "Midnight") themeName = "MidnightTheme.xaml";
             else if (theme == "Slate") themeName = "SlateLightTheme.xaml";
             else if (theme == "CleanWhite") themeName = "CleanWhiteTheme.xaml";
-            
+
             themeManager.SetTheme(themeName);
             UpdateThemeProperties(themeManager);
             RefreshCurrentProfile();

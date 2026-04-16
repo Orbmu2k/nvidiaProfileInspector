@@ -42,7 +42,7 @@ namespace nvidiaProfileInspector.Common.Helper
                     }
                 }
 
-                if(!foundRelease)
+                if (!foundRelease)
                 {
                     // Failed to find this version as a release, treat it as a pre-release version.
                     currentIsPreRelease = true;

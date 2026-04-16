@@ -237,9 +237,9 @@
 
                 <ScrollViewer
                     Grid.Row="2"
-                    VerticalScrollBarVisibility="Auto"
+                    CanContentScroll="True"
                     HorizontalScrollBarVisibility="Disabled"
-                    CanContentScroll="True">
+                    VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Contributors}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>

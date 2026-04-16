@@ -95,7 +95,7 @@
     <SolidColorBrush x:Key="ApplicationAddBrush" Color="#262A33" />
     <SolidColorBrush x:Key="ApplicationAddHoverBrush" Color="#76B900" />
     <SolidColorBrush x:Key="ListViewAlternatingRowBrush" Color="#15181E" />
-    
+
     <!--  Modified setting background: Clean slate highlight to avoid muddy olive colors  -->
     <SolidColorBrush x:Key="ModifiedSettingBackgroundBrush" Color="#15FFFFFF" />
 

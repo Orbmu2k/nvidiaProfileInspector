@@ -1,8 +1,8 @@
 using Microsoft.Win32;
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace nvidiaProfileInspector.Common.Helper
 {
