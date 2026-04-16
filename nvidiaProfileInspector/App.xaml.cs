@@ -16,6 +16,7 @@ namespace nvidiaProfileInspector
     using System.Text;
     using System.Threading;
     using System.Windows;
+    using System.Windows.Interop;
     using System.Windows.Threading;
 
     public partial class App : Application
@@ -24,6 +25,7 @@ namespace nvidiaProfileInspector
         private static bool _mutexOwned;
         private static AppBootstrapper _bootstrapper;
         private static string _logFilePath;
+        private StartupSplashScreen _startupSplashScreen;
         private const string SingleInstanceMutexName = "nvidiaProfileInspector";
         internal const string ImportFilesMessagePrefix = "ImportNipFiles:";
         internal const string LegacyProfilesImportedMessage = "ProfilesImported";
@@ -35,48 +37,129 @@ namespace nvidiaProfileInspector
             return args.Any(_ => string.Equals(_, name, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
+            var startupOptions = ParseStartupOptions(e.Args);
 
-            if (!HasArgument(e.Args, "-mock") && (NvapiDrsWrapper.Instance.NvAPI_Initialize == null || NvapiDrsWrapper.Instance.SYS_GetDriverAndBranchVersion == null))
+            RegisterUnhandledExceptionHandlers();
+            base.OnStartup(e);
+
+            if (!startupOptions.RequiresSingleInstanceMutex)
             {
-                MessageBoxViewModel.Show("No compatible NVIDIA Driver was detected on your system. Your NVIDIA GPU might be disabled.", "NVIDIA PROFILE INSPECTOR", MessageBoxButton.OK, MessageBoxImage.Error);
+                HandleStartupCommandWithoutMutex(startupOptions);
+                return;
+            }
+
+            if (!TryAcquireSingleInstanceMutex())
+            {
+                ActivateRunningInstance();
                 Shutdown();
                 return;
             }
 
-            var startupOptions = ParseStartupOptions(e.Args);
+            ShowStartupSplashScreen();
+            //await Dispatcher.InvokeAsync(() => { }, DispatcherPriority.ApplicationIdle); // Ensure UI is responsive
+            //await System.Threading.Tasks.Task.Delay(15000); // Allow splash screen to be visible for a moment
+            if (!EnsureCompatibleDriver(startupOptions))
+                return;
+
+            RunFullApplication(startupOptions);
+        }
+
+        private void RegisterUnhandledExceptionHandlers()
+        {
+            if (Debugger.IsAttached)
+                return;
+
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        }
+
+        private void HandleStartupCommandWithoutMutex(StartupOptions startupOptions)
+        {
             if (startupOptions.CreateCustomSettingNames)
             {
-                base.OnStartup(e);
                 WriteCustomSettingNamesFile();
+                Shutdown();
+                return;
+            }
+
+            if (startupOptions.HasImportFiles)
+            {
+                HandleImportStartupCommand(startupOptions);
                 Shutdown();
                 return;
             }
 
             if (startupOptions.ExportCustomized)
             {
-                base.OnStartup(e);
-                _bootstrapper = new AppBootstrapper();
-                _bootstrapper.Initialize();
-                var path = Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                    $"CustomProfiles_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.nip");
-                _bootstrapper.Resolve<nvidiaProfileInspector.Common.DrsImportService>().ExportAllCustomizedProfiles(path);
+                if (EnsureCompatibleDriver(startupOptions))
+                    ExportCustomizedProfiles();
+
                 Shutdown();
                 return;
             }
+        }
 
+        private void HandleImportStartupCommand(StartupOptions startupOptions)
+        {
+            if (TryForwardImportFilesToRunningInstance(startupOptions.NipFiles, bringToFront: !startupOptions.IsSilentMode))
+                return;
 
+            if (!EnsureCompatibleDriver(startupOptions))
+                return;
 
-            if (!Debugger.IsAttached)
+            InitializeBootstrapper();
+            HandleImportArguments(startupOptions);
+        }
+
+        private bool TryAcquireSingleInstanceMutex()
+        {
+            _mutex = new Mutex(true, SingleInstanceMutexName, out _mutexOwned);
+            return _mutexOwned;
+        }
+
+        private bool EnsureCompatibleDriver(StartupOptions startupOptions)
+        {
+            if (startupOptions.UseMockDriver)
+                return true;
+
+            if (NvapiDrsWrapper.Instance.NvAPI_Initialize != null && NvapiDrsWrapper.Instance.SYS_GetDriverAndBranchVersion != null)
+                return true;
+
+            CloseStartupSplashScreen();
+            MessageBoxViewModel.Show("No compatible NVIDIA Driver was detected on your system. Your NVIDIA GPU might be disabled.", "NVIDIA PROFILE INSPECTOR", MessageBoxButton.OK, MessageBoxImage.Error);
+            Shutdown();
+            return false;
+        }
+
+        private void ShowStartupSplashScreen()
+        {
+            _startupSplashScreen = StartupSplashScreen.Show();
+        }
+
+        private void RunFullApplication(StartupOptions startupOptions)
+        {
+            RunCommonStartupTasks();
+            InitializeBootstrapper();
+
+            // Load saved theme using ThemeManager
+            var themeManager = _bootstrapper.Resolve<ThemeManager>();
+            themeManager.LoadSavedTheme();
+
+            // Defer MainWindow creation to ensure resources are loaded
+            Dispatcher.BeginInvoke(new Action(() =>
             {
-                DispatcherUnhandledException += App_DispatcherUnhandledException;
-                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            }
+                var mainWindow = new MainWindow(startupOptions.ShowOnlyCustomizedSettings, startupOptions.DisableInitialScan);
+                mainWindow.ContentRendered += MainWindow_ContentRendered;
+                mainWindow.Closed += MainWindow_Closed;
+                MainWindow = mainWindow;
+                mainWindow.Show();
+            }), DispatcherPriority.Background);
+        }
 
-            base.OnStartup(e);
-
+        private void RunCommonStartupTasks()
+        {
             try
             {
                 SafeNativeMethods.DeleteFile(Environment.GetCommandLineArgs()[0] + ":Zone.Identifier");
@@ -88,42 +171,62 @@ namespace nvidiaProfileInspector
                 FileAssociationHelper.RegisterNipAssociation();
             }
             catch { }
+        }
 
-            if (startupOptions.HasImportFiles)
-            {
-                if (!TryForwardImportFilesToRunningInstance(startupOptions.NipFiles, bringToFront: !startupOptions.IsSilentMode))
-                {
-                    _bootstrapper = new AppBootstrapper();
-                    _bootstrapper.Initialize();
-                    HandleImportArguments(startupOptions);
-                }
-
-                Shutdown();
-                return;
-            }
-
-            _mutex = new Mutex(true, SingleInstanceMutexName, out _mutexOwned);
-
-            if (!_mutexOwned)
-            {
-                ActivateRunningInstance();
-                Shutdown();
-                return;
-            }
-
+        private void InitializeBootstrapper()
+        {
             _bootstrapper = new AppBootstrapper();
             _bootstrapper.Initialize();
+        }
 
-            // Load saved theme using ThemeManager
-            var themeManager = _bootstrapper.Resolve<ThemeManager>();
-            themeManager.LoadSavedTheme();
+        private void ExportCustomizedProfiles()
+        {
+            InitializeBootstrapper();
+            var path = Path.Combine(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                $"CustomProfiles_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.nip");
+            _bootstrapper.Resolve<nvidiaProfileInspector.Common.DrsImportService>().ExportAllCustomizedProfiles(path);
+        }
 
-            // Defer MainWindow creation to ensure resources are loaded
-            Dispatcher.BeginInvoke(new Action(() =>
+        private void MainWindow_ContentRendered(object sender, EventArgs e)
+        {
+            if (sender is Window window)
             {
-                var mainWindow = new MainWindow(startupOptions.ShowOnlyCustomizedSettings, startupOptions.DisableInitialScan);
-                mainWindow.Show();
-            }), DispatcherPriority.Background);
+                window.ContentRendered -= MainWindow_ContentRendered;
+                BringMainWindowToFront(window);
+            }
+
+            CloseStartupSplashScreen();
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            if (sender is Window window)
+                window.Closed -= MainWindow_Closed;
+
+            CloseStartupSplashScreen();
+        }
+
+        private void CloseStartupSplashScreen()
+        {
+            _startupSplashScreen?.Dispose();
+            _startupSplashScreen = null;
+        }
+
+        private void BringMainWindowToFront(Window window)
+        {
+            if (window == null)
+                return;
+
+            if (window.WindowState == WindowState.Minimized)
+                window.WindowState = WindowState.Normal;
+
+            window.Activate();
+            window.Focus();
+
+            var handle = new WindowInteropHelper(window).Handle;
+            if (handle != IntPtr.Zero)
+                new MessageHelper().bringAppToFront(handle.ToInt32());
         }
 
         private void HandleImportArguments(StartupOptions startupOptions)
@@ -164,7 +267,8 @@ namespace nvidiaProfileInspector
                 ShowOnlyCustomizedSettings = HasArgument(arguments, "-showOnlyCSN"),
                 DisableInitialScan = HasArgument(arguments, "-disableScan"),
                 IsSilentMode = HasArgument(arguments, "-silentImport") || HasArgument(arguments, "-silent"),
-                ExportCustomized = HasArgument(arguments, "-exportCustomized")
+                ExportCustomized = HasArgument(arguments, "-exportCustomized"),
+                UseMockDriver = HasArgument(arguments, "-mock")
             };
         }
 
@@ -352,6 +456,7 @@ namespace nvidiaProfileInspector
 
         protected override void OnExit(ExitEventArgs e)
         {
+            CloseStartupSplashScreen();
             _bootstrapper?.Dispose();
             if (_mutexOwned)
                 _mutex?.ReleaseMutex();
@@ -367,7 +472,9 @@ namespace nvidiaProfileInspector
             public string[] NipFiles { get; set; } = Array.Empty<string>();
             public bool ShowOnlyCustomizedSettings { get; set; }
             public bool ExportCustomized { get; set; }
+            public bool UseMockDriver { get; set; }
             public bool HasImportFiles => NipFiles.Length > 0;
+            public bool RequiresSingleInstanceMutex => !CreateCustomSettingNames && !HasImportFiles && !ExportCustomized;
         }
     }
 }
