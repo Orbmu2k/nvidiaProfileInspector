@@ -24,6 +24,16 @@
             <BeginStoryboard>
                 <Storyboard RepeatBehavior="Forever">
                     <DoubleAnimation
+                        Storyboard.TargetName="SpinnerArc"
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                        From="0"
+                        To="360"
+                        Duration="0:0:1.25" />
+                </Storyboard>
+            </BeginStoryboard>
+            <BeginStoryboard>
+                <Storyboard RepeatBehavior="Forever">
+                    <DoubleAnimation
                         Storyboard.TargetName="PulseRing"
                         Storyboard.TargetProperty="Opacity"
                         From="0.42"
@@ -52,12 +62,6 @@
                             <SineEase EasingMode="EaseInOut" />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
-                    <DoubleAnimation
-                        Storyboard.TargetName="SpinnerArc"
-                        Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
-                        From="0"
-                        To="360"
-                        Duration="0:0:1.25" />
                     <DoubleAnimation
                         Storyboard.TargetName="ScanGlow"
                         Storyboard.TargetProperty="X"
