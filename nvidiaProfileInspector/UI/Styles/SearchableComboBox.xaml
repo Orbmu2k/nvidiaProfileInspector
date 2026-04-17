@@ -158,6 +158,10 @@
                             <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="ContentSite" Property="Visibility" Value="Visible" />
                         </Trigger>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter TargetName="ToggleButton" Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
+                            <Setter TargetName="ToggleButton" Property="BorderThickness" Value="2" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

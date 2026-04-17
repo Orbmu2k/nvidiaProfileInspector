@@ -695,6 +695,37 @@ namespace nvidiaProfileInspector.UI.ViewModels
             OnPropertyChanged(nameof(HasPendingChanges));
         }
 
+        public bool TryValidateSettingValue(SettingItemViewModel item, out string errorMessage)
+        {
+            errorMessage = null;
+
+            if (item == null)
+                return true;
+
+            var settingMeta = _metaService.GetSettingMeta(item.SettingId, GetSettingViewMode());
+            var settingType = settingMeta?.SettingType;
+
+            if (settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
+            {
+                if (DrsUtil.TryParseDwordSettingValue(settingMeta, item.SelectedValue, out _))
+                    return true;
+
+                errorMessage = "Enter a valid DWORD value.";
+                return false;
+            }
+
+            if (settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+            {
+                if (DrsUtil.ParseBinarySettingValue(settingMeta, item.SelectedValue) != null)
+                    return true;
+
+                errorMessage = "Enter a valid binary value.";
+                return false;
+            }
+
+            return true;
+        }
+
         private SettingViewMode GetSettingViewMode()
         {
             if (_filterTypeIndex == 0)

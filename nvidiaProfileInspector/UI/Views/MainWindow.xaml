@@ -1324,6 +1324,8 @@
                                                     PreserveSelectionOnKeyboardFocus="True"
                                                     SyncSelectedItemToText="False"
                                                     Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    behaviors:SettingValueValidationBehavior.Enabled="True"
+                                                    Validation.ErrorTemplate="{x:Null}"
                                                     Visibility="Collapsed">
                                                     <controls:SearchableComboBox.ItemTemplate>
                                                         <DataTemplate>

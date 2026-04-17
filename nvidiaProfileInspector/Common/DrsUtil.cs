@@ -53,6 +53,12 @@ namespace nvidiaProfileInspector.Common
 
         public static uint ParseDwordSettingValue(SettingMeta meta, string text)
         {
+            return TryParseDwordSettingValue(meta, text, out var result) ? result : 0;
+        }
+
+        public static bool TryParseDwordSettingValue(SettingMeta meta, string text, out uint result)
+        {
+            result = 0;
             var normalizedText = text?.Trim();
 
             if (meta?.DwordValues != null && normalizedText != null)
@@ -60,11 +66,32 @@ namespace nvidiaProfileInspector.Common
                 foreach (var v in meta.DwordValues)
                 {
                     if (normalizedText.Equals(v.ValueName, StringComparison.Ordinal))
-                        return v.Value;
+                    {
+                        result = v.Value;
+                        return true;
+                    }
                 }
             }
 
-            return ParseDwordByInputSafe(normalizedText);
+            return TryParseDwordByInputSafe(normalizedText, out result);
+        }
+
+        private static bool TryParseDwordByInputSafe(string input, out uint result)
+        {
+            result = 0;
+
+            if (string.IsNullOrWhiteSpace(input))
+                return false;
+
+            if (input.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+            {
+                int blankPos = input.IndexOf(' ');
+                int parseLen = blankPos > 2 ? blankPos - 2 : input.Length - 2;
+
+                return uint.TryParse(input.Substring(2, parseLen), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out result);
+            }
+
+            return uint.TryParse(input, out result);
         }
 
         public static string GetDwordSettingValueName(SettingMeta meta, uint dwordValue)
