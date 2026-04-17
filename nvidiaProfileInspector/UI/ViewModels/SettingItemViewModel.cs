@@ -159,7 +159,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (SetProperty(ref _selectedValue, value, nameof(SelectedValue)))
                 {
                     IsModified = !string.IsNullOrEmpty(value) && value != _originalValue;
-                    OnPropertyChanged(nameof(IsModified));
                 }
             }
         }

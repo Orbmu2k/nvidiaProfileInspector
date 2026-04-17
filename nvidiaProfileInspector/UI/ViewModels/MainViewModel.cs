@@ -874,7 +874,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void OnSettingItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SettingItemViewModel.SelectedValue))
+            if (e.PropertyName == nameof(SettingItemViewModel.IsModified))
             {
                 OnPropertyChanged(nameof(HasPendingChanges));
             }
