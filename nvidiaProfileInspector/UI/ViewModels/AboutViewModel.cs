@@ -75,10 +75,10 @@ namespace nvidiaProfileInspector.UI.ViewModels
             });
             Contributors.Add(new Contributor
             {
-                Name = "renannmp",
+                Name = "Warkratos",
                 Role = "Developer & Driver Settings Researcher",
-                AvatarUrl = "https://github.com/renannmp.png",
-                ProfileUrl = "https://github.com/renannmp"
+                AvatarUrl = "https://github.com/warkratos.png",
+                ProfileUrl = "https://github.com/warkratos"
             });
             Contributors.Add(new Contributor
             {
