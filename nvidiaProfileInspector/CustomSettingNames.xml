@@ -234,11 +234,25 @@
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Private Flags</UserfriendlyName>
+			<UserfriendlyName>DLSS-FG - Auto Scene Change Detection</UserfriendlyName>
 			<HexSettingID>0x10E41DF6</HexSettingID>
-			<Description>Stores advanced private DLSS Frame Generation flags intended for internal or experimental use.</Description>
+			<Description>Auto Scene Change Detection aims to automatically prevent Frame Generation from producing difficult-to-create frames between a substantial scene change. It does this by analyzing the in-game camera orientation on every input DLSS Frame Generation frame pair.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Default</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Disable</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Detection Method</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
@@ -8264,8 +8278,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x200AEBFC</HexSettingID>
 			<Description>Selects the driver acceleration policy used for multi-display and mixed-GPU environments.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
-			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>
-			<!-- Removed before 511.79 -->
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Single display performance mode</UserfriendlyName>
