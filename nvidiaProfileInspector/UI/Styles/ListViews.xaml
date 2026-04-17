@@ -38,6 +38,7 @@
                             Margin="0"
                             Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}"
+                            HorizontalScrollBarVisibility="Disabled"
                             Template="{DynamicResource FluentScrollViewerTemplate}">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </ScrollViewer>

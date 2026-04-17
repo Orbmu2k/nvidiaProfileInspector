@@ -12,7 +12,7 @@
     Title="NVIDIA PROFILE INSPECTOR"
     Width="1190"
     Height="750"
-    MinWidth="1000"
+    MinWidth="1050"
     MinHeight="450"
     d:DataContext="{x:Static vm:DesignTimeData.MainViewModel}"
     Background="Transparent"
@@ -1183,6 +1183,7 @@
                     <ListView
                         x:Name="SettingsListView"
                         Grid.Row="1"
+                        behaviors:GridViewColumnResizeBehavior.EnableStarSizing="True"
                         behaviors:ScrollIntoViewForListView.Enable="{Binding ScrollIntoViewEnabled}"
                         ItemsSource="{Binding GroupedSettingsView}"
                         SelectedItem="{Binding SelectedSetting}"
@@ -1272,7 +1273,11 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
-                                <GridViewColumn Width="450" Header="SETTING">
+                                <GridViewColumn
+                                    Width="450"
+                                    behaviors:GridViewColumnResizeBehavior.MinWidth="320"
+                                    behaviors:GridViewColumnResizeBehavior.StarWidth="1"
+                                    Header="SETTING">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
@@ -1292,7 +1297,11 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
-                                <GridViewColumn Width="450" Header="VALUE">
+                                <GridViewColumn
+                                    Width="450"
+                                    behaviors:GridViewColumnResizeBehavior.MinWidth="320"
+                                    behaviors:GridViewColumnResizeBehavior.StarWidth="1"
+                                    Header="VALUE">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <DataTemplate.Resources>
@@ -1315,6 +1324,7 @@
                                                         Margin="-2,-1,4,-1"
                                                         Padding="8,4"
                                                         HorizontalAlignment="Stretch"
+                                                        behaviors:SettingValueValidationBehavior.Enabled="True"
                                                         Cursor=""
                                                         DeferSelectionUntilCommit="True"
                                                         IsEditable="True"
@@ -1324,7 +1334,6 @@
                                                         PreserveSelectionOnKeyboardFocus="True"
                                                         SyncSelectedItemToText="False"
                                                         Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        behaviors:SettingValueValidationBehavior.Enabled="True"
                                                         Validation.ErrorTemplate="{x:Null}">
                                                         <controls:SearchableComboBox.ItemTemplate>
                                                             <DataTemplate>

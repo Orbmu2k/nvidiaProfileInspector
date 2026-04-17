@@ -146,6 +146,12 @@ namespace nvidiaProfileInspector.UI.Views
                         var work = monitorInfo.rcWork;
                         var monitor_rect = monitorInfo.rcMonitor;
                         var mmi = Marshal.PtrToStructure<MessageHelper.MINMAXINFO>(lParam);
+                        var dpiScale = PresentationSource.FromVisual(this)?.CompositionTarget?.TransformToDevice ?? Matrix.Identity;
+                        mmi.ptMinTrackSize = new MessageHelper.POINT
+                        {
+                            X = (int)Math.Ceiling(MinWidth * dpiScale.M11),
+                            Y = (int)Math.Ceiling(MinHeight * dpiScale.M22)
+                        };
                         mmi.ptMaxPosition = new MessageHelper.POINT
                         {
                             X = work.Left - monitor_rect.Left,
