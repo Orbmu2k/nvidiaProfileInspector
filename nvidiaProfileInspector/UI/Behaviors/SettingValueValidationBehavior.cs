@@ -39,13 +39,21 @@ namespace nvidiaProfileInspector.UI.Behaviors
             if ((bool)e.OldValue)
             {
                 comboBox.PreviewLostKeyboardFocus -= ComboBox_PreviewLostKeyboardFocus;
+                comboBox.PreviewKeyDown -= ComboBox_PreviewKeyDown;
+                comboBox.PreviewTextInput -= ComboBox_PreviewTextInput;
                 comboBox.RemoveHandler(TextBoxBase.TextChangedEvent, new TextChangedEventHandler(ComboBox_TextChanged));
+                DataObject.RemovePastingHandler(comboBox, ComboBox_Pasting);
+                comboBox.DeferredSelectionCommitted -= ComboBox_DeferredSelectionCommitted;
             }
 
             if ((bool)e.NewValue)
             {
                 comboBox.PreviewLostKeyboardFocus += ComboBox_PreviewLostKeyboardFocus;
+                comboBox.PreviewKeyDown += ComboBox_PreviewKeyDown;
+                comboBox.PreviewTextInput += ComboBox_PreviewTextInput;
                 comboBox.AddHandler(TextBoxBase.TextChangedEvent, new TextChangedEventHandler(ComboBox_TextChanged), true);
+                DataObject.AddPastingHandler(comboBox, ComboBox_Pasting);
+                comboBox.DeferredSelectionCommitted += ComboBox_DeferredSelectionCommitted;
             }
         }
 
@@ -73,8 +81,38 @@ namespace nvidiaProfileInspector.UI.Behaviors
         private static void ComboBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var comboBox = sender as SearchableComboBox;
-            if (comboBox != null)
-                Validate(comboBox);
+            if (comboBox == null)
+                return;
+
+            Validate(comboBox);
+        }
+
+        private static void ComboBox_DeferredSelectionCommitted(object sender, EventArgs e)
+        {
+            var comboBox = sender as SearchableComboBox;
+            if (comboBox != null && Validate(comboBox))
+                MarkInheritedGlobalOverride(comboBox);
+        }
+
+        private static void ComboBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var comboBox = sender as SearchableComboBox;
+            if (IsEditableTextFocus(comboBox))
+                QueueMarkInheritedGlobalOverride(comboBox);
+        }
+
+        private static void ComboBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var comboBox = sender as SearchableComboBox;
+            if ((e.Key == Key.Back || e.Key == Key.Delete) && IsEditableTextFocus(comboBox))
+                QueueMarkInheritedGlobalOverride(comboBox);
+        }
+
+        private static void ComboBox_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            var comboBox = sender as SearchableComboBox;
+            if (IsEditableTextFocus(comboBox))
+                QueueMarkInheritedGlobalOverride(comboBox);
         }
 
         private static bool Validate(SearchableComboBox comboBox)
@@ -96,6 +134,34 @@ namespace nvidiaProfileInspector.UI.Behaviors
 
             MarkValidationError(comboBox, errorMessage);
             return false;
+        }
+
+        private static void MarkInheritedGlobalOverride(SearchableComboBox comboBox)
+        {
+            var setting = comboBox.DataContext as SettingItemViewModel;
+            if (setting != null && setting.IsInheritedGlobalValue)
+                setting.MarkInheritedGlobalOverrideModified();
+        }
+
+        private static void QueueMarkInheritedGlobalOverride(SearchableComboBox comboBox)
+        {
+            if (comboBox == null)
+                return;
+
+            comboBox.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (Validate(comboBox))
+                    MarkInheritedGlobalOverride(comboBox);
+            }), DispatcherPriority.Input);
+        }
+
+        private static bool IsEditableTextFocus(SearchableComboBox comboBox)
+        {
+            if (comboBox == null)
+                return false;
+
+            var focusedElement = Keyboard.FocusedElement as FrameworkElement;
+            return focusedElement != null && ReferenceEquals(focusedElement.TemplatedParent, comboBox);
         }
 
         private static void MarkValidationError(SearchableComboBox comboBox, string errorMessage)

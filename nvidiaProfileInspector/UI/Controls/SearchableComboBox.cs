@@ -17,6 +17,8 @@ namespace nvidiaProfileInspector.UI.Controls
         private bool _allowFocusOnItems;
         private object _pendingSelectedItem;
 
+        public event EventHandler DeferredSelectionCommitted;
+
         static SearchableComboBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SearchableComboBox),
@@ -329,6 +331,7 @@ namespace nvidiaProfileInspector.UI.Controls
         {
             SelectedItem = itemToCommit;
             _pendingSelectedItem = null;
+            DeferredSelectionCommitted?.Invoke(this, EventArgs.Empty);
         }
 
         private int GetFocusedItemIndex()

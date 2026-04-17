@@ -869,7 +869,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 var original = item.OriginalItem;
                 var currentValue = item.SelectedValue;
 
-                if (original.ValueText != currentValue)
+                if (original.ValueText != currentValue || item.IsModified && item.IsInheritedGlobalValue)
                     settingsToStore.Add(new KeyValuePair<uint, string>(item.SettingId, currentValue));
             }
 

@@ -20,7 +20,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     {
         private SettingItem _item;
         private string _selectedValue;
-        private bool _isModified;
+        private bool _isInheritedGlobalOverrideModified;
         private string _originalValue;
         private bool _isFavorite;
         private List<SettingValueItem> _cachedValueNameItems;
@@ -133,6 +133,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public bool IsNvidiaSetting => State == SettingState.NvidiaSetting;
         public bool IsGlobalSetting => State == SettingState.GlobalSetting;
 
+        public bool IsInheritedGlobalValue => State == SettingState.GlobalSetting;
+
         public bool IsFavorite
         {
             get => _isFavorite;
@@ -156,29 +158,71 @@ namespace nvidiaProfileInspector.UI.ViewModels
             get => _selectedValue;
             set
             {
+                var wasModified = IsModified;
                 if (SetProperty(ref _selectedValue, value, nameof(SelectedValue)))
                 {
-                    IsModified = !string.IsNullOrEmpty(value) && value != _originalValue;
+                    if (wasModified != IsModified)
+                        OnPropertyChanged(nameof(IsModified));
                 }
             }
         }
 
         public bool IsModified
         {
-            get => _isModified;
-            set => SetProperty(ref _isModified, value, nameof(IsModified));
+            get => IsSelectedValueModified || _isInheritedGlobalOverrideModified;
+            set
+            {
+                if (value)
+                {
+                    MarkInheritedGlobalOverrideModified();
+                }
+                else
+                {
+                    SetInheritedGlobalOverrideModified(false);
+                }
+            }
+        }
+
+        public void MarkInheritedGlobalOverrideModified()
+        {
+            if (IsInheritedGlobalValue && !string.IsNullOrEmpty(_selectedValue))
+                SetInheritedGlobalOverrideModified(true);
         }
 
         public void ResetToOriginalValue()
         {
+            var wasModified = IsModified;
+            _isInheritedGlobalOverrideModified = false;
             SelectedValue = _originalValue;
+
+            if (wasModified != IsModified)
+                OnPropertyChanged(nameof(IsModified));
         }
 
         public SettingItem OriginalItem
         {
             get => _item;
-            set => SetProperty(ref _item, value, nameof(OriginalItem));
+            set
+            {
+                if (SetProperty(ref _item, value, nameof(OriginalItem)))
+                {
+                    _originalValue = value?.ValueText;
+                    OnPropertyChanged(nameof(IsModified));
+                }
+            }
         }
+
+        private bool IsSelectedValueModified => !string.IsNullOrEmpty(_selectedValue) && _selectedValue != _originalValue;
+
+        private void SetInheritedGlobalOverrideModified(bool value)
+        {
+            var wasModified = IsModified;
+            _isInheritedGlobalOverrideModified = value;
+
+            if (wasModified != IsModified)
+                OnPropertyChanged(nameof(IsModified));
+        }
+
         public List<SettingValue<uint>> DwordValues { get; set; }
         public List<SettingValue<string>> StringValues { get; set; }
         public List<SettingValue<byte[]>> BinaryValues { get; set; }
