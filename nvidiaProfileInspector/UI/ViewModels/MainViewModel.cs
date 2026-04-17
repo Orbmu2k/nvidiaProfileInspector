@@ -847,6 +847,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 _settingService.StoreSettingsToProfile(_currentProfile, settingsToStore);
                 AddModifiedProfileToCache(_currentProfile, _scannerService.UserProfiles.Contains(_currentProfile));
                 RefreshCurrentProfile();
+                ShowSnackbar("Settings applied successfully.", "Success");
             }
         }
 
