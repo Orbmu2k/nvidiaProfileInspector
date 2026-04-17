@@ -1295,56 +1295,67 @@
                                 <GridViewColumn Width="450" Header="VALUE">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
+                                            <DataTemplate.Resources>
+                                                <DataTemplate x:Key="SettingValueDisplayTemplate">
+                                                    <TextBlock
+                                                        x:Name="DisplayText"
+                                                        Margin="12,0"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{Binding State, Converter={StaticResource StateToColorConverter}, Mode=OneWay}"
+                                                        Text="{Binding SelectedValue, Mode=OneWay}"
+                                                        TextWrapping="NoWrap" />
+                                                    <DataTemplate.Triggers>
+                                                        <DataTrigger Binding="{Binding IsModified}" Value="True">
+                                                            <Setter TargetName="DisplayText" Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                                                        </DataTrigger>
+                                                    </DataTemplate.Triggers>
+                                                </DataTemplate>
+                                                <DataTemplate x:Key="SettingValueEditTemplate">
+                                                    <controls:SearchableComboBox
+                                                        Margin="-2,-1,4,-1"
+                                                        Padding="8,4"
+                                                        HorizontalAlignment="Stretch"
+                                                        Cursor=""
+                                                        DeferSelectionUntilCommit="True"
+                                                        IsEditable="True"
+                                                        ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
+                                                        MaxDropDownHeight="400"
+                                                        Placeholder="Search values..."
+                                                        PreserveSelectionOnKeyboardFocus="True"
+                                                        SyncSelectedItemToText="False"
+                                                        Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        behaviors:SettingValueValidationBehavior.Enabled="True"
+                                                        Validation.ErrorTemplate="{x:Null}">
+                                                        <controls:SearchableComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Path
+                                                                        Width="12"
+                                                                        Height="12"
+                                                                        Margin="0,0,8,0"
+                                                                        Data="{Binding Source, Converter={StaticResource SettingMetaSourceToIconConverter}, Mode=OneWay}"
+                                                                        Fill="{DynamicResource TextSecondaryBrush}"
+                                                                        Stretch="Uniform" />
+                                                                    <TextBlock
+                                                                        Text="{Binding ValueName, Mode=OneWay}"
+                                                                        TextTrimming="CharacterEllipsis"
+                                                                        TextWrapping="NoWrap" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </controls:SearchableComboBox.ItemTemplate>
+                                                    </controls:SearchableComboBox>
+                                                </DataTemplate>
+                                            </DataTemplate.Resources>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <!--  Display mode: Simple TextBlock (lightweight)  -->
-                                                <TextBlock
-                                                    x:Name="DisplayText"
-                                                    Margin="12,0"
-                                                    VerticalAlignment="Center"
-                                                    Foreground="{Binding State, Converter={StaticResource StateToColorConverter}, Mode=OneWay}"
-                                                    Text="{Binding SelectedValue, Mode=OneWay}"
-                                                    TextWrapping="NoWrap" />
-                                                <!--  Edit mode: Full ComboBox (only for selected row)  -->
-                                                <controls:SearchableComboBox
-                                                    x:Name="EditComboBox"
+                                                <ContentControl
+                                                    x:Name="ValueContent"
                                                     Grid.Column="0"
-                                                    Margin="-2,-1,4,-1"
-                                                    Padding="8,4"
-                                                    HorizontalAlignment="Stretch"
-                                                    Cursor=""
-                                                    DeferSelectionUntilCommit="True"
-                                                    IsEditable="True"
-                                                    ItemsSource="{Binding ValueNameItems, Mode=OneWay}"
-                                                    MaxDropDownHeight="400"
-                                                    Placeholder="Search values..."
-                                                    PreserveSelectionOnKeyboardFocus="True"
-                                                    SyncSelectedItemToText="False"
-                                                    Text="{Binding SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    behaviors:SettingValueValidationBehavior.Enabled="True"
-                                                    Validation.ErrorTemplate="{x:Null}"
-                                                    Visibility="Collapsed">
-                                                    <controls:SearchableComboBox.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Path
-                                                                    Width="12"
-                                                                    Height="12"
-                                                                    Margin="0,0,8,0"
-                                                                    Data="{Binding Source, Converter={StaticResource SettingMetaSourceToIconConverter}, Mode=OneWay}"
-                                                                    Fill="{DynamicResource TextSecondaryBrush}"
-                                                                    Stretch="Uniform" />
-                                                                <TextBlock
-                                                                    Text="{Binding ValueName, Mode=OneWay}"
-                                                                    TextTrimming="CharacterEllipsis"
-                                                                    TextWrapping="NoWrap" />
-                                                            </StackPanel>
-                                                        </DataTemplate>
-                                                    </controls:SearchableComboBox.ItemTemplate>
-                                                </controls:SearchableComboBox>
+                                                    Content="{Binding}"
+                                                    ContentTemplate="{StaticResource SettingValueDisplayTemplate}" />
                                                 <!--  Reset Button  -->
                                                 <Button
                                                     x:Name="RestoreButton"
@@ -1368,12 +1379,8 @@
                                                 </Button>
                                             </Grid>
                                             <DataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding IsModified}" Value="True">
-                                                    <Setter TargetName="DisplayText" Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}" Value="True">
-                                                    <Setter TargetName="DisplayText" Property="Visibility" Value="Collapsed" />
-                                                    <Setter TargetName="EditComboBox" Property="Visibility" Value="Visible" />
+                                                    <Setter TargetName="ValueContent" Property="ContentTemplate" Value="{StaticResource SettingValueEditTemplate}" />
                                                 </DataTrigger>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
@@ -1420,6 +1427,11 @@
 
                         <ListView.GroupStyle>
                             <GroupStyle>
+                                <GroupStyle.Panel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </GroupStyle.Panel>
                                 <GroupStyle.ContainerStyle>
                                     <Style BasedOn="{StaticResource ListViewGroupHeaderStyle}" TargetType="GroupItem" />
                                 </GroupStyle.ContainerStyle>
