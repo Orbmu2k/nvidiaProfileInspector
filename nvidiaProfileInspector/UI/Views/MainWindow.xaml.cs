@@ -253,7 +253,8 @@ namespace nvidiaProfileInspector.UI.Views
         {
             _themeManager.ThemeChanged -= OnThemeChanged;
 
-            _viewModel.SaveSettings(Left, Top, Width, Height, WindowState);
+            var restoreBounds = WindowState == WindowState.Maximized ? RestoreBounds : new Rect(Left, Top, Width, Height);
+            _viewModel.SaveSettings(restoreBounds.Left, restoreBounds.Top, restoreBounds.Width, restoreBounds.Height, WindowState);
         }
 
         private void CustomSettingsOverrideChip_Click(object sender, RoutedEventArgs e)

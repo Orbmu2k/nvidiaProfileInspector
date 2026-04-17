@@ -360,10 +360,10 @@ namespace nvidiaProfileInspector.Native.WINAPI
             WINDOWPLACEMENT param = new WINDOWPLACEMENT();
             if (GetWindowPlacement(hWnd, ref param))
             {
-                if (param.showCmd != SW_NORMAL)
+                if (param.showCmd == SW_SHOWMINIMIZED || param.showCmd == SW_MINIMIZE || param.showCmd == SW_SHOWMINNOACTIVE)
                 {
                     param.length = Marshal.SizeOf(typeof(WINDOWPLACEMENT));
-                    param.showCmd = SW_NORMAL;
+                    param.showCmd = SW_RESTORE;
                     SetWindowPlacement(hWnd, ref param);
                 }
             }
