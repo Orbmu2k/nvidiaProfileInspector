@@ -131,6 +131,7 @@
                             <CheckBox
                                 Margin="4"
                                 Content="{Binding ProfileName}"
+                                FontSize="13"
                                 IsChecked="{Binding IsSelected}"
                                 Style="{StaticResource DarkCheckBoxStyle}" />
                         </DataTemplate>
