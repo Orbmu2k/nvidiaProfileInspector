@@ -234,7 +234,7 @@
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>DLSS-FG - Auto Scene Change Detection</UserfriendlyName>
+			<UserfriendlyName>DLSS-FG - Scene Auto Change Detection</UserfriendlyName>
 			<HexSettingID>0x10E41DF6</HexSettingID>
 			<Description>Auto Scene Change Detection aims to automatically prevent Frame Generation from producing difficult-to-create frames between a substantial scene change. It does this by analyzing the in-game camera orientation on every input DLSS Frame Generation frame pair.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
