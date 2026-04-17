@@ -55,7 +55,7 @@
                             IsHitTestVisible="False" />
                         <Popup
                             x:Name="Popup"
-                            AllowsTransparency="True"
+                            AllowsTransparency="False"
                             Focusable="False"
                             IsOpen="{TemplateBinding IsDropDownOpen}"
                             Placement="Bottom"

@@ -9,6 +9,7 @@ namespace nvidiaProfileInspector.UI.Views
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Controls;
@@ -43,6 +44,18 @@ namespace nvidiaProfileInspector.UI.Views
 
             ApplyMockTitle();
             SourceInitialized += MainWindow_SourceInitialized;
+            Dispatcher.BeginInvoke(new Action(PreloadAccessibilityAssembly), DispatcherPriority.ApplicationIdle);
+        }
+
+        private static void PreloadAccessibilityAssembly()
+        {
+            try
+            {
+                Assembly.Load(new AssemblyName("Accessibility, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"));
+            }
+            catch
+            {
+            }
         }
 
         private void ApplyMockTitle()
@@ -317,8 +330,6 @@ namespace nvidiaProfileInspector.UI.Views
             dialog.OnValueChanged = (newValue) => _viewModel.SetDwordValue(settingId, newValue);
             dialog.ShowDialog();
         }
-
-
 
         private void AddApplication_Click(object sender, RoutedEventArgs e)
         {
