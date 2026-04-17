@@ -1,4 +1,4 @@
-﻿using nvidiaProfileInspector.Common.Meta;
+using nvidiaProfileInspector.Common.Meta;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -53,16 +53,18 @@ namespace nvidiaProfileInspector.Common
 
         public static uint ParseDwordSettingValue(SettingMeta meta, string text)
         {
-            if (meta?.DwordValues != null && text != null)
+            var normalizedText = text?.Trim();
+
+            if (meta?.DwordValues != null && normalizedText != null)
             {
                 foreach (var v in meta.DwordValues)
                 {
-                    if (text.Equals(v.ValueName, StringComparison.Ordinal))
+                    if (normalizedText.Equals(v.ValueName, StringComparison.Ordinal))
                         return v.Value;
                 }
             }
 
-            return ParseDwordByInputSafe(text);
+            return ParseDwordByInputSafe(normalizedText);
         }
 
         public static string GetDwordSettingValueName(SettingMeta meta, uint dwordValue)
