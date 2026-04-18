@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: windows-latest
     outputs:
-      version: ${{ steps.get-version.outputs.version || steps.get-version-pr.outputs.version }}
+      version: ${{ steps.get-version.outputs.version }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -59,44 +59,6 @@ jobs:
         Write-Host "Assembly base version: $($BASE_VERSION.ToString())"
         Write-Host "Latest matching tag version: $LATEST_VERSION"
         Write-Host "Next release version: $NEW_VERSION"
-        echo "version=v${NEW_VERSION}" >> $env:GITHUB_OUTPUT
-      shell: pwsh
-
-    - name: Get version for PR (no increment)
-      id: get-version-pr
-      if: github.event_name == 'pull_request'
-      run: |
-        $ASSEMBLY_INFO = "nvidiaProfileInspector\Properties\AssemblyInfo.cs"
-        $ASSEMBLY_CONTENT = Get-Content $ASSEMBLY_INFO -Raw
-        $ASSEMBLY_MATCH = [regex]::Match($ASSEMBLY_CONTENT, 'AssemblyVersion\("(?<version>\d+\.\d+\.\d+\.\d+)"\)')
-        if (!$ASSEMBLY_MATCH.Success) {
-            throw "Could not read AssemblyVersion from $ASSEMBLY_INFO"
-        }
-
-        $BASE_VERSION = [Version]$ASSEMBLY_MATCH.Groups["version"].Value
-        $MAJOR = $BASE_VERSION.Major
-        $MINOR = $BASE_VERSION.Minor
-        $PATCH = $BASE_VERSION.Build
-        $BASE_PREFIX = "${MAJOR}.${MINOR}.${PATCH}"
-
-        $LATEST_VERSION = git tag --list |
-          ForEach-Object { $_.Trim() } |
-          Where-Object { $_ -match '^v?\d+\.\d+\.\d+\.\d+$' } |
-          ForEach-Object { [Version]($_.TrimStart('v')) } |
-          Where-Object { $_.Major -eq $MAJOR -and $_.Minor -eq $MINOR -and $_.Build -eq $PATCH } |
-          Sort-Object |
-          Select-Object -Last 1
-
-        if ($null -eq $LATEST_VERSION) {
-            $BUILD = $BASE_VERSION.Revision
-        } else {
-            $BUILD = $LATEST_VERSION.Revision
-        }
-
-        $NEW_VERSION = "${BASE_PREFIX}.${BUILD}"
-        Write-Host "Assembly base version: $($BASE_VERSION.ToString())"
-        Write-Host "Latest matching tag version: $LATEST_VERSION"
-        Write-Host "PR version: $NEW_VERSION"
         echo "version=v${NEW_VERSION}" >> $env:GITHUB_OUTPUT
       shell: pwsh
 
