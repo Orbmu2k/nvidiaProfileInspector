@@ -22,8 +22,8 @@
     <Color x:Key="TextSecondaryColor">#A6A6A6</Color>
     <Color x:Key="TextDisabledColor">#5C5C5C</Color>
 
-    <Color x:Key="UserAccentColor">#569CD6</Color>
-    <Color x:Key="UserAccentHoverColor">#70D0FF</Color>
+    <Color x:Key="UserAccentColor">#00A1FF</Color>
+    <Color x:Key="UserAccentHoverColor">#33B5FF</Color>
 
     <Color x:Key="ControlBorderColor">#444444</Color>
     <Color x:Key="ControlBorderHoverColor">#555555</Color>
