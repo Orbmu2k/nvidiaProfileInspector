@@ -26,24 +26,39 @@ jobs:
       id: get-version
       if: github.event_name == 'push'
       run: |
-        $DEFAULT_VERSION = [Version]"3.0.0.0"
+        $ASSEMBLY_INFO = "nvidiaProfileInspector\Properties\AssemblyInfo.cs"
+        $ASSEMBLY_CONTENT = Get-Content $ASSEMBLY_INFO -Raw
+        $ASSEMBLY_MATCH = [regex]::Match($ASSEMBLY_CONTENT, 'AssemblyVersion\("(?<version>\d+\.\d+\.\d+\.\d+)"\)')
+        if (!$ASSEMBLY_MATCH.Success) {
+            throw "Could not read AssemblyVersion from $ASSEMBLY_INFO"
+        }
+
+        $BASE_VERSION = [Version]$ASSEMBLY_MATCH.Groups["version"].Value
+        $MAJOR = $BASE_VERSION.Major
+        $MINOR = $BASE_VERSION.Minor
+        $PATCH = $BASE_VERSION.Build
+        $BASE_PREFIX = "${MAJOR}.${MINOR}.${PATCH}"
+
         $LATEST_VERSION = git tag --list |
           ForEach-Object { $_.Trim() } |
           Where-Object { $_ -match '^v?\d+\.\d+\.\d+\.\d+$' } |
           ForEach-Object { [Version]($_.TrimStart('v')) } |
+          Where-Object { $_.Major -eq $MAJOR -and $_.Minor -eq $MINOR -and $_.Build -eq $PATCH } |
           Sort-Object |
           Select-Object -Last 1
+
         if ($null -eq $LATEST_VERSION) {
-            $LATEST_VERSION = $DEFAULT_VERSION
+            $BUILD = $BASE_VERSION.Revision
+        } else {
+            $BUILD = $LATEST_VERSION.Revision
         }
-        $PARTS = $LATEST_VERSION.ToString().Split('.')
-        $MAJOR = $PARTS[0]
-        $MINOR = $PARTS[1]
-        $PATCH = [int]$PARTS[2]
-        $BUILD = if ($PARTS.Count -ge 4) { [int]$PARTS[3] } else { 0 }
+
         # Increment BUILD number on each push
         $BUILD = $BUILD + 1
-        $NEW_VERSION = "${MAJOR}.${MINOR}.${PATCH}.${BUILD}"
+        $NEW_VERSION = "${BASE_PREFIX}.${BUILD}"
+        Write-Host "Assembly base version: $($BASE_VERSION.ToString())"
+        Write-Host "Latest matching tag version: $LATEST_VERSION"
+        Write-Host "Next release version: $NEW_VERSION"
         echo "version=v${NEW_VERSION}" >> $env:GITHUB_OUTPUT
       shell: pwsh
 
@@ -51,22 +66,37 @@ jobs:
       id: get-version-pr
       if: github.event_name == 'pull_request'
       run: |
-        $DEFAULT_VERSION = [Version]"3.0.0.0"
+        $ASSEMBLY_INFO = "nvidiaProfileInspector\Properties\AssemblyInfo.cs"
+        $ASSEMBLY_CONTENT = Get-Content $ASSEMBLY_INFO -Raw
+        $ASSEMBLY_MATCH = [regex]::Match($ASSEMBLY_CONTENT, 'AssemblyVersion\("(?<version>\d+\.\d+\.\d+\.\d+)"\)')
+        if (!$ASSEMBLY_MATCH.Success) {
+            throw "Could not read AssemblyVersion from $ASSEMBLY_INFO"
+        }
+
+        $BASE_VERSION = [Version]$ASSEMBLY_MATCH.Groups["version"].Value
+        $MAJOR = $BASE_VERSION.Major
+        $MINOR = $BASE_VERSION.Minor
+        $PATCH = $BASE_VERSION.Build
+        $BASE_PREFIX = "${MAJOR}.${MINOR}.${PATCH}"
+
         $LATEST_VERSION = git tag --list |
           ForEach-Object { $_.Trim() } |
           Where-Object { $_ -match '^v?\d+\.\d+\.\d+\.\d+$' } |
           ForEach-Object { [Version]($_.TrimStart('v')) } |
+          Where-Object { $_.Major -eq $MAJOR -and $_.Minor -eq $MINOR -and $_.Build -eq $PATCH } |
           Sort-Object |
           Select-Object -Last 1
+
         if ($null -eq $LATEST_VERSION) {
-            $LATEST_VERSION = $DEFAULT_VERSION
+            $BUILD = $BASE_VERSION.Revision
+        } else {
+            $BUILD = $LATEST_VERSION.Revision
         }
-        $PARTS = $LATEST_VERSION.ToString().Split('.')
-        $MAJOR = $PARTS[0]
-        $MINOR = $PARTS[1]
-        $PATCH = [int]$PARTS[2]
-        $BUILD = if ($PARTS.Count -ge 4) { [int]$PARTS[3] } else { 0 }
-        $NEW_VERSION = "${MAJOR}.${MINOR}.${PATCH}.${BUILD}"
+
+        $NEW_VERSION = "${BASE_PREFIX}.${BUILD}"
+        Write-Host "Assembly base version: $($BASE_VERSION.ToString())"
+        Write-Host "Latest matching tag version: $LATEST_VERSION"
+        Write-Host "PR version: $NEW_VERSION"
         echo "version=v${NEW_VERSION}" >> $env:GITHUB_OUTPUT
       shell: pwsh
 
