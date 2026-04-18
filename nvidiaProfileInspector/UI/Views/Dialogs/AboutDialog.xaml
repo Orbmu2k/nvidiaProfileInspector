@@ -6,12 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:nvidiaProfileInspector.UI.ViewModels"
     Title="About NVIDIA PROFILE INSPECTOR"
-    Width="450"
+    Width="820"
     Height="Auto"
-    MinWidth="400"
-    MinHeight="200"
-    MaxWidth="500"
-    MaxHeight="700"
+    MinWidth="760"
+    MinHeight="460"
+    MaxWidth="900"
+    MaxHeight="760"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
     SizeToContent="Height"
@@ -20,17 +20,6 @@
     mc:Ignorable="d">
 
     <Window.Resources>
-
-        <!--  Circle Image Brush  -->
-        <Style x:Key="AvatarBorderStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="24" />
-            <Setter Property="Width" Value="48" />
-            <Setter Property="Height" Value="48" />
-            <Setter Property="Margin" Value="0,0,16,0" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
-        </Style>
-
         <Style x:Key="LinkButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
@@ -53,13 +42,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--  Title Bar (Draggable Area)  -->
         <Border
             Grid.Row="0"
             Padding="24,12,0,0"
@@ -98,145 +84,200 @@
             </Grid>
         </Border>
 
-        <!--  App Header  -->
-        <Border
-            Grid.Row="1"
-            Padding="24,24,24,16"
-            Background="{DynamicResource Layer1BackgroundBrush}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Margin="24,24,24,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.05*" />
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition Width="0.95*" />
+            </Grid.ColumnDefinitions>
 
-                <Path
-                    Width="48"
-                    Height="48"
-                    Margin="0,0,24,0"
-                    Data="{DynamicResource IconInspectorApp}"
-                    Fill="{DynamicResource NvidiaGreenBrush}"
-                    Stretch="Uniform" />
+            <StackPanel Grid.Column="0">
+                <Border
+                    Padding="18"
+                    Background="{DynamicResource Layer1BackgroundBrush}"
+                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="{DynamicResource TextPrimaryBrush}"
-                        Text="NVIDIA PROFILE INSPECTOR" />
-                    <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
-                        <TextBlock Foreground="{DynamicResource TextSecondaryBrush}" Text="Version " />
-                        <TextBlock
-                            FontWeight="SemiBold"
-                            Foreground="{DynamicResource NvidiaGreenBrush}"
-                            Text="{Binding Version}" />
-                    </StackPanel>
+                        <Path
+                            Width="52"
+                            Height="52"
+                            Margin="0,0,18,0"
+                            Data="{DynamicResource IconInspectorApp}"
+                            Fill="{DynamicResource NvidiaGreenBrush}"
+                            Stretch="Uniform" />
 
-                    <Button
-                        Margin="0,8,0,0"
-                        Padding="0"
-                        HorizontalAlignment="Left"
-                        Command="{Binding OpenGitHubRepositoryCommand}"
-                        Style="{StaticResource LinkButtonStyle}"
-                        ToolTip="Open GitHub repository">
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource TextPrimaryBrush}"
+                                Text="NVIDIA PROFILE INSPECTOR" />
+                            <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+                                <TextBlock Foreground="{DynamicResource TextSecondaryBrush}" Text="Version " />
+                                <TextBlock
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource NvidiaGreenBrush}"
+                                    Text="{Binding Version}" />
+                            </StackPanel>
+
+                            <Button
+                                Margin="0,10,0,0"
+                                Padding="0"
+                                HorizontalAlignment="Left"
+                                Command="{Binding OpenGitHubRepositoryCommand}"
+                                Style="{StaticResource LinkButtonStyle}"
+                                ToolTip="Open GitHub repository">
+                                <TextBlock
+                                    FontSize="11"
+                                    Foreground="{DynamicResource TextSecondaryBrush}"
+                                    Text="github.com/Orbmu2k/nvidiaProfileInspector"
+                                    TextDecorations="Underline" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border
+                    Margin="0,16,0,0"
+                    Padding="18"
+                    Background="{DynamicResource Layer1BackgroundBrush}"
+                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <StackPanel>
                         <TextBlock
                             FontSize="11"
-                            Foreground="{DynamicResource TextSecondaryBrush}"
-                            Text="github.com/Orbmu2k/nvidiaProfileInspector"
-                            TextDecorations="Underline" />
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
-
-        <!--  Update Information (Prominent)  -->
-        <Border
-            Grid.Row="2"
-            Padding="24,0,24,16"
-            Background="{DynamicResource Layer1BackgroundBrush}"
-            Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
-            <Border
-                Padding="16,12"
-                Background="{DynamicResource ApplicationAddBrush}"
-                BorderBrush="{DynamicResource NvidiaGreenBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Path
-                        Width="24"
-                        Height="24"
-                        Margin="0,0,16,0"
-                        Data="{DynamicResource IconInfo}"
-                        Fill="{DynamicResource NvidiaGreenBrush}"
-                        Stretch="Uniform" />
-
-                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock
-                            FontSize="14"
                             FontWeight="Bold"
-                            Foreground="{DynamicResource TextPrimaryBrush}"
-                            Text="Update Available!" />
-                        <TextBlock
-                            FontSize="12"
                             Foreground="{DynamicResource TextSecondaryBrush}"
-                            Text="A newer version is available with latest features."
-                            TextWrapping="Wrap" />
+                            Text="UPDATES" />
+
+                        <Grid Margin="0,14,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="0,0,14,8"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                Text="Channel" />
+                            <ComboBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Height="32"
+                                ItemsSource="{Binding UpdateChannels}"
+                                SelectedItem="{Binding SelectedUpdateChannel, Mode=TwoWay}"
+                                Style="{StaticResource DarkComboBoxStyle}" />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="0,10,14,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                Text="Latest" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0,10,0,0"
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource TextPrimaryBrush}"
+                                Text="{Binding LatestVersionText}" />
+                        </Grid>
+
+                        <CheckBox
+                            Margin="0,16,0,0"
+                            Foreground="{DynamicResource TextPrimaryBrush}"
+                            IsChecked="{Binding IsAutomaticUpdateCheckEnabled}">
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextPrimaryBrush}"
+                                Text="Check for available updates on startup" />
+                        </CheckBox>
+
+                        <Border
+                            Margin="0,16,0,0"
+                            Padding="12"
+                            Background="{DynamicResource Layer2BackgroundBrush}"
+                            BorderBrush="{DynamicResource ControlBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Path
+                                    Width="18"
+                                    Height="18"
+                                    Margin="0,1,10,0"
+                                    Data="{DynamicResource IconInfo}"
+                                    Fill="{DynamicResource NvidiaGreenBrush}"
+                                    Stretch="Uniform" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource TextSecondaryBrush}"
+                                    Text="{Binding UpdateStatusText}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+
+                        <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
+                            <Button
+                                MinWidth="96"
+                                Margin="0,0,8,0"
+                                Command="{Binding CheckForUpdateCommand}"
+                                Content="Check Now"
+                                Style="{StaticResource DarkButtonStyle}" />
+                            <Button
+                                MinWidth="126"
+                                Command="{Binding InstallUpdateCommand}"
+                                Content="Install Update"
+                                IsEnabled="{Binding CanInstallUpdate}"
+                                Style="{StaticResource AccentButtonStyle}" />
+                            <Button
+                                MinWidth="96"
+                                Margin="8,0,0,0"
+                                Command="{Binding OpenGitHubCommand}"
+                                Content="Releases"
+                                Style="{StaticResource DarkButtonStyle}"
+                                ToolTip="Open GitHub releases" />
+                        </StackPanel>
                     </StackPanel>
+                </Border>
+            </StackPanel>
 
-                    <Button
-                        Grid.Column="2"
-                        Margin="12,0,0,0"
-                        Padding="16,6"
-                        Command="{Binding OpenGitHubCommand}"
-                        Content="GitHub Releases"
-                        Style="{StaticResource AccentButtonStyle}" />
-                </Grid>
-            </Border>
-        </Border>
-
-        <!--  Contributors Section  -->
-        <Border Grid.Row="3" Padding="24,0,24,24">
-            <Grid>
+            <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Border
-                    Grid.Row="0"
-                    Margin="0,16,0,8"
-                    Padding="12"
-                    Background="{DynamicResource Layer2BackgroundBrush}"
-                    BorderBrush="{DynamicResource ControlBorderBrush}"
-                    BorderThickness="1"
-                    CornerRadius="8">
-                    <CheckBox
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource TextPrimaryBrush}"
-                        IsChecked="{Binding IsAutomaticUpdateCheckEnabled}">
-                        <TextBlock
-                            FontSize="12"
-                            Foreground="{DynamicResource TextPrimaryBrush}"
-                            Text="Check for available updates" />
-                    </CheckBox>
-                </Border>
-
                 <TextBlock
-                    Grid.Row="1"
-                    Margin="0,12,0,10"
+                    Grid.Row="0"
+                    Margin="0,0,0,10"
                     FontSize="11"
                     FontWeight="Bold"
                     Foreground="{DynamicResource TextSecondaryBrush}"
                     Text="CONTRIBUTORS" />
 
                 <ScrollViewer
-                    Grid.Row="2"
+                    Grid.Row="1"
                     CanContentScroll="True"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
@@ -244,9 +285,9 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border
-                                    Margin="0,0,0,6"
+                                    Margin="0,0,0,8"
                                     Padding="10"
-                                    Background="{DynamicResource Layer2BackgroundBrush}"
+                                    Background="{DynamicResource Layer1BackgroundBrush}"
                                     BorderBrush="{DynamicResource ControlBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
@@ -259,15 +300,15 @@
 
                                         <Border
                                             Grid.Column="0"
-                                            Width="32"
-                                            Height="32"
+                                            Width="34"
+                                            Height="34"
                                             Margin="0,0,10,0"
                                             Background="#333"
-                                            CornerRadius="16">
-                                            <Border ClipToBounds="True" CornerRadius="16">
+                                            CornerRadius="17">
+                                            <Border ClipToBounds="True" CornerRadius="17">
                                                 <Image
-                                                    Width="32"
-                                                    Height="32"
+                                                    Width="34"
+                                                    Height="34"
                                                     Source="{Binding AvatarUrl}"
                                                     Stretch="UniformToFill" />
                                             </Border>
@@ -282,7 +323,8 @@
                                             <TextBlock
                                                 FontSize="11"
                                                 Foreground="{DynamicResource TextSecondaryBrush}"
-                                                Text="{Binding Role}" />
+                                                Text="{Binding Role}"
+                                                TextWrapping="Wrap" />
                                         </StackPanel>
 
                                         <Button
@@ -305,11 +347,10 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
-        </Border>
+        </Grid>
 
-        <!--  Footer / Buttons  -->
         <Border
-            Grid.Row="4"
+            Grid.Row="2"
             Padding="24"
             Background="{DynamicResource Layer2BackgroundBrush}"
             CornerRadius="0,0,8,8">

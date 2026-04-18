@@ -40,7 +40,6 @@ namespace nvidiaProfileInspector
 
             _container.Register<BitEditorService>();
             _container.RegisterSingleton<DialogService>();
-            _container.RegisterSingleton<UpdateService>();
             _container.RegisterSingleton<ThemeManager>();
 
             _container.Register<UI.ViewModels.MainViewModel>(autoResolve: true);

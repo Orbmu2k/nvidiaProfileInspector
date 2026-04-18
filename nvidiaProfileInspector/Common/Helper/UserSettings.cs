@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -27,6 +27,8 @@ namespace nvidiaProfileInspector.Common.Helper
         public List<string> HiddenSettingGroups { get; set; } = new List<string>();
 
         public bool DisableUpdateCheck { get; set; } = false;
+
+        public string UpdateChannel { get; set; } = "Release";
 
         public List<uint> FavoriteSettingIds { get; set; } = new List<uint>();
 

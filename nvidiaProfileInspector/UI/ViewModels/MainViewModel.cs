@@ -3,6 +3,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using nvidiaProfileInspector;
     using nvidiaProfileInspector.Common;
     using nvidiaProfileInspector.Common.Helper;
+    using nvidiaProfileInspector.Common.Updates;
     using nvidiaProfileInspector.Native.NVAPI2;
     using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector.Services;
@@ -47,6 +48,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private int _scanProgress;
         private bool _isScanning;
         private bool _isUpdateAvailable;
+        private UpdateRelease _latestAvailableRelease;
+        private readonly AppUpdateService _updateService = new AppUpdateService();
         private SettingItemViewModel _selectedSetting;
         private ListCollectionView _groupedSettingsView;
         private CancellationTokenSource _scanCancellationTokenSource;
@@ -1517,7 +1520,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void ShowAbout()
         {
-            var dialog = new Views.Dialogs.AboutDialog(IsUpdateAvailable);
+            var dialog = new Views.Dialogs.AboutDialog(_latestAvailableRelease);
             var owner = Application.Current.Windows.Cast<Window>()
                 .FirstOrDefault(w => w.IsActive) ?? Application.Current.MainWindow;
 
@@ -1616,7 +1619,10 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (System.IO.File.Exists(System.IO.Path.Combine(AppContext.BaseDirectory, "DisableUpdateCheck.txt")))
                     return;
 
-                IsUpdateAvailable = await GithubVersionHelper.IsUpdateAvailableAsync();
+                var channel = UpdateChannelFormatter.Parse(UserSettings.LoadSettings().UpdateChannel);
+                var result = await _updateService.CheckAsync(channel);
+                _latestAvailableRelease = result.IsUpdateAvailable ? result.LatestRelease : null;
+                IsUpdateAvailable = result.IsUpdateAvailable;
             }
             catch { }
         }
