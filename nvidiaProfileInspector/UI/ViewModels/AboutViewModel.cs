@@ -21,6 +21,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     public class AboutViewModel : ViewModelBase
     {
         private bool _isAutomaticUpdateCheckEnabled;
+        private bool _isSplashScreenDisabled;
         private bool _isUpdateAvailable;
         private bool _isUpdating;
         private string _latestVersionText = "Not checked";
@@ -45,6 +46,20 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 {
                     var settings = UserSettings.LoadSettings();
                     settings.DisableUpdateCheck = !value;
+                    settings.SaveSettings();
+                }
+            }
+        }
+
+        public bool IsSplashScreenDisabled
+        {
+            get => _isSplashScreenDisabled;
+            set
+            {
+                if (SetProperty(ref _isSplashScreenDisabled, value, nameof(IsSplashScreenDisabled)))
+                {
+                    var settings = UserSettings.LoadSettings();
+                    settings.DisableSplashScreen = value;
                     settings.SaveSettings();
                 }
             }
@@ -119,6 +134,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var settings = UserSettings.LoadSettings();
             _selectedUpdateChannel = UpdateChannelFormatter.ToDisplayName(UpdateChannelFormatter.Parse(settings.UpdateChannel));
             _isAutomaticUpdateCheckEnabled = !settings.DisableUpdateCheck;
+            _isSplashScreenDisabled = settings.DisableSplashScreen;
 
             if (latestAvailableRelease?.Version != null)
             {

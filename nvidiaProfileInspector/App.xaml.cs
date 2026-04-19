@@ -135,6 +135,9 @@ namespace nvidiaProfileInspector
 
         private void ShowStartupSplashScreen()
         {
+            if (UserSettings.LoadSettings().DisableSplashScreen)
+                return;
+
             _startupSplashScreen = StartupSplashScreen.Show();
         }
 

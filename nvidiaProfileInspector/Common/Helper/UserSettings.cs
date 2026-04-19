@@ -28,6 +28,8 @@ namespace nvidiaProfileInspector.Common.Helper
 
         public bool DisableUpdateCheck { get; set; } = false;
 
+        public bool DisableSplashScreen { get; set; } = false;
+
         public string UpdateChannel { get; set; } = "Release";
 
         public List<uint> FavoriteSettingIds { get; set; } = new List<uint>();

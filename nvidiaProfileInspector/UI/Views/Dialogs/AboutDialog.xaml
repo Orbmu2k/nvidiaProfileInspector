@@ -266,6 +266,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
@@ -346,6 +347,33 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
+
+                <Border
+                    Grid.Row="2"
+                    Margin="0,8,0,0"
+                    Padding="18"
+                    Background="{DynamicResource Layer1BackgroundBrush}"
+                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="11"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource TextSecondaryBrush}"
+                            Text="STARTUP" />
+
+                        <CheckBox
+                            Margin="0,12,0,0"
+                            Foreground="{DynamicResource TextPrimaryBrush}"
+                            IsChecked="{Binding IsSplashScreenDisabled}">
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextPrimaryBrush}"
+                                Text="Disable splash screen on startup" />
+                        </CheckBox>
+                    </StackPanel>
+                </Border>
             </Grid>
         </Grid>
 
