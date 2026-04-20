@@ -8278,7 +8278,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x200AEBFC</HexSettingID>
 			<Description>Selects the driver acceleration policy used for multi-display and mixed-GPU environments.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
-			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion><!-- Removed before 511.79 -->
+			<MaxRequiredDriverVersion>511.78</MaxRequiredDriverVersion>			<!-- Removed before 511.79 -->
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Single display performance mode</UserfriendlyName>
@@ -8398,12 +8398,40 @@ When any driver flags are set HDR will be applied via driver instead of through 
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>0x00080004 Allow promoting DXVK to DXGI/DirectFlip</UserfriendlyName>
+					<UserfriendlyName>0x00080004 - Allow promoting DXVK to DXGI/DirectFlip</UserfriendlyName>
 					<HexValue>0x00080004</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>0x000802A5 Treat DXVK as Native</UserfriendlyName>
+					<UserfriendlyName>0x000802A5 - Treat DXVK as Native</UserfriendlyName>
 					<HexValue>0x000802A5</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Disable - Clear all debug bits</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>DISABLE_FULLSCREEN_OPT - Disable fullscreen optimization</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>DISABLE_THREAD - Disable present thread</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>ENABLE_DFLIP_ALWAYS - Enable use of direct flip API parameters</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>ENABLE_NON_STEREO - Enable DX present on non-stereo windows</UserfriendlyName>
+					<HexValue>0x00000008</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>0x00080000 - Allow DXVK promotion</UserfriendlyName>
+					<HexValue>0x00080000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>ENABLE_FULLSCREEN_WIN7_STEREO - Enable Win7 fullscreen stereo mechanism</UserfriendlyName>
+					<HexValue>0x10000000</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
