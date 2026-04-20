@@ -58,6 +58,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private SynchronizationContext _uiContext;
         private ITaskbarList3 _taskbarList;
         private IntPtr _windowHandle;
+        private Task _activeScanTask = Task.CompletedTask;
         private bool _scrollIntoViewEnabled = false;
         private string _snackbarMessage;
         private string _snackbarType;
@@ -415,7 +416,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public ICommand DeleteProfileCommand { get; private set; }
         public ICommand AddApplicationCommand { get; private set; }
         public ICommand RemoveApplicationCommand { get; private set; }
-        public ICommand ExportProfileCommand { get; private set; }
         public ICommand ImportProfileCommand { get; private set; }
         public ICommand OpenBitEditorCommand { get; private set; }
         public ICommand ResetValueCommand { get; private set; }
@@ -465,7 +465,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
             DeleteProfileCommand = new AsyncRelayCommand(DeleteProfileAsync);
             AddApplicationCommand = new RelayCommand(_ => AddApplication());
             RemoveApplicationCommand = new RelayCommand(param => RemoveApplication(param as ApplicationItem));
-            ExportProfileCommand = new RelayCommand(ExportProfile);
             ImportProfileCommand = new RelayCommand(ImportProfile);
             OpenBitEditorCommand = new RelayCommand(OpenBitEditor, () => SelectedSetting != null);
             ResetValueCommand = new RelayCommand(ResetValue);
@@ -1096,29 +1095,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
-        private void ExportProfile()
-        {
-            var dialog = new Microsoft.Win32.SaveFileDialog
-            {
-                DefaultExt = "*.nip",
-                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
-                FileName = _currentProfile + ".nip"
-            };
-
-            if (dialog.ShowDialog() == true)
-            {
-                var profiles = new List<string> { _currentProfile };
-                _importService.ExportProfiles(profiles, dialog.FileName, false);
-            }
-        }
-
         public void ExportCurrentProfile(bool includePredefined)
         {
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 DefaultExt = "*.nip",
                 Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
-                FileName = _currentProfile + ".nip"
+                FileName = ProfileExportFileNames.ForCurrentProfile(_currentProfile)
             };
 
             if (dialog.ShowDialog() == true)
@@ -1129,18 +1112,33 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
-        public void ExportAllCustomizedProfiles()
+        public async Task ExportAllCustomizedProfilesAsync()
         {
+            if (IsScanning)
+            {
+                ShowSnackbar("Waiting for the modified profiles scan to finish...", "Information");
+                await WaitForActiveScanAsync();
+            }
+
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 DefaultExt = "*.nip",
                 Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
-                FileName = "all_profiles.nip"
+                FileName = ProfileExportFileNames.ForAllCustomizedProfiles()
             };
 
             if (dialog.ShowDialog() == true)
             {
-                _importService.ExportAllCustomizedProfiles(dialog.FileName);
+                var modifiedProfiles = _scannerService.ModifiedProfiles
+                    .Distinct(StringComparer.InvariantCultureIgnoreCase)
+                    .OrderBy(profileName => profileName, StringComparer.InvariantCultureIgnoreCase)
+                    .ToList();
+
+                if (modifiedProfiles.Any())
+                    _importService.ExportProfiles(modifiedProfiles, dialog.FileName, includePredefined: false);
+                else
+                    _importService.ExportAllCustomizedProfiles(dialog.FileName);
+
                 ShowSnackbar("All customized profiles exported successfully!", "Success");
             }
         }
@@ -1151,7 +1149,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 DefaultExt = "*.txt",
                 Filter = "NVIDIA Text Files|*.txt",
-                FileName = "nvidia_profiles.txt"
+                FileName = ProfileExportFileNames.ForNvidiaTextProfiles()
             };
 
             if (dialog.ShowDialog() == true)
@@ -1549,8 +1547,23 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private async Task ScanProfilesAsync(bool onlyModified = false)
         {
             if (IsScanning)
+            {
+                await WaitForActiveScanAsync();
                 return;
+            }
 
+            var scanTask = RunScanProfilesAsync(onlyModified);
+            _activeScanTask = scanTask;
+            await scanTask;
+        }
+
+        private Task WaitForActiveScanAsync()
+        {
+            return _activeScanTask ?? Task.CompletedTask;
+        }
+
+        private async Task RunScanProfilesAsync(bool onlyModified)
+        {
             _uiContext = SynchronizationContext.Current;
             var window = Application.Current?.MainWindow;
             if (window != null)

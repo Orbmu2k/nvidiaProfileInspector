@@ -500,9 +500,9 @@ namespace nvidiaProfileInspector.UI.Views
             _viewModel.ExportCurrentProfile(includePredefined: true);
         }
 
-        private void ExportAllCustomized_Click(object sender, RoutedEventArgs e)
+        private async void ExportAllCustomized_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.ExportAllCustomizedProfiles();
+            await _viewModel.ExportAllCustomizedProfilesAsync();
         }
 
         private void ExportAllNVIDIA_Click(object sender, RoutedEventArgs e)

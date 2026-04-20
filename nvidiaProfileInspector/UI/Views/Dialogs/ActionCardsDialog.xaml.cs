@@ -1,10 +1,8 @@
 using Microsoft.Win32;
-using nvidiaProfileInspector.Common;
 using nvidiaProfileInspector.TinyIoc;
 using nvidiaProfileInspector.UI.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -112,25 +110,22 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
 
         private void SelectAll_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var profile in _selectionViewModel.Profiles)
-                profile.IsSelected = true;
+            _selectionViewModel.SelectAll();
         }
 
         private void SelectNone_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var profile in _selectionViewModel.Profiles)
-                profile.IsSelected = false;
+            _selectionViewModel.SelectNone();
         }
 
         private void Invert_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var profile in _selectionViewModel.Profiles)
-                profile.IsSelected = !profile.IsSelected;
+            _selectionViewModel.InvertSelection();
         }
 
         private void ExportSelected_Click(object sender, RoutedEventArgs e)
         {
-            if (!_selectionViewModel.Profiles.Any(x => x.IsSelected))
+            if (!_selectionViewModel.HasSelectedProfiles)
             {
                 if (Owner is MainWindow mainWindow && mainWindow.DataContext is MainViewModel mainViewModel)
                     mainViewModel.ShowSnackbar("Please select at least one profile to export.", "Warning");
@@ -142,13 +137,13 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
             var dialog = new SaveFileDialog
             {
                 Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
-                DefaultExt = "*.nip"
+                DefaultExt = "*.nip",
+                FileName = ProfileExportFileNames.ForSelectedProfiles()
             };
 
             if (dialog.ShowDialog() == true)
             {
-                var selectedProfiles = _selectionViewModel.Profiles.Where(x => x.IsSelected).Select(x => x.ProfileName).ToList();
-                TinyIoC.Resolve<DrsImportService>().ExportProfiles(selectedProfiles, dialog.FileName, _selectionViewModel.IncludePredefined);
+                _selectionViewModel.ExportSelectedProfiles(dialog.FileName);
 
                 if (Owner is MainWindow mainWindow && mainWindow.DataContext is MainViewModel mainViewModel)
                     mainViewModel.ShowSnackbar("All selected profiles exported successfully!", "Success");

@@ -1,10 +1,9 @@
 namespace nvidiaProfileInspector.UI.ViewModels
 {
-    using Microsoft.Win32;
     using nvidiaProfileInspector.Common;
     using System.Collections.ObjectModel;
+    using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Input;
 
     public class ExportProfilesViewModel : ViewModelBase
     {
@@ -23,14 +22,12 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         public bool IncludePredefined { get; set; }
 
-        public ICommand SelectAllCommand => new RelayCommand(_ => SelectAll());
-        public ICommand SelectNoneCommand => new RelayCommand(_ => SelectNone());
-        public ICommand InvertSelectionCommand => new RelayCommand(_ => InvertSelection());
-        public ICommand ExportCommand => new RelayCommand(_ => Export(), _ => Profiles.Any(x => x.IsSelected));
-        public ICommand CancelCommand { get; }
+        public bool HasSelectedProfiles => Profiles.Any(x => x.IsSelected);
 
-        public System.Action CloseAction { get; set; }
-        public System.Action<string> OnShowMessage { get; set; }
+        public List<string> SelectedProfileNames => Profiles
+            .Where(x => x.IsSelected)
+            .Select(x => x.ProfileName)
+            .ToList();
 
         private void LoadProfiles()
         {
@@ -40,45 +37,27 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
-        private void SelectAll()
+        public void SelectAll()
         {
             foreach (var profile in _profiles)
                 profile.IsSelected = true;
         }
 
-        private void SelectNone()
+        public void SelectNone()
         {
             foreach (var profile in _profiles)
                 profile.IsSelected = false;
         }
 
-        private void InvertSelection()
+        public void InvertSelection()
         {
             foreach (var profile in _profiles)
                 profile.IsSelected = !profile.IsSelected;
         }
 
-        private void Export()
+        public void ExportSelectedProfiles(string filename)
         {
-            var selectedProfiles = _profiles.Where(x => x.IsSelected).Select(x => x.ProfileName).ToList();
-            if (!selectedProfiles.Any())
-            {
-                OnShowMessage?.Invoke("Nothing to export");
-                return;
-            }
-
-            var dialog = new SaveFileDialog
-            {
-                DefaultExt = "*.nip",
-                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip"
-            };
-
-            if (dialog.ShowDialog() == true)
-            {
-                _importService.ExportProfiles(selectedProfiles, dialog.FileName, IncludePredefined);
-                OnShowMessage?.Invoke("Export succeeded!");
-                CloseAction?.Invoke();
-            }
+            _importService.ExportProfiles(SelectedProfileNames, filename, IncludePredefined);
         }
     }
 
