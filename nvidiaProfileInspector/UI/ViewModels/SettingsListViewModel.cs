@@ -66,6 +66,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 var matches = item.DisplayName.IndexOf(_filterText, System.StringComparison.OrdinalIgnoreCase) >= 0;
                 if (!matches && !string.IsNullOrEmpty(item.AlternateNames))
                     matches = item.AlternateNames.IndexOf(_filterText, System.StringComparison.OrdinalIgnoreCase) >= 0;
+                if (!matches)
+                    matches = item.SettingIdHex.IndexOf(_filterText, System.StringComparison.OrdinalIgnoreCase) >= 0;
                 e.Accepted = matches;
             }
         }
