@@ -6568,7 +6568,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 		<CustomSetting>
 			<UserfriendlyName>Ultra Low Latency - Enabled</UserfriendlyName>
 			<HexSettingID>0x10835000</HexSettingID>
-			<Description>Enables or disables the driver Ultra Low Latency scheduling path for this profile.</Description>
+			<Description>Enables or disables the driver Ultra Low Latency scheduling path for this profile. Also recommended to set up "Maximum Pre-rendered Frames" flag to 1.</Description>
 			<GroupName>02 - Sync and Refresh</GroupName>
 			<MinRequiredDriverVersion>430.00</MinRequiredDriverVersion>
 			<SettingValues>
@@ -8029,6 +8029,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x007BA09E</HexSettingID>
 			<Description>Sets the maximum number of frames the CPU may queue ahead of GPU execution.</Description>
 			<GroupName>02 - Sync and Refresh</GroupName>
+			<AlternateNames>MPRF, Low Latency</AlternateNames>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Use the 3D application setting</UserfriendlyName>
@@ -8112,6 +8113,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<HexSettingID>0x00A879CF</HexSettingID>
 			<Description>Selects the vertical synchronization mode applied by the driver.</Description>
 			<GroupName>02 - Sync and Refresh</GroupName>
+			<AlternateNames>VSYNC</AlternateNames>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Force off</UserfriendlyName>
