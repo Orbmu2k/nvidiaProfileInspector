@@ -22,6 +22,7 @@ namespace nvidiaProfileInspector.Common
         private List<MetaServiceItem> MetaServices = new List<MetaServiceItem>();
 
         private Dictionary<uint, SettingMeta> settingMetaCache = new Dictionary<uint, SettingMeta>();
+        private Dictionary<Tuple<uint, SettingViewMode>, SettingMeta> postProcessedSettingMetaCache = new Dictionary<Tuple<uint, SettingViewMode>, SettingMeta>();
 
         public DrsSettingsMetaService(CustomSettingNames customSettings, CustomSettingNames referenceSettings = null)
         {
@@ -34,6 +35,7 @@ namespace nvidiaProfileInspector.Common
         public void ResetMetaCache(bool initOnly = false)
         {
             settingMetaCache = new Dictionary<uint, SettingMeta>();
+            postProcessedSettingMetaCache = new Dictionary<Tuple<uint, SettingViewMode>, SettingMeta>();
             MetaServices = new List<MetaServiceItem>();
 
             CustomMeta = new CustomSettingMetaService(_customSettings);
@@ -355,6 +357,10 @@ namespace nvidiaProfileInspector.Common
 
         private SettingMeta PostProcessMeta(uint settingId, SettingMeta settingMeta, SettingViewMode viewMode)
         {
+            var cacheKey = Tuple.Create(settingId, viewMode);
+            if (postProcessedSettingMetaCache.TryGetValue(cacheKey, out var cachedMeta))
+                return cachedMeta;
+
             var newMeta = new SettingMeta()
             {
                 DefaultDwordValue = settingMeta.DefaultDwordValue,
@@ -393,6 +399,7 @@ namespace nvidiaProfileInspector.Common
                     .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
             }
 
+            postProcessedSettingMetaCache.Add(cacheKey, newMeta);
             return newMeta;
         }
 

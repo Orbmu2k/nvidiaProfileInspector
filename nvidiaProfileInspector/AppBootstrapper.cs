@@ -7,6 +7,8 @@ namespace nvidiaProfileInspector
     using System;
     using System.IO;
     using System.Reflection;
+    using System.Windows.Interop;
+    using System.Windows.Media;
 
     public class AppBootstrapper : IDisposable
     {
@@ -19,6 +21,8 @@ namespace nvidiaProfileInspector
 
         public void Initialize()
         {
+            RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
+
             _container = new TinyIoCContainer();
 
             var customSettings = LoadCustomSettings();
