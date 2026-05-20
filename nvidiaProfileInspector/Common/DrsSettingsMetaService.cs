@@ -454,7 +454,7 @@ namespace nvidiaProfileInspector.Common
                 refMeta != null && ((CustomSettingMetaService)refMeta.Service).IsSettingHidden(settingId);
         }
 
-        private string GetDescription(uint settingId)
+        public string GetDescription(uint settingId)
         {
             var csn = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.CustomSettings);
             var csnDescription = csn != null ? ((CustomSettingMetaService)csn.Service).GetDescription(settingId) ?? "" : "";

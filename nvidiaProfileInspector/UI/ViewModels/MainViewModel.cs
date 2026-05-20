@@ -687,8 +687,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 return;
             }
 
-            var meta = _metaService.GetSettingMeta(_selectedSetting.SettingId, GetSettingViewMode());
-            var description = DlssHelper.ReplaceDlssVersions(meta?.Description ?? "");
+            var description = _metaService.GetDescription(_selectedSetting.SettingId);
+            description = DlssHelper.ReplaceDlssVersions(description ?? "");
             if (!string.IsNullOrEmpty(_selectedSetting.AlternateNames))
                 description = $"Alternate names: {_selectedSetting.AlternateNames}\r\n{description}";
 
