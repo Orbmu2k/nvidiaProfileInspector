@@ -145,6 +145,7 @@ namespace nvidiaProfileInspector
         {
             RunCommonStartupTasks();
             InitializeBootstrapper();
+            PrewarmPopupCreateWindow();
 
             // Load saved theme using ThemeManager
             var themeManager = _bootstrapper.Resolve<ThemeManager>();
@@ -159,6 +160,16 @@ namespace nvidiaProfileInspector
                 MainWindow = mainWindow;
                 mainWindow.Show();
             }), DispatcherPriority.Background);
+        }
+
+        private void PrewarmPopupCreateWindow()
+        {
+            var dummyPopup = new System.Windows.Controls.Primitives.Popup
+            {
+                Width = 1, Height = 1, AllowsTransparency = true, Opacity = 0, Child = new System.Windows.Controls.Border() 
+            };
+            dummyPopup.IsOpen = true;
+            dummyPopup.IsOpen = false;
         }
 
         private void RunCommonStartupTasks()
