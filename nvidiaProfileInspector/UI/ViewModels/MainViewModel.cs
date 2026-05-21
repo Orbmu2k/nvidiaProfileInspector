@@ -3,6 +3,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using nvidiaProfileInspector;
     using nvidiaProfileInspector.Common;
     using nvidiaProfileInspector.Common.Helper;
+    using nvidiaProfileInspector.Common.Meta;
     using nvidiaProfileInspector.Common.Updates;
     using nvidiaProfileInspector.Native.NVAPI2;
     using nvidiaProfileInspector.Native.WINAPI;
@@ -704,11 +705,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (item == null)
                 return true;
 
-            var settingMeta = _metaService.GetSettingMeta(item.SettingId, GetSettingViewMode());
-            var settingType = settingMeta?.SettingType;
-
-            if (settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
+            if (item.DwordValues != null)
             {
+                var settingMeta = new SettingMeta { DwordValues = item.DwordValues };
                 if (DrsUtil.TryParseDwordSettingValue(settingMeta, item.SelectedValue, out _))
                     return true;
 
@@ -716,8 +715,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 return false;
             }
 
-            if (settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
+            if (item.BinaryValues != null)
             {
+                var settingMeta = new SettingMeta { BinaryValues = item.BinaryValues };
                 if (DrsUtil.ParseBinarySettingValue(settingMeta, item.SelectedValue) != null)
                     return true;
 
