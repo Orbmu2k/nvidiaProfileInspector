@@ -3,6 +3,7 @@ namespace nvidiaProfileInspector.UI.Views
     using nvidiaProfileInspector;
     using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector.Services;
+    using nvidiaProfileInspector.UI.Controls;
     using nvidiaProfileInspector.UI.ViewModels;
     using nvidiaProfileInspector.UI.Views.Dialogs;
     using System;
@@ -26,6 +27,8 @@ namespace nvidiaProfileInspector.UI.Views
         private readonly bool _showOnlyCustomizedSettings;
         private HwndSource _windowSource;
         private bool _mainWindowNativeDropRegistered;
+        private ContentControl _currentValueEditorHost;
+        private SearchableComboBox _sharedValueEditor;
 
         public MainWindow(bool showOnlyCustomizedSettings = false, bool disableInitialScan = false)
         {
@@ -38,6 +41,7 @@ namespace nvidiaProfileInspector.UI.Views
             _viewModel.OnFocusFilter += () => FilterTextBox.Focus();
             _themeManager.ThemeChanged += OnThemeChanged;
             DataContext = _viewModel;
+            _sharedValueEditor = (SearchableComboBox)Resources["SharedValueEditorResource"];
 
             if (_showOnlyCustomizedSettings)
                 _viewModel.FilterTypeIndex = 0;
@@ -45,6 +49,8 @@ namespace nvidiaProfileInspector.UI.Views
             ApplyMockTitle();
             SourceInitialized += MainWindow_SourceInitialized;
             Dispatcher.BeginInvoke(new Action(PreloadAccessibilityAssembly), DispatcherPriority.ApplicationIdle);
+            SettingsListView.SelectionChanged += SettingsListView_SelectionChanged;
+            SettingsListView.LayoutUpdated += SettingsListView_LayoutUpdated;
         }
 
         private static void PreloadAccessibilityAssembly()
@@ -217,6 +223,7 @@ namespace nvidiaProfileInspector.UI.Views
         {
             RestoreWindowSettings();
             await _viewModel.InitializeAsync(_disableInitialScan);
+            UpdateSharedValueEditorPlacement();
         }
 
         private void OnThemeChanged(string themeName)
@@ -252,9 +259,120 @@ namespace nvidiaProfileInspector.UI.Views
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _themeManager.ThemeChanged -= OnThemeChanged;
+            SettingsListView.SelectionChanged -= SettingsListView_SelectionChanged;
+            SettingsListView.LayoutUpdated -= SettingsListView_LayoutUpdated;
 
             var restoreBounds = WindowState == WindowState.Maximized ? RestoreBounds : new Rect(Left, Top, Width, Height);
             _viewModel.SaveSettings(restoreBounds.Left, restoreBounds.Top, restoreBounds.Width, restoreBounds.Height, WindowState);
+        }
+
+        private void SettingsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(new Action(UpdateSharedValueEditorPlacement), DispatcherPriority.Loaded);
+        }
+
+        private void SettingsListView_LayoutUpdated(object? sender, EventArgs e)
+        {
+            UpdateSharedValueEditorPlacement();
+        }
+
+        private void UpdateSharedValueEditorPlacement()
+        {
+            if (!IsLoaded || _viewModel.SelectedSetting == null)
+            {
+                HideSharedValueEditor();
+                return;
+            }
+
+            if (SettingsListView.ItemContainerGenerator.ContainerFromItem(_viewModel.SelectedSetting) is not ListViewItem selectedItem
+                || !selectedItem.IsVisible)
+            {
+                HideSharedValueEditor();
+                return;
+            }
+
+            var anchor = FindDescendantByName<FrameworkElement>(selectedItem, "ValueEditorAnchor");
+            if (anchor == null || !anchor.IsVisible || anchor.ActualWidth <= 0 || anchor.ActualHeight <= 0)
+            {
+                HideSharedValueEditor();
+                return;
+            }
+
+            var host = FindDescendantByName<ContentControl>(selectedItem, "ValueEditorHost");
+            if (host == null)
+            {
+                HideSharedValueEditor();
+                return;
+            }
+
+            if (!ReferenceEquals(_currentValueEditorHost, host))
+            {
+                DetachSharedValueEditor();
+                host.Content = _sharedValueEditor;
+                _currentValueEditorHost = host;
+            }
+
+            _sharedValueEditor.Width = double.NaN;
+            _sharedValueEditor.ClearValue(FrameworkElement.HeightProperty);
+            _sharedValueEditor.HorizontalAlignment = HorizontalAlignment.Stretch;
+            _sharedValueEditor.VerticalAlignment = VerticalAlignment.Stretch;
+            _sharedValueEditor.FontWeight = selectedItem.FontWeight;
+            _sharedValueEditor.Visibility = Visibility.Visible;
+            ApplySharedValueEditorTypography(selectedItem);
+            _sharedValueEditor.UpdateLayout();
+        }
+
+        private void HideSharedValueEditor()
+        {
+            _sharedValueEditor.IsDropDownOpen = false;
+            _sharedValueEditor.Visibility = Visibility.Collapsed;
+            DetachSharedValueEditor();
+        }
+
+        private void DetachSharedValueEditor()
+        {
+            if (_currentValueEditorHost != null && ReferenceEquals(_currentValueEditorHost.Content, _sharedValueEditor))
+                _currentValueEditorHost.Content = null;
+
+            _currentValueEditorHost = null;
+        }
+
+        private void ApplySharedValueEditorTypography(ListViewItem selectedItem)
+        {
+            if (FindDescendantByName<TextBlock>(selectedItem, "DisplayText") is TextBlock displayText)
+                _sharedValueEditor.Foreground = displayText.Foreground;
+
+            if (_sharedValueEditor.Template?.FindName("PART_EditableTextBox", _sharedValueEditor) is TextBox editableTextBox)
+            {
+                editableTextBox.FontWeight = selectedItem.FontWeight;
+                editableTextBox.Foreground = _sharedValueEditor.Foreground;
+            }
+
+            if (_sharedValueEditor.Template?.FindName("ContentSite", _sharedValueEditor) is TextBlock contentSite)
+            {
+                contentSite.FontWeight = selectedItem.FontWeight;
+                contentSite.Foreground = _sharedValueEditor.Foreground;
+            }
+        }
+
+        private static T? FindDescendantByName<T>(DependencyObject root, string name) where T : FrameworkElement
+        {
+            if (root == null)
+                return null;
+
+            var childCount = VisualTreeHelper.GetChildrenCount(root);
+            for (var i = 0; i < childCount; i++)
+            {
+                var child = VisualTreeHelper.GetChild(root, i);
+                if (child is T element && string.Equals(element.Name, name, StringComparison.Ordinal))
+                    return element;
+
+                var match = FindDescendantByName<T>(child, name);
+                if (match != null)
+                    return match;
+            }
+
+            return null;
         }
 
         private void CustomSettingsOverrideChip_Click(object sender, RoutedEventArgs e)
