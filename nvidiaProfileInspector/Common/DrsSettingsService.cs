@@ -577,6 +577,16 @@ namespace nvidiaProfileInspector.Common
             });
         }
 
+        public void AddApplication(string profileName, string applicationName, string fileInFolder)
+        {
+            DrsSession((hSession) =>
+            {
+                var hProfile = GetProfileHandle(hSession, profileName);
+                AddApplication(hSession, hProfile, applicationName, fileInFolder);
+                SaveSettings(hSession);
+            });
+        }
+
         public void RemoveApplication(string profileName, string applicationFingerprint)
         {
             DrsSession((hSession) =>
