@@ -675,6 +675,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (!string.IsNullOrEmpty(altNamesToCheck) &&
                     altNamesToCheck.IndexOf(_filterText, StringComparison.OrdinalIgnoreCase) >= 0)
                     return true;
+                if (item.SettingIdHex.IndexOf(_filterText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return true;
             }
             return false;
         }
