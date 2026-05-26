@@ -237,7 +237,7 @@
 			<UserfriendlyName>DLSS-NR - Enable DLL Override</UserfriendlyName>
 			<HexSettingID>0x10E41E04</HexSettingID>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>610.47</MinRequiredDriverVersion>
 			<Description>If enabled, overrides DLSS-NR with the latest global version installed.\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
@@ -255,7 +255,7 @@
 			<UserfriendlyName>DLSS-NR - Enable Streamline DLL Override</UserfriendlyName>
 			<HexSettingID>0x10E41E05</HexSettingID>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>610.47</MinRequiredDriverVersion>
 			<Description>If enabled, overrides Streamline DLSS-NR with the latest global version installed.\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
@@ -274,7 +274,7 @@
 			<HexSettingID>0x10E41DF8</HexSettingID>
 			<Description>Forces a specific DLSS Neural Rendering model preset when the application honors preset overrides.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
-			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<MinRequiredDriverVersion>610.47</MinRequiredDriverVersion>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
