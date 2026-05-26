@@ -234,6 +234,120 @@
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
+			<UserfriendlyName>DLSS-NR - Enable DLL Override</UserfriendlyName>
+			<HexSettingID>0x10E41E04</HexSettingID>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<Description>If enabled, overrides DLSS-NR with the latest global version installed.\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On - DLSS-NR overridden by latest installed</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>DLSS-NR - Enable Streamline DLL Override</UserfriendlyName>
+			<HexSettingID>0x10E41E05</HexSettingID>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<Description>If enabled, overrides Streamline DLSS-NR with the latest global version installed.\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>On - Streamline DLSS-NR overridden by latest installed</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks />
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>DLSS-NR - Forced Preset Letter</UserfriendlyName>
+			<HexSettingID>0x10E41DF8</HexSettingID>
+			<Description>Forces a specific DLSS Neural Rendering model preset when the application honors preset overrides.</Description>
+			<GroupName>05 - Upscaling and Frame Generation</GroupName>
+			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>N/A</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset A</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset B</UserfriendlyName>
+					<HexValue>0x00000002</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset C</UserfriendlyName>
+					<HexValue>0x00000003</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset D</UserfriendlyName>
+					<HexValue>0x00000004</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset E (unused)</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset F (unused)</UserfriendlyName>
+					<HexValue>0x00000006</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset G (unused)</UserfriendlyName>
+					<HexValue>0x00000007</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset H (unused)</UserfriendlyName>
+					<HexValue>0x00000008</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset I (unused)</UserfriendlyName>
+					<HexValue>0x00000009</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset J (unused)</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset K (unused)</UserfriendlyName>
+					<HexValue>0x0000000B</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset L (unused)</UserfriendlyName>
+					<HexValue>0x0000000C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset M (unused)</UserfriendlyName>
+					<HexValue>0x0000000D</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset N (unused)</UserfriendlyName>
+					<HexValue>0x0000000E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+			<SettingMasks />
+		</CustomSetting>
+		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Scene Auto Change Detection</UserfriendlyName>
 			<HexSettingID>0x10E41DF6</HexSettingID>
 			<Description>Auto Scene Change Detection aims to automatically prevent Frame Generation from producing difficult-to-create frames between a substantial scene change. It does this by analyzing the in-game camera orientation on every input DLSS Frame Generation frame pair.</Description>
