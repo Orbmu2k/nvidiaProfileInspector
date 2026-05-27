@@ -140,6 +140,26 @@ namespace nvidiaProfileInspector.Common
 
         }
 
+        protected void StoreQwordValue(IntPtr hSession, IntPtr hProfile, uint settingId, ulong qwordValue)
+        {
+            var newSetting = new NVDRS_SETTING()
+            {
+                version = nvw.NVDRS_SETTING_VER,
+                settingId = settingId,
+                settingType = NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE,
+                settingLocation = NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION,
+                currentValue = new NVDRS_SETTING_UNION()
+                {
+                    qwordValue = qwordValue,
+                },
+            };
+
+            var ssRes = nvw.Instance.DRS_SetSetting(hSession, hProfile, ref newSetting);
+            if (ssRes != NvAPI_Status.NVAPI_OK)
+                throw new NvapiException("DRS_SetSetting", ssRes);
+
+        }
+
         protected void StoreStringValue(IntPtr hSession, IntPtr hProfile, uint settingId, string stringValue)
         {
             var newSetting = new NVDRS_SETTING()

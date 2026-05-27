@@ -33,5 +33,10 @@ namespace nvidiaProfileInspector.Common.CustomSettings
             get { return string.IsNullOrEmpty(OverrideDefault) ? null : (uint?)Convert.ToUInt32(OverrideDefault.Trim(), 16); }
         }
 
+        public ulong? DefaultQwordValue
+        {
+            get { return string.IsNullOrEmpty(OverrideDefault) ? null : (ulong?)Convert.ToUInt64(OverrideDefault.Trim(), 16); }
+        }
+
     }
 }

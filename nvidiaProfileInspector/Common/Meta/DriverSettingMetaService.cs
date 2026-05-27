@@ -78,6 +78,21 @@ namespace nvidiaProfileInspector.Common.Meta
                 }
             }
 
+            if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE)
+            {
+                result.DefaultQwordValue = values.defaultValue.qwordValue;
+                result.QwordValues = new List<SettingValue<ulong>>();
+                for (int i = 0; i < values.numSettingValues; i++)
+                {
+                    result.QwordValues.Add(
+                        new SettingValue<ulong>(Source)
+                        {
+                            Value = values.settingValues[i].qwordValue,
+                            ValueName = DrsUtil.GetQwordString(values.settingValues[i].qwordValue),
+                        });
+                }
+            }
+
             if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
             {
                 result.DefaultStringValue = values.defaultValue.stringValue;
@@ -154,6 +169,15 @@ namespace nvidiaProfileInspector.Common.Meta
             return null;
         }
 
+        public ulong? GetQwordDefaultValue(uint settingId)
+        {
+            var settingMeta = GetSettingsMeta(settingId);
+            if (settingMeta != null)
+                return settingMeta.DefaultQwordValue;
+
+            return null;
+        }
+
         public string GetStringDefaultValue(uint settingId)
         {
             var settingMeta = GetSettingsMeta(settingId);
@@ -177,6 +201,15 @@ namespace nvidiaProfileInspector.Common.Meta
             var settingMeta = GetSettingsMeta(settingId);
             if (settingMeta != null)
                 return settingMeta.DwordValues;
+
+            return null;
+        }
+
+        public List<SettingValue<ulong>> GetQwordValues(uint settingId)
+        {
+            var settingMeta = GetSettingsMeta(settingId);
+            if (settingMeta != null)
+                return settingMeta.QwordValues;
 
             return null;
         }

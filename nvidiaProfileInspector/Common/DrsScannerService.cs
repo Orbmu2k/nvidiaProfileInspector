@@ -186,6 +186,8 @@ namespace nvidiaProfileInspector.Common
                         cachedSetting.AddStringValue(setting.predefinedValue.stringValue, profile.profileName);
                     else if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
                         cachedSetting.AddDwordValue(setting.predefinedValue.dwordValue, profile.profileName);
+                    else if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE)
+                        cachedSetting.AddQwordValue(setting.predefinedValue.qwordValue, profile.profileName);
                     else if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
                         cachedSetting.AddBinaryValue(setting.predefinedValue.binaryValue, profile.profileName);
 

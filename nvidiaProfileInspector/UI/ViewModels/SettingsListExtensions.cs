@@ -20,7 +20,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             // Reapplying value sources in that case invalidates the combo box item source and
             // can clear the currently displayed setting value in the ListView cell.
             if (!ReferenceEquals(source, target))
-                target.UpdateValueSources(source.DwordValues, source.StringValues, source.BinaryValues);
+                target.UpdateValueSources(source.DwordValues, source.QwordValues, source.StringValues, source.BinaryValues);
 
             // Restore the current display value after refreshing the value source list.
             target.SelectedValue = source.SelectedValue;

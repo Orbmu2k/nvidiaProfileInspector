@@ -965,6 +965,8 @@ namespace nvidiaProfileInspector.Native.NVAPI2
                     return string.Equals(left.ansiStringValue, right.ansiStringValue, StringComparison.Ordinal);
                 case NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE:
                     return string.Equals(left.stringValue, right.stringValue, StringComparison.Ordinal);
+                case NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE:
+                    return left.qwordValue == right.qwordValue;
                 default:
                     return left.dwordValue == right.dwordValue;
             }

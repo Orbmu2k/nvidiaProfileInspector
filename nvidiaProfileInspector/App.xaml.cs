@@ -135,6 +135,9 @@ namespace nvidiaProfileInspector
 
         private void ShowStartupSplashScreen()
         {
+            if (Debugger.IsAttached)
+                return;
+
             if (UserSettings.LoadSettings().DisableSplashScreen)
                 return;
 
@@ -166,7 +169,11 @@ namespace nvidiaProfileInspector
         {
             var dummyPopup = new System.Windows.Controls.Primitives.Popup
             {
-                Width = 1, Height = 1, AllowsTransparency = true, Opacity = 0, Child = new System.Windows.Controls.Border() 
+                Width = 1,
+                Height = 1,
+                AllowsTransparency = true,
+                Opacity = 0,
+                Child = new System.Windows.Controls.Border()
             };
             dummyPopup.IsOpen = true;
             dummyPopup.IsOpen = false;

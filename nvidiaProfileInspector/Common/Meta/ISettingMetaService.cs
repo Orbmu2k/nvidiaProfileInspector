@@ -17,6 +17,8 @@ namespace nvidiaProfileInspector.Common.Meta
 
         uint? GetDwordDefaultValue(uint settingId);
 
+        ulong? GetQwordDefaultValue(uint settingId);
+
         string GetStringDefaultValue(uint settingId);
 
         byte[] GetBinaryDefaultValue(uint settingId);
@@ -24,6 +26,8 @@ namespace nvidiaProfileInspector.Common.Meta
         List<SettingValue<string>> GetStringValues(uint settingId);
 
         List<SettingValue<uint>> GetDwordValues(uint settingId);
+
+        List<SettingValue<ulong>> GetQwordValues(uint settingId);
 
         List<SettingValue<byte[]>> GetBinaryValues(uint settingId);
 

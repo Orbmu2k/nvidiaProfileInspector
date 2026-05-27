@@ -398,6 +398,11 @@ namespace nvidiaProfileInspector.Common
                         var dword = DrsUtil.ParseDwordSettingValue(settingMeta, setting.Value);
                         StoreDwordValue(hSession, hProfile, setting.Key, dword);
                     }
+                    else if (settingType == NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE)
+                    {
+                        var qword = DrsUtil.ParseQwordSettingValue(settingMeta, setting.Value);
+                        StoreQwordValue(hSession, hProfile, setting.Key, qword);
+                    }
                     else if (settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
                     {
                         var str = DrsUtil.ParseStringSettingValue(settingMeta, setting.Value);
@@ -424,6 +429,9 @@ namespace nvidiaProfileInspector.Common
 
             if (settingMeta.DwordValues == null)
                 settingMeta.DwordValues = new List<SettingValue<uint>>();
+
+            if (settingMeta.QwordValues == null)
+                settingMeta.QwordValues = new List<SettingValue<ulong>>();
 
 
             if (settingMeta.StringValues == null)
@@ -458,6 +466,35 @@ namespace nvidiaProfileInspector.Common
                 {
                     valueRaw = DrsUtil.GetDwordString(setting.currentValue.dwordValue);
                     valueText = DrsUtil.GetDwordSettingValueName(settingMeta, setting.currentValue.dwordValue);
+
+                    if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                        settingState = SettingState.UserdefinedSetting;
+                    else
+                        settingState = SettingState.GlobalSetting;
+                }
+            }
+
+            if (settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE)
+            {
+                if (useDefault)
+                {
+                    valueRaw = DrsUtil.GetQwordString(settingMeta.DefaultQwordValue);
+                    valueText = DrsUtil.GetQwordSettingValueName(settingMeta, settingMeta.DefaultQwordValue);
+                }
+                else if (setting.isCurrentPredefined == 1 && setting.isPredefinedValid == 1)
+                {
+                    valueRaw = DrsUtil.GetQwordString(setting.predefinedValue.qwordValue);
+                    valueText = DrsUtil.GetQwordSettingValueName(settingMeta, setting.predefinedValue.qwordValue);
+
+                    if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                        settingState = SettingState.NvidiaSetting;
+                    else
+                        settingState = SettingState.GlobalSetting;
+                }
+                else
+                {
+                    valueRaw = DrsUtil.GetQwordString(setting.currentValue.qwordValue);
+                    valueText = DrsUtil.GetQwordSettingValueName(settingMeta, setting.currentValue.qwordValue);
 
                     if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
                         settingState = SettingState.UserdefinedSetting;

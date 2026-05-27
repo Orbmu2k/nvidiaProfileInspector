@@ -1,8 +1,8 @@
 namespace nvidiaProfileInspector.UI.ViewModels
 {
     using nvidiaProfileInspector.Common;
-    using System.Collections.ObjectModel;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
 
     public class ExportProfilesViewModel : ViewModelBase

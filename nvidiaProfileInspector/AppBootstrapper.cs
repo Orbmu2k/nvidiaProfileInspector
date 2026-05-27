@@ -7,8 +7,6 @@ namespace nvidiaProfileInspector
     using System;
     using System.IO;
     using System.Reflection;
-    using System.Windows.Interop;
-    using System.Windows.Media;
 
     public class AppBootstrapper : IDisposable
     {

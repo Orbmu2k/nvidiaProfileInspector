@@ -38,6 +38,21 @@ namespace nvidiaProfileInspector.Common
             ProfileCount++;
         }
 
+        public void AddQwordValue(ulong valueQword, string Profile)
+        {
+            var setting = SettingValues.FirstOrDefault(s => s.QwordValue == valueQword);
+            if (setting == null)
+            {
+                SettingValues.Add(new CachedSettingValue(valueQword, Profile));
+            }
+            else
+            {
+                setting.ProfileNames.Append(", " + Profile);
+                setting.ValueProfileCount++;
+            }
+            ProfileCount++;
+        }
+
         public void AddStringValue(string valueStr, string Profile)
         {
 

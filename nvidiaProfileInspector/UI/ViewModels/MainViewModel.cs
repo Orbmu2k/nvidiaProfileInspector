@@ -717,6 +717,16 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 return false;
             }
 
+            if (item.QwordValues != null)
+            {
+                var settingMeta = new SettingMeta { QwordValues = item.QwordValues };
+                if (DrsUtil.TryParseQwordSettingValue(settingMeta, item.SelectedValue, out _))
+                    return true;
+
+                errorMessage = "Enter a valid QWORD value.";
+                return false;
+            }
+
             if (item.BinaryValues != null)
             {
                 var settingMeta = new SettingMeta { BinaryValues = item.BinaryValues };
@@ -817,6 +827,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 var vm = new SettingItemViewModel(item);
                 var meta = _metaService.GetSettingMeta(item.SettingId, GetSettingViewMode());
                 vm.DwordValues = meta?.DwordValues;
+                vm.QwordValues = meta?.QwordValues;
                 vm.StringValues = meta?.StringValues;
                 vm.BinaryValues = meta?.BinaryValues;
                 tempSettings.Add(vm);

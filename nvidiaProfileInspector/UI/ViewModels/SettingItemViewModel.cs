@@ -59,10 +59,12 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         public void UpdateValueSources(
             List<SettingValue<uint>> dwordValues,
+            List<SettingValue<ulong>> qwordValues,
             List<SettingValue<string>> stringValues,
             List<SettingValue<byte[]>> binaryValues)
         {
             DwordValues = dwordValues;
+            QwordValues = qwordValues;
             StringValues = stringValues;
             BinaryValues = binaryValues;
             InvalidateValueNameItems();
@@ -78,6 +80,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     if (DwordValues != null)
                     {
                         items.AddRange(DwordValues.Where(v => !string.IsNullOrEmpty(v.ValueName))
+                        .Select(v => new SettingValueItem { ValueName = v.ValueName, Source = v.ValueSource }));
+                    }
+                    else if (QwordValues != null)
+                    {
+                        items.AddRange(QwordValues.Where(v => !string.IsNullOrEmpty(v.ValueName))
                         .Select(v => new SettingValueItem { ValueName = v.ValueName, Source = v.ValueSource }));
                     }
                     else if (StringValues != null)
@@ -224,6 +231,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         }
 
         public List<SettingValue<uint>> DwordValues { get; set; }
+        public List<SettingValue<ulong>> QwordValues { get; set; }
         public List<SettingValue<string>> StringValues { get; set; }
         public List<SettingValue<byte[]>> BinaryValues { get; set; }
     }

@@ -34,6 +34,8 @@ namespace nvidiaProfileInspector.Common.Import
             {
                 case NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE:
                     return settingUnion.dwordValue.ToString();
+                case NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE:
+                    return settingUnion.qwordValue.ToString();
                 case NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE:
                     return settingUnion.ansiStringValue;
                 case NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE:
@@ -50,6 +52,7 @@ namespace nvidiaProfileInspector.Common.Import
             switch (input)
             {
                 case NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE: return SettingValueType.Binary;
+                case NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE: return SettingValueType.Qword;
                 case NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE: return SettingValueType.AnsiString;
                 case NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE: return SettingValueType.String;
                 default: return SettingValueType.Dword;
@@ -77,6 +80,9 @@ namespace nvidiaProfileInspector.Common.Import
                 case SettingValueType.Dword:
                     union.dwordValue = uint.Parse(valueString);
                     break;
+                case SettingValueType.Qword:
+                    union.qwordValue = ulong.Parse(valueString);
+                    break;
                 case SettingValueType.String:
                     union.stringValue = valueString;
                     break;
@@ -97,6 +103,7 @@ namespace nvidiaProfileInspector.Common.Import
             switch (input)
             {
                 case SettingValueType.Binary: return NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE;
+                case SettingValueType.Qword: return NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE;
                 case SettingValueType.AnsiString: return NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE;
                 case SettingValueType.String: return NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE;
                 default: return NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;

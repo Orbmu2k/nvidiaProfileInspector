@@ -12,6 +12,11 @@ namespace nvidiaProfileInspector.Common
             return "0x" + dword.ToString("X8");
         }
 
+        public static string GetQwordString(ulong qword)
+        {
+            return "0x" + qword.ToString("X16");
+        }
+
         public static uint ParseDwordByInputSafe(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return 0;
@@ -49,6 +54,49 @@ namespace nvidiaProfileInspector.Common
             }
 
             return input;
+        }
+
+        public static ulong ParseQwordSettingValue(SettingMeta meta, string text)
+        {
+            return TryParseQwordSettingValue(meta, text, out var result) ? result : 0;
+        }
+
+        public static bool TryParseQwordSettingValue(SettingMeta meta, string text, out ulong result)
+        {
+            result = 0;
+            var normalizedText = text?.Trim();
+
+            if (meta?.QwordValues != null && normalizedText != null)
+            {
+                foreach (var v in meta.QwordValues)
+                {
+                    if (normalizedText.Equals(v.ValueName, StringComparison.Ordinal))
+                    {
+                        result = v.Value;
+                        return true;
+                    }
+                }
+            }
+
+            return TryParseQwordByInputSafe(normalizedText, out result);
+        }
+
+        private static bool TryParseQwordByInputSafe(string input, out ulong result)
+        {
+            result = 0;
+
+            if (string.IsNullOrWhiteSpace(input))
+                return false;
+
+            if (input.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+            {
+                int blankPos = input.IndexOf(' ');
+                int parseLen = blankPos > 2 ? blankPos - 2 : input.Length - 2;
+
+                return ulong.TryParse(input.Substring(2, parseLen), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out result);
+            }
+
+            return ulong.TryParse(input, out result);
         }
 
         public static uint ParseDwordSettingValue(SettingMeta meta, string text)
@@ -106,6 +154,20 @@ namespace nvidiaProfileInspector.Common
             }
 
             return GetDwordString(dwordValue);
+        }
+
+        public static string GetQwordSettingValueName(SettingMeta meta, ulong qwordValue)
+        {
+            if (meta?.QwordValues != null)
+            {
+                foreach (var v in meta.QwordValues)
+                {
+                    if (v.Value == qwordValue)
+                        return v.ValueName;
+                }
+            }
+
+            return GetQwordString(qwordValue);
         }
 
         public static string ParseStringSettingValue(SettingMeta meta, string text)

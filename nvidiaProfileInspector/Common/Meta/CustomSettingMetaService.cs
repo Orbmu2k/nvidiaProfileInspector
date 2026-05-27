@@ -39,6 +39,8 @@ namespace nvidiaProfileInspector.Common.Meta
                     return NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE;
                 case "binary":
                     return NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE;
+                case "qword":
+                    return NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE;
                 default: throw new ArgumentOutOfRangeException(type);
             }
         }
@@ -57,6 +59,20 @@ namespace nvidiaProfileInspector.Common.Meta
                 return valueName;
 
             var valueHex = DrsUtil.GetDwordString(value);
+            if (valueName != null && valueName.StartsWith(valueHex, StringComparison.OrdinalIgnoreCase))
+                return valueName;
+
+            return valueHex + " " + valueName;
+        }
+
+        private string FormatQwordValueName(ulong value, string friendlyName)
+        {
+            var valueName = ProcessNameReplacements(friendlyName);
+
+            if (_source == SettingMetaSource.CustomSettings)
+                return valueName;
+
+            var valueHex = DrsUtil.GetQwordString(value);
             if (valueName != null && valueName.StartsWith(valueHex, StringComparison.OrdinalIgnoreCase))
                 return valueName;
 
@@ -85,6 +101,17 @@ namespace nvidiaProfileInspector.Common.Meta
             return null;
         }
 
+        public ulong? GetQwordDefaultValue(uint settingId)
+        {
+            var setting = customSettings.Settings
+                .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            if (setting != null)
+                return setting.DefaultQwordValue;
+
+            return null;
+        }
+
         public string GetStringDefaultValue(uint settingId)
         {
             return null;
@@ -108,6 +135,25 @@ namespace nvidiaProfileInspector.Common.Meta
                     ValuePos = i++,
                     Value = x.SettingValue,
                     ValueName = FormatDwordValueName(x.SettingValue, x.UserfriendlyName),
+                }).ToList();
+            }
+
+            return null;
+        }
+
+        public List<SettingValue<ulong>> GetQwordValues(uint settingId)
+        {
+            var setting = customSettings.Settings
+               .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            if (setting != null)
+            {
+                var i = 0;
+                return setting.SettingValues.Select(x => new SettingValue<ulong>(Source)
+                {
+                    ValuePos = i++,
+                    Value = x.QwordSettingValue,
+                    ValueName = FormatQwordValueName(x.QwordSettingValue, x.UserfriendlyName),
                 }).ToList();
             }
 

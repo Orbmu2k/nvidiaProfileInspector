@@ -5,6 +5,7 @@
         Dword,
         AnsiString,
         String,
-        Binary
+        Binary,
+        Qword
     }
 }

@@ -87,6 +87,11 @@ namespace nvidiaProfileInspector.Common.Meta
             return null;
         }
 
+        public ulong? GetQwordDefaultValue(uint settingId)
+        {
+            return null;
+        }
+
         public string GetStringDefaultValue(uint settingId)
         {
             return null;
@@ -134,6 +139,11 @@ namespace nvidiaProfileInspector.Common.Meta
                 }).ToList();
 
             }
+            return null;
+        }
+
+        public List<SettingValue<ulong>> GetQwordValues(uint settingId)
+        {
             return null;
         }
 

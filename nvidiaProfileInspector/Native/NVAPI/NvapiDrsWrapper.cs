@@ -132,6 +132,7 @@ namespace nvidiaProfileInspector.Native.NVAPI2
         NVDRS_BINARY_TYPE,
         NVDRS_STRING_TYPE,
         NVDRS_WSTRING_TYPE,
+        NVDRS_QWORD_TYPE,
     }
 
     public enum NVDRS_SETTING_LOCATION : int
@@ -263,6 +264,20 @@ namespace nvidiaProfileInspector.Native.NVAPI2
             {
                 rawData = new byte[4100];
                 Buffer.BlockCopy(BitConverter.GetBytes(value), 0, rawData, 0, 4);
+            }
+        }
+
+        public ulong qwordValue
+        {
+            get
+            {
+                return BitConverter.ToUInt64(rawData, 0);
+            }
+
+            set
+            {
+                rawData = new byte[4100];
+                Buffer.BlockCopy(BitConverter.GetBytes(value), 0, rawData, 0, 8);
             }
         }
 

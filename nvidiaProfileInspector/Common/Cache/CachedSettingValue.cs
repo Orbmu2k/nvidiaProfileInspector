@@ -14,6 +14,13 @@ namespace nvidiaProfileInspector.Common
             this.ValueProfileCount = 1;
         }
 
+        public CachedSettingValue(ulong QwordValue, string ProfileNames)
+        {
+            this.QwordValue = QwordValue;
+            this.ProfileNames = new StringBuilder(ProfileNames);
+            this.ValueProfileCount = 1;
+        }
+
         public CachedSettingValue(string ValueStr, string ProfileNames)
         {
             this.ValueStr = ValueStr;
@@ -30,6 +37,7 @@ namespace nvidiaProfileInspector.Common
 
         public string ValueStr = "";
         public uint Value = 0;
+        public ulong QwordValue = 0;
         public byte[] ValueBin = new byte[0];
         public StringBuilder ProfileNames;
         public uint ValueProfileCount;
