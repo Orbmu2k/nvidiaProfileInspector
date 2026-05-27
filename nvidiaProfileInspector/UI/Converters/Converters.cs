@@ -5,26 +5,33 @@ namespace nvidiaProfileInspector.UI.Converters
     using System;
     using System.Globalization;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Data;
+    using System.Windows.Media;
 
 
     public class StateToIconConverter : IValueConverter
     {
+        private static Geometry IconGearNvidia => IconResourceCache.GetGeometry("IconGearNvidia");
+        private static Geometry IconUser => IconResourceCache.GetGeometry("IconUser");
+        private static Geometry IconGlobe => IconResourceCache.GetGeometry("IconGlobe");
+        private static Geometry IconSettings => IconResourceCache.GetGeometry("IconSettings");
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is SettingState)
             {
                 SettingState state = (SettingState)value;
                 if (state == SettingState.NvidiaSetting)
-                    return Application.Current.TryFindResource("IconGearNvidia");
+                    return IconGearNvidia;
                 if (state == SettingState.UserdefinedSetting)
-                    return Application.Current.TryFindResource("IconUser");
+                    return IconUser;
                 if (state == SettingState.GlobalSetting)
-                    return Application.Current.TryFindResource("IconGlobe");
+                    return IconGlobe;
 
-                return Application.Current.TryFindResource("IconSettings");
+                return IconSettings;
             }
-            return Application.Current.TryFindResource("IconSettings");
+            return IconSettings;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -254,8 +261,36 @@ namespace nvidiaProfileInspector.UI.Converters
         }
     }
 
+    public class SettingsFilterToCacheLengthConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values == null || values.Length < 2)
+                return new VirtualizationCacheLength(0);
+
+            var filterTypeIndex = values[0] is int filterIndex ? filterIndex : -1;
+            var settingsCount = values[1] is int count ? count : 0;
+
+            if (filterTypeIndex == 0)
+                return new VirtualizationCacheLength(Math.Max(0, settingsCount));
+
+            return new VirtualizationCacheLength(0);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class SettingMetaSourceToIconConverter : IValueConverter
     {
+        private static Geometry IconUser => IconResourceCache.GetGeometry("IconUser");
+        private static Geometry IconNvidia => IconResourceCache.GetGeometry("IconNvidia");
+        private static Geometry IconSettings => IconResourceCache.GetGeometry("IconSettings");
+        private static Geometry IconLab => IconResourceCache.GetGeometry("IconLab");
+        private static Geometry IconSearch => IconResourceCache.GetGeometry("IconSearch");
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is SettingMetaSource source)
@@ -263,18 +298,18 @@ namespace nvidiaProfileInspector.UI.Converters
                 switch (source)
                 {
                     case SettingMetaSource.CustomSettings:
-                        return Application.Current.TryFindResource("IconUser");
+                        return IconUser;
                     case SettingMetaSource.DriverSettings:
-                        return Application.Current.TryFindResource("IconNvidia");
+                        return IconNvidia;
                     case SettingMetaSource.ConstantSettings:
-                        return Application.Current.TryFindResource("IconSettings");
+                        return IconSettings;
                     case SettingMetaSource.ReferenceSettings:
-                        return Application.Current.TryFindResource("IconLab");
+                        return IconLab;
                     case SettingMetaSource.ScannedSettings:
-                        return Application.Current.TryFindResource("IconSearch");
+                        return IconSearch;
                 }
             }
-            return Application.Current.TryFindResource("IconSettings");
+            return IconSettings;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -317,6 +352,25 @@ namespace nvidiaProfileInspector.UI.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    internal static class IconResourceCache
+    {
+        private static readonly object SyncRoot = new object();
+        private static readonly System.Collections.Generic.Dictionary<string, Geometry> GeometryCache = new System.Collections.Generic.Dictionary<string, Geometry>(StringComparer.Ordinal);
+
+        public static Geometry GetGeometry(string resourceKey)
+        {
+            lock (SyncRoot)
+            {
+                if (GeometryCache.TryGetValue(resourceKey, out var geometry))
+                    return geometry;
+
+                geometry = Application.Current?.FindResource(resourceKey) as Geometry;
+                GeometryCache[resourceKey] = geometry;
+                return geometry;
+            }
         }
     }
 }

@@ -284,7 +284,7 @@ namespace nvidiaProfileInspector.UI.Views
                 return;
             }
 
-            if (SettingsListView.ItemContainerGenerator.ContainerFromItem(_viewModel.SelectedSetting) is not ListViewItem selectedItem
+            if (SettingsListView.ItemContainerGenerator.ContainerFromItem(_viewModel.SelectedSetting) is not ListBoxItem selectedItem
                 || !selectedItem.IsVisible)
             {
                 HideSharedValueEditor();
@@ -337,7 +337,7 @@ namespace nvidiaProfileInspector.UI.Views
             _currentValueEditorHost = null;
         }
 
-        private void ApplySharedValueEditorTypography(ListViewItem selectedItem)
+        private void ApplySharedValueEditorTypography(ListBoxItem selectedItem)
         {
             if (FindDescendantByName<TextBlock>(selectedItem, "DisplayText") is TextBlock displayText)
                 _sharedValueEditor.Foreground = displayText.Foreground;

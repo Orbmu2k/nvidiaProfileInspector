@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace nvidiaProfileInspector.UI.Behaviors
 {
@@ -27,19 +28,19 @@ namespace nvidiaProfileInspector.UI.Behaviors
 
         private static void OnEnableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ListView listView)
+            if (d is Selector selector)
             {
                 if ((bool)e.NewValue)
                 {
-                    listView.SelectionChanged += ListView_SelectionChanged;
+                    selector.SelectionChanged += ListView_SelectionChanged;
                     Debug.WriteLine("Addded SelectionChanged Handler...");
                 }
                 else
                 {
-                    listView.Dispatcher.BeginInvoke(new Action(async () =>
+                    selector.Dispatcher.BeginInvoke(new Action(async () =>
                     {
                         await Task.Delay(1000);
-                        listView.SelectionChanged -= ListView_SelectionChanged;
+                        selector.SelectionChanged -= ListView_SelectionChanged;
                         Debug.WriteLine("Removed SelectionChanged Handler...");
                     }));
 
@@ -49,17 +50,17 @@ namespace nvidiaProfileInspector.UI.Behaviors
 
         private static void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ListView listView)
+            if (sender is ListBox listBox)
             {
-                if (listView.SelectedItem != null)
+                if (listBox.SelectedItem != null)
                 {
-                    listView.Dispatcher.BeginInvoke(new Action(async () =>
+                    listBox.Dispatcher.BeginInvoke(new Action(async () =>
                     {
-                        listView.UpdateLayout();
-                        if (listView.SelectedItem != null)
+                        listBox.UpdateLayout();
+                        if (listBox.SelectedItem != null)
                         {
-                            listView.ScrollIntoView(listView.SelectedItem);
-                            listView.UpdateLayout();
+                            listBox.ScrollIntoView(listBox.SelectedItem);
+                            listBox.UpdateLayout();
                             Debug.WriteLine("ScrollIntoView + UpdateLayout...");
                         }
                     }));

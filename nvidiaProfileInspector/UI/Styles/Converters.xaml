@@ -13,6 +13,7 @@
     <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" />
     <converters:MessageBoxButtonToVisibilityConverter x:Key="MessageBoxButtonToVisibilityConverter" />
     <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter" />
+    <converters:SettingsFilterToCacheLengthConverter x:Key="SettingsFilterToCacheLengthConverter" />
     <converters:SettingMetaSourceToIconConverter x:Key="SettingMetaSourceToIconConverter" />
     <converters:FavoriteToBrushConverter x:Key="FavoriteToBrushConverter" />
     <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
