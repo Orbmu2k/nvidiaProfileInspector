@@ -676,6 +676,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (!string.IsNullOrEmpty(altNamesToCheck) &&
                     altNamesToCheck.IndexOf(_filterText, StringComparison.OrdinalIgnoreCase) >= 0)
                     return true;
+                if (item.SettingIdHex.IndexOf(_filterText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return true;
             }
             return false;
         }
@@ -1059,6 +1061,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
             "", true, (val) =>
             {
                 if (string.IsNullOrWhiteSpace(val)) return "Expected a filename, UWP ID, or absolute path.";
+                string findFileStr = "FindFile=";
+                int findFileIndex = val.IndexOf(findFileStr, StringComparison.OrdinalIgnoreCase);
+                if (findFileIndex >= 0)
+                {
+                    string appName = val.Substring(0, findFileIndex).Trim().Trim('"');
+                    string findFile = val.Substring(findFileIndex + findFileStr.Length).Trim().Trim('"');
+                    if (string.IsNullOrWhiteSpace(appName) || string.IsNullOrWhiteSpace(findFile))
+                        return "Expected a valid filename and FindFile string.";
+                }
                 return null;
             });
             dialog.Owner = App.Current.MainWindow;
@@ -1067,7 +1078,25 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 try
                 {
-                    _settingService.AddApplication(_currentProfile, dialog.InputValue);
+                    string findFileStr = "FindFile=";
+                    int findFileIndex = dialog.InputValue.IndexOf(findFileStr, StringComparison.OrdinalIgnoreCase);
+
+                    if (findFileIndex >= 0)
+                    {
+                        string appName = dialog.InputValue.Substring(0, findFileIndex).Trim().Trim('"');
+                        string findFile = dialog.InputValue.Substring(findFileIndex + findFileStr.Length).Trim().Trim('"');
+                        if (string.IsNullOrWhiteSpace(appName) || string.IsNullOrWhiteSpace(findFile))
+                        {
+                            OnShowError?.Invoke("Invalid application name or FindFile string.");
+                            return;
+                        }
+                        _settingService.AddApplication(_currentProfile, appName, findFile);
+                    }
+                    else
+                    {
+                        _settingService.AddApplication(_currentProfile, dialog.InputValue);
+                    }
+
                     RefreshCurrentProfile();
                 }
                 catch (Exception ex)

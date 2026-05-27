@@ -225,6 +225,21 @@ namespace nvidiaProfileInspector.Common
 
         }
 
+        protected void AddApplication(IntPtr hSession, IntPtr hProfile, string applicationName, string fileInFolder)
+        {
+            var newApp = new NVDRS_APPLICATION_V4()
+            {
+                version = nvw.NVDRS_APPLICATION_VER_V4,
+                appName = applicationName,
+                fileInFolder = fileInFolder
+            };
+
+            var caRes = nvw.Instance.DRS_CreateApplication(hSession, hProfile, ref newApp);
+            if (caRes != NvAPI_Status.NVAPI_OK)
+                throw new NvapiException("DRS_CreateApplication", caRes);
+
+        }
+
         protected void DeleteApplication(IntPtr hSession, IntPtr hProfile, NVDRS_APPLICATION_V4 application)
         {
             var caRes = nvw.Instance.DRS_DeleteApplicationEx(hSession, hProfile, ref application);

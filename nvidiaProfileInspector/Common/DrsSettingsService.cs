@@ -145,6 +145,13 @@ namespace nvidiaProfileInspector.Common
 
                 if (hProfile != IntPtr.Zero)
                 {
+                    // Try removing applications from profile before deleting, prevents possible orphans
+                    var applications = GetProfileApplications(hSession, hProfile);
+                    foreach (var app in applications)
+                    {
+                        DeleteApplication(hSession, hProfile, app);
+                    }
+
                     var nvRes = nvw.Instance.DRS_DeleteProfile(hSession, hProfile);
                     if (nvRes != NvAPI_Status.NVAPI_OK)
                         throw new NvapiException("DRS_DeleteProfile", nvRes);
@@ -573,6 +580,16 @@ namespace nvidiaProfileInspector.Common
             {
                 var hProfile = GetProfileHandle(hSession, profileName);
                 AddApplication(hSession, hProfile, applicationName);
+                SaveSettings(hSession);
+            });
+        }
+
+        public void AddApplication(string profileName, string applicationName, string fileInFolder)
+        {
+            DrsSession((hSession) =>
+            {
+                var hProfile = GetProfileHandle(hSession, profileName);
+                AddApplication(hSession, hProfile, applicationName, fileInFolder);
                 SaveSettings(hSession);
             });
         }
