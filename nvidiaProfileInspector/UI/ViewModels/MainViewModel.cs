@@ -1329,6 +1329,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         public void SelectProfile(string profileName)
         {
+            if (string.Equals(profileName, _baseProfileName, StringComparison.OrdinalIgnoreCase))
+                profileName = DrsSettingsService.GlobalProfileName;
+
             if (_profileNames.Any(x => x.ProfileName == profileName))
                 SetCurrentProfile(profileName, forceNotify: true);
         }
