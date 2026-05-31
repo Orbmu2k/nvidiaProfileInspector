@@ -292,9 +292,9 @@ namespace nvidiaProfileInspector.Common
             return profileHandles;
         }
 
-        protected List<NVDRS_SETTING> GetProfileSettings(IntPtr hSession, IntPtr hProfile)
+        protected List<NVDRS_SETTING> GetProfileSettings(IntPtr hSession, IntPtr hProfile, uint expectedCount = 512)
         {
-            uint settingCount = 512;
+            uint settingCount = expectedCount > 0 ? expectedCount : 1;
             var settings = new NVDRS_SETTING[settingCount];
             settings[0].version = NvapiDrsWrapper.NVDRS_SETTING_VER;
 
