@@ -133,7 +133,7 @@ namespace nvidiaProfileInspector.Common
                         if ((foundModifiedProfile && justModified) || checkedSettingsCount >= profile.numOfSettings)
                             continue;
 
-                        var settings = GetProfileSettings(hSession, hProfile);
+                        var settings = GetProfileSettings(hSession, hProfile, profile.numOfSettings);
                         foreach (var setting in settings)
                         {
                             if (knownPredefines.IndexOf(setting.settingId) < 0)
