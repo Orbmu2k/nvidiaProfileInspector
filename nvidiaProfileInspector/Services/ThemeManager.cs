@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using nvidiaProfileInspector.Common.Helper;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,15 @@ namespace nvidiaProfileInspector.Services
 {
     public class ThemeManager
     {
+        public const string AutoTheme = "Auto";
+
         private const string DarkTheme = "DarkTheme.xaml";
         private const string SlateLightTheme = "SlateLightTheme.xaml";
         private const string MidnightTheme = "MidnightTheme.xaml";
         private const string CleanWhiteTheme = "CleanWhiteTheme.xaml";
+
+        private const string RegistryPersonalizeKey = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+        private const string RegistryAppsUseLightThemeValueName = "AppsUseLightTheme";
 
         private static readonly string[] ValidThemes = {
             DarkTheme,
@@ -21,10 +27,12 @@ namespace nvidiaProfileInspector.Services
             CleanWhiteTheme
         };
 
+
         private static readonly string[] ValidDensities = { "Modern", "Compact" };
 
         public string CurrentTheme { get; private set; }
         public string CurrentDensity { get; private set; } = "Modern";
+        public bool IsAutoTheme { get; private set; }
 
         public bool IsDarkTheme => string.Equals(CurrentTheme, DarkTheme, StringComparison.OrdinalIgnoreCase);
         public bool IsCompactDensity => string.Equals(CurrentDensity, "Compact", StringComparison.OrdinalIgnoreCase);
@@ -41,12 +49,13 @@ namespace nvidiaProfileInspector.Services
             try
             {
                 var settings = UserSettings.LoadSettings();
-                ApplyAndPersistTheme(NormalizeThemeName(settings.Theme), savePreference: false);
+                var normalizedTheme = NormalizeThemeName(settings.Theme);
+                ApplyTheme(normalizedTheme, savePreference: false);
                 ApplyDensity(NormalizeDensity(settings.DisplayDensity), savePreference: false);
             }
             catch
             {
-                ApplyAndPersistTheme(DarkTheme, savePreference: false);
+                ApplyTheme(DarkTheme, savePreference: false);
                 ApplyDensity("Modern", savePreference: false);
             }
         }
@@ -56,7 +65,7 @@ namespace nvidiaProfileInspector.Services
             try
             {
                 var currentTheme = GetCurrentAppliedThemeName();
-                ApplyAndPersistTheme(GetNextThemeName(currentTheme), savePreference: true);
+                ApplyTheme(GetNextThemeName(currentTheme), savePreference: true);
             }
             catch (Exception ex)
             {
@@ -69,12 +78,17 @@ namespace nvidiaProfileInspector.Services
             try
             {
                 var normalized = NormalizeThemeName(themeName);
-                ApplyAndPersistTheme(normalized, savePreference: true);
+                ApplyTheme(normalized, savePreference: true);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error setting theme: {ex.Message}");
             }
+        }
+
+        public static string GetWindowsThemeName()
+        {
+            return GetWindowsAppsLightTheme() ? SlateLightTheme : DarkTheme;
         }
 
         public void SetDensity(string density)
@@ -146,7 +160,29 @@ namespace nvidiaProfileInspector.Services
         {
             return mergedDicts.FirstOrDefault(d => GetThemeName(d.Source) != null);
         }
+        private static bool GetWindowsAppsLightTheme()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(RegistryPersonalizeKey))
+                {
+                    if (key == null)
+                        return false;
 
+                    var value = key.GetValue(RegistryAppsUseLightThemeValueName);
+                    if (value is int intValue)
+                        return intValue != 0;
+
+                    if (value is string stringValue && int.TryParse(stringValue, out intValue))
+                        return intValue != 0;
+                }
+            }
+            catch
+            {
+            }
+
+            return false;
+        }
         private static string GetCurrentAppliedThemeName()
         {
             var app = Application.Current;
@@ -170,6 +206,23 @@ namespace nvidiaProfileInspector.Services
         {
             if (string.IsNullOrWhiteSpace(themeName))
                 return DarkTheme;
+
+            if (string.Equals(themeName, AutoTheme, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(themeName, "Windows", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(themeName, "System", StringComparison.OrdinalIgnoreCase))
+                return AutoTheme;
+
+            if (string.Equals(themeName, "Dark", StringComparison.OrdinalIgnoreCase))
+                return DarkTheme;
+
+            if (string.Equals(themeName, "Slate", StringComparison.OrdinalIgnoreCase) || string.Equals(themeName, "Light", StringComparison.OrdinalIgnoreCase))
+                return SlateLightTheme;
+
+            if (string.Equals(themeName, "Midnight", StringComparison.OrdinalIgnoreCase))
+                return MidnightTheme;
+
+            if (string.Equals(themeName, "CleanWhite", StringComparison.OrdinalIgnoreCase))
+                return CleanWhiteTheme;
 
             if (!themeName.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase))
                 return DarkTheme;
@@ -198,21 +251,25 @@ namespace nvidiaProfileInspector.Services
             return ValidThemes[nextThemeIndex];
         }
 
-        private void ApplyAndPersistTheme(string themeName, bool savePreference)
+        private void ApplyTheme(string themeName, bool savePreference)
         {
+            var normalizedThemeName = NormalizeThemeName(themeName);
+            var themeToApply = string.Equals(normalizedThemeName, AutoTheme, StringComparison.OrdinalIgnoreCase)
+                ? GetWindowsThemeName()
+                : normalizedThemeName;
+
             var app = Application.Current;
             if (app == null)
                 return;
 
-            var normalizedThemeName = NormalizeThemeName(themeName);
             var mergedDicts = app.Resources.MergedDictionaries;
             var themeDict = GetThemeDictionary(mergedDicts);
+            ReplaceThemeDictionary(mergedDicts, themeDict, themeToApply);
 
-            ReplaceThemeDictionary(mergedDicts, themeDict, normalizedThemeName);
+            CurrentTheme = themeToApply;
+            IsAutoTheme = string.Equals(normalizedThemeName, AutoTheme, StringComparison.OrdinalIgnoreCase);
 
-            CurrentTheme = normalizedThemeName;
-
-            ThemeChanged?.Invoke(normalizedThemeName);
+            ThemeChanged?.Invoke(themeToApply);
 
             if (savePreference)
                 SaveThemePreference(normalizedThemeName);
