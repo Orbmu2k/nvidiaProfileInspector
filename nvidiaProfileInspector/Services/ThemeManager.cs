@@ -41,6 +41,7 @@ namespace nvidiaProfileInspector.Services
 
         public ThemeManager()
         {
+            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
             LoadSavedTheme();
         }
 
@@ -273,6 +274,30 @@ namespace nvidiaProfileInspector.Services
 
             if (savePreference)
                 SaveThemePreference(normalizedThemeName);
+        }
+
+        private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            if (e.Category != UserPreferenceCategory.General &&
+                e.Category != UserPreferenceCategory.Color &&
+                e.Category != UserPreferenceCategory.Desktop)
+            {
+                return;
+            }
+
+            RefreshAutoTheme();
+        }
+
+        private void RefreshAutoTheme()
+        {
+            if (!IsAutoTheme)
+                return;
+
+            var windowsTheme = GetWindowsThemeName();
+            if (string.Equals(CurrentTheme, windowsTheme, StringComparison.OrdinalIgnoreCase))
+                return;
+
+            ApplyTheme(AutoTheme, savePreference: false);
         }
 
         private static void ReplaceThemeDictionary(IList<ResourceDictionary> mergedDicts, ResourceDictionary existingTheme, string themeName)
