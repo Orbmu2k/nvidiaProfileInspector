@@ -7,13 +7,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using nvidiaProfileInspector.Localization;
 using nvw = nvidiaProfileInspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nvidiaProfileInspector.Common
 {
     public class DrsSettingsService : DrsSettingsServiceBase
     {
-        public const string GlobalProfileName = "GLOBAL DRIVER PROFILE";
+        public static string GlobalProfileName => UIStrings.GlobalDriverProfile;
 
         public DrsSettingsService(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService)
             : base(metaService, decrpterService)
@@ -139,7 +140,7 @@ namespace nvidiaProfileInspector.Common
                 var baseProfileHandle = GetProfileHandle(hSession, null);
                 if (hProfile == baseProfileHandle)
                 {
-                    throw new InvalidOperationException("Base profile cannot be deleted.");
+                    throw new InvalidOperationException(UIStrings.BaseProfileCannotBeDeleted);
                 }
 
 

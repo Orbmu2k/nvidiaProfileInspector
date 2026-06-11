@@ -2,6 +2,7 @@ namespace nvidiaProfileInspector.UI.Converters
 {
     using nvidiaProfileInspector.Common;
     using nvidiaProfileInspector.Common.Meta;
+    using nvidiaProfileInspector.Localization;
     using System;
     using System.Globalization;
     using System.Windows;
@@ -94,16 +95,16 @@ namespace nvidiaProfileInspector.UI.Converters
                 switch (state)
                 {
                     case SettingState.NvidiaSetting:
-                        return "Nvidia Setting - Defined by NVIDIA driver";
+                        return UIStrings.NvidiaSettingTooltip;
                     case SettingState.UserdefinedSetting:
-                        return "User-defined Setting - Custom setting added by user";
+                        return UIStrings.UserDefinedSettingTooltip;
                     case SettingState.GlobalSetting:
-                        return "Global Setting - Applies to all applications";
+                        return UIStrings.GlobalSettingTooltip;
                     default:
-                        return "Setting";
+                        return UIStrings.Setting;
                 }
             }
-            return "Setting";
+            return UIStrings.Setting;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

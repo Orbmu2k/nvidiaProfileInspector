@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using nvidiaProfileInspector.Localization;
 
 namespace nvidiaProfileInspector.UI.Controls
 {
@@ -22,7 +23,7 @@ namespace nvidiaProfileInspector.UI.Controls
 
         public static readonly DependencyProperty PlaceholderProperty =
             DependencyProperty.Register(nameof(Placeholder), typeof(string), typeof(SearchablePopupList),
-                new PropertyMetadata("Search..."));
+                new PropertyMetadata(UIStrings.SearchPlaceholder));
 
         public static readonly DependencyProperty FilterTextProperty =
             DependencyProperty.Register(nameof(FilterText), typeof(string), typeof(SearchablePopupList),

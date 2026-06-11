@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using nvidiaProfileInspector.Localization;
 
 namespace nvidiaProfileInspector.Common.Updates
 {
@@ -32,7 +33,7 @@ namespace nvidiaProfileInspector.Common.Updates
                     .FirstOrDefault();
 
                 if (latestRelease == null)
-                    return UpdateCheckResult.Unavailable("No release information is available.");
+                    return UpdateCheckResult.Unavailable(UIStrings.NoReleaseInformation);
 
                 return latestRelease.Version > GetCurrentVersion()
                     ? UpdateCheckResult.Available(latestRelease)
@@ -40,14 +41,14 @@ namespace nvidiaProfileInspector.Common.Updates
             }
             catch
             {
-                return UpdateCheckResult.Unavailable("Could not read release information.");
+                return UpdateCheckResult.Unavailable(UIStrings.CouldNotReadReleaseInformation);
             }
         }
 
         public Task PrepareInstallAsync(UpdateRelease release)
         {
             if (release == null || !release.IsInstallable)
-                throw new InvalidOperationException("The selected release does not contain a downloadable update package.");
+                throw new InvalidOperationException(UIStrings.ReleaseHasNoDownloadablePackage);
 
             return _installer.PrepareAndRunAsync(release);
         }

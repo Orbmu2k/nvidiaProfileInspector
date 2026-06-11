@@ -7,6 +7,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using nvidiaProfileInspector.Localization;
     using System.Threading.Tasks;
     using System.Windows.Input;
 
@@ -46,7 +47,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _scannerService = scannerService;
             _referenceSettings = referenceSettings;
 
-            Title = $"Bit Value Editor - {settingName}";
+            Title = string.Format(UIStrings.BitEditorTitleWithSetting, settingName);
 
             if (_scannerService == null)
                 LoadDesignTimeData();
@@ -244,7 +245,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 _bits.Add(new BitItemViewModel(bit)
                 {
                     IsChecked = ((_currentValue >> bit) & 1) == 1,
-                    MaskDescription = bit % 2 == 0 ? "Reserved / unknown" : string.Empty,
+                    MaskDescription = bit % 2 == 0 ? UIStrings.ReservedUnknown : string.Empty,
                     ProfileCount = 0,
                     ProfileNames = string.Empty
                 });
@@ -389,11 +390,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 // Note: This would need the current profile from MainViewModel
                 // For now, just update the display
                 OnValueChanged?.Invoke(_currentValue);
-                StatusMessage = "Value applied to profile.";
+                StatusMessage = UIStrings.ValueAppliedToProfile;
             }
             catch (Exception ex)
             {
-                StatusMessage = $"Error: {ex.Message}";
+                StatusMessage = string.Format(UIStrings.ErrorMessage, ex.Message);
                 OnShowMessage?.Invoke(StatusMessage);
             }
         }
@@ -410,7 +411,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
 
             if (!string.IsNullOrWhiteSpace(GamePath))
-                StatusMessage = "Game executable not found.";
+                StatusMessage = UIStrings.GameExecutableNotFound;
         }
     }
 

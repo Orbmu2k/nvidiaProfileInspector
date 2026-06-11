@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:localization="clr-namespace:nvidiaProfileInspector.Localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{Binding Title}"
     Width="400"
@@ -52,7 +53,7 @@
                     <Button
                         Command="{Binding CancelCommand}"
                         Style="{StaticResource CloseWindowButtonStyle}"
-                        ToolTip="Close">
+                        ToolTip="{x:Static localization:UIStrings.Close}">
                         <Path
                             Width="10"
                             Height="10"
@@ -109,9 +110,9 @@
                 <Button
                     MinWidth="80"
                     Command="{Binding OKCommand}"
-                    Content="OK"
+                    Content="{x:Static localization:UIStrings.OK}"
                     Style="{StaticResource AccentButtonStyle}"
-                    ToolTip="Confirm action"
+                    ToolTip="{x:Static localization:UIStrings.ConfirmAction}"
                     Visibility="{Binding Buttons, Converter={StaticResource MessageBoxButtonToVisibilityConverter}, ConverterParameter=OK}" />
 
                 <!--  Yes Button  -->
@@ -119,9 +120,9 @@
                     MinWidth="80"
                     Margin="8,0,0,0"
                     Command="{Binding YesCommand}"
-                    Content="Yes"
+                    Content="{x:Static localization:UIStrings.Yes}"
                     Style="{StaticResource AccentButtonStyle}"
-                    ToolTip="Confirm yes"
+                    ToolTip="{x:Static localization:UIStrings.ConfirmYes}"
                     Visibility="{Binding Buttons, Converter={StaticResource MessageBoxButtonToVisibilityConverter}, ConverterParameter=Yes}" />
 
                 <!--  No Button  -->
@@ -129,9 +130,9 @@
                     MinWidth="80"
                     Margin="8,0,0,0"
                     Command="{Binding NoCommand}"
-                    Content="No"
+                    Content="{x:Static localization:UIStrings.No}"
                     Style="{StaticResource DarkButtonStyle}"
-                    ToolTip="Confirm no"
+                    ToolTip="{x:Static localization:UIStrings.ConfirmNo}"
                     Visibility="{Binding Buttons, Converter={StaticResource MessageBoxButtonToVisibilityConverter}, ConverterParameter=No}" />
 
                 <!--  Cancel Button  -->
@@ -139,9 +140,9 @@
                     MinWidth="80"
                     Margin="8,0,0,0"
                     Command="{Binding CancelCommand}"
-                    Content="Cancel"
+                    Content="{x:Static localization:UIStrings.Cancel}"
                     Style="{StaticResource DarkButtonStyle}"
-                    ToolTip="Cancel action"
+                    ToolTip="{x:Static localization:UIStrings.CancelAction}"
                     Visibility="{Binding Buttons, Converter={StaticResource MessageBoxButtonToVisibilityConverter}, ConverterParameter=Cancel}" />
             </StackPanel>
         </Border>

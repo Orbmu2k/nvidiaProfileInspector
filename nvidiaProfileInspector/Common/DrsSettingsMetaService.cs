@@ -1,5 +1,6 @@
 ﻿using nvidiaProfileInspector.Common.CustomSettings;
 using nvidiaProfileInspector.Common.Meta;
+using nvidiaProfileInspector.Localization;
 using nvidiaProfileInspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
@@ -475,23 +476,23 @@ namespace nvidiaProfileInspector.Common
         private string GetFallbackGroupName(uint settingId, string settingName)
         {
             if ((settingId & 0x70000000) == 0x70000000)
-                return "09 - Stereo";
+                return UIStrings.FallbackGroupStereo;
 
             if ((settingId & 0x20000000) == 0x20000000)
-                return "10 - OpenGL";
+                return UIStrings.FallbackGroupOpenGL;
 
             if (settingName == null)
-                return "11 - Unknown Driver Settings";
+                return UIStrings.FallbackGroupUnknownDriverSettings;
 
             var normalizedName = settingName.ToUpperInvariant();
 
             if (normalizedName.Contains("STEREO"))
-                return "09 - Stereo";
+                return UIStrings.FallbackGroupStereo;
 
             if (normalizedName.Contains("OGL") || normalizedName.Contains("OPENGL"))
-                return "10 - OpenGL";
+                return UIStrings.FallbackGroupOpenGL;
 
-            return "11 - Unknown Driver Settings";
+            return UIStrings.FallbackGroupUnknownDriverSettings;
         }
 
         private bool GetIsApiExposed(uint settingId)

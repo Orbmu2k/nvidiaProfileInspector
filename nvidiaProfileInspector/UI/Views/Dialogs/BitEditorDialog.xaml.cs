@@ -1,6 +1,7 @@
 namespace nvidiaProfileInspector.UI.Views.Dialogs
 {
     using Microsoft.Win32;
+    using nvidiaProfileInspector.Localization;
     using nvidiaProfileInspector.UI.ViewModels;
     using System;
     using System.Windows;
@@ -19,7 +20,7 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
             InitializeComponent();
             _viewModel = DesignTimeData.BitEditorViewModel;
             InitializeViewModel();
-            StatusTextBlock.Text = "Designer preview";
+            StatusTextBlock.Text = UIStrings.DesignerPreview;
         }
 
         public BitEditorDialog(uint settingId, uint initialValue, string settingName)
@@ -47,8 +48,8 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "Applications|*.exe",
-                Title = "Select Game"
+                Filter = UIStrings.ApplicationsFileFilter,
+                Title = UIStrings.SelectGame
             };
 
             if (dialog.ShowDialog() == true)

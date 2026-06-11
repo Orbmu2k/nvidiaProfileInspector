@@ -10,7 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:nvidiaProfileInspector.UI.ViewModels"
     xmlns:localization="clr-namespace:nvidiaProfileInspector.Localization"
-    Title="NVIDIA PROFILE INSPECTOR"
+    Title="{x:Static localization:UIStrings.AppName}"
     Width="1190"
     Height="750"
     MinWidth="1050"
@@ -152,7 +152,7 @@
                         Margin="0,0,8,0"
                         Command="{Binding NavigateToGlobalCommand}"
                         Style="{StaticResource HeaderIconButtonStyle}"
-                        ToolTip="Navigate to Global Profile">
+                                ToolTip="{x:Static localization:UIStrings.NavigateToGlobalProfile}">
                         <Path
                             Width="18"
                             Height="18"
@@ -225,7 +225,7 @@
                         SelectionChanged="ModifiedProfilesCombo_SelectionChanged"
                         Style="{DynamicResource IconSearchableComboBoxStyle}"
                         SyncSelectedItemToText="True"
-                        ToolTip="View Modified Profiles">
+                                ToolTip="{x:Static localization:UIStrings.ViewModifiedProfiles}">
                         <controls:SearchableComboBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type vm:ModifiedProfileItem}">
                                 <Grid ToolTip="{Binding ProfileTypeLabel}">
@@ -276,7 +276,7 @@
                             BorderThickness="1"
                             Command="{Binding ToggleAppearanceMenuCommand}"
                             Cursor="Hand"
-                            ToolTip="Appearance">
+                                ToolTip="{x:Static localization:UIStrings.Appearance}">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border
@@ -340,7 +340,7 @@
                                         FontSize="10"
                                         FontWeight="Bold"
                                         Foreground="{DynamicResource TextSecondaryBrush}"
-                                        Text="THEME" />
+                                        Text="{x:Static localization:UIStrings.Theme}" />
                                     <Button
                                         Margin="0,1"
                                         Padding="6,5"
@@ -386,7 +386,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Midnight" />
+                                                Text="{x:Static localization:UIStrings.Midnight}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -434,7 +434,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Dark" />
+                                                Text="{x:Static localization:UIStrings.Dark}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -482,7 +482,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Slate" />
+                                                Text="{x:Static localization:UIStrings.Slate}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -530,7 +530,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Clean White" />
+                                                Text="{x:Static localization:UIStrings.CleanWhite}" />
                                         </StackPanel>
                                     </Button>
                                     <!--  Separator  -->
@@ -544,7 +544,7 @@
                                         FontSize="10"
                                         FontWeight="Bold"
                                         Foreground="{DynamicResource TextSecondaryBrush}"
-                                        Text="DENSITY" />
+                                        Text="{x:Static localization:UIStrings.Density}" />
                                     <Button
                                         Margin="0,1"
                                         Padding="6,5"
@@ -590,7 +590,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Modern" />
+                                                Text="{x:Static localization:UIStrings.Modern}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -638,7 +638,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Compact" />
+                                                Text="{x:Static localization:UIStrings.Compact}" />
                                         </StackPanel>
                                     </Button>
                                     <Border
@@ -650,7 +650,7 @@
                                         FontSize="10"
                                         FontWeight="Bold"
                                         Foreground="{DynamicResource TextSecondaryBrush}"
-                                        Text="BACKDROP" />
+                                        Text="{x:Static localization:UIStrings.Backdrop}" />
                                     <Button
                                         Margin="0,1"
                                         Padding="6,5"
@@ -697,7 +697,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Glass" />
+                                                Text="{x:Static localization:UIStrings.Glass}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -746,7 +746,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Mica" />
+                                                Text="{x:Static localization:UIStrings.Mica}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -795,7 +795,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Mica Variant" />
+                                                Text="{x:Static localization:UIStrings.MicaVariant}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -844,7 +844,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Acrylic" />
+                                                Text="{x:Static localization:UIStrings.Acrylic}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -892,7 +892,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
                                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                                Text="Disabled" />
+                                                Text="{x:Static localization:UIStrings.Disabled}" />
                                         </StackPanel>
                                     </Button>
                                 </StackPanel>
@@ -903,7 +903,7 @@
                         Margin="4,0"
                         Command="{Binding ShowAboutCommand}"
                         Style="{StaticResource HeaderIconButtonStyle}"
-                        ToolTip="About">
+                            ToolTip="{x:Static localization:UIStrings.About}">
                         <Grid>
                             <Path
                                 Width="18"
@@ -1013,37 +1013,37 @@
                                 Command="{Binding RestoreProfileCommand}"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconNvidia}"
-                                Text="Defaults"
-                                ToolTip="Restore profile to NVIDIA default settings" />
+                                Text="{x:Static localization:UIStrings.Defaults}"
+                                ToolTip="{x:Static localization:UIStrings.RestoreProfileTooltip}" />
 
                             <controls:ActionBarButton
                                 Command="{Binding CreateProfileCommand}"
                                 Cursor="Hand"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconAdd}"
-                                Text="New"
-                                ToolTip="Create a new profile" />
+                                Text="{x:Static localization:UIStrings.New}"
+                                ToolTip="{x:Static localization:UIStrings.CreateProfileTooltip}" />
 
                             <controls:ActionBarButton
                                 Command="{Binding DeleteProfileCommand}"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconDelete}"
-                                Text="Delete"
-                                ToolTip="Delete the current profile" />
+                                Text="{x:Static localization:UIStrings.Delete}"
+                                ToolTip="{x:Static localization:UIStrings.DeleteProfileTooltip}" />
 
                             <controls:ActionBarButton
                                 Command="{Binding CopySettingsCommand}"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconCopy}"
                                 Text="{x:Static localization:UIStrings.Copy}"
-                                ToolTip="Copy settings to clipboard" />
+                                ToolTip="{x:Static localization:UIStrings.CopySettingsTooltip}" />
 
                             <controls:ActionBarButton
                                 Command="{Binding OpenBitEditorCommand}"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconBitEditor}"
-                                Text="Bit Editor"
-                                ToolTip="Open the Bit Value Editor" />
+                                Text="{x:Static localization:UIStrings.BitEditor}"
+                                ToolTip="{x:Static localization:UIStrings.OpenBitEditorTooltip}" />
 
                             <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
 
@@ -1053,7 +1053,7 @@
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconExport}"
                                 Text="{x:Static localization:UIStrings.Export}"
-                                ToolTip="Export profiles to file" />
+                                ToolTip="{x:Static localization:UIStrings.ExportProfilesTooltip}" />
 
                             <controls:ActionBarButton
                                 x:Name="ImportButton"
@@ -1061,16 +1061,16 @@
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconImport}"
                                 Text="{x:Static localization:UIStrings.Import}"
-                                ToolTip="Import profiles from file" />
+                                ToolTip="{x:Static localization:UIStrings.ImportProfilesTooltip}" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                             <controls:ActionBarToggleButton
                                 IconPath="{DynamicResource IconLab}"
                                 IsChecked="{Binding ShowScannedUnknownSettings}"
-                                Text="Lab"
+                                Text="{x:Static localization:UIStrings.Lab}"
                                 ToggledColor="{DynamicResource ErrorBrush}"
-                                ToolTip="Show unknown settings from NVIDIA predefined profiles" />
+                                ToolTip="{x:Static localization:UIStrings.ShowUnknownSettingsTooltip}" />
 
                             <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
 
@@ -1078,14 +1078,14 @@
                                 Command="{Binding RefreshCommand}"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconRefresh}"
-                                Text="Refresh"
-                                ToolTip="Refresh all profiles" />
+                                Text="{x:Static localization:UIStrings.Refresh}"
+                                ToolTip="{x:Static localization:UIStrings.RefreshProfilesTooltip}" />
 
                             <controls:ActionBarButton
                                 Command="{Binding RefreshCurrentProfileCommand}"
                                 IconPath="{DynamicResource IconRestore}"
-                                Text="Reset"
-                                ToolTip="Reset current profile changes">
+                                Text="{x:Static localization:UIStrings.Reset}"
+                                ToolTip="{x:Static localization:UIStrings.ResetProfileChangesTooltip}">
                                 <controls:ActionBarButton.Style>
                                     <Style BasedOn="{StaticResource {x:Type controls:ActionBarButton}}" TargetType="controls:ActionBarButton">
                                         <Setter Property="IconFill" Value="{DynamicResource TextSecondaryBrush}" />
@@ -1105,9 +1105,9 @@
                                 Cursor="Hand"
                                 FontWeight="Bold"
                                 IconPath="{DynamicResource IconApply}"
-                                Text="Apply Changes"
+                                Text="{x:Static localization:UIStrings.ApplyChanges}"
                                 TextFontSize="11"
-                                ToolTip="Apply all changes and save">
+                                ToolTip="{x:Static localization:UIStrings.ApplyChangesTooltip}">
                                 <controls:ActionBarButton.Style>
                                     <Style BasedOn="{StaticResource {x:Type controls:ActionBarButton}}" TargetType="controls:ActionBarButton">
                                         <Setter Property="IconFill" Value="{DynamicResource TextSecondaryBrush}" />
@@ -1149,9 +1149,9 @@
                             Orientation="Horizontal">
                             <Button
                                 Click="AddApplication_Click"
-                                Content="Add Application"
+                            Content="{x:Static localization:UIStrings.AddApplication}"
                                 Style="{StaticResource AddApplicationButtonStyle}"
-                                ToolTip="Add a new application to this profile" />
+                            ToolTip="{x:Static localization:UIStrings.AddApplicationTooltip}" />
                             <Separator Margin="0,4,0,4" Style="{StaticResource ToolBarSeparatorStyle}" />
                         </StackPanel>
 
@@ -1200,7 +1200,7 @@
                             Grid.Column="0"
                             Placeholder="Search settings..."
                             Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
-                            ToolTip="Search settings by name (Ctrl+F)" />
+                                ToolTip="{x:Static localization:UIStrings.SearchSettingsTooltip}" />
 
                         <!--  Setting Types  -->
                         <ComboBox
@@ -1208,7 +1208,7 @@
                             Width="190"
                             Margin="12,0,0,0"
                             SelectedIndex="{Binding FilterTypeIndex}"
-                            ToolTip="Filter settings by type">
+                                ToolTip="{x:Static localization:UIStrings.FilterSettingsTooltip}">
                             <ComboBox.Style>
                                 <Style BasedOn="{StaticResource DarkComboBoxStyle}" TargetType="ComboBox">
                                     <Style.Triggers>
@@ -1220,9 +1220,9 @@
                                     </Style.Triggers>
                                 </Style>
                             </ComboBox.Style>
-                            <ComboBoxItem Content="Common Settings" />
-                            <ComboBoxItem Content="Show All Settings" />
-                            <ComboBoxItem Content="User Modified Settings" />
+                                    <ComboBoxItem Content="{x:Static localization:UIStrings.CommonSettings}" />
+                                    <ComboBoxItem Content="{x:Static localization:UIStrings.ShowAllSettings}" />
+                                    <ComboBoxItem Content="{x:Static localization:UIStrings.UserModifiedSettings}" />
                         </ComboBox>
                     </Grid>
 
@@ -1307,7 +1307,7 @@
                                                 CommandParameter="{Binding}"
                                                 Cursor="Hand"
                                                 Style="{StaticResource IconButtonStyle}"
-                                                ToolTip="Toggle Favorite">
+                                                    ToolTip="{x:Static localization:UIStrings.ToggleFavorite}">
                                                 <Path
                                                     Width="14"
                                                     Height="14"
@@ -1358,7 +1358,7 @@
                                             Command="{Binding DataContext.ResetValueCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
                                             Style="{StaticResource IconButtonStyle}"
-                                            ToolTip="Reset setting to default value"
+                                                            ToolTip="{x:Static localization:UIStrings.ResetSettingTooltip}"
                                             Visibility="Collapsed">
                                             <Path
                                                 x:Name="RestoreButtonIcon"
@@ -1447,7 +1447,7 @@
                             FontSize="10"
                             FontWeight="Bold"
                             Foreground="{DynamicResource NvidiaGreenBrush}"
-                            Text="DESCRIPTION" />
+                            Text="{x:Static localization:UIStrings.DescriptionHeading}" />
                         <TextBox
                             MaxHeight="80"
                             Padding="0"
@@ -1480,7 +1480,7 @@
                                 FontSize="11"
                                 FontWeight="SemiBold"
                                 Foreground="{DynamicResource NvidiaGreenBrush}"
-                                Text="Scanning profiles" />
+                                    Text="{x:Static localization:UIStrings.ScanningProfiles}" />
                             <ProgressBar
                                 Grid.Column="1"
                                 Height="12"
@@ -1515,7 +1515,7 @@
                                     Visibility="{Binding StatusModeText, Converter={StaticResource StringNotEmptyToVisibilityConverter}}"
                                     WindowChrome.IsHitTestVisibleInChrome="True">
                                     <Button.ToolTip>
-                                        <ToolTip Content="Custom settings are loaded from an external CustomSettingNames.xml file" />
+                                <ToolTip Content="{x:Static localization:UIStrings.ExternalCustomSettingsTooltip}" />
                                     </Button.ToolTip>
                                 </Button>
                                 <Button

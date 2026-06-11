@@ -31,26 +31,38 @@ namespace nvidiaProfileInspector
         private const string SingleInstanceMutexName = "nvidiaProfileInspector";
         internal const string ImportFilesMessagePrefix = "ImportNipFiles:";
         internal const string LegacyProfilesImportedMessage = "ProfilesImported";
+        private static readonly IReadOnlyDictionary<string, string> UiCultureMappings =
+            new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["en-US"] = "en-US",
+                ["zh-CHS"] = "zh-CN",
+                ["zh-CN"] = "zh-CN",
+                ["zh-Hans"] = "zh-CN",
+                ["zh-Hans-HK"] = "zh-CN",
+                ["zh-Hans-MO"] = "zh-CN",
+                ["zh-SG"] = "zh-CN",
+                ["zh-CHT"] = "zh-TW",
+                ["zh-Hant"] = "zh-TW",
+                ["zh-HK"] = "zh-TW",
+                ["zh-MO"] = "zh-TW",
+                ["zh-TW"] = "zh-TW"
+            };
 
         public static AppBootstrapper Bootstrapper => _bootstrapper;
 
         static App()
         {
-            var supportedLanguages = new CultureInfo[] { new("en-US"), new("zh-CN"),new("zh-TW") };
-            var language = FindLanguage(supportedLanguages, CultureInfo.CurrentCulture, new CultureInfo("en-US") );
-            CultureInfo.CurrentCulture = language;
-            CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture;
-            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CurrentCulture;
-            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.CurrentCulture;
+            var uiCulture = FindLanguage(CultureInfo.CurrentUICulture);
+            CultureInfo.CurrentUICulture = uiCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = uiCulture;
         }
 
-        static CultureInfo FindLanguage(IList<CultureInfo> languages, CultureInfo language, CultureInfo fallbackLanguage)
+        internal static CultureInfo FindLanguage(CultureInfo culture)
         {
-            if (languages.Contains(language))
-            {
-                return language;
-            }
-            return languages.FirstOrDefault(x => x.TwoLetterISOLanguageName == language.TwoLetterISOLanguageName) ?? fallbackLanguage;
+            if (culture != null && UiCultureMappings.TryGetValue(culture.Name, out var mappedCulture))
+                return CultureInfo.GetCultureInfo(mappedCulture);
+
+            return CultureInfo.GetCultureInfo("en-US");
         }
 
         private bool HasArgument(IEnumerable<string> args, string name)
@@ -149,7 +161,7 @@ namespace nvidiaProfileInspector
                 return true;
 
             CloseStartupSplashScreen();
-            MessageBoxViewModel.Show("No compatible NVIDIA Driver was detected on your system. Your NVIDIA GPU might be disabled.", "NVIDIA PROFILE INSPECTOR", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxViewModel.Show(UIStrings.NoCompatibleDriver, UIStrings.AppName, MessageBoxButton.OK, MessageBoxImage.Error);
             Shutdown();
             return false;
         }
@@ -282,13 +294,13 @@ namespace nvidiaProfileInspector
                     return;
 
                 if (string.IsNullOrWhiteSpace(report))
-                    MessageBoxViewModel.Show("Profile(s) imported successfully!", "Import", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxViewModel.Show(UIStrings.ProfilesImportedSuccessfully, UIStrings.Import, MessageBoxButton.OK, MessageBoxImage.Information);
                 else
-                    MessageBoxViewModel.Show($"Some profile(s) could not be imported!\r\n\r\n{report}", "Import Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBoxViewModel.Show(string.Format(UIStrings.SomeProfilesCouldNotBeImported, report), UIStrings.ImportWarning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                MessageBoxViewModel.Show($"Import Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxViewModel.Show(string.Format(UIStrings.ImportErrorMessage, ex.Message), UIStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -387,7 +399,7 @@ namespace nvidiaProfileInspector
                 return;
             }
 
-            MessageBoxViewModel.Show("NVIDIA PROFILE INSPECTOR is already running.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBoxViewModel.Show(UIStrings.ApplicationAlreadyRunning, UIStrings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         internal static string BuildImportFilesMessage(IEnumerable<string> filePaths)
@@ -444,36 +456,34 @@ namespace nvidiaProfileInspector
 
                 // Write detailed log
                 var logContent = new System.Text.StringBuilder();
-                logContent.AppendLine("=== NVIDIA PROFILE INSPECTOR Crash Report ===");
-                logContent.AppendLine($"Date/Time: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-                logContent.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
-                logContent.AppendLine($"OS: {Environment.OSVersion}");
-                logContent.AppendLine($"64-bit: {Environment.Is64BitOperatingSystem}");
+                logContent.AppendLine(UIStrings.CrashReportHeading);
+                logContent.AppendLine(string.Format(UIStrings.CrashReportDateTime, DateTime.Now));
+                logContent.AppendLine(string.Format(UIStrings.CrashReportVersion, GetType().Assembly.GetName().Version));
+                logContent.AppendLine(string.Format(UIStrings.CrashReportOperatingSystem, Environment.OSVersion));
+                logContent.AppendLine(string.Format(UIStrings.CrashReportIs64Bit, Environment.Is64BitOperatingSystem));
                 logContent.AppendLine();
-                logContent.AppendLine("=== Exception Details ===");
-                logContent.AppendLine($"Type: {exception.GetType().FullName}");
-                logContent.AppendLine($"Message: {exception.Message}");
-                logContent.AppendLine($"Source: {exception.Source}");
-                logContent.AppendLine($"TargetSite: {exception.TargetSite}");
-                logContent.AppendLine($"StackTrace: {exception.StackTrace}");
+                logContent.AppendLine(UIStrings.ExceptionDetailsHeading);
+                logContent.AppendLine(string.Format(UIStrings.ExceptionType, exception.GetType().FullName));
+                logContent.AppendLine(string.Format(UIStrings.ExceptionMessage, exception.Message));
+                logContent.AppendLine(string.Format(UIStrings.ExceptionSource, exception.Source));
+                logContent.AppendLine(string.Format(UIStrings.ExceptionTargetSite, exception.TargetSite));
+                logContent.AppendLine(string.Format(UIStrings.ExceptionStackTrace, exception.StackTrace));
 
                 if (exception.InnerException != null)
                 {
                     logContent.AppendLine();
-                    logContent.AppendLine("=== Inner Exception ===");
-                    logContent.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
-                    logContent.AppendLine($"Message: {exception.InnerException.Message}");
-                    logContent.AppendLine($"StackTrace: {exception.InnerException.StackTrace}");
+                    logContent.AppendLine(UIStrings.InnerExceptionHeading);
+                    logContent.AppendLine(string.Format(UIStrings.ExceptionType, exception.InnerException.GetType().FullName));
+                    logContent.AppendLine(string.Format(UIStrings.ExceptionMessage, exception.InnerException.Message));
+                    logContent.AppendLine(string.Format(UIStrings.ExceptionStackTrace, exception.InnerException.StackTrace));
                 }
 
                 File.WriteAllText(_logFilePath, logContent.ToString());
 
                 // Show error message with link to log file
-                var message = $"An unexpected error occurred:\n\n{exception.Message}\n\n" +
-                             $"A detailed crash log has been created at:\n{_logFilePath}\n\n" +
-                             $"Would you like to open the log file location?";
+                var message = string.Format(UIStrings.UnexpectedErrorWithCrashLog, exception.Message, _logFilePath);
 
-                var result = MessageBoxViewModel.Show(message, "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                var result = MessageBoxViewModel.Show(message, UIStrings.Error, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -489,8 +499,8 @@ namespace nvidiaProfileInspector
             {
                 // If logging fails, show basic error
                 MessageBox.Show(
-                    $"An unexpected error occurred:\n\n{exception.Message}\n\n{ex.Message}",
-                    "Error",
+                    string.Format(UIStrings.UnexpectedErrorFallback, exception.Message, ex.Message),
+                    UIStrings.Error,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }

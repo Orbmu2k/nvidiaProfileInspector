@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:nvidiaProfileInspector.UI.ViewModels"
-    Title="Bit Value Editor"
+    Title="{x:Static localization:UIStrings.BitEditorTitle}"
     Width="1241"
     Height="864"
     MinHeight="864"
@@ -82,7 +82,7 @@
                     FontSize="18"
                     FontWeight="SemiBold"
                     Foreground="{DynamicResource TextPrimaryBrush}"
-                    Text="Bit Value Editor" />
+                    Text="{x:Static localization:UIStrings.BitEditorTitle}" />
 
                 <StackPanel
                     Grid.Column="1"
@@ -93,7 +93,7 @@
                     <Button
                         Click="Close_Click"
                         Style="{StaticResource CloseWindowButtonStyle}"
-                        ToolTip="Close">
+                        ToolTip="{x:Static localization:UIStrings.Close}">
                         <Path
                             Width="10"
                             Height="10"
@@ -120,7 +120,7 @@
                 Margin="0,0,0,16"
                 FontSize="13"
                 Foreground="{DynamicResource TextSecondaryBrush}"
-                Text="Inspect individual flag bits, compare them against scanned profiles, and quickly test the value in a game launch."
+                        Text="{x:Static localization:UIStrings.BitEditorDescription}"
                 TextWrapping="Wrap" />
 
             <controls:SearchableTextBox
@@ -129,7 +129,7 @@
                 Margin="0,0,0,12"
                 Placeholder="Filter profile names..."
                 Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
-                ToolTip="Filter scanned profile names" />
+                    ToolTip="{x:Static localization:UIStrings.BitEditorFilterProfiles}" />
 
             <Grid Grid.Row="2" MinHeight="360">
                 <Grid.RowDefinitions>
@@ -161,7 +161,7 @@
                             FontSize="12"
                             FontWeight="SemiBold"
                             Foreground="{DynamicResource TextOnAccentBrush}"
-                            Text="{Binding MatchesAboveVisibleRange, StringFormat={x:Static localization:UIStrings.test123}}" />
+                            Text="{Binding MatchesAboveVisibleRange, StringFormat={x:Static localization:UIStrings.BitEditorMatchesAbove}}" />
                     </StackPanel>
                 </Border>
 
@@ -185,7 +185,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Enabled">
+                        <GridViewColumn Header="{x:Static localization:UIStrings.Enabled}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <CheckBox
@@ -195,21 +195,21 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Description">
+                        <GridViewColumn Header="{x:Static localization:UIStrings.Description}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding MaskDescription}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Count">
+                        <GridViewColumn Header="{x:Static localization:UIStrings.Count}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding ProfileCount}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Profiles">
+                        <GridViewColumn Header="{x:Static localization:UIStrings.Profiles}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding VisibleProfileNames}" TextTrimming="CharacterEllipsis" />
@@ -243,7 +243,7 @@
                             FontSize="12"
                             FontWeight="SemiBold"
                             Foreground="{DynamicResource TextOnAccentBrush}"
-                            Text="{Binding MatchesBelowVisibleRange, StringFormat={}{0} matches below the visible area}" />
+                            Text="{Binding MatchesBelowVisibleRange, StringFormat={x:Static localization:UIStrings.BitEditorMatchesBelow}}" />
                     </StackPanel>
                 </Border>
             </Grid>
@@ -281,12 +281,12 @@
                                 FontSize="14"
                                 FontWeight="SemiBold"
                                 Foreground="{DynamicResource TextPrimaryBrush}"
-                                Text="Test Area" />
+                            Text="{x:Static localization:UIStrings.BitEditorTestArea}" />
                             <TextBlock
                                 Margin="0,4,0,0"
                                 FontSize="12"
                                 Foreground="{DynamicResource TextSecondaryBrush}"
-                                Text="Apply the edited value to the current profile, then optionally launch a game executable to test it immediately."
+                            Text="{x:Static localization:UIStrings.BitEditorTestAreaDescription}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
 
@@ -298,7 +298,7 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource DarkTextBoxStyle}"
                             Text="{Binding GamePath, UpdateSourceTrigger=PropertyChanged}"
-                            ToolTip="Game executable path" />
+                        ToolTip="{x:Static localization:UIStrings.GameExecutablePath}" />
                         <Button
                             Grid.Row="1"
                             Grid.Column="1"
@@ -307,7 +307,7 @@
                             Padding="12,6"
                             Click="Browse_Click"
                             Style="{StaticResource DarkButtonStyle}"
-                            ToolTip="Browse for game executable">
+                        ToolTip="{x:Static localization:UIStrings.BrowseForGameExecutable}">
                             <StackPanel Orientation="Horizontal">
                                 <Path
                                     Width="14"
@@ -317,7 +317,7 @@
                                     Data="{DynamicResource IconFolder}"
                                     Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
                                     Stretch="Uniform" />
-                                <TextBlock VerticalAlignment="Center" Text="Browse" />
+                            <TextBlock VerticalAlignment="Center" Text="{x:Static localization:UIStrings.Browse}" />
                             </StackPanel>
                         </Button>
                         <Button
@@ -328,7 +328,7 @@
                             Padding="12,6"
                             Command="{Binding ApplyAndLaunchCommand}"
                             Style="{StaticResource AccentButtonStyle}"
-                            ToolTip="Apply changes and launch game">
+                        ToolTip="{x:Static localization:UIStrings.ApplyChangesAndLaunchGame}">
                             <StackPanel Orientation="Horizontal">
                                 <Path
                                     Width="14"
@@ -338,7 +338,7 @@
                                     Data="{DynamicResource IconGame}"
                                     Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
                                     Stretch="Uniform" />
-                                <TextBlock VerticalAlignment="Center" Text="Apply &amp; Launch" />
+                            <TextBlock VerticalAlignment="Center" Text="{x:Static localization:UIStrings.ApplyAndLaunch}" />
                             </StackPanel>
                         </Button>
                     </Grid>
@@ -367,14 +367,14 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="{DynamicResource TextPrimaryBrush}"
-                            Text="Current Value" />
+                            Text="{x:Static localization:UIStrings.CurrentValue}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.ColumnSpan="2"
                             Margin="0,4,0,0"
                             FontSize="12"
                             Foreground="{DynamicResource TextSecondaryBrush}"
-                            Text="Review and apply the current bitmask value." />
+                            Text="{x:Static localization:UIStrings.BitEditorCurrentValueDescription}" />
                         <Grid
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
@@ -390,7 +390,7 @@
                                 Margin="0,0,8,0"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource TextSecondaryBrush}"
-                                Text="Value:" />
+                                Text="{x:Static localization:UIStrings.ValueLabel}" />
                             <TextBox
                                 x:Name="CurrentValueTextBox"
                                 Grid.Column="1"
@@ -399,14 +399,14 @@
                                 IsReadOnly="True"
                                 Style="{StaticResource DarkTextBoxStyle}"
                                 Text="{Binding CurrentValueHex, Mode=OneWay}"
-                                ToolTip="Current DWORD value" />
+                                ToolTip="{x:Static localization:UIStrings.CurrentDwordValue}" />
                             <Button
                                 Grid.Column="2"
                                 MinWidth="96"
                                 Padding="12,6"
                                 Command="{Binding ApplyCommand}"
                                 Style="{StaticResource AccentButtonStyle}"
-                                ToolTip="Apply bit changes">
+                            ToolTip="{x:Static localization:UIStrings.ApplyBitChanges}">
                                 <StackPanel Orientation="Horizontal">
                                     <Path
                                         Width="14"
@@ -416,7 +416,7 @@
                                         Data="{DynamicResource IconApply}"
                                         Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
                                         Stretch="Uniform" />
-                                    <TextBlock VerticalAlignment="Center" Text="Apply" />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Static localization:UIStrings.Apply}" />
                                 </StackPanel>
                             </Button>
                             <Button
@@ -425,9 +425,9 @@
                                 Margin="8,0,0,0"
                                 Padding="12,6"
                                 Click="Close_Click"
-                                Content="Close"
+                    Content="{x:Static localization:UIStrings.Close}"
                                 Style="{StaticResource DarkButtonStyle}"
-                                ToolTip="Close without saving" />
+                    ToolTip="{x:Static localization:UIStrings.CloseWithoutSaving}" />
                         </Grid>
                     </Grid>
                 </Border>

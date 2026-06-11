@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using nvidiaProfileInspector.Localization;
 
 namespace nvidiaProfileInspector.Common.Helper
 {
@@ -99,7 +100,7 @@ namespace nvidiaProfileInspector.Common.Helper
         public static string GetSnippetLatestVersion(string snippet)
         {
             if (!_ngxVersions.ContainsKey(snippet))
-                return "unknown";
+                return UIStrings.Unknown;
             return "v" + _ngxVersions[snippet].ToString();
         }
 

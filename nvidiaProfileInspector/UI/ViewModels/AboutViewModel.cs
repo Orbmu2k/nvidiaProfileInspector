@@ -2,6 +2,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 {
     using nvidiaProfileInspector.Common.Helper;
     using nvidiaProfileInspector.Common.Updates;
+    using nvidiaProfileInspector.Localization;
     using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
@@ -24,16 +25,20 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private bool _isSplashScreenDisabled;
         private bool _isUpdateAvailable;
         private bool _isUpdating;
-        private string _latestVersionText = "Not checked";
+        private string _latestVersionText = UIStrings.NotChecked;
         private string _selectedUpdateChannel;
-        private string _updateStatusText = "Choose a channel and check for updates.";
+        private string _updateStatusText = UIStrings.ChooseChannelAndCheckUpdates;
         private UpdateCheckResult _lastUpdateCheckResult;
         private readonly AppUpdateService _updateService = new AppUpdateService();
         private int _updateCheckGeneration;
 
         public string Version { get; }
         public ObservableCollection<Contributor> Contributors { get; } = new ObservableCollection<Contributor>();
-        public ObservableCollection<string> UpdateChannels { get; } = new ObservableCollection<string> { "Release", "Pre-release" };
+        public ObservableCollection<string> UpdateChannels { get; } = new ObservableCollection<string>
+        {
+            UIStrings.UpdateChannelRelease,
+            UIStrings.UpdateChannelPrerelease
+        };
         public string GitHubUrl => "https://github.com/Orbmu2k/nvidiaProfileInspector/releases";
         public string GitHubRepositoryUrl => "https://github.com/Orbmu2k/nvidiaProfileInspector";
 
@@ -77,8 +82,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     settings.SaveSettings();
                     _lastUpdateCheckResult = null;
                     IsUpdateAvailable = false;
-                    LatestVersionText = "Checking...";
-                    UpdateStatusText = "Checking GitHub releases...";
+                    LatestVersionText = UIStrings.Checking;
+                    UpdateStatusText = UIStrings.CheckingGitHubReleases;
                     OnPropertyChanged(nameof(CanInstallUpdate));
                     _ = RefreshUpdateStatusAsync();
                 }
@@ -143,8 +148,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
             else
             {
-                LatestVersionText = "Checking...";
-                UpdateStatusText = "Checking GitHub releases...";
+                LatestVersionText = UIStrings.Checking;
+                UpdateStatusText = UIStrings.CheckingGitHubReleases;
                 _ = RefreshUpdateStatusAsync();
             }
 
@@ -169,7 +174,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var channel = GetSelectedUpdateChannel();
             try
             {
-                UpdateStatusText = "Checking GitHub releases...";
+                UpdateStatusText = UIStrings.CheckingGitHubReleases;
                 var result = await _updateService.CheckAsync(channel);
                 if (generation != _updateCheckGeneration)
                     return;
@@ -189,7 +194,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             IsUpdating = true;
             try
             {
-                UpdateStatusText = "Preparing update package...";
+                UpdateStatusText = UIStrings.PreparingUpdatePackage;
                 if (_lastUpdateCheckResult == null || !_lastUpdateCheckResult.CanInstall)
                 {
                     _lastUpdateCheckResult = await _updateService.CheckAsync(GetSelectedUpdateChannel());
@@ -200,15 +205,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 }
 
                 await _updateService.PrepareInstallAsync(_lastUpdateCheckResult.LatestRelease);
-                UpdateStatusText = "Update downloaded. Restarting application...";
+                UpdateStatusText = UIStrings.UpdateDownloadedRestarting;
                 Application.Current.Shutdown();
             }
             catch (Exception ex)
             {
-                UpdateStatusText = "Update failed.";
+                UpdateStatusText = UIStrings.UpdateFailed;
                 MessageBoxViewModel.Show(
-                    $"The update could not be installed.\r\n\r\n{ex.Message}",
-                    "Update failed",
+                    string.Format(UIStrings.UpdateCouldNotBeInstalled, ex.Message),
+                    UIStrings.UpdateFailed,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
@@ -226,8 +231,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void ApplyUpdateCheckResult(UpdateCheckResult result)
         {
             IsUpdateAvailable = result?.IsUpdateAvailable == true;
-            LatestVersionText = result?.LatestRelease?.DisplayText ?? "Unavailable";
-            UpdateStatusText = result?.StatusMessage ?? "Could not read release information.";
+            LatestVersionText = result?.LatestRelease?.DisplayText ?? UIStrings.Unavailable;
+            UpdateStatusText = result?.StatusMessage ?? UIStrings.CouldNotReadReleaseInformation;
             OnPropertyChanged(nameof(CanInstallUpdate));
         }
 
@@ -236,28 +241,28 @@ namespace nvidiaProfileInspector.UI.ViewModels
             Contributors.Add(new Contributor
             {
                 Name = "Orbmu2k",
-                Role = "Chief Architect (Emeritus)",
+                Role = UIStrings.ContributorRoleChiefArchitectEmeritus,
                 AvatarUrl = "https://github.com/Orbmu2k.png",
                 ProfileUrl = "https://github.com/Orbmu2k"
             });
             Contributors.Add(new Contributor
             {
                 Name = "emoose",
-                Role = "Lead Developer",
+                Role = UIStrings.ContributorRoleLeadDeveloper,
                 AvatarUrl = "https://github.com/emoose.png",
                 ProfileUrl = "https://github.com/emoose"
             });
             Contributors.Add(new Contributor
             {
                 Name = "Warkratos",
-                Role = "Developer & Driver Settings Researcher",
+                Role = UIStrings.ContributorRoleDeveloperResearcher,
                 AvatarUrl = "https://github.com/warkratos.png",
                 ProfileUrl = "https://github.com/warkratos"
             });
             Contributors.Add(new Contributor
             {
                 Name = "DarkStarSword",
-                Role = "Contributor",
+                Role = UIStrings.ContributorRoleContributor,
                 AvatarUrl = "https://github.com/DarkStarSword.png",
                 ProfileUrl = "https://github.com/DarkStarSword"
             });

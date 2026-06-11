@@ -10,8 +10,8 @@
 
 namespace nvidiaProfileInspector.Localization {
     using System;
-    
-    
+
+
     /// <summary>
     ///   一个强类型的资源类，用于查找本地化的字符串等。
     /// </summary>
@@ -19,19 +19,19 @@ namespace nvidiaProfileInspector.Localization {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UIStrings {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal UIStrings() {
         }
-        
+
         /// <summary>
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
@@ -45,10 +45,10 @@ namespace nvidiaProfileInspector.Localization {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性，对
-        ///   使用此强类型资源类的所有资源查找执行重写。
+        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         public static global::System.Globalization.CultureInfo Culture {
@@ -59,7 +59,602 @@ namespace nvidiaProfileInspector.Localization {
                 resourceCulture = value;
             }
         }
-        
+
+        /// <summary>
+        ///   查找类似 About 的本地化字符串。
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 About NVIDIA PROFILE INSPECTOR 的本地化字符串。
+        /// </summary>
+        public static string AboutWindowTitle {
+            get {
+                return ResourceManager.GetString("AboutWindowTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Acrylic 的本地化字符串。
+        /// </summary>
+        public static string Acrylic {
+            get {
+                return ResourceManager.GetString("Acrylic", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Actions 的本地化字符串。
+        /// </summary>
+        public static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Add Application 的本地化字符串。
+        /// </summary>
+        public static string AddApplication {
+            get {
+                return ResourceManager.GetString("AddApplication", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 To link a new application, enter its filename (e.g. game.exe) or UWP ID. If you need to link a specific file location, use the browse button for an absolute path. 的本地化字符串。
+        /// </summary>
+        public static string AddApplicationPrompt {
+            get {
+                return ResourceManager.GetString("AddApplicationPrompt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Add a new application to this profile 的本地化字符串。
+        /// </summary>
+        public static string AddApplicationTooltip {
+            get {
+                return ResourceManager.GetString("AddApplicationTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 All 的本地化字符串。
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 All customized profiles exported successfully! 的本地化字符串。
+        /// </summary>
+        public static string AllCustomizedProfilesExportedSuccessfully {
+            get {
+                return ResourceManager.GetString("AllCustomizedProfilesExportedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 All profiles exported in NVIDIA text format! 的本地化字符串。
+        /// </summary>
+        public static string AllProfilesExportedNvidiaFormat {
+            get {
+                return ResourceManager.GetString("AllProfilesExportedNvidiaFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 All profiles imported successfully! 的本地化字符串。
+        /// </summary>
+        public static string AllProfilesImportedSuccessfully {
+            get {
+                return ResourceManager.GetString("AllProfilesImportedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 You are already on the latest version for this channel. 的本地化字符串。
+        /// </summary>
+        public static string AlreadyLatestVersion {
+            get {
+                return ResourceManager.GetString("AlreadyLatestVersion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Alternate names: {0}
+        ///{1} 的本地化字符串。
+        /// </summary>
+        public static string AlternateNamesWithDescription {
+            get {
+                return ResourceManager.GetString("AlternateNamesWithDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Appearance 的本地化字符串。
+        /// </summary>
+        public static string Appearance {
+            get {
+                return ResourceManager.GetString("Appearance", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NVIDIA PROFILE INSPECTOR is already running. 的本地化字符串。
+        /// </summary>
+        public static string ApplicationAlreadyRunning {
+            get {
+                return ResourceManager.GetString("ApplicationAlreadyRunning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 - application &apos;{0}&apos; is already in use by profile &apos;{1}&apos; 的本地化字符串。
+        /// </summary>
+        public static string ApplicationAlreadyUsedByProfile {
+            get {
+                return ResourceManager.GetString("ApplicationAlreadyUsedByProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Enter a filename, UWP ID, or absolute path. 的本地化字符串。
+        /// </summary>
+        public static string ApplicationIdentifierRequired {
+            get {
+                return ResourceManager.GetString("ApplicationIdentifierRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Applications|*.exe 的本地化字符串。
+        /// </summary>
+        public static string ApplicationsFileFilter {
+            get {
+                return ResourceManager.GetString("ApplicationsFileFilter", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Apply 的本地化字符串。
+        /// </summary>
+        public static string Apply {
+            get {
+                return ResourceManager.GetString("Apply", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Apply &amp; Launch 的本地化字符串。
+        /// </summary>
+        public static string ApplyAndLaunch {
+            get {
+                return ResourceManager.GetString("ApplyAndLaunch", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Apply bit changes 的本地化字符串。
+        /// </summary>
+        public static string ApplyBitChanges {
+            get {
+                return ResourceManager.GetString("ApplyBitChanges", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Apply Changes 的本地化字符串。
+        /// </summary>
+        public static string ApplyChanges {
+            get {
+                return ResourceManager.GetString("ApplyChanges", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Apply changes and launch game 的本地化字符串。
+        /// </summary>
+        public static string ApplyChangesAndLaunchGame {
+            get {
+                return ResourceManager.GetString("ApplyChangesAndLaunchGame", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Apply all changes and save 的本地化字符串。
+        /// </summary>
+        public static string ApplyChangesTooltip {
+            get {
+                return ResourceManager.GetString("ApplyChangesTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NVIDIA PROFILE INSPECTOR 的本地化字符串。
+        /// </summary>
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NVIDIA PROFILE INSPECTOR - MOCK! 的本地化字符串。
+        /// </summary>
+        public static string AppNameMock {
+            get {
+                return ResourceManager.GetString("AppNameMock", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 BACKDROP 的本地化字符串。
+        /// </summary>
+        public static string Backdrop {
+            get {
+                return ResourceManager.GetString("Backdrop", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 The base profile cannot be deleted. 的本地化字符串。
+        /// </summary>
+        public static string BaseProfileCannotBeDeleted {
+            get {
+                return ResourceManager.GetString("BaseProfileCannotBeDeleted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Bit Editor 的本地化字符串。
+        /// </summary>
+        public static string BitEditor {
+            get {
+                return ResourceManager.GetString("BitEditor", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Review and apply the current bitmask value. 的本地化字符串。
+        /// </summary>
+        public static string BitEditorCurrentValueDescription {
+            get {
+                return ResourceManager.GetString("BitEditorCurrentValueDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Inspect individual flag bits, compare them against scanned profiles, and quickly test the value in a game launch. 的本地化字符串。
+        /// </summary>
+        public static string BitEditorDescription {
+            get {
+                return ResourceManager.GetString("BitEditorDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Filter scanned profile names 的本地化字符串。
+        /// </summary>
+        public static string BitEditorFilterProfiles {
+            get {
+                return ResourceManager.GetString("BitEditorFilterProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 {0} matches above the visible area 的本地化字符串。
+        /// </summary>
+        public static string BitEditorMatchesAbove {
+            get {
+                return ResourceManager.GetString("BitEditorMatchesAbove", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 {0} matches below the visible area 的本地化字符串。
+        /// </summary>
+        public static string BitEditorMatchesBelow {
+            get {
+                return ResourceManager.GetString("BitEditorMatchesBelow", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Test Area 的本地化字符串。
+        /// </summary>
+        public static string BitEditorTestArea {
+            get {
+                return ResourceManager.GetString("BitEditorTestArea", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Apply the edited value to the current profile, then optionally launch a game executable to test it immediately. 的本地化字符串。
+        /// </summary>
+        public static string BitEditorTestAreaDescription {
+            get {
+                return ResourceManager.GetString("BitEditorTestAreaDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Bit Value Editor 的本地化字符串。
+        /// </summary>
+        public static string BitEditorTitle {
+            get {
+                return ResourceManager.GetString("BitEditorTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Bit Value Editor - {0} 的本地化字符串。
+        /// </summary>
+        public static string BitEditorTitleWithSetting {
+            get {
+                return ResourceManager.GetString("BitEditorTitleWithSetting", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Browse 的本地化字符串。
+        /// </summary>
+        public static string Browse {
+            get {
+                return ResourceManager.GetString("Browse", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Browse absolute path... 的本地化字符串。
+        /// </summary>
+        public static string BrowseAbsolutePath {
+            get {
+                return ResourceManager.GetString("BrowseAbsolutePath", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Browse for application absolute path 的本地化字符串。
+        /// </summary>
+        public static string BrowseApplicationPathTooltip {
+            get {
+                return ResourceManager.GetString("BrowseApplicationPathTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Browse for game executable 的本地化字符串。
+        /// </summary>
+        public static string BrowseForGameExecutable {
+            get {
+                return ResourceManager.GetString("BrowseForGameExecutable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 - {0} 的本地化字符串。
+        /// </summary>
+        public static string BulletMessage {
+            get {
+                return ResourceManager.GetString("BulletMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Cancel 的本地化字符串。
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Cancel action 的本地化字符串。
+        /// </summary>
+        public static string CancelAction {
+            get {
+                return ResourceManager.GetString("CancelAction", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Cancel and close 的本地化字符串。
+        /// </summary>
+        public static string CancelAndClose {
+            get {
+                return ResourceManager.GetString("CancelAndClose", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Channel 的本地化字符串。
+        /// </summary>
+        public static string Channel {
+            get {
+                return ResourceManager.GetString("Channel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Checking... 的本地化字符串。
+        /// </summary>
+        public static string Checking {
+            get {
+                return ResourceManager.GetString("Checking", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Checking GitHub releases... 的本地化字符串。
+        /// </summary>
+        public static string CheckingGitHubReleases {
+            get {
+                return ResourceManager.GetString("CheckingGitHubReleases", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Check Now 的本地化字符串。
+        /// </summary>
+        public static string CheckNow {
+            get {
+                return ResourceManager.GetString("CheckNow", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Check for available updates on startup 的本地化字符串。
+        /// </summary>
+        public static string CheckUpdatesOnStartup {
+            get {
+                return ResourceManager.GetString("CheckUpdatesOnStartup", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Choose a channel and check for updates. 的本地化字符串。
+        /// </summary>
+        public static string ChooseChannelAndCheckUpdates {
+            get {
+                return ResourceManager.GetString("ChooseChannelAndCheckUpdates", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Clean White 的本地化字符串。
+        /// </summary>
+        public static string CleanWhite {
+            get {
+                return ResourceManager.GetString("CleanWhite", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Close 的本地化字符串。
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Close without saving 的本地化字符串。
+        /// </summary>
+        public static string CloseWithoutSaving {
+            get {
+                return ResourceManager.GetString("CloseWithoutSaving", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Common Settings 的本地化字符串。
+        /// </summary>
+        public static string CommonSettings {
+            get {
+                return ResourceManager.GetString("CommonSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Compact 的本地化字符串。
+        /// </summary>
+        public static string Compact {
+            get {
+                return ResourceManager.GetString("Compact", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Confirm action 的本地化字符串。
+        /// </summary>
+        public static string ConfirmAction {
+            get {
+                return ResourceManager.GetString("ConfirmAction", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Confirm and save 的本地化字符串。
+        /// </summary>
+        public static string ConfirmAndSave {
+            get {
+                return ResourceManager.GetString("ConfirmAndSave", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Confirm no 的本地化字符串。
+        /// </summary>
+        public static string ConfirmNo {
+            get {
+                return ResourceManager.GetString("ConfirmNo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Confirm yes 的本地化字符串。
+        /// </summary>
+        public static string ConfirmYes {
+            get {
+                return ResourceManager.GetString("ConfirmYes", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Chief Architect (Emeritus) 的本地化字符串。
+        /// </summary>
+        public static string ContributorRoleChiefArchitectEmeritus {
+            get {
+                return ResourceManager.GetString("ContributorRoleChiefArchitectEmeritus", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Contributor 的本地化字符串。
+        /// </summary>
+        public static string ContributorRoleContributor {
+            get {
+                return ResourceManager.GetString("ContributorRoleContributor", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Developer &amp; Driver Settings Researcher 的本地化字符串。
+        /// </summary>
+        public static string ContributorRoleDeveloperResearcher {
+            get {
+                return ResourceManager.GetString("ContributorRoleDeveloperResearcher", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Lead Developer 的本地化字符串。
+        /// </summary>
+        public static string ContributorRoleLeadDeveloper {
+            get {
+                return ResourceManager.GetString("ContributorRoleLeadDeveloper", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 CONTRIBUTORS 的本地化字符串。
+        /// </summary>
+        public static string Contributors {
+            get {
+                return ResourceManager.GetString("Contributors", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   查找类似 Copy 的本地化字符串。
         /// </summary>
@@ -68,7 +663,440 @@ namespace nvidiaProfileInspector.Localization {
                 return ResourceManager.GetString("Copy", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   查找类似 Copy settings to clipboard 的本地化字符串。
+        /// </summary>
+        public static string CopySettingsTooltip {
+            get {
+                return ResourceManager.GetString("CopySettingsTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Could not read release information. 的本地化字符串。
+        /// </summary>
+        public static string CouldNotReadReleaseInformation {
+            get {
+                return ResourceManager.GetString("CouldNotReadReleaseInformation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Count 的本地化字符串。
+        /// </summary>
+        public static string Count {
+            get {
+                return ResourceManager.GetString("Count", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Date/Time: {0:yyyy-MM-dd HH:mm:ss} 的本地化字符串。
+        /// </summary>
+        public static string CrashReportDateTime {
+            get {
+                return ResourceManager.GetString("CrashReportDateTime", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 === NVIDIA PROFILE INSPECTOR Crash Report === 的本地化字符串。
+        /// </summary>
+        public static string CrashReportHeading {
+            get {
+                return ResourceManager.GetString("CrashReportHeading", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 64-bit: {0} 的本地化字符串。
+        /// </summary>
+        public static string CrashReportIs64Bit {
+            get {
+                return ResourceManager.GetString("CrashReportIs64Bit", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 OS: {0} 的本地化字符串。
+        /// </summary>
+        public static string CrashReportOperatingSystem {
+            get {
+                return ResourceManager.GetString("CrashReportOperatingSystem", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Version: {0} 的本地化字符串。
+        /// </summary>
+        public static string CrashReportVersion {
+            get {
+                return ResourceManager.GetString("CrashReportVersion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Create Profile 的本地化字符串。
+        /// </summary>
+        public static string CreateProfile {
+            get {
+                return ResourceManager.GetString("CreateProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Would you like to create a new profile for this application? 的本地化字符串。
+        /// </summary>
+        public static string CreateProfileForApplicationQuestion {
+            get {
+                return ResourceManager.GetString("CreateProfileForApplicationQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Enter a unique name for your new custom driver profile. 的本地化字符串。
+        /// </summary>
+        public static string CreateProfilePrompt {
+            get {
+                return ResourceManager.GetString("CreateProfilePrompt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Create a new profile 的本地化字符串。
+        /// </summary>
+        public static string CreateProfileTooltip {
+            get {
+                return ResourceManager.GetString("CreateProfileTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 CSN file override 的本地化字符串。
+        /// </summary>
+        public static string CsnFileOverride {
+            get {
+                return ResourceManager.GetString("CsnFileOverride", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Current DWORD value 的本地化字符串。
+        /// </summary>
+        public static string CurrentDwordValue {
+            get {
+                return ResourceManager.GetString("CurrentDwordValue", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Current profile exported successfully! 的本地化字符串。
+        /// </summary>
+        public static string CurrentProfileExportedSuccessfully {
+            get {
+                return ResourceManager.GetString("CurrentProfileExportedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Current Value 的本地化字符串。
+        /// </summary>
+        public static string CurrentValue {
+            get {
+                return ResourceManager.GetString("CurrentValue", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Custom Settings Override 的本地化字符串。
+        /// </summary>
+        public static string CustomSettingsOverride {
+            get {
+                return ResourceManager.GetString("CustomSettingsOverride", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 CustomSettingNames.xml is being loaded from the application directory instead of the embedded default resource.
+        ///
+        ///This means the custom setting metadata has been overridden locally. This can be intentional, but names, groups, descriptions, and values may no longer match the embedded defaults shipped with this build.
+        ///
+        ///Possible consequences:
+        ///- outdated or mismatched setting names
+        ///- stale descriptions or value labels
+        ///- missing newer embedded settings or metadata fixes
+        ///- grouping differences compared wit [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string CustomSettingsOverrideMessage {
+            get {
+                return ResourceManager.GetString("CustomSettingsOverrideMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Dark 的本地化字符串。
+        /// </summary>
+        public static string Dark {
+            get {
+                return ResourceManager.GetString("Dark", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Defaults 的本地化字符串。
+        /// </summary>
+        public static string Defaults {
+            get {
+                return ResourceManager.GetString("Defaults", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Delete 的本地化字符串。
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Delete Profile 的本地化字符串。
+        /// </summary>
+        public static string DeleteProfile {
+            get {
+                return ResourceManager.GetString("DeleteProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Really delete this profile?
+        ///
+        ///Note: NVIDIA predefined profiles cannot be restored until the next driver installation! 的本地化字符串。
+        /// </summary>
+        public static string DeleteProfileQuestion {
+            get {
+                return ResourceManager.GetString("DeleteProfileQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Delete the current profile 的本地化字符串。
+        /// </summary>
+        public static string DeleteProfileTooltip {
+            get {
+                return ResourceManager.GetString("DeleteProfileTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 DENSITY 的本地化字符串。
+        /// </summary>
+        public static string Density {
+            get {
+                return ResourceManager.GetString("Density", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Description 的本地化字符串。
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 DESCRIPTION 的本地化字符串。
+        /// </summary>
+        public static string DescriptionHeading {
+            get {
+                return ResourceManager.GetString("DescriptionHeading", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Deselect all profiles 的本地化字符串。
+        /// </summary>
+        public static string DeselectAllProfiles {
+            get {
+                return ResourceManager.GetString("DeselectAllProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Designer preview 的本地化字符串。
+        /// </summary>
+        public static string DesignerPreview {
+            get {
+                return ResourceManager.GetString("DesignerPreview", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Disabled 的本地化字符串。
+        /// </summary>
+        public static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Disable splash screen on startup 的本地化字符串。
+        /// </summary>
+        public static string DisableSplashOnStartup {
+            get {
+                return ResourceManager.GetString("DisableSplashOnStartup", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Driver: {0} 的本地化字符串。
+        /// </summary>
+        public static string DriverStatus {
+            get {
+                return ResourceManager.GetString("DriverStatus", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Driver: {0} ({1}) 的本地化字符串。
+        /// </summary>
+        public static string DriverStatusWithBranch {
+            get {
+                return ResourceManager.GetString("DriverStatusWithBranch", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Driver unavailable 的本地化字符串。
+        /// </summary>
+        public static string DriverUnavailable {
+            get {
+                return ResourceManager.GetString("DriverUnavailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Enabled 的本地化字符串。
+        /// </summary>
+        public static string Enabled {
+            get {
+                return ResourceManager.GetString("Enabled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Enter a valid binary value. 的本地化字符串。
+        /// </summary>
+        public static string EnterValidBinaryValue {
+            get {
+                return ResourceManager.GetString("EnterValidBinaryValue", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Enter a valid DWORD value. 的本地化字符串。
+        /// </summary>
+        public static string EnterValidDwordValue {
+            get {
+                return ResourceManager.GetString("EnterValidDwordValue", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Enter a valid QWORD value. 的本地化字符串。
+        /// </summary>
+        public static string EnterValidQwordValue {
+            get {
+                return ResourceManager.GetString("EnterValidQwordValue", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Error: {0} 的本地化字符串。
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 === Exception Details === 的本地化字符串。
+        /// </summary>
+        public static string ExceptionDetailsHeading {
+            get {
+                return ResourceManager.GetString("ExceptionDetailsHeading", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Message: {0} 的本地化字符串。
+        /// </summary>
+        public static string ExceptionMessage {
+            get {
+                return ResourceManager.GetString("ExceptionMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Source: {0} 的本地化字符串。
+        /// </summary>
+        public static string ExceptionSource {
+            get {
+                return ResourceManager.GetString("ExceptionSource", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 StackTrace: {0} 的本地化字符串。
+        /// </summary>
+        public static string ExceptionStackTrace {
+            get {
+                return ResourceManager.GetString("ExceptionStackTrace", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 TargetSite: {0} 的本地化字符串。
+        /// </summary>
+        public static string ExceptionTargetSite {
+            get {
+                return ResourceManager.GetString("ExceptionTargetSite", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Type: {0} 的本地化字符串。
+        /// </summary>
+        public static string ExceptionType {
+            get {
+                return ResourceManager.GetString("ExceptionType", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Executables (*.exe)|*.exe|All files (*.*)|*.* 的本地化字符串。
+        /// </summary>
+        public static string ExecutablesFileFilter {
+            get {
+                return ResourceManager.GetString("ExecutablesFileFilter", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   查找类似 Export 的本地化字符串。
         /// </summary>
@@ -77,7 +1105,259 @@ namespace nvidiaProfileInspector.Localization {
                 return ResourceManager.GetString("Export", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   查找类似 Export all customized profiles 的本地化字符串。
+        /// </summary>
+        public static string ExportAllCustomizedProfiles {
+            get {
+                return ResourceManager.GetString("ExportAllCustomizedProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export all profiles that contain user-defined or modified settings. 的本地化字符串。
+        /// </summary>
+        public static string ExportAllCustomizedProfilesDescription {
+            get {
+                return ResourceManager.GetString("ExportAllCustomizedProfilesDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export all profiles (NVIDIA Text Format) 的本地化字符串。
+        /// </summary>
+        public static string ExportAllProfilesNvidiaFormat {
+            get {
+                return ResourceManager.GetString("ExportAllProfilesNvidiaFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export the entire profile database in the official NVIDIA text format. 的本地化字符串。
+        /// </summary>
+        public static string ExportAllProfilesNvidiaFormatDescription {
+            get {
+                return ResourceManager.GetString("ExportAllProfilesNvidiaFormatDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export current profile including predefined 的本地化字符串。
+        /// </summary>
+        public static string ExportCurrentIncludingPredefined {
+            get {
+                return ResourceManager.GetString("ExportCurrentIncludingPredefined", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export the current profile with all its settings, including those not modified by you. 的本地化字符串。
+        /// </summary>
+        public static string ExportCurrentIncludingPredefinedDescription {
+            get {
+                return ResourceManager.GetString("ExportCurrentIncludingPredefinedDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export current profile only 的本地化字符串。
+        /// </summary>
+        public static string ExportCurrentProfileOnly {
+            get {
+                return ResourceManager.GetString("ExportCurrentProfileOnly", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export only the settings you have changed for the currently selected profile. 的本地化字符串。
+        /// </summary>
+        public static string ExportCurrentProfileOnlyDescription {
+            get {
+                return ResourceManager.GetString("ExportCurrentProfileOnlyDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export Profiles 的本地化字符串。
+        /// </summary>
+        public static string ExportProfiles {
+            get {
+                return ResourceManager.GetString("ExportProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Choose how you want to export your profiles: 的本地化字符串。
+        /// </summary>
+        public static string ExportProfilesPrompt {
+            get {
+                return ResourceManager.GetString("ExportProfilesPrompt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export profiles to file 的本地化字符串。
+        /// </summary>
+        public static string ExportProfilesTooltip {
+            get {
+                return ResourceManager.GetString("ExportProfilesTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export Selected 的本地化字符串。
+        /// </summary>
+        public static string ExportSelected {
+            get {
+                return ResourceManager.GetString("ExportSelected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Export selected profiles 的本地化字符串。
+        /// </summary>
+        public static string ExportSelectedProfiles {
+            get {
+                return ResourceManager.GetString("ExportSelectedProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Custom settings are loaded from an external CustomSettingNames.xml file 的本地化字符串。
+        /// </summary>
+        public static string ExternalCustomSettingsTooltip {
+            get {
+                return ResourceManager.GetString("ExternalCustomSettingsTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Failed to import profile &apos;{0}&apos; 的本地化字符串。
+        /// </summary>
+        public static string FailedToImportProfile {
+            get {
+                return ResourceManager.GetString("FailedToImportProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Failed to merge import into profile &apos;{0}&apos; 的本地化字符串。
+        /// </summary>
+        public static string FailedToMergeIntoProfile {
+            get {
+                return ResourceManager.GetString("FailedToMergeIntoProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 10 - OpenGL 的本地化字符串。
+        /// </summary>
+        public static string FallbackGroupOpenGL {
+            get {
+                return ResourceManager.GetString("FallbackGroupOpenGL", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 09 - Stereo 的本地化字符串。
+        /// </summary>
+        public static string FallbackGroupStereo {
+            get {
+                return ResourceManager.GetString("FallbackGroupStereo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 11 - Unknown Driver Settings 的本地化字符串。
+        /// </summary>
+        public static string FallbackGroupUnknownDriverSettings {
+            get {
+                return ResourceManager.GetString("FallbackGroupUnknownDriverSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 ★ Favorites 的本地化字符串。
+        /// </summary>
+        public static string Favorites {
+            get {
+                return ResourceManager.GetString("Favorites", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Filter settings by type 的本地化字符串。
+        /// </summary>
+        public static string FilterSettingsTooltip {
+            get {
+                return ResourceManager.GetString("FilterSettingsTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Game executable not found. 的本地化字符串。
+        /// </summary>
+        public static string GameExecutableNotFound {
+            get {
+                return ResourceManager.GetString("GameExecutableNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Game executable path 的本地化字符串。
+        /// </summary>
+        public static string GameExecutablePath {
+            get {
+                return ResourceManager.GetString("GameExecutablePath", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Glass 的本地化字符串。
+        /// </summary>
+        public static string Glass {
+            get {
+                return ResourceManager.GetString("Glass", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 GLOBAL DRIVER PROFILE 的本地化字符串。
+        /// </summary>
+        public static string GlobalDriverProfile {
+            get {
+                return ResourceManager.GetString("GlobalDriverProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 The global DRS session is not initialized. 的本地化字符串。
+        /// </summary>
+        public static string GlobalSessionIsZero {
+            get {
+                return ResourceManager.GetString("GlobalSessionIsZero", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Global Setting - Applies to all applications 的本地化字符串。
+        /// </summary>
+        public static string GlobalSettingTooltip {
+            get {
+                return ResourceManager.GetString("GlobalSettingTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Go back 的本地化字符串。
+        /// </summary>
+        public static string GoBack {
+            get {
+                return ResourceManager.GetString("GoBack", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   查找类似 Import 的本地化字符串。
         /// </summary>
@@ -86,22 +1366,1164 @@ namespace nvidiaProfileInspector.Localization {
                 return ResourceManager.GetString("Import", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   查找类似 {0} matches above the visible area 的本地化字符串。
+        ///   查找类似 Import (replace) all driver profiles 的本地化字符串。
         /// </summary>
-        public static string test123 {
+        public static string ImportAllDriverProfiles {
             get {
-                return ResourceManager.GetString("test123", resourceCulture);
+                return ResourceManager.GetString("ImportAllDriverProfiles", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   查找类似 You are already on the latest version for this channel. 的本地化字符串。
+        ///   查找类似 Restore or replace all profiles from an NVIDIA Text Format file. 的本地化字符串。
         /// </summary>
-        public static string update_check_result_already_latest {
+        public static string ImportAllDriverProfilesDescription {
             get {
-                return ResourceManager.GetString("update_check_result_already_latest", resourceCulture);
+                return ResourceManager.GetString("ImportAllDriverProfilesDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Import Error: {0} 的本地化字符串。
+        /// </summary>
+        public static string ImportErrorMessage {
+            get {
+                return ResourceManager.GetString("ImportErrorMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Hint: If only the profile name was changed by NVIDIA, manually update the profile name inside the import file using a text editor. 的本地化字符串。
+        /// </summary>
+        public static string ImportProfileRenameHint {
+            get {
+                return ResourceManager.GetString("ImportProfileRenameHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Import Profiles 的本地化字符串。
+        /// </summary>
+        public static string ImportProfiles {
+            get {
+                return ResourceManager.GetString("ImportProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Choose how you want to import profiles: 的本地化字符串。
+        /// </summary>
+        public static string ImportProfilesPrompt {
+            get {
+                return ResourceManager.GetString("ImportProfilesPrompt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Import profiles from file 的本地化字符串。
+        /// </summary>
+        public static string ImportProfilesTooltip {
+            get {
+                return ResourceManager.GetString("ImportProfilesTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Import Warning 的本地化字符串。
+        /// </summary>
+        public static string ImportWarning {
+            get {
+                return ResourceManager.GetString("ImportWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Include predefined settings 的本地化字符串。
+        /// </summary>
+        public static string IncludePredefinedSettings {
+            get {
+                return ResourceManager.GetString("IncludePredefinedSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Information 的本地化字符串。
+        /// </summary>
+        public static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 === Inner Exception === 的本地化字符串。
+        /// </summary>
+        public static string InnerExceptionHeading {
+            get {
+                return ResourceManager.GetString("InnerExceptionHeading", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Install Update 的本地化字符串。
+        /// </summary>
+        public static string InstallUpdate {
+            get {
+                return ResourceManager.GetString("InstallUpdate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Invalid application name or FindFile string. 的本地化字符串。
+        /// </summary>
+        public static string InvalidApplicationOrFindFile {
+            get {
+                return ResourceManager.GetString("InvalidApplicationOrFindFile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Invalid setting type. 的本地化字符串。
+        /// </summary>
+        public static string InvalidSettingType {
+            get {
+                return ResourceManager.GetString("InvalidSettingType", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Invalid value type. 的本地化字符串。
+        /// </summary>
+        public static string InvalidValueType {
+            get {
+                return ResourceManager.GetString("InvalidValueType", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Invert 的本地化字符串。
+        /// </summary>
+        public static string Invert {
+            get {
+                return ResourceManager.GetString("Invert", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Invert selection 的本地化字符串。
+        /// </summary>
+        public static string InvertSelection {
+            get {
+                return ResourceManager.GetString("InvertSelection", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 {0} known settings 的本地化字符串。
+        /// </summary>
+        public static string KnownSettingsCount {
+            get {
+                return ResourceManager.GetString("KnownSettingsCount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 {0} known ({1} in profiles / {2} seen) 的本地化字符串。
+        /// </summary>
+        public static string KnownSettingsStatus {
+            get {
+                return ResourceManager.GetString("KnownSettingsStatus", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Lab 的本地化字符串。
+        /// </summary>
+        public static string Lab {
+            get {
+                return ResourceManager.GetString("Lab", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Last OTA profile update: {0:g} 的本地化字符串。
+        /// </summary>
+        public static string LastOtaProfileUpdate {
+            get {
+                return ResourceManager.GetString("LastOtaProfileUpdate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Latest 的本地化字符串。
+        /// </summary>
+        public static string Latest {
+            get {
+                return ResourceManager.GetString("Latest", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Merge completed with warnings:
+        ///
+        ///{0} 的本地化字符串。
+        /// </summary>
+        public static string MergeCompletedWithWarnings {
+            get {
+                return ResourceManager.GetString("MergeCompletedWithWarnings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Hint: Remove conflicting applications from the other profile first, then retry the merge. 的本地化字符串。
+        /// </summary>
+        public static string MergeConflictHint {
+            get {
+                return ResourceManager.GetString("MergeConflictHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Merge imported profile(s) 的本地化字符串。
+        /// </summary>
+        public static string MergeImportedProfiles {
+            get {
+                return ResourceManager.GetString("MergeImportedProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Import one or more .nip files and merge them into the profile targets named inside the files. Existing target values stay unless the import contains the same setting, in which case the imported value wins. 的本地化字符串。
+        /// </summary>
+        public static string MergeImportedProfilesDescription {
+            get {
+                return ResourceManager.GetString("MergeImportedProfilesDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Mica 的本地化字符串。
+        /// </summary>
+        public static string Mica {
+            get {
+                return ResourceManager.GetString("Mica", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Mica Variant 的本地化字符串。
+        /// </summary>
+        public static string MicaVariant {
+            get {
+                return ResourceManager.GetString("MicaVariant", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Midnight 的本地化字符串。
+        /// </summary>
+        public static string Midnight {
+            get {
+                return ResourceManager.GetString("Midnight", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Minimize 的本地化字符串。
+        /// </summary>
+        public static string Minimize {
+            get {
+                return ResourceManager.GetString("Minimize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Modern 的本地化字符串。
+        /// </summary>
+        public static string Modern {
+            get {
+                return ResourceManager.GetString("Modern", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Navigate to Global Profile 的本地化字符串。
+        /// </summary>
+        public static string NavigateToGlobalProfile {
+            get {
+                return ResourceManager.GetString("NavigateToGlobalProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 New 的本地化字符串。
+        /// </summary>
+        public static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 A newer version is ready to install. 的本地化字符串。
+        /// </summary>
+        public static string NewVersionReadyToInstall {
+            get {
+                return ResourceManager.GetString("NewVersionReadyToInstall", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 A newer version is available, but it does not contain a supported update package. 的本地化字符串。
+        /// </summary>
+        public static string NewVersionWithoutSupportedPackage {
+            get {
+                return ResourceManager.GetString("NewVersionWithoutSupportedPackage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NVIDIA PROFILE INSPECTOR Profiles|*.nip 的本地化字符串。
+        /// </summary>
+        public static string NipFileFilter {
+            get {
+                return ResourceManager.GetString("NipFileFilter", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 No 的本地化字符串。
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 No compatible NVIDIA Driver was detected on your system. Your NVIDIA GPU might be disabled. 的本地化字符串。
+        /// </summary>
+        public static string NoCompatibleDriver {
+            get {
+                return ResourceManager.GetString("NoCompatibleDriver", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 None 的本地化字符串。
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 No release information is available. 的本地化字符串。
+        /// </summary>
+        public static string NoReleaseInformation {
+            get {
+                return ResourceManager.GetString("NoReleaseInformation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Not checked 的本地化字符串。
+        /// </summary>
+        public static string NotChecked {
+            get {
+                return ResourceManager.GetString("NotChecked", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 No update release was selected. 的本地化字符串。
+        /// </summary>
+        public static string NoUpdateReleaseSelected {
+            get {
+                return ResourceManager.GetString("NoUpdateReleaseSelected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 {0} failed: {1} 的本地化字符串。
+        /// </summary>
+        public static string NvapiFunctionFailed {
+            get {
+                return ResourceManager.GetString("NvapiFunctionFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NVIDIA Setting - Defined by NVIDIA driver 的本地化字符串。
+        /// </summary>
+        public static string NvidiaSettingTooltip {
+            get {
+                return ResourceManager.GetString("NvidiaSettingTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NVIDIA Text Files|*.txt 的本地化字符串。
+        /// </summary>
+        public static string NvidiaTextFileFilter {
+            get {
+                return ResourceManager.GetString("NvidiaTextFileFilter", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 OK 的本地化字符串。
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Open the Bit Value Editor 的本地化字符串。
+        /// </summary>
+        public static string OpenBitEditorTooltip {
+            get {
+                return ResourceManager.GetString("OpenBitEditorTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Open GitHub releases 的本地化字符串。
+        /// </summary>
+        public static string OpenGitHubReleases {
+            get {
+                return ResourceManager.GetString("OpenGitHubReleases", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Open GitHub repository 的本地化字符串。
+        /// </summary>
+        public static string OpenGitHubRepository {
+            get {
+                return ResourceManager.GetString("OpenGitHubRepository", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 OTA {0:g} 的本地化字符串。
+        /// </summary>
+        public static string OtaStatus {
+            get {
+                return ResourceManager.GetString("OtaStatus", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 OTA unknown 的本地化字符串。
+        /// </summary>
+        public static string OtaUnknown {
+            get {
+                return ResourceManager.GetString("OtaUnknown", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Preparing update package... 的本地化字符串。
+        /// </summary>
+        public static string PreparingUpdatePackage {
+            get {
+                return ResourceManager.GetString("PreparingUpdatePackage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 {0} profiles 的本地化字符串。
+        /// </summary>
+        public static string ProfileCount {
+            get {
+                return ResourceManager.GetString("ProfileCount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Profile deleted successfully. 的本地化字符串。
+        /// </summary>
+        public static string ProfileDeletedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProfileDeletedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Profile for &apos;{0}&apos; has been selected! 的本地化字符串。
+        /// </summary>
+        public static string ProfileForApplicationSelected {
+            get {
+                return ResourceManager.GetString("ProfileForApplicationSelected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Profile: {0} 的本地化字符串。
+        /// </summary>
+        public static string ProfileLabel {
+            get {
+                return ResourceManager.GetString("ProfileLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Profile name must be unique. 的本地化字符串。
+        /// </summary>
+        public static string ProfileNameMustBeUnique {
+            get {
+                return ResourceManager.GetString("ProfileNameMustBeUnique", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Enter a unique profile name. 的本地化字符串。
+        /// </summary>
+        public static string ProfileNameRequired {
+            get {
+                return ResourceManager.GetString("ProfileNameRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Profile not found! 的本地化字符串。
+        /// </summary>
+        public static string ProfileNotFound {
+            get {
+                return ResourceManager.GetString("ProfileNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Profile restored to driver defaults successfully! 的本地化字符串。
+        /// </summary>
+        public static string ProfileRestoredSuccessfully {
+            get {
+                return ResourceManager.GetString("ProfileRestoredSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Profiles 的本地化字符串。
+        /// </summary>
+        public static string Profiles {
+            get {
+                return ResourceManager.GetString("Profiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Profile(s) imported successfully! 的本地化字符串。
+        /// </summary>
+        public static string ProfilesImportedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProfilesImportedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Imported profile(s) were merged successfully. 的本地化字符串。
+        /// </summary>
+        public static string ProfilesMergedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProfilesMergedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Refresh 的本地化字符串。
+        /// </summary>
+        public static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Refresh all profiles 的本地化字符串。
+        /// </summary>
+        public static string RefreshProfilesTooltip {
+            get {
+                return ResourceManager.GetString("RefreshProfilesTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 The selected release does not contain a downloadable update package. 的本地化字符串。
+        /// </summary>
+        public static string ReleaseHasNoDownloadablePackage {
+            get {
+                return ResourceManager.GetString("ReleaseHasNoDownloadablePackage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Releases 的本地化字符串。
+        /// </summary>
+        public static string Releases {
+            get {
+                return ResourceManager.GetString("Releases", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Remove Application 的本地化字符串。
+        /// </summary>
+        public static string RemoveApplication {
+            get {
+                return ResourceManager.GetString("RemoveApplication", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Remove application &apos;{0}&apos; from profile? 的本地化字符串。
+        /// </summary>
+        public static string RemoveApplicationQuestion {
+            get {
+                return ResourceManager.GetString("RemoveApplicationQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Replace imported profile(s) 的本地化字符串。
+        /// </summary>
+        public static string ReplaceImportedProfiles {
+            get {
+                return ResourceManager.GetString("ReplaceImportedProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Import one or more .nip files and replace each imported profile&apos;s current apps and settings with the file contents. 的本地化字符串。
+        /// </summary>
+        public static string ReplaceImportedProfilesDescription {
+            get {
+                return ResourceManager.GetString("ReplaceImportedProfilesDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Reserved / unknown 的本地化字符串。
+        /// </summary>
+        public static string ReservedUnknown {
+            get {
+                return ResourceManager.GetString("ReservedUnknown", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Reset 的本地化字符串。
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Reset current profile changes 的本地化字符串。
+        /// </summary>
+        public static string ResetProfileChangesTooltip {
+            get {
+                return ResourceManager.GetString("ResetProfileChangesTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Reset setting to default value 的本地化字符串。
+        /// </summary>
+        public static string ResetSettingTooltip {
+            get {
+                return ResourceManager.GetString("ResetSettingTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Restore Profile 的本地化字符串。
+        /// </summary>
+        public static string RestoreProfile {
+            get {
+                return ResourceManager.GetString("RestoreProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Restore profile to NVIDIA driver defaults? 的本地化字符串。
+        /// </summary>
+        public static string RestoreProfileQuestion {
+            get {
+                return ResourceManager.GetString("RestoreProfileQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Restore profile to NVIDIA default settings 的本地化字符串。
+        /// </summary>
+        public static string RestoreProfileTooltip {
+            get {
+                return ResourceManager.GetString("RestoreProfileTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Scanning profiles 的本地化字符串。
+        /// </summary>
+        public static string ScanningProfiles {
+            get {
+                return ResourceManager.GetString("ScanningProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Scanning profiles... 的本地化字符串。
+        /// </summary>
+        public static string ScanningProfilesWithEllipsis {
+            get {
+                return ResourceManager.GetString("ScanningProfilesWithEllipsis", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Scanning... {0}% 的本地化字符串。
+        /// </summary>
+        public static string ScanningProgress {
+            get {
+                return ResourceManager.GetString("ScanningProgress", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Search... 的本地化字符串。
+        /// </summary>
+        public static string SearchPlaceholder {
+            get {
+                return ResourceManager.GetString("SearchPlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Search settings by name (Ctrl+F) 的本地化字符串。
+        /// </summary>
+        public static string SearchSettingsTooltip {
+            get {
+                return ResourceManager.GetString("SearchSettingsTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Select all profiles 的本地化字符串。
+        /// </summary>
+        public static string SelectAllProfiles {
+            get {
+                return ResourceManager.GetString("SelectAllProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Select Application Absolute Path 的本地化字符串。
+        /// </summary>
+        public static string SelectApplicationAbsolutePath {
+            get {
+                return ResourceManager.GetString("SelectApplicationAbsolutePath", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Please select at least one profile to export. 的本地化字符串。
+        /// </summary>
+        public static string SelectAtLeastOneProfile {
+            get {
+                return ResourceManager.GetString("SelectAtLeastOneProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 All selected profiles exported successfully! 的本地化字符串。
+        /// </summary>
+        public static string SelectedProfilesExportedSuccessfully {
+            get {
+                return ResourceManager.GetString("SelectedProfilesExportedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Select Game 的本地化字符串。
+        /// </summary>
+        public static string SelectGame {
+            get {
+                return ResourceManager.GetString("SelectGame", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Select Profiles 的本地化字符串。
+        /// </summary>
+        public static string SelectProfiles {
+            get {
+                return ResourceManager.GetString("SelectProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Select profiles to export 的本地化字符串。
+        /// </summary>
+        public static string SelectProfilesToExport {
+            get {
+                return ResourceManager.GetString("SelectProfilesToExport", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Select multiple modified profiles from a list to export them into a single file. 的本地化字符串。
+        /// </summary>
+        public static string SelectProfilesToExportDescription {
+            get {
+                return ResourceManager.GetString("SelectProfilesToExportDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Please choose the profiles you want to export: 的本地化字符串。
+        /// </summary>
+        public static string SelectProfilesToExportPrompt {
+            get {
+                return ResourceManager.GetString("SelectProfilesToExportPrompt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Setting 的本地化字符串。
+        /// </summary>
+        public static string Setting {
+            get {
+                return ResourceManager.GetString("Setting", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Settings applied successfully. 的本地化字符串。
+        /// </summary>
+        public static string SettingsAppliedSuccessfully {
+            get {
+                return ResourceManager.GetString("SettingsAppliedSuccessfully", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Settings copied to clipboard! 的本地化字符串。
+        /// </summary>
+        public static string SettingsCopiedToClipboard {
+            get {
+                return ResourceManager.GetString("SettingsCopiedToClipboard", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Show All Settings 的本地化字符串。
+        /// </summary>
+        public static string ShowAllSettings {
+            get {
+                return ResourceManager.GetString("ShowAllSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Show unknown settings from NVIDIA predefined profiles 的本地化字符串。
+        /// </summary>
+        public static string ShowUnknownSettingsTooltip {
+            get {
+                return ResourceManager.GetString("ShowUnknownSettingsTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Slate 的本地化字符串。
+        /// </summary>
+        public static string Slate {
+            get {
+                return ResourceManager.GetString("Slate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Some profile(s) could not be imported!
+        ///
+        ///{0} 的本地化字符串。
+        /// </summary>
+        public static string SomeProfilesCouldNotBeImported {
+            get {
+                return ResourceManager.GetString("SomeProfilesCouldNotBeImported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Loading application 的本地化字符串。
+        /// </summary>
+        public static string SplashLoading {
+            get {
+                return ResourceManager.GetString("SplashLoading", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Preparing driver profiles and settings... 的本地化字符串。
+        /// </summary>
+        public static string SplashPreparing {
+            get {
+                return ResourceManager.GetString("SplashPreparing", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 STARTUP 的本地化字符串。
+        /// </summary>
+        public static string Startup {
+            get {
+                return ResourceManager.GetString("Startup", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 THEME 的本地化字符串。
+        /// </summary>
+        public static string Theme {
+            get {
+                return ResourceManager.GetString("Theme", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Toggle Favorite 的本地化字符串。
+        /// </summary>
+        public static string ToggleFavorite {
+            get {
+                return ResourceManager.GetString("ToggleFavorite", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Unavailable 的本地化字符串。
+        /// </summary>
+        public static string Unavailable {
+            get {
+                return ResourceManager.GetString("Unavailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 An unexpected error occurred:
+        ///
+        ///{0}
+        ///
+        ///{1} 的本地化字符串。
+        /// </summary>
+        public static string UnexpectedErrorFallback {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorFallback", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 An unexpected error occurred:
+        ///
+        ///{0}
+        ///
+        ///A detailed crash log was created at:
+        ///{1}
+        ///
+        ///Would you like to open the log file location? 的本地化字符串。
+        /// </summary>
+        public static string UnexpectedErrorWithCrashLog {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorWithCrashLog", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 unknown 的本地化字符串。
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 The selected update package format is not supported. 的本地化字符串。
+        /// </summary>
+        public static string UnsupportedUpdatePackageFormat {
+            get {
+                return ResourceManager.GetString("UnsupportedUpdatePackageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Update available 的本地化字符串。
+        /// </summary>
+        public static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Pre-release 的本地化字符串。
+        /// </summary>
+        public static string UpdateChannelPrerelease {
+            get {
+                return ResourceManager.GetString("UpdateChannelPrerelease", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Release 的本地化字符串。
+        /// </summary>
+        public static string UpdateChannelRelease {
+            get {
+                return ResourceManager.GetString("UpdateChannelRelease", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 The update could not be installed.
+        ///
+        ///{0} 的本地化字符串。
+        /// </summary>
+        public static string UpdateCouldNotBeInstalled {
+            get {
+                return ResourceManager.GetString("UpdateCouldNotBeInstalled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Update downloaded. Restarting application... 的本地化字符串。
+        /// </summary>
+        public static string UpdateDownloadedRestarting {
+            get {
+                return ResourceManager.GetString("UpdateDownloadedRestarting", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Update failed 的本地化字符串。
+        /// </summary>
+        public static string UpdateFailed {
+            get {
+                return ResourceManager.GetString("UpdateFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 UPDATES 的本地化字符串。
+        /// </summary>
+        public static string Updates {
+            get {
+                return ResourceManager.GetString("Updates", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 User-defined Setting - Custom setting added by user 的本地化字符串。
+        /// </summary>
+        public static string UserDefinedSettingTooltip {
+            get {
+                return ResourceManager.GetString("UserDefinedSettingTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 User Modified Settings 的本地化字符串。
+        /// </summary>
+        public static string UserModifiedSettings {
+            get {
+                return ResourceManager.GetString("UserModifiedSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Enter a valid filename and FindFile string. 的本地化字符串。
+        /// </summary>
+        public static string ValidFilenameAndFindFileRequired {
+            get {
+                return ResourceManager.GetString("ValidFilenameAndFindFileRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Value applied to profile. 的本地化字符串。
+        /// </summary>
+        public static string ValueAppliedToProfile {
+            get {
+                return ResourceManager.GetString("ValueAppliedToProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Value: 的本地化字符串。
+        /// </summary>
+        public static string ValueLabel {
+            get {
+                return ResourceManager.GetString("ValueLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Version  的本地化字符串。
+        /// </summary>
+        public static string VersionLabel {
+            get {
+                return ResourceManager.GetString("VersionLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 View Modified Profiles 的本地化字符串。
+        /// </summary>
+        public static string ViewModifiedProfiles {
+            get {
+                return ResourceManager.GetString("ViewModifiedProfiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 View Profile 的本地化字符串。
+        /// </summary>
+        public static string ViewProfile {
+            get {
+                return ResourceManager.GetString("ViewProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Waiting for the modified profiles scan to finish... 的本地化字符串。
+        /// </summary>
+        public static string WaitingForModifiedProfilesScan {
+            get {
+                return ResourceManager.GetString("WaitingForModifiedProfilesScan", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Yes 的本地化字符串。
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

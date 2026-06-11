@@ -2,6 +2,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 {
     using nvidiaProfileInspector.Common;
     using nvidiaProfileInspector.Common.Meta;
+    using nvidiaProfileInspector.Localization;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -38,7 +39,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void UpdateGroupNameForDisplay()
         {
             if (_isFavorite)
-                _cachedGroupNameForDisplay = "⭐ Favorites";
+                _cachedGroupNameForDisplay = UIStrings.Favorites;
             else
                 _cachedGroupNameForDisplay = GroupName;
         }

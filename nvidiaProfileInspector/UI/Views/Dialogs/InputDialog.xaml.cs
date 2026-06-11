@@ -1,6 +1,7 @@
 namespace nvidiaProfileInspector.UI.Views.Dialogs
 {
     using nvidiaProfileInspector.UI.ViewModels;
+    using nvidiaProfileInspector.Localization;
     using System;
     using System.Windows;
 
@@ -25,8 +26,8 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
         {
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
-                Filter = "Executables (*.exe)|*.exe|All files (*.*)|*.*",
-                Title = "Select Application Absolute Path"
+                Filter = UIStrings.ExecutablesFileFilter,
+                Title = UIStrings.SelectApplicationAbsolutePath
             };
 
             if (dialog.ShowDialog() == true)

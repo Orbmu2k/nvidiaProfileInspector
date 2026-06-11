@@ -117,19 +117,847 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutWindowTitle" xml:space="preserve">
+    <value>About NVIDIA PROFILE INSPECTOR</value>
+  </data>
+  <data name="Acrylic" xml:space="preserve">
+    <value>Acrylic</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="AddApplication" xml:space="preserve">
+    <value>Add Application</value>
+  </data>
+  <data name="AddApplicationPrompt" xml:space="preserve">
+    <value>To link a new application, enter its filename (e.g. game.exe) or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.</value>
+  </data>
+  <data name="AddApplicationTooltip" xml:space="preserve">
+    <value>Add a new application to this profile</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AllCustomizedProfilesExportedSuccessfully" xml:space="preserve">
+    <value>All customized profiles exported successfully!</value>
+  </data>
+  <data name="AllProfilesExportedNvidiaFormat" xml:space="preserve">
+    <value>All profiles exported in NVIDIA text format!</value>
+  </data>
+  <data name="AllProfilesImportedSuccessfully" xml:space="preserve">
+    <value>All profiles imported successfully!</value>
+  </data>
+  <data name="AlreadyLatestVersion" xml:space="preserve">
+    <value>You are already on the latest version for this channel.</value>
+  </data>
+  <data name="AlternateNamesWithDescription" xml:space="preserve">
+    <value>Alternate names: {0}
+{1}</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="ApplicationAlreadyRunning" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR is already running.</value>
+  </data>
+  <data name="ApplicationAlreadyUsedByProfile" xml:space="preserve">
+    <value>- application '{0}' is already in use by profile '{1}'</value>
+  </data>
+  <data name="ApplicationIdentifierRequired" xml:space="preserve">
+    <value>Enter a filename, UWP ID, or absolute path.</value>
+  </data>
+  <data name="ApplicationsFileFilter" xml:space="preserve">
+    <value>Applications|*.exe</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="ApplyAndLaunch" xml:space="preserve">
+    <value>Apply &amp; Launch</value>
+  </data>
+  <data name="ApplyBitChanges" xml:space="preserve">
+    <value>Apply bit changes</value>
+  </data>
+  <data name="ApplyChanges" xml:space="preserve">
+    <value>Apply Changes</value>
+  </data>
+  <data name="ApplyChangesAndLaunchGame" xml:space="preserve">
+    <value>Apply changes and launch game</value>
+  </data>
+  <data name="ApplyChangesTooltip" xml:space="preserve">
+    <value>Apply all changes and save</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR</value>
+  </data>
+  <data name="AppNameMock" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR - MOCK!</value>
+  </data>
+  <data name="Backdrop" xml:space="preserve">
+    <value>BACKDROP</value>
+  </data>
+  <data name="BaseProfileCannotBeDeleted" xml:space="preserve">
+    <value>The base profile cannot be deleted.</value>
+  </data>
+  <data name="BitEditor" xml:space="preserve">
+    <value>Bit Editor</value>
+  </data>
+  <data name="BitEditorCurrentValueDescription" xml:space="preserve">
+    <value>Review and apply the current bitmask value.</value>
+  </data>
+  <data name="BitEditorDescription" xml:space="preserve">
+    <value>Inspect individual flag bits, compare them against scanned profiles, and quickly test the value in a game launch.</value>
+  </data>
+  <data name="BitEditorFilterProfiles" xml:space="preserve">
+    <value>Filter scanned profile names</value>
+  </data>
+  <data name="BitEditorMatchesAbove" xml:space="preserve">
+    <value>{0} matches above the visible area</value>
+  </data>
+  <data name="BitEditorMatchesBelow" xml:space="preserve">
+    <value>{0} matches below the visible area</value>
+  </data>
+  <data name="BitEditorTestArea" xml:space="preserve">
+    <value>Test Area</value>
+  </data>
+  <data name="BitEditorTestAreaDescription" xml:space="preserve">
+    <value>Apply the edited value to the current profile, then optionally launch a game executable to test it immediately.</value>
+  </data>
+  <data name="BitEditorTitle" xml:space="preserve">
+    <value>Bit Value Editor</value>
+  </data>
+  <data name="BitEditorTitleWithSetting" xml:space="preserve">
+    <value>Bit Value Editor - {0}</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="BrowseAbsolutePath" xml:space="preserve">
+    <value>Browse absolute path...</value>
+  </data>
+  <data name="BrowseApplicationPathTooltip" xml:space="preserve">
+    <value>Browse for application absolute path</value>
+  </data>
+  <data name="BrowseForGameExecutable" xml:space="preserve">
+    <value>Browse for game executable</value>
+  </data>
+  <data name="BulletMessage" xml:space="preserve">
+    <value>- {0}</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CancelAction" xml:space="preserve">
+    <value>Cancel action</value>
+  </data>
+  <data name="CancelAndClose" xml:space="preserve">
+    <value>Cancel and close</value>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Channel</value>
+  </data>
+  <data name="Checking" xml:space="preserve">
+    <value>Checking...</value>
+  </data>
+  <data name="CheckingGitHubReleases" xml:space="preserve">
+    <value>Checking GitHub releases...</value>
+  </data>
+  <data name="CheckNow" xml:space="preserve">
+    <value>Check Now</value>
+  </data>
+  <data name="CheckUpdatesOnStartup" xml:space="preserve">
+    <value>Check for available updates on startup</value>
+  </data>
+  <data name="ChooseChannelAndCheckUpdates" xml:space="preserve">
+    <value>Choose a channel and check for updates.</value>
+  </data>
+  <data name="CleanWhite" xml:space="preserve">
+    <value>Clean White</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseWithoutSaving" xml:space="preserve">
+    <value>Close without saving</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Common Settings</value>
+  </data>
+  <data name="Compact" xml:space="preserve">
+    <value>Compact</value>
+  </data>
+  <data name="ConfirmAction" xml:space="preserve">
+    <value>Confirm action</value>
+  </data>
+  <data name="ConfirmAndSave" xml:space="preserve">
+    <value>Confirm and save</value>
+  </data>
+  <data name="ConfirmNo" xml:space="preserve">
+    <value>Confirm no</value>
+  </data>
+  <data name="ConfirmYes" xml:space="preserve">
+    <value>Confirm yes</value>
+  </data>
+  <data name="ContributorRoleChiefArchitectEmeritus" xml:space="preserve">
+    <value>Chief Architect (Emeritus)</value>
+  </data>
+  <data name="ContributorRoleContributor" xml:space="preserve">
+    <value>Contributor</value>
+  </data>
+  <data name="ContributorRoleDeveloperResearcher" xml:space="preserve">
+    <value>Developer &amp; Driver Settings Researcher</value>
+  </data>
+  <data name="ContributorRoleLeadDeveloper" xml:space="preserve">
+    <value>Lead Developer</value>
+  </data>
+  <data name="Contributors" xml:space="preserve">
+    <value>CONTRIBUTORS</value>
+  </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
+  </data>
+  <data name="CopySettingsTooltip" xml:space="preserve">
+    <value>Copy settings to clipboard</value>
+  </data>
+  <data name="CouldNotReadReleaseInformation" xml:space="preserve">
+    <value>Could not read release information.</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="CrashReportDateTime" xml:space="preserve">
+    <value>Date/Time: {0:yyyy-MM-dd HH:mm:ss}</value>
+  </data>
+  <data name="CrashReportHeading" xml:space="preserve">
+    <value>=== NVIDIA PROFILE INSPECTOR Crash Report ===</value>
+  </data>
+  <data name="CrashReportIs64Bit" xml:space="preserve">
+    <value>64-bit: {0}</value>
+  </data>
+  <data name="CrashReportOperatingSystem" xml:space="preserve">
+    <value>OS: {0}</value>
+  </data>
+  <data name="CrashReportVersion" xml:space="preserve">
+    <value>Version: {0}</value>
+  </data>
+  <data name="CreateProfile" xml:space="preserve">
+    <value>Create Profile</value>
+  </data>
+  <data name="CreateProfileForApplicationQuestion" xml:space="preserve">
+    <value>Would you like to create a new profile for this application?</value>
+  </data>
+  <data name="CreateProfilePrompt" xml:space="preserve">
+    <value>Enter a unique name for your new custom driver profile.</value>
+  </data>
+  <data name="CreateProfileTooltip" xml:space="preserve">
+    <value>Create a new profile</value>
+  </data>
+  <data name="CsnFileOverride" xml:space="preserve">
+    <value>CSN file override</value>
+  </data>
+  <data name="CurrentDwordValue" xml:space="preserve">
+    <value>Current DWORD value</value>
+  </data>
+  <data name="CurrentProfileExportedSuccessfully" xml:space="preserve">
+    <value>Current profile exported successfully!</value>
+  </data>
+  <data name="CurrentValue" xml:space="preserve">
+    <value>Current Value</value>
+  </data>
+  <data name="CustomSettingsOverride" xml:space="preserve">
+    <value>Custom Settings Override</value>
+  </data>
+  <data name="CustomSettingsOverrideMessage" xml:space="preserve">
+    <value>CustomSettingNames.xml is being loaded from the application directory instead of the embedded default resource.
+
+This means the custom setting metadata has been overridden locally. This can be intentional, but names, groups, descriptions, and values may no longer match the embedded defaults shipped with this build.
+
+Possible consequences:
+- outdated or mismatched setting names
+- stale descriptions or value labels
+- missing newer embedded settings or metadata fixes
+- grouping differences compared with the embedded defaults
+
+If this is not intended, remove or rename the external CustomSettingNames.xml in the application folder so the embedded resource is used again.</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Defaults" xml:space="preserve">
+    <value>Defaults</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteProfile" xml:space="preserve">
+    <value>Delete Profile</value>
+  </data>
+  <data name="DeleteProfileQuestion" xml:space="preserve">
+    <value>Really delete this profile?
+
+Note: NVIDIA predefined profiles cannot be restored until the next driver installation!</value>
+  </data>
+  <data name="DeleteProfileTooltip" xml:space="preserve">
+    <value>Delete the current profile</value>
+  </data>
+  <data name="Density" xml:space="preserve">
+    <value>DENSITY</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DescriptionHeading" xml:space="preserve">
+    <value>DESCRIPTION</value>
+  </data>
+  <data name="DeselectAllProfiles" xml:space="preserve">
+    <value>Deselect all profiles</value>
+  </data>
+  <data name="DesignerPreview" xml:space="preserve">
+    <value>Designer preview</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="DisableSplashOnStartup" xml:space="preserve">
+    <value>Disable splash screen on startup</value>
+  </data>
+  <data name="DriverStatus" xml:space="preserve">
+    <value>Driver: {0}</value>
+  </data>
+  <data name="DriverStatusWithBranch" xml:space="preserve">
+    <value>Driver: {0} ({1})</value>
+  </data>
+  <data name="DriverUnavailable" xml:space="preserve">
+    <value>Driver unavailable</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="EnterValidBinaryValue" xml:space="preserve">
+    <value>Enter a valid binary value.</value>
+  </data>
+  <data name="EnterValidDwordValue" xml:space="preserve">
+    <value>Enter a valid DWORD value.</value>
+  </data>
+  <data name="EnterValidQwordValue" xml:space="preserve">
+    <value>Enter a valid QWORD value.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Error: {0}</value>
+  </data>
+  <data name="ExceptionDetailsHeading" xml:space="preserve">
+    <value>=== Exception Details ===</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>Message: {0}</value>
+  </data>
+  <data name="ExceptionSource" xml:space="preserve">
+    <value>Source: {0}</value>
+  </data>
+  <data name="ExceptionStackTrace" xml:space="preserve">
+    <value>StackTrace: {0}</value>
+  </data>
+  <data name="ExceptionTargetSite" xml:space="preserve">
+    <value>TargetSite: {0}</value>
+  </data>
+  <data name="ExceptionType" xml:space="preserve">
+    <value>Type: {0}</value>
+  </data>
+  <data name="ExecutablesFileFilter" xml:space="preserve">
+    <value>Executables (*.exe)|*.exe|All files (*.*)|*.*</value>
   </data>
   <data name="Export" xml:space="preserve">
     <value>Export</value>
   </data>
+  <data name="ExportAllCustomizedProfiles" xml:space="preserve">
+    <value>Export all customized profiles</value>
+  </data>
+  <data name="ExportAllCustomizedProfilesDescription" xml:space="preserve">
+    <value>Export all profiles that contain user-defined or modified settings.</value>
+  </data>
+  <data name="ExportAllProfilesNvidiaFormat" xml:space="preserve">
+    <value>Export all profiles (NVIDIA Text Format)</value>
+  </data>
+  <data name="ExportAllProfilesNvidiaFormatDescription" xml:space="preserve">
+    <value>Export the entire profile database in the official NVIDIA text format.</value>
+  </data>
+  <data name="ExportCurrentIncludingPredefined" xml:space="preserve">
+    <value>Export current profile including predefined</value>
+  </data>
+  <data name="ExportCurrentIncludingPredefinedDescription" xml:space="preserve">
+    <value>Export the current profile with all its settings, including those not modified by you.</value>
+  </data>
+  <data name="ExportCurrentProfileOnly" xml:space="preserve">
+    <value>Export current profile only</value>
+  </data>
+  <data name="ExportCurrentProfileOnlyDescription" xml:space="preserve">
+    <value>Export only the settings you have changed for the currently selected profile.</value>
+  </data>
+  <data name="ExportProfiles" xml:space="preserve">
+    <value>Export Profiles</value>
+  </data>
+  <data name="ExportProfilesPrompt" xml:space="preserve">
+    <value>Choose how you want to export your profiles:</value>
+  </data>
+  <data name="ExportProfilesTooltip" xml:space="preserve">
+    <value>Export profiles to file</value>
+  </data>
+  <data name="ExportSelected" xml:space="preserve">
+    <value>Export Selected</value>
+  </data>
+  <data name="ExportSelectedProfiles" xml:space="preserve">
+    <value>Export selected profiles</value>
+  </data>
+  <data name="ExternalCustomSettingsTooltip" xml:space="preserve">
+    <value>Custom settings are loaded from an external CustomSettingNames.xml file</value>
+  </data>
+  <data name="FailedToImportProfile" xml:space="preserve">
+    <value>Failed to import profile '{0}'</value>
+  </data>
+  <data name="FailedToMergeIntoProfile" xml:space="preserve">
+    <value>Failed to merge import into profile '{0}'</value>
+  </data>
+  <data name="FallbackGroupOpenGL" xml:space="preserve">
+    <value>10 - OpenGL</value>
+  </data>
+  <data name="FallbackGroupStereo" xml:space="preserve">
+    <value>09 - Stereo</value>
+  </data>
+  <data name="FallbackGroupUnknownDriverSettings" xml:space="preserve">
+    <value>11 - Unknown Driver Settings</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>★ Favorites</value>
+  </data>
+  <data name="FilterSettingsTooltip" xml:space="preserve">
+    <value>Filter settings by type</value>
+  </data>
+  <data name="GameExecutableNotFound" xml:space="preserve">
+    <value>Game executable not found.</value>
+  </data>
+  <data name="GameExecutablePath" xml:space="preserve">
+    <value>Game executable path</value>
+  </data>
+  <data name="Glass" xml:space="preserve">
+    <value>Glass</value>
+  </data>
+  <data name="GlobalDriverProfile" xml:space="preserve">
+    <value>GLOBAL DRIVER PROFILE</value>
+  </data>
+  <data name="GlobalSessionIsZero" xml:space="preserve">
+    <value>The global DRS session is not initialized.</value>
+  </data>
+  <data name="GlobalSettingTooltip" xml:space="preserve">
+    <value>Global Setting - Applies to all applications</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Go back</value>
+  </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="test123" xml:space="preserve">
-    <value>{0} matches above the visible area</value>
+  <data name="ImportAllDriverProfiles" xml:space="preserve">
+    <value>Import (replace) all driver profiles</value>
   </data>
-  <data name="update_check_result_already_latest" xml:space="preserve">
-    <value>You are already on the latest version for this channel.</value>
+  <data name="ImportAllDriverProfilesDescription" xml:space="preserve">
+    <value>Restore or replace all profiles from an NVIDIA Text Format file.</value>
+  </data>
+  <data name="ImportErrorMessage" xml:space="preserve">
+    <value>Import Error: {0}</value>
+  </data>
+  <data name="ImportProfileRenameHint" xml:space="preserve">
+    <value>Hint: If only the profile name was changed by NVIDIA, manually update the profile name inside the import file using a text editor.</value>
+  </data>
+  <data name="ImportProfiles" xml:space="preserve">
+    <value>Import Profiles</value>
+  </data>
+  <data name="ImportProfilesPrompt" xml:space="preserve">
+    <value>Choose how you want to import profiles:</value>
+  </data>
+  <data name="ImportProfilesTooltip" xml:space="preserve">
+    <value>Import profiles from file</value>
+  </data>
+  <data name="ImportWarning" xml:space="preserve">
+    <value>Import Warning</value>
+  </data>
+  <data name="IncludePredefinedSettings" xml:space="preserve">
+    <value>Include predefined settings</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="InnerExceptionHeading" xml:space="preserve">
+    <value>=== Inner Exception ===</value>
+  </data>
+  <data name="InstallUpdate" xml:space="preserve">
+    <value>Install Update</value>
+  </data>
+  <data name="InvalidApplicationOrFindFile" xml:space="preserve">
+    <value>Invalid application name or FindFile string.</value>
+  </data>
+  <data name="InvalidSettingType" xml:space="preserve">
+    <value>Invalid setting type.</value>
+  </data>
+  <data name="InvalidValueType" xml:space="preserve">
+    <value>Invalid value type.</value>
+  </data>
+  <data name="Invert" xml:space="preserve">
+    <value>Invert</value>
+  </data>
+  <data name="InvertSelection" xml:space="preserve">
+    <value>Invert selection</value>
+  </data>
+  <data name="KnownSettingsCount" xml:space="preserve">
+    <value>{0} known settings</value>
+  </data>
+  <data name="KnownSettingsStatus" xml:space="preserve">
+    <value>{0} known ({1} in profiles / {2} seen)</value>
+  </data>
+  <data name="Lab" xml:space="preserve">
+    <value>Lab</value>
+  </data>
+  <data name="LastOtaProfileUpdate" xml:space="preserve">
+    <value>Last OTA profile update: {0:g}</value>
+  </data>
+  <data name="Latest" xml:space="preserve">
+    <value>Latest</value>
+  </data>
+  <data name="MergeCompletedWithWarnings" xml:space="preserve">
+    <value>Merge completed with warnings:
+
+{0}</value>
+  </data>
+  <data name="MergeConflictHint" xml:space="preserve">
+    <value>Hint: Remove conflicting applications from the other profile first, then retry the merge.</value>
+  </data>
+  <data name="MergeImportedProfiles" xml:space="preserve">
+    <value>Merge imported profile(s)</value>
+  </data>
+  <data name="MergeImportedProfilesDescription" xml:space="preserve">
+    <value>Import one or more .nip files and merge them into the profile targets named inside the files. Existing target values stay unless the import contains the same setting, in which case the imported value wins.</value>
+  </data>
+  <data name="Mica" xml:space="preserve">
+    <value>Mica</value>
+  </data>
+  <data name="MicaVariant" xml:space="preserve">
+    <value>Mica Variant</value>
+  </data>
+  <data name="Midnight" xml:space="preserve">
+    <value>Midnight</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
+  <data name="Modern" xml:space="preserve">
+    <value>Modern</value>
+  </data>
+  <data name="NavigateToGlobalProfile" xml:space="preserve">
+    <value>Navigate to Global Profile</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="NewVersionReadyToInstall" xml:space="preserve">
+    <value>A newer version is ready to install.</value>
+  </data>
+  <data name="NewVersionWithoutSupportedPackage" xml:space="preserve">
+    <value>A newer version is available, but it does not contain a supported update package.</value>
+  </data>
+  <data name="NipFileFilter" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR Profiles|*.nip</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoCompatibleDriver" xml:space="preserve">
+    <value>No compatible NVIDIA Driver was detected on your system. Your NVIDIA GPU might be disabled.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NoReleaseInformation" xml:space="preserve">
+    <value>No release information is available.</value>
+  </data>
+  <data name="NotChecked" xml:space="preserve">
+    <value>Not checked</value>
+  </data>
+  <data name="NoUpdateReleaseSelected" xml:space="preserve">
+    <value>No update release was selected.</value>
+  </data>
+  <data name="NvapiFunctionFailed" xml:space="preserve">
+    <value>{0} failed: {1}</value>
+  </data>
+  <data name="NvidiaSettingTooltip" xml:space="preserve">
+    <value>NVIDIA Setting - Defined by NVIDIA driver</value>
+  </data>
+  <data name="NvidiaTextFileFilter" xml:space="preserve">
+    <value>NVIDIA Text Files|*.txt</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OpenBitEditorTooltip" xml:space="preserve">
+    <value>Open the Bit Value Editor</value>
+  </data>
+  <data name="OpenGitHubReleases" xml:space="preserve">
+    <value>Open GitHub releases</value>
+  </data>
+  <data name="OpenGitHubRepository" xml:space="preserve">
+    <value>Open GitHub repository</value>
+  </data>
+  <data name="OtaStatus" xml:space="preserve">
+    <value>OTA {0:g}</value>
+  </data>
+  <data name="OtaUnknown" xml:space="preserve">
+    <value>OTA unknown</value>
+  </data>
+  <data name="PreparingUpdatePackage" xml:space="preserve">
+    <value>Preparing update package...</value>
+  </data>
+  <data name="ProfileCount" xml:space="preserve">
+    <value>{0} profiles</value>
+  </data>
+  <data name="ProfileDeletedSuccessfully" xml:space="preserve">
+    <value>Profile deleted successfully.</value>
+  </data>
+  <data name="ProfileForApplicationSelected" xml:space="preserve">
+    <value>Profile for '{0}' has been selected!</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Profile: {0}</value>
+  </data>
+  <data name="ProfileNameMustBeUnique" xml:space="preserve">
+    <value>Profile name must be unique.</value>
+  </data>
+  <data name="ProfileNameRequired" xml:space="preserve">
+    <value>Enter a unique profile name.</value>
+  </data>
+  <data name="ProfileNotFound" xml:space="preserve">
+    <value>Profile not found!</value>
+  </data>
+  <data name="ProfileRestoredSuccessfully" xml:space="preserve">
+    <value>Profile restored to driver defaults successfully!</value>
+  </data>
+  <data name="Profiles" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
+  <data name="ProfilesImportedSuccessfully" xml:space="preserve">
+    <value>Profile(s) imported successfully!</value>
+  </data>
+  <data name="ProfilesMergedSuccessfully" xml:space="preserve">
+    <value>Imported profile(s) were merged successfully.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="RefreshProfilesTooltip" xml:space="preserve">
+    <value>Refresh all profiles</value>
+  </data>
+  <data name="ReleaseHasNoDownloadablePackage" xml:space="preserve">
+    <value>The selected release does not contain a downloadable update package.</value>
+  </data>
+  <data name="Releases" xml:space="preserve">
+    <value>Releases</value>
+  </data>
+  <data name="RemoveApplication" xml:space="preserve">
+    <value>Remove Application</value>
+  </data>
+  <data name="RemoveApplicationQuestion" xml:space="preserve">
+    <value>Remove application '{0}' from profile?</value>
+  </data>
+  <data name="ReplaceImportedProfiles" xml:space="preserve">
+    <value>Replace imported profile(s)</value>
+  </data>
+  <data name="ReplaceImportedProfilesDescription" xml:space="preserve">
+    <value>Import one or more .nip files and replace each imported profile's current apps and settings with the file contents.</value>
+  </data>
+  <data name="ReservedUnknown" xml:space="preserve">
+    <value>Reserved / unknown</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ResetProfileChangesTooltip" xml:space="preserve">
+    <value>Reset current profile changes</value>
+  </data>
+  <data name="ResetSettingTooltip" xml:space="preserve">
+    <value>Reset setting to default value</value>
+  </data>
+  <data name="RestoreProfile" xml:space="preserve">
+    <value>Restore Profile</value>
+  </data>
+  <data name="RestoreProfileQuestion" xml:space="preserve">
+    <value>Restore profile to NVIDIA driver defaults?</value>
+  </data>
+  <data name="RestoreProfileTooltip" xml:space="preserve">
+    <value>Restore profile to NVIDIA default settings</value>
+  </data>
+  <data name="ScanningProfiles" xml:space="preserve">
+    <value>Scanning profiles</value>
+  </data>
+  <data name="ScanningProfilesWithEllipsis" xml:space="preserve">
+    <value>Scanning profiles...</value>
+  </data>
+  <data name="ScanningProgress" xml:space="preserve">
+    <value>Scanning... {0}%</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="SearchSettingsTooltip" xml:space="preserve">
+    <value>Search settings by name (Ctrl+F)</value>
+  </data>
+  <data name="SelectAllProfiles" xml:space="preserve">
+    <value>Select all profiles</value>
+  </data>
+  <data name="SelectApplicationAbsolutePath" xml:space="preserve">
+    <value>Select Application Absolute Path</value>
+  </data>
+  <data name="SelectAtLeastOneProfile" xml:space="preserve">
+    <value>Please select at least one profile to export.</value>
+  </data>
+  <data name="SelectedProfilesExportedSuccessfully" xml:space="preserve">
+    <value>All selected profiles exported successfully!</value>
+  </data>
+  <data name="SelectGame" xml:space="preserve">
+    <value>Select Game</value>
+  </data>
+  <data name="SelectProfiles" xml:space="preserve">
+    <value>Select Profiles</value>
+  </data>
+  <data name="SelectProfilesToExport" xml:space="preserve">
+    <value>Select profiles to export</value>
+  </data>
+  <data name="SelectProfilesToExportDescription" xml:space="preserve">
+    <value>Select multiple modified profiles from a list to export them into a single file.</value>
+  </data>
+  <data name="SelectProfilesToExportPrompt" xml:space="preserve">
+    <value>Please choose the profiles you want to export:</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="SettingsAppliedSuccessfully" xml:space="preserve">
+    <value>Settings applied successfully.</value>
+  </data>
+  <data name="SettingsCopiedToClipboard" xml:space="preserve">
+    <value>Settings copied to clipboard!</value>
+  </data>
+  <data name="ShowAllSettings" xml:space="preserve">
+    <value>Show All Settings</value>
+  </data>
+  <data name="ShowUnknownSettingsTooltip" xml:space="preserve">
+    <value>Show unknown settings from NVIDIA predefined profiles</value>
+  </data>
+  <data name="Slate" xml:space="preserve">
+    <value>Slate</value>
+  </data>
+  <data name="SomeProfilesCouldNotBeImported" xml:space="preserve">
+    <value>Some profile(s) could not be imported!
+
+{0}</value>
+  </data>
+  <data name="SplashLoading" xml:space="preserve">
+    <value>Loading application</value>
+  </data>
+  <data name="SplashPreparing" xml:space="preserve">
+    <value>Preparing driver profiles and settings...</value>
+  </data>
+  <data name="Startup" xml:space="preserve">
+    <value>STARTUP</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>THEME</value>
+  </data>
+  <data name="ToggleFavorite" xml:space="preserve">
+    <value>Toggle Favorite</value>
+  </data>
+  <data name="Unavailable" xml:space="preserve">
+    <value>Unavailable</value>
+  </data>
+  <data name="UnexpectedErrorFallback" xml:space="preserve">
+    <value>An unexpected error occurred:
+
+{0}
+
+{1}</value>
+  </data>
+  <data name="UnexpectedErrorWithCrashLog" xml:space="preserve">
+    <value>An unexpected error occurred:
+
+{0}
+
+A detailed crash log was created at:
+{1}
+
+Would you like to open the log file location?</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>unknown</value>
+  </data>
+  <data name="UnsupportedUpdatePackageFormat" xml:space="preserve">
+    <value>The selected update package format is not supported.</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
+  <data name="UpdateChannelPrerelease" xml:space="preserve">
+    <value>Pre-release</value>
+  </data>
+  <data name="UpdateChannelRelease" xml:space="preserve">
+    <value>Release</value>
+  </data>
+  <data name="UpdateCouldNotBeInstalled" xml:space="preserve">
+    <value>The update could not be installed.
+
+{0}</value>
+  </data>
+  <data name="UpdateDownloadedRestarting" xml:space="preserve">
+    <value>Update downloaded. Restarting application...</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update failed</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>UPDATES</value>
+  </data>
+  <data name="UserDefinedSettingTooltip" xml:space="preserve">
+    <value>User-defined Setting - Custom setting added by user</value>
+  </data>
+  <data name="UserModifiedSettings" xml:space="preserve">
+    <value>User Modified Settings</value>
+  </data>
+  <data name="ValidFilenameAndFindFileRequired" xml:space="preserve">
+    <value>Enter a valid filename and FindFile string.</value>
+  </data>
+  <data name="ValueAppliedToProfile" xml:space="preserve">
+    <value>Value applied to profile.</value>
+  </data>
+  <data name="ValueLabel" xml:space="preserve">
+    <value>Value:</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Version </value>
+  </data>
+  <data name="ViewModifiedProfiles" xml:space="preserve">
+    <value>View Modified Profiles</value>
+  </data>
+  <data name="ViewProfile" xml:space="preserve">
+    <value>View Profile</value>
+  </data>
+  <data name="WaitingForModifiedProfilesScan" xml:space="preserve">
+    <value>Waiting for the modified profiles scan to finish...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

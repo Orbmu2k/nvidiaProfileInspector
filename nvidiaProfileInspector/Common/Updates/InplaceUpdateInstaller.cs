@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using nvidiaProfileInspector.Localization;
 
 namespace nvidiaProfileInspector.Common.Updates
 {
@@ -14,10 +15,10 @@ namespace nvidiaProfileInspector.Common.Updates
         public async Task PrepareAndRunAsync(UpdateRelease release)
         {
             if (release == null)
-                throw new InvalidOperationException("No update release was selected.");
+                throw new InvalidOperationException(UIStrings.NoUpdateReleaseSelected);
 
             if (!release.IsInstallable)
-                throw new InvalidOperationException("The selected release does not contain a downloadable update package.");
+                throw new InvalidOperationException(UIStrings.ReleaseHasNoDownloadablePackage);
 
             var tempRoot = Path.Combine(Path.GetTempPath(), "nvidiaProfileInspector-update-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(tempRoot);
@@ -71,7 +72,7 @@ namespace nvidiaProfileInspector.Common.Updates
                 return sourcePath;
             }
 
-            throw new InvalidOperationException("The selected update package format is not supported.");
+            throw new InvalidOperationException(UIStrings.UnsupportedUpdatePackageFormat);
         }
 
         private static string FindUpdateRoot(string extractPath)

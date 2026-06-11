@@ -1,5 +1,6 @@
 ﻿using nvidiaProfileInspector.Native.NVAPI2;
 using System;
+using nvidiaProfileInspector.Localization;
 
 namespace nvidiaProfileInspector.Common.Import
 {
@@ -43,7 +44,7 @@ namespace nvidiaProfileInspector.Common.Import
                 case NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE:
                     return Convert.ToBase64String(settingUnion.binaryValue);
                 default:
-                    throw new Exception("invalid setting type");
+                    throw new Exception(UIStrings.InvalidSettingType);
             }
         }
 
@@ -93,7 +94,7 @@ namespace nvidiaProfileInspector.Common.Import
                     union.binaryValue = Convert.FromBase64String(valueString);
                     break;
                 default:
-                    throw new Exception("invalid value type");
+                    throw new Exception(UIStrings.InvalidValueType);
             }
             return union;
         }

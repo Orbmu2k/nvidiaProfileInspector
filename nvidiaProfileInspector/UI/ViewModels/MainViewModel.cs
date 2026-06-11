@@ -5,6 +5,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using nvidiaProfileInspector.Common.Helper;
     using nvidiaProfileInspector.Common.Meta;
     using nvidiaProfileInspector.Common.Updates;
+    using nvidiaProfileInspector.Localization;
     using nvidiaProfileInspector.Native.NVAPI2;
     using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector.Services;
@@ -341,7 +342,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         }
 
         public string StatusVersionText => VersionText;
-        public string StatusUpdateHintText => "Update available";
+        public string StatusUpdateHintText => UIStrings.UpdateAvailable;
         public bool IsExternalCustomSettingsIndicatorVisible => App.Bootstrapper?.IsExternalCustomSettings ?? false;
 
         public bool IsAppearanceMenuOpen
@@ -514,21 +515,24 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 var branch = DrsSettingsServiceBase.DriverBranch;
                 if (version > 0)
                 {
-                    var driverText = $"Driver: {version.ToString("0.00", CultureInfo.InvariantCulture)}";
+                    var driverText = string.Format(
+                        UIStrings.DriverStatus,
+                        version.ToString("0.00", CultureInfo.InvariantCulture));
                     if (!string.IsNullOrEmpty(branch))
-                        driverText += $" ({branch})";
+                        driverText = string.Format(UIStrings.DriverStatusWithBranch, version.ToString("0.00", CultureInfo.InvariantCulture), branch);
                     parts.Add(driverText);
                     StatusDriverText = driverText;
                 }
                 else
                 {
-                    StatusDriverText = "Driver unavailable";
+                    StatusDriverText = UIStrings.DriverUnavailable;
                 }
 
                 // Profile count
                 var profileCount = _settingService.GetTotalProfileCount();
-                parts.Add($"{profileCount} profiles");
-                StatusProfilesText = $"{profileCount} profiles";
+                var profilesText = string.Format(UIStrings.ProfileCount, profileCount);
+                parts.Add(profilesText);
+                StatusProfilesText = profilesText;
 
                 // Known / total settings
                 var knownIds = new HashSet<uint>();
@@ -542,18 +546,18 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     // Show total known settings loaded from all XMLs, known settings that are in use in profiles, and total number seen in profiles.
                     var scannedIds = new HashSet<uint>(cachedSettings.Select(s => s.SettingId));
                     var inUse = knownIds.Count(id => scannedIds.Contains(id));
-                    var settingsText = $"{knownIds.Count} known ({inUse} in profiles / {scannedIds.Count} seen)";
+                    var settingsText = string.Format(UIStrings.KnownSettingsStatus, knownIds.Count, inUse, scannedIds.Count);
                     parts.Add(settingsText);
                     StatusSettingsText = settingsText;
                 }
                 else
                 {
-                    var settingsText = $"{knownIds.Count} known settings";
+                    var settingsText = string.Format(UIStrings.KnownSettingsCount, knownIds.Count);
                     parts.Add(settingsText);
                     StatusSettingsText = settingsText;
                 }
 
-                StatusModeText = IsExternalCustomSettingsIndicatorVisible ? "CSN file override" : "";
+                StatusModeText = IsExternalCustomSettingsIndicatorVisible ? UIStrings.CsnFileOverride : "";
 
                 // Try fetching OTA profile update datetime
                 var otaRelPath = @"NVIDIA Corporation\Drs\update.bin";
@@ -567,13 +571,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (otaPath != null)
                 {
                     var otaTime = File.GetLastWriteTime(otaPath);
-                    var otaText = $"OTA {otaTime:g}";
-                    parts.Add($"Last OTA profile update: {otaTime:g}");
+                    var otaText = string.Format(UIStrings.OtaStatus, otaTime);
+                    parts.Add(string.Format(UIStrings.LastOtaProfileUpdate, otaTime));
                     StatusOtaText = otaText;
                 }
                 else
                 {
-                    StatusOtaText = "OTA unknown";
+                    StatusOtaText = UIStrings.OtaUnknown;
                 }
 
                 StatusBarText = string.Join("  \u2022  ", parts);
@@ -693,7 +697,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var description = _metaService.GetDescription(_selectedSetting.SettingId);
             description = DlssHelper.ReplaceDlssVersions(description ?? "");
             if (!string.IsNullOrEmpty(_selectedSetting.AlternateNames))
-                description = $"Alternate names: {_selectedSetting.AlternateNames}\r\n{description}";
+                description = string.Format(UIStrings.AlternateNamesWithDescription, _selectedSetting.AlternateNames, description);
 
             SettingDescription = description?.Replace("\\r\\n", "\r\n") ?? "";
 
@@ -713,7 +717,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (DrsUtil.TryParseDwordSettingValue(settingMeta, item.SelectedValue, out _))
                     return true;
 
-                errorMessage = "Enter a valid DWORD value.";
+                errorMessage = UIStrings.EnterValidDwordValue;
                 return false;
             }
 
@@ -723,7 +727,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (DrsUtil.TryParseQwordSettingValue(settingMeta, item.SelectedValue, out _))
                     return true;
 
-                errorMessage = "Enter a valid QWORD value.";
+                errorMessage = UIStrings.EnterValidQwordValue;
                 return false;
             }
 
@@ -733,7 +737,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (DrsUtil.ParseBinarySettingValue(settingMeta, item.SelectedValue) != null)
                     return true;
 
-                errorMessage = "Enter a valid binary value.";
+                errorMessage = UIStrings.EnterValidBinaryValue;
                 return false;
             }
 
@@ -893,7 +897,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 _settingService.StoreSettingsToProfile(_currentProfile, settingsToStore);
                 AddModifiedProfileToCache(_currentProfile, _scannerService.UserProfiles.Contains(_currentProfile));
                 RefreshCurrentProfile();
-                ShowSnackbar("Settings applied successfully.", "Success");
+                ShowSnackbar(UIStrings.SettingsAppliedSuccessfully, "Success");
             }
         }
 
@@ -975,8 +979,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private Task RestoreProfileAsync()
         {
             var result = MessageBoxEx.Show(
-                "Restore profile to NVIDIA driver defaults?",
-                "Restore Profile",
+                UIStrings.RestoreProfileQuestion,
+                UIStrings.RestoreProfile,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -995,7 +999,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
                 RefreshCurrentProfile();
 
-                ShowSnackbar($"Profile successfully restored to driver defaults!", "Success");
+                ShowSnackbar(UIStrings.ProfileRestoredSuccessfully, "Success");
             }
 
             return Task.CompletedTask;
@@ -1008,13 +1012,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         public bool ShowCreateProfileDialog(string nameProposal, string applicationName = null)
         {
-            var dialog = new Views.Dialogs.InputDialog("Create Profile",
-            "Enter a unique name for your new custom driver profile.",
+            var dialog = new Views.Dialogs.InputDialog(UIStrings.CreateProfile,
+            UIStrings.CreateProfilePrompt,
             nameProposal ?? "", false, (val) =>
             {
-                if (string.IsNullOrWhiteSpace(val)) return "Expected is a unique profile name.";
+                if (string.IsNullOrWhiteSpace(val)) return UIStrings.ProfileNameRequired;
                 if (_profileNames.Any(p => p.ProfileName.Equals(val, StringComparison.OrdinalIgnoreCase)))
-                    return "Profile name must be unique.";
+                    return UIStrings.ProfileNameMustBeUnique;
                 return null;
             });
             dialog.Owner = App.Current.MainWindow;
@@ -1040,8 +1044,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private Task DeleteProfileAsync()
         {
             var result = MessageBoxEx.Show(
-                $"Really delete this profile?\r\n\r\nNote: NVIDIA predefined profiles can not be restored until next driver installation!",
-                "Delete Profile",
+                UIStrings.DeleteProfileQuestion,
+                UIStrings.DeleteProfile,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -1054,7 +1058,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     RemoveModifiedProfileFromCache(deletedProfileName);
                     RefreshProfilesCombo(null);
                     SetCurrentProfile(DrsSettingsService.GlobalProfileName, forceNotify: true);
-                    ShowSnackbar("Profile successfully deleted.", "Success");
+                    ShowSnackbar(UIStrings.ProfileDeletedSuccessfully, "Success");
                 }
                 catch (Exception ex)
                 {
@@ -1067,11 +1071,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         public void AddApplication()
         {
-            var dialog = new Views.Dialogs.InputDialog("Add Application",
-            "To link a new application, enter its filename (e.g. game.exe) or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.",
+            var dialog = new Views.Dialogs.InputDialog(UIStrings.AddApplication,
+            UIStrings.AddApplicationPrompt,
             "", true, (val) =>
             {
-                if (string.IsNullOrWhiteSpace(val)) return "Expected a filename, UWP ID, or absolute path.";
+                if (string.IsNullOrWhiteSpace(val)) return UIStrings.ApplicationIdentifierRequired;
                 string findFileStr = "FindFile=";
                 int findFileIndex = val.IndexOf(findFileStr, StringComparison.OrdinalIgnoreCase);
                 if (findFileIndex >= 0)
@@ -1079,7 +1083,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     string appName = val.Substring(0, findFileIndex).Trim().Trim('"');
                     string findFile = val.Substring(findFileIndex + findFileStr.Length).Trim().Trim('"');
                     if (string.IsNullOrWhiteSpace(appName) || string.IsNullOrWhiteSpace(findFile))
-                        return "Expected a valid filename and FindFile string.";
+                        return UIStrings.ValidFilenameAndFindFileRequired;
                 }
                 return null;
             });
@@ -1098,7 +1102,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                         string findFile = dialog.InputValue.Substring(findFileIndex + findFileStr.Length).Trim().Trim('"');
                         if (string.IsNullOrWhiteSpace(appName) || string.IsNullOrWhiteSpace(findFile))
                         {
-                            OnShowError?.Invoke("Invalid application name or FindFile string.");
+                            OnShowError?.Invoke(UIStrings.InvalidApplicationOrFindFile);
                             return;
                         }
                         _settingService.AddApplication(_currentProfile, appName, findFile);
@@ -1122,8 +1126,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (app != null)
             {
                 var result = MessageBoxEx.Show(
-                    $"Remove application '{app.Name}' from profile?",
-                    "Remove Application",
+                    string.Format(UIStrings.RemoveApplicationQuestion, app.Name),
+                    UIStrings.RemoveApplication,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
 
@@ -1140,7 +1144,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
+                Filter = UIStrings.NipFileFilter,
                 FileName = ProfileExportFileNames.ForCurrentProfile(_currentProfile)
             };
 
@@ -1148,7 +1152,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 var profiles = new List<string> { _currentProfile };
                 _importService.ExportProfiles(profiles, dialog.FileName, includePredefined);
-                ShowSnackbar("Current Profile exported successfully!", "Success");
+                ShowSnackbar(UIStrings.CurrentProfileExportedSuccessfully, "Success");
             }
         }
 
@@ -1156,14 +1160,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             if (IsScanning)
             {
-                ShowSnackbar("Waiting for the modified profiles scan to finish...", "Information");
+                ShowSnackbar(UIStrings.WaitingForModifiedProfilesScan, "Information");
                 await WaitForActiveScanAsync();
             }
 
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
+                Filter = UIStrings.NipFileFilter,
                 FileName = ProfileExportFileNames.ForAllCustomizedProfiles()
             };
 
@@ -1179,7 +1183,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 else
                     _importService.ExportAllCustomizedProfiles(dialog.FileName);
 
-                ShowSnackbar("All customized profiles exported successfully!", "Success");
+                ShowSnackbar(UIStrings.AllCustomizedProfilesExportedSuccessfully, "Success");
             }
         }
 
@@ -1188,14 +1192,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 DefaultExt = "*.txt",
-                Filter = "NVIDIA Text Files|*.txt",
+                Filter = UIStrings.NvidiaTextFileFilter,
                 FileName = ProfileExportFileNames.ForNvidiaTextProfiles()
             };
 
             if (dialog.ShowDialog() == true)
             {
                 _importService.ExportAllProfilesToNvidiaTextFile(dialog.FileName);
-                ShowSnackbar("All profiles exported in NVIDIA text format!", "Success");
+                ShowSnackbar(UIStrings.AllProfilesExportedNvidiaFormat, "Success");
             }
         }
 
@@ -1204,7 +1208,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip"
+                Filter = UIStrings.NipFileFilter
             };
 
             if (dialog.ShowDialog() == true)
@@ -1222,7 +1226,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
             catch (Exception ex)
             {
-                OnShowError?.Invoke($"Import Error: {ex.Message}");
+                OnShowError?.Invoke(string.Format(UIStrings.ImportErrorMessage, ex.Message));
                 return ex.Message;
             }
         }
@@ -1244,7 +1248,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
             catch (Exception ex)
             {
-                OnShowError?.Invoke($"Import Error: {ex.Message}");
+                OnShowError?.Invoke(string.Format(UIStrings.ImportErrorMessage, ex.Message));
                 return ex.Message;
             }
         }
@@ -1254,7 +1258,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
+                Filter = UIStrings.NipFileFilter,
                 Multiselect = true
             };
 
@@ -1262,9 +1266,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 var report = ImportFiles(dialog.FileNames);
                 if (string.IsNullOrEmpty(report))
-                    ShowSnackbar("Profile(s) successfully imported!", "Success");
+                    ShowSnackbar(UIStrings.ProfilesImportedSuccessfully, "Success");
                 else
-                    ShowSnackbar($"Some profile(s) could not imported!\r\n\r\n{report}", "Warning");
+                    ShowSnackbar(string.Format(UIStrings.SomeProfilesCouldNotBeImported, report), "Warning");
             }
         }
 
@@ -1273,7 +1277,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 DefaultExt = "*.nip",
-                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
+                Filter = UIStrings.NipFileFilter,
                 Multiselect = true
             };
 
@@ -1293,13 +1297,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     RefreshCurrentProfile();
 
                     if (string.IsNullOrEmpty(report))
-                        ShowSnackbar("Imported profile(s) were merged successfully.", "Success");
+                        ShowSnackbar(UIStrings.ProfilesMergedSuccessfully, "Success");
                     else
-                        ShowSnackbar($"Merge completed with warnings:\r\n\r\n{report}", "Warning");
+                        ShowSnackbar(string.Format(UIStrings.MergeCompletedWithWarnings, report), "Warning");
                 }
                 catch (Exception ex)
                 {
-                    OnShowError?.Invoke($"Import Error: {ex.Message}");
+                    OnShowError?.Invoke(string.Format(UIStrings.ImportErrorMessage, ex.Message));
                 }
             }
         }
@@ -1309,7 +1313,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 DefaultExt = "*.txt",
-                Filter = "NVIDIA Text Files|*.txt"
+                Filter = UIStrings.NvidiaTextFileFilter
             };
 
             if (dialog.ShowDialog() == true)
@@ -1318,11 +1322,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 {
                     _importService.ImportAllProfilesFromNvidiaTextFile(dialog.FileName);
                     RefreshCurrentProfile();
-                    ShowSnackbar("All profiles imported successfully!", "Success");
+                    ShowSnackbar(UIStrings.AllProfilesImportedSuccessfully, "Success");
                 }
                 catch (Exception ex)
                 {
-                    OnShowError?.Invoke($"Import Error: {ex.Message}");
+                    OnShowError?.Invoke(string.Format(UIStrings.ImportErrorMessage, ex.Message));
                 }
             }
         }
@@ -1388,8 +1392,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void CopySettingsToClipboard()
         {
             var sb = new System.Text.StringBuilder();
-            sb.AppendLine($"### NVIDIA PROFILE INSPECTOR ###");
-            sb.AppendLine($"Profile: {_currentProfile}");
+            sb.AppendLine(string.Format("### {0} ###", UIStrings.AppName));
+            sb.AppendLine(string.Format(UIStrings.ProfileLabel, _currentProfile));
             sb.AppendLine();
 
             foreach (var item in Settings.Where(x => x.IsUserDefined))
@@ -1398,7 +1402,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
 
             Clipboard.SetText(sb.ToString());
-            ShowSnackbar("Settings copied to clipboard!", "Success");
+            ShowSnackbar(UIStrings.SettingsCopiedToClipboard, "Success");
         }
 
         private void ToggleDevMode()
@@ -1574,15 +1578,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void ShowCustomSettingsOverrideInfo()
         {
             MessageBoxEx.Show(
-                "CustomSettingNames.xml is being loaded from the application directory instead of the embedded default resource.\r\n\r\n" +
-                "This usually means the custom setting metadata has been overridden locally. That can be intentional, but it also means names, groups, descriptions, and values may be older than the build you are running.\r\n\r\n" +
-                "Possible consequences:\r\n" +
-                "- outdated or mismatched setting names\r\n" +
-                "- stale descriptions or value labels\r\n" +
-                "- missing newly embedded settings or metadata fixes\r\n" +
-                "- grouping differences compared to the embedded defaults\r\n\r\n" +
-                "If that is not intended, remove or rename the external CustomSettingNames.xml in the app folder so the embedded resource is used again.",
-                "Custom Settings Override",
+                UIStrings.CustomSettingsOverrideMessage,
+                UIStrings.CustomSettingsOverride,
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
         }
@@ -1622,7 +1619,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             IsScanning = true;
             ScanProgress = 0;
-            ScanStatus = "Scanning profiles...";
+            ScanStatus = UIStrings.ScanningProfilesWithEllipsis;
 
             _scanCancellationTokenSource = new CancellationTokenSource();
             var progress = new Progress<int>(value =>
@@ -1632,7 +1629,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     _uiContext.Post(_ =>
                     {
                         ScanProgress = value;
-                        ScanStatus = $"Scanning... {value}%";
+                        ScanStatus = string.Format(UIStrings.ScanningProgress, value);
                         if (_taskbarList != null && _windowHandle != IntPtr.Zero)
                         {
                             _taskbarList.SetProgressState(_windowHandle, TBPFLAG.TBPF_NORMAL);

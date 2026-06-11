@@ -1,5 +1,6 @@
 using nvidiaProfileInspector.Native.NVAPI2;
 using System;
+using nvidiaProfileInspector.Localization;
 using nvw = nvidiaProfileInspector.Native.NVAPI2.NvapiDrsWrapper;
 
 namespace nvidiaProfileInspector.Common
@@ -46,7 +47,7 @@ namespace nvidiaProfileInspector.Common
                 return action(GlobalSession);
             }
 
-            throw new Exception(nameof(GlobalSession) + " is Zero!");
+            throw new Exception(UIStrings.GlobalSessionIsZero);
         }
 
         public static void DestroyGlobalSession()

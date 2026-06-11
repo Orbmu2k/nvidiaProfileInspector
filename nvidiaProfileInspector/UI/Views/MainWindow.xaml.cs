@@ -2,6 +2,7 @@ namespace nvidiaProfileInspector.UI.Views
 {
     using nvidiaProfileInspector;
     using nvidiaProfileInspector.Native.WINAPI;
+    using nvidiaProfileInspector.Localization;
     using nvidiaProfileInspector.Services;
     using nvidiaProfileInspector.UI.Controls;
     using nvidiaProfileInspector.UI.ViewModels;
@@ -69,8 +70,7 @@ namespace nvidiaProfileInspector.UI.Views
             if (!Native.NVAPI2.NvapiDrsWrapper.Instance.IsMockMode)
                 return;
 
-            const string mockTitle = "NVIDIA PROFILE INSPECTOR - MOCK!";
-            Title = mockTitle;
+            Title = UIStrings.AppNameMock;
         }
 
         private void MainWindow_SourceInitialized(object sender, EventArgs e)
@@ -203,13 +203,13 @@ namespace nvidiaProfileInspector.UI.Views
             {
                 var profile = profiles.Split(';')[0];
                 _viewModel.SelectProfile(profile);
-                _viewModel.ShowSnackbar($"Profile for '{applicationName}' has been selected!", "Success");
+                _viewModel.ShowSnackbar(string.Format(UIStrings.ProfileForApplicationSelected, applicationName), "Success");
                 return;
             }
 
             var result = MessageBoxViewModel.Show(
-                "Would you like to create a new profile for this application?",
-                "Profile not found!",
+                UIStrings.CreateProfileForApplicationQuestion,
+                UIStrings.ProfileNotFound,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -378,15 +378,8 @@ namespace nvidiaProfileInspector.UI.Views
         private void CustomSettingsOverrideChip_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxEx.Show(
-                "CustomSettingNames.xml is being loaded from the application directory instead of the embedded default resource.\r\n\r\n" +
-                "This means the custom setting metadata has been overridden locally. That can be intentional, but names, groups, descriptions, and values may no longer match the embedded defaults shipped with this build.\r\n\r\n" +
-                "Possible consequences:\r\n" +
-                "- outdated or mismatched setting names\r\n" +
-                "- stale descriptions or value labels\r\n" +
-                "- missing newer embedded settings or metadata fixes\r\n" +
-                "- grouping differences compared to the embedded defaults\r\n\r\n" +
-                "If that is not intended, remove or rename the external CustomSettingNames.xml in the application folder so the embedded resource is used again.",
-                "Custom Settings Override",
+                UIStrings.CustomSettingsOverrideMessage,
+                UIStrings.CustomSettingsOverride,
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
         }
@@ -413,7 +406,7 @@ namespace nvidiaProfileInspector.UI.Views
             if (string.Equals(message, App.LegacyProfilesImportedMessage, StringComparison.InvariantCulture))
             {
                 _viewModel.RefreshCommand.Execute(null);
-                _viewModel.ShowSnackbar("Profile(s) imported successfully!", "Success");
+                _viewModel.ShowSnackbar(UIStrings.ProfilesImportedSuccessfully, "Success");
                 return true;
             }
 
@@ -435,16 +428,16 @@ namespace nvidiaProfileInspector.UI.Views
                 if (string.IsNullOrWhiteSpace(report))
                 {
                     if (showSuccessNotification)
-                        _viewModel.ShowSnackbar("Profile(s) imported successfully!", "Success");
+                        _viewModel.ShowSnackbar(UIStrings.ProfilesImportedSuccessfully, "Success");
                 }
                 else
                 {
-                    MessageBoxViewModel.Show($"Some profile(s) could not be imported!\r\n\r\n{report}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBoxViewModel.Show(string.Format(UIStrings.SomeProfilesCouldNotBeImported, report), UIStrings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBoxViewModel.Show($"Import Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxViewModel.Show(string.Format(UIStrings.ImportErrorMessage, ex.Message), UIStrings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -522,47 +515,47 @@ namespace nvidiaProfileInspector.UI.Views
             {
                 new ActionCardsDialog.ActionCardItem
                 {
-                    Title = "Export current profile only",
-                    Description = "Export only the settings you have changed for the currently selected profile.",
+                    Title = UIStrings.ExportCurrentProfileOnly,
+                    Description = UIStrings.ExportCurrentProfileOnlyDescription,
                     IconPath = (Geometry)Application.Current.Resources["IconExport"],
                     IconFill = (Brush)Application.Current.Resources["TextSecondaryBrush"],
                     Command = () => ExportCurrentOnly_Click(null, null)
                 },
                 new ActionCardsDialog.ActionCardItem
                 {
-                    Title = "Export current profile including predefined",
-                    Description = "Export the current profile with all its settings, including those not modified by you.",
+                    Title = UIStrings.ExportCurrentIncludingPredefined,
+                    Description = UIStrings.ExportCurrentIncludingPredefinedDescription,
                     IconPath = (Geometry)Application.Current.Resources["IconExport"],
                     IconFill = (Brush)Application.Current.Resources["TextSecondaryBrush"],
                     Command = () => ExportCurrentWithPredefined_Click(null, null)
                 },
                 new ActionCardsDialog.ActionCardItem
                 {
-                    Title = "Select profiles to export",
-                    Description = "Select multiple modified profiles from a list to export them into a single file.",
+                    Title = UIStrings.SelectProfilesToExport,
+                    Description = UIStrings.SelectProfilesToExportDescription,
                     IconPath = (Geometry)Application.Current.Resources["IconUser"],
                     IconFill = (Brush)Application.Current.Resources["TextSecondaryBrush"],
                     ShowProfileSelection = true
                 },
                 new ActionCardsDialog.ActionCardItem
                 {
-                    Title = "Export all customized profiles",
-                    Description = "Export all profiles that contain user-defined or modified settings.",
+                    Title = UIStrings.ExportAllCustomizedProfiles,
+                    Description = UIStrings.ExportAllCustomizedProfilesDescription,
                     IconPath = (Geometry)Application.Current.Resources["IconUser"],
                     IconFill = (Brush)Application.Current.Resources["TextSecondaryBrush"],
                     Command = () => ExportAllCustomized_Click(null, null)
                 },
                 new ActionCardsDialog.ActionCardItem
                 {
-                    Title = "Export all profiles (NVIDIA Text Format)",
-                    Description = "Export the entire profile database in the official NVIDIA text format.",
+                    Title = UIStrings.ExportAllProfilesNvidiaFormat,
+                    Description = UIStrings.ExportAllProfilesNvidiaFormatDescription,
                     IconPath = (Geometry)Application.Current.Resources["IconNvidia"],
                     IconFill = (Brush)Application.Current.Resources["TextSecondaryBrush"],
                     Command = () => ExportAllNVIDIA_Click(null, null)
                 }
             };
 
-            var dialog = new ActionCardsDialog("Export Profiles", items, "Choose how you want to export your profiles:");
+            var dialog = new ActionCardsDialog(UIStrings.ExportProfiles, items, UIStrings.ExportProfilesPrompt);
             dialog.Owner = this;
             if (dialog.ShowDialog() == true && dialog.SelectedItem != null)
             {
@@ -576,31 +569,31 @@ namespace nvidiaProfileInspector.UI.Views
             {
                 new ActionCardsDialog.ActionCardItem
                 {
-                    Title = "Replace imported profile(s)",
-                    Description = "Import one or more .nip files and replace each imported profile's current apps and settings with the file contents.",
+                    Title = UIStrings.ReplaceImportedProfiles,
+                    Description = UIStrings.ReplaceImportedProfilesDescription,
                     IconPath = (Geometry)Application.Current.Resources["IconImport"],
                     IconFill = (Brush)Application.Current.Resources["TextSecondaryBrush"],
                     Command = () => ImportProfiles_Click(null, null)
                 },
                 new ActionCardsDialog.ActionCardItem
                 {
-                    Title = "Merge imported profile(s)",
-                    Description = "Import one or more .nip files and merge them into the profile targets named inside the files. Existing target values stay unless the import contains the same setting, in which case the imported value wins.",
+                    Title = UIStrings.MergeImportedProfiles,
+                    Description = UIStrings.MergeImportedProfilesDescription,
                     IconPath = (Geometry)Application.Current.Resources["IconUser"],
                     IconFill = (Brush)Application.Current.Resources["TextSecondaryBrush"],
                     Command = () => MergeImportedProfiles_Click(null, null)
                 },
                 new ActionCardsDialog.ActionCardItem
                 {
-                    Title = "Import (replace) all driver profiles",
-                    Description = "Restore or replace all profiles from an NVIDIA Text Format file.",
+                    Title = UIStrings.ImportAllDriverProfiles,
+                    Description = UIStrings.ImportAllDriverProfilesDescription,
                     IconPath = (Geometry)Application.Current.Resources["IconNvidia"],
                     IconFill = (Brush)Application.Current.Resources["TextSecondaryBrush"],
                     Command = () => ImportAllNVIDIA_Click(null, null)
                 }
             };
 
-            var dialog = new ActionCardsDialog("Import Profiles", items, "Choose how you want to import profiles:");
+            var dialog = new ActionCardsDialog(UIStrings.ImportProfiles, items, UIStrings.ImportProfilesPrompt);
             dialog.Owner = this;
             if (dialog.ShowDialog() == true && dialog.SelectedItem != null)
             {

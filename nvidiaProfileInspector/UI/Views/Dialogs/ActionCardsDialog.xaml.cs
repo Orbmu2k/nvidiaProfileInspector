@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using nvidiaProfileInspector.Localization;
 using nvidiaProfileInspector.TinyIoc;
 using nvidiaProfileInspector.UI.ViewModels;
 using System;
@@ -89,8 +90,8 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
 
         private void ShowProfileSelectionView()
         {
-            this.Title = "Select Profiles";
-            this.SubtitleTextBlock.Text = "Please choose the profiles you want to export:";
+            this.Title = UIStrings.SelectProfiles;
+            this.SubtitleTextBlock.Text = UIStrings.SelectProfilesToExportPrompt;
             this.SubtitleTextBlock.Visibility = Visibility.Visible;
 
             if (_selectionViewModel == null)
@@ -128,7 +129,7 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
             if (!_selectionViewModel.HasSelectedProfiles)
             {
                 if (Owner is MainWindow mainWindow && mainWindow.DataContext is MainViewModel mainViewModel)
-                    mainViewModel.ShowSnackbar("Please select at least one profile to export.", "Warning");
+                    mainViewModel.ShowSnackbar(UIStrings.SelectAtLeastOneProfile, "Warning");
                 return;
             }
 
@@ -136,7 +137,7 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
 
             var dialog = new SaveFileDialog
             {
-                Filter = "NVIDIA PROFILE INSPECTOR Profiles|*.nip",
+                Filter = UIStrings.NipFileFilter,
                 DefaultExt = "*.nip",
                 FileName = ProfileExportFileNames.ForSelectedProfiles()
             };
@@ -146,7 +147,7 @@ namespace nvidiaProfileInspector.UI.Views.Dialogs
                 _selectionViewModel.ExportSelectedProfiles(dialog.FileName);
 
                 if (Owner is MainWindow mainWindow && mainWindow.DataContext is MainViewModel mainViewModel)
-                    mainViewModel.ShowSnackbar("All selected profiles exported successfully!", "Success");
+                    mainViewModel.ShowSnackbar(UIStrings.SelectedProfilesExportedSuccessfully, "Success");
 
                 DialogResult = true;
                 Close();

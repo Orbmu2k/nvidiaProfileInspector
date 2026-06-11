@@ -1,4 +1,5 @@
 using System;
+using nvidiaProfileInspector.Localization;
 
 namespace nvidiaProfileInspector.Common.Updates
 {
@@ -14,6 +15,7 @@ namespace nvidiaProfileInspector.Common.Updates
         {
             return string.Equals(value, "Prerelease", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(value, "Pre-release", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(value, UIStrings.UpdateChannelPrerelease, StringComparison.CurrentCultureIgnoreCase)
                 ? UpdateChannel.Prerelease
                 : UpdateChannel.Release;
         }
@@ -25,7 +27,9 @@ namespace nvidiaProfileInspector.Common.Updates
 
         public static string ToDisplayName(UpdateChannel channel)
         {
-            return channel == UpdateChannel.Prerelease ? "Pre-release" : "Release";
+            return channel == UpdateChannel.Prerelease
+                ? UIStrings.UpdateChannelPrerelease
+                : UIStrings.UpdateChannelRelease;
         }
     }
 }

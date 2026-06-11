@@ -24,14 +24,14 @@ namespace nvidiaProfileInspector.Common.Updates
         public static UpdateCheckResult Available(UpdateRelease release)
         {
             var message = release?.IsInstallable == true
-                ? "A newer version is ready to install."
-                : "A newer version is available, but it does not contain a supported update package.";
+                ? UIStrings.NewVersionReadyToInstall
+                : UIStrings.NewVersionWithoutSupportedPackage;
             return new UpdateCheckResult(true, true, release, message, null);
         }
 
         public static UpdateCheckResult UpToDate(UpdateRelease release)
         {
-            return new UpdateCheckResult(true, false, release, UIStrings.update_check_result_already_latest, null);
+            return new UpdateCheckResult(true, false, release, UIStrings.AlreadyLatestVersion, null);
         }
 
         public static UpdateCheckResult Unavailable(string message)
