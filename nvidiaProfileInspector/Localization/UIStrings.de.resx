@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="AboutWindowTitle" xml:space="preserve">
+    <value>Info zu NVIDIA PROFILE INSPECTOR</value>
+  </data>
+  <data name="Acrylic" xml:space="preserve">
+    <value>Acrylic</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Aktionen</value>
+  </data>
+  <data name="AddApplication" xml:space="preserve">
+    <value>Anwendung hinzufügen</value>
+  </data>
+  <data name="AddApplicationPrompt" xml:space="preserve">
+    <value>Geben Sie zum Verknüpfen einer neuen Anwendung deren Dateinamen (z. B. game.exe) oder UWP-ID ein. Verwenden Sie für einen bestimmten Speicherort die Schaltfläche „Durchsuchen“, um einen absoluten Pfad auszuwählen.</value>
+  </data>
+  <data name="AddApplicationTooltip" xml:space="preserve">
+    <value>Diesem Profil eine neue Anwendung hinzufügen</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="AllCustomizedProfilesExportedSuccessfully" xml:space="preserve">
+    <value>Alle angepassten Profile wurden erfolgreich exportiert.</value>
+  </data>
+  <data name="AllProfilesExportedNvidiaFormat" xml:space="preserve">
+    <value>Alle Profile wurden im NVIDIA-Textformat exportiert.</value>
+  </data>
+  <data name="AllProfilesImportedSuccessfully" xml:space="preserve">
+    <value>Alle Profile wurden erfolgreich importiert.</value>
+  </data>
+  <data name="AlreadyLatestVersion" xml:space="preserve">
+    <value>Sie verwenden bereits die neueste Version dieses Kanals.</value>
+  </data>
+  <data name="AlternateNamesWithDescription" xml:space="preserve">
+    <value>Alternative Namen: {0}
+{1}</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Darstellung</value>
+  </data>
+  <data name="ApplicationAlreadyRunning" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR wird bereits ausgeführt.</value>
+  </data>
+  <data name="ApplicationAlreadyUsedByProfile" xml:space="preserve">
+    <value>- Anwendung '{0}' wird bereits vom Profil '{1}' verwendet</value>
+  </data>
+  <data name="ApplicationIdentifierRequired" xml:space="preserve">
+    <value>Geben Sie einen Dateinamen, eine UWP-ID oder einen absoluten Pfad ein.</value>
+  </data>
+  <data name="ApplicationsFileFilter" xml:space="preserve">
+    <value>Anwendungen|*.exe</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="ApplyAndLaunch" xml:space="preserve">
+    <value>Übernehmen und starten</value>
+  </data>
+  <data name="ApplyBitChanges" xml:space="preserve">
+    <value>Bitänderungen übernehmen</value>
+  </data>
+  <data name="ApplyChanges" xml:space="preserve">
+    <value>Änderungen übernehmen</value>
+  </data>
+  <data name="ApplyChangesAndLaunchGame" xml:space="preserve">
+    <value>Änderungen übernehmen und Spiel starten</value>
+  </data>
+  <data name="ApplyChangesTooltip" xml:space="preserve">
+    <value>Alle Änderungen übernehmen und speichern</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR</value>
+  </data>
+  <data name="AppNameMock" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR - MOCK!</value>
+  </data>
+  <data name="Backdrop" xml:space="preserve">
+    <value>Hintergrundeffekt</value>
+  </data>
+  <data name="BaseProfileCannotBeDeleted" xml:space="preserve">
+    <value>Das Basisprofil kann nicht gelöscht werden.</value>
+  </data>
+  <data name="BitEditor" xml:space="preserve">
+    <value>Bit-Editor</value>
+  </data>
+  <data name="BitEditorCurrentValueDescription" xml:space="preserve">
+    <value>Aktuellen Bitmaskenwert prüfen und übernehmen.</value>
+  </data>
+  <data name="BitEditorDescription" xml:space="preserve">
+    <value>Einzelne Flag-Bits prüfen, mit gescannten Profilen vergleichen und den Wert beim Start eines Spiels schnell testen.</value>
+  </data>
+  <data name="BitEditorFilterProfiles" xml:space="preserve">
+    <value>Namen gescannter Profile filtern</value>
+  </data>
+  <data name="BitEditorMatchesAbove" xml:space="preserve">
+    <value>{0} Treffer oberhalb des sichtbaren Bereichs</value>
+  </data>
+  <data name="BitEditorMatchesBelow" xml:space="preserve">
+    <value>{0} Treffer unterhalb des sichtbaren Bereichs</value>
+  </data>
+  <data name="BitEditorTestArea" xml:space="preserve">
+    <value>Testbereich</value>
+  </data>
+  <data name="BitEditorTestAreaDescription" xml:space="preserve">
+    <value>Den bearbeiteten Wert auf das aktuelle Profil anwenden und optional eine ausführbare Spieldatei zum sofortigen Test starten.</value>
+  </data>
+  <data name="BitEditorTitle" xml:space="preserve">
+    <value>Bitwert-Editor</value>
+  </data>
+  <data name="BitEditorTitleWithSetting" xml:space="preserve">
+    <value>Bitwert-Editor - {0}</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Durchsuchen</value>
+  </data>
+  <data name="BrowseAbsolutePath" xml:space="preserve">
+    <value>Absoluten Pfad durchsuchen...</value>
+  </data>
+  <data name="BrowseApplicationPathTooltip" xml:space="preserve">
+    <value>Absoluten Anwendungspfad auswählen</value>
+  </data>
+  <data name="BrowseForGameExecutable" xml:space="preserve">
+    <value>Nach ausführbarer Spieldatei suchen</value>
+  </data>
+  <data name="BulletMessage" xml:space="preserve">
+    <value>- {0}</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="CancelAction" xml:space="preserve">
+    <value>Aktion abbrechen</value>
+  </data>
+  <data name="CancelAndClose" xml:space="preserve">
+    <value>Abbrechen und schließen</value>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Kanal</value>
+  </data>
+  <data name="Checking" xml:space="preserve">
+    <value>Wird geprüft...</value>
+  </data>
+  <data name="CheckingGitHubReleases" xml:space="preserve">
+    <value>GitHub-Releases werden geprüft...</value>
+  </data>
+  <data name="CheckNow" xml:space="preserve">
+    <value>Jetzt prüfen</value>
+  </data>
+  <data name="CheckUpdatesOnStartup" xml:space="preserve">
+    <value>Beim Start nach verfügbaren Updates suchen</value>
+  </data>
+  <data name="ChooseChannelAndCheckUpdates" xml:space="preserve">
+    <value>Wählen Sie einen Kanal und suchen Sie nach Updates.</value>
+  </data>
+  <data name="CleanWhite" xml:space="preserve">
+    <value>Reinweiß</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="CloseWithoutSaving" xml:space="preserve">
+    <value>Ohne Speichern schließen</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Allgemeine Einstellungen</value>
+  </data>
+  <data name="Compact" xml:space="preserve">
+    <value>Kompakt</value>
+  </data>
+  <data name="ConfirmAction" xml:space="preserve">
+    <value>Aktion bestätigen</value>
+  </data>
+  <data name="ConfirmAndSave" xml:space="preserve">
+    <value>Bestätigen und speichern</value>
+  </data>
+  <data name="ConfirmNo" xml:space="preserve">
+    <value>Nein bestätigen</value>
+  </data>
+  <data name="ConfirmYes" xml:space="preserve">
+    <value>Ja bestätigen</value>
+  </data>
+  <data name="ContributorRoleChiefArchitectEmeritus" xml:space="preserve">
+    <value>Chefarchitekt (Emeritus)</value>
+  </data>
+  <data name="ContributorRoleContributor" xml:space="preserve">
+    <value>Mitwirkender</value>
+  </data>
+  <data name="ContributorRoleDeveloperResearcher" xml:space="preserve">
+    <value>Entwickler und Forscher für Treibereinstellungen</value>
+  </data>
+  <data name="ContributorRoleLeadDeveloper" xml:space="preserve">
+    <value>Leitender Entwickler</value>
+  </data>
+  <data name="Contributors" xml:space="preserve">
+    <value>MITWIRKENDE</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="CopySettingsTooltip" xml:space="preserve">
+    <value>Einstellungen in die Zwischenablage kopieren</value>
+  </data>
+  <data name="CouldNotReadReleaseInformation" xml:space="preserve">
+    <value>Release-Informationen konnten nicht gelesen werden.</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Anzahl</value>
+  </data>
+  <data name="CrashReportDateTime" xml:space="preserve">
+    <value>Datum/Uhrzeit: {0:yyyy-MM-dd HH:mm:ss}</value>
+  </data>
+  <data name="CrashReportHeading" xml:space="preserve">
+    <value>=== NVIDIA PROFILE INSPECTOR-Absturzbericht ===</value>
+  </data>
+  <data name="CrashReportIs64Bit" xml:space="preserve">
+    <value>64-Bit: {0}</value>
+  </data>
+  <data name="CrashReportOperatingSystem" xml:space="preserve">
+    <value>Betriebssystem: {0}</value>
+  </data>
+  <data name="CrashReportVersion" xml:space="preserve">
+    <value>Version: {0}</value>
+  </data>
+  <data name="CreateProfile" xml:space="preserve">
+    <value>Profil erstellen</value>
+  </data>
+  <data name="CreateProfileForApplicationQuestion" xml:space="preserve">
+    <value>Möchten Sie ein neues Profil für diese Anwendung erstellen?</value>
+  </data>
+  <data name="CreateProfilePrompt" xml:space="preserve">
+    <value>Geben Sie einen eindeutigen Namen für das neue benutzerdefinierte Treiberprofil ein.</value>
+  </data>
+  <data name="CreateProfileTooltip" xml:space="preserve">
+    <value>Neues Profil erstellen</value>
+  </data>
+  <data name="CsnFileOverride" xml:space="preserve">
+    <value>CSN-Datei überschreiben</value>
+  </data>
+  <data name="CurrentDwordValue" xml:space="preserve">
+    <value>Aktueller DWORD-Wert</value>
+  </data>
+  <data name="CurrentProfileExportedSuccessfully" xml:space="preserve">
+    <value>Das aktuelle Profil wurde erfolgreich exportiert.</value>
+  </data>
+  <data name="CurrentValue" xml:space="preserve">
+    <value>Aktueller Wert</value>
+  </data>
+  <data name="CustomSettingsOverride" xml:space="preserve">
+    <value>Benutzerdefinierte Einstellungen überschreiben</value>
+  </data>
+  <data name="CustomSettingsOverrideMessage" xml:space="preserve">
+    <value>CustomSettingNames.xml wird aus dem Anwendungsverzeichnis anstelle der eingebetteten Standardressource geladen.
+
+Dadurch werden die Metadaten benutzerdefinierter Einstellungen lokal überschrieben. Dies kann beabsichtigt sein, Namen, Gruppen, Beschreibungen und Werte stimmen dann jedoch möglicherweise nicht mehr mit den in diesem Build enthaltenen Standarddaten überein.
+
+Mögliche Folgen:
+- veraltete oder abweichende Einstellungsnamen
+- veraltete Beschreibungen oder Wertbezeichnungen
+- fehlende neuere Einstellungen oder Metadatenkorrekturen
+- abweichende Gruppierung gegenüber den eingebetteten Standarddaten
+
+Falls dies nicht beabsichtigt ist, entfernen oder benennen Sie die externe CustomSettingNames.xml im Anwendungsordner um, damit wieder die eingebettete Ressource verwendet wird.</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dunkel</value>
+  </data>
+  <data name="Defaults" xml:space="preserve">
+    <value>Standardwerte</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="DeleteProfile" xml:space="preserve">
+    <value>Profil löschen</value>
+  </data>
+  <data name="DeleteProfileQuestion" xml:space="preserve">
+    <value>Dieses Profil wirklich löschen?
+
+Hinweis: Vordefinierte NVIDIA-Profile können erst nach der nächsten Treiberinstallation wiederhergestellt werden.</value>
+  </data>
+  <data name="DeleteProfileTooltip" xml:space="preserve">
+    <value>Aktuelles Profil löschen</value>
+  </data>
+  <data name="Density" xml:space="preserve">
+    <value>DICHTE</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="DescriptionHeading" xml:space="preserve">
+    <value>BESCHREIBUNG</value>
+  </data>
+  <data name="DeselectAllProfiles" xml:space="preserve">
+    <value>Auswahl aller Profile aufheben</value>
+  </data>
+  <data name="DesignerPreview" xml:space="preserve">
+    <value>Designervorschau</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="DisableSplashOnStartup" xml:space="preserve">
+    <value>Startbildschirm beim Start deaktivieren</value>
+  </data>
+  <data name="DriverStatus" xml:space="preserve">
+    <value>Treiber: {0}</value>
+  </data>
+  <data name="DriverStatusWithBranch" xml:space="preserve">
+    <value>Treiber: {0} ({1})</value>
+  </data>
+  <data name="DriverUnavailable" xml:space="preserve">
+    <value>Treiber nicht verfügbar</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Aktiviert</value>
+  </data>
+  <data name="EnterValidBinaryValue" xml:space="preserve">
+    <value>Geben Sie einen gültigen Binärwert ein.</value>
+  </data>
+  <data name="EnterValidDwordValue" xml:space="preserve">
+    <value>Geben Sie einen gültigen DWORD-Wert ein.</value>
+  </data>
+  <data name="EnterValidQwordValue" xml:space="preserve">
+    <value>Geben Sie einen gültigen QWORD-Wert ein.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Fehler: {0}</value>
+  </data>
+  <data name="ExceptionDetailsHeading" xml:space="preserve">
+    <value>=== Ausnahmedetails ===</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>Meldung: {0}</value>
+  </data>
+  <data name="ExceptionSource" xml:space="preserve">
+    <value>Quelle: {0}</value>
+  </data>
+  <data name="ExceptionStackTrace" xml:space="preserve">
+    <value>Stapelüberwachung: {0}</value>
+  </data>
+  <data name="ExceptionTargetSite" xml:space="preserve">
+    <value>Zielmethode: {0}</value>
+  </data>
+  <data name="ExceptionType" xml:space="preserve">
+    <value>Typ: {0}</value>
+  </data>
+  <data name="ExecutablesFileFilter" xml:space="preserve">
+    <value>Ausführbare Dateien (*.exe)|*.exe|Alle Dateien (*.*)|*.*</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="ExportAllCustomizedProfiles" xml:space="preserve">
+    <value>Alle angepassten Profile exportieren</value>
+  </data>
+  <data name="ExportAllCustomizedProfilesDescription" xml:space="preserve">
+    <value>Exportiert alle Profile mit benutzerdefinierten oder geänderten Einstellungen.</value>
+  </data>
+  <data name="ExportAllProfilesNvidiaFormat" xml:space="preserve">
+    <value>Alle Profile exportieren (NVIDIA-Textformat)</value>
+  </data>
+  <data name="ExportAllProfilesNvidiaFormatDescription" xml:space="preserve">
+    <value>Exportiert die gesamte Profildatenbank im offiziellen NVIDIA-Textformat.</value>
+  </data>
+  <data name="ExportCurrentIncludingPredefined" xml:space="preserve">
+    <value>Aktuelles Profil einschließlich vordefinierter Einstellungen exportieren</value>
+  </data>
+  <data name="ExportCurrentIncludingPredefinedDescription" xml:space="preserve">
+    <value>Exportiert das aktuelle Profil mit allen Einstellungen, einschließlich der nicht von Ihnen geänderten.</value>
+  </data>
+  <data name="ExportCurrentProfileOnly" xml:space="preserve">
+    <value>Nur aktuelles Profil exportieren</value>
+  </data>
+  <data name="ExportCurrentProfileOnlyDescription" xml:space="preserve">
+    <value>Exportiert nur die von Ihnen geänderten Einstellungen des aktuell ausgewählten Profils.</value>
+  </data>
+  <data name="ExportProfiles" xml:space="preserve">
+    <value>Profile exportieren</value>
+  </data>
+  <data name="ExportProfilesPrompt" xml:space="preserve">
+    <value>Wählen Sie die gewünschte Exportmethode:</value>
+  </data>
+  <data name="ExportProfilesTooltip" xml:space="preserve">
+    <value>Profile in eine Datei exportieren</value>
+  </data>
+  <data name="ExportSelected" xml:space="preserve">
+    <value>Auswahl exportieren</value>
+  </data>
+  <data name="ExportSelectedProfiles" xml:space="preserve">
+    <value>Ausgewählte Profile exportieren</value>
+  </data>
+  <data name="ExternalCustomSettingsTooltip" xml:space="preserve">
+    <value>Benutzerdefinierte Einstellungen werden aus einer externen CustomSettingNames.xml geladen</value>
+  </data>
+  <data name="FailedToImportProfile" xml:space="preserve">
+    <value>Profil „{0}“ konnte nicht importiert werden</value>
+  </data>
+  <data name="FailedToMergeIntoProfile" xml:space="preserve">
+    <value>Import konnte nicht in Profil '{0}' zusammengeführt werden</value>
+  </data>
+  <data name="FallbackGroupOpenGL" xml:space="preserve">
+    <value>10 - OpenGL</value>
+  </data>
+  <data name="FallbackGroupStereo" xml:space="preserve">
+    <value>09 - Stereo</value>
+  </data>
+  <data name="FallbackGroupUnknownDriverSettings" xml:space="preserve">
+    <value>11 - Unbekannte Treibereinstellungen</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>★ Favoriten</value>
+  </data>
+  <data name="FilterSettingsTooltip" xml:space="preserve">
+    <value>Einstellungen nach Typ filtern</value>
+  </data>
+  <data name="GameExecutableNotFound" xml:space="preserve">
+    <value>Die ausführbare Spieldatei wurde nicht gefunden.</value>
+  </data>
+  <data name="GameExecutablePath" xml:space="preserve">
+    <value>Pfad zur ausführbaren Spieldatei</value>
+  </data>
+  <data name="Glass" xml:space="preserve">
+    <value>Glas</value>
+  </data>
+  <data name="GlobalDriverProfile" xml:space="preserve">
+    <value>GLOBALES TREIBERPROFIL</value>
+  </data>
+  <data name="GlobalSessionIsZero" xml:space="preserve">
+    <value>Die globale DRS-Sitzung ist nicht initialisiert.</value>
+  </data>
+  <data name="GlobalSettingTooltip" xml:space="preserve">
+    <value>Globale Einstellung - Gilt für alle Anwendungen</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="ImportAllDriverProfiles" xml:space="preserve">
+    <value>Alle Treiberprofile importieren (ersetzen)</value>
+  </data>
+  <data name="ImportAllDriverProfilesDescription" xml:space="preserve">
+    <value>Stellt alle Profile aus einer Datei im NVIDIA-Textformat wieder her oder ersetzt sie.</value>
+  </data>
+  <data name="ImportErrorMessage" xml:space="preserve">
+    <value>Importfehler: {0}</value>
+  </data>
+  <data name="ImportProfileRenameHint" xml:space="preserve">
+    <value>Hinweis: Wenn NVIDIA nur den Profilnamen geändert hat, aktualisieren Sie den Profilnamen in der Importdatei manuell mit einem Texteditor.</value>
+  </data>
+  <data name="ImportProfiles" xml:space="preserve">
+    <value>Profile importieren</value>
+  </data>
+  <data name="ImportProfilesPrompt" xml:space="preserve">
+    <value>Wählen Sie die gewünschte Importmethode:</value>
+  </data>
+  <data name="ImportProfilesTooltip" xml:space="preserve">
+    <value>Profile aus einer Datei importieren</value>
+  </data>
+  <data name="ImportWarning" xml:space="preserve">
+    <value>Importwarnung</value>
+  </data>
+  <data name="IncludePredefinedSettings" xml:space="preserve">
+    <value>Vordefinierte Einstellungen einschließen</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="InnerExceptionHeading" xml:space="preserve">
+    <value>=== Innere Ausnahme ===</value>
+  </data>
+  <data name="InstallUpdate" xml:space="preserve">
+    <value>Update installieren</value>
+  </data>
+  <data name="InvalidApplicationOrFindFile" xml:space="preserve">
+    <value>Anwendungsname oder FindFile-Zeichenfolge ist ungültig.</value>
+  </data>
+  <data name="InvalidSettingType" xml:space="preserve">
+    <value>Ungültiger Einstellungstyp.</value>
+  </data>
+  <data name="InvalidValueType" xml:space="preserve">
+    <value>Ungültiger Werttyp.</value>
+  </data>
+  <data name="Invert" xml:space="preserve">
+    <value>Umkehren</value>
+  </data>
+  <data name="InvertSelection" xml:space="preserve">
+    <value>Auswahl umkehren</value>
+  </data>
+  <data name="KnownSettingsCount" xml:space="preserve">
+    <value>{0} bekannte Einstellungen</value>
+  </data>
+  <data name="KnownSettingsStatus" xml:space="preserve">
+    <value>{0} bekannte Einstellungen ({1} in Profilen / {2} erkannt)</value>
+  </data>
+  <data name="Lab" xml:space="preserve">
+    <value>Labor</value>
+  </data>
+  <data name="LastOtaProfileUpdate" xml:space="preserve">
+    <value>Letzte OTA-Profilaktualisierung: {0:g}</value>
+  </data>
+  <data name="Latest" xml:space="preserve">
+    <value>Neueste</value>
+  </data>
+  <data name="MergeCompletedWithWarnings" xml:space="preserve">
+    <value>Zusammenführung mit Warnungen abgeschlossen:
+
+{0}</value>
+  </data>
+  <data name="MergeConflictHint" xml:space="preserve">
+    <value>Hinweis: Entfernen Sie zuerst die konfliktverursachenden Anwendungen aus dem anderen Profil und versuchen Sie die Zusammenführung erneut.</value>
+  </data>
+  <data name="MergeImportedProfiles" xml:space="preserve">
+    <value>Importierte Profile zusammenführen</value>
+  </data>
+  <data name="MergeImportedProfilesDescription" xml:space="preserve">
+    <value>Importiert eine oder mehrere .nip-Dateien und führt sie mit den in den Dateien genannten Zielprofilen zusammen. Vorhandene Werte bleiben erhalten; enthält der Import dieselbe Einstellung, hat der importierte Wert Vorrang.</value>
+  </data>
+  <data name="Mica" xml:space="preserve">
+    <value>Mica</value>
+  </data>
+  <data name="MicaVariant" xml:space="preserve">
+    <value>Mica-Variante</value>
+  </data>
+  <data name="Midnight" xml:space="preserve">
+    <value>Midnight</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>Minimieren</value>
+  </data>
+  <data name="Modern" xml:space="preserve">
+    <value>Modern</value>
+  </data>
+  <data name="NavigateToGlobalProfile" xml:space="preserve">
+    <value>Zum globalen Profil wechseln</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Neu</value>
+  </data>
+  <data name="NewVersionReadyToInstall" xml:space="preserve">
+    <value>Eine neuere Version kann installiert werden.</value>
+  </data>
+  <data name="NewVersionWithoutSupportedPackage" xml:space="preserve">
+    <value>Eine neuere Version ist verfügbar, enthält jedoch kein unterstütztes Updatepaket.</value>
+  </data>
+  <data name="NipFileFilter" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR-Profile|*.nip</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="NoCompatibleDriver" xml:space="preserve">
+    <value>Auf Ihrem System wurde kein kompatibler NVIDIA-Treiber erkannt. Möglicherweise ist Ihre NVIDIA-GPU deaktiviert.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Keine</value>
+  </data>
+  <data name="NoReleaseInformation" xml:space="preserve">
+    <value>Es sind keine Versionsinformationen verfügbar.</value>
+  </data>
+  <data name="NotChecked" xml:space="preserve">
+    <value>Nicht geprüft</value>
+  </data>
+  <data name="NoUpdateReleaseSelected" xml:space="preserve">
+    <value>Es wurde kein Update-Release ausgewählt.</value>
+  </data>
+  <data name="NvapiFunctionFailed" xml:space="preserve">
+    <value>{0} ist fehlgeschlagen: {1}</value>
+  </data>
+  <data name="NvidiaSettingTooltip" xml:space="preserve">
+    <value>NVIDIA-Einstellung - Vom NVIDIA-Treiber definiert</value>
+  </data>
+  <data name="NvidiaTextFileFilter" xml:space="preserve">
+    <value>NVIDIA-Textdateien|*.txt</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OpenBitEditorTooltip" xml:space="preserve">
+    <value>Bitwert-Editor öffnen</value>
+  </data>
+  <data name="OpenGitHubReleases" xml:space="preserve">
+    <value>GitHub-Releases öffnen</value>
+  </data>
+  <data name="OpenGitHubRepository" xml:space="preserve">
+    <value>GitHub-Repository öffnen</value>
+  </data>
+  <data name="OtaStatus" xml:space="preserve">
+    <value>OTA {0:g}</value>
+  </data>
+  <data name="OtaUnknown" xml:space="preserve">
+    <value>OTA unbekannt</value>
+  </data>
+  <data name="PreparingUpdatePackage" xml:space="preserve">
+    <value>Updatepaket wird vorbereitet...</value>
+  </data>
+  <data name="ProfileCount" xml:space="preserve">
+    <value>{0} Profile</value>
+  </data>
+  <data name="ProfileDeletedSuccessfully" xml:space="preserve">
+    <value>Profil wurde erfolgreich gelöscht.</value>
+  </data>
+  <data name="ProfileForApplicationSelected" xml:space="preserve">
+    <value>Das Profil für '{0}' wurde ausgewählt.</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Profil: {0}</value>
+  </data>
+  <data name="ProfileNameMustBeUnique" xml:space="preserve">
+    <value>Der Profilname muss eindeutig sein.</value>
+  </data>
+  <data name="ProfileNameRequired" xml:space="preserve">
+    <value>Geben Sie einen eindeutigen Profilnamen ein.</value>
+  </data>
+  <data name="ProfileNotFound" xml:space="preserve">
+    <value>Profil wurde nicht gefunden.</value>
+  </data>
+  <data name="ProfileRestoredSuccessfully" xml:space="preserve">
+    <value>Das Profil wurde erfolgreich auf die Treibervorgaben zurückgesetzt.</value>
+  </data>
+  <data name="Profiles" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ProfilesImportedSuccessfully" xml:space="preserve">
+    <value>Profile wurden erfolgreich importiert.</value>
+  </data>
+  <data name="ProfilesMergedSuccessfully" xml:space="preserve">
+    <value>Die importierten Profile wurden erfolgreich zusammengeführt.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="RefreshProfilesTooltip" xml:space="preserve">
+    <value>Alle Profile aktualisieren</value>
+  </data>
+  <data name="ReleaseHasNoDownloadablePackage" xml:space="preserve">
+    <value>Die ausgewählte Version enthält kein herunterladbares Updatepaket.</value>
+  </data>
+  <data name="Releases" xml:space="preserve">
+    <value>Versionen</value>
+  </data>
+  <data name="RemoveApplication" xml:space="preserve">
+    <value>Anwendung entfernen</value>
+  </data>
+  <data name="RemoveApplicationQuestion" xml:space="preserve">
+    <value>Anwendung '{0}' aus dem Profil entfernen?</value>
+  </data>
+  <data name="ReplaceImportedProfiles" xml:space="preserve">
+    <value>Importierte Profile ersetzen</value>
+  </data>
+  <data name="ReplaceImportedProfilesDescription" xml:space="preserve">
+    <value>Importiert eine oder mehrere .nip-Dateien und ersetzt bei jedem importierten Profil die aktuellen Anwendungen und Einstellungen durch den Dateiinhalt.</value>
+  </data>
+  <data name="ReservedUnknown" xml:space="preserve">
+    <value>Reserviert / unbekannt</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="ResetProfileChangesTooltip" xml:space="preserve">
+    <value>Änderungen des aktuellen Profils zurücksetzen</value>
+  </data>
+  <data name="ResetSettingTooltip" xml:space="preserve">
+    <value>Einstellung auf den Standardwert zurücksetzen</value>
+  </data>
+  <data name="RestoreProfile" xml:space="preserve">
+    <value>Profil wiederherstellen</value>
+  </data>
+  <data name="RestoreProfileQuestion" xml:space="preserve">
+    <value>Profil auf die NVIDIA-Treibervorgaben zurücksetzen?</value>
+  </data>
+  <data name="RestoreProfileTooltip" xml:space="preserve">
+    <value>Profil auf die NVIDIA-Standardeinstellungen zurücksetzen</value>
+  </data>
+  <data name="ScanningProfiles" xml:space="preserve">
+    <value>Profile werden gescannt</value>
+  </data>
+  <data name="ScanningProfilesWithEllipsis" xml:space="preserve">
+    <value>Profile werden gescannt...</value>
+  </data>
+  <data name="ScanningProgress" xml:space="preserve">
+    <value>Scan läuft... {0}%</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Suchen...</value>
+  </data>
+  <data name="SearchSettingsTooltip" xml:space="preserve">
+    <value>Einstellungen nach Namen suchen (Ctrl+F)</value>
+  </data>
+  <data name="SelectAllProfiles" xml:space="preserve">
+    <value>Alle Profile auswählen</value>
+  </data>
+  <data name="SelectApplicationAbsolutePath" xml:space="preserve">
+    <value>Absoluten Anwendungspfad auswählen</value>
+  </data>
+  <data name="SelectAtLeastOneProfile" xml:space="preserve">
+    <value>Wählen Sie mindestens ein Profil für den Export aus.</value>
+  </data>
+  <data name="SelectedProfilesExportedSuccessfully" xml:space="preserve">
+    <value>Alle ausgewählten Profile wurden erfolgreich exportiert.</value>
+  </data>
+  <data name="SelectGame" xml:space="preserve">
+    <value>Spiel auswählen</value>
+  </data>
+  <data name="SelectProfiles" xml:space="preserve">
+    <value>Profile auswählen</value>
+  </data>
+  <data name="SelectProfilesToExport" xml:space="preserve">
+    <value>Zu exportierende Profile auswählen</value>
+  </data>
+  <data name="SelectProfilesToExportDescription" xml:space="preserve">
+    <value>Wählen Sie mehrere geänderte Profile aus einer Liste aus, um sie in eine einzelne Datei zu exportieren.</value>
+  </data>
+  <data name="SelectProfilesToExportPrompt" xml:space="preserve">
+    <value>Wählen Sie die zu exportierenden Profile:</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Einstellung</value>
+  </data>
+  <data name="SettingsAppliedSuccessfully" xml:space="preserve">
+    <value>Einstellungen wurden erfolgreich übernommen.</value>
+  </data>
+  <data name="SettingsCopiedToClipboard" xml:space="preserve">
+    <value>Einstellungen wurden in die Zwischenablage kopiert.</value>
+  </data>
+  <data name="ShowAllSettings" xml:space="preserve">
+    <value>Alle Einstellungen anzeigen</value>
+  </data>
+  <data name="ShowUnknownSettingsTooltip" xml:space="preserve">
+    <value>Unbekannte Einstellungen aus vordefinierten NVIDIA-Profilen anzeigen</value>
+  </data>
+  <data name="Slate" xml:space="preserve">
+    <value>Schiefer</value>
+  </data>
+  <data name="SomeProfilesCouldNotBeImported" xml:space="preserve">
+    <value>Einige Profile konnten nicht importiert werden.
+
+{0}</value>
+  </data>
+  <data name="SplashLoading" xml:space="preserve">
+    <value>Anwendung wird geladen</value>
+  </data>
+  <data name="SplashPreparing" xml:space="preserve">
+    <value>Treiberprofile und Einstellungen werden vorbereitet...</value>
+  </data>
+  <data name="Startup" xml:space="preserve">
+    <value>START</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>DESIGN</value>
+  </data>
+  <data name="ToggleFavorite" xml:space="preserve">
+    <value>Favorit umschalten</value>
+  </data>
+  <data name="Unavailable" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
+  <data name="UnexpectedErrorFallback" xml:space="preserve">
+    <value>Ein unerwarteter Fehler ist aufgetreten:
+
+{0}
+
+{1}</value>
+  </data>
+  <data name="UnexpectedErrorWithCrashLog" xml:space="preserve">
+    <value>Ein unerwarteter Fehler ist aufgetreten:
+
+{0}
+
+Ein detailliertes Absturzprotokoll wurde hier erstellt:
+{1}
+
+Möchten Sie den Speicherort der Protokolldatei öffnen?</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>unbekannt</value>
+  </data>
+  <data name="UnsupportedUpdatePackageFormat" xml:space="preserve">
+    <value>Das Format des ausgewählten Updatepakets wird nicht unterstützt.</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update verfügbar</value>
+  </data>
+  <data name="UpdateChannelPrerelease" xml:space="preserve">
+    <value>Vorabversion</value>
+  </data>
+  <data name="UpdateChannelRelease" xml:space="preserve">
+    <value>Stabile Version</value>
+  </data>
+  <data name="UpdateCouldNotBeInstalled" xml:space="preserve">
+    <value>Das Update konnte nicht installiert werden.
+
+{0}</value>
+  </data>
+  <data name="UpdateDownloadedRestarting" xml:space="preserve">
+    <value>Update heruntergeladen. Die Anwendung wird neu gestartet...</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update fehlgeschlagen</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>AKTUALISIERUNGEN</value>
+  </data>
+  <data name="UserDefinedSettingTooltip" xml:space="preserve">
+    <value>Benutzerdefinierte Einstellung - Vom Benutzer hinzugefügt</value>
+  </data>
+  <data name="UserModifiedSettings" xml:space="preserve">
+    <value>Vom Benutzer geänderte Einstellungen</value>
+  </data>
+  <data name="ValidFilenameAndFindFileRequired" xml:space="preserve">
+    <value>Geben Sie einen gültigen Dateinamen und eine FindFile-Zeichenfolge ein.</value>
+  </data>
+  <data name="ValueAppliedToProfile" xml:space="preserve">
+    <value>Wert wurde auf das Profil angewendet.</value>
+  </data>
+  <data name="ValueLabel" xml:space="preserve">
+    <value>Wert:</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Version </value>
+  </data>
+  <data name="ViewModifiedProfiles" xml:space="preserve">
+    <value>Geänderte Profile anzeigen</value>
+  </data>
+  <data name="ViewProfile" xml:space="preserve">
+    <value>Profil anzeigen</value>
+  </data>
+  <data name="WaitingForModifiedProfilesScan" xml:space="preserve">
+    <value>Warten auf den Abschluss der Suche nach geänderten Profilen...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warnung</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+</root>

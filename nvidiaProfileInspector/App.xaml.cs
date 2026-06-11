@@ -35,6 +35,18 @@ namespace nvidiaProfileInspector
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 ["en-US"] = "en-US",
+                ["de"] = "de",
+                ["de-AT"] = "de",
+                ["de-CH"] = "de",
+                ["de-DE"] = "de",
+                ["de-LI"] = "de",
+                ["de-LU"] = "de",
+                ["ja"] = "ja",
+                ["ja-JP"] = "ja",
+                ["ko"] = "ko",
+                ["ko-KR"] = "ko",
+                ["ru"] = "ru",
+                ["ru-RU"] = "ru",
                 ["zh-CHS"] = "zh-CN",
                 ["zh-CN"] = "zh-CN",
                 ["zh-Hans"] = "zh-CN",

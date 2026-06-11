@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="AboutWindowTitle" xml:space="preserve">
+    <value>О программе NVIDIA PROFILE INSPECTOR</value>
+  </data>
+  <data name="Acrylic" xml:space="preserve">
+    <value>Acrylic</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="AddApplication" xml:space="preserve">
+    <value>Добавить приложение</value>
+  </data>
+  <data name="AddApplicationPrompt" xml:space="preserve">
+    <value>Чтобы связать новое приложение, введите имя его файла (например, game.exe) или UWP ID. Если требуется указать определённое расположение, выберите абсолютный путь с помощью кнопки обзора.</value>
+  </data>
+  <data name="AddApplicationTooltip" xml:space="preserve">
+    <value>Добавить новое приложение в этот профиль</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="AllCustomizedProfilesExportedSuccessfully" xml:space="preserve">
+    <value>Все пользовательские профили успешно экспортированы.</value>
+  </data>
+  <data name="AllProfilesExportedNvidiaFormat" xml:space="preserve">
+    <value>Все профили экспортированы в текстовом формате NVIDIA.</value>
+  </data>
+  <data name="AllProfilesImportedSuccessfully" xml:space="preserve">
+    <value>Все профили успешно импортированы.</value>
+  </data>
+  <data name="AlreadyLatestVersion" xml:space="preserve">
+    <value>Для этого канала уже используется последняя версия.</value>
+  </data>
+  <data name="AlternateNamesWithDescription" xml:space="preserve">
+    <value>Другие имена: {0}
+{1}</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Оформление</value>
+  </data>
+  <data name="ApplicationAlreadyRunning" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR уже запущен.</value>
+  </data>
+  <data name="ApplicationAlreadyUsedByProfile" xml:space="preserve">
+    <value>- приложение '{0}' уже используется профилем '{1}'</value>
+  </data>
+  <data name="ApplicationIdentifierRequired" xml:space="preserve">
+    <value>Введите имя файла, UWP ID или абсолютный путь.</value>
+  </data>
+  <data name="ApplicationsFileFilter" xml:space="preserve">
+    <value>Приложения|*.exe</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="ApplyAndLaunch" xml:space="preserve">
+    <value>Применить и запустить</value>
+  </data>
+  <data name="ApplyBitChanges" xml:space="preserve">
+    <value>Применить изменения битов</value>
+  </data>
+  <data name="ApplyChanges" xml:space="preserve">
+    <value>Применить изменения</value>
+  </data>
+  <data name="ApplyChangesAndLaunchGame" xml:space="preserve">
+    <value>Применить изменения и запустить игру</value>
+  </data>
+  <data name="ApplyChangesTooltip" xml:space="preserve">
+    <value>Применить и сохранить все изменения</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR</value>
+  </data>
+  <data name="AppNameMock" xml:space="preserve">
+    <value>NVIDIA PROFILE INSPECTOR - MOCK!</value>
+  </data>
+  <data name="Backdrop" xml:space="preserve">
+    <value>ФОНОВЫЙ ЭФФЕКТ</value>
+  </data>
+  <data name="BaseProfileCannotBeDeleted" xml:space="preserve">
+    <value>Базовый профиль нельзя удалить.</value>
+  </data>
+  <data name="BitEditor" xml:space="preserve">
+    <value>Редактор битов</value>
+  </data>
+  <data name="BitEditorCurrentValueDescription" xml:space="preserve">
+    <value>Проверьте и примените текущее значение битовой маски.</value>
+  </data>
+  <data name="BitEditorDescription" xml:space="preserve">
+    <value>Просматривайте отдельные биты флагов, сравнивайте их с найденными профилями и быстро проверяйте значение при запуске игры.</value>
+  </data>
+  <data name="BitEditorFilterProfiles" xml:space="preserve">
+    <value>Фильтр имён просканированных профилей</value>
+  </data>
+  <data name="BitEditorMatchesAbove" xml:space="preserve">
+    <value>Совпадений выше видимой области: {0}</value>
+  </data>
+  <data name="BitEditorMatchesBelow" xml:space="preserve">
+    <value>Совпадений ниже видимой области: {0}</value>
+  </data>
+  <data name="BitEditorTestArea" xml:space="preserve">
+    <value>Область проверки</value>
+  </data>
+  <data name="BitEditorTestAreaDescription" xml:space="preserve">
+    <value>Примените изменённое значение к текущему профилю и при необходимости запустите исполняемый файл игры для немедленной проверки.</value>
+  </data>
+  <data name="BitEditorTitle" xml:space="preserve">
+    <value>Редактор битового значения</value>
+  </data>
+  <data name="BitEditorTitleWithSetting" xml:space="preserve">
+    <value>Редактор битового значения - {0}</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="BrowseAbsolutePath" xml:space="preserve">
+    <value>Выбрать абсолютный путь...</value>
+  </data>
+  <data name="BrowseApplicationPathTooltip" xml:space="preserve">
+    <value>Выбрать абсолютный путь приложения</value>
+  </data>
+  <data name="BrowseForGameExecutable" xml:space="preserve">
+    <value>Выбрать исполняемый файл игры</value>
+  </data>
+  <data name="BulletMessage" xml:space="preserve">
+    <value>- {0}</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="CancelAction" xml:space="preserve">
+    <value>Отменить действие</value>
+  </data>
+  <data name="CancelAndClose" xml:space="preserve">
+    <value>Отменить и закрыть</value>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Канал</value>
+  </data>
+  <data name="Checking" xml:space="preserve">
+    <value>Проверка...</value>
+  </data>
+  <data name="CheckingGitHubReleases" xml:space="preserve">
+    <value>Проверка выпусков GitHub...</value>
+  </data>
+  <data name="CheckNow" xml:space="preserve">
+    <value>Проверить сейчас</value>
+  </data>
+  <data name="CheckUpdatesOnStartup" xml:space="preserve">
+    <value>Проверять наличие обновлений при запуске</value>
+  </data>
+  <data name="ChooseChannelAndCheckUpdates" xml:space="preserve">
+    <value>Выберите канал и проверьте наличие обновлений.</value>
+  </data>
+  <data name="CleanWhite" xml:space="preserve">
+    <value>Чистый белый</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="CloseWithoutSaving" xml:space="preserve">
+    <value>Закрыть без сохранения</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Общие настройки</value>
+  </data>
+  <data name="Compact" xml:space="preserve">
+    <value>Компактный</value>
+  </data>
+  <data name="ConfirmAction" xml:space="preserve">
+    <value>Подтвердить действие</value>
+  </data>
+  <data name="ConfirmAndSave" xml:space="preserve">
+    <value>Подтвердить и сохранить</value>
+  </data>
+  <data name="ConfirmNo" xml:space="preserve">
+    <value>Подтвердить «Нет»</value>
+  </data>
+  <data name="ConfirmYes" xml:space="preserve">
+    <value>Подтвердить «Да»</value>
+  </data>
+  <data name="ContributorRoleChiefArchitectEmeritus" xml:space="preserve">
+    <value>Главный архитектор (эмерит)</value>
+  </data>
+  <data name="ContributorRoleContributor" xml:space="preserve">
+    <value>Участник</value>
+  </data>
+  <data name="ContributorRoleDeveloperResearcher" xml:space="preserve">
+    <value>Разработчик и исследователь настроек драйвера</value>
+  </data>
+  <data name="ContributorRoleLeadDeveloper" xml:space="preserve">
+    <value>Ведущий разработчик</value>
+  </data>
+  <data name="Contributors" xml:space="preserve">
+    <value>УЧАСТНИКИ</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="CopySettingsTooltip" xml:space="preserve">
+    <value>Копировать настройки в буфер обмена</value>
+  </data>
+  <data name="CouldNotReadReleaseInformation" xml:space="preserve">
+    <value>Не удалось прочитать сведения о выпуске.</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="CrashReportDateTime" xml:space="preserve">
+    <value>Дата и время: {0:yyyy-MM-dd HH:mm:ss}</value>
+  </data>
+  <data name="CrashReportHeading" xml:space="preserve">
+    <value>=== Отчёт о сбое NVIDIA PROFILE INSPECTOR ===</value>
+  </data>
+  <data name="CrashReportIs64Bit" xml:space="preserve">
+    <value>64-разрядная система: {0}</value>
+  </data>
+  <data name="CrashReportOperatingSystem" xml:space="preserve">
+    <value>ОС: {0}</value>
+  </data>
+  <data name="CrashReportVersion" xml:space="preserve">
+    <value>Версия: {0}</value>
+  </data>
+  <data name="CreateProfile" xml:space="preserve">
+    <value>Создать профиль</value>
+  </data>
+  <data name="CreateProfileForApplicationQuestion" xml:space="preserve">
+    <value>Создать новый профиль для этого приложения?</value>
+  </data>
+  <data name="CreateProfilePrompt" xml:space="preserve">
+    <value>Введите уникальное имя нового пользовательского профиля драйвера.</value>
+  </data>
+  <data name="CreateProfileTooltip" xml:space="preserve">
+    <value>Создать новый профиль</value>
+  </data>
+  <data name="CsnFileOverride" xml:space="preserve">
+    <value>Переопределение файла CSN</value>
+  </data>
+  <data name="CurrentDwordValue" xml:space="preserve">
+    <value>Текущее значение DWORD</value>
+  </data>
+  <data name="CurrentProfileExportedSuccessfully" xml:space="preserve">
+    <value>Текущий профиль успешно экспортирован.</value>
+  </data>
+  <data name="CurrentValue" xml:space="preserve">
+    <value>Текущее значение</value>
+  </data>
+  <data name="CustomSettingsOverride" xml:space="preserve">
+    <value>Переопределение пользовательских настроек</value>
+  </data>
+  <data name="CustomSettingsOverrideMessage" xml:space="preserve">
+    <value>CustomSettingNames.xml загружается из каталога приложения вместо встроенного ресурса по умолчанию.
+
+Это означает, что метаданные пользовательских настроек переопределены локально. Это может быть сделано намеренно, однако имена, группы, описания и значения могут не соответствовать встроенным данным текущей сборки.
+
+Возможные последствия:
+- устаревшие или несовпадающие имена настроек
+- устаревшие описания или подписи значений
+- отсутствие новых встроенных настроек или исправлений метаданных
+- отличия группировки от встроенных данных
+
+Если это не было задумано, удалите или переименуйте внешний файл CustomSettingNames.xml в папке приложения, чтобы снова использовать встроенный ресурс.</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="Defaults" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteProfile" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="DeleteProfileQuestion" xml:space="preserve">
+    <value>Удалить этот профиль?
+
+Примечание: предопределённые профили NVIDIA невозможно восстановить до следующей установки драйвера.</value>
+  </data>
+  <data name="DeleteProfileTooltip" xml:space="preserve">
+    <value>Удалить текущий профиль</value>
+  </data>
+  <data name="Density" xml:space="preserve">
+    <value>ПЛОТНОСТЬ</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DescriptionHeading" xml:space="preserve">
+    <value>ОПИСАНИЕ</value>
+  </data>
+  <data name="DeselectAllProfiles" xml:space="preserve">
+    <value>Снять выбор со всех профилей</value>
+  </data>
+  <data name="DesignerPreview" xml:space="preserve">
+    <value>Предпросмотр дизайнера</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="DisableSplashOnStartup" xml:space="preserve">
+    <value>Отключить заставку при запуске</value>
+  </data>
+  <data name="DriverStatus" xml:space="preserve">
+    <value>Драйвер: {0}</value>
+  </data>
+  <data name="DriverStatusWithBranch" xml:space="preserve">
+    <value>Драйвер: {0} ({1})</value>
+  </data>
+  <data name="DriverUnavailable" xml:space="preserve">
+    <value>Драйвер недоступен</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="EnterValidBinaryValue" xml:space="preserve">
+    <value>Введите допустимое двоичное значение.</value>
+  </data>
+  <data name="EnterValidDwordValue" xml:space="preserve">
+    <value>Введите допустимое значение DWORD.</value>
+  </data>
+  <data name="EnterValidQwordValue" xml:space="preserve">
+    <value>Введите допустимое значение QWORD.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Ошибка: {0}</value>
+  </data>
+  <data name="ExceptionDetailsHeading" xml:space="preserve">
+    <value>=== Сведения об исключении ===</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>Сообщение: {0}</value>
+  </data>
+  <data name="ExceptionSource" xml:space="preserve">
+    <value>Источник: {0}</value>
+  </data>
+  <data name="ExceptionStackTrace" xml:space="preserve">
+    <value>Трассировка стека: {0}</value>
+  </data>
+  <data name="ExceptionTargetSite" xml:space="preserve">
+    <value>Целевой метод: {0}</value>
+  </data>
+  <data name="ExceptionType" xml:space="preserve">
+    <value>Тип: {0}</value>
+  </data>
+  <data name="ExecutablesFileFilter" xml:space="preserve">
+    <value>Исполняемые файлы (*.exe)|*.exe|Все файлы (*.*)|*.*</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="ExportAllCustomizedProfiles" xml:space="preserve">
+    <value>Экспортировать все изменённые профили</value>
+  </data>
+  <data name="ExportAllCustomizedProfilesDescription" xml:space="preserve">
+    <value>Экспортирует все профили с пользовательскими или изменёнными настройками.</value>
+  </data>
+  <data name="ExportAllProfilesNvidiaFormat" xml:space="preserve">
+    <value>Экспортировать все профили (текстовый формат NVIDIA)</value>
+  </data>
+  <data name="ExportAllProfilesNvidiaFormatDescription" xml:space="preserve">
+    <value>Экспортирует всю базу профилей в официальном текстовом формате NVIDIA.</value>
+  </data>
+  <data name="ExportCurrentIncludingPredefined" xml:space="preserve">
+    <value>Экспортировать текущий профиль с предопределёнными настройками</value>
+  </data>
+  <data name="ExportCurrentIncludingPredefinedDescription" xml:space="preserve">
+    <value>Экспортирует текущий профиль со всеми настройками, включая не изменённые пользователем.</value>
+  </data>
+  <data name="ExportCurrentProfileOnly" xml:space="preserve">
+    <value>Экспортировать только текущий профиль</value>
+  </data>
+  <data name="ExportCurrentProfileOnlyDescription" xml:space="preserve">
+    <value>Экспортирует только изменённые настройки выбранного профиля.</value>
+  </data>
+  <data name="ExportProfiles" xml:space="preserve">
+    <value>Экспорт профилей</value>
+  </data>
+  <data name="ExportProfilesPrompt" xml:space="preserve">
+    <value>Выберите способ экспорта профилей:</value>
+  </data>
+  <data name="ExportProfilesTooltip" xml:space="preserve">
+    <value>Экспортировать профили в файл</value>
+  </data>
+  <data name="ExportSelected" xml:space="preserve">
+    <value>Экспортировать выбранное</value>
+  </data>
+  <data name="ExportSelectedProfiles" xml:space="preserve">
+    <value>Экспортировать выбранные профили</value>
+  </data>
+  <data name="ExternalCustomSettingsTooltip" xml:space="preserve">
+    <value>Пользовательские настройки загружаются из внешнего файла CustomSettingNames.xml</value>
+  </data>
+  <data name="FailedToImportProfile" xml:space="preserve">
+    <value>Не удалось импортировать профиль «{0}»</value>
+  </data>
+  <data name="FailedToMergeIntoProfile" xml:space="preserve">
+    <value>Не удалось объединить импорт с профилем '{0}'</value>
+  </data>
+  <data name="FallbackGroupOpenGL" xml:space="preserve">
+    <value>10 - OpenGL</value>
+  </data>
+  <data name="FallbackGroupStereo" xml:space="preserve">
+    <value>09 - Стерео</value>
+  </data>
+  <data name="FallbackGroupUnknownDriverSettings" xml:space="preserve">
+    <value>11 - Неизвестные настройки драйвера</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>★ Избранное</value>
+  </data>
+  <data name="FilterSettingsTooltip" xml:space="preserve">
+    <value>Фильтровать настройки по типу</value>
+  </data>
+  <data name="GameExecutableNotFound" xml:space="preserve">
+    <value>Исполняемый файл игры не найден.</value>
+  </data>
+  <data name="GameExecutablePath" xml:space="preserve">
+    <value>Путь к исполняемому файлу игры</value>
+  </data>
+  <data name="Glass" xml:space="preserve">
+    <value>Стекло</value>
+  </data>
+  <data name="GlobalDriverProfile" xml:space="preserve">
+    <value>ГЛОБАЛЬНЫЙ ПРОФИЛЬ ДРАЙВЕРА</value>
+  </data>
+  <data name="GlobalSessionIsZero" xml:space="preserve">
+    <value>Глобальный сеанс DRS не инициализирован.</value>
+  </data>
+  <data name="GlobalSettingTooltip" xml:space="preserve">
+    <value>Глобальная настройка - применяется ко всем приложениям</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Импорт</value>
+  </data>
+  <data name="ImportAllDriverProfiles" xml:space="preserve">
+    <value>Импортировать (заменить) все профили драйвера</value>
+  </data>
+  <data name="ImportAllDriverProfilesDescription" xml:space="preserve">
+    <value>Восстанавливает или заменяет все профили из файла текстового формата NVIDIA.</value>
+  </data>
+  <data name="ImportErrorMessage" xml:space="preserve">
+    <value>Ошибка импорта: {0}</value>
+  </data>
+  <data name="ImportProfileRenameHint" xml:space="preserve">
+    <value>Подсказка: если NVIDIA изменила только имя профиля, вручную обновите его в файле импорта с помощью текстового редактора.</value>
+  </data>
+  <data name="ImportProfiles" xml:space="preserve">
+    <value>Импорт профилей</value>
+  </data>
+  <data name="ImportProfilesPrompt" xml:space="preserve">
+    <value>Выберите способ импорта профилей:</value>
+  </data>
+  <data name="ImportProfilesTooltip" xml:space="preserve">
+    <value>Импортировать профили из файла</value>
+  </data>
+  <data name="ImportWarning" xml:space="preserve">
+    <value>Предупреждение импорта</value>
+  </data>
+  <data name="IncludePredefinedSettings" xml:space="preserve">
+    <value>Включить предопределённые настройки</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="InnerExceptionHeading" xml:space="preserve">
+    <value>=== Внутреннее исключение ===</value>
+  </data>
+  <data name="InstallUpdate" xml:space="preserve">
+    <value>Установить обновление</value>
+  </data>
+  <data name="InvalidApplicationOrFindFile" xml:space="preserve">
+    <value>Недопустимое имя приложения или строка FindFile.</value>
+  </data>
+  <data name="InvalidSettingType" xml:space="preserve">
+    <value>Недопустимый тип настройки.</value>
+  </data>
+  <data name="InvalidValueType" xml:space="preserve">
+    <value>Недопустимый тип значения.</value>
+  </data>
+  <data name="Invert" xml:space="preserve">
+    <value>Инвертировать</value>
+  </data>
+  <data name="InvertSelection" xml:space="preserve">
+    <value>Инвертировать выбор</value>
+  </data>
+  <data name="KnownSettingsCount" xml:space="preserve">
+    <value>Известных настроек: {0}</value>
+  </data>
+  <data name="KnownSettingsStatus" xml:space="preserve">
+    <value>Известных настроек: {0} (в профилях: {1} / обнаружено: {2})</value>
+  </data>
+  <data name="Lab" xml:space="preserve">
+    <value>Лаборатория</value>
+  </data>
+  <data name="LastOtaProfileUpdate" xml:space="preserve">
+    <value>Последнее OTA-обновление профилей: {0:g}</value>
+  </data>
+  <data name="Latest" xml:space="preserve">
+    <value>Последняя</value>
+  </data>
+  <data name="MergeCompletedWithWarnings" xml:space="preserve">
+    <value>Объединение завершено с предупреждениями:
+
+{0}</value>
+  </data>
+  <data name="MergeConflictHint" xml:space="preserve">
+    <value>Подсказка: сначала удалите конфликтующие приложения из другого профиля, затем повторите объединение.</value>
+  </data>
+  <data name="MergeImportedProfiles" xml:space="preserve">
+    <value>Объединить импортированные профили</value>
+  </data>
+  <data name="MergeImportedProfilesDescription" xml:space="preserve">
+    <value>Импортирует один или несколько файлов .nip и объединяет их с целевыми профилями, указанными в файлах. Существующие значения сохраняются, но при наличии одинаковой настройки используется импортированное значение.</value>
+  </data>
+  <data name="Mica" xml:space="preserve">
+    <value>Mica</value>
+  </data>
+  <data name="MicaVariant" xml:space="preserve">
+    <value>Вариант Mica</value>
+  </data>
+  <data name="Midnight" xml:space="preserve">
+    <value>Midnight</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>Свернуть</value>
+  </data>
+  <data name="Modern" xml:space="preserve">
+    <value>Современный</value>
+  </data>
+  <data name="NavigateToGlobalProfile" xml:space="preserve">
+    <value>Перейти к глобальному профилю</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="NewVersionReadyToInstall" xml:space="preserve">
+    <value>Новая версия готова к установке.</value>
+  </data>
+  <data name="NewVersionWithoutSupportedPackage" xml:space="preserve">
+    <value>Доступна новая версия, но она не содержит поддерживаемого пакета обновления.</value>
+  </data>
+  <data name="NipFileFilter" xml:space="preserve">
+    <value>Профили NVIDIA PROFILE INSPECTOR|*.nip</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="NoCompatibleDriver" xml:space="preserve">
+    <value>В системе не обнаружен совместимый драйвер NVIDIA. Возможно, графический процессор NVIDIA отключён.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="NoReleaseInformation" xml:space="preserve">
+    <value>Сведения о выпуске недоступны.</value>
+  </data>
+  <data name="NotChecked" xml:space="preserve">
+    <value>Не проверено</value>
+  </data>
+  <data name="NoUpdateReleaseSelected" xml:space="preserve">
+    <value>Выпуск обновления не выбран.</value>
+  </data>
+  <data name="NvapiFunctionFailed" xml:space="preserve">
+    <value>Сбой {0}: {1}</value>
+  </data>
+  <data name="NvidiaSettingTooltip" xml:space="preserve">
+    <value>Настройка NVIDIA - определена драйвером NVIDIA</value>
+  </data>
+  <data name="NvidiaTextFileFilter" xml:space="preserve">
+    <value>Текстовые файлы NVIDIA|*.txt</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="OpenBitEditorTooltip" xml:space="preserve">
+    <value>Открыть редактор битовых значений</value>
+  </data>
+  <data name="OpenGitHubReleases" xml:space="preserve">
+    <value>Открыть выпуски GitHub</value>
+  </data>
+  <data name="OpenGitHubRepository" xml:space="preserve">
+    <value>Открыть репозиторий GitHub</value>
+  </data>
+  <data name="OtaStatus" xml:space="preserve">
+    <value>OTA {0:g}</value>
+  </data>
+  <data name="OtaUnknown" xml:space="preserve">
+    <value>OTA неизвестно</value>
+  </data>
+  <data name="PreparingUpdatePackage" xml:space="preserve">
+    <value>Подготовка пакета обновления...</value>
+  </data>
+  <data name="ProfileCount" xml:space="preserve">
+    <value>Профилей: {0}</value>
+  </data>
+  <data name="ProfileDeletedSuccessfully" xml:space="preserve">
+    <value>Профиль успешно удалён.</value>
+  </data>
+  <data name="ProfileForApplicationSelected" xml:space="preserve">
+    <value>Выбран профиль для '{0}'.</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Профиль: {0}</value>
+  </data>
+  <data name="ProfileNameMustBeUnique" xml:space="preserve">
+    <value>Имя профиля должно быть уникальным.</value>
+  </data>
+  <data name="ProfileNameRequired" xml:space="preserve">
+    <value>Введите уникальное имя профиля.</value>
+  </data>
+  <data name="ProfileNotFound" xml:space="preserve">
+    <value>Профиль не найден.</value>
+  </data>
+  <data name="ProfileRestoredSuccessfully" xml:space="preserve">
+    <value>Профиль успешно восстановлен до значений драйвера по умолчанию.</value>
+  </data>
+  <data name="Profiles" xml:space="preserve">
+    <value>Профили</value>
+  </data>
+  <data name="ProfilesImportedSuccessfully" xml:space="preserve">
+    <value>Профили успешно импортированы.</value>
+  </data>
+  <data name="ProfilesMergedSuccessfully" xml:space="preserve">
+    <value>Импортированные профили успешно объединены.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="RefreshProfilesTooltip" xml:space="preserve">
+    <value>Обновить все профили</value>
+  </data>
+  <data name="ReleaseHasNoDownloadablePackage" xml:space="preserve">
+    <value>Выбранный выпуск не содержит доступного для загрузки пакета обновления.</value>
+  </data>
+  <data name="Releases" xml:space="preserve">
+    <value>Выпуски</value>
+  </data>
+  <data name="RemoveApplication" xml:space="preserve">
+    <value>Удалить приложение</value>
+  </data>
+  <data name="RemoveApplicationQuestion" xml:space="preserve">
+    <value>Удалить приложение '{0}' из профиля?</value>
+  </data>
+  <data name="ReplaceImportedProfiles" xml:space="preserve">
+    <value>Заменить импортированные профили</value>
+  </data>
+  <data name="ReplaceImportedProfilesDescription" xml:space="preserve">
+    <value>Импортирует один или несколько файлов .nip и заменяет текущие приложения и настройки каждого импортированного профиля содержимым файла.</value>
+  </data>
+  <data name="ReservedUnknown" xml:space="preserve">
+    <value>Зарезервировано / неизвестно</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="ResetProfileChangesTooltip" xml:space="preserve">
+    <value>Сбросить изменения текущего профиля</value>
+  </data>
+  <data name="ResetSettingTooltip" xml:space="preserve">
+    <value>Сбросить настройку к значению по умолчанию</value>
+  </data>
+  <data name="RestoreProfile" xml:space="preserve">
+    <value>Восстановить профиль</value>
+  </data>
+  <data name="RestoreProfileQuestion" xml:space="preserve">
+    <value>Восстановить профиль до значений драйвера NVIDIA по умолчанию?</value>
+  </data>
+  <data name="RestoreProfileTooltip" xml:space="preserve">
+    <value>Восстановить профиль до стандартных настроек NVIDIA</value>
+  </data>
+  <data name="ScanningProfiles" xml:space="preserve">
+    <value>Сканирование профилей</value>
+  </data>
+  <data name="ScanningProfilesWithEllipsis" xml:space="preserve">
+    <value>Сканирование профилей...</value>
+  </data>
+  <data name="ScanningProgress" xml:space="preserve">
+    <value>Сканирование... {0}%</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Поиск...</value>
+  </data>
+  <data name="SearchSettingsTooltip" xml:space="preserve">
+    <value>Поиск настроек по имени (Ctrl+F)</value>
+  </data>
+  <data name="SelectAllProfiles" xml:space="preserve">
+    <value>Выбрать все профили</value>
+  </data>
+  <data name="SelectApplicationAbsolutePath" xml:space="preserve">
+    <value>Выбрать абсолютный путь к приложению</value>
+  </data>
+  <data name="SelectAtLeastOneProfile" xml:space="preserve">
+    <value>Выберите хотя бы один профиль для экспорта.</value>
+  </data>
+  <data name="SelectedProfilesExportedSuccessfully" xml:space="preserve">
+    <value>Все выбранные профили успешно экспортированы.</value>
+  </data>
+  <data name="SelectGame" xml:space="preserve">
+    <value>Выбрать игру</value>
+  </data>
+  <data name="SelectProfiles" xml:space="preserve">
+    <value>Выбрать профили</value>
+  </data>
+  <data name="SelectProfilesToExport" xml:space="preserve">
+    <value>Выберите профили для экспорта</value>
+  </data>
+  <data name="SelectProfilesToExportDescription" xml:space="preserve">
+    <value>Выберите несколько изменённых профилей из списка, чтобы экспортировать их в один файл.</value>
+  </data>
+  <data name="SelectProfilesToExportPrompt" xml:space="preserve">
+    <value>Выберите профили для экспорта:</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Настройка</value>
+  </data>
+  <data name="SettingsAppliedSuccessfully" xml:space="preserve">
+    <value>Настройки успешно применены.</value>
+  </data>
+  <data name="SettingsCopiedToClipboard" xml:space="preserve">
+    <value>Настройки скопированы в буфер обмена.</value>
+  </data>
+  <data name="ShowAllSettings" xml:space="preserve">
+    <value>Показать все настройки</value>
+  </data>
+  <data name="ShowUnknownSettingsTooltip" xml:space="preserve">
+    <value>Показывать неизвестные настройки предопределённых профилей NVIDIA</value>
+  </data>
+  <data name="Slate" xml:space="preserve">
+    <value>Сланец</value>
+  </data>
+  <data name="SomeProfilesCouldNotBeImported" xml:space="preserve">
+    <value>Не удалось импортировать некоторые профили.
+
+{0}</value>
+  </data>
+  <data name="SplashLoading" xml:space="preserve">
+    <value>Загрузка приложения</value>
+  </data>
+  <data name="SplashPreparing" xml:space="preserve">
+    <value>Подготовка профилей драйвера и настроек...</value>
+  </data>
+  <data name="Startup" xml:space="preserve">
+    <value>ЗАПУСК</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>ТЕМА</value>
+  </data>
+  <data name="ToggleFavorite" xml:space="preserve">
+    <value>Переключить избранное</value>
+  </data>
+  <data name="Unavailable" xml:space="preserve">
+    <value>Недоступно</value>
+  </data>
+  <data name="UnexpectedErrorFallback" xml:space="preserve">
+    <value>Произошла непредвиденная ошибка:
+
+{0}
+
+{1}</value>
+  </data>
+  <data name="UnexpectedErrorWithCrashLog" xml:space="preserve">
+    <value>Произошла непредвиденная ошибка:
+
+{0}
+
+Подробный журнал сбоя создан по адресу:
+{1}
+
+Открыть расположение файла журнала?</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>неизвестно</value>
+  </data>
+  <data name="UnsupportedUpdatePackageFormat" xml:space="preserve">
+    <value>Формат выбранного пакета обновления не поддерживается.</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Доступно обновление</value>
+  </data>
+  <data name="UpdateChannelPrerelease" xml:space="preserve">
+    <value>Предварительная версия</value>
+  </data>
+  <data name="UpdateChannelRelease" xml:space="preserve">
+    <value>Стабильная версия</value>
+  </data>
+  <data name="UpdateCouldNotBeInstalled" xml:space="preserve">
+    <value>Не удалось установить обновление.
+
+{0}</value>
+  </data>
+  <data name="UpdateDownloadedRestarting" xml:space="preserve">
+    <value>Обновление загружено. Перезапуск приложения...</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Ошибка обновления</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>ОБНОВЛЕНИЯ</value>
+  </data>
+  <data name="UserDefinedSettingTooltip" xml:space="preserve">
+    <value>Пользовательская настройка - добавлена пользователем</value>
+  </data>
+  <data name="UserModifiedSettings" xml:space="preserve">
+    <value>Настройки, изменённые пользователем</value>
+  </data>
+  <data name="ValidFilenameAndFindFileRequired" xml:space="preserve">
+    <value>Введите допустимое имя файла и строку FindFile.</value>
+  </data>
+  <data name="ValueAppliedToProfile" xml:space="preserve">
+    <value>Значение применено к профилю.</value>
+  </data>
+  <data name="ValueLabel" xml:space="preserve">
+    <value>Значение:</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Версия </value>
+  </data>
+  <data name="ViewModifiedProfiles" xml:space="preserve">
+    <value>Показать изменённые профили</value>
+  </data>
+  <data name="ViewProfile" xml:space="preserve">
+    <value>Показать профиль</value>
+  </data>
+  <data name="WaitingForModifiedProfilesScan" xml:space="preserve">
+    <value>Ожидание завершения поиска изменённых профилей...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+</root>
