@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 
 namespace nvidiaProfileInspector.Common.CustomSettings
 {
@@ -18,6 +19,9 @@ namespace nvidiaProfileInspector.Common.CustomSettings
         public string UserfriendlyName { get; set; }
 
         public string HexValue { get; set; }
+
+        [XmlIgnore]
+        public string SearchTerms { get; set; }
 
     }
 }

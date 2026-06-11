@@ -560,6 +560,7 @@ namespace nvidiaProfileInspector.Common
                 SettingText = settingMeta.SettingName,
                 GroupName = settingMeta.GroupName,
                 AlternateNames = settingMeta.AlternateNames,
+                SearchTerms = settingMeta.SearchTerms,
                 ValueRaw = valueRaw,
                 ValueText = valueText,
                 State = settingState,

@@ -23,6 +23,8 @@
 
         public string AlternateNames { get; set; }
 
+        public string SearchTerms { get; set; }
+
         public SettingState State { get; set; }
 
         public bool IsStringValue { get; set; }

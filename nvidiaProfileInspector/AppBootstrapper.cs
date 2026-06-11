@@ -5,6 +5,8 @@ namespace nvidiaProfileInspector
     using nvidiaProfileInspector.Services;
     using nvidiaProfileInspector.TinyIoc;
     using System;
+    using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Reflection;
 
@@ -24,9 +26,14 @@ namespace nvidiaProfileInspector
             _container = new TinyIoCContainer();
 
             var customSettings = LoadCustomSettings();
-            var referenceSettings = LoadReferenceSettings();
+            var referenceLocalizationPath = GetReferenceLocalizationPath();
+            var referenceSettings = LoadReferenceSettings(referenceLocalizationPath);
+            var referenceGroupTranslations = LoadReferenceGroupTranslations(referenceLocalizationPath);
 
-            var metaService = new DrsSettingsMetaService(customSettings, referenceSettings);
+            var metaService = new DrsSettingsMetaService(
+                customSettings,
+                referenceSettings,
+                referenceGroupTranslations);
             var decrypterService = new DrsDecrypterService(metaService);
             var scannerService = new DrsScannerService(metaService, decrypterService);
             var settingService = new DrsSettingsService(metaService, decrypterService);
@@ -90,14 +97,60 @@ namespace nvidiaProfileInspector
             }
         }
 
-        private CustomSettingNames LoadReferenceSettings()
+        private string GetApplicationDirectory()
         {
-            string csnDefaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Reference.xml";
+            return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        }
+
+        private string GetReferenceLocalizationPath()
+        {
+            var localizationPath = Path.Combine(
+                GetApplicationDirectory(),
+                $"Reference.{CultureInfo.CurrentUICulture.Name}.xml");
+
+            return File.Exists(localizationPath) ? localizationPath : null;
+        }
+
+        private IReadOnlyDictionary<string, string> LoadReferenceGroupTranslations(string localizationPath)
+        {
+            if (localizationPath == null)
+                return null;
 
             try
             {
-                if (File.Exists(csnDefaultPath))
-                    return CustomSettingNames.FactoryLoadFromFile(csnDefaultPath);
+                return ReferenceLocalization.LoadGroupTranslations(localizationPath);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private CustomSettingNames LoadReferenceSettings(string localizationPath)
+        {
+            var referencePath = Path.Combine(GetApplicationDirectory(), "Reference.xml");
+
+            try
+            {
+                if (!File.Exists(referencePath))
+                    return null;
+
+                var referenceSettings = CustomSettingNames.FactoryLoadFromFile(referencePath);
+
+                if (localizationPath != null)
+                {
+                    try
+                    {
+                        ReferenceLocalization.Apply(referenceSettings, localizationPath);
+                    }
+                    catch
+                    {
+                        // A missing or outdated localization must never prevent the base reference from loading.
+                        referenceSettings = CustomSettingNames.FactoryLoadFromFile(referencePath);
+                    }
+                }
+
+                return referenceSettings;
             }
             catch { }
 

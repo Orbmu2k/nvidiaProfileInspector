@@ -294,10 +294,10 @@ namespace nvidiaProfileInspector.UI.Controls
                         {
                             if (item is SettingValueItem svi)
                             {
-                                return !string.IsNullOrEmpty(svi.ValueName) &&
-                                    svi.ValueName.ToLower().Contains(FilterText.ToLower());
+                                return ContainsFilter(svi.ValueName) ||
+                                    ContainsFilter(svi.SearchTerms);
                             }
-                            return item?.ToString()?.ToLower().Contains(FilterText.ToLower()) ?? false;
+                            return ContainsFilter(item?.ToString());
                         })
                         .ToList();
 
@@ -308,6 +308,12 @@ namespace nvidiaProfileInspector.UI.Controls
             {
                 _isApplyingFilter = false;
             }
+        }
+
+        private bool ContainsFilter(string value)
+        {
+            return !string.IsNullOrEmpty(value) &&
+                value.IndexOf(FilterText, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private void SyncDisplayedText()

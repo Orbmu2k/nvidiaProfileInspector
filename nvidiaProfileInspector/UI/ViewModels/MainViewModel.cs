@@ -674,11 +674,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
                 string nameToCheck = item.DisplayName ?? "";
                 string altNamesToCheck = item.AlternateNames ?? "";
+                string searchTermsToCheck = item.SearchTerms ?? "";
 
                 if (nameToCheck.IndexOf(_filterText, StringComparison.OrdinalIgnoreCase) >= 0)
                     return true;
                 if (!string.IsNullOrEmpty(altNamesToCheck) &&
                     altNamesToCheck.IndexOf(_filterText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return true;
+                if (!string.IsNullOrEmpty(searchTermsToCheck) &&
+                    searchTermsToCheck.IndexOf(_filterText, StringComparison.OrdinalIgnoreCase) >= 0)
                     return true;
                 if (item.SettingIdHex.IndexOf(_filterText, StringComparison.OrdinalIgnoreCase) >= 0)
                     return true;

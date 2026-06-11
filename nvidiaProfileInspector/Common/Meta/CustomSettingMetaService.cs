@@ -90,6 +90,14 @@ namespace nvidiaProfileInspector.Common.Meta
             return null;
         }
 
+        public string GetLocalizedSettingName(uint settingId)
+        {
+            var setting = customSettings.Settings
+                .FirstOrDefault(x => x.SettingId.Equals(settingId) && x.HasLocalizedName);
+
+            return setting == null ? null : ProcessNameReplacements(setting.UserfriendlyName);
+        }
+
         public uint? GetDwordDefaultValue(uint settingId)
         {
             var setting = customSettings.Settings
@@ -135,6 +143,7 @@ namespace nvidiaProfileInspector.Common.Meta
                     ValuePos = i++,
                     Value = x.SettingValue,
                     ValueName = FormatDwordValueName(x.SettingValue, x.UserfriendlyName),
+                    SearchTerms = x.SearchTerms,
                 }).ToList();
             }
 
@@ -154,6 +163,7 @@ namespace nvidiaProfileInspector.Common.Meta
                     ValuePos = i++,
                     Value = x.QwordSettingValue,
                     ValueName = FormatQwordValueName(x.QwordSettingValue, x.UserfriendlyName),
+                    SearchTerms = x.SearchTerms,
                 }).ToList();
             }
 
@@ -184,6 +194,14 @@ namespace nvidiaProfileInspector.Common.Meta
                .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
             return setting?.AlternateNames;
+        }
+
+        public string GetSearchTerms(uint settingId)
+        {
+            var setting = customSettings.Settings
+                .FirstOrDefault(x => x.SettingId.Equals(settingId));
+
+            return setting?.SearchTerms;
         }
 
         public byte[] GetBinaryDefaultValue(uint settingId)
@@ -219,6 +237,7 @@ namespace nvidiaProfileInspector.Common.Meta
                         ValuePos = i++,
                         Value = binaryValue,
                         ValueName = ProcessNameReplacements(x.UserfriendlyName),
+                        SearchTerms = x.SearchTerms,
                     };
                 }).ToList();
             }

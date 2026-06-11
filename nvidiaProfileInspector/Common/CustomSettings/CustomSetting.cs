@@ -23,6 +23,12 @@ namespace nvidiaProfileInspector.Common.CustomSettings
 
         public List<CustomSettingValue> SettingValues { get; set; }
 
+        [XmlIgnore]
+        public string SearchTerms { get; set; }
+
+        [XmlIgnore]
+        public bool HasLocalizedName { get; set; }
+
         public uint SettingId
         {
             get { return Convert.ToUInt32(HexSettingId.Trim(), 16); }

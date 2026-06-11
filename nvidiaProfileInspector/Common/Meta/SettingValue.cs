@@ -12,6 +12,7 @@
 
         public int ValuePos { get; set; }
         public string ValueName { get; set; }
+        public string SearchTerms { get; set; }
         public T Value { get; set; }
 
         public override string ToString()

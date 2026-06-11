@@ -19,16 +19,21 @@ namespace nvidiaProfileInspector.Common
 
         private readonly CustomSettingNames _customSettings;
         private readonly CustomSettingNames _referenceSettings;
+        private readonly IReadOnlyDictionary<string, string> _groupNameTranslations;
 
         private List<MetaServiceItem> MetaServices = new List<MetaServiceItem>();
 
         private Dictionary<uint, SettingMeta> settingMetaCache = new Dictionary<uint, SettingMeta>();
         private Dictionary<Tuple<uint, SettingViewMode>, SettingMeta> postProcessedSettingMetaCache = new Dictionary<Tuple<uint, SettingViewMode>, SettingMeta>();
 
-        public DrsSettingsMetaService(CustomSettingNames customSettings, CustomSettingNames referenceSettings = null)
+        public DrsSettingsMetaService(
+            CustomSettingNames customSettings,
+            CustomSettingNames referenceSettings = null,
+            IReadOnlyDictionary<string, string> groupNameTranslations = null)
         {
             _customSettings = customSettings;
             _referenceSettings = referenceSettings;
+            _groupNameTranslations = groupNameTranslations ?? new Dictionary<string, string>();
 
             ResetMetaCache(true);
         }
@@ -82,9 +87,17 @@ namespace nvidiaProfileInspector.Common
         private string GetSettingName(uint settingId)
         {
             string hexCandidate = null;
+            var localizedReferenceName =
+                (ReferenceMeta as CustomSettingMetaService)?.GetLocalizedSettingName(settingId);
 
             foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
             {
+                if (service.Service.Source != SettingMetaSource.CustomSettings &&
+                    !string.IsNullOrEmpty(localizedReferenceName))
+                {
+                    return localizedReferenceName;
+                }
+
                 var settingName = service.Service.GetSettingName(settingId);
 
                 if (!string.IsNullOrEmpty(settingName))
@@ -106,9 +119,20 @@ namespace nvidiaProfileInspector.Common
             {
                 var groupName = service.Service.GetGroupName(settingId);
                 if (groupName != null)
-                    return groupName;
+                    return LocalizeGroupName(groupName);
             }
             return null;
+        }
+
+        private string LocalizeGroupName(string groupName)
+        {
+            if (groupName != null &&
+                _groupNameTranslations.TryGetValue(groupName, out var localizedGroupName))
+            {
+                return localizedGroupName;
+            }
+
+            return groupName;
         }
 
         private string GetAlternateNames(uint settingId)
@@ -194,6 +218,9 @@ namespace nvidiaProfileInspector.Common
                     if (bVal != null && bVal.ValueName != null)
                     {
                         settingValue.ValueName = bVal.ValueName;
+                        settingValue.SearchTerms = MergeSearchTerms(
+                            settingValue.SearchTerms,
+                            bVal.SearchTerms);
                         settingValue.ValueSource = bVal.ValueSource;
                         settingValue.ValuePos = bVal.ValuePos;
                     }
@@ -205,6 +232,16 @@ namespace nvidiaProfileInspector.Common
                 return a.OrderBy(x => x.Value).ToList();
             else
                 return a.ToList();
+        }
+
+        private static string MergeSearchTerms(string current, string additional)
+        {
+            if (string.IsNullOrWhiteSpace(additional))
+                return current;
+            if (string.IsNullOrWhiteSpace(current))
+                return additional;
+
+            return current + "\n" + additional;
         }
 
         private List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
@@ -353,6 +390,7 @@ namespace nvidiaProfileInspector.Common
             var settingType = GetSettingValueType(settingId);
             var settingName = GetSettingName(settingId);
             var groupName = GetGroupName(settingId);
+            var referenceSearchTerms = (ReferenceMeta as CustomSettingMetaService)?.GetSearchTerms(settingId);
 
             if (groupName == null)
                 groupName = GetFallbackGroupName(settingId, settingName);
@@ -363,6 +401,7 @@ namespace nvidiaProfileInspector.Common
                 SettingName = settingName,
                 GroupName = groupName,
                 AlternateNames = GetAlternateNames(settingId),
+                SearchTerms = referenceSearchTerms,
 
                 IsApiExposed = GetIsApiExposed(settingId),
                 IsSettingHidden = GetIsSettingHidden(settingId),
@@ -420,6 +459,7 @@ namespace nvidiaProfileInspector.Common
                 SettingType = settingMeta.SettingType,
                 GroupName = settingMeta.GroupName,
                 AlternateNames = settingMeta.AlternateNames,
+                SearchTerms = settingMeta.SearchTerms,
                 IsApiExposed = settingMeta.IsApiExposed,
                 IsSettingHidden = settingMeta.IsSettingHidden,
                 Description = settingMeta.Description,

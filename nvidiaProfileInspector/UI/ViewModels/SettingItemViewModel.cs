@@ -9,6 +9,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     public class SettingValueItem
     {
         public string ValueName { get; set; }
+        public string SearchTerms { get; set; }
         public SettingMetaSource Source { get; set; }
 
         public override string ToString()
@@ -81,22 +82,42 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     if (DwordValues != null)
                     {
                         items.AddRange(DwordValues.Where(v => !string.IsNullOrEmpty(v.ValueName))
-                        .Select(v => new SettingValueItem { ValueName = v.ValueName, Source = v.ValueSource }));
+                        .Select(v => new SettingValueItem
+                        {
+                            ValueName = v.ValueName,
+                            SearchTerms = v.SearchTerms,
+                            Source = v.ValueSource
+                        }));
                     }
                     else if (QwordValues != null)
                     {
                         items.AddRange(QwordValues.Where(v => !string.IsNullOrEmpty(v.ValueName))
-                        .Select(v => new SettingValueItem { ValueName = v.ValueName, Source = v.ValueSource }));
+                        .Select(v => new SettingValueItem
+                        {
+                            ValueName = v.ValueName,
+                            SearchTerms = v.SearchTerms,
+                            Source = v.ValueSource
+                        }));
                     }
                     else if (StringValues != null)
                     {
                         items.AddRange(StringValues.Where(v => !string.IsNullOrEmpty(v.ValueName))
-                        .Select(v => new SettingValueItem { ValueName = v.ValueName, Source = v.ValueSource }));
+                        .Select(v => new SettingValueItem
+                        {
+                            ValueName = v.ValueName,
+                            SearchTerms = v.SearchTerms,
+                            Source = v.ValueSource
+                        }));
                     }
                     else if (BinaryValues != null)
                     {
                         items.AddRange(BinaryValues.Where(v => !string.IsNullOrEmpty(v.ValueName))
-                        .Select(v => new SettingValueItem { ValueName = v.ValueName, Source = v.ValueSource }));
+                        .Select(v => new SettingValueItem
+                        {
+                            ValueName = v.ValueName,
+                            SearchTerms = v.SearchTerms,
+                            Source = v.ValueSource
+                        }));
                     }
                     _cachedValueNameItems = items
                         .OrderBy(v => v.Source == SettingMetaSource.CustomSettings ? 0 : 1)
@@ -130,6 +151,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public string GroupNameSortKey => string.IsNullOrEmpty(GroupName) ? "Z" : GroupName;
 
         public string AlternateNames => _item.AlternateNames;
+        public string SearchTerms => _item.SearchTerms;
         public SettingState State => _item.State;
         public bool IsStringValue => _item.IsStringValue;
         public bool IsApiExposed => _item.IsApiExposed;

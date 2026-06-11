@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceLocalization culture="zh-TW">
+  <!--
+    This is a sparse localization overlay for Reference.xml.
+    Only translatable text belongs here. Setting and value IDs must continue
+    to come from Reference.xml; missing or stale entries fall back to it.
+    Keep each source attribute equal to the corresponding current Ref text so
+    an upstream text change invalidates only that outdated translation.
+  -->
+  <Groups>
+    <Group source="01 - Compatibility">01 - 相容性</Group>
+    <Group source="02 - Sync and Refresh">02 - 同步與更新頻率</Group>
+    <Group source="03 - Antialiasing and Sharpening">03 - 反鋸齒與銳化</Group>
+    <Group source="04 - Texture Filtering">04 - 紋理過濾</Group>
+    <Group source="05 - Upscaling and Frame Generation">05 - 升頻與畫格生成</Group>
+    <Group source="06 - Rendering Features">06 - 算繪功能</Group>
+    <Group source="07 - System, Memory and Compute">07 - 系統、記憶體與運算</Group>
+    <Group source="08 - SLI and NVLINK">08 - SLI 與 NVLINK</Group>
+    <Group source="09 - Stereo">09 - 立體顯示</Group>
+    <Group source="10 - OpenGL">10 - OpenGL</Group>
+    <Group source="11 - Unknown Driver Settings">11 - 未知驅動程式設定</Group>
+  </Groups>
+  <Settings>
+    <Setting id="0x002C74F1">
+      <Name source="3Dsmax Shim Layer Control">3ds Max 相容層控制</Name>
+      <Description source="3DSMax Shim Layer Control (D3D9 Vista/Win7)">3ds Max 相容層控制（D3D9 Vista/Win7）</Description>
+      <Values>
+        <Value id="0x00000000" source="Disable - Disable the 3DSMax shim layer">停用 - 停用 3ds Max 相容層</Value>
+        <Value id="0x00000001" source="Enable - Enable the 3DSMax shim layer on Quadro and GeForce SMB GPUs">啟用 - 在 Quadro 與 GeForce SMB GPU 上啟用 3ds Max 相容層</Value>
+        <Value id="0x00000002" source="Enable GEFORCE - Enable the 3DSMax shim layer on GeForce and Quadro (DEVELOP/DEBUG only)">啟用 GEFORCE - 在 GeForce 與 Quadro 上啟用（僅限開發/偵錯）</Value>
+      </Values>
+    </Setting>
+    <Setting id="0x00B82343">
+      <Name source="App Compat Shim">應用程式相容性墊片</Name>
+      <Description source="A shim for DX1x app bugs workarounds">用於規避 DX1x 應用程式問題的相容性墊片</Description>
+      <Values>
+        <Value id="0x00000000" source="Disabled">停用</Value>
+        <Value id="0x00000001" source="DX11_FORCE_DDI_CRITICAL_SECTION - Force a critical section on all non-reentrant DX11 DDI">DX11_FORCE_DDI_CRITICAL_SECTION - 對所有不可重新進入的 DX11 DDI 強制使用臨界區</Value>
+        <Value id="0x00000002" source="DX11_FORCE_DDI_CRITICAL_SECTION_FOR_STEREO - Force a critical section on all non-reentrant DX11 DDI if stereo shim is enabled">DX11_FORCE_DDI_CRITICAL_SECTION_FOR_STEREO - 啟用立體顯示墊片時，對所有不可重新進入的 DX11 DDI 強制使用臨界區</Value>
+        <Value id="0x00000003" source="Mask">遮罩</Value>
+      </Values>
+    </Setting>
+  </Settings>
+</ReferenceLocalization>

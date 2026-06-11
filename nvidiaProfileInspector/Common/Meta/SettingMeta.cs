@@ -13,6 +13,8 @@ namespace nvidiaProfileInspector.Common.Meta
 
         public string SettingName { get; set; }
 
+        public string SearchTerms { get; set; }
+
         public string DefaultStringValue { get; set; }
 
         public uint DefaultDwordValue { get; set; }
