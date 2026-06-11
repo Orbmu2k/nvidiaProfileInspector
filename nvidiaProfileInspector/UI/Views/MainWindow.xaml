@@ -9,6 +9,7 @@
     xmlns:helper="clr-namespace:nvidiaProfileInspector.Common.Helper"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:nvidiaProfileInspector.UI.ViewModels"
+    xmlns:localization="clr-namespace:nvidiaProfileInspector.Localization"
     Title="NVIDIA PROFILE INSPECTOR"
     Width="1190"
     Height="750"
@@ -1034,7 +1035,7 @@
                                 Command="{Binding CopySettingsCommand}"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconCopy}"
-                                Text="Copy"
+                                Text="{x:Static localization:UIStrings.Copy}"
                                 ToolTip="Copy settings to clipboard" />
 
                             <controls:ActionBarButton
@@ -1051,7 +1052,7 @@
                                 Click="ExportButton_Click"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconExport}"
-                                Text="Export"
+                                Text="{x:Static localization:UIStrings.Export}"
                                 ToolTip="Export profiles to file" />
 
                             <controls:ActionBarButton
@@ -1059,7 +1060,7 @@
                                 Click="ImportButton_Click"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
                                 IconPath="{DynamicResource IconImport}"
-                                Text="Import"
+                                Text="{x:Static localization:UIStrings.Import}"
                                 ToolTip="Import profiles from file" />
                         </StackPanel>
 

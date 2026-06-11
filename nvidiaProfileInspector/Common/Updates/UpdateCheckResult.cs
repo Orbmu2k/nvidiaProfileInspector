@@ -1,3 +1,6 @@
+using nvidiaProfileInspector.Localization;
+using System;
+
 namespace nvidiaProfileInspector.Common.Updates
 {
     public sealed class UpdateCheckResult
@@ -28,7 +31,7 @@ namespace nvidiaProfileInspector.Common.Updates
 
         public static UpdateCheckResult UpToDate(UpdateRelease release)
         {
-            return new UpdateCheckResult(true, false, release, "You are already on the latest version for this channel.", null);
+            return new UpdateCheckResult(true, false, release, UIStrings.update_check_result_already_latest, null);
         }
 
         public static UpdateCheckResult Unavailable(string message)

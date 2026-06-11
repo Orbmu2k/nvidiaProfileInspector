@@ -2,6 +2,7 @@ namespace nvidiaProfileInspector
 {
     using nvidiaProfileInspector.Common;
     using nvidiaProfileInspector.Common.Helper;
+    using nvidiaProfileInspector.Localization;
     using nvidiaProfileInspector.Native.NVAPI2;
     using nvidiaProfileInspector.Native.WINAPI;
     using nvidiaProfileInspector.Services;
@@ -10,6 +11,7 @@ namespace nvidiaProfileInspector
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -31,6 +33,25 @@ namespace nvidiaProfileInspector
         internal const string LegacyProfilesImportedMessage = "ProfilesImported";
 
         public static AppBootstrapper Bootstrapper => _bootstrapper;
+
+        static App()
+        {
+            var supportedLanguages = new CultureInfo[] { new("en-US"), new("zh-CN"),new("zh-TW") };
+            var language = FindLanguage(supportedLanguages, CultureInfo.CurrentCulture, new CultureInfo("en-US") );
+            CultureInfo.CurrentCulture = language;
+            CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture;
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CurrentCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.CurrentCulture;
+        }
+
+        static CultureInfo FindLanguage(IList<CultureInfo> languages, CultureInfo language, CultureInfo fallbackLanguage)
+        {
+            if (languages.Contains(language))
+            {
+                return language;
+            }
+            return languages.FirstOrDefault(x => x.TwoLetterISOLanguageName == language.TwoLetterISOLanguageName) ?? fallbackLanguage;
+        }
 
         private bool HasArgument(IEnumerable<string> args, string name)
         {
