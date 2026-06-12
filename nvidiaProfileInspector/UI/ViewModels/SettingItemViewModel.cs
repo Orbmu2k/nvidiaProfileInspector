@@ -118,6 +118,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
         }
 
+        // Discriminator shared with SettingGroupHeaderViewModel for the flattened settings list.
+        public bool IsGroupHeader => false;
+
         public uint SettingId => _item.SettingId;
         public string SettingIdHex => string.Format("0x{0:X8}", _item.SettingId);
         public string SettingText => _item.SettingText;

@@ -1239,43 +1239,93 @@
                             ItemsSource="{Binding GroupedSettingsView}"
                             SelectedItem="{Binding SelectedSetting}"
                             ScrollViewer.CanContentScroll="True"
-                            VirtualizingPanel.CacheLengthUnit="Item"
+                            VirtualizingPanel.CacheLength="1,1"
+                            VirtualizingPanel.CacheLengthUnit="Page"
                             VirtualizingPanel.IsVirtualizing="True"
-                            VirtualizingPanel.IsVirtualizingWhenGrouping="True"
                             VirtualizingPanel.ScrollUnit="Pixel"
                             VirtualizingPanel.VirtualizationMode="Recycling"
                             Style="{StaticResource SettingsListBoxStyle}">
-                        <VirtualizingPanel.CacheLength>
-                            <MultiBinding Converter="{StaticResource SettingsFilterToCacheLengthConverter}">
-                                <Binding Path="FilterTypeIndex" />
-                                <Binding Path="Settings.Count" />
-                            </MultiBinding>
-                        </VirtualizingPanel.CacheLength>
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel
-                                    IsItemsHost="True"
-                                    VirtualizingPanel.IsVirtualizing="True"
-                                    VirtualizingPanel.IsVirtualizingWhenGrouping="True"
-                                    VirtualizingPanel.ScrollUnit="Pixel"
-                                    VirtualizingPanel.VirtualizationMode="Recycling" />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
                         <ListBox.ItemContainerStyle>
                             <Style BasedOn="{StaticResource SettingsListBoxItemStyle}" TargetType="ListBoxItem">
                                 <Setter Property="BorderThickness" Value="2,0,0,0" />
                                 <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Margin" Value="{DynamicResource FlatSettingRowMargin}" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsModified}" Value="True">
                                         <Setter Property="Background" Value="{DynamicResource ModifiedSettingBackgroundBrush}" />
                                         <Setter Property="FontWeight" Value="Bold" />
                                         <Setter Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsGroupHeader}" Value="True">
+                                        <Setter Property="Focusable" Value="False" />
+                                        <Setter Property="IsTabStop" Value="False" />
+                                        <Setter Property="Margin" Value="{DynamicResource FlatGroupHeaderMargin}" />
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <ContentPresenter />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
+                        <ListBox.Resources>
+                            <!--  Group header row of the flattened settings list  -->
+                            <DataTemplate DataType="{x:Type vm:SettingGroupHeaderViewModel}">
+                                <ToggleButton
+                                    Cursor="Hand"
+                                    Focusable="False"
+                                    IsChecked="{Binding IsExpanded, Mode=TwoWay}"
+                                    OverridesDefaultStyle="True">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Border
+                                                Margin="8,0"
+                                                Padding="{DynamicResource GroupHeaderPadding}"
+                                                Background="Transparent"
+                                                BorderBrush="{DynamicResource ControlBorderBrush}"
+                                                BorderThickness="0,0,0,1">
+                                                <DockPanel>
+                                                    <Path
+                                                        x:Name="Arrow"
+                                                        Margin="8,0,4,0"
+                                                        VerticalAlignment="Center"
+                                                        Data="M0,0 L4,4 L8,0 Z"
+                                                        DockPanel.Dock="Right"
+                                                        Fill="{DynamicResource TextSecondaryBrush}"
+                                                        RenderTransformOrigin="0.5,0.5">
+                                                        <Path.RenderTransform>
+                                                            <RotateTransform Angle="0" />
+                                                        </Path.RenderTransform>
+                                                    </Path>
+                                                    <TextBlock
+                                                        FontSize="12"
+                                                        FontWeight="Bold"
+                                                        Foreground="{DynamicResource NvidiaGreenBrush}"
+                                                        Text="{Binding Name}" />
+                                                </DockPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="Arrow" Property="RenderTransform">
+                                                        <Setter.Value>
+                                                            <RotateTransform Angle="180" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource NvidiaGreenBrush}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                            </DataTemplate>
+                            <!--  Setting row  -->
+                            <DataTemplate DataType="{x:Type vm:SettingItemViewModel}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="32" />
@@ -1408,25 +1458,7 @@
                                     </MultiDataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-
-                        <ListBox.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.Panel>
-                                    <ItemsPanelTemplate>
-                                        <VirtualizingStackPanel
-                                            IsItemsHost="True"
-                                            VirtualizingPanel.IsVirtualizing="True"
-                                            VirtualizingPanel.IsVirtualizingWhenGrouping="True"
-                                            VirtualizingPanel.ScrollUnit="Pixel"
-                                            VirtualizingPanel.VirtualizationMode="Recycling" />
-                                    </ItemsPanelTemplate>
-                                </GroupStyle.Panel>
-                                <GroupStyle.ContainerStyle>
-                                    <Style BasedOn="{StaticResource ListViewGroupHeaderStyle}" TargetType="GroupItem" />
-                                </GroupStyle.ContainerStyle>
-                            </GroupStyle>
-                        </ListBox.GroupStyle>
+                        </ListBox.Resources>
                         </ListBox>
                     </Grid>
                 </Grid>

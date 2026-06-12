@@ -12,5 +12,8 @@
     <Thickness x:Key="GroupHeaderOuterMargin">0,8,0,4</Thickness>
     <Thickness x:Key="GroupHeaderPadding">4,4,4,8</Thickness>
     <Thickness x:Key="GroupItemsPresenterMargin">8,4,8,4</Thickness>
+    <!--  Flattened settings list: header top = gap between groups, row margin includes the 8px group indent  -->
+    <Thickness x:Key="FlatGroupHeaderMargin">0,16,0,4</Thickness>
+    <Thickness x:Key="FlatSettingRowMargin">8,2,8,2</Thickness>
 
 </ResourceDictionary>

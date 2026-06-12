@@ -261,28 +261,6 @@ namespace nvidiaProfileInspector.UI.Converters
         }
     }
 
-    public class SettingsFilterToCacheLengthConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (values == null || values.Length < 2)
-                return new VirtualizationCacheLength(0);
-
-            var filterTypeIndex = values[0] is int filterIndex ? filterIndex : -1;
-            var settingsCount = values[1] is int count ? count : 0;
-
-            if (filterTypeIndex == 0)
-                return new VirtualizationCacheLength(Math.Max(0, settingsCount));
-
-            return new VirtualizationCacheLength(0);
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class SettingMetaSourceToIconConverter : IValueConverter
     {
         private static Geometry IconUser => IconResourceCache.GetGeometry("IconUser");
@@ -310,24 +288,6 @@ namespace nvidiaProfileInspector.UI.Converters
                 }
             }
             return IconSettings;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class GroupExpandedConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var groupName = value as string;
-            if (string.IsNullOrEmpty(groupName))
-                return true;
-
-            var settings = Common.Helper.UserSettings.LoadSettings();
-            return settings?.HiddenSettingGroups == null || !settings.HiddenSettingGroups.Contains(groupName);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -99,6 +99,8 @@ namespace nvidiaProfileInspector.Services
             app.Resources["GroupHeaderOuterMargin"] = compact ? new Thickness(0, 4, 0, 2) : new Thickness(0, 8, 0, 4);
             app.Resources["GroupHeaderPadding"] = compact ? new Thickness(4, 2, 4, 4) : new Thickness(4, 4, 4, 8);
             app.Resources["GroupItemsPresenterMargin"] = compact ? new Thickness(8, 2, 8, 2) : new Thickness(8, 4, 8, 4);
+            app.Resources["FlatGroupHeaderMargin"] = compact ? new Thickness(0, 8, 0, 2) : new Thickness(0, 16, 0, 4);
+            app.Resources["FlatSettingRowMargin"] = compact ? new Thickness(8, 1, 8, 1) : new Thickness(8, 2, 8, 2);
 
             if (savePreference)
                 SaveDensityPreference(density);

@@ -52,7 +52,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private UpdateRelease _latestAvailableRelease;
         private readonly AppUpdateService _updateService = new AppUpdateService();
         private SettingItemViewModel _selectedSetting;
-        private ListCollectionView _groupedSettingsView;
+        private readonly BulkObservableCollection<object> _settingsViewItems = new BulkObservableCollection<object>();
+        private HashSet<string> _hiddenSettingGroups;
         private CancellationTokenSource _scanCancellationTokenSource;
         private int _filterTypeIndex;
         private bool _isInitializing;
@@ -123,12 +124,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 Settings.Add(item);
             }
 
-            if (_groupedSettingsView != null)
-            {
-                _groupedSettingsView = new ListCollectionView(Settings);
-                _groupedSettingsView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(SettingItemViewModel.GroupName)));
-                _groupedSettingsView.Filter = FilterPredicate;
-            }
+            RebuildSettingsView();
 
             InitializeCommands();
         }
@@ -404,7 +400,12 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public bool IsWindows10 => !_isWindows11;
         public bool HasPendingChanges => Settings.Any(x => x.IsModified);
 
-        public ListCollectionView GroupedSettingsView => _groupedSettingsView;
+        /// <summary>
+        /// Flattened settings view: group headers (<see cref="SettingGroupHeaderViewModel"/>)
+        /// followed by their visible <see cref="SettingItemViewModel"/> rows. Replaces the former
+        /// ListCollectionView grouping so the list virtualizes as a single flat panel.
+        /// </summary>
+        public ObservableCollection<object> GroupedSettingsView => _settingsViewItems;
 
         public ObservableCollection<SettingItemViewModel> Settings { get; } = new ObservableCollection<SettingItemViewModel>();
         public ObservableCollection<ModifiedProfileItem> ModifiedProfiles { get; } = new ObservableCollection<ModifiedProfileItem>();
@@ -651,11 +652,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void OnFilterTextChanged()
         {
-            if (_groupedSettingsView != null)
-            {
-                _groupedSettingsView.Filter = FilterPredicate;
-                //_groupedSettingsView.Refresh();
-            }
+            RebuildSettingsView();
         }
 
         private bool FilterPredicate(object obj)
@@ -680,6 +677,72 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     return true;
             }
             return false;
+        }
+
+        private HashSet<string> GetHiddenSettingGroups()
+        {
+            if (_hiddenSettingGroups == null)
+            {
+                var stored = UserSettings.LoadSettings()?.HiddenSettingGroups;
+                _hiddenSettingGroups = stored != null
+                    ? new HashSet<string>(stored)
+                    : new HashSet<string>();
+            }
+            return _hiddenSettingGroups;
+        }
+
+        /// <summary>
+        /// Projects the sorted (and filtered) settings into the flat view collection:
+        /// one header item per group followed by its rows when the group is expanded.
+        /// Published as a single Reset so the list rebuilds at most one viewport of containers.
+        /// </summary>
+        private void RebuildSettingsView()
+        {
+            var hiddenGroups = GetHiddenSettingGroups();
+            var viewItems = new List<object>(Settings.Count + 64);
+
+            SettingGroupHeaderViewModel currentHeader = null;
+            foreach (var item in Settings)
+            {
+                if (!FilterPredicate(item))
+                    continue;
+
+                var groupName = item.GroupNameForDisplay ?? "";
+                if (currentHeader == null || !string.Equals(currentHeader.Name, groupName, StringComparison.Ordinal))
+                {
+                    currentHeader = new SettingGroupHeaderViewModel(groupName, !hiddenGroups.Contains(groupName), OnGroupExpandedChanged);
+                    viewItems.Add(currentHeader);
+                }
+
+                if (currentHeader.IsExpanded)
+                    viewItems.Add(item);
+            }
+
+            _settingsViewItems.ReplaceAll(viewItems);
+        }
+
+        private void OnGroupExpandedChanged(SettingGroupHeaderViewModel header)
+        {
+            var hiddenGroups = GetHiddenSettingGroups();
+            if (header.IsExpanded)
+                hiddenGroups.Remove(header.Name);
+            else
+                hiddenGroups.Add(header.Name);
+
+            // Groups without a name are runtime-only; everything else is persisted like before.
+            if (!string.IsNullOrEmpty(header.Name))
+            {
+                var settings = UserSettings.LoadSettings();
+                if (settings != null)
+                {
+                    settings.HiddenSettingGroups.Remove(header.Name);
+                    if (!header.IsExpanded)
+                        settings.HiddenSettingGroups.Add(header.Name);
+                    settings.SaveSettings();
+                }
+            }
+
+            RebuildSettingsView();
         }
 
         private void OnSelectedSettingChanged()
@@ -852,19 +915,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             Settings.IncrementalPatchSettingsListOrdered(sortedSettings, (s1, s2) => s1.SettingId == s2.SettingId);
 
-            if (_groupedSettingsView == null)
-            {
-                _groupedSettingsView = new ListCollectionView(Settings);
-                _groupedSettingsView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(SettingItemViewModel.GroupNameForDisplay)));
-                _groupedSettingsView.Filter = FilterPredicate;
-                OnPropertyChanged(nameof(GroupedSettingsView));
-            }
-            else
-            {
-                _groupedSettingsView.Filter = FilterPredicate;
-                OnPropertyChanged(nameof(GroupedSettingsView));
-            }
-
+            RebuildSettingsView();
 
             for (var i = 0; i < Settings.Count; i++)
             {
@@ -1431,12 +1482,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         public void ReorderSettingsWithPosition(bool targetIsFavorit)
         {
-            if (!targetIsFavorit)
-            {
-                _groupedSettingsView.IsLiveGrouping = false;
-                _groupedSettingsView.IsLiveFiltering = false;
-            }
-
             var sortedSettings = Settings
                 .OrderByDescending(x => x.IsFavorite)
                 .ThenBy(x => string.IsNullOrEmpty(x.GroupNameForDisplay) ? 1 : 0)
@@ -1446,11 +1491,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             Settings.IncrementalPatchSettingsListOrdered(sortedSettings, (s1, s2) => s1.SettingId == s2.SettingId);
 
-            if (!targetIsFavorit)
-            {
-                _groupedSettingsView.IsLiveGrouping = true;
-                _groupedSettingsView.IsLiveFiltering = true;
-            }
+            RebuildSettingsView();
         }
 
         private void ToggleAppearanceMenu()
