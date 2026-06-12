@@ -12,6 +12,11 @@ namespace nvidiaProfileInspector.Common.Meta
         private readonly Dictionary<uint, SettingMeta> _settingMetaCache = new Dictionary<uint, SettingMeta>();
         private readonly List<uint> _settingIds;
 
+        // DRS_EnumAvailableSettingValues returns NVAPI_OK with a zero-initialized settingType
+        // (== NVDRS_DWORD_TYPE) for exposed settings that have no predefined values, so the
+        // reported type is only trustworthy when predefined values actually exist.
+        private readonly HashSet<uint> _reliableTypeSettingIds = new HashSet<uint>();
+
         public DriverSettingMetaService()
         {
             _settingIds = InitSettingIds();
@@ -61,6 +66,9 @@ namespace nvidiaProfileInspector.Common.Meta
                 SettingType = values.settingType,
                 SettingName = settingName,
             };
+
+            if (values.numSettingValues > 0)
+                _reliableTypeSettingIds.Add(settingId);
 
 
             if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
@@ -222,7 +230,7 @@ namespace nvidiaProfileInspector.Common.Meta
         public NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
         {
             var settingMeta = GetSettingsMeta(settingId);
-            if (settingMeta != null)
+            if (settingMeta != null && _reliableTypeSettingIds.Contains(settingId))
                 return settingMeta.SettingType;
 
             return null;

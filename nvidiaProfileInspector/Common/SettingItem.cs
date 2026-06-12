@@ -1,5 +1,6 @@
 ﻿namespace nvidiaProfileInspector.Common
 {
+    using nvidiaProfileInspector.Native.NVAPI2;
 
     public enum SettingState
     {
@@ -24,6 +25,9 @@
         public string AlternateNames { get; set; }
 
         public SettingState State { get; set; }
+
+        /// <summary>Effective value type the item was built with (resolved meta type).</summary>
+        public NVDRS_SETTING_TYPE SettingType { get; set; }
 
         public bool IsStringValue { get; set; }
 

@@ -424,22 +424,11 @@ namespace nvidiaProfileInspector.Common
 
         private SettingItem CreateSettingItem(NVDRS_SETTING setting, bool useDefault = false)
         {
+            // Never mutate the meta returned here: it's a cached instance shared with the
+            // view models. Forcing all four value lists non-null made every setting look
+            // like a DWORD to the type checks downstream (the lookup helpers in DrsUtil
+            // are null-tolerant anyway).
             var settingMeta = meta.GetSettingMeta(setting.settingId);
-            //settingMeta.SettingType = setting.settingType;
-
-            if (settingMeta.DwordValues == null)
-                settingMeta.DwordValues = new List<SettingValue<uint>>();
-
-            if (settingMeta.QwordValues == null)
-                settingMeta.QwordValues = new List<SettingValue<ulong>>();
-
-
-            if (settingMeta.StringValues == null)
-                settingMeta.StringValues = new List<SettingValue<string>>();
-
-            if (settingMeta.BinaryValues == null)
-                settingMeta.BinaryValues = new List<SettingValue<byte[]>>();
-
 
             var settingState = SettingState.NotAssiged;
             string valueRaw = "";
@@ -562,6 +551,7 @@ namespace nvidiaProfileInspector.Common
                 ValueRaw = valueRaw,
                 ValueText = valueText,
                 State = settingState,
+                SettingType = settingMeta.SettingType ?? NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE,
                 IsStringValue = settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
                 IsApiExposed = settingMeta.IsApiExposed,
                 IsSettingHidden = settingMeta.IsSettingHidden,

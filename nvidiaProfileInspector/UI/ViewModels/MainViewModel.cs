@@ -770,37 +770,44 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (item == null)
                 return true;
 
-            if (item.DwordValues != null)
+            // Validate strictly by the item's effective type; the value lists alone are not
+            // a reliable type indicator (any of them may be empty-but-present).
+            switch (item.SettingType)
             {
-                var settingMeta = new SettingMeta { DwordValues = item.DwordValues };
-                if (DrsUtil.TryParseDwordSettingValue(settingMeta, item.SelectedValue, out _))
+                case NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE:
+                {
+                    var settingMeta = new SettingMeta { DwordValues = item.DwordValues };
+                    if (DrsUtil.TryParseDwordSettingValue(settingMeta, item.SelectedValue, out _))
+                        return true;
+
+                    errorMessage = "Enter a valid DWORD value.";
+                    return false;
+                }
+
+                case NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE:
+                {
+                    var settingMeta = new SettingMeta { QwordValues = item.QwordValues };
+                    if (DrsUtil.TryParseQwordSettingValue(settingMeta, item.SelectedValue, out _))
+                        return true;
+
+                    errorMessage = "Enter a valid QWORD value.";
+                    return false;
+                }
+
+                case NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE:
+                {
+                    var settingMeta = new SettingMeta { BinaryValues = item.BinaryValues };
+                    if (DrsUtil.ParseBinarySettingValue(settingMeta, item.SelectedValue) != null)
+                        return true;
+
+                    errorMessage = "Enter a valid binary value.";
+                    return false;
+                }
+
+                default:
+                    // String settings accept free text.
                     return true;
-
-                errorMessage = "Enter a valid DWORD value.";
-                return false;
             }
-
-            if (item.QwordValues != null)
-            {
-                var settingMeta = new SettingMeta { QwordValues = item.QwordValues };
-                if (DrsUtil.TryParseQwordSettingValue(settingMeta, item.SelectedValue, out _))
-                    return true;
-
-                errorMessage = "Enter a valid QWORD value.";
-                return false;
-            }
-
-            if (item.BinaryValues != null)
-            {
-                var settingMeta = new SettingMeta { BinaryValues = item.BinaryValues };
-                if (DrsUtil.ParseBinarySettingValue(settingMeta, item.SelectedValue) != null)
-                    return true;
-
-                errorMessage = "Enter a valid binary value.";
-                return false;
-            }
-
-            return true;
         }
 
         private SettingViewMode GetSettingViewMode()
