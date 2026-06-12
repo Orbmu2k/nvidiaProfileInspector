@@ -39,28 +39,28 @@ namespace nvidiaProfileInspector.Common
             MetaServices = new List<MetaServiceItem>();
 
             CustomMeta = new CustomSettingMetaService(_customSettings);
-            MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 1, Service = CustomMeta });
+            MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 1, TypePrio = 3, Service = CustomMeta });
 
             if (!initOnly)
             {
                 DriverMeta = new DriverSettingMetaService();
-                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 5, Service = DriverMeta });
+                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 5, TypePrio = 1, Service = DriverMeta });
 
                 ConstantMeta = new ConstantSettingMetaService();
-                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 2, Service = ConstantMeta });
+                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 2, TypePrio = 5, Service = ConstantMeta });
 
 
                 var scannerService = App.Bootstrapper.Resolve<DrsScannerService>();
                 if (scannerService != null)
                 {
                     ScannedMeta = new ScannedSettingMetaService(scannerService.CachedSettings);
-                    MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 3, Service = ScannedMeta });
+                    MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 3, TypePrio = 2, Service = ScannedMeta });
                 }
 
                 if (_referenceSettings != null)
                 {
                     ReferenceMeta = new CustomSettingMetaService(_referenceSettings, SettingMetaSource.ReferenceSettings);
-                    MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 4, Service = ReferenceMeta });
+                    MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 4, TypePrio = 4, Service = ReferenceMeta });
                 }
             }
 
@@ -68,7 +68,10 @@ namespace nvidiaProfileInspector.Common
 
         private NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
         {
-            foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
+            // Driver first, then scanned observations, then the XML fallback types; the type
+            // can change between driver generations (e.g. rBAR Size Limit BINARY -> QWORD),
+            // so static sources must never override what the current driver reports.
+            foreach (var service in MetaServices.OrderBy(x => x.TypePrio))
             {
                 var settingValueType = service.Service.GetSettingValueType(settingId);
                 if (settingValueType != null)

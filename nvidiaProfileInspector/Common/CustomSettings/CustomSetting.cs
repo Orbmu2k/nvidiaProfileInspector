@@ -19,7 +19,24 @@ namespace nvidiaProfileInspector.Common.CustomSettings
         public float MaxRequiredDriverVersion { get; set; }
         public bool Hidden { get; set; }
         public bool HasConstraints { get; set; }
-        public string DataType { get; set; }
+
+        /// <summary>
+        /// Setting value type used only when the driver itself can't report one (not exposed,
+        /// no predefined values anywhere). Omitted for DWORD, which is the implicit default.
+        /// </summary>
+        public string FallbackType { get; set; }
+
+        /// <summary>Legacy alias: older external CustomSettingNames.xml files use &lt;DataType&gt;.</summary>
+        [XmlElement(ElementName = "DataType")]
+        public string LegacyDataType
+        {
+            get { return null; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value) && string.IsNullOrEmpty(FallbackType))
+                    FallbackType = value;
+            }
+        }
 
         public List<CustomSettingValue> SettingValues { get; set; }
 

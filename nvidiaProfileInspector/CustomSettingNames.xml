@@ -375,7 +375,6 @@
 			<Description>Controls the full-screen menu detection mode used by DLSS Frame Generation heuristics.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -398,7 +397,6 @@
 			<Description>Sets the screen-coverage threshold used by the DLSS Frame Generation full-screen menu override heuristic.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Full-Screen Menu Override Alpha Threshold (float)</UserfriendlyName>
@@ -406,7 +404,6 @@
 			<Description>Sets the alpha threshold used by the DLSS Frame Generation full-screen menu override heuristic.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Forced Quality Level</UserfriendlyName>
@@ -1717,7 +1714,6 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Defines the primary Resizable BAR option bitfield used by the driver.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Options, Resizable Bar - Options</AlternateNames>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Intel CPU Exclusion</UserfriendlyName>
@@ -1725,7 +1721,6 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Stores the Intel CPU exclusion mask used by the Resizable BAR policy logic.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Intel CPU Exclusion, Resizable Bar - Intel CPU Exclusion</AlternateNames>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Size Limit</UserfriendlyName>
@@ -1733,7 +1728,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<Description>Default Size Limit value for most of the whitelisted games is '1GB', some games MAY benefit of a higher size bar.</Description>
 			<AlternateNames>ReBAR - Size Limit, Resizable Bar - Size Limit</AlternateNames>
-			<DataType>QWORD</DataType>
+			<FallbackType>QWORD</FallbackType>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>200MB</UserfriendlyName>
@@ -1783,7 +1778,6 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Stores auxiliary Resizable BAR driver flags for advanced compatibility handling.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Flags (0x000F00BE), Resizable Bar - Flags (0x000F00BE)</AlternateNames>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Flags (0x000F00BF)</UserfriendlyName>
@@ -1791,7 +1785,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Stores secondary Resizable BAR driver flags for advanced compatibility handling.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Flags (0x000F00BF), Resizable Bar - Flags (0x000F00BF)</AlternateNames>
-			<DataType>STRING</DataType>
+			<FallbackType>STRING</FallbackType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Support Indicator Overlay</UserfriendlyName>

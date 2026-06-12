@@ -403,6 +403,25 @@ namespace nvidiaProfileInspector
             }
         }
 
+        private static string GetDriverVersionSafe()
+        {
+            // NVAPI access itself may be the crash cause (e.g. no NVIDIA driver installed),
+            // so the crash logger must never die on it.
+            try
+            {
+                var version = Common.DrsSettingsServiceBase.DriverVersion;
+                var branch = Common.DrsSettingsServiceBase.DriverBranch;
+                return version > 0
+                    ? version.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) +
+                        (string.IsNullOrEmpty(branch) ? "" : $" ({branch})")
+                    : "unknown";
+            }
+            catch
+            {
+                return "unknown";
+            }
+        }
+
         private void HandleException(Exception exception, bool isShutdown = false)
         {
             try
@@ -428,6 +447,7 @@ namespace nvidiaProfileInspector
                 logContent.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
                 logContent.AppendLine($"OS: {Environment.OSVersion}");
                 logContent.AppendLine($"64-bit: {Environment.Is64BitOperatingSystem}");
+                logContent.AppendLine($"Driver: {GetDriverVersionSafe()}");
                 logContent.AppendLine();
                 logContent.AppendLine("=== Exception Details ===");
                 logContent.AppendLine($"Type: {exception.GetType().FullName}");
