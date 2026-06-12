@@ -89,7 +89,10 @@ namespace nvidiaProfileInspector.UI.Controls
         {
             base.OnApplyTemplate();
             IsTextSearchEnabled = false;
+            DropDownOpened -= SearchableComboBox_DropDownOpened;
             DropDownOpened += SearchableComboBox_DropDownOpened;
+            DropDownClosed -= SearchableComboBox_DropDownClosed;
+            DropDownClosed += SearchableComboBox_DropDownClosed;
             AttachSearchTextBox();
             SyncDisplayedText();
         }
@@ -170,7 +173,22 @@ namespace nvidiaProfileInspector.UI.Controls
         protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
         {
             base.OnItemsSourceChanged(oldValue, newValue);
+
+            // Track the unfiltered source whenever the change comes from outside (binding pushed
+            // a new value list, e.g. the shared editor moved to another setting row) so the
+            // filter never resurrects the previous row's items.
+            if (!_isApplyingFilter)
+                _originalSource = newValue;
+
             SyncDisplayedText();
+        }
+
+        private void SearchableComboBox_DropDownClosed(object? sender, EventArgs e)
+        {
+            // Reset the search state so the next use (possibly on another setting row)
+            // always starts with the full, unfiltered value list.
+            FilterText = string.Empty;
+            _pendingSelectedItem = null;
         }
 
         private async void SearchableComboBox_DropDownOpened(object? sender, EventArgs e)
@@ -278,11 +296,14 @@ namespace nvidiaProfileInspector.UI.Controls
                     _originalSource = ItemsSource;
                 }
 
+                // SetCurrentValue changes the effective value without discarding the ItemsSource
+                // binding; a plain assignment would permanently detach it, leaving this shared
+                // editor stuck on the value list of the row it was first filtered on.
                 if (string.IsNullOrEmpty(FilterText))
                 {
-                    if (ItemsSource != _originalSource)
+                    if (!ReferenceEquals(ItemsSource, _originalSource))
                     {
-                        ItemsSource = _originalSource;
+                        SetCurrentValue(ItemsSourceProperty, _originalSource);
                     }
                 }
                 else
@@ -300,7 +321,7 @@ namespace nvidiaProfileInspector.UI.Controls
                         })
                         .ToList();
 
-                    ItemsSource = filteredItems;
+                    SetCurrentValue(ItemsSourceProperty, filteredItems);
                 }
             }
             finally
