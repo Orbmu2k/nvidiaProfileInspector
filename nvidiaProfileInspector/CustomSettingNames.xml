@@ -1846,9 +1846,9 @@ When any driver flags are set HDR will be applied via driver instead of through 
       <Hidden>true</Hidden>
     </CustomSetting>-->
 		<CustomSetting>
-			<UserfriendlyName>Ansel - Enabled</UserfriendlyName>
+			<UserfriendlyName>NVIDIA App Overlay - Enabled</UserfriendlyName>
 			<HexSettingID>0x1075D972</HexSettingID>
-			<Description>Enables or disables NVIDIA Ansel support for the profile.</Description>
+			<Description>Enables or disables NVIDIA App Overlay (formerly Ansel / GeForce Experience overlay) support for the profile.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1858,6 +1858,27 @@ When any driver flags are set HDR will be applied via driver instead of through 
 				<CustomSettingValue>
 					<UserfriendlyName>On</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>NVIDIA App Overlay - Flags</UserfriendlyName>
+			<HexSettingID>0x809D5F60</HexSettingID>
+			<Description>Controls NVIDIA App Overlay (formerly ShadowPlay) capture flags.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Whitelist app for desktop capture</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Disable NVIDIA App statistics</UserfriendlyName>
+					<HexValue>0x10000000</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>

@@ -1862,17 +1862,17 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Ansel Behavior 2 100D51f7</UserfriendlyName>
+			<UserfriendlyName>NVIDIA App Overlay Behavior 2 100D51f7</UserfriendlyName>
 			<HexSettingID>0x100D51F7</HexSettingID>
-			<Description>Specifies denylisting combinations for Ansel. Set this per-game.</Description>
+			<Description>Specifies denylisting combinations for NVIDIA App Overlay. Set this per-game.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<FallbackType>STRING</FallbackType>
 			<SettingValues />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Ansel Behavior 3 10D5c2db</UserfriendlyName>
+			<UserfriendlyName>NVIDIA App Overlay Behavior 3 10D5c2db</UserfriendlyName>
 			<HexSettingID>0x10D5C2DB</HexSettingID>
-			<Description>Determines if Ansel is allowed to be loaded and activated offline without the need for any network checks.</Description>
+			<Description>Determines if NVIDIA App Overlay is allowed to be loaded and activated offline without the need for any network checks.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<SettingValues>
@@ -3018,9 +3018,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>OpenGL - Ansel Vulkan Control Flags</UserfriendlyName>
+			<UserfriendlyName>OpenGL - NVIDIA App Overlay Vulkan Control Flags</UserfriendlyName>
 			<HexSettingID>0x206F6E12</HexSettingID>
-			<Description>Flags to control Ansel in the Vulkan driver</Description>
+			<Description>Flags to control NVIDIA App Overlay in the Vulkan driver</Description>
 			<GroupName>10 - OpenGL</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<SettingValues>
@@ -3033,7 +3033,7 @@
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>DISABLE_WITH_DEVICE_GROUPS - Disable Ansel when device groups is active</UserfriendlyName>
+					<UserfriendlyName>DISABLE_WITH_DEVICE_GROUPS - Disable NVIDIA App Overlay when device groups is active</UserfriendlyName>
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -15455,9 +15455,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Driver - Ansel Depth Buffer Detection Tuning</UserfriendlyName>
+			<UserfriendlyName>Driver - NVIDIA App Overlay Depth Buffer Detection Tuning</UserfriendlyName>
 			<HexSettingID>0x101314CE</HexSettingID>
-			<Description>Toggle various settings useful for tuning how to identify Depth buffers in Ansel. More info: https://confluence.nvidia.com/display/NGX/Depth+Buffer+Detection+Design.</Description>
+			<Description>Toggle various settings useful for tuning how to identify Depth buffers in NVIDIA App Overlay. More info: https://confluence.nvidia.com/display/NGX/Depth+Buffer+Detection+Design.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<SettingValues>
@@ -15999,9 +15999,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Driver - Ansel Hudless Buffer Detection Tuning</UserfriendlyName>
+			<UserfriendlyName>Driver - NVIDIA App Overlay Hudless Buffer Detection Tuning</UserfriendlyName>
 			<HexSettingID>0x10AD7F3B</HexSettingID>
-			<Description>Toggle various settings useful for tuning how to identify Hudless buffers in Ansel. More info: https://confluence.nvidia.com/display/NGX/Hudless+Buffer+Detection+Design.</Description>
+			<Description>Toggle various settings useful for tuning how to identify Hudless buffers in NVIDIA App Overlay. More info: https://confluence.nvidia.com/display/NGX/Hudless+Buffer+Detection+Design.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<SettingValues>
@@ -16486,9 +16486,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Experimental - ShadowPlay Flags</UserfriendlyName>
+			<UserfriendlyName>Experimental - NVIDIA App Overlay Flags</UserfriendlyName>
 			<HexSettingID>0x809D5F60</HexSettingID>
-			<Description>ShadowPlay Flags. Bit0: if set, app is whitelisted for Desktop capture . Other bits are ununsed for now</Description>
+			<Description>NVIDIA App Overlay (formerly ShadowPlay) flags. Bit0: if set, app is whitelisted for Desktop capture. 0x10000000 disables NVIDIA App statistics. Other bits are unused for now.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<SettingValues>
@@ -16523,9 +16523,9 @@
 			</SettingValues>
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>Driver - ShadowPlay Shim Prohibition</UserfriendlyName>
+			<UserfriendlyName>Driver - NVIDIA App Overlay Shim Prohibition</UserfriendlyName>
 			<HexSettingID>0x90DE9159</HexSettingID>
-			<Description>Prohibit ShadowPlay shim in DX apps</Description>
+			<Description>Prohibit NVIDIA App Overlay shim in DX apps</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<SettingValues>
@@ -17419,7 +17419,7 @@
 		<CustomSetting>
 			<UserfriendlyName>Freestyle Filters Allow</UserfriendlyName>
 			<HexSettingID>0x1035DB89</HexSettingID>
-			<Description>Controls whether Ansel is blocked for the associated application configuration.</Description>
+			<Description>Controls whether NVIDIA App Overlay is blocked for the associated application configuration.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000001</OverrideDefault>
 			<SettingValues>
@@ -17436,7 +17436,7 @@
 		<CustomSetting>
 			<UserfriendlyName>Freestyle Filters App Allow</UserfriendlyName>
 			<HexSettingID>0x1085DA8A</HexSettingID>
-			<Description>Temporary allowlisting of apps allowed to enable Ansel</Description>
+			<Description>Temporary allowlisting of apps allowed to enable NVIDIA App Overlay</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<OverrideDefault>0x00000000</OverrideDefault>
 			<SettingValues>
