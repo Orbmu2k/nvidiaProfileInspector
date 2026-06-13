@@ -22,8 +22,6 @@ namespace nvidiaProfileInspector.Common.Helper
 
         public int SettingsFilterMode { get; set; } = -1;
 
-        public bool ShowScannedUnknownSettings { get; set; } = false;
-
         public List<string> HiddenSettingGroups { get; set; } = new List<string>();
 
         public bool DisableUpdateCheck { get; set; } = false;

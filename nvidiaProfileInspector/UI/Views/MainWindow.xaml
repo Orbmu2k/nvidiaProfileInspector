@@ -1064,15 +1064,6 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
-                            <controls:ActionBarToggleButton
-                                IconPath="{DynamicResource IconLab}"
-                                IsChecked="{Binding ShowScannedUnknownSettings}"
-                                Text="Lab"
-                                ToggledColor="{DynamicResource ErrorBrush}"
-                                ToolTip="Show unknown settings from NVIDIA predefined profiles" />
-
-                            <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
-
                             <controls:ActionBarButton
                                 Command="{Binding RefreshCommand}"
                                 IconFill="{DynamicResource TextSecondaryBrush}"
@@ -1211,17 +1202,18 @@
                             <ComboBox.Style>
                                 <Style BasedOn="{StaticResource DarkComboBoxStyle}" TargetType="ComboBox">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding FilterTypeIndex}" Value="2">
+                                        <DataTrigger Binding="{Binding FilterTypeIndex}" Value="3">
                                             <Setter Property="BorderBrush" Value="{DynamicResource WarningBrush}" />
                                             <Setter Property="BorderThickness" Value="2" />
-                                            <Setter Property="ToolTip" Value="User modified filter is active. Only settings with a user-defined profile override or a currently unsaved edit are shown." />
+                                            <Setter Property="ToolTip" Value="Modified Only filter is active. Only settings with a user-defined profile override or a currently unsaved edit are shown." />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </ComboBox.Style>
-                            <ComboBoxItem Content="Common Settings" />
-                            <ComboBoxItem Content="Show All Settings" />
-                            <ComboBoxItem Content="User Modified Settings" />
+                            <ComboBoxItem Content="Common only" />
+                            <ComboBoxItem Content="Common + Driver" />
+                            <ComboBoxItem Content="All Settings" />
+                            <ComboBoxItem Content="Modified Only" />
                         </ComboBox>
                     </Grid>
 

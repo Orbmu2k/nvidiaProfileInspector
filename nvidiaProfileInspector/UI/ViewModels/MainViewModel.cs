@@ -44,7 +44,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private string _applicationsText = "";
         private string _settingDescription = "";
         private string _scanStatus = "";
-        private bool _showScannedUnknownSettings;
         private bool _isDevMode;
         private int _scanProgress;
         private bool _isScanning;
@@ -204,16 +203,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             get => _statusBarText;
             set => SetProperty(ref _statusBarText, value, nameof(StatusBarText));
-        }
-
-        public bool ShowScannedUnknownSettings
-        {
-            get => _showScannedUnknownSettings;
-            set
-            {
-                if (SetProperty(ref _showScannedUnknownSettings, value, nameof(ShowScannedUnknownSettings)))
-                    RefreshCurrentProfileCommand.Execute(null);
-            }
         }
 
         public bool IsDevMode
@@ -593,7 +582,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void LoadSettings()
         {
             var settings = Common.Helper.UserSettings.LoadSettings();
-            _showScannedUnknownSettings = settings.ShowScannedUnknownSettings;
             _filterTypeIndex = settings.SettingsFilterMode >= 0
                 ? settings.SettingsFilterMode
                 : 0;
@@ -631,7 +619,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
             settings.WindowHeight = (int)height;
             settings.WindowState = state;
             settings.SettingsFilterMode = _filterTypeIndex;
-            settings.ShowScannedUnknownSettings = _showScannedUnknownSettings;
 
             if (NvapiDrsWrapper.Instance.IsMockMode)
                 settings.Win11BackdropMode = NvapiDrsWrapper.Instance.GetMockWin11BackdropMode();
@@ -659,7 +646,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             if (obj is SettingItemViewModel item)
             {
-                if (_filterTypeIndex == 2 && !item.IsUserDefined && !item.IsModified)
+                if (_filterTypeIndex == 3 && !item.IsUserDefined && !item.IsModified)
                     return false;
 
                 if (string.IsNullOrWhiteSpace(_filterText))
@@ -810,13 +797,23 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
+        // Filter dropdown indices:
+        //   0 = Common only, 1 = Common + Driver, 2 = All Settings, 3 = Modified Only.
         private SettingViewMode GetSettingViewMode()
         {
-            if (_filterTypeIndex == 0)
-                return SettingViewMode.CustomSettingsOnly;
-            if (_showScannedUnknownSettings)
-                return SettingViewMode.IncludeScannedSetttings;
-            return SettingViewMode.Normal;
+            switch (_filterTypeIndex)
+            {
+                case 0:
+                    return SettingViewMode.CommonOnly;
+                case 2:
+                    return SettingViewMode.AllSettings;
+                // "Modified Only" reuses the common + driver source set and narrows it
+                // down to modified/user-defined items via FilterPredicate.
+                case 1:
+                case 3:
+                default:
+                    return SettingViewMode.CommonAndDriver;
+            }
         }
 
         private async void RefreshAll()
@@ -895,7 +892,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     continue;
 
                 var vm = new SettingItemViewModel(item);
-                var meta = _metaService.GetSettingMeta(item.SettingId, GetSettingViewMode());
+                var meta = _metaService.GetSettingMeta(item.SettingId);
                 vm.DwordValues = meta?.DwordValues;
                 vm.QwordValues = meta?.QwordValues;
                 vm.StringValues = meta?.StringValues;

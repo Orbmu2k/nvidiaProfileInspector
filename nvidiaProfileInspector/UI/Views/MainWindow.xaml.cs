@@ -657,11 +657,6 @@ namespace nvidiaProfileInspector.UI.Views
             _viewModel.ImportAllProfilesNVIDIAFormat();
         }
 
-        private void ShowUnknownToggle_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.RefreshCurrentProfileCommand.Execute(null);
-        }
-
         protected override void OnClosed(EventArgs e)
         {
             if (_windowSource != null)

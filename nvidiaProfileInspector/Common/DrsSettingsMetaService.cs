@@ -22,7 +22,7 @@ namespace nvidiaProfileInspector.Common
         private List<MetaServiceItem> MetaServices = new List<MetaServiceItem>();
 
         private Dictionary<uint, SettingMeta> settingMetaCache = new Dictionary<uint, SettingMeta>();
-        private Dictionary<Tuple<uint, SettingViewMode>, SettingMeta> postProcessedSettingMetaCache = new Dictionary<Tuple<uint, SettingViewMode>, SettingMeta>();
+        private Dictionary<uint, SettingMeta> postProcessedSettingMetaCache = new Dictionary<uint, SettingMeta>();
 
         public DrsSettingsMetaService(CustomSettingNames customSettings, CustomSettingNames referenceSettings = null)
         {
@@ -35,7 +35,7 @@ namespace nvidiaProfileInspector.Common
         public void ResetMetaCache(bool initOnly = false)
         {
             settingMetaCache = new Dictionary<uint, SettingMeta>();
-            postProcessedSettingMetaCache = new Dictionary<Tuple<uint, SettingViewMode>, SettingMeta>();
+            postProcessedSettingMetaCache = new Dictionary<uint, SettingMeta>();
             MetaServices = new List<MetaServiceItem>();
 
             CustomMeta = new CustomSettingMetaService(_customSettings);
@@ -309,11 +309,11 @@ namespace nvidiaProfileInspector.Common
         {
             switch (viewMode)
             {
-                case SettingViewMode.CustomSettingsOnly:
+                case SettingViewMode.CommonOnly:
                     return new[] {
                         SettingMetaSource.CustomSettings
                     };
-                case SettingViewMode.IncludeScannedSetttings:
+                case SettingViewMode.AllSettings:
                     return new[] {
                         SettingMetaSource.ConstantSettings,
                         SettingMetaSource.ScannedSettings,
@@ -325,27 +325,6 @@ namespace nvidiaProfileInspector.Common
                     return new[] {
                         SettingMetaSource.CustomSettings,
                         SettingMetaSource.DriverSettings,
-                    };
-            }
-        }
-
-        private SettingMetaSource[] GetAllowedSettingValueMetaSourcesForViewMode(SettingViewMode viewMode)
-        {
-            switch (viewMode)
-            {
-                case SettingViewMode.CustomSettingsOnly:
-                    return new[] {
-                        SettingMetaSource.CustomSettings,
-                        SettingMetaSource.ScannedSettings,
-                    };
-                default:
-                    return new[] {
-                        SettingMetaSource.ConstantSettings,
-                        SettingMetaSource.ScannedSettings,
-                        SettingMetaSource.CustomSettings,
-                        SettingMetaSource.DriverSettings,
-                        SettingMetaSource.ReferenceSettings,
-
                     };
             }
         }
@@ -406,10 +385,9 @@ namespace nvidiaProfileInspector.Common
             return result;
         }
 
-        private SettingMeta PostProcessMeta(uint settingId, SettingMeta settingMeta, SettingViewMode viewMode)
+        private SettingMeta PostProcessMeta(uint settingId, SettingMeta settingMeta)
         {
-            var cacheKey = Tuple.Create(settingId, viewMode);
-            if (postProcessedSettingMetaCache.TryGetValue(cacheKey, out var cachedMeta))
+            if (postProcessedSettingMetaCache.TryGetValue(settingId, out var cachedMeta))
                 return cachedMeta;
 
             var newMeta = new SettingMeta()
@@ -432,46 +410,28 @@ namespace nvidiaProfileInspector.Common
                 newMeta.SettingName = string.Format("0x{0:X8}", settingId);
             }
 
-            var allowedSourcesForViewMode = GetAllowedSettingValueMetaSourcesForViewMode(viewMode);
-            if (settingMeta.DwordValues != null)
-            {
-                newMeta.DwordValues = settingMeta.DwordValues
-                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
-            }
+            // Always expose every available value source. The view mode only decides which
+            // settings get listed, never which predefined values are selectable for a setting.
+            newMeta.DwordValues = settingMeta.DwordValues?.ToList();
+            newMeta.QwordValues = settingMeta.QwordValues?.ToList();
+            newMeta.StringValues = settingMeta.StringValues?.ToList();
+            newMeta.BinaryValues = settingMeta.BinaryValues?.ToList();
 
-            if (settingMeta.QwordValues != null)
-            {
-                newMeta.QwordValues = settingMeta.QwordValues
-                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
-            }
-
-            if (settingMeta.StringValues != null)
-            {
-                newMeta.StringValues = settingMeta.StringValues
-                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
-            }
-
-            if (settingMeta.BinaryValues != null)
-            {
-                newMeta.BinaryValues = settingMeta.BinaryValues
-                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
-            }
-
-            postProcessedSettingMetaCache.Add(cacheKey, newMeta);
+            postProcessedSettingMetaCache.Add(settingId, newMeta);
             return newMeta;
         }
 
-        public SettingMeta GetSettingMeta(uint settingId, SettingViewMode viewMode = SettingViewMode.Normal)
+        public SettingMeta GetSettingMeta(uint settingId)
         {
             if (settingMetaCache.ContainsKey(settingId))
             {
-                return PostProcessMeta(settingId, settingMetaCache[settingId], viewMode);
+                return PostProcessMeta(settingId, settingMetaCache[settingId]);
             }
             else
             {
                 var settingMeta = CreateSettingMeta(settingId);
                 settingMetaCache.Add(settingId, settingMeta);
-                return PostProcessMeta(settingId, settingMeta, viewMode);
+                return PostProcessMeta(settingId, settingMeta);
             }
         }
 
