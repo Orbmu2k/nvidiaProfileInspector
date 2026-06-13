@@ -1285,7 +1285,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
-        public string ImportFiles(IEnumerable<string> filePaths)
+        public string ImportFiles(IEnumerable<string> filePaths, ProfileImportMode mode = ProfileImportMode.Replace)
         {
             try
             {
@@ -1295,8 +1295,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     .Select(Path.GetFullPath)
                     .Distinct(StringComparer.InvariantCultureIgnoreCase)
                     .ToArray();
-                var report = _importService.ImportProfiles(normalizedFiles);
+                var report = _importService.ImportProfiles(normalizedFiles, mode);
 
+                RefreshProfilesCombo(_currentProfile);
                 RefreshCurrentProfile();
                 return report ?? "";
             }

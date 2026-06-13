@@ -147,6 +147,13 @@ namespace nvidiaProfileInspector.Common
             return ImportProfiles(new[] { filename });
         }
 
+        public string ImportProfiles(IEnumerable<string> filenames, ProfileImportMode mode)
+        {
+            return mode == ProfileImportMode.Merge
+                ? MergeProfiles(filenames)
+                : ImportProfiles(filenames);
+        }
+
         public string ImportProfiles(IEnumerable<string> filenames)
         {
             var sbFailedProfilesMessage = new StringBuilder();

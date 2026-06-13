@@ -103,7 +103,15 @@ namespace nvidiaProfileInspector
 
         private void HandleImportStartupCommand(StartupOptions startupOptions)
         {
-            if (TryForwardImportFilesToRunningInstance(startupOptions.NipFiles, bringToFront: !startupOptions.IsSilentMode))
+            // This headless flow may open the import-mode prompt as the very first window.
+            // Under the default OnMainWindowClose mode WPF would adopt that prompt as the
+            // MainWindow and shut the app down when it closes - before the result message box
+            // can show. The branch ends with an explicit Shutdown(), so opt out of auto-shutdown.
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            // Forward the explicit mode (or "prompt") so the running instance handles it
+            // the same way this process would have.
+            if (TryForwardImportFilesToRunningInstance(startupOptions.NipFiles, ResolveForcedImportMode(startupOptions), bringToFront: !startupOptions.IsSilentMode))
                 return;
 
             if (!EnsureCompatibleDriver(startupOptions))
@@ -254,8 +262,19 @@ namespace nvidiaProfileInspector
         {
             try
             {
+                var mode = ResolveForcedImportMode(startupOptions);
+                if (mode == null)
+                {
+                    // Interactive launch (e.g. file-association double-click) without a running
+                    // instance and without an explicit switch - ask before touching profiles.
+                    CloseStartupSplashScreen();
+                    mode = UI.Views.Dialogs.ProfileImportModePrompt.Ask(null, startupOptions.NipFiles.Length);
+                    if (mode == null)
+                        return; // cancelled
+                }
+
                 var importService = _bootstrapper.Resolve<DrsImportService>();
-                var report = ImportNipFiles(importService, startupOptions.NipFiles);
+                var report = ImportNipFiles(importService, startupOptions.NipFiles, mode.Value);
 
                 if (startupOptions.IsSilentMode)
                     return;
@@ -289,8 +308,31 @@ namespace nvidiaProfileInspector
                 DisableInitialScan = HasArgument(arguments, "-disableScan"),
                 IsSilentMode = HasArgument(arguments, "-silentImport") || HasArgument(arguments, "-silent"),
                 ExportCustomized = HasArgument(arguments, "-exportCustomized"),
-                UseMockDriver = HasArgument(arguments, "-mock")
+                UseMockDriver = HasArgument(arguments, "-mock"),
+                ImportMode = ParseImportMode(arguments)
             };
+        }
+
+        private ProfileImportMode? ParseImportMode(IEnumerable<string> arguments)
+        {
+            if (HasArgument(arguments, "-mergeImport"))
+                return ProfileImportMode.Merge;
+            if (HasArgument(arguments, "-replaceImport"))
+                return ProfileImportMode.Replace;
+            return null;
+        }
+
+        /// <summary>
+        /// Resolves the import mode for a non-interactive context: an explicit switch wins,
+        /// silent mode falls back to Replace (legacy behavior), otherwise null = ask the user.
+        /// </summary>
+        private ProfileImportMode? ResolveForcedImportMode(StartupOptions startupOptions)
+        {
+            if (startupOptions.ImportMode.HasValue)
+                return startupOptions.ImportMode.Value;
+            if (startupOptions.IsSilentMode)
+                return ProfileImportMode.Replace;
+            return null;
         }
 
         private void WriteCustomSettingNamesFile()
@@ -299,10 +341,10 @@ namespace nvidiaProfileInspector
             File.WriteAllText("CustomSettingNames.xml", xml, Encoding.UTF8);
         }
 
-        private string ImportNipFiles(DrsImportService importService, IEnumerable<string> filePaths)
+        private string ImportNipFiles(DrsImportService importService, IEnumerable<string> filePaths, ProfileImportMode mode)
         {
             var files = (filePaths ?? Array.Empty<string>()).ToArray();
-            var report = importService.ImportProfiles(files);
+            var report = importService.ImportProfiles(files, mode);
 
             GC.Collect();
             NotifyRunningInstanceAboutImportedProfiles();
@@ -325,7 +367,7 @@ namespace nvidiaProfileInspector
             }
         }
 
-        private bool TryForwardImportFilesToRunningInstance(IEnumerable<string> filePaths, bool bringToFront)
+        private bool TryForwardImportFilesToRunningInstance(IEnumerable<string> filePaths, ProfileImportMode? forcedMode, bool bringToFront)
         {
             var files = filePaths?.ToArray() ?? Array.Empty<string>();
             if (files.Length == 0)
@@ -334,7 +376,7 @@ namespace nvidiaProfileInspector
             var current = Process.GetCurrentProcess();
             var processName = current.ProcessName.Replace(".vshost", string.Empty);
             var messageHelper = new MessageHelper();
-            var payload = BuildImportFilesMessage(files);
+            var payload = BuildImportFilesMessage(files, forcedMode);
 
             foreach (var process in Process.GetProcessesByName(processName))
             {
@@ -369,24 +411,49 @@ namespace nvidiaProfileInspector
             MessageBoxViewModel.Show("NVIDIA PROFILE INSPECTOR is already running.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        internal static string BuildImportFilesMessage(IEnumerable<string> filePaths)
+        internal static string BuildImportFilesMessage(IEnumerable<string> filePaths, ProfileImportMode? forcedMode)
         {
             var files = filePaths?.ToArray() ?? Array.Empty<string>();
-            return ImportFilesMessagePrefix + string.Join("\n", files);
+            // First line carries the mode token (prompt|merge|replace), the rest are file paths.
+            var modeToken = forcedMode.HasValue ? forcedMode.Value.ToString().ToLowerInvariant() : "prompt";
+            return ImportFilesMessagePrefix + string.Join("\n", new[] { modeToken }.Concat(files));
         }
 
-        internal static IReadOnlyList<string> ParseImportFilesMessage(string message)
+        internal sealed class ImportFilesRequest
         {
-            if (string.IsNullOrWhiteSpace(message) || !message.StartsWith(ImportFilesMessagePrefix, StringComparison.InvariantCulture))
-                return Array.Empty<string>();
+            public ProfileImportMode? Mode { get; set; }
+            public IReadOnlyList<string> Files { get; set; } = Array.Empty<string>();
+        }
 
-            return message.Substring(ImportFilesMessagePrefix.Length)
-                .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+        internal static ImportFilesRequest ParseImportFilesMessage(string message)
+        {
+            var result = new ImportFilesRequest();
+            if (string.IsNullOrWhiteSpace(message) || !message.StartsWith(ImportFilesMessagePrefix, StringComparison.InvariantCulture))
+                return result;
+
+            var tokens = message.Substring(ImportFilesMessagePrefix.Length)
+                .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            if (tokens.Length == 0)
+                return result;
+
+            result.Mode = ParseModeToken(tokens[0]);
+
+            result.Files = tokens.Skip(1)
                 .Where(File.Exists)
                 .Where(path => string.Equals(Path.GetExtension(path), ".nip", StringComparison.InvariantCultureIgnoreCase))
                 .Select(Path.GetFullPath)
                 .Distinct(StringComparer.InvariantCultureIgnoreCase)
                 .ToArray();
+            return result;
+        }
+
+        private static ProfileImportMode? ParseModeToken(string token)
+        {
+            if (string.Equals(token, "merge", StringComparison.OrdinalIgnoreCase))
+                return ProfileImportMode.Merge;
+            if (string.Equals(token, "replace", StringComparison.OrdinalIgnoreCase))
+                return ProfileImportMode.Replace;
+            return null; // "prompt" or anything unexpected -> ask interactively
         }
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -514,6 +581,10 @@ namespace nvidiaProfileInspector
             public bool ShowOnlyCustomizedSettings { get; set; }
             public bool ExportCustomized { get; set; }
             public bool UseMockDriver { get; set; }
+
+            /// <summary>Explicit import mode from the command line; null = ask interactively.</summary>
+            public ProfileImportMode? ImportMode { get; set; }
+
             public bool HasImportFiles => NipFiles.Length > 0;
             public bool RequiresSingleInstanceMutex => !CreateCustomSettingNames && !HasImportFiles && !ExportCustomized;
         }

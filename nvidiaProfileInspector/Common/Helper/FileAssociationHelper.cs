@@ -24,10 +24,66 @@ namespace nvidiaProfileInspector.Common.Helper
             var openCommand = $"\"{executablePath}\" \"%1\"";
             var iconPath = $"\"{executablePath}\",0";
 
-            RegisterForRoot(Registry.CurrentUser, @"Software\Classes", executablePath, openCommand, iconPath);
-            RegisterForRoot(Registry.LocalMachine, @"Software\Classes", executablePath, openCommand, iconPath);
+            // Only rewrite the registry (and notify the shell) when the existing registration
+            // is missing or points at a different executable path. Rewriting on every launch
+            // is wasteful and makes Explorer flush its icon/association cache needlessly.
+            var changed = false;
+            changed |= TryEnsureRegisteredForRoot(Registry.CurrentUser, @"Software\Classes", executablePath, openCommand, iconPath);
+            changed |= TryEnsureRegisteredForRoot(Registry.LocalMachine, @"Software\Classes", executablePath, openCommand, iconPath);
 
-            SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
+            if (changed)
+                SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
+        }
+
+        private static bool TryEnsureRegisteredForRoot(RegistryKey root, string classesPath, string executablePath, string openCommand, string iconPath)
+        {
+            try
+            {
+                if (IsRegistrationCurrent(root, classesPath, openCommand, iconPath))
+                    return false;
+
+                RegisterForRoot(root, classesPath, executablePath, openCommand, iconPath);
+                return true;
+            }
+            catch
+            {
+                // Writing under HKLM requires elevation; ignore so a failure for one root
+                // (or one already handled by another instance) does not abort the others.
+                return false;
+            }
+        }
+
+        private static bool IsRegistrationCurrent(RegistryKey root, string classesPath, string openCommand, string iconPath)
+        {
+            // Read-only probe so a current HKLM registration never needs write access.
+            using (var classesRoot = root.OpenSubKey(classesPath))
+            {
+                if (classesRoot == null)
+                    return false;
+
+                using (var extensionKey = classesRoot.OpenSubKey(Extension))
+                {
+                    if (extensionKey == null ||
+                        !string.Equals(extensionKey.GetValue(string.Empty) as string, ProgId, StringComparison.OrdinalIgnoreCase))
+                        return false;
+                }
+
+                using (var openCommandKey = classesRoot.OpenSubKey($@"{ProgId}\shell\open\command"))
+                {
+                    if (openCommandKey == null ||
+                        !string.Equals(openCommandKey.GetValue(string.Empty) as string, openCommand, StringComparison.OrdinalIgnoreCase))
+                        return false;
+                }
+
+                using (var defaultIconKey = classesRoot.OpenSubKey($@"{ProgId}\DefaultIcon"))
+                {
+                    if (defaultIconKey == null ||
+                        !string.Equals(defaultIconKey.GetValue(string.Empty) as string, iconPath, StringComparison.OrdinalIgnoreCase))
+                        return false;
+                }
+            }
+
+            return true;
         }
 
         private static void RegisterForRoot(RegistryKey root, string classesPath, string executablePath, string openCommand, string iconPath)
