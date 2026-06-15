@@ -419,6 +419,7 @@
                                 </StackPanel>
                             </Button>
                             <Button
+                                IsCancel="True"
                                 Grid.Column="3"
                                 MinWidth="80"
                                 Margin="8,0,0,0"

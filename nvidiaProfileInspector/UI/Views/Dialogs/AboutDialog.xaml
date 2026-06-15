@@ -383,6 +383,8 @@
             Background="{DynamicResource Layer2BackgroundBrush}"
             CornerRadius="0,0,8,8">
             <Button
+                IsDefault="True"
+                IsCancel="True"
                 MinWidth="100"
                 HorizontalAlignment="Right"
                 Click="Close_Click"

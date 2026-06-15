@@ -128,6 +128,7 @@
             CornerRadius="0,0,8,8">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button
+                    IsCancel="True"
                     MinWidth="80"
                     Margin="0,0,8,0"
                     Click="Cancel_Click"
@@ -136,6 +137,7 @@
                     ToolTip="Cancel and close" />
                 <Button
                     MinWidth="80"
+                    IsDefault="True"
                     Click="OK_Click"
                     Content="OK"
                     IsEnabled="{Binding CanSubmit}"

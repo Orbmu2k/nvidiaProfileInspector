@@ -1120,13 +1120,23 @@ namespace nvidiaProfileInspector.UI.ViewModels
             return Task.CompletedTask;
         }
 
+        private string NormalizeNvidiaAppPath(string input)
+        {
+            return input.ToLower().Replace("\\", "/");
+        }
+
         public void AddApplication()
         {
             var dialog = new Views.Dialogs.InputDialog("Add Application",
-            "To link a new application, enter its filename (e.g. game.exe) or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.",
+            "To link a new application, enter its filename (e.g. game.exe), relative path, or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.",
             "", true, (val) =>
             {
-                if (string.IsNullOrWhiteSpace(val)) return "Expected a filename, UWP ID, or absolute path.";
+                if (string.IsNullOrWhiteSpace(val)) 
+                    return "Expected a filename, relative path, UWP ID, or absolute path.";
+
+                if (Applications.Any(_ => _.Name.Equals(NormalizeNvidiaAppPath(val), StringComparison.InvariantCultureIgnoreCase)))
+                    return "Application already exists in this profile.";
+
                 string findFileStr = "FindFile=";
                 int findFileIndex = val.IndexOf(findFileStr, StringComparison.OrdinalIgnoreCase);
                 if (findFileIndex >= 0)
@@ -1145,7 +1155,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 try
                 {
                     string findFileStr = "FindFile=";
-                    int findFileIndex = dialog.InputValue.IndexOf(findFileStr, StringComparison.OrdinalIgnoreCase);
+                    int findFileIndex = dialog.InputValue.IndexOf(findFileStr, StringComparison.InvariantCultureIgnoreCase);
 
                     if (findFileIndex >= 0)
                     {
@@ -1165,9 +1175,18 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
                     RefreshCurrentProfile();
                 }
-                catch (Exception ex)
+                catch (NvapiException ex)
                 {
-                    OnShowError?.Invoke(ex.Message);
+                    if (ex.Status == NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
+                    {
+                        var profileName = _settingService.GetProfileNameByExeName(dialog.InputValue);
+                        if (!string.IsNullOrWhiteSpace(profileName))
+                            OnShowError?.Invoke($"Application already in use by profile '{profileName}'");
+                        else
+                            OnShowError?.Invoke("Application already in use by other profile");
+                    }
+                    else
+                        OnShowError?.Invoke(ex.Message);
                 }
             }
         }
