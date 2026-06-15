@@ -1846,9 +1846,9 @@ When any driver flags are set HDR will be applied via driver instead of through 
       <Hidden>true</Hidden>
     </CustomSetting>-->
 		<CustomSetting>
-			<UserfriendlyName>NVIDIA App Overlay - Enabled</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Ansel - Enabled</UserfriendlyName>
 			<HexSettingID>0x1075D972</HexSettingID>
-			<Description>Enables or disables NVIDIA App Overlay (formerly Ansel / GeForce Experience overlay) support for the profile.</Description>
+			<Description>Enables or disables NVIDIA Ansel support for the profile. Ansel is a photo mode for supported games developed by NVIDIA, allowing the use of a free camera to take photos of a game. The mode is also able to increase the graphical fidelity of a game so players do not have to change settings manually as they engage or disengage the photo mode.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<SettingValues>
 				<CustomSettingValue>

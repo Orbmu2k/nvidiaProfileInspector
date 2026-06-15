@@ -18726,23 +18726,23 @@
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
-					<HexValue>0x00000000</HexValue>
+					<HexValue>0x00000004</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Low [Default]</UserfriendlyName>
-					<HexValue>0x00000001</HexValue>
+					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Medium</UserfriendlyName>
-					<HexValue>0x00000002</HexValue>
+					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>High</UserfriendlyName>
-					<HexValue>0x00000003</HexValue>
+					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Ultra</UserfriendlyName>
-					<HexValue>0x00000004</HexValue>
+					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
