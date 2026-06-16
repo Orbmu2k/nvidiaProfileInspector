@@ -42,6 +42,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private string _baseProfileName = "";
         private string _filterText = "";
         private string _applicationsText = "";
+        private bool _applicationsExpanded;
+        private bool _applicationsHasOverflow;
         private string _settingDescription = "";
         private string _scanStatus = "";
         private bool _isDevMode;
@@ -184,6 +186,22 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             get => _applicationsText;
             set => SetProperty(ref _applicationsText, value, nameof(ApplicationsText));
+        }
+
+        // True while the applications area is expanded to show all rows; reset to
+        // single-row whenever a profile is (re)loaded in RefreshCurrentProfile.
+        public bool ApplicationsExpanded
+        {
+            get => _applicationsExpanded;
+            set => SetProperty(ref _applicationsExpanded, value, nameof(ApplicationsExpanded));
+        }
+
+        // Set by the applications panel: true when the apps don't fit in one row,
+        // which drives the visibility of the expand/collapse toggle.
+        public bool ApplicationsHasOverflow
+        {
+            get => _applicationsHasOverflow;
+            set => SetProperty(ref _applicationsHasOverflow, value, nameof(ApplicationsHasOverflow));
         }
 
         public string SettingDescription
@@ -873,6 +891,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void RefreshCurrentProfile()
         {
+            // A freshly opened profile always starts collapsed to a single row.
+            ApplicationsExpanded = false;
             Applications.Clear();
 
             var applications = new Dictionary<string, string>();

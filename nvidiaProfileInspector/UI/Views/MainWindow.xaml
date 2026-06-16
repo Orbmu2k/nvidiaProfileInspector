@@ -1131,6 +1131,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <StackPanel
@@ -1152,7 +1153,9 @@
                             <ItemsControl ItemsSource="{Binding Applications}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" />
+                                        <controls:CollapsibleWrapPanel
+                                            HasOverflow="{Binding ApplicationsHasOverflow, Mode=OneWayToSource}"
+                                            IsExpanded="{Binding ApplicationsExpanded}" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
@@ -1166,6 +1169,14 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </Border>
+
+                        <ToggleButton
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            IsChecked="{Binding ApplicationsExpanded}"
+                            Style="{StaticResource ApplicationsExpandToggleStyle}"
+                            ToolTip="Show all applications / collapse to a single row"
+                            Visibility="{Binding ApplicationsHasOverflow, Converter={StaticResource BoolToVisibilityConverter}}" />
                     </Grid>
                 </Border>
 
