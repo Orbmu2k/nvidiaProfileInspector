@@ -1203,29 +1203,305 @@
                             Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
                             ToolTip="Search settings by name (Ctrl+F)" />
 
-                        <!--  Setting Types  -->
-                        <ComboBox
-                            Grid.Column="1"
-                            Width="190"
-                            Margin="12,0,0,0"
-                            SelectedIndex="{Binding FilterTypeIndex}"
-                            ToolTip="Filter settings by type">
-                            <ComboBox.Style>
-                                <Style BasedOn="{StaticResource DarkComboBoxStyle}" TargetType="ComboBox">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding FilterTypeIndex}" Value="3">
-                                            <Setter Property="BorderBrush" Value="{DynamicResource WarningBrush}" />
-                                            <Setter Property="BorderThickness" Value="2" />
-                                            <Setter Property="ToolTip" Value="Modified Only filter is active. Only settings with a user-defined profile override or a currently unsaved edit are shown." />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                            <ComboBoxItem Content="Common only" />
-                            <ComboBoxItem Content="Common + Driver" />
-                            <ComboBoxItem Content="All Settings" />
-                            <ComboBoxItem Content="Modified Only" />
-                        </ComboBox>
+                        <!--  Source Filter Flyout  -->
+                        <Grid Grid.Column="1" Margin="12,0,0,0">
+                            <Button
+                                x:Name="FilterSourceButton"
+                                Command="{Binding ToggleFilterMenuCommand}"
+                                Style="{StaticResource FilterSourceButtonStyle}"
+                                ToolTip="Filter setting and value sources">
+                                <Path
+                                    Width="16"
+                                    Height="16"
+                                    Data="{DynamicResource IconFilter}"
+                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                    Stretch="Uniform" />
+                            </Button>
+                            <Popup
+                                x:Name="FilterPopup"
+                                AllowsTransparency="True"
+                                HorizontalOffset="-8"
+                                IsOpen="{Binding IsFilterMenuOpen, Mode=TwoWay}"
+                                Placement="Bottom"
+                                PlacementTarget="{Binding ElementName=FilterSourceButton}"
+                                StaysOpen="False"
+                                VerticalOffset="4">
+                                <Border
+                                    Margin="8,0,8,8"
+                                    Padding="8"
+                                    Background="{DynamicResource Layer2BackgroundBrush}"
+                                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="16"
+                                            Direction="270"
+                                            Opacity="0.25"
+                                            ShadowDepth="4" />
+                                    </Border.Effect>
+                                    <StackPanel Width="252">
+                                        <TextBlock Style="{StaticResource FilterFlyoutCategoryHeaderStyle}" Text="SETTING SOURCE" />
+                                        <CheckBox IsChecked="{Binding SettingSourceCommon}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconSettings}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Common (CSN)" />
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox IsChecked="{Binding SettingSourceDriver}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconNvidia}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Driver API" />
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox IsChecked="{Binding SettingSourceConstants}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconBitEditor}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Driver Constants" />
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox IsChecked="{Binding SettingSourceReference}" IsEnabled="{Binding IsReferenceAvailable}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconInfo}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Reference" />
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox IsChecked="{Binding SettingSourceScan}" IsEnabled="{Binding IsScanAvailable}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconSearch}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Predefined Scan" />
+                                            </StackPanel>
+                                        </CheckBox>
+
+                                        <Border
+                                            Height="1"
+                                            Margin="6,6,6,2"
+                                            Background="{DynamicResource ControlBorderBrush}"
+                                            Opacity="0.5" />
+                                        <CheckBox
+                                            IsChecked="{Binding ShowActiveFromDisabledSources}"
+                                            Style="{StaticResource FilterFlyoutCheckBoxStyle}"
+                                            ToolTip="Even if a setting source is off, show its settings when they are active in the current profile (predefined, global, or user value).">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                                Text="Show active settings from disabled sources"
+                                                TextWrapping="Wrap" />
+                                        </CheckBox>
+                                        <CheckBox
+                                            IsChecked="{Binding AllowMetaFromInactiveSources}"
+                                            Style="{StaticResource FilterFlyoutCheckBoxStyle}"
+                                            ToolTip="Allow a setting's name and description to come from sources that are currently disabled.">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                                Text="Name &amp; description from inactive sources"
+                                                TextWrapping="Wrap" />
+                                        </CheckBox>
+
+                                        <Border
+                                            Height="1"
+                                            Margin="6,8"
+                                            Background="{DynamicResource ControlBorderBrush}" />
+
+                                        <TextBlock Style="{StaticResource FilterFlyoutCategoryHeaderStyle}" Text="VALUE SOURCE" />
+                                        <CheckBox IsChecked="{Binding ValueSourceCommon}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconSettings}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Common (CSN)" />
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox IsChecked="{Binding ValueSourceDriver}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconNvidia}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Driver API" />
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox IsChecked="{Binding ValueSourceConstants}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconBitEditor}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Driver Constants" />
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox IsChecked="{Binding ValueSourceReference}" IsEnabled="{Binding IsReferenceAvailable}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconInfo}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Reference" />
+                                            </StackPanel>
+                                        </CheckBox>
+                                        <CheckBox IsChecked="{Binding ValueSourceScan}" IsEnabled="{Binding IsScanAvailable}" Style="{StaticResource FilterFlyoutCheckBoxStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="14"
+                                                    Height="14"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconSearch}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Predefined Scan" />
+                                            </StackPanel>
+                                        </CheckBox>
+
+                                        <Border
+                                            Height="1"
+                                            Margin="6,6,6,2"
+                                            Background="{DynamicResource ControlBorderBrush}"
+                                            Opacity="0.5" />
+                                        <CheckBox
+                                            IsChecked="{Binding MergeDistinctValues}"
+                                            Style="{StaticResource FilterFlyoutCheckBoxStyle}"
+                                            ToolTip="Merge entries with the same value from different sources into one (highest-priority name wins).">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                                Text="Merge distinct values"
+                                                TextWrapping="Wrap" />
+                                        </CheckBox>
+                                        <CheckBox
+                                            IsChecked="{Binding AddPredefinedAppListToCommon}"
+                                            IsEnabled="{Binding IsScanAvailable}"
+                                            Style="{StaticResource FilterFlyoutCheckBoxStyle}"
+                                            ToolTip="Let the predefined scan (app list) values merge into the matching common values instead of showing as separate rows.">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                                Text="Add predefined app list to common values"
+                                                TextWrapping="Wrap" />
+                                        </CheckBox>
+
+                                        <Border
+                                            Height="1"
+                                            Margin="6,8,6,4"
+                                            Background="{DynamicResource ControlBorderBrush}" />
+                                        <Button
+                                            Command="{Binding ResetFilterDefaultsCommand}"
+                                            Style="{StaticResource FilterFlyoutResetButtonStyle}"
+                                            ToolTip="Reset all filter and value options to their defaults">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path
+                                                    Width="13"
+                                                    Height="13"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{DynamicResource IconRestore}"
+                                                    Fill="{DynamicResource TextSecondaryBrush}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Text="Restore defaults" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </Grid>
+
+                        <!--  Modified Only Toggle  -->
+                        <ToggleButton
+                            Grid.Column="2"
+                            Margin="8,0,0,0"
+                            IsChecked="{Binding ModifiedOnly}"
+                            Style="{StaticResource ModifiedOnlyToggleStyle}"
+                            ToolTip="Show active or modified settings only" />
                     </Grid>
 
                     <!--  Settings ListView  -->

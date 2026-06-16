@@ -13,6 +13,7 @@
         <ResourceDictionary Source="/UI/Styles/ToolTips.xaml" />
         <ResourceDictionary Source="/UI/Styles/Common.xaml" />
         <ResourceDictionary Source="/UI/Styles/Applications.xaml" />
+        <ResourceDictionary Source="/UI/Styles/FilterFlyout.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--  Window Style  -->

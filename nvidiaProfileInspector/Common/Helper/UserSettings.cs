@@ -38,6 +38,46 @@ namespace nvidiaProfileInspector.Common.Helper
 
         public string Win11BackdropMode { get; set; } = "Default";
 
+        // Source filter selection (replaces the legacy SettingsFilterMode combo).
+        // Setting sources decide which sources contribute setting rows.
+        public bool SettingSourceCommon { get; set; } = true;
+
+        public bool SettingSourceDriver { get; set; } = false;
+
+        public bool SettingSourceConstants { get; set; } = false;
+
+        public bool SettingSourceReference { get; set; } = false;
+
+        public bool SettingSourceScan { get; set; } = false;
+
+        // Value sources decide which sources contribute predefined values to a dropdown.
+        public bool ValueSourceCommon { get; set; } = true;
+
+        public bool ValueSourceDriver { get; set; } = false;
+
+        public bool ValueSourceConstants { get; set; } = true;
+
+        public bool ValueSourceReference { get; set; } = true;
+
+        public bool ValueSourceScan { get; set; } = true;
+
+        // Post-filter: only show settings with a user override or an unsaved edit.
+        public bool ModifiedOnly { get; set; } = false;
+
+        // When true, settings that are active in the current profile (predefined, global,
+        // or user value) appear regardless of whether their setting source is enabled.
+        public bool ShowActiveFromDisabledSources { get; set; } = true;
+
+        // Value dropdown behavior: merge same-value entries across sources into one, and
+        // let the predefined scan (app list) values merge into the common values too.
+        public bool MergeDistinctValues { get; set; } = true;
+
+        public bool AddPredefinedAppListToCommon { get; set; } = false;
+
+        // Allow a setting's name and description to come from sources that are not currently
+        // enabled as setting sources.
+        public bool AllowMetaFromInactiveSources { get; set; } = true;
+
         private static string GetSettingsFilename()
         {
             var fiPortalbleSettings = new FileInfo("settings.xml");

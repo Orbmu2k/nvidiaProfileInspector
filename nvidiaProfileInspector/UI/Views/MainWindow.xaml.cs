@@ -44,7 +44,7 @@ namespace nvidiaProfileInspector.UI.Views
             _sharedValueEditor = (SearchableComboBox)Resources["SharedValueEditorResource"];
 
             if (_showOnlyCustomizedSettings)
-                _viewModel.FilterTypeIndex = 0;
+                _viewModel.ApplyCommonOnlySettingSource();
 
             ApplyMockTitle();
             SourceInitialized += MainWindow_SourceInitialized;

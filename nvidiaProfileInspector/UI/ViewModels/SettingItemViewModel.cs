@@ -145,6 +145,10 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public bool IsNvidiaSetting => State == SettingState.NvidiaSetting;
         public bool IsGlobalSetting => State == SettingState.GlobalSetting;
 
+        // "Forced" = the setting has an explicit value in the profile (predefined, global
+        // or user), i.e. it is not sitting at the untouched driver default.
+        public bool IsForced => State != SettingState.NotAssiged;
+
         public bool IsInheritedGlobalValue => State == SettingState.GlobalSetting;
 
         public bool IsFavorite
@@ -219,6 +223,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (SetProperty(ref _item, value, nameof(OriginalItem)))
                 {
                     _originalValue = value?.ValueText;
+
+                    // The display name / group are cached, so recompute them when the
+                    // underlying item is swapped in during an incremental list refresh
+                    // (e.g. after a source-filter change that changes the resolved name).
+                    UpdateGroupNameForDisplay();
+                    UpdateDisplayName();
+                    OnPropertyChanged(nameof(DisplayName));
+                    OnPropertyChanged(nameof(GroupNameForDisplay));
                     OnPropertyChanged(nameof(IsModified));
                 }
             }
