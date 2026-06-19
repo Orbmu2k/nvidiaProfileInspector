@@ -161,6 +161,33 @@ namespace nvidiaProfileInspector.Common
                 : ImportProfiles(filenames);
         }
 
+        // True when at least one profile contained in the given files already exists in the
+        // driver. Importing only brand new profiles never needs a merge-vs-replace prompt.
+        public bool AnyImportedProfileExists(IEnumerable<string> filenames)
+        {
+            try
+            {
+                var profiles = LoadAndMergeProfiles(filenames);
+                if (profiles == null || profiles.Count == 0)
+                    return false;
+
+                return DrsSession((hSession) =>
+                {
+                    foreach (var profile in profiles)
+                    {
+                        if (GetProfileHandle(hSession, profile.ProfileName) != IntPtr.Zero)
+                            return true;
+                    }
+                    return false;
+                });
+            }
+            catch
+            {
+                // If the files can't be read here, fall back to asking the user.
+                return true;
+            }
+        }
+
         public string ImportProfiles(IEnumerable<string> filenames)
         {
             var sbFailedProfilesMessage = new StringBuilder();

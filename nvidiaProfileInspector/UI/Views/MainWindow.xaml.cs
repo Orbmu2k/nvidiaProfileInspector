@@ -434,13 +434,21 @@ namespace nvidiaProfileInspector.UI.Views
                     return;
 
                 // No explicit mode means the import was triggered interactively
-                // (drag & drop or a file-association double-click) - ask the user.
+                // (drag & drop or a file-association double-click). Only ask merge-vs-replace
+                // when an existing profile would be touched - new profiles are just created.
                 var mode = forcedMode;
                 if (mode == null)
                 {
-                    mode = UI.Views.Dialogs.ProfileImportModePrompt.Ask(this, fileList.Count);
-                    if (mode == null)
-                        return; // cancelled
+                    if (_viewModel.ImportTargetsExistingProfile(fileList))
+                    {
+                        mode = UI.Views.Dialogs.ProfileImportModePrompt.Ask(this, fileList.Count);
+                        if (mode == null)
+                            return; // cancelled
+                    }
+                    else
+                    {
+                        mode = Common.ProfileImportMode.Replace;
+                    }
                 }
 
                 var report = _viewModel.ImportFiles(fileList, mode.Value);

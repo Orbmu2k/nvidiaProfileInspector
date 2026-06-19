@@ -262,18 +262,27 @@ namespace nvidiaProfileInspector
         {
             try
             {
+                var importService = _bootstrapper.Resolve<DrsImportService>();
+
                 var mode = ResolveForcedImportMode(startupOptions);
                 if (mode == null)
                 {
                     // Interactive launch (e.g. file-association double-click) without a running
-                    // instance and without an explicit switch - ask before touching profiles.
+                    // instance and without an explicit switch. Only ask before touching profiles
+                    // when an existing profile would be affected; new profiles are just created.
                     CloseStartupSplashScreen();
-                    mode = UI.Views.Dialogs.ProfileImportModePrompt.Ask(null, startupOptions.NipFiles.Length);
-                    if (mode == null)
-                        return; // cancelled
+                    if (importService.AnyImportedProfileExists(startupOptions.NipFiles))
+                    {
+                        mode = UI.Views.Dialogs.ProfileImportModePrompt.Ask(null, startupOptions.NipFiles.Length);
+                        if (mode == null)
+                            return; // cancelled
+                    }
+                    else
+                    {
+                        mode = ProfileImportMode.Replace;
+                    }
                 }
 
-                var importService = _bootstrapper.Resolve<DrsImportService>();
                 var report = ImportNipFiles(importService, startupOptions.NipFiles, mode.Value);
 
                 if (startupOptions.IsSilentMode)

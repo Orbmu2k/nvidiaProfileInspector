@@ -1485,6 +1485,20 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
+        // Whether the given files would import into an already-existing profile (and thus
+        // need a merge-vs-replace decision). Importing only new profiles just creates them.
+        public bool ImportTargetsExistingProfile(IEnumerable<string> filePaths)
+        {
+            var normalizedFiles = (filePaths ?? Enumerable.Empty<string>())
+                .Where(File.Exists)
+                .Where(path => string.Equals(Path.GetExtension(path), ".nip", StringComparison.InvariantCultureIgnoreCase))
+                .Select(Path.GetFullPath)
+                .Distinct(StringComparer.InvariantCultureIgnoreCase)
+                .ToArray();
+
+            return _importService.AnyImportedProfileExists(normalizedFiles);
+        }
+
         public void ImportProfiles()
         {
             var dialog = new Microsoft.Win32.OpenFileDialog
