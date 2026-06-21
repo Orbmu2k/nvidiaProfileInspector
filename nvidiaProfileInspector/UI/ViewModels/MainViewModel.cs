@@ -1629,10 +1629,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 return;
 
             var selectedSettingId = _selectedSetting.SettingId;
+            var settingName = _selectedSetting.DisplayName;
 
             bool removeFromModified;
             _settingService.ResetValue(_currentProfile, selectedSettingId, out removeFromModified);
             RefreshCurrentProfile();
+
+            ShowSnackbar($"\"{settingName}\" restored to NVIDIA default.", "Success");
         }
 
         private void CopySettingsToClipboard()
