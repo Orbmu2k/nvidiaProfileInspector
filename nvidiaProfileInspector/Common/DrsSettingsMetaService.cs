@@ -57,6 +57,10 @@ namespace nvidiaProfileInspector.Common
         // app-list rows. Only relevant while MergeDistinctValues is on.
         public bool AddPredefinedAppListToCommon = true;
 
+        // Whether common (CSN) value names get the raw value prefixed (like the other sources
+        // already show it). Off by default.
+        public bool AddRawValueToCommon = false;
+
         // Whether a setting's name and description may still be pulled from sources that are
         // not currently enabled as setting sources.
         public bool AllowMetaFromInactiveSources = true;
@@ -66,12 +70,14 @@ namespace nvidiaProfileInspector.Common
             IEnumerable<SettingMetaSource> valueSources,
             bool mergeDistinctValues,
             bool addPredefinedAppListToCommon,
+            bool addRawValueToCommon,
             bool allowMetaFromInactiveSources)
         {
             EnabledSettingSources = new HashSet<SettingMetaSource>(settingSources);
             EnabledValueSources = new HashSet<SettingMetaSource>(valueSources);
             MergeDistinctValues = mergeDistinctValues;
             AddPredefinedAppListToCommon = addPredefinedAppListToCommon;
+            AddRawValueToCommon = addRawValueToCommon;
             AllowMetaFromInactiveSources = allowMetaFromInactiveSources;
 
             // Value lists are cached per setting, so they must be rebuilt under the new filter.
@@ -258,7 +264,7 @@ namespace nvidiaProfileInspector.Common
         // Applies the user's merge options and the final ordering to an already collected and
         // name-filtered list of values. valueKey returns the numeric value (or a stable key
         // for binary) used to detect "same value" across sources.
-        private List<SettingValue<T>> AggregateValues<T>(List<SettingValue<T>> collected, Func<SettingValue<T>, object> valueKey)
+        private List<SettingValue<T>> AggregateValues<T>(List<SettingValue<T>> collected, Func<SettingValue<T>, object> valueKey, Func<SettingValue<T>, string> rawValueFormatter)
         {
             IEnumerable<SettingValue<T>> values;
 
@@ -319,11 +325,38 @@ namespace nvidiaProfileInspector.Common
                     .Select(g => g.OrderBy(x => x.ValueSource).First());
             }
 
-            return values
+            var ordered = values
                 .OrderBy(v => v.ValueSource)
                 .ThenBy(v => v.ValuePos)
                 .ThenBy(v => v.ValueName)
                 .ToList();
+
+            // Optionally prefix the raw value to common (CSN) value names, matching how the
+            // other sources already show it. New value objects so cached entries aren't mutated.
+            if (AddRawValueToCommon && rawValueFormatter != null)
+            {
+                for (var i = 0; i < ordered.Count; i++)
+                {
+                    var v = ordered[i];
+                    if (v.ValueSource != SettingMetaSource.CustomSettings)
+                        continue;
+
+                    var raw = rawValueFormatter(v);
+                    if (string.IsNullOrEmpty(raw))
+                        continue;
+                    if (v.ValueName != null && v.ValueName.StartsWith(raw, StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    ordered[i] = new SettingValue<T>(v.ValueSource)
+                    {
+                        Value = v.Value,
+                        ValuePos = v.ValuePos,
+                        ValueName = raw + " " + (v.ValueName ?? string.Empty),
+                    };
+                }
+            }
+
+            return ordered;
         }
 
         private List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
@@ -339,7 +372,10 @@ namespace nvidiaProfileInspector.Common
                     collected.AddRange(values);
             }
 
-            return AggregateValues(collected, x => x.Value == null ? string.Empty : BitConverter.ToString(x.Value));
+            return AggregateValues(
+                collected,
+                x => x.Value == null ? string.Empty : BitConverter.ToString(x.Value),
+                x => x.Value == null ? null : "0x" + BitConverter.ToString(x.Value).Replace("-", string.Empty));
         }
 
         private List<SettingValue<string>> GetStringValues(uint settingId)
@@ -355,7 +391,7 @@ namespace nvidiaProfileInspector.Common
                     collected.AddRange(values);
             }
 
-            return AggregateValues(collected, x => (object)x.Value);
+            return AggregateValues(collected, x => (object)x.Value, x => x.Value);
         }
 
         private List<SettingValue<uint>> GetDwordValues(uint settingId)
@@ -378,7 +414,7 @@ namespace nvidiaProfileInspector.Common
                     && (!x.ValueName.EndsWith("_MAX") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MAX")))
                 .ToList();
 
-            return AggregateValues(collected, x => (object)x.Value);
+            return AggregateValues(collected, x => (object)x.Value, x => DrsUtil.GetDwordString(x.Value));
         }
 
         private List<SettingValue<ulong>> GetQwordValues(uint settingId)
@@ -401,7 +437,7 @@ namespace nvidiaProfileInspector.Common
                     && !x.ValueName.EndsWith("_MAX"))
                 .ToList();
 
-            return AggregateValues(collected, x => (object)x.Value);
+            return AggregateValues(collected, x => (object)x.Value, x => DrsUtil.GetQwordString(x.Value));
         }
 
         public List<uint> GetSettingIds()

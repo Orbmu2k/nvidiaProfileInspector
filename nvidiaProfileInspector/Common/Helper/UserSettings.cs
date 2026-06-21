@@ -74,6 +74,9 @@ namespace nvidiaProfileInspector.Common.Helper
 
         public bool AddPredefinedAppListToCommon { get; set; } = false;
 
+        // Prefix the raw value to common (CSN) value names. Off by default.
+        public bool AddRawValueToCommon { get; set; } = false;
+
         // Allow a setting's name and description to come from sources that are not currently
         // enabled as setting sources.
         public bool AllowMetaFromInactiveSources { get; set; } = true;

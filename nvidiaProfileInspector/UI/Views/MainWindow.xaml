@@ -1466,6 +1466,17 @@
                                                 Text="Add predefined app list to common values"
                                                 TextWrapping="Wrap" />
                                         </CheckBox>
+                                        <CheckBox
+                                            IsChecked="{Binding AddRawValueToCommon}"
+                                            Style="{StaticResource FilterFlyoutCheckBoxStyle}"
+                                            ToolTip="Prefix the raw value to common (CSN) value names, the way the other sources already show it.">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                                Text="Add raw value to common values"
+                                                TextWrapping="Wrap" />
+                                        </CheckBox>
 
                                         <Border
                                             Height="1"
