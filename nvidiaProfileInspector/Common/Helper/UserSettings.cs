@@ -81,6 +81,9 @@ namespace nvidiaProfileInspector.Common.Helper
         // enabled as setting sources.
         public bool AllowMetaFromInactiveSources { get; set; } = true;
 
+        // Prefix the setting id to the setting name in the list. Off by default.
+        public bool ShowSettingIdInName { get; set; } = false;
+
         private static string GetSettingsFilename()
         {
             var fiPortalbleSettings = new FileInfo("settings.xml");

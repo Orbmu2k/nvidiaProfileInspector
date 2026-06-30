@@ -44,12 +44,27 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 _cachedGroupNameForDisplay = GroupName;
         }
 
+        // Set by the view model from the persisted filter option. Read only while (re)building
+        // the cached DisplayName, so there is no per-row cost while scrolling the list.
+        public static bool ShowSettingIdInName;
+
         private void UpdateDisplayName()
         {
-            if (IsSettingHidden)
-                DisplayName = "[H] " + SettingText;
-            else
-                DisplayName = SettingText;
+            var name = IsSettingHidden ? "[H] " + SettingText : SettingText;
+
+            // Optionally prefix the setting id, unless the name already is the hex id itself.
+            if (ShowSettingIdInName && !(SettingText != null && SettingText.StartsWith("0x", System.StringComparison.OrdinalIgnoreCase)))
+                name = SettingIdHex + " " + name;
+
+            DisplayName = name;
+        }
+
+        // Recompute the cached display name in place (used when the "show setting id" option
+        // toggles, avoiding a full profile reload).
+        public void RefreshDisplayName()
+        {
+            UpdateDisplayName();
+            OnPropertyChanged(nameof(DisplayName));
         }
 
         private void InvalidateValueNameItems()

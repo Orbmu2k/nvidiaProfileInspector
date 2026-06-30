@@ -34,6 +34,7 @@
                     Fill="{DynamicResource TextSecondaryBrush}"
                     Stretch="Uniform" />
                 <TextBlock
+                    FontFamily="Consolas"
                     Text="{Binding ValueName, Mode=OneWay}"
                     TextTrimming="CharacterEllipsis"
                     TextWrapping="NoWrap" />
@@ -42,6 +43,7 @@
 
         <controls:SearchableComboBox x:Key="SharedValueEditorResource"
                                      Padding="8,4"
+                                     FontFamily="Consolas"
                                      HorizontalAlignment="Stretch"
                                      Foreground="{Binding State, Converter={StaticResource StateToColorConverter}, Mode=OneWay}"
                                      behaviors:SettingValueValidationBehavior.Enabled="True"
@@ -1350,6 +1352,17 @@
                                                 Text="Name &amp; description from inactive sources"
                                                 TextWrapping="Wrap" />
                                         </CheckBox>
+                                        <CheckBox
+                                            IsChecked="{Binding ShowSettingIdInName}"
+                                            Style="{StaticResource FilterFlyoutCheckBoxStyle}"
+                                            ToolTip="Prefix the setting id to the setting name in the list (double-click a name to copy its id).">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextSecondaryBrush}"
+                                                Text="Add setting ID to name"
+                                                TextWrapping="Wrap" />
+                                        </CheckBox>
 
                                         <Border
                                             Height="1"
@@ -1519,6 +1532,7 @@
                     <Grid Grid.Row="1">
                         <ListBox
                             x:Name="SettingsListView"
+                            FontFamily="Consolas"
                             behaviors:GridViewColumnResizeBehavior.EnableStarSizing="True"
                             behaviors:GridViewColumnResizeBehavior.HexColumnWidth="200"
                             behaviors:GridViewColumnResizeBehavior.SettingColumnMinWidth="320"
@@ -1663,7 +1677,14 @@
                                                 Foreground="{Binding State, Converter={StaticResource StateToSettingIconColorConverter}, Mode=OneWay}"
                                                 Text="{Binding DisplayName, Mode=OneWay}"
                                                 ToolTip="{Binding SettingIdHex, Mode=OneWay}"
-                                                ToolTipService.IsEnabled="{Binding DataContext.IsDevMode, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                                ToolTipService.IsEnabled="{Binding DataContext.IsDevMode, RelativeSource={RelativeSource AncestorType=Window}}">
+                                                <TextBlock.InputBindings>
+                                                    <MouseBinding
+                                                        Command="{Binding DataContext.CopySettingIdCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                        CommandParameter="{Binding}"
+                                                        Gesture="LeftDoubleClick" />
+                                                </TextBlock.InputBindings>
+                                            </TextBlock>
                                     <Grid Grid.Column="3">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />

@@ -72,6 +72,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private bool _addPredefinedAppListToCommon;
         private bool _addRawValueToCommon;
         private bool _allowMetaFromInactiveSources = true;
+        private bool _showSettingIdInName;
         private bool _isFilterMenuOpen;
         private DateTime _filterMenuClosedAt = DateTime.MinValue;
         private bool _isInitializing;
@@ -285,6 +286,24 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             get => _allowMetaFromInactiveSources;
             set { if (SetProperty(ref _allowMetaFromInactiveSources, value, nameof(AllowMetaFromInactiveSources))) OnSourceFilterChanged(); }
+        }
+
+        // Setting-source sub-option: prefix the setting id to the name. Display only - just
+        // recomputes the cached DisplayName, no profile reload (keeps scroll perf intact).
+        public bool ShowSettingIdInName
+        {
+            get => _showSettingIdInName;
+            set
+            {
+                if (SetProperty(ref _showSettingIdInName, value, nameof(ShowSettingIdInName)))
+                {
+                    if (_isInitializing)
+                        return;
+
+                    ApplySettingIdInName();
+                    SaveFilterPreferences();
+                }
+            }
         }
 
         // Availability flags used to disable flyout entries for sources that aren't present.
@@ -572,6 +591,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public ICommand ImportProfileCommand { get; private set; }
         public ICommand OpenBitEditorCommand { get; private set; }
         public ICommand ResetValueCommand { get; private set; }
+        public ICommand CopySettingIdCommand { get; private set; }
         public ICommand CopySettingsCommand { get; private set; }
         public ICommand ToggleDevModeCommand { get; private set; }
         public ICommand NavigateToGlobalCommand { get; private set; }
@@ -623,6 +643,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             ImportProfileCommand = new RelayCommand(ImportProfile);
             OpenBitEditorCommand = new RelayCommand(OpenBitEditor, () => SelectedSetting != null);
             ResetValueCommand = new RelayCommand(ResetValue);
+            CopySettingIdCommand = new RelayCommand(CopySettingId);
             CopySettingsCommand = new RelayCommand(CopySettingsToClipboard);
             ToggleDevModeCommand = new RelayCommand(ToggleDevMode);
             NavigateToGlobalCommand = new RelayCommand(_ => NavigateToGlobalProfile());
@@ -765,6 +786,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _addPredefinedAppListToCommon = settings.AddPredefinedAppListToCommon;
             _addRawValueToCommon = settings.AddRawValueToCommon;
             _allowMetaFromInactiveSources = settings.AllowMetaFromInactiveSources;
+            _showSettingIdInName = settings.ShowSettingIdInName;
+            SettingItemViewModel.ShowSettingIdInName = _showSettingIdInName;
 
             ApplySourceFilters();
 
@@ -1036,6 +1059,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void RefreshCurrentProfile()
         {
+            // Make sure freshly built rows pick up the current "setting id in name" option.
+            SettingItemViewModel.ShowSettingIdInName = _showSettingIdInName;
+
             // A freshly opened profile always starts collapsed to a single row.
             ApplicationsExpanded = false;
             Applications.Clear();
@@ -1662,6 +1688,30 @@ namespace nvidiaProfileInspector.UI.ViewModels
             ShowSnackbar("Settings copied to clipboard!", "Success");
         }
 
+        // Double-click on a setting name copies its setting id to the clipboard.
+        private void CopySettingId(object parameter)
+        {
+            if (!(parameter is SettingItemViewModel item))
+                return;
+
+            try
+            {
+                Clipboard.SetText(item.SettingIdHex);
+                ShowSnackbar($"Setting ID {item.SettingIdHex} copied to clipboard.", "Success");
+            }
+            catch
+            {
+            }
+        }
+
+        // Re-applies the "setting id in name" option in place (no profile reload).
+        private void ApplySettingIdInName()
+        {
+            SettingItemViewModel.ShowSettingIdInName = _showSettingIdInName;
+            foreach (var setting in Settings)
+                setting.RefreshDisplayName();
+        }
+
         private void ToggleDevMode()
         {
             IsDevMode = !IsDevMode;
@@ -1803,6 +1853,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             settings.AddPredefinedAppListToCommon = _addPredefinedAppListToCommon;
             settings.AddRawValueToCommon = _addRawValueToCommon;
             settings.AllowMetaFromInactiveSources = _allowMetaFromInactiveSources;
+            settings.ShowSettingIdInName = _showSettingIdInName;
             settings.SaveSettings();
         }
 
@@ -1825,6 +1876,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _addPredefinedAppListToCommon = false;
             _addRawValueToCommon = false;
             _allowMetaFromInactiveSources = true;
+            _showSettingIdInName = false;
 
             OnPropertyChanged(nameof(SettingSourceCommon));
             OnPropertyChanged(nameof(SettingSourceDriver));
@@ -1842,6 +1894,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             OnPropertyChanged(nameof(AddPredefinedAppListToCommon));
             OnPropertyChanged(nameof(AddRawValueToCommon));
             OnPropertyChanged(nameof(AllowMetaFromInactiveSources));
+            OnPropertyChanged(nameof(ShowSettingIdInName));
 
             ApplySourceFilters();
             RefreshCurrentProfile();
