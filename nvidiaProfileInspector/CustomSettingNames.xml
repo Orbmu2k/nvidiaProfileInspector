@@ -89,6 +89,10 @@
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
 					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
@@ -148,10 +152,6 @@
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
-				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -165,6 +165,10 @@
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
@@ -226,10 +230,6 @@
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
-				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -279,6 +279,10 @@
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Preset A</UserfriendlyName>
@@ -339,10 +343,6 @@
 				<CustomSettingValue>
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
@@ -9390,6 +9390,10 @@ When any driver flags are set HDR will be applied via driver instead of through 
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFE</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
 					<UserfriendlyName>Preset A</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
@@ -9492,10 +9496,6 @@ When any driver flags are set HDR will be applied via driver instead of through 
 				<CustomSettingValue>
 					<UserfriendlyName>Preset Z (unused)</UserfriendlyName>
 					<HexValue>0x0000001A</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFE</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
