@@ -89,6 +89,10 @@
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
 					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
@@ -148,10 +152,6 @@
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
-				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -165,6 +165,10 @@
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
@@ -226,10 +230,6 @@
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
-				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -279,6 +279,10 @@
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Preset A</UserfriendlyName>
@@ -339,10 +343,6 @@
 				<CustomSettingValue>
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
-				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
@@ -1314,9 +1314,9 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>RTX Digital Vibrance - Enable</UserfriendlyName>
+			<UserfriendlyName>RTX Dynamic Vibrance - Enable</UserfriendlyName>
 			<HexSettingID>0x00980880</HexSettingID>
-			<Description>Enables or disables the RTX Digital Vibrance post-processing path.</Description>
+			<Description>Enables or disables the RTX Dynamic Vibrance post-processing path.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
@@ -1332,19 +1332,191 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>RTX Digital Vibrance - Saturation Boost</UserfriendlyName>
+			<UserfriendlyName>RTX Dynamic Vibrance - Saturation Boost</UserfriendlyName>
 			<HexSettingID>0x00ABAB13</HexSettingID>
-			<Description>Sets the additional saturation boost applied by RTX Digital Vibrance.</Description>
+			<Description>Sets the additional saturation boost applied by RTX Dynamic Vibrance.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0%</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>5%</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>10%</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>15%</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>20%</UserfriendlyName>
+					<HexValue>0x00000014</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>25%</UserfriendlyName>
+					<HexValue>0x00000019</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>30%</UserfriendlyName>
+					<HexValue>0x0000001E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>35%</UserfriendlyName>
+					<HexValue>0x00000023</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>40%</UserfriendlyName>
+					<HexValue>0x00000028</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>45%</UserfriendlyName>
+					<HexValue>0x0000002D</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>50%</UserfriendlyName>
+					<HexValue>0x00000032</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>55%</UserfriendlyName>
+					<HexValue>0x00000037</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>60%</UserfriendlyName>
+					<HexValue>0x0000003C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>65%</UserfriendlyName>
+					<HexValue>0x00000041</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>70%</UserfriendlyName>
+					<HexValue>0x00000046</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>75%</UserfriendlyName>
+					<HexValue>0x0000004B</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>80%</UserfriendlyName>
+					<HexValue>0x00000050</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>85%</UserfriendlyName>
+					<HexValue>0x00000055</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>90%</UserfriendlyName>
+					<HexValue>0x0000005A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>95%</UserfriendlyName>
+					<HexValue>0x0000005F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>100%</UserfriendlyName>
+					<HexValue>0x00000064</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>RTX Digital Vibrance - Intensity</UserfriendlyName>
+			<UserfriendlyName>RTX Dynamic Vibrance - Intensity</UserfriendlyName>
 			<HexSettingID>0x00ABAB22</HexSettingID>
-			<Description>Sets the RTX Digital Vibrance intensity value applied by the profile.</Description>
+			<Description>Sets the RTX Dynamic Vibrance intensity value applied by the profile.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0%</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>5%</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>10%</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>15%</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>20%</UserfriendlyName>
+					<HexValue>0x00000014</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>25%</UserfriendlyName>
+					<HexValue>0x00000019</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>30%</UserfriendlyName>
+					<HexValue>0x0000001E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>35%</UserfriendlyName>
+					<HexValue>0x00000023</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>40%</UserfriendlyName>
+					<HexValue>0x00000028</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>45%</UserfriendlyName>
+					<HexValue>0x0000002D</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>50%</UserfriendlyName>
+					<HexValue>0x00000032</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>55%</UserfriendlyName>
+					<HexValue>0x00000037</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>60%</UserfriendlyName>
+					<HexValue>0x0000003C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>65%</UserfriendlyName>
+					<HexValue>0x00000041</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>70%</UserfriendlyName>
+					<HexValue>0x00000046</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>75%</UserfriendlyName>
+					<HexValue>0x0000004B</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>80%</UserfriendlyName>
+					<HexValue>0x00000050</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>85%</UserfriendlyName>
+					<HexValue>0x00000055</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>90%</UserfriendlyName>
+					<HexValue>0x0000005A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>95%</UserfriendlyName>
+					<HexValue>0x0000005F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>100%</UserfriendlyName>
+					<HexValue>0x00000064</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
@@ -8578,6 +8750,10 @@ When any driver flags are set HDR will be applied via driver instead of through 
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFE</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
 					<UserfriendlyName>Preset A</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
@@ -8638,8 +8814,52 @@ When any driver flags are set HDR will be applied via driver instead of through 
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFE</HexValue>
+					<UserfriendlyName>Preset P (unused)</UserfriendlyName>
+					<HexValue>0x00000010</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset Q (unused)</UserfriendlyName>
+					<HexValue>0x00000011</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset R (unused)</UserfriendlyName>
+					<HexValue>0x00000012</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset S (unused)</UserfriendlyName>
+					<HexValue>0x00000013</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset T (unused)</UserfriendlyName>
+					<HexValue>0x00000014</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset U (unused)</UserfriendlyName>
+					<HexValue>0x00000015</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset V (unused)</UserfriendlyName>
+					<HexValue>0x00000016</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset W (unused)</UserfriendlyName>
+					<HexValue>0x00000017</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset X (unused)</UserfriendlyName>
+					<HexValue>0x00000018</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset Y (unused)</UserfriendlyName>
+					<HexValue>0x00000019</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset Z (unused)</UserfriendlyName>
+					<HexValue>0x0000001A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use latest available</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
