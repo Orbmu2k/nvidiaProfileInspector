@@ -311,7 +311,8 @@
                                                     Width="34"
                                                     Height="34"
                                                     Source="{Binding AvatarUrl}"
-                                                    Stretch="UniformToFill" />
+                                                    Stretch="UniformToFill"
+                                                    RenderOptions.BitmapScalingMode="HighQuality" />
                                             </Border>
                                         </Border>
 
