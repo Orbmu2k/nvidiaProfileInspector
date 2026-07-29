@@ -44,7 +44,7 @@ namespace nvidiaProfileInspector.UI.Views
             _sharedValueEditor = (SearchableComboBox)Resources["SharedValueEditorResource"];
 
             if (_showOnlyCustomizedSettings)
-                _viewModel.FilterTypeIndex = 0;
+                _viewModel.ApplyCommonOnlySettingSource();
 
             ApplyMockTitle();
             SourceInitialized += MainWindow_SourceInitialized;
@@ -417,19 +417,41 @@ namespace nvidiaProfileInspector.UI.Views
                 return true;
             }
 
-            var files = App.ParseImportFilesMessage(message);
-            if (files.Count == 0)
+            var request = App.ParseImportFilesMessage(message);
+            if (request.Files.Count == 0)
                 return false;
 
-            ImportNipFiles(files, showSuccessNotification: true);
+            ImportNipFiles(request.Files, showSuccessNotification: true, forcedMode: request.Mode);
             return true;
         }
 
-        private void ImportNipFiles(IEnumerable<string> files, bool showSuccessNotification)
+        private void ImportNipFiles(IEnumerable<string> files, bool showSuccessNotification, Common.ProfileImportMode? forcedMode = null)
         {
             try
             {
-                var report = _viewModel.ImportFiles(files);
+                var fileList = (files ?? Enumerable.Empty<string>()).ToList();
+                if (fileList.Count == 0)
+                    return;
+
+                // No explicit mode means the import was triggered interactively
+                // (drag & drop or a file-association double-click). Only ask merge-vs-replace
+                // when an existing profile would be touched - new profiles are just created.
+                var mode = forcedMode;
+                if (mode == null)
+                {
+                    if (_viewModel.ImportTargetsExistingProfile(fileList))
+                    {
+                        mode = UI.Views.Dialogs.ProfileImportModePrompt.Ask(this, fileList.Count);
+                        if (mode == null)
+                            return; // cancelled
+                    }
+                    else
+                    {
+                        mode = Common.ProfileImportMode.Replace;
+                    }
+                }
+
+                var report = _viewModel.ImportFiles(fileList, mode.Value);
                 _viewModel.RefreshCommand.Execute(null);
 
                 if (string.IsNullOrWhiteSpace(report))
@@ -641,11 +663,6 @@ namespace nvidiaProfileInspector.UI.Views
         private void ImportAllNVIDIA_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.ImportAllProfilesNVIDIAFormat();
-        }
-
-        private void ShowUnknownToggle_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.RefreshCurrentProfileCommand.Execute(null);
         }
 
         protected override void OnClosed(EventArgs e)

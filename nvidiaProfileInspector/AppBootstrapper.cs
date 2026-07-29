@@ -19,8 +19,6 @@ namespace nvidiaProfileInspector
 
         public void Initialize()
         {
-            //RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
-
             _container = new TinyIoCContainer();
 
             var customSettings = LoadCustomSettings();

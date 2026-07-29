@@ -16,7 +16,7 @@
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Height" Value="30" />
+        <Setter Property="Height" Value="24" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
@@ -26,7 +26,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="15">
+                        CornerRadius="8">
                         <StackPanel Margin="0,0,4,0" Orientation="Horizontal">
                             <Path
                                 x:Name="Icon"
@@ -39,7 +39,7 @@
                             <TextBlock
                                 x:Name="Text"
                                 MaxWidth="160"
-                                Margin="0,0,6,0"
+                                Margin="0,-1,6,0"
                                 VerticalAlignment="Center"
                                 Foreground="{TemplateBinding Foreground}"
                                 Text="{Binding Name}"
@@ -75,7 +75,7 @@
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Height" Value="30" />
+        <Setter Property="Height" Value="24" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -85,7 +85,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="15">
+                        CornerRadius="8">
                         <StackPanel Orientation="Horizontal">
                             <Path
                                 Width="12"
@@ -94,7 +94,7 @@
                                 Data="{StaticResource IconSimpleAdd}"
                                 Fill="{TemplateBinding Foreground}"
                                 Stretch="Uniform" />
-                            <ContentPresenter VerticalAlignment="Center" />
+                            <ContentPresenter Margin="0,-1,6,0" VerticalAlignment="Center" />
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -105,6 +105,59 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource ApplicationAddHoverBrush}" />
                             <Setter Property="Opacity" Value="0.8" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Applications Expand/Collapse Toggle  -->
+    <Style x:Key="ApplicationsExpandToggleStyle" TargetType="ToggleButton">
+        <Setter Property="Background" Value="{DynamicResource Layer2BackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Margin" Value="8,2,0,2" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="8">
+                        <Path
+                            x:Name="chevron"
+                            Width="10"
+                            Height="6"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="M0,0 L4,4 L8,0 Z"
+                            Fill="{DynamicResource TextSecondaryBrush}"
+                            RenderTransformOrigin="0.5,0.5"
+                            Stretch="Uniform">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="0" />
+                            </Path.RenderTransform>
+                        </Path>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="chevron" Property="RenderTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="180" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource NvidiaGreenBrush}" />
+                            <Setter TargetName="chevron" Property="Fill" Value="{DynamicResource NvidiaGreenBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

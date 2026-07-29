@@ -89,6 +89,10 @@
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
 					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
@@ -148,10 +152,6 @@
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
-				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -165,6 +165,10 @@
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Preset A (CNN)</UserfriendlyName>
@@ -226,10 +230,6 @@
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
-				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -279,6 +279,10 @@
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
 					<UserfriendlyName>Preset A</UserfriendlyName>
@@ -340,10 +344,6 @@
 					<UserfriendlyName>Preset O (unused)</UserfriendlyName>
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
-				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFF</HexValue>
-				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
@@ -375,7 +375,6 @@
 			<Description>Controls the full-screen menu detection mode used by DLSS Frame Generation heuristics.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<DataType>DWORD</DataType>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>N/A</UserfriendlyName>
@@ -398,7 +397,6 @@
 			<Description>Sets the screen-coverage threshold used by the DLSS Frame Generation full-screen menu override heuristic.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS-FG - Full-Screen Menu Override Alpha Threshold (float)</UserfriendlyName>
@@ -406,7 +404,6 @@
 			<Description>Sets the alpha threshold used by the DLSS Frame Generation full-screen menu override heuristic.</Description>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>DLSS - Forced Quality Level</UserfriendlyName>
@@ -1317,9 +1314,9 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>RTX Digital Vibrance - Enable</UserfriendlyName>
+			<UserfriendlyName>RTX Dynamic Vibrance - Enable</UserfriendlyName>
 			<HexSettingID>0x00980880</HexSettingID>
-			<Description>Enables or disables the RTX Digital Vibrance post-processing path.</Description>
+			<Description>Enables or disables the RTX Dynamic Vibrance post-processing path.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
 			<SettingValues>
@@ -1335,19 +1332,191 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>RTX Digital Vibrance - Saturation Boost</UserfriendlyName>
+			<UserfriendlyName>RTX Dynamic Vibrance - Saturation Boost</UserfriendlyName>
 			<HexSettingID>0x00ABAB13</HexSettingID>
-			<Description>Sets the additional saturation boost applied by RTX Digital Vibrance.</Description>
+			<Description>Sets the additional saturation boost applied by RTX Dynamic Vibrance.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0%</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>5%</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>10%</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>15%</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>20%</UserfriendlyName>
+					<HexValue>0x00000014</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>25%</UserfriendlyName>
+					<HexValue>0x00000019</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>30%</UserfriendlyName>
+					<HexValue>0x0000001E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>35%</UserfriendlyName>
+					<HexValue>0x00000023</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>40%</UserfriendlyName>
+					<HexValue>0x00000028</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>45%</UserfriendlyName>
+					<HexValue>0x0000002D</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>50%</UserfriendlyName>
+					<HexValue>0x00000032</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>55%</UserfriendlyName>
+					<HexValue>0x00000037</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>60%</UserfriendlyName>
+					<HexValue>0x0000003C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>65%</UserfriendlyName>
+					<HexValue>0x00000041</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>70%</UserfriendlyName>
+					<HexValue>0x00000046</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>75%</UserfriendlyName>
+					<HexValue>0x0000004B</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>80%</UserfriendlyName>
+					<HexValue>0x00000050</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>85%</UserfriendlyName>
+					<HexValue>0x00000055</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>90%</UserfriendlyName>
+					<HexValue>0x0000005A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>95%</UserfriendlyName>
+					<HexValue>0x0000005F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>100%</UserfriendlyName>
+					<HexValue>0x00000064</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
-			<UserfriendlyName>RTX Digital Vibrance - Intensity</UserfriendlyName>
+			<UserfriendlyName>RTX Dynamic Vibrance - Intensity</UserfriendlyName>
 			<HexSettingID>0x00ABAB22</HexSettingID>
-			<Description>Sets the RTX Digital Vibrance intensity value applied by the profile.</Description>
+			<Description>Sets the RTX Dynamic Vibrance intensity value applied by the profile.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>0%</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>5%</UserfriendlyName>
+					<HexValue>0x00000005</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>10%</UserfriendlyName>
+					<HexValue>0x0000000A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>15%</UserfriendlyName>
+					<HexValue>0x0000000F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>20%</UserfriendlyName>
+					<HexValue>0x00000014</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>25%</UserfriendlyName>
+					<HexValue>0x00000019</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>30%</UserfriendlyName>
+					<HexValue>0x0000001E</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>35%</UserfriendlyName>
+					<HexValue>0x00000023</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>40%</UserfriendlyName>
+					<HexValue>0x00000028</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>45%</UserfriendlyName>
+					<HexValue>0x0000002D</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>50%</UserfriendlyName>
+					<HexValue>0x00000032</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>55%</UserfriendlyName>
+					<HexValue>0x00000037</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>60%</UserfriendlyName>
+					<HexValue>0x0000003C</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>65%</UserfriendlyName>
+					<HexValue>0x00000041</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>70%</UserfriendlyName>
+					<HexValue>0x00000046</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>75%</UserfriendlyName>
+					<HexValue>0x0000004B</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>80%</UserfriendlyName>
+					<HexValue>0x00000050</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>85%</UserfriendlyName>
+					<HexValue>0x00000055</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>90%</UserfriendlyName>
+					<HexValue>0x0000005A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>95%</UserfriendlyName>
+					<HexValue>0x0000005F</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>100%</UserfriendlyName>
+					<HexValue>0x00000064</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
 			<SettingMasks />
 		</CustomSetting>
 		<CustomSetting>
@@ -1717,7 +1886,6 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Defines the primary Resizable BAR option bitfield used by the driver.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Options, Resizable Bar - Options</AlternateNames>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Intel CPU Exclusion</UserfriendlyName>
@@ -1725,7 +1893,6 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Stores the Intel CPU exclusion mask used by the Resizable BAR policy logic.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Intel CPU Exclusion, Resizable Bar - Intel CPU Exclusion</AlternateNames>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Size Limit</UserfriendlyName>
@@ -1733,7 +1900,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<Description>Default Size Limit value for most of the whitelisted games is '1GB', some games MAY benefit of a higher size bar.</Description>
 			<AlternateNames>ReBAR - Size Limit, Resizable Bar - Size Limit</AlternateNames>
-			<DataType>QWORD</DataType>
+			<FallbackType>QWORD</FallbackType>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>200MB</UserfriendlyName>
@@ -1783,7 +1950,6 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Stores auxiliary Resizable BAR driver flags for advanced compatibility handling.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Flags (0x000F00BE), Resizable Bar - Flags (0x000F00BE)</AlternateNames>
-			<DataType>DWORD</DataType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>rBAR - Flags (0x000F00BF)</UserfriendlyName>
@@ -1791,7 +1957,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 			<Description>Stores secondary Resizable BAR driver flags for advanced compatibility handling.</Description>
 			<GroupName>07 - System, Memory and Compute</GroupName>
 			<AlternateNames>ReBAR - Flags (0x000F00BF), Resizable Bar - Flags (0x000F00BF)</AlternateNames>
-			<DataType>STRING</DataType>
+			<FallbackType>STRING</FallbackType>
 		</CustomSetting>
 		<CustomSetting>
 			<UserfriendlyName>GSYNC - Support Indicator Overlay</UserfriendlyName>
@@ -1852,9 +2018,9 @@ When any driver flags are set HDR will be applied via driver instead of through 
       <Hidden>true</Hidden>
     </CustomSetting>-->
 		<CustomSetting>
-			<UserfriendlyName>Ansel - Enabled</UserfriendlyName>
+			<UserfriendlyName>NVIDIA Ansel - Enabled</UserfriendlyName>
 			<HexSettingID>0x1075D972</HexSettingID>
-			<Description>Enables or disables NVIDIA Ansel support for the profile.</Description>
+			<Description>Enables or disables NVIDIA Ansel support for the profile. Ansel is a photo mode for supported games developed by NVIDIA, allowing the use of a free camera to take photos of a game. The mode is also able to increase the graphical fidelity of a game so players do not have to change settings manually as they engage or disengage the photo mode.</Description>
 			<GroupName>06 - Rendering Features</GroupName>
 			<SettingValues>
 				<CustomSettingValue>
@@ -1864,6 +2030,27 @@ When any driver flags are set HDR will be applied via driver instead of through 
 				<CustomSettingValue>
 					<UserfriendlyName>On</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+			</SettingValues>
+		</CustomSetting>
+		<CustomSetting>
+			<UserfriendlyName>NVIDIA App Overlay - Flags</UserfriendlyName>
+			<HexSettingID>0x809D5F60</HexSettingID>
+			<Description>Controls NVIDIA App Overlay (formerly ShadowPlay) capture flags.</Description>
+			<GroupName>06 - Rendering Features</GroupName>
+			<OverrideDefault>0x00000000</OverrideDefault>
+			<SettingValues>
+				<CustomSettingValue>
+					<UserfriendlyName>Off</UserfriendlyName>
+					<HexValue>0x00000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Whitelist app for desktop capture</UserfriendlyName>
+					<HexValue>0x00000001</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Disable NVIDIA App statistics</UserfriendlyName>
+					<HexValue>0x10000000</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
@@ -8563,6 +8750,10 @@ When any driver flags are set HDR will be applied via driver instead of through 
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
+					<UserfriendlyName>Use recommended preset</UserfriendlyName>
+					<HexValue>0x00FFFFFE</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
 					<UserfriendlyName>Preset A</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
@@ -8623,8 +8814,52 @@ When any driver flags are set HDR will be applied via driver instead of through 
 					<HexValue>0x0000000F</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Use recommended preset</UserfriendlyName>
-					<HexValue>0x00FFFFFE</HexValue>
+					<UserfriendlyName>Preset P (unused)</UserfriendlyName>
+					<HexValue>0x00000010</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset Q (unused)</UserfriendlyName>
+					<HexValue>0x00000011</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset R (unused)</UserfriendlyName>
+					<HexValue>0x00000012</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset S (unused)</UserfriendlyName>
+					<HexValue>0x00000013</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset T (unused)</UserfriendlyName>
+					<HexValue>0x00000014</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset U (unused)</UserfriendlyName>
+					<HexValue>0x00000015</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset V (unused)</UserfriendlyName>
+					<HexValue>0x00000016</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset W (unused)</UserfriendlyName>
+					<HexValue>0x00000017</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset X (unused)</UserfriendlyName>
+					<HexValue>0x00000018</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset Y (unused)</UserfriendlyName>
+					<HexValue>0x00000019</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Preset Z (unused)</UserfriendlyName>
+					<HexValue>0x0000001A</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>Use latest available</UserfriendlyName>
+					<HexValue>0x00FFFFFF</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 			<SettingMasks />

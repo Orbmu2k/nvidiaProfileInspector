@@ -261,34 +261,12 @@ namespace nvidiaProfileInspector.UI.Converters
         }
     }
 
-    public class SettingsFilterToCacheLengthConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (values == null || values.Length < 2)
-                return new VirtualizationCacheLength(0);
-
-            var filterTypeIndex = values[0] is int filterIndex ? filterIndex : -1;
-            var settingsCount = values[1] is int count ? count : 0;
-
-            if (filterTypeIndex == 0)
-                return new VirtualizationCacheLength(Math.Max(0, settingsCount));
-
-            return new VirtualizationCacheLength(0);
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class SettingMetaSourceToIconConverter : IValueConverter
     {
-        private static Geometry IconUser => IconResourceCache.GetGeometry("IconUser");
         private static Geometry IconNvidia => IconResourceCache.GetGeometry("IconNvidia");
         private static Geometry IconSettings => IconResourceCache.GetGeometry("IconSettings");
-        private static Geometry IconLab => IconResourceCache.GetGeometry("IconLab");
+        private static Geometry IconBitEditor => IconResourceCache.GetGeometry("IconBitEditor");
+        private static Geometry IconInfo => IconResourceCache.GetGeometry("IconInfo");
         private static Geometry IconSearch => IconResourceCache.GetGeometry("IconSearch");
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -298,36 +276,18 @@ namespace nvidiaProfileInspector.UI.Converters
                 switch (source)
                 {
                     case SettingMetaSource.CustomSettings:
-                        return IconUser;
+                        return IconSettings;
                     case SettingMetaSource.DriverSettings:
                         return IconNvidia;
                     case SettingMetaSource.ConstantSettings:
-                        return IconSettings;
+                        return IconBitEditor;
                     case SettingMetaSource.ReferenceSettings:
-                        return IconLab;
+                        return IconInfo;
                     case SettingMetaSource.ScannedSettings:
                         return IconSearch;
                 }
             }
             return IconSettings;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class GroupExpandedConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var groupName = value as string;
-            if (string.IsNullOrEmpty(groupName))
-                return true;
-
-            var settings = Common.Helper.UserSettings.LoadSettings();
-            return settings?.HiddenSettingGroups == null || !settings.HiddenSettingGroups.Contains(groupName);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

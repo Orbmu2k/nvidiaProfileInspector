@@ -2,6 +2,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 {
     using nvidiaProfileInspector.Common;
     using nvidiaProfileInspector.Common.Meta;
+    using nvidiaProfileInspector.Native.NVAPI2;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -43,12 +44,27 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 _cachedGroupNameForDisplay = GroupName;
         }
 
+        // Set by the view model from the persisted filter option. Read only while (re)building
+        // the cached DisplayName, so there is no per-row cost while scrolling the list.
+        public static bool ShowSettingIdInName;
+
         private void UpdateDisplayName()
         {
-            if (IsSettingHidden)
-                DisplayName = "[H] " + SettingText;
-            else
-                DisplayName = SettingText;
+            var name = IsSettingHidden ? "[H] " + SettingText : SettingText;
+
+            // Optionally prefix the setting id, unless the name already is the hex id itself.
+            if (ShowSettingIdInName && !(SettingText != null && SettingText.StartsWith("0x", System.StringComparison.OrdinalIgnoreCase)))
+                name = SettingIdHex + " " + name;
+
+            DisplayName = name;
+        }
+
+        // Recompute the cached display name in place (used when the "show setting id" option
+        // toggles, avoiding a full profile reload).
+        public void RefreshDisplayName()
+        {
+            UpdateDisplayName();
+            OnPropertyChanged(nameof(DisplayName));
         }
 
         private void InvalidateValueNameItems()
@@ -118,7 +134,11 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
         }
 
+        // Discriminator shared with SettingGroupHeaderViewModel for the flattened settings list.
+        public bool IsGroupHeader => false;
+
         public uint SettingId => _item.SettingId;
+        public NVDRS_SETTING_TYPE SettingType => _item.SettingType;
         public string SettingIdHex => string.Format("0x{0:X8}", _item.SettingId);
         public string SettingText => _item.SettingText;
         public string ValueText => _item.ValueText;
@@ -139,6 +159,10 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public bool IsUserDefined => State == SettingState.UserdefinedSetting;
         public bool IsNvidiaSetting => State == SettingState.NvidiaSetting;
         public bool IsGlobalSetting => State == SettingState.GlobalSetting;
+
+        // "Forced" = the setting has an explicit value in the profile (predefined, global
+        // or user), i.e. it is not sitting at the untouched driver default.
+        public bool IsForced => State != SettingState.NotAssiged;
 
         public bool IsInheritedGlobalValue => State == SettingState.GlobalSetting;
 
@@ -214,6 +238,14 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 if (SetProperty(ref _item, value, nameof(OriginalItem)))
                 {
                     _originalValue = value?.ValueText;
+
+                    // The display name / group are cached, so recompute them when the
+                    // underlying item is swapped in during an incremental list refresh
+                    // (e.g. after a source-filter change that changes the resolved name).
+                    UpdateGroupNameForDisplay();
+                    UpdateDisplayName();
+                    OnPropertyChanged(nameof(DisplayName));
+                    OnPropertyChanged(nameof(GroupNameForDisplay));
                     OnPropertyChanged(nameof(IsModified));
                 }
             }

@@ -126,6 +126,7 @@
 
                 <!--  No Button  -->
                 <Button
+                    IsCancel="True"
                     MinWidth="80"
                     Margin="8,0,0,0"
                     Command="{Binding NoCommand}"
@@ -136,6 +137,7 @@
 
                 <!--  Cancel Button  -->
                 <Button
+                    IsCancel="True"
                     MinWidth="80"
                     Margin="8,0,0,0"
                     Command="{Binding CancelCommand}"

@@ -116,6 +116,13 @@ namespace nvidiaProfileInspector.Common
                 foreach (var app in apps)
                 {
                     result.Executeables.Add(app.appName);
+
+                    if (!string.IsNullOrEmpty(app.appName) && !string.IsNullOrEmpty(app.fileInFolder))
+                        result.ExecutableFindFiles.Add(new ExecutableFindFile
+                        {
+                            Executable = app.appName,
+                            FindFile = app.fileInFolder,
+                        });
                 }
 
                 var settings = GetProfileSettings(hSession, hProfile);
@@ -145,6 +152,40 @@ namespace nvidiaProfileInspector.Common
         public string ImportProfiles(string filename)
         {
             return ImportProfiles(new[] { filename });
+        }
+
+        public string ImportProfiles(IEnumerable<string> filenames, ProfileImportMode mode)
+        {
+            return mode == ProfileImportMode.Merge
+                ? MergeProfiles(filenames)
+                : ImportProfiles(filenames);
+        }
+
+        // True when at least one profile contained in the given files already exists in the
+        // driver. Importing only brand new profiles never needs a merge-vs-replace prompt.
+        public bool AnyImportedProfileExists(IEnumerable<string> filenames)
+        {
+            try
+            {
+                var profiles = LoadAndMergeProfiles(filenames);
+                if (profiles == null || profiles.Count == 0)
+                    return false;
+
+                return DrsSession((hSession) =>
+                {
+                    foreach (var profile in profiles)
+                    {
+                        if (GetProfileHandle(hSession, profile.ProfileName) != IntPtr.Zero)
+                            return true;
+                    }
+                    return false;
+                });
+            }
+            catch
+            {
+                // If the files can't be read here, fall back to asking the user.
+                return true;
+            }
         }
 
         public string ImportProfiles(IEnumerable<string> filenames)
@@ -318,6 +359,23 @@ namespace nvidiaProfileInspector.Common
                     targetProfile.Executeables.Add(executable);
                 }
             }
+
+            var findFileByName = new Dictionary<string, ExecutableFindFile>(StringComparer.InvariantCultureIgnoreCase);
+            foreach (var findFile in targetProfile.ExecutableFindFiles)
+                findFileByName[findFile.Executable ?? ""] = findFile;
+
+            foreach (var findFile in sourceProfile.ExecutableFindFiles)
+            {
+                if (findFileByName.TryGetValue(findFile.Executable ?? "", out var existing))
+                {
+                    existing.FindFile = findFile.FindFile;
+                }
+                else
+                {
+                    findFileByName[findFile.Executable ?? ""] = findFile;
+                    targetProfile.ExecutableFindFiles.Add(findFile);
+                }
+            }
         }
 
         private void MergeSettings(Profile targetProfile, Profile sourceProfile)
@@ -378,7 +436,7 @@ namespace nvidiaProfileInspector.Common
                 {
                     try
                     {
-                        AddApplication(hSession, hProfile, appName);
+                        AddImportApplication(hSession, hProfile, importProfile, appName);
                     }
                     catch (NvapiException)
                     {
@@ -386,6 +444,20 @@ namespace nvidiaProfileInspector.Common
                     }
                 }
             }
+        }
+
+        // Adds an imported executable, restoring its "find file" (fileInFolder) when the
+        // profile carried one for that executable.
+        private void AddImportApplication(IntPtr hSession, IntPtr hProfile, Profile importProfile, string appName)
+        {
+            var findFile = importProfile.ExecutableFindFiles?
+                .FirstOrDefault(x => string.Equals(x.Executable, appName, StringComparison.InvariantCultureIgnoreCase))
+                ?.FindFile;
+
+            if (!string.IsNullOrEmpty(findFile))
+                AddApplication(hSession, hProfile, appName, findFile);
+            else
+                AddApplication(hSession, hProfile, appName);
         }
 
         private void MergeApplications(IntPtr hSession, IntPtr hProfile, Profile importProfile)
@@ -401,7 +473,7 @@ namespace nvidiaProfileInspector.Common
 
                 try
                 {
-                    AddApplication(hSession, hProfile, appName);
+                    AddImportApplication(hSession, hProfile, importProfile, appName);
                     existingApplications.Add(appName);
                 }
                 catch (NvapiException)

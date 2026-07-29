@@ -24,7 +24,7 @@ namespace nvidiaProfileInspector.Common.Meta
             var setting = customSettings.Settings
                 .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
-            return MapType(setting?.DataType);
+            return MapType(setting?.FallbackType);
         }
 
         private NVDRS_SETTING_TYPE? MapType(string type)
@@ -191,8 +191,8 @@ namespace nvidiaProfileInspector.Common.Meta
             var setting = customSettings.Settings
                .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
-            if (setting != null && !string.IsNullOrEmpty(setting.DataType)
-                && setting.DataType.Equals("BINARY", StringComparison.OrdinalIgnoreCase)
+            if (setting != null && !string.IsNullOrEmpty(setting.FallbackType)
+                && setting.FallbackType.Equals("BINARY", StringComparison.OrdinalIgnoreCase)
                 && !string.IsNullOrEmpty(setting.OverrideDefault))
             {
                 return DrsUtil.ParseBinaryByInputSafe(setting.OverrideDefault.Trim());
@@ -207,8 +207,8 @@ namespace nvidiaProfileInspector.Common.Meta
                .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
             if (setting != null && setting.SettingValues != null
-                && !string.IsNullOrEmpty(setting.DataType)
-                && setting.DataType.Equals("BINARY", StringComparison.OrdinalIgnoreCase))
+                && !string.IsNullOrEmpty(setting.FallbackType)
+                && setting.FallbackType.Equals("BINARY", StringComparison.OrdinalIgnoreCase))
             {
                 var i = 0;
                 return setting.SettingValues.Select(x =>

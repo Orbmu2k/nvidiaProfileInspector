@@ -13,7 +13,12 @@
         <ResourceDictionary Source="/UI/Styles/ToolTips.xaml" />
         <ResourceDictionary Source="/UI/Styles/Common.xaml" />
         <ResourceDictionary Source="/UI/Styles/Applications.xaml" />
+        <ResourceDictionary Source="/UI/Styles/FilterFlyout.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <!--  Font used by the settings list and value list. Switches to Consolas together with
+          the "Add setting id to name" option, since only then does monospace alignment matter.  -->
+    <FontFamily x:Key="SettingsFontFamily">Segoe UI Variable Text, Segoe UI</FontFamily>
 
     <!--  Window Style  -->
     <Style x:Key="DarkWindowStyle" TargetType="Window">

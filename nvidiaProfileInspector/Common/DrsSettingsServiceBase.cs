@@ -1,6 +1,7 @@
 using nvidiaProfileInspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using nvw = nvidiaProfileInspector.Native.NVAPI2.NvapiDrsWrapper;
@@ -240,6 +241,12 @@ namespace nvidiaProfileInspector.Common
             };
 
             var caRes = nvw.Instance.DRS_CreateApplication(hSession, hProfile, ref newApp);
+
+            if (caRes == NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
+            {
+                if (MitigateNvapiAlreadyInUseBug(hSession, hProfile, newApp)) return;
+            }
+
             if (caRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_CreateApplication", caRes);
 
@@ -255,10 +262,73 @@ namespace nvidiaProfileInspector.Common
             };
 
             var caRes = nvw.Instance.DRS_CreateApplication(hSession, hProfile, ref newApp);
+
+            if (caRes == NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
+            {
+                if (MitigateNvapiAlreadyInUseBug(hSession, hProfile, newApp)) return;
+            }
+
+
             if (caRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_CreateApplication", caRes);
 
         }
+
+        protected bool MitigateNvapiAlreadyInUseBug(IntPtr hSession, IntPtr hProfile, NVDRS_APPLICATION_V4 pApplication)
+        {
+            var exeOnly = Path.GetFileName(pApplication.appName);
+            if (exeOnly == pApplication.appName) return false;
+
+            try
+            {
+                var fullMatchProfile = FindApplicationByName(hSession, pApplication.appName);
+                if (fullMatchProfile == hProfile) return false;
+            }
+            catch (NvapiException e) {}
+
+
+            IntPtr otherProfile = IntPtr.Zero;
+            try
+            {
+                otherProfile = FindApplicationByName(hSession, exeOnly);
+            }
+            catch (NvapiException e)
+            {
+                return false;
+            }
+
+            if (otherProfile == hProfile) return false;
+
+            var otherApps = GetProfileApplications(hSession, otherProfile);
+            
+            NVDRS_APPLICATION_V4 appToRestore = new NVDRS_APPLICATION_V4() { version = 1 };
+
+            foreach (var app in otherApps)
+            {
+                if (app.appName.Equals(exeOnly, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    DeleteApplication(hSession, otherProfile, app);
+                    appToRestore = app;
+                    break;
+                }
+            }
+
+            if (appToRestore.version == 1) return false;
+
+            var resCurrentProfile = nvw.Instance.DRS_CreateApplication(hSession, hProfile, ref pApplication);
+            if (resCurrentProfile != NvAPI_Status.NVAPI_OK)
+                throw new ApplicationException($"NVAPI Bug mitigation failed to add application '{pApplication.appName}' in current profile");
+
+            var resOtherProfile = nvw.Instance.DRS_CreateApplication(hSession, otherProfile, ref appToRestore);
+            if (resOtherProfile != NvAPI_Status.NVAPI_OK)
+            {
+                var profile = GetProfileInfo(hSession, otherProfile);
+                throw new ApplicationException($"NVAPI Bug mitigation failed to restore application '{appToRestore.appName}' in profile '{profile.profileName}'");
+            }
+
+            return true;
+        }
+
 
         protected void DeleteApplication(IntPtr hSession, IntPtr hProfile, NVDRS_APPLICATION_V4 application)
         {

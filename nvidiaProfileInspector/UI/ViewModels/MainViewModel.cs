@@ -21,6 +21,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     public static class MessageBoxEx
     {
@@ -42,9 +43,10 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private string _baseProfileName = "";
         private string _filterText = "";
         private string _applicationsText = "";
+        private bool _applicationsExpanded;
+        private bool _applicationsHasOverflow;
         private string _settingDescription = "";
         private string _scanStatus = "";
-        private bool _showScannedUnknownSettings;
         private bool _isDevMode;
         private int _scanProgress;
         private bool _isScanning;
@@ -52,9 +54,28 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private UpdateRelease _latestAvailableRelease;
         private readonly AppUpdateService _updateService = new AppUpdateService();
         private SettingItemViewModel _selectedSetting;
-        private ListCollectionView _groupedSettingsView;
+        private readonly BulkObservableCollection<object> _settingsViewItems = new BulkObservableCollection<object>();
+        private HashSet<string> _hiddenSettingGroups;
         private CancellationTokenSource _scanCancellationTokenSource;
-        private int _filterTypeIndex;
+        private bool _settingSourceCommon = true;
+        private bool _settingSourceDriver;
+        private bool _settingSourceConstants;
+        private bool _settingSourceReference;
+        private bool _settingSourceScan;
+        private bool _valueSourceCommon = true;
+        private bool _valueSourceDriver;
+        private bool _valueSourceConstants = true;
+        private bool _valueSourceReference = true;
+        private bool _valueSourceScan = true;
+        private bool _modifiedOnly;
+        private bool _showActiveFromDisabledSources = true;
+        private bool _mergeDistinctValues = true;
+        private bool _addPredefinedAppListToCommon;
+        private bool _addRawValueToCommon;
+        private bool _allowMetaFromInactiveSources = true;
+        private bool _showSettingIdInName;
+        private bool _isFilterMenuOpen;
+        private DateTime _filterMenuClosedAt = DateTime.MinValue;
         private bool _isInitializing;
         private SynchronizationContext _uiContext;
         private ITaskbarList3 _taskbarList;
@@ -117,19 +138,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
             _profileNames.Add(new ProfileListItem(DrsSettingsService.GlobalProfileName, false));
             _profileNames.Add(new ProfileListItem("Sample Game Profile", false));
             _currentProfile = "Sample Game Profile";
-            _filterTypeIndex = 0;
 
             foreach (var item in DesignTimeData.SampleSettings)
             {
                 Settings.Add(item);
             }
 
-            if (_groupedSettingsView != null)
-            {
-                _groupedSettingsView = new ListCollectionView(Settings);
-                _groupedSettingsView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(SettingItemViewModel.GroupName)));
-                _groupedSettingsView.Filter = FilterPredicate;
-            }
+            RebuildSettingsView();
 
             InitializeCommands();
         }
@@ -174,14 +189,160 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
-        public int FilterTypeIndex
+        public bool IsFilterMenuOpen
         {
-            get => _filterTypeIndex;
+            get => _isFilterMenuOpen;
             set
             {
-                if (SetProperty(ref _filterTypeIndex, value, nameof(FilterTypeIndex)))
+                if (SetProperty(ref _isFilterMenuOpen, value, nameof(IsFilterMenuOpen)))
                 {
-                    RefreshCurrentProfileCommand.Execute(null);
+                    if (!value)
+                        _filterMenuClosedAt = DateTime.UtcNow;
+                }
+            }
+        }
+
+        // --- Setting sources: which sources contribute setting rows to the list. ---
+        public bool SettingSourceCommon
+        {
+            get => _settingSourceCommon;
+            set { if (SetProperty(ref _settingSourceCommon, value, nameof(SettingSourceCommon))) OnSourceFilterChanged(); }
+        }
+
+        public bool SettingSourceDriver
+        {
+            get => _settingSourceDriver;
+            set { if (SetProperty(ref _settingSourceDriver, value, nameof(SettingSourceDriver))) OnSourceFilterChanged(); }
+        }
+
+        public bool SettingSourceConstants
+        {
+            get => _settingSourceConstants;
+            set { if (SetProperty(ref _settingSourceConstants, value, nameof(SettingSourceConstants))) OnSourceFilterChanged(); }
+        }
+
+        public bool SettingSourceReference
+        {
+            get => _settingSourceReference;
+            set { if (SetProperty(ref _settingSourceReference, value, nameof(SettingSourceReference))) OnSourceFilterChanged(); }
+        }
+
+        public bool SettingSourceScan
+        {
+            get => _settingSourceScan;
+            set { if (SetProperty(ref _settingSourceScan, value, nameof(SettingSourceScan))) OnSourceFilterChanged(); }
+        }
+
+        // --- Value sources: which sources contribute predefined values to a dropdown. ---
+        public bool ValueSourceCommon
+        {
+            get => _valueSourceCommon;
+            set { if (SetProperty(ref _valueSourceCommon, value, nameof(ValueSourceCommon))) OnSourceFilterChanged(); }
+        }
+
+        public bool ValueSourceDriver
+        {
+            get => _valueSourceDriver;
+            set { if (SetProperty(ref _valueSourceDriver, value, nameof(ValueSourceDriver))) OnSourceFilterChanged(); }
+        }
+
+        public bool ValueSourceConstants
+        {
+            get => _valueSourceConstants;
+            set { if (SetProperty(ref _valueSourceConstants, value, nameof(ValueSourceConstants))) OnSourceFilterChanged(); }
+        }
+
+        public bool ValueSourceReference
+        {
+            get => _valueSourceReference;
+            set { if (SetProperty(ref _valueSourceReference, value, nameof(ValueSourceReference))) OnSourceFilterChanged(); }
+        }
+
+        public bool ValueSourceScan
+        {
+            get => _valueSourceScan;
+            set { if (SetProperty(ref _valueSourceScan, value, nameof(ValueSourceScan))) OnSourceFilterChanged(); }
+        }
+
+        // Value dropdown behavior options (sub-options of the value sources).
+        public bool MergeDistinctValues
+        {
+            get => _mergeDistinctValues;
+            set { if (SetProperty(ref _mergeDistinctValues, value, nameof(MergeDistinctValues))) OnSourceFilterChanged(); }
+        }
+
+        public bool AddPredefinedAppListToCommon
+        {
+            get => _addPredefinedAppListToCommon;
+            set { if (SetProperty(ref _addPredefinedAppListToCommon, value, nameof(AddPredefinedAppListToCommon))) OnSourceFilterChanged(); }
+        }
+
+        public bool AddRawValueToCommon
+        {
+            get => _addRawValueToCommon;
+            set { if (SetProperty(ref _addRawValueToCommon, value, nameof(AddRawValueToCommon))) OnSourceFilterChanged(); }
+        }
+
+        // Setting-source sub-option: allow the name and description to come from inactive sources.
+        public bool AllowMetaFromInactiveSources
+        {
+            get => _allowMetaFromInactiveSources;
+            set { if (SetProperty(ref _allowMetaFromInactiveSources, value, nameof(AllowMetaFromInactiveSources))) OnSourceFilterChanged(); }
+        }
+
+        // Setting-source sub-option: prefix the setting id to the name. Display only - just
+        // recomputes the cached DisplayName, no profile reload (keeps scroll perf intact).
+        public bool ShowSettingIdInName
+        {
+            get => _showSettingIdInName;
+            set
+            {
+                if (SetProperty(ref _showSettingIdInName, value, nameof(ShowSettingIdInName)))
+                {
+                    if (_isInitializing)
+                        return;
+
+                    ApplySettingIdInName();
+                    SaveFilterPreferences();
+                }
+            }
+        }
+
+        // Availability flags used to disable flyout entries for sources that aren't present.
+        public bool IsReferenceAvailable => _metaService?.HasReferenceSource ?? false;
+
+        public bool IsScanAvailable => _scannerService?.CachedSettings != null && _scannerService.CachedSettings.Count > 0;
+
+        // Post-filter toggle (own button next to the source flyout): only show settings
+        // with a user override or an unsaved edit.
+        public bool ModifiedOnly
+        {
+            get => _modifiedOnly;
+            set
+            {
+                if (SetProperty(ref _modifiedOnly, value, nameof(ModifiedOnly)))
+                {
+                    RebuildSettingsView();
+                    SaveFilterPreferences();
+                }
+            }
+        }
+
+        // Compact sub-option of the setting-source filter: surface settings that are active
+        // in the current profile (predefined / global / user) regardless of their source.
+        // Re-reads the profile.
+        public bool ShowActiveFromDisabledSources
+        {
+            get => _showActiveFromDisabledSources;
+            set
+            {
+                if (SetProperty(ref _showActiveFromDisabledSources, value, nameof(ShowActiveFromDisabledSources)))
+                {
+                    if (_isInitializing)
+                        return;
+
+                    RefreshCurrentProfile();
+                    SaveFilterPreferences();
                 }
             }
         }
@@ -190,6 +351,22 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             get => _applicationsText;
             set => SetProperty(ref _applicationsText, value, nameof(ApplicationsText));
+        }
+
+        // True while the applications area is expanded to show all rows; reset to
+        // single-row whenever a profile is (re)loaded in RefreshCurrentProfile.
+        public bool ApplicationsExpanded
+        {
+            get => _applicationsExpanded;
+            set => SetProperty(ref _applicationsExpanded, value, nameof(ApplicationsExpanded));
+        }
+
+        // Set by the applications panel: true when the apps don't fit in one row,
+        // which drives the visibility of the expand/collapse toggle.
+        public bool ApplicationsHasOverflow
+        {
+            get => _applicationsHasOverflow;
+            set => SetProperty(ref _applicationsHasOverflow, value, nameof(ApplicationsHasOverflow));
         }
 
         public string SettingDescription
@@ -209,16 +386,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
         {
             get => _statusBarText;
             set => SetProperty(ref _statusBarText, value, nameof(StatusBarText));
-        }
-
-        public bool ShowScannedUnknownSettings
-        {
-            get => _showScannedUnknownSettings;
-            set
-            {
-                if (SetProperty(ref _showScannedUnknownSettings, value, nameof(ShowScannedUnknownSettings)))
-                    RefreshCurrentProfileCommand.Execute(null);
-            }
         }
 
         public bool IsDevMode
@@ -441,7 +608,12 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public bool IsWindows10 => !_isWindows11;
         public bool HasPendingChanges => Settings.Any(x => x.IsModified);
 
-        public ListCollectionView GroupedSettingsView => _groupedSettingsView;
+        /// <summary>
+        /// Flattened settings view: group headers (<see cref="SettingGroupHeaderViewModel"/>)
+        /// followed by their visible <see cref="SettingItemViewModel"/> rows. Replaces the former
+        /// ListCollectionView grouping so the list virtualizes as a single flat panel.
+        /// </summary>
+        public ObservableCollection<object> GroupedSettingsView => _settingsViewItems;
 
         public ObservableCollection<SettingItemViewModel> Settings { get; } = new ObservableCollection<SettingItemViewModel>();
         public ObservableCollection<ModifiedProfileItem> ModifiedProfiles { get; } = new ObservableCollection<ModifiedProfileItem>();
@@ -457,6 +629,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public ICommand ImportProfileCommand { get; private set; }
         public ICommand OpenBitEditorCommand { get; private set; }
         public ICommand ResetValueCommand { get; private set; }
+        public ICommand CopySettingIdCommand { get; private set; }
         public ICommand CopySettingsCommand { get; private set; }
         public ICommand ToggleDevModeCommand { get; private set; }
         public ICommand NavigateToGlobalCommand { get; private set; }
@@ -468,6 +641,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public AsyncRelayCommand CheckUpdateCommand { get; private set; }
         public ICommand ShowAboutCommand { get; private set; }
         public ICommand ToggleAppearanceMenuCommand { get; private set; }
+        public ICommand ToggleFilterMenuCommand { get; private set; }
+        public ICommand ResetFilterDefaultsCommand { get; private set; }
         public ICommand SetThemeCommand { get; private set; }
         public ICommand SetDensityCommand { get; private set; }
         public ICommand SetBackdropModeCommand { get; private set; }
@@ -506,6 +681,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             ImportProfileCommand = new RelayCommand(ImportProfile);
             OpenBitEditorCommand = new RelayCommand(OpenBitEditor, () => SelectedSetting != null);
             ResetValueCommand = new RelayCommand(ResetValue);
+            CopySettingIdCommand = new RelayCommand(CopySettingId);
             CopySettingsCommand = new RelayCommand(CopySettingsToClipboard);
             ToggleDevModeCommand = new RelayCommand(ToggleDevMode);
             NavigateToGlobalCommand = new RelayCommand(_ => NavigateToGlobalProfile());
@@ -516,6 +692,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
             CheckUpdateCommand = new AsyncRelayCommand(CheckForUpdatesAsync);
             ShowAboutCommand = new RelayCommand(_ => ShowAbout());
             ToggleAppearanceMenuCommand = new RelayCommand(_ => ToggleAppearanceMenu());
+            ToggleFilterMenuCommand = new RelayCommand(_ => ToggleFilterMenu());
+            ResetFilterDefaultsCommand = new RelayCommand(_ => ResetFilterDefaults());
             SetThemeCommand = new RelayCommand(param => ApplyTheme(param as string));
             SetDensityCommand = new RelayCommand(param => ApplyDensity(param as string));
             SetBackdropModeCommand = new RelayCommand(param => ApplyBackdropMode(param as string));
@@ -629,10 +807,28 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private void LoadSettings()
         {
             var settings = Common.Helper.UserSettings.LoadSettings();
-            _showScannedUnknownSettings = settings.ShowScannedUnknownSettings;
-            _filterTypeIndex = settings.SettingsFilterMode >= 0
-                ? settings.SettingsFilterMode
-                : 0;
+
+            _settingSourceCommon = settings.SettingSourceCommon;
+            _settingSourceDriver = settings.SettingSourceDriver;
+            _settingSourceConstants = settings.SettingSourceConstants;
+            _settingSourceReference = settings.SettingSourceReference;
+            _settingSourceScan = settings.SettingSourceScan;
+            _valueSourceCommon = settings.ValueSourceCommon;
+            _valueSourceDriver = settings.ValueSourceDriver;
+            _valueSourceConstants = settings.ValueSourceConstants;
+            _valueSourceReference = settings.ValueSourceReference;
+            _valueSourceScan = settings.ValueSourceScan;
+            _modifiedOnly = settings.ModifiedOnly;
+            _showActiveFromDisabledSources = settings.ShowActiveFromDisabledSources;
+            _mergeDistinctValues = settings.MergeDistinctValues;
+            _addPredefinedAppListToCommon = settings.AddPredefinedAppListToCommon;
+            _addRawValueToCommon = settings.AddRawValueToCommon;
+            _allowMetaFromInactiveSources = settings.AllowMetaFromInactiveSources;
+            _showSettingIdInName = settings.ShowSettingIdInName;
+            SettingItemViewModel.ShowSettingIdInName = _showSettingIdInName;
+            ApplySettingsFontFamily();
+
+            ApplySourceFilters();
 
             if (App.Bootstrapper != null)
             {
@@ -666,8 +862,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
             settings.WindowWidth = (int)width;
             settings.WindowHeight = (int)height;
             settings.WindowState = state;
-            settings.SettingsFilterMode = _filterTypeIndex;
-            settings.ShowScannedUnknownSettings = _showScannedUnknownSettings;
 
             if (NvapiDrsWrapper.Instance.IsMockMode)
                 settings.Win11BackdropMode = NvapiDrsWrapper.Instance.GetMockWin11BackdropMode();
@@ -688,18 +882,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void OnFilterTextChanged()
         {
-            if (_groupedSettingsView != null)
-            {
-                _groupedSettingsView.Filter = FilterPredicate;
-                //_groupedSettingsView.Refresh();
-            }
+            RebuildSettingsView();
         }
 
         private bool FilterPredicate(object obj)
         {
             if (obj is SettingItemViewModel item)
             {
-                if (_filterTypeIndex == 2 && !item.IsUserDefined && !item.IsModified)
+                // Modified Only shows settings that are active (forced) or have an unsaved edit.
+                if (_modifiedOnly && !item.IsForced && !item.IsModified)
                     return false;
 
                 if (string.IsNullOrWhiteSpace(_filterText))
@@ -717,6 +908,72 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     return true;
             }
             return false;
+        }
+
+        private HashSet<string> GetHiddenSettingGroups()
+        {
+            if (_hiddenSettingGroups == null)
+            {
+                var stored = UserSettings.LoadSettings()?.HiddenSettingGroups;
+                _hiddenSettingGroups = stored != null
+                    ? new HashSet<string>(stored)
+                    : new HashSet<string>();
+            }
+            return _hiddenSettingGroups;
+        }
+
+        /// <summary>
+        /// Projects the sorted (and filtered) settings into the flat view collection:
+        /// one header item per group followed by its rows when the group is expanded.
+        /// Published as a single Reset so the list rebuilds at most one viewport of containers.
+        /// </summary>
+        private void RebuildSettingsView()
+        {
+            var hiddenGroups = GetHiddenSettingGroups();
+            var viewItems = new List<object>(Settings.Count + 64);
+
+            SettingGroupHeaderViewModel currentHeader = null;
+            foreach (var item in Settings)
+            {
+                if (!FilterPredicate(item))
+                    continue;
+
+                var groupName = item.GroupNameForDisplay ?? "";
+                if (currentHeader == null || !string.Equals(currentHeader.Name, groupName, StringComparison.Ordinal))
+                {
+                    currentHeader = new SettingGroupHeaderViewModel(groupName, !hiddenGroups.Contains(groupName), OnGroupExpandedChanged);
+                    viewItems.Add(currentHeader);
+                }
+
+                if (currentHeader.IsExpanded)
+                    viewItems.Add(item);
+            }
+
+            _settingsViewItems.ReplaceAll(viewItems);
+        }
+
+        private void OnGroupExpandedChanged(SettingGroupHeaderViewModel header)
+        {
+            var hiddenGroups = GetHiddenSettingGroups();
+            if (header.IsExpanded)
+                hiddenGroups.Remove(header.Name);
+            else
+                hiddenGroups.Add(header.Name);
+
+            // Groups without a name are runtime-only; everything else is persisted like before.
+            if (!string.IsNullOrEmpty(header.Name))
+            {
+                var settings = UserSettings.LoadSettings();
+                if (settings != null)
+                {
+                    settings.HiddenSettingGroups.Remove(header.Name);
+                    if (!header.IsExpanded)
+                        settings.HiddenSettingGroups.Add(header.Name);
+                    settings.SaveSettings();
+                }
+            }
+
+            RebuildSettingsView();
         }
 
         private void OnSelectedSettingChanged()
@@ -744,46 +1001,44 @@ namespace nvidiaProfileInspector.UI.ViewModels
             if (item == null)
                 return true;
 
-            if (item.DwordValues != null)
+            // Validate strictly by the item's effective type; the value lists alone are not
+            // a reliable type indicator (any of them may be empty-but-present).
+            switch (item.SettingType)
             {
-                var settingMeta = new SettingMeta { DwordValues = item.DwordValues };
-                if (DrsUtil.TryParseDwordSettingValue(settingMeta, item.SelectedValue, out _))
+                case NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE:
+                {
+                    var settingMeta = new SettingMeta { DwordValues = item.DwordValues };
+                    if (DrsUtil.TryParseDwordSettingValue(settingMeta, item.SelectedValue, out _))
+                        return true;
+
+                    errorMessage = "Enter a valid DWORD value.";
+                    return false;
+                }
+
+                case NVDRS_SETTING_TYPE.NVDRS_QWORD_TYPE:
+                {
+                    var settingMeta = new SettingMeta { QwordValues = item.QwordValues };
+                    if (DrsUtil.TryParseQwordSettingValue(settingMeta, item.SelectedValue, out _))
+                        return true;
+
+                    errorMessage = "Enter a valid QWORD value.";
+                    return false;
+                }
+
+                case NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE:
+                {
+                    var settingMeta = new SettingMeta { BinaryValues = item.BinaryValues };
+                    if (DrsUtil.ParseBinarySettingValue(settingMeta, item.SelectedValue) != null)
+                        return true;
+
+                    errorMessage = "Enter a valid binary value.";
+                    return false;
+                }
+
+                default:
+                    // String settings accept free text.
                     return true;
-
-                errorMessage = "Enter a valid DWORD value.";
-                return false;
             }
-
-            if (item.QwordValues != null)
-            {
-                var settingMeta = new SettingMeta { QwordValues = item.QwordValues };
-                if (DrsUtil.TryParseQwordSettingValue(settingMeta, item.SelectedValue, out _))
-                    return true;
-
-                errorMessage = "Enter a valid QWORD value.";
-                return false;
-            }
-
-            if (item.BinaryValues != null)
-            {
-                var settingMeta = new SettingMeta { BinaryValues = item.BinaryValues };
-                if (DrsUtil.ParseBinarySettingValue(settingMeta, item.SelectedValue) != null)
-                    return true;
-
-                errorMessage = "Enter a valid binary value.";
-                return false;
-            }
-
-            return true;
-        }
-
-        private SettingViewMode GetSettingViewMode()
-        {
-            if (_filterTypeIndex == 0)
-                return SettingViewMode.CustomSettingsOnly;
-            if (_showScannedUnknownSettings)
-                return SettingViewMode.IncludeScannedSetttings;
-            return SettingViewMode.Normal;
         }
 
         private async void RefreshAll()
@@ -843,10 +1098,15 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void RefreshCurrentProfile()
         {
+            // Make sure freshly built rows pick up the current "setting id in name" option.
+            SettingItemViewModel.ShowSettingIdInName = _showSettingIdInName;
+
+            // A freshly opened profile always starts collapsed to a single row.
+            ApplicationsExpanded = false;
             Applications.Clear();
 
             var applications = new Dictionary<string, string>();
-            var items = _settingService.GetSettingsForProfile(_currentProfile, GetSettingViewMode(), ref applications);
+            var items = _settingService.GetSettingsForProfile(_currentProfile, _showActiveFromDisabledSources, ref applications);
 
             ApplicationsText = string.Join(", ", applications.Select(x => x.Value));
             foreach (var app in applications)
@@ -862,7 +1122,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     continue;
 
                 var vm = new SettingItemViewModel(item);
-                var meta = _metaService.GetSettingMeta(item.SettingId, GetSettingViewMode());
+                var meta = _metaService.GetSettingMeta(item.SettingId);
                 vm.DwordValues = meta?.DwordValues;
                 vm.QwordValues = meta?.QwordValues;
                 vm.StringValues = meta?.StringValues;
@@ -889,25 +1149,17 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             Settings.IncrementalPatchSettingsListOrdered(sortedSettings, (s1, s2) => s1.SettingId == s2.SettingId);
 
-            if (_groupedSettingsView == null)
-            {
-                _groupedSettingsView = new ListCollectionView(Settings);
-                _groupedSettingsView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(SettingItemViewModel.GroupNameForDisplay)));
-                _groupedSettingsView.Filter = FilterPredicate;
-                OnPropertyChanged(nameof(GroupedSettingsView));
-            }
-            else
-            {
-                _groupedSettingsView.Filter = FilterPredicate;
-                OnPropertyChanged(nameof(GroupedSettingsView));
-            }
-
+            RebuildSettingsView();
 
             for (var i = 0; i < Settings.Count; i++)
             {
                 Settings[i].IsModified = false;
             }
             OnPropertyChanged(nameof(HasPendingChanges));
+
+            // Re-fetch the description for the kept selection so a source/option change
+            // (which can change the resolved description) is reflected without re-selecting.
+            OnSelectedSettingChanged();
         }
 
         private void ApplyChanges()
@@ -1102,13 +1354,23 @@ namespace nvidiaProfileInspector.UI.ViewModels
             return Task.CompletedTask;
         }
 
+        private string NormalizeNvidiaAppPath(string input)
+        {
+            return input.ToLower().Replace("\\", "/");
+        }
+
         public void AddApplication()
         {
             var dialog = new Views.Dialogs.InputDialog("Add Application",
-            "To link a new application, enter its filename (e.g. game.exe) or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.",
+            "To link a new application, enter its filename (e.g. game.exe), relative path, or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.",
             "", true, (val) =>
             {
-                if (string.IsNullOrWhiteSpace(val)) return "Expected a filename, UWP ID, or absolute path.";
+                if (string.IsNullOrWhiteSpace(val))
+                    return "Expected a filename, relative path, UWP ID, or absolute path.";
+
+                if (Applications.Any(_ => _.Name.Equals(NormalizeNvidiaAppPath(val), StringComparison.InvariantCultureIgnoreCase)))
+                    return "Application already exists in this profile.";
+
                 string findFileStr = "FindFile=";
                 int findFileIndex = val.IndexOf(findFileStr, StringComparison.OrdinalIgnoreCase);
                 if (findFileIndex >= 0)
@@ -1127,7 +1389,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 try
                 {
                     string findFileStr = "FindFile=";
-                    int findFileIndex = dialog.InputValue.IndexOf(findFileStr, StringComparison.OrdinalIgnoreCase);
+                    int findFileIndex = dialog.InputValue.IndexOf(findFileStr, StringComparison.InvariantCultureIgnoreCase);
 
                     if (findFileIndex >= 0)
                     {
@@ -1147,9 +1409,18 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
                     RefreshCurrentProfile();
                 }
-                catch (Exception ex)
+                catch (NvapiException ex)
                 {
-                    OnShowError?.Invoke(ex.Message);
+                    if (ex.Status == NvAPI_Status.NVAPI_EXECUTABLE_ALREADY_IN_USE)
+                    {
+                        var profileName = _settingService.GetProfileNameByExeName(dialog.InputValue);
+                        if (!string.IsNullOrWhiteSpace(profileName))
+                            OnShowError?.Invoke($"Application already in use by profile '{profileName}'");
+                        else
+                            OnShowError?.Invoke("Application already in use by other profile");
+                    }
+                    else
+                        OnShowError?.Invoke(ex.Message);
                 }
             }
         }
@@ -1264,7 +1535,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             }
         }
 
-        public string ImportFiles(IEnumerable<string> filePaths)
+        public string ImportFiles(IEnumerable<string> filePaths, ProfileImportMode mode = ProfileImportMode.Replace)
         {
             try
             {
@@ -1274,8 +1545,9 @@ namespace nvidiaProfileInspector.UI.ViewModels
                     .Select(Path.GetFullPath)
                     .Distinct(StringComparer.InvariantCultureIgnoreCase)
                     .ToArray();
-                var report = _importService.ImportProfiles(normalizedFiles);
+                var report = _importService.ImportProfiles(normalizedFiles, mode);
 
+                RefreshProfilesCombo(_currentProfile);
                 RefreshCurrentProfile();
                 return report ?? "";
             }
@@ -1284,6 +1556,20 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 OnShowError?.Invoke($"Import Error: {ex.Message}");
                 return ex.Message;
             }
+        }
+
+        // Whether the given files would import into an already-existing profile (and thus
+        // need a merge-vs-replace decision). Importing only new profiles just creates them.
+        public bool ImportTargetsExistingProfile(IEnumerable<string> filePaths)
+        {
+            var normalizedFiles = (filePaths ?? Enumerable.Empty<string>())
+                .Where(File.Exists)
+                .Where(path => string.Equals(Path.GetExtension(path), ".nip", StringComparison.InvariantCultureIgnoreCase))
+                .Select(Path.GetFullPath)
+                .Distinct(StringComparer.InvariantCultureIgnoreCase)
+                .ToArray();
+
+            return _importService.AnyImportedProfileExists(normalizedFiles);
         }
 
         public void ImportProfiles()
@@ -1416,10 +1702,13 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 return;
 
             var selectedSettingId = _selectedSetting.SettingId;
+            var settingName = _selectedSetting.DisplayName;
 
             bool removeFromModified;
             _settingService.ResetValue(_currentProfile, selectedSettingId, out removeFromModified);
             RefreshCurrentProfile();
+
+            ShowSnackbar($"\"{settingName}\" restored to NVIDIA default.", "Success");
         }
 
         private void CopySettingsToClipboard()
@@ -1436,6 +1725,42 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             Clipboard.SetText(sb.ToString());
             ShowSnackbar("Settings copied to clipboard!", "Success");
+        }
+
+        // Double-click on a setting name copies its setting id to the clipboard.
+        private void CopySettingId(object parameter)
+        {
+            if (!(parameter is SettingItemViewModel item))
+                return;
+
+            try
+            {
+                Clipboard.SetText(item.SettingIdHex);
+                ShowSnackbar($"Setting ID {item.SettingIdHex} copied to clipboard.", "Success");
+            }
+            catch
+            {
+            }
+        }
+
+        // Re-applies the "setting id in name" option in place (no profile reload).
+        private void ApplySettingIdInName()
+        {
+            SettingItemViewModel.ShowSettingIdInName = _showSettingIdInName;
+            ApplySettingsFontFamily();
+            foreach (var setting in Settings)
+                setting.RefreshDisplayName();
+        }
+
+        // Monospace column alignment only makes sense once the setting id is shown in the
+        // list, so the font switches together with that option (settings list + value list).
+        private void ApplySettingsFontFamily()
+        {
+            if (Application.Current == null)
+                return;
+
+            Application.Current.Resources["SettingsFontFamily"] =
+                new FontFamily(_showSettingIdInName ? "Consolas" : "Segoe UI Variable Text, Segoe UI");
         }
 
         private void ToggleDevMode()
@@ -1468,12 +1793,6 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         public void ReorderSettingsWithPosition(bool targetIsFavorit)
         {
-            if (!targetIsFavorit)
-            {
-                _groupedSettingsView.IsLiveGrouping = false;
-                _groupedSettingsView.IsLiveFiltering = false;
-            }
-
             var sortedSettings = Settings
                 .OrderByDescending(x => x.IsFavorite)
                 .ThenBy(x => string.IsNullOrEmpty(x.GroupNameForDisplay) ? 1 : 0)
@@ -1483,11 +1802,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             Settings.IncrementalPatchSettingsListOrdered(sortedSettings, (s1, s2) => s1.SettingId == s2.SettingId);
 
-            if (!targetIsFavorit)
-            {
-                _groupedSettingsView.IsLiveGrouping = true;
-                _groupedSettingsView.IsLiveFiltering = true;
-            }
+            RebuildSettingsView();
         }
 
         private void ToggleAppearanceMenu()
@@ -1500,6 +1815,141 @@ namespace nvidiaProfileInspector.UI.ViewModels
             {
                 IsAppearanceMenuOpen = true;
             }
+        }
+
+        private void ToggleFilterMenu()
+        {
+            if (IsFilterMenuOpen)
+            {
+                IsFilterMenuOpen = false;
+            }
+            else if ((DateTime.UtcNow - _filterMenuClosedAt).TotalMilliseconds > 300)
+            {
+                IsFilterMenuOpen = true;
+            }
+        }
+
+        private IEnumerable<SettingMetaSource> GetEnabledSettingSources()
+        {
+            if (_settingSourceCommon) yield return SettingMetaSource.CustomSettings;
+            if (_settingSourceDriver) yield return SettingMetaSource.DriverSettings;
+            if (_settingSourceConstants) yield return SettingMetaSource.ConstantSettings;
+            if (_settingSourceReference) yield return SettingMetaSource.ReferenceSettings;
+            if (_settingSourceScan) yield return SettingMetaSource.ScannedSettings;
+        }
+
+        private IEnumerable<SettingMetaSource> GetEnabledValueSources()
+        {
+            if (_valueSourceCommon) yield return SettingMetaSource.CustomSettings;
+            if (_valueSourceDriver) yield return SettingMetaSource.DriverSettings;
+            if (_valueSourceConstants) yield return SettingMetaSource.ConstantSettings;
+            if (_valueSourceReference) yield return SettingMetaSource.ReferenceSettings;
+            if (_valueSourceScan) yield return SettingMetaSource.ScannedSettings;
+        }
+
+        private void ApplySourceFilters()
+        {
+            _metaService.SetSourceFilters(
+                GetEnabledSettingSources().ToList(),
+                GetEnabledValueSources().ToList(),
+                _mergeDistinctValues,
+                _addPredefinedAppListToCommon,
+                _addRawValueToCommon,
+                _allowMetaFromInactiveSources);
+        }
+
+        // Invoked by the source checkboxes: re-apply the filter, rebuild the list and persist.
+        private void OnSourceFilterChanged()
+        {
+            if (_isInitializing)
+                return;
+
+            ApplySourceFilters();
+            RefreshCurrentProfile();
+            SaveFilterPreferences();
+        }
+
+        // Used by the "show only customized settings" startup mode to force a common-only view.
+        public void ApplyCommonOnlySettingSource()
+        {
+            _settingSourceCommon = true;
+            _settingSourceDriver = false;
+            _settingSourceConstants = false;
+            _settingSourceReference = false;
+            _settingSourceScan = false;
+            OnPropertyChanged(nameof(SettingSourceCommon));
+            OnPropertyChanged(nameof(SettingSourceDriver));
+            OnPropertyChanged(nameof(SettingSourceConstants));
+            OnPropertyChanged(nameof(SettingSourceReference));
+            OnPropertyChanged(nameof(SettingSourceScan));
+            ApplySourceFilters();
+        }
+
+        private void SaveFilterPreferences()
+        {
+            var settings = Common.Helper.UserSettings.LoadSettings();
+            settings.SettingSourceCommon = _settingSourceCommon;
+            settings.SettingSourceDriver = _settingSourceDriver;
+            settings.SettingSourceConstants = _settingSourceConstants;
+            settings.SettingSourceReference = _settingSourceReference;
+            settings.SettingSourceScan = _settingSourceScan;
+            settings.ValueSourceCommon = _valueSourceCommon;
+            settings.ValueSourceDriver = _valueSourceDriver;
+            settings.ValueSourceConstants = _valueSourceConstants;
+            settings.ValueSourceReference = _valueSourceReference;
+            settings.ValueSourceScan = _valueSourceScan;
+            settings.ModifiedOnly = _modifiedOnly;
+            settings.ShowActiveFromDisabledSources = _showActiveFromDisabledSources;
+            settings.MergeDistinctValues = _mergeDistinctValues;
+            settings.AddPredefinedAppListToCommon = _addPredefinedAppListToCommon;
+            settings.AddRawValueToCommon = _addRawValueToCommon;
+            settings.AllowMetaFromInactiveSources = _allowMetaFromInactiveSources;
+            settings.ShowSettingIdInName = _showSettingIdInName;
+            settings.SaveSettings();
+        }
+
+        // Restore all filter and value-dropdown options to their defaults.
+        private void ResetFilterDefaults()
+        {
+            _settingSourceCommon = true;
+            _settingSourceDriver = false;
+            _settingSourceConstants = false;
+            _settingSourceReference = false;
+            _settingSourceScan = false;
+            _valueSourceCommon = true;
+            _valueSourceDriver = false;
+            _valueSourceConstants = true;
+            _valueSourceReference = true;
+            _valueSourceScan = true;
+            _modifiedOnly = false;
+            _showActiveFromDisabledSources = true;
+            _mergeDistinctValues = true;
+            _addPredefinedAppListToCommon = false;
+            _addRawValueToCommon = false;
+            _allowMetaFromInactiveSources = true;
+            _showSettingIdInName = false;
+
+            OnPropertyChanged(nameof(SettingSourceCommon));
+            OnPropertyChanged(nameof(SettingSourceDriver));
+            OnPropertyChanged(nameof(SettingSourceConstants));
+            OnPropertyChanged(nameof(SettingSourceReference));
+            OnPropertyChanged(nameof(SettingSourceScan));
+            OnPropertyChanged(nameof(ValueSourceCommon));
+            OnPropertyChanged(nameof(ValueSourceDriver));
+            OnPropertyChanged(nameof(ValueSourceConstants));
+            OnPropertyChanged(nameof(ValueSourceReference));
+            OnPropertyChanged(nameof(ValueSourceScan));
+            OnPropertyChanged(nameof(ModifiedOnly));
+            OnPropertyChanged(nameof(ShowActiveFromDisabledSources));
+            OnPropertyChanged(nameof(MergeDistinctValues));
+            OnPropertyChanged(nameof(AddPredefinedAppListToCommon));
+            OnPropertyChanged(nameof(AddRawValueToCommon));
+            OnPropertyChanged(nameof(AllowMetaFromInactiveSources));
+            OnPropertyChanged(nameof(ShowSettingIdInName));
+
+            ApplySourceFilters();
+            RefreshCurrentProfile();
+            SaveFilterPreferences();
         }
 
         private void UpdateThemeProperties(ThemeManager themeManager)
@@ -1697,6 +2147,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
                 _metaService.ResetMetaCache();
                 RefreshProfilesCombo(_currentProfile);
                 RefreshCurrentProfile();
+                OnPropertyChanged(nameof(IsScanAvailable));
                 ScanStatus = "";
 
                 if (_taskbarList != null && _windowHandle != IntPtr.Zero)

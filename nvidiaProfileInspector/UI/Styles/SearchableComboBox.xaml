@@ -107,11 +107,11 @@
                         <Popup
                             x:Name="Popup"
                             Width="800"
-                            AllowsTransparency="True"
+                            AllowsTransparency="{DynamicResource SearchableComboBoxPopupAllowsTransparency}"
                             Focusable="False"
                             IsOpen="{TemplateBinding IsDropDownOpen}"
                             Placement="Bottom"
-                            PopupAnimation="Slide"
+                            PopupAnimation="{DynamicResource SearchableComboBoxPopupAnimation}"
                             VerticalOffset="2">
                             <Grid
                                 x:Name="DropDown"
@@ -285,11 +285,11 @@
                         <Popup
                             x:Name="Popup"
                             Width="400"
-                            AllowsTransparency="True"
+                            AllowsTransparency="{DynamicResource SearchableComboBoxPopupAllowsTransparency}"
                             Focusable="False"
                             IsOpen="{TemplateBinding IsDropDownOpen}"
                             Placement="Bottom"
-                            PopupAnimation="Slide"
+                            PopupAnimation="{DynamicResource SearchableComboBoxPopupAnimation}"
                             VerticalOffset="4">
                             <Grid
                                 x:Name="DropDown"

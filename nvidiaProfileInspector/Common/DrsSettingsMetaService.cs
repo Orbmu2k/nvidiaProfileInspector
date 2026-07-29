@@ -19,10 +19,71 @@ namespace nvidiaProfileInspector.Common
         private readonly CustomSettingNames _customSettings;
         private readonly CustomSettingNames _referenceSettings;
 
+        // True when a Reference.xml was loaded; lets the UI disable the reference sources.
+        public bool HasReferenceSource => _referenceSettings != null;
+
         private List<MetaServiceItem> MetaServices = new List<MetaServiceItem>();
 
         private Dictionary<uint, SettingMeta> settingMetaCache = new Dictionary<uint, SettingMeta>();
-        private Dictionary<Tuple<uint, SettingViewMode>, SettingMeta> postProcessedSettingMetaCache = new Dictionary<Tuple<uint, SettingViewMode>, SettingMeta>();
+        private Dictionary<uint, SettingMeta> postProcessedSettingMetaCache = new Dictionary<uint, SettingMeta>();
+
+        // Source visibility filters driven by the UI. EnabledSettingSources decides which
+        // sources contribute setting rows; EnabledValueSources decides which sources
+        // contribute predefined values to each setting's dropdown. Defaults to everything
+        // until the view model applies the persisted user selection via SetSourceFilters.
+        public HashSet<SettingMetaSource> EnabledSettingSources = new HashSet<SettingMetaSource>
+        {
+            SettingMetaSource.CustomSettings,
+            SettingMetaSource.DriverSettings,
+            SettingMetaSource.ConstantSettings,
+            SettingMetaSource.ReferenceSettings,
+        };
+
+        public HashSet<SettingMetaSource> EnabledValueSources = new HashSet<SettingMetaSource>
+        {
+            SettingMetaSource.CustomSettings,
+            SettingMetaSource.DriverSettings,
+            SettingMetaSource.ConstantSettings,
+            SettingMetaSource.ReferenceSettings,
+            SettingMetaSource.ScannedSettings,
+        };
+
+        // Whether same-value entries from different sources are merged into a single dropdown
+        // entry (highest-priority name wins). When off, every source keeps its own entry.
+        public bool MergeDistinctValues = true;
+
+        // Whether the predefined scan (app list) values take part in the merge. When on, they
+        // merge away into the matching common value; when off, they stay as their own distinct
+        // app-list rows. Only relevant while MergeDistinctValues is on.
+        public bool AddPredefinedAppListToCommon = true;
+
+        // Whether common (CSN) value names get the raw value prefixed (like the other sources
+        // already show it). Off by default.
+        public bool AddRawValueToCommon = false;
+
+        // Whether a setting's name and description may still be pulled from sources that are
+        // not currently enabled as setting sources.
+        public bool AllowMetaFromInactiveSources = true;
+
+        public void SetSourceFilters(
+            IEnumerable<SettingMetaSource> settingSources,
+            IEnumerable<SettingMetaSource> valueSources,
+            bool mergeDistinctValues,
+            bool addPredefinedAppListToCommon,
+            bool addRawValueToCommon,
+            bool allowMetaFromInactiveSources)
+        {
+            EnabledSettingSources = new HashSet<SettingMetaSource>(settingSources);
+            EnabledValueSources = new HashSet<SettingMetaSource>(valueSources);
+            MergeDistinctValues = mergeDistinctValues;
+            AddPredefinedAppListToCommon = addPredefinedAppListToCommon;
+            AddRawValueToCommon = addRawValueToCommon;
+            AllowMetaFromInactiveSources = allowMetaFromInactiveSources;
+
+            // Value lists are cached per setting, so they must be rebuilt under the new filter.
+            settingMetaCache = new Dictionary<uint, SettingMeta>();
+            postProcessedSettingMetaCache = new Dictionary<uint, SettingMeta>();
+        }
 
         public DrsSettingsMetaService(CustomSettingNames customSettings, CustomSettingNames referenceSettings = null)
         {
@@ -35,32 +96,32 @@ namespace nvidiaProfileInspector.Common
         public void ResetMetaCache(bool initOnly = false)
         {
             settingMetaCache = new Dictionary<uint, SettingMeta>();
-            postProcessedSettingMetaCache = new Dictionary<Tuple<uint, SettingViewMode>, SettingMeta>();
+            postProcessedSettingMetaCache = new Dictionary<uint, SettingMeta>();
             MetaServices = new List<MetaServiceItem>();
 
             CustomMeta = new CustomSettingMetaService(_customSettings);
-            MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 1, Service = CustomMeta });
+            MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 1, TypePrio = 3, Service = CustomMeta });
 
             if (!initOnly)
             {
                 DriverMeta = new DriverSettingMetaService();
-                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 5, Service = DriverMeta });
+                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 5, TypePrio = 1, Service = DriverMeta });
 
                 ConstantMeta = new ConstantSettingMetaService();
-                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 2, Service = ConstantMeta });
+                MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 2, TypePrio = 5, Service = ConstantMeta });
 
 
                 var scannerService = App.Bootstrapper.Resolve<DrsScannerService>();
                 if (scannerService != null)
                 {
                     ScannedMeta = new ScannedSettingMetaService(scannerService.CachedSettings);
-                    MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 3, Service = ScannedMeta });
+                    MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 3, TypePrio = 2, Service = ScannedMeta });
                 }
 
                 if (_referenceSettings != null)
                 {
                     ReferenceMeta = new CustomSettingMetaService(_referenceSettings, SettingMetaSource.ReferenceSettings);
-                    MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 4, Service = ReferenceMeta });
+                    MetaServices.Add(new MetaServiceItem() { ValueNamePrio = 4, TypePrio = 4, Service = ReferenceMeta });
                 }
             }
 
@@ -68,7 +129,10 @@ namespace nvidiaProfileInspector.Common
 
         private NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
         {
-            foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
+            // Driver first, then scanned observations, then the XML fallback types; the type
+            // can change between driver generations (e.g. rBAR Size Limit BINARY -> QWORD),
+            // so static sources must never override what the current driver reports.
+            foreach (var service in MetaServices.OrderBy(x => x.TypePrio))
             {
                 var settingValueType = service.Service.GetSettingValueType(settingId);
                 if (settingValueType != null)
@@ -84,6 +148,9 @@ namespace nvidiaProfileInspector.Common
 
             foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
             {
+                if (!AllowMetaFromInactiveSources && !EnabledSettingSources.Contains(service.Service.Source))
+                    continue;
+
                 var settingName = service.Service.GetSettingName(settingId);
 
                 if (!string.IsNullOrEmpty(settingName))
@@ -169,182 +236,222 @@ namespace nvidiaProfileInspector.Common
             return null;
         }
 
-        private List<SettingValue<T>> MergeSettingValues<T>(List<SettingValue<T>> a, List<SettingValue<T>> b)
+        private uint GetValueNamePrio(SettingMetaSource source)
         {
-            if (b == null)
-                return a;
-
-            // force scanned settings to add instead of merge
-            var isScannedValuesList = (b.Count > 0 && b.First().ValueSource == SettingMetaSource.ScannedSettings);
-            if (isScannedValuesList)
+            foreach (var item in MetaServices)
             {
-                a.AddRange(b);
+                if (item.Service.Source == source)
+                    return item.ValueNamePrio;
+            }
+            return uint.MaxValue;
+        }
+
+        // The predefined scan names look like "0x12345678 (ProfileA, ProfileB)". This pulls
+        // out the trailing "(ProfileA, ProfileB)" app list so it can be appended elsewhere.
+        private static string ExtractAppList(string scannedValueName)
+        {
+            if (string.IsNullOrEmpty(scannedValueName))
+                return null;
+
+            int open = scannedValueName.IndexOf('(');
+            int close = scannedValueName.LastIndexOf(')');
+            if (open >= 0 && close > open)
+                return scannedValueName.Substring(open, close - open + 1);
+
+            return null;
+        }
+
+        // Applies the user's merge options and the final ordering to an already collected and
+        // name-filtered list of values. valueKey returns the numeric value (or a stable key
+        // for binary) used to detect "same value" across sources.
+        private List<SettingValue<T>> AggregateValues<T>(List<SettingValue<T>> collected, Func<SettingValue<T>, object> valueKey, Func<SettingValue<T>, string> rawValueFormatter)
+        {
+            IEnumerable<SettingValue<T>> values;
+
+            if (MergeDistinctValues && AddPredefinedAppListToCommon)
+            {
+                // Merge everything by value. A non-scanned name wins. The predefined scan app
+                // list is appended only to common (CSN) values; if it can't be appended it is
+                // kept as its own standalone entry instead of being merged away.
+                values = collected.GroupBy(valueKey).SelectMany(g =>
+                {
+                    var group = g.ToList();
+                    var nonScanned = group.Where(x => x.ValueSource != SettingMetaSource.ScannedSettings).ToList();
+                    var scanned = group.FirstOrDefault(x => x.ValueSource == SettingMetaSource.ScannedSettings);
+
+                    // value only seen in the scan -> keep the scan entry as-is
+                    if (nonScanned.Count == 0)
+                        return new[] { group.OrderBy(x => GetValueNamePrio(x.ValueSource)).First() };
+
+                    var winner = nonScanned.OrderBy(x => GetValueNamePrio(x.ValueSource)).First();
+                    var appList = scanned == null ? null : ExtractAppList(scanned.ValueName);
+
+                    // append the app list only to a common (CSN) winner (new value so cached
+                    // source entries are never mutated)
+                    if (!string.IsNullOrEmpty(appList) && winner.ValueSource == SettingMetaSource.CustomSettings)
+                    {
+                        return new[]
+                        {
+                            new SettingValue<T>(winner.ValueSource)
+                            {
+                                Value = winner.Value,
+                                ValuePos = winner.ValuePos,
+                                ValueName = (winner.ValueName ?? string.Empty) + " - " + appList,
+                            }
+                        };
+                    }
+
+                    // could not append -> keep the winner and, if present, the scan entry as
+                    // its own standalone row so it is never lost
+                    return scanned != null ? new[] { winner, scanned } : new[] { winner };
+                });
+            }
+            else if (MergeDistinctValues)
+            {
+                // Merge the common sources by value, but keep the predefined scan (app list)
+                // entries as their own distinct rows.
+                var scanned = collected.Where(x => x.ValueSource == SettingMetaSource.ScannedSettings);
+                var mergedCommon = collected
+                    .Where(x => x.ValueSource != SettingMetaSource.ScannedSettings)
+                    .GroupBy(valueKey)
+                    .Select(g => g.OrderBy(x => GetValueNamePrio(x.ValueSource)).First());
+                values = mergedCommon.Concat(scanned);
             }
             else
             {
-                var currentNonScannedValues = a.Where(xa => xa.ValueSource != SettingMetaSource.ScannedSettings).Select(xa => xa.Value).ToList();
+                // No merge: keep every source's entry, drop only exact (value + name) dupes.
+                values = collected
+                    .GroupBy(x => new { Key = valueKey(x), x.ValueName })
+                    .Select(g => g.OrderBy(x => x.ValueSource).First());
+            }
 
-                var newNonScannedValues = b.Where(xb => !currentNonScannedValues.Contains(xb.Value)).ToList();
-                a.AddRange(newNonScannedValues);
+            var ordered = values
+                .OrderBy(v => v.ValueSource)
+                .ThenBy(v => v.ValuePos)
+                .ThenBy(v => v.ValueName)
+                .ToList();
 
-                foreach (var settingValue in a)
+            // Optionally prefix the raw value to common (CSN) value names, matching how the
+            // other sources already show it. New value objects so cached entries aren't mutated.
+            if (AddRawValueToCommon && rawValueFormatter != null)
+            {
+                for (var i = 0; i < ordered.Count; i++)
                 {
-                    var bVal = b.FirstOrDefault(x => x.Value.Equals(settingValue.Value) && settingValue.ValueSource != SettingMetaSource.ScannedSettings);
-                    if (bVal != null && bVal.ValueName != null)
+                    var v = ordered[i];
+                    if (v.ValueSource != SettingMetaSource.CustomSettings)
+                        continue;
+
+                    var raw = rawValueFormatter(v);
+                    if (string.IsNullOrEmpty(raw))
+                        continue;
+                    if (v.ValueName != null && v.ValueName.StartsWith(raw, StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    ordered[i] = new SettingValue<T>(v.ValueSource)
                     {
-                        settingValue.ValueName = bVal.ValueName;
-                        settingValue.ValueSource = bVal.ValueSource;
-                        settingValue.ValuePos = bVal.ValuePos;
-                    }
+                        Value = v.Value,
+                        ValuePos = v.ValuePos,
+                        ValueName = raw + " " + (v.ValueName ?? string.Empty),
+                    };
                 }
             }
 
-            var atmp = a.FirstOrDefault();
-            if (atmp != null && atmp is IComparable)
-                return a.OrderBy(x => x.Value).ToList();
-            else
-                return a.ToList();
+            return ordered;
         }
 
         private List<SettingValue<byte[]>> GetBinaryValues(uint settingId)
         {
-            var result = new List<SettingValue<byte[]>>();
+            var collected = new List<SettingValue<byte[]>>();
 
             foreach (var service in MetaServices.OrderByDescending(x => x.ValueNamePrio))
             {
-                result = MergeSettingValues(result, service.Service.GetBinaryValues(settingId));
+                if (!EnabledValueSources.Contains(service.Service.Source))
+                    continue;
+                var values = service.Service.GetBinaryValues(settingId);
+                if (values != null)
+                    collected.AddRange(values);
             }
 
-            return result;
+            return AggregateValues(
+                collected,
+                x => x.Value == null ? string.Empty : BitConverter.ToString(x.Value),
+                x => x.Value == null ? null : "0x" + BitConverter.ToString(x.Value).Replace("-", string.Empty));
         }
 
         private List<SettingValue<string>> GetStringValues(uint settingId)
         {
-            var result = new List<SettingValue<string>>();
+            var collected = new List<SettingValue<string>>();
 
             foreach (var service in MetaServices.OrderByDescending(x => x.ValueNamePrio))
             {
-                result = MergeSettingValues(result, service.Service.GetStringValues(settingId));
+                if (!EnabledValueSources.Contains(service.Service.Source))
+                    continue;
+                var values = service.Service.GetStringValues(settingId);
+                if (values != null)
+                    collected.AddRange(values);
             }
 
-            return result;
+            return AggregateValues(collected, x => (object)x.Value, x => x.Value);
         }
 
         private List<SettingValue<uint>> GetDwordValues(uint settingId)
         {
-            var result = new List<SettingValue<uint>>();
+            var collected = new List<SettingValue<uint>>();
 
             foreach (var service in MetaServices.OrderByDescending(x => x.ValueNamePrio))
             {
-                result = MergeSettingValues(result, service.Service.GetDwordValues(settingId));
+                if (!EnabledValueSources.Contains(service.Service.Source))
+                    continue;
+                var values = service.Service.GetDwordValues(settingId);
+                if (values != null)
+                    collected.AddRange(values);
             }
 
-            if (result != null)
-            {
-                result = (from v in result.Where(x => 1 == 1
-                              && !x.ValueName.EndsWith("_NUM")
-                              && !x.ValueName.EndsWith("_MASK")
-                              && (!x.ValueName.EndsWith("_MIN") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MIN"))
-                              && (!x.ValueName.EndsWith("_MAX") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MAX"))
+            collected = collected.Where(x => 1 == 1
+                    && !x.ValueName.EndsWith("_NUM")
+                    && !x.ValueName.EndsWith("_MASK")
+                    && (!x.ValueName.EndsWith("_MIN") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MIN"))
+                    && (!x.ValueName.EndsWith("_MAX") || x.ValueName.Equals("PREFERRED_PSTATE_PREFER_MAX")))
+                .ToList();
 
-                              )
-                          group v by v.ValueName into g
-                          select g.First(t => t.ValueName == g.Key))
-                            .OrderBy(v => v.ValueSource)
-                            .ThenBy(v => v.ValuePos)
-                            .ThenBy(v => v.ValueName).ToList();
-
-            }
-
-            return result;
+            return AggregateValues(collected, x => (object)x.Value, x => DrsUtil.GetDwordString(x.Value));
         }
 
         private List<SettingValue<ulong>> GetQwordValues(uint settingId)
         {
-            var result = new List<SettingValue<ulong>>();
+            var collected = new List<SettingValue<ulong>>();
 
             foreach (var service in MetaServices.OrderByDescending(x => x.ValueNamePrio))
             {
-                result = MergeSettingValues(result, service.Service.GetQwordValues(settingId));
+                if (!EnabledValueSources.Contains(service.Service.Source))
+                    continue;
+                var values = service.Service.GetQwordValues(settingId);
+                if (values != null)
+                    collected.AddRange(values);
             }
 
-            if (result != null)
-            {
-                result = (from v in result.Where(x => 1 == 1
-                              && !x.ValueName.EndsWith("_NUM")
-                              && !x.ValueName.EndsWith("_MASK")
-                              && !x.ValueName.EndsWith("_MIN")
-                              && !x.ValueName.EndsWith("_MAX")
-                              )
-                          group v by v.ValueName into g
-                          select g.First(t => t.ValueName == g.Key))
-                            .OrderBy(v => v.ValueSource)
-                            .ThenBy(v => v.ValuePos)
-                            .ThenBy(v => v.ValueName).ToList();
+            collected = collected.Where(x => 1 == 1
+                    && !x.ValueName.EndsWith("_NUM")
+                    && !x.ValueName.EndsWith("_MASK")
+                    && !x.ValueName.EndsWith("_MIN")
+                    && !x.ValueName.EndsWith("_MAX"))
+                .ToList();
 
-            }
-
-            return result;
+            return AggregateValues(collected, x => (object)x.Value, x => DrsUtil.GetQwordString(x.Value));
         }
 
-        public List<uint> GetSettingIds(SettingViewMode viewMode)
+        public List<uint> GetSettingIds()
         {
             var settingIds = new List<uint>();
-            var allowedSourcesForViewMode = GetAllowedSettingIdMetaSourcesForViewMode(viewMode);
 
             foreach (var service in MetaServices.OrderBy(x => x.Service.Source))
             {
-                if (allowedSourcesForViewMode.Contains(service.Service.Source))
+                if (EnabledSettingSources.Contains(service.Service.Source))
                 {
                     settingIds.AddRange(service.Service.GetSettingIds());
                 }
             }
             return settingIds.Distinct().ToList();
-        }
-
-        private SettingMetaSource[] GetAllowedSettingIdMetaSourcesForViewMode(SettingViewMode viewMode)
-        {
-            switch (viewMode)
-            {
-                case SettingViewMode.CustomSettingsOnly:
-                    return new[] {
-                        SettingMetaSource.CustomSettings
-                    };
-                case SettingViewMode.IncludeScannedSetttings:
-                    return new[] {
-                        SettingMetaSource.ConstantSettings,
-                        SettingMetaSource.ScannedSettings,
-                        SettingMetaSource.CustomSettings,
-                        SettingMetaSource.DriverSettings,
-                        SettingMetaSource.ReferenceSettings,
-                    };
-                default:
-                    return new[] {
-                        SettingMetaSource.CustomSettings,
-                        SettingMetaSource.DriverSettings,
-                    };
-            }
-        }
-
-        private SettingMetaSource[] GetAllowedSettingValueMetaSourcesForViewMode(SettingViewMode viewMode)
-        {
-            switch (viewMode)
-            {
-                case SettingViewMode.CustomSettingsOnly:
-                    return new[] {
-                        SettingMetaSource.CustomSettings,
-                        SettingMetaSource.ScannedSettings,
-                    };
-                default:
-                    return new[] {
-                        SettingMetaSource.ConstantSettings,
-                        SettingMetaSource.ScannedSettings,
-                        SettingMetaSource.CustomSettings,
-                        SettingMetaSource.DriverSettings,
-                        SettingMetaSource.ReferenceSettings,
-
-                    };
-            }
         }
 
         private SettingMeta CreateSettingMeta(uint settingId)
@@ -403,10 +510,9 @@ namespace nvidiaProfileInspector.Common
             return result;
         }
 
-        private SettingMeta PostProcessMeta(uint settingId, SettingMeta settingMeta, SettingViewMode viewMode)
+        private SettingMeta PostProcessMeta(uint settingId, SettingMeta settingMeta)
         {
-            var cacheKey = Tuple.Create(settingId, viewMode);
-            if (postProcessedSettingMetaCache.TryGetValue(cacheKey, out var cachedMeta))
+            if (postProcessedSettingMetaCache.TryGetValue(settingId, out var cachedMeta))
                 return cachedMeta;
 
             var newMeta = new SettingMeta()
@@ -429,46 +535,28 @@ namespace nvidiaProfileInspector.Common
                 newMeta.SettingName = string.Format("0x{0:X8}", settingId);
             }
 
-            var allowedSourcesForViewMode = GetAllowedSettingValueMetaSourcesForViewMode(viewMode);
-            if (settingMeta.DwordValues != null)
-            {
-                newMeta.DwordValues = settingMeta.DwordValues
-                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
-            }
+            // Always expose every available value source. The view mode only decides which
+            // settings get listed, never which predefined values are selectable for a setting.
+            newMeta.DwordValues = settingMeta.DwordValues?.ToList();
+            newMeta.QwordValues = settingMeta.QwordValues?.ToList();
+            newMeta.StringValues = settingMeta.StringValues?.ToList();
+            newMeta.BinaryValues = settingMeta.BinaryValues?.ToList();
 
-            if (settingMeta.QwordValues != null)
-            {
-                newMeta.QwordValues = settingMeta.QwordValues
-                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
-            }
-
-            if (settingMeta.StringValues != null)
-            {
-                newMeta.StringValues = settingMeta.StringValues
-                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
-            }
-
-            if (settingMeta.BinaryValues != null)
-            {
-                newMeta.BinaryValues = settingMeta.BinaryValues
-                    .Where(x => allowedSourcesForViewMode.Contains(x.ValueSource)).ToList();
-            }
-
-            postProcessedSettingMetaCache.Add(cacheKey, newMeta);
+            postProcessedSettingMetaCache.Add(settingId, newMeta);
             return newMeta;
         }
 
-        public SettingMeta GetSettingMeta(uint settingId, SettingViewMode viewMode = SettingViewMode.Normal)
+        public SettingMeta GetSettingMeta(uint settingId)
         {
             if (settingMetaCache.ContainsKey(settingId))
             {
-                return PostProcessMeta(settingId, settingMetaCache[settingId], viewMode);
+                return PostProcessMeta(settingId, settingMetaCache[settingId]);
             }
             else
             {
                 var settingMeta = CreateSettingMeta(settingId);
                 settingMetaCache.Add(settingId, settingMeta);
-                return PostProcessMeta(settingId, settingMeta, viewMode);
+                return PostProcessMeta(settingId, settingMeta);
             }
         }
 
@@ -511,11 +599,19 @@ namespace nvidiaProfileInspector.Common
 
         public string GetDescription(uint settingId)
         {
-            var csn = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.CustomSettings);
-            var csnDescription = csn != null ? ((CustomSettingMetaService)csn.Service).GetDescription(settingId) ?? "" : "";
+            var csnDescription = "";
+            if (AllowMetaFromInactiveSources || EnabledSettingSources.Contains(SettingMetaSource.CustomSettings))
+            {
+                var csn = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.CustomSettings);
+                csnDescription = csn != null ? ((CustomSettingMetaService)csn.Service).GetDescription(settingId) ?? "" : "";
+            }
 
-            var refs = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.ReferenceSettings);
-            var refsDescription = refs != null ? ((CustomSettingMetaService)refs.Service).GetDescription(settingId) ?? "" : "";
+            var refsDescription = "";
+            if (AllowMetaFromInactiveSources || EnabledSettingSources.Contains(SettingMetaSource.ReferenceSettings))
+            {
+                var refs = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.ReferenceSettings);
+                refsDescription = refs != null ? ((CustomSettingMetaService)refs.Service).GetDescription(settingId) ?? "" : "";
+            }
 
             return !string.IsNullOrEmpty(csnDescription) ? csnDescription : refsDescription;
         }

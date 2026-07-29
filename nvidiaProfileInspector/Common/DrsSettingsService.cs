@@ -424,22 +424,11 @@ namespace nvidiaProfileInspector.Common
 
         private SettingItem CreateSettingItem(NVDRS_SETTING setting, bool useDefault = false)
         {
+            // Never mutate the meta returned here: it's a cached instance shared with the
+            // view models. Forcing all four value lists non-null made every setting look
+            // like a DWORD to the type checks downstream (the lookup helpers in DrsUtil
+            // are null-tolerant anyway).
             var settingMeta = meta.GetSettingMeta(setting.settingId);
-            //settingMeta.SettingType = setting.settingType;
-
-            if (settingMeta.DwordValues == null)
-                settingMeta.DwordValues = new List<SettingValue<uint>>();
-
-            if (settingMeta.QwordValues == null)
-                settingMeta.QwordValues = new List<SettingValue<ulong>>();
-
-
-            if (settingMeta.StringValues == null)
-                settingMeta.StringValues = new List<SettingValue<string>>();
-
-            if (settingMeta.BinaryValues == null)
-                settingMeta.BinaryValues = new List<SettingValue<byte[]>>();
-
 
             var settingState = SettingState.NotAssiged;
             string valueRaw = "";
@@ -562,6 +551,7 @@ namespace nvidiaProfileInspector.Common
                 ValueRaw = valueRaw,
                 ValueText = valueText,
                 State = settingState,
+                SettingType = settingMeta.SettingType ?? NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE,
                 IsStringValue = settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
                 IsApiExposed = settingMeta.IsApiExposed,
                 IsSettingHidden = settingMeta.IsSettingHidden,
@@ -569,24 +559,33 @@ namespace nvidiaProfileInspector.Common
         }
 
 
-        public List<SettingItem> GetSettingsForProfile(string profileName, SettingViewMode viewMode, ref Dictionary<string, string> applications)
+        public List<SettingItem> GetSettingsForProfile(string profileName, bool showActiveFromDisabledSources, ref Dictionary<string, string> applications)
         {
             var result = new List<SettingItem>();
-            var settingIds = meta.GetSettingIds(viewMode);
-            settingIds.AddRange(_baseProfileSettingIds);
+            var settingIds = meta.GetSettingIds();
+
+            // By default the list is limited to the enabled setting sources. Only when the
+            // user opts in do we also surface the settings that are active in the profile
+            // (predefined / global / user) regardless of whether their source is enabled.
+            if (showActiveFromDisabledSources)
+                settingIds.AddRange(_baseProfileSettingIds);
+
             settingIds = settingIds.Distinct().ToList();
 
             applications = DrsSession((hSession) =>
             {
                 var hProfile = GetProfileHandle(hSession, profileName);
 
-                var profileSettings = GetProfileSettings(hSession, hProfile);
-                foreach (var profileSetting in profileSettings)
+                if (showActiveFromDisabledSources)
                 {
-                    result.Add(CreateSettingItem(profileSetting));
+                    var profileSettings = GetProfileSettings(hSession, hProfile);
+                    foreach (var profileSetting in profileSettings)
+                    {
+                        result.Add(CreateSettingItem(profileSetting));
 
-                    if (settingIds.Contains(profileSetting.settingId))
-                        settingIds.Remove(profileSetting.settingId);
+                        if (settingIds.Contains(profileSetting.settingId))
+                            settingIds.Remove(profileSetting.settingId);
+                    }
                 }
 
                 foreach (var settingId in settingIds)
