@@ -105,6 +105,9 @@ namespace nvidiaProfileInspector.Services
         private static void ApplySavedTheme(Window window)
         {
             var themeName = GetSavedThemeName();
+            if (string.Equals(themeName, ThemeManager.AutoTheme, StringComparison.OrdinalIgnoreCase))
+                themeName = ThemeManager.GetWindowsThemeName();
+
             window.Resources.MergedDictionaries.Insert(0, new ResourceDictionary
             {
                 Source = new Uri($"/UI/Themes/{themeName}", UriKind.Relative)
@@ -115,7 +118,11 @@ namespace nvidiaProfileInspector.Services
         {
             try
             {
-                var themeName = Path.GetFileName(UserSettings.LoadSettings().Theme);
+                var themeName = UserSettings.LoadSettings().Theme;
+                if (string.Equals(themeName, ThemeManager.AutoTheme, StringComparison.OrdinalIgnoreCase))
+                    return ThemeManager.AutoTheme;
+
+                themeName = Path.GetFileName(themeName);
                 return ValidThemes.FirstOrDefault(theme =>
                            string.Equals(theme, themeName, StringComparison.OrdinalIgnoreCase))
                        ?? DarkTheme;
