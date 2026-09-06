@@ -238,14 +238,14 @@
 			<HexSettingID>0x10E41E04</HexSettingID>
 			<GroupName>05 - Upscaling and Frame Generation</GroupName>
 			<MinRequiredDriverVersion>610.47</MinRequiredDriverVersion>
-			<Description>If enabled, overrides DLSS-NR with the latest global version installed.\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
+			<Description>If enabled, overrides DLSS-NR with the latest global version installed (${DlssnrVersion}).\r\nNVIDIA periodically push OTA updates for the override, though it often lags behind the actual latest available online.\r\nOnly DLSS2+ games support the override, certain games may also disallow using it.</Description>
 			<SettingValues>
 				<CustomSettingValue>
 					<UserfriendlyName>Off</UserfriendlyName>
 					<HexValue>0x00000000</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>On - DLSS-NR overridden by latest installed</UserfriendlyName>
+					<UserfriendlyName>On - DLSS-NR overridden by latest installed (${DlssnrVersion})</UserfriendlyName>
 					<HexValue>0x00000001</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
@@ -1980,6 +1980,14 @@ When any driver flags are set HDR will be applied via driver instead of through 
 				<CustomSettingValue>
 					<UserfriendlyName>16GB</UserfriendlyName>
 					<HexValue>0x0000000400000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>24GB</UserfriendlyName>
+					<HexValue>0x0000000600000000</HexValue>
+				</CustomSettingValue>
+				<CustomSettingValue>
+					<UserfriendlyName>32GB</UserfriendlyName>
+					<HexValue>0x0000000800000000</HexValue>
 				</CustomSettingValue>
 			</SettingValues>
 		</CustomSetting>
