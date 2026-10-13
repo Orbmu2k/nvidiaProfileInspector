@@ -92,6 +92,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
         private bool _isMidnightTheme;
         private bool _isCleanWhiteTheme;
         private bool _isSlateTheme;
+        private bool _isAutoTheme;
         private bool _isCompactDensity;
         private string _currentBackdropMode = "Tabbed";
         private readonly bool _isWindows11 = Environment.OSVersion.Version.Build >= 22000;
@@ -527,26 +528,62 @@ namespace nvidiaProfileInspector.UI.ViewModels
         public bool IsDarkTheme
         {
             get => _isDarkTheme;
-            set => SetProperty(ref _isDarkTheme, value, nameof(IsDarkTheme));
+            set
+            {
+                if (SetProperty(ref _isDarkTheme, value, nameof(IsDarkTheme)))
+                    OnPropertyChanged(nameof(IsDarkThemeVisible));
+            }
         }
 
         public bool IsMidnightTheme
         {
             get => _isMidnightTheme;
-            set => SetProperty(ref _isMidnightTheme, value, nameof(IsMidnightTheme));
+            set
+            {
+                if (SetProperty(ref _isMidnightTheme, value, nameof(IsMidnightTheme)))
+                    OnPropertyChanged(nameof(IsMidnightThemeVisible));
+            }
         }
 
         public bool IsSlateTheme
         {
             get => _isSlateTheme;
-            set => SetProperty(ref _isSlateTheme, value, nameof(IsSlateTheme));
+            set
+            {
+                if (SetProperty(ref _isSlateTheme, value, nameof(IsSlateTheme)))
+                    OnPropertyChanged(nameof(IsSlateThemeVisible));
+            }
+        }
+
+        public bool IsAutoTheme
+        {
+            get => _isAutoTheme;
+            set
+            {
+                if (SetProperty(ref _isAutoTheme, value, nameof(IsAutoTheme)))
+                {
+                    OnPropertyChanged(nameof(IsDarkThemeVisible));
+                    OnPropertyChanged(nameof(IsMidnightThemeVisible));
+                    OnPropertyChanged(nameof(IsSlateThemeVisible));
+                    OnPropertyChanged(nameof(IsCleanWhiteThemeVisible));
+                }
+            }
         }
 
         public bool IsCleanWhiteTheme
         {
             get => _isCleanWhiteTheme;
-            set => SetProperty(ref _isCleanWhiteTheme, value, nameof(IsCleanWhiteTheme));
+            set
+            {
+                if (SetProperty(ref _isCleanWhiteTheme, value, nameof(IsCleanWhiteTheme)))
+                    OnPropertyChanged(nameof(IsCleanWhiteThemeVisible));
+            }
         }
+
+        public bool IsDarkThemeVisible => IsDarkTheme && !IsAutoTheme;
+        public bool IsMidnightThemeVisible => IsMidnightTheme && !IsAutoTheme;
+        public bool IsSlateThemeVisible => IsSlateTheme && !IsAutoTheme;
+        public bool IsCleanWhiteThemeVisible => IsCleanWhiteTheme && !IsAutoTheme;
 
         public bool IsCompactDensity
         {
@@ -1328,7 +1365,7 @@ namespace nvidiaProfileInspector.UI.ViewModels
             "To link a new application, enter its filename (e.g. game.exe), relative path, or UWP ID. If you need to link a specific file location, use the browse button for an absolute path.",
             "", true, (val) =>
             {
-                if (string.IsNullOrWhiteSpace(val)) 
+                if (string.IsNullOrWhiteSpace(val))
                     return "Expected a filename, relative path, UWP ID, or absolute path.";
 
                 if (Applications.Any(_ => _.Name.Equals(NormalizeNvidiaAppPath(val), StringComparison.InvariantCultureIgnoreCase)))
@@ -1917,6 +1954,16 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
         private void UpdateThemeProperties(ThemeManager themeManager)
         {
+            IsAutoTheme = themeManager.IsAutoTheme;
+            if (IsAutoTheme)
+            {
+                IsDarkTheme = false;
+                IsMidnightTheme = false;
+                IsSlateTheme = false;
+                IsCleanWhiteTheme = false;
+                return;
+            }
+
             IsDarkTheme = themeManager.CurrentTheme == "DarkTheme.xaml";
             IsMidnightTheme = themeManager.CurrentTheme == "MidnightTheme.xaml";
             IsSlateTheme = themeManager.CurrentTheme == "SlateLightTheme.xaml";
@@ -1930,7 +1977,8 @@ namespace nvidiaProfileInspector.UI.ViewModels
 
             var themeManager = App.Bootstrapper.Resolve<ThemeManager>();
             var themeName = "DarkTheme.xaml";
-            if (theme == "Midnight") themeName = "MidnightTheme.xaml";
+            if (theme == "Auto") themeName = ThemeManager.AutoTheme;
+            else if (theme == "Midnight") themeName = "MidnightTheme.xaml";
             else if (theme == "Slate") themeName = "SlateLightTheme.xaml";
             else if (theme == "CleanWhite") themeName = "CleanWhiteTheme.xaml";
 
