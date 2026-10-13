@@ -8809,7 +8809,7 @@ When any driver flags are set HDR will be applied via driver instead of through 
 					<HexValue>0x00000002</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
-					<UserfriendlyName>Preset C (unused)</UserfriendlyName>
+					<UserfriendlyName>Preset C</UserfriendlyName>
 					<HexValue>0x00000003</HexValue>
 				</CustomSettingValue>
 				<CustomSettingValue>
