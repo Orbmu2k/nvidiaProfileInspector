@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -116,6 +116,9 @@ namespace nvidiaProfileInspector.Common.Helper
 
             if (str.Contains("${DlssdVersion}"))
                 str = str.Replace("${DlssdVersion}", DlssHelper.GetSnippetLatestVersion("dlssd").ToString());
+
+            if (str.Contains("${DlssnrVersion}"))
+                str = str.Replace("${DlssnrVersion}", DlssHelper.GetSnippetLatestVersion("dlssnr").ToString());
 
             return str;
         }
